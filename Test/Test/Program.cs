@@ -64,6 +64,12 @@ namespace Charlotte
 					if (src[index] != dec[index])
 						throw new Exception();
 			}
+
+			{
+				XNode root = XNode.Load(@"C:\tmp\test.xml");
+
+				root.PrintDebug();
+			}
 		}
 
 		private void Main2()
