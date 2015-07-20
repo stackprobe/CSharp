@@ -102,11 +102,20 @@ namespace Charlotte
 			return this.RemarkDataList[index].Stamp;
 		}
 
+		private int ProcessExtraData(string[] lines)
+		{
+			int index = 0;
+
+			Gnd.I.Heartbeat.HeartbeatLoginLogoutSerialListener(long.Parse(lines[index++]));
+
+			return index;
+		}
+
 		private List<RemarkData> GetRemarkDataList(string[] lines)
 		{
 			List<RemarkData> ret = new List<RemarkData>();
 
-			for (int index = 0; index < lines.Length; )
+			for (int index = this.ProcessExtraData(lines); index < lines.Length; )
 			{
 				string stampLine = lines[index++];
 				string messageLine = lines[index++];

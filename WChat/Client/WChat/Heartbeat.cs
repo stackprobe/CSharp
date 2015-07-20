@@ -170,8 +170,9 @@ namespace Charlotte
 
 		// ----
 
-		private const int TIMER_END = 200;
+		private const int TIMER_END = 600; // 1 min
 		private int TimerCount; // -1 == スケジュールされている。
+		private bool 即実行Flag;
 
 		/// <summary>
 		/// 100ms毎に実行する。
@@ -181,6 +182,12 @@ namespace Charlotte
 			if (this.TimerCount == -1)
 				return;
 
+			if (this.即実行Flag)
+			{
+				this.即実行Flag = false;
+				this.DoHeartbeat();
+				return;
+			}
 			if (this.TimerCount < TIMER_END)
 			{
 				this.TimerCount++;
@@ -235,6 +242,26 @@ namespace Charlotte
 		{
 			this.I.RefreshUi();
 			this.DoHeartbeat();
+		}
+
+		private long LastHLLS = -1;
+
+		public void HeartbeatLoginLogoutSerialListener(long serial)
+		{
+			if (this.LastHLLS == serial)
+				return;
+
+			this.LastHLLS = serial;
+			this.即実行Flag = true;
+		}
+
+		public string GetStatus()
+		{
+			const int L = 100;
+			int i = (int)(this.LastHLLS % L);
+			i += L;
+			i %= L;
+			return StringTools.ZPad(i, 2);
 		}
 	}
 }

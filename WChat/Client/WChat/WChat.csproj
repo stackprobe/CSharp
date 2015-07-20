@@ -146,6 +146,7 @@
     <Compile Include="WorkDir.cs" />
     <EmbeddedResource Include="BusyDlg.resx">
       <DependentUpon>BusyDlg.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ColorWin.resx">
       <DependentUpon>ColorWin.cs</DependentUpon>

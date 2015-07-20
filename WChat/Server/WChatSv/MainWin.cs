@@ -44,12 +44,14 @@ namespace Charlotte
 		private void 設定SToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			Gnd.I.ConsoleProcEnd();
+			this.Visible = false;
 
 			using (SettingWin f = new SettingWin())
 			{
 				f.ShowDialog();
 			}
 			Gnd.I.DoSave();
+			this.Visible = true;
 			this.RefreshUi();
 		}
 
@@ -78,26 +80,33 @@ namespace Charlotte
 			this.停止TToolStripMenuItem.Checked = Gnd.I.ServerStartFlag == false;
 			this.ファイル転送サーバーFToolStripMenuItem.Checked = Gnd.I.RevServerEnabled;
 
-			{
-				List<string> l = new List<string>();
-
-				if (Gnd.I.ServerStartFlag)
-				{
-					l.Add("サーバーは開始されました。");
-
-					if (Gnd.I.RevServerEnabled)
-						l.Add("ファイル転送サーバーは有効です。");
-					else
-						l.Add("ファイル転送サーバーは無効です。");
-				}
-				else
-					l.Add("サーバーは停止しています。");
-
-				this.MainText.Text = string.Join("\r\n", l);
-				this.MainText.SelectionStart = this.MainText.Text.Length;
-			}
+			this.SetStatus(Gnd.I.ServerStartFlag, Gnd.I.RevServerEnabled);
 
 			Gnd.I.ConsoleProcBegin();
+		}
+
+		private void SetStatus(bool statChatSv, bool statFileSv)
+		{
+			this.ChatSvStatus.Text = statChatSv ? "開始" : "停止";
+			this.FileSvStatus.Text = statFileSv ? "有効" : "無効";
+
+			if (statChatSv)
+			{
+				this.ChatSvStatus.ForeColor = Color.Blue;
+				this.FileSvStatusLabel.Enabled = true;
+				this.FileSvStatus.Enabled = true;
+
+				if (statFileSv)
+					this.FileSvStatus.ForeColor = Color.Blue;
+				else
+					this.FileSvStatus.ForeColor = Color.DarkRed;
+			}
+			else
+			{
+				this.ChatSvStatus.ForeColor = Color.DarkRed;
+				this.FileSvStatusLabel.Enabled = false;
+				this.FileSvStatus.Enabled = false;
+			}
 		}
 	}
 }

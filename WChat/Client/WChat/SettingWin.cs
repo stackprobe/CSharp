@@ -137,16 +137,26 @@ namespace Charlotte
 			{
 				bool flag = this.FileSvEnabled.Checked;
 
+				this.FileSvRecvPortLabel.Enabled = flag;
 				this.FileSvRecvPort.Enabled = flag;
+				this.NamedTrackPortLabel.Enabled = flag;
 				this.NamedTrackPort.Enabled = flag;
 				this.BtnFileSvHomeDir.Enabled = flag;
 				this.FileSvHomeDir.Enabled = flag;
+				this.Btn_B_LinkColor.Enabled = flag;
+				this.Btn_B_BackColor.Enabled = flag;
+				this.Btn_B_TextColor.Enabled = flag;
+				this.B_LinkColor.Enabled = flag;
+				this.B_BackColor.Enabled = flag;
+				this.B_TextColor.Enabled = flag;
 			}
 
 			{
 				bool flag = this.BouyomichanEnabled.Checked;
 
+				this.BouyomichanDomainLabel.Enabled = flag;
 				this.BouyomichanDomain.Enabled = flag;
+				this.BouyomichanPortLabel.Enabled = flag;
 				this.BouyomichanPort.Enabled = flag;
 			}
 		}
@@ -216,6 +226,21 @@ namespace Charlotte
 		private void BouyomichanEnabled_CheckedChanged(object sender, EventArgs e)
 		{
 			this.RefreshUi();
+		}
+
+		private void Btn_B_LinkColor_Click(object sender, EventArgs e)
+		{
+			ColorWin.Edit(this.B_LinkColor);
+		}
+
+		private void Btn_B_BackColor_Click(object sender, EventArgs e)
+		{
+			ColorWin.Edit(this.B_BackColor);
+		}
+
+		private void Btn_B_TextColor_Click(object sender, EventArgs e)
+		{
+			ColorWin.Edit(this.B_TextColor);
 		}
 	}
 }

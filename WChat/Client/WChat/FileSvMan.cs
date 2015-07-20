@@ -36,7 +36,14 @@ namespace Charlotte
 
 		public void Start()
 		{
-			this.ProcMan.Start(GetFile(), "" + Gnd.I.Sd.FileSvRecvPort);
+			this.ProcMan.Start(
+				GetFile(),
+				"/CL #" + DataConv.GetString(Gnd.I.Sd.B_LinkColor) +
+				" /CB #" + DataConv.GetString(Gnd.I.Sd.B_BackColor) +
+				" /CT #" + DataConv.GetString(Gnd.I.Sd.B_TextColor) +
+				" /DD \"" + Gnd.I.Sd.FileSvHomeDir + "\" " +
+				Gnd.I.Sd.FileSvRecvPort
+				);
 			this.LastIdentPort = Gnd.I.Sd.FileSvRecvPort;
 		}
 

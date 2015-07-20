@@ -62,6 +62,9 @@ namespace Charlotte
 		public int FileSvRecvPort = 60002; // NT (<-) revClient -> このPC (4)
 		public int NamedTrackPort = 60003; // 鯖 (<-) NT <- revClient (3)
 		public string FileSvHomeDir;
+		public Color B_LinkColor = DataConv.GetColor("0080ff");
+		public Color B_BackColor = DataConv.GetColor("ffffff");
+		public Color B_TextColor = DataConv.GetColor("000000");
 
 		public Color MemberListBackColor = DataConv.GetColor("fdfeec");//Color.White;
 		public FontMan MemberListFont = new FontMan(Color.Black);

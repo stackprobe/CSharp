@@ -81,9 +81,9 @@
 			this.ProcMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.ProcMode.FormattingEnabled = true;
 			this.ProcMode.Items.AddRange(new object[] {
-            "コンソールを表示しない",
-            "コンソールを表示する（通常）",
-            "コンソールを表示する（最小化）"});
+            "コンソールを表示しない（推奨）",
+            "コンソールを表示する・通常",
+            "コンソールを表示する・最小化"});
 			this.ProcMode.Location = new System.Drawing.Point(28, 98);
 			this.ProcMode.Name = "ProcMode";
 			this.ProcMode.Size = new System.Drawing.Size(307, 28);
@@ -130,7 +130,7 @@
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "SettingWin";
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "設定";
 			this.TopMost = true;
 			this.Load += new System.EventHandler(this.SettingWin_Load);

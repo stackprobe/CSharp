@@ -99,7 +99,7 @@ namespace Charlotte
 					int pc = EventCenter.I.GetCount(Consts.EVENT_PREFERENCE);
 					int rc = EventCenter.I.GetCount(Consts.EVENT_REGULAR);
 					int bc = EventCenter.I.GetCount(Consts.EVENT_BACKGROUND);
-					string status = "P:" + pc + ", R:" + rc + ", B:" + bc;
+					string status = "P:" + pc + ", R:" + rc + ", B:" + bc + ", H:" + Gnd.I.Heartbeat.GetStatus();
 
 					if (this.LeftStatusMessage.Text != status)
 					{
@@ -418,6 +418,9 @@ namespace Charlotte
 		private void ホームディレクトリを開くHToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			Heartbeat.MemberData md = Gnd.I.Heartbeat.GetSelected();
+
+			if (md == null)
+				return;
 
 			AppTools.Browse(
 				"localhost",//Gnd.I.Sd.ServerDomain, // maybe debugged

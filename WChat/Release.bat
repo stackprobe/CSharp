@@ -24,6 +24,7 @@ MD out\Server\tmp
 COPY C:\Factory\Resource\CP932.txt out\Client
 COPY C:\Factory\Resource\JIS0208.txt out\Client
 COPY C:\Factory\SubTools\Chat\FileListTemplate.html_ out\Client
+COPY C:\Factory\SubTools\Chat\FileListElementTemplate.html_ out\Client
 COPY C:\Factory\Resource\JIS0208.txt out\Server
 
 COPY Client\WChat\bin\Release\WChat.exe out\Client

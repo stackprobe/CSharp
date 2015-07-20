@@ -41,12 +41,18 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.ServerDomain = new System.Windows.Forms.TextBox();
 			this.ファイル転送Tab = new System.Windows.Forms.TabPage();
+			this.Btn_B_TextColor = new System.Windows.Forms.Button();
+			this.B_TextColor = new System.Windows.Forms.TextBox();
+			this.Btn_B_BackColor = new System.Windows.Forms.Button();
+			this.B_BackColor = new System.Windows.Forms.TextBox();
+			this.Btn_B_LinkColor = new System.Windows.Forms.Button();
+			this.B_LinkColor = new System.Windows.Forms.TextBox();
 			this.NamedTrackPort = new System.Windows.Forms.TextBox();
-			this.label9 = new System.Windows.Forms.Label();
+			this.NamedTrackPortLabel = new System.Windows.Forms.Label();
 			this.BtnFileSvHomeDir = new System.Windows.Forms.Button();
 			this.FileSvHomeDir = new System.Windows.Forms.TextBox();
 			this.FileSvRecvPort = new System.Windows.Forms.TextBox();
-			this.label3 = new System.Windows.Forms.Label();
+			this.FileSvRecvPortLabel = new System.Windows.Forms.Label();
 			this.textBox1 = new System.Windows.Forms.TextBox();
 			this.FileSvEnabled = new System.Windows.Forms.CheckBox();
 			this.ユーザーリストTab = new System.Windows.Forms.TabPage();
@@ -87,8 +93,8 @@
 			this.BtnSendTextBackColor = new System.Windows.Forms.Button();
 			this.棒読みちゃんTab = new System.Windows.Forms.TabPage();
 			this.BouyomichanPort = new System.Windows.Forms.TextBox();
-			this.label10 = new System.Windows.Forms.Label();
-			this.label11 = new System.Windows.Forms.Label();
+			this.BouyomichanPortLabel = new System.Windows.Forms.Label();
+			this.BouyomichanDomainLabel = new System.Windows.Forms.Label();
 			this.BouyomichanDomain = new System.Windows.Forms.TextBox();
 			this.BouyomichanEnabled = new System.Windows.Forms.CheckBox();
 			this.ユーザー設定Tab = new System.Windows.Forms.TabPage();
@@ -232,12 +238,18 @@
 			// 
 			// ファイル転送Tab
 			// 
+			this.ファイル転送Tab.Controls.Add(this.Btn_B_TextColor);
+			this.ファイル転送Tab.Controls.Add(this.B_TextColor);
+			this.ファイル転送Tab.Controls.Add(this.Btn_B_BackColor);
+			this.ファイル転送Tab.Controls.Add(this.B_BackColor);
+			this.ファイル転送Tab.Controls.Add(this.Btn_B_LinkColor);
+			this.ファイル転送Tab.Controls.Add(this.B_LinkColor);
 			this.ファイル転送Tab.Controls.Add(this.NamedTrackPort);
-			this.ファイル転送Tab.Controls.Add(this.label9);
+			this.ファイル転送Tab.Controls.Add(this.NamedTrackPortLabel);
 			this.ファイル転送Tab.Controls.Add(this.BtnFileSvHomeDir);
 			this.ファイル転送Tab.Controls.Add(this.FileSvHomeDir);
 			this.ファイル転送Tab.Controls.Add(this.FileSvRecvPort);
-			this.ファイル転送Tab.Controls.Add(this.label3);
+			this.ファイル転送Tab.Controls.Add(this.FileSvRecvPortLabel);
 			this.ファイル転送Tab.Controls.Add(this.textBox1);
 			this.ファイル転送Tab.Controls.Add(this.FileSvEnabled);
 			this.ファイル転送Tab.Location = new System.Drawing.Point(4, 29);
@@ -249,6 +261,66 @@
 			this.ファイル転送Tab.Text = "ファイル転送";
 			this.ファイル転送Tab.UseVisualStyleBackColor = true;
 			// 
+			// Btn_B_TextColor
+			// 
+			this.Btn_B_TextColor.Location = new System.Drawing.Point(38, 334);
+			this.Btn_B_TextColor.Name = "Btn_B_TextColor";
+			this.Btn_B_TextColor.Size = new System.Drawing.Size(147, 27);
+			this.Btn_B_TextColor.TabIndex = 12;
+			this.Btn_B_TextColor.Text = "文字色";
+			this.Btn_B_TextColor.UseVisualStyleBackColor = true;
+			this.Btn_B_TextColor.Click += new System.EventHandler(this.Btn_B_TextColor_Click);
+			// 
+			// B_TextColor
+			// 
+			this.B_TextColor.Location = new System.Drawing.Point(191, 334);
+			this.B_TextColor.Name = "B_TextColor";
+			this.B_TextColor.ReadOnly = true;
+			this.B_TextColor.Size = new System.Drawing.Size(75, 27);
+			this.B_TextColor.TabIndex = 13;
+			this.B_TextColor.Text = "999999";
+			this.B_TextColor.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// Btn_B_BackColor
+			// 
+			this.Btn_B_BackColor.Location = new System.Drawing.Point(38, 301);
+			this.Btn_B_BackColor.Name = "Btn_B_BackColor";
+			this.Btn_B_BackColor.Size = new System.Drawing.Size(147, 27);
+			this.Btn_B_BackColor.TabIndex = 10;
+			this.Btn_B_BackColor.Text = "背景色";
+			this.Btn_B_BackColor.UseVisualStyleBackColor = true;
+			this.Btn_B_BackColor.Click += new System.EventHandler(this.Btn_B_BackColor_Click);
+			// 
+			// B_BackColor
+			// 
+			this.B_BackColor.Location = new System.Drawing.Point(191, 301);
+			this.B_BackColor.Name = "B_BackColor";
+			this.B_BackColor.ReadOnly = true;
+			this.B_BackColor.Size = new System.Drawing.Size(75, 27);
+			this.B_BackColor.TabIndex = 11;
+			this.B_BackColor.Text = "999999";
+			this.B_BackColor.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// Btn_B_LinkColor
+			// 
+			this.Btn_B_LinkColor.Location = new System.Drawing.Point(39, 268);
+			this.Btn_B_LinkColor.Name = "Btn_B_LinkColor";
+			this.Btn_B_LinkColor.Size = new System.Drawing.Size(147, 27);
+			this.Btn_B_LinkColor.TabIndex = 8;
+			this.Btn_B_LinkColor.Text = "リンク色";
+			this.Btn_B_LinkColor.UseVisualStyleBackColor = true;
+			this.Btn_B_LinkColor.Click += new System.EventHandler(this.Btn_B_LinkColor_Click);
+			// 
+			// B_LinkColor
+			// 
+			this.B_LinkColor.Location = new System.Drawing.Point(192, 268);
+			this.B_LinkColor.Name = "B_LinkColor";
+			this.B_LinkColor.ReadOnly = true;
+			this.B_LinkColor.Size = new System.Drawing.Size(75, 27);
+			this.B_LinkColor.TabIndex = 9;
+			this.B_LinkColor.Text = "999999";
+			this.B_LinkColor.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
 			// NamedTrackPort
 			// 
 			this.NamedTrackPort.Location = new System.Drawing.Point(192, 183);
@@ -259,14 +331,14 @@
 			this.NamedTrackPort.Text = "65535";
 			this.NamedTrackPort.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
-			// label9
+			// NamedTrackPortLabel
 			// 
-			this.label9.AutoSize = true;
-			this.label9.Location = new System.Drawing.Point(21, 186);
-			this.label9.Name = "label9";
-			this.label9.Size = new System.Drawing.Size(139, 20);
-			this.label9.TabIndex = 4;
-			this.label9.Text = "ポート番号（中継用）";
+			this.NamedTrackPortLabel.AutoSize = true;
+			this.NamedTrackPortLabel.Location = new System.Drawing.Point(21, 186);
+			this.NamedTrackPortLabel.Name = "NamedTrackPortLabel";
+			this.NamedTrackPortLabel.Size = new System.Drawing.Size(139, 20);
+			this.NamedTrackPortLabel.TabIndex = 4;
+			this.NamedTrackPortLabel.Text = "ポート番号（中継用）";
 			// 
 			// BtnFileSvHomeDir
 			// 
@@ -300,14 +372,14 @@
 			this.FileSvRecvPort.Text = "65535";
 			this.FileSvRecvPort.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
-			// label3
+			// FileSvRecvPortLabel
 			// 
-			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(21, 153);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(165, 20);
-			this.label3.TabIndex = 2;
-			this.label3.Text = "ポート番号（待ち受け用）";
+			this.FileSvRecvPortLabel.AutoSize = true;
+			this.FileSvRecvPortLabel.Location = new System.Drawing.Point(21, 153);
+			this.FileSvRecvPortLabel.Name = "FileSvRecvPortLabel";
+			this.FileSvRecvPortLabel.Size = new System.Drawing.Size(165, 20);
+			this.FileSvRecvPortLabel.TabIndex = 2;
+			this.FileSvRecvPortLabel.Text = "ポート番号（待ち受け用）";
 			// 
 			// textBox1
 			// 
@@ -748,8 +820,8 @@
 			// 棒読みちゃんTab
 			// 
 			this.棒読みちゃんTab.Controls.Add(this.BouyomichanPort);
-			this.棒読みちゃんTab.Controls.Add(this.label10);
-			this.棒読みちゃんTab.Controls.Add(this.label11);
+			this.棒読みちゃんTab.Controls.Add(this.BouyomichanPortLabel);
+			this.棒読みちゃんTab.Controls.Add(this.BouyomichanDomainLabel);
 			this.棒読みちゃんTab.Controls.Add(this.BouyomichanDomain);
 			this.棒読みちゃんTab.Controls.Add(this.BouyomichanEnabled);
 			this.棒読みちゃんTab.Location = new System.Drawing.Point(4, 29);
@@ -769,23 +841,23 @@
 			this.BouyomichanPort.Text = "65535";
 			this.BouyomichanPort.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
-			// label10
+			// BouyomichanPortLabel
 			// 
-			this.label10.AutoSize = true;
-			this.label10.Location = new System.Drawing.Point(20, 105);
-			this.label10.Name = "label10";
-			this.label10.Size = new System.Drawing.Size(165, 20);
-			this.label10.TabIndex = 3;
-			this.label10.Text = "棒読みちゃん・ポート番号";
+			this.BouyomichanPortLabel.AutoSize = true;
+			this.BouyomichanPortLabel.Location = new System.Drawing.Point(20, 105);
+			this.BouyomichanPortLabel.Name = "BouyomichanPortLabel";
+			this.BouyomichanPortLabel.Size = new System.Drawing.Size(165, 20);
+			this.BouyomichanPortLabel.TabIndex = 3;
+			this.BouyomichanPortLabel.Text = "棒読みちゃん・ポート番号";
 			// 
-			// label11
+			// BouyomichanDomainLabel
 			// 
-			this.label11.AutoSize = true;
-			this.label11.Location = new System.Drawing.Point(20, 72);
-			this.label11.Name = "label11";
-			this.label11.Size = new System.Drawing.Size(152, 20);
-			this.label11.TabIndex = 1;
-			this.label11.Text = "棒読みちゃん・ホスト名";
+			this.BouyomichanDomainLabel.AutoSize = true;
+			this.BouyomichanDomainLabel.Location = new System.Drawing.Point(20, 72);
+			this.BouyomichanDomainLabel.Name = "BouyomichanDomainLabel";
+			this.BouyomichanDomainLabel.Size = new System.Drawing.Size(152, 20);
+			this.BouyomichanDomainLabel.TabIndex = 1;
+			this.BouyomichanDomainLabel.Text = "棒読みちゃん・ホスト名";
 			// 
 			// BouyomichanDomain
 			// 
@@ -973,7 +1045,7 @@
 		private System.Windows.Forms.CheckBox FileSvEnabled;
 		private System.Windows.Forms.TextBox textBox1;
 		private System.Windows.Forms.TextBox FileSvRecvPort;
-		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.Label FileSvRecvPortLabel;
 		private System.Windows.Forms.TabPage ユーザーリストTab;
 		private System.Windows.Forms.TextBox MemberListBackColor;
 		private System.Windows.Forms.Button BtnLListBackColor;
@@ -1012,10 +1084,10 @@
 		private System.Windows.Forms.TextBox TimeLineTextShortenPct;
 		private System.Windows.Forms.CheckBox TimeLineText行間を詰める;
 		private System.Windows.Forms.TextBox NamedTrackHttpPort;
-		private System.Windows.Forms.Label label9;
+		private System.Windows.Forms.Label NamedTrackPortLabel;
 		private System.Windows.Forms.TextBox BouyomichanPort;
-		private System.Windows.Forms.Label label10;
-		private System.Windows.Forms.Label label11;
+		private System.Windows.Forms.Label BouyomichanPortLabel;
+		private System.Windows.Forms.Label BouyomichanDomainLabel;
 		private System.Windows.Forms.TextBox BouyomichanDomain;
 		private System.Windows.Forms.TextBox NamedTrackPort;
 		private System.Windows.Forms.Label label12;
@@ -1029,5 +1101,11 @@
 		private System.Windows.Forms.ComboBox TimeLineTextPathClickMode;
 		private System.Windows.Forms.Label label15;
 		private System.Windows.Forms.ComboBox TimeLineTextファイルDLモード;
+		private System.Windows.Forms.Button Btn_B_TextColor;
+		private System.Windows.Forms.TextBox B_TextColor;
+		private System.Windows.Forms.Button Btn_B_BackColor;
+		private System.Windows.Forms.TextBox B_BackColor;
+		private System.Windows.Forms.Button Btn_B_LinkColor;
+		private System.Windows.Forms.TextBox B_LinkColor;
 	}
 }

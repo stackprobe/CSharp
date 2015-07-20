@@ -43,6 +43,14 @@ namespace Charlotte
 			if (path.EndsWith("/"))
 				path.Substring(0, path.Length - 1);
 
+			if (2 <= path.Length && path[1] == ':') // ローカル
+			{
+				path = path.Substring(0, 1) + "$" + path.Substring(2);
+			}
+			else if (path.StartsWith("//")) // ネットワーク
+			{
+				path = "$$" + path.Substring(1);
+			}
 			path = StringTools.EncodeUrl(path);
 
 			if (dirFlag)

@@ -76,7 +76,7 @@
 			this.MinimizeBox = false;
 			this.Name = "BusyDlg";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "お待ちンス";
+			this.Text = "お待ち下さい";
 			this.TopMost = true;
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.BusyDlg_FormClosed);
 			this.Load += new System.EventHandler(this.BusyDlg_Load);

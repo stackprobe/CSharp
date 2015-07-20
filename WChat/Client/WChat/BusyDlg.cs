@@ -13,7 +13,7 @@ namespace Charlotte
 {
 	public partial class BusyDlg : Form
 	{
-		// ---- ALT_F4 抑止 ----
+		#region ALT_F4 抑止
 
 		[SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.UnmanagedCode)]
 		protected override void WndProc(ref Message m)
@@ -27,7 +27,7 @@ namespace Charlotte
 			base.WndProc(ref m);
 		}
 
-		// ----
+		#endregion
 
 		public static BusyDlg I;
 
