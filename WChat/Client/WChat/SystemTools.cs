@@ -50,17 +50,12 @@ namespace Charlotte
 
 		public static string GetLogFile()
 		{
-			return GetSelfFile() + ".log";
+			return BootTools.SelfFile + ".log";
 		}
 
 		public static string GetSaveDataFile()
 		{
-			return GetSelfFile() + ".dat";
-		}
-
-		public static string GetSelfFile()
-		{
-			return Environment.GetCommandLineArgs()[0];
+			return BootTools.SelfFile + ".dat";
 		}
 
 		public static string GetTmp()

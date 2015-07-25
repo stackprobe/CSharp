@@ -15,6 +15,8 @@ namespace Charlotte
 		[STAThread]
 		static void Main()
 		{
+			BootTools.OnBoot();
+
 			Application.ThreadException += new ThreadExceptionEventHandler(ThreadException);
 			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(UnhandledException);
 

@@ -69,6 +69,7 @@
     <Compile Include="AppTools.cs" />
     <Compile Include="ArrayTools.cs" />
     <Compile Include="AttachString.cs" />
+    <Compile Include="BootTools.cs" />
     <Compile Include="BusyDlg.cs">
       <SubType>Form</SubType>
     </Compile>

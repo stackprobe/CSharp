@@ -26,7 +26,13 @@ namespace Charlotte
 		public ProcessMan RevServer = new ProcessMan();
 		public bool ServerStartFlag = true;
 
-		private static readonly string DAT_FILE = Environment.GetCommandLineArgs()[0] + ".dat";
+		private static string DAT_FILE
+		{
+			get
+			{
+				return BootTools.SelfFile + ".dat";
+			}
+		}
 		private static readonly Encoding DAT_FILE_ENCODING = Encoding.ASCII;
 
 		public void DoLoad()

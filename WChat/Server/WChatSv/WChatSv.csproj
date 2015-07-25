@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BootTools.cs" />
     <Compile Include="BusyDlg.cs">
       <SubType>Form</SubType>
     </Compile>
