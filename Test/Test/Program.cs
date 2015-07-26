@@ -70,6 +70,14 @@ namespace Charlotte
 
 				root.PrintDebug();
 			}
+
+			{
+				string url = "http://www.google.co.jp/";
+
+				HttpClient hc = new HttpClient(url);
+				hc.Perform();
+				Console.WriteLine(Encoding.UTF8.GetString(hc.GetResBody()));
+			}
 		}
 
 		private void Main2()
