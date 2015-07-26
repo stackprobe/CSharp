@@ -6,15 +6,19 @@ using System.Net.Sockets;
 using System.Net;
 using System.Threading;
 
-namespace DummyPlug
+namespace Charlotte
 {
-	public abstract class HttpServer
+	public class HttpServer
 	{
 		private readonly int TIMEOUT_MILLIS = 20000;
 
 		private int PortNo;
 		private TcpListener Server;
 		private Thread STh;
+
+		public HttpServer()
+			: this(80)
+		{ }
 
 		public HttpServer(int portno)
 		{
@@ -84,11 +88,16 @@ namespace DummyPlug
 
 		private byte[][] GetSendData()
 		{
-			byte[] body = Encoding.UTF8.GetBytes("ログ情報の取得に成功しました。");
+			byte[] body = Encoding.UTF8.GetBytes("<html><body><h1>It's works</h1></body></html>");
 
 			return new byte[][]
 			{
-				Encoding.ASCII.GetBytes("HTTP/1.1 200 OK\r\nContent-Length: " + body.Length + "\r\n\r\n"),
+				Encoding.ASCII.GetBytes(
+					"HTTP/1.1 200 OK\r\n" +
+					"Content-Type: text/html; charset=UTF-8\r\n" +
+					"Content-Length: " + body.Length + "\r\n" +
+					"\r\n"
+					),
 				body,
 			};
 		}

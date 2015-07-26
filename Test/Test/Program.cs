@@ -11,7 +11,8 @@ namespace Charlotte
 		{
 			try
 			{
-				new Program().Main3();
+				new Program().Main4();
+				//new Program().Main3();
 				//new Program().Main2();
 			}
 			catch (Exception e)
@@ -126,6 +127,16 @@ namespace Charlotte
 				Console.WriteLine("[" + str + "]");
 			}
 			Console.WriteLine("end");
+		}
+
+		private void Main4()
+		{
+			HttpServer hs = new HttpServer();
+
+			Console.WriteLine("\\w");
+			Console.ReadLine();
+
+			hs.End();
 		}
 	}
 }
