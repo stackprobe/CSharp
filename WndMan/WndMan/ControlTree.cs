@@ -34,13 +34,7 @@ namespace WndMan
 			return root;
 		}
 
-		public void DoPrintChildren(string indent = "")
-		{
-			foreach (ControlTree ct in this.Children)
-			{
-				ct.DoPrint(indent);
-			}
-		}
+		// ---- DoPrint ----
 
 		public void DoPrint(string indent = "")
 		{
@@ -58,6 +52,41 @@ namespace WndMan
 			Console.WriteLine(indent + "}");
 		}
 
+		public void DoPrintChildren(string indent = "")
+		{
+			foreach (ControlTree ct in this.Children)
+			{
+				ct.DoPrint(indent);
+			}
+		}
+
+		public void DoPrint_2()
+		{
+			EWndTools.ControlInfo ci = this.Info;
+
+			Console.WriteLine("----");
+			Console.WriteLine("" + ci.HWnd);
+			Console.WriteLine(this.GetTitlePath());
+			Console.WriteLine(this.GetClassNamePath());
+
+			MouseTools.POINT pt = ci.GetCenterPoint();
+
+			Console.WriteLine("" + pt.X);
+			Console.WriteLine("" + pt.Y);
+
+			this.DoPrintChildren_2();
+		}
+
+		public void DoPrintChildren_2()
+		{
+			foreach (ControlTree ct in this.Children)
+			{
+				ct.DoPrint_2();
+			}
+		}
+
+		// ---- GetAllUser ----
+
 		public ControlTree Find(IntPtr hWnd)
 		{
 			foreach (ControlTree ct in this.GetAllChildren())
@@ -67,18 +96,22 @@ namespace WndMan
 			return null;
 		}
 
-		public List<ControlTree> GetAllChildren()
+		// ---- GetAll ----
+
+		private List<ControlTree> GetAll()
+		{
+			List<ControlTree> dest = new List<ControlTree>();
+
+			this.AddAll(dest);
+			return dest;
+		}
+
+		private List<ControlTree> GetAllChildren()
 		{
 			List<ControlTree> dest = new List<ControlTree>();
 
 			this.AddAllChildren(dest);
 			return dest;
-		}
-
-		private void AddAllChildren(List<ControlTree> dest)
-		{
-			foreach (ControlTree ct in this.Children)
-				ct.AddAll(dest);
 		}
 
 		private void AddAll(List<ControlTree> dest)
@@ -87,21 +120,57 @@ namespace WndMan
 			this.AddAllChildren(dest);
 		}
 
-		public MouseTools.POINT GetCenterPoint()
+		private void AddAllChildren(List<ControlTree> dest)
 		{
-			MouseTools.POINT pt;
-
-			pt.X = (this.Info.Rect.L + this.Info.Rect.R) / 2;
-			pt.Y = (this.Info.Rect.T + this.Info.Rect.B) / 2;
-
-			return pt;
+			foreach (ControlTree ct in this.Children)
+				ct.AddAll(dest);
 		}
+
+		// ---- GetPathUser ----
+
+		public string GetTitlePath()
+		{
+			List<string> list = new List<string>();
+
+			foreach (EWndTools.ControlInfo ci in this.GetPath())
+				list.Add(ci.Title);
+
+			return string.Join(":", list);
+		}
+
+		public string GetClassNamePath()
+		{
+			List<string> list = new List<string>();
+
+			foreach (EWndTools.ControlInfo ci in this.GetPath())
+				list.Add(ci.ClassName);
+
+			return string.Join(":", list);
+		}
+
+		// ---- GetPath ----
+
+		private List<EWndTools.ControlInfo> GetPath()
+		{
+			List<EWndTools.ControlInfo> list = new List<EWndTools.ControlInfo>();
+			ControlTree ct = this;
+
+			while (ct.Parent != null) // ? ! ルート
+			{
+				list.Add(ct.Info);
+				ct = ct.Parent;
+			}
+			list.Reverse();
+			return list;
+		}
+
+		// ----
 
 		public ControlTree GetWindow()
 		{
 			ControlTree ct = this;
 
-			while(ct.Parent.Parent != null) // ? ! ルートの1つ下
+			while (ct.Parent.Parent != null) // ? ! ルートの1つ下
 				ct = ct.Parent;
 
 			return ct;

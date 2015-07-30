@@ -14,6 +14,16 @@ namespace WndMan
 			public string ClassName;
 			public WinTools.RECT Rect;
 			public IntPtr HWnd;
+
+			public MouseTools.POINT GetCenterPoint()
+			{
+				MouseTools.POINT pt;
+
+				pt.X = (this.Rect.L + this.Rect.R) / 2;
+				pt.Y = (this.Rect.T + this.Rect.B) / 2;
+
+				return pt;
+			}
 		}
 
 		public delegate void FoundControl_d(ControlInfo ci);

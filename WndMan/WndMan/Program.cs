@@ -45,6 +45,11 @@ namespace WndMan
 					ControlTree.GetControlTree().DoPrintChildren();
 					continue;
 				}
+				if (command == "/L2")
+				{
+					ControlTree.GetControlTree().DoPrintChildren_2();
+					continue;
+				}
 				if (command == "/C")
 				{
 					IntPtr hWnd = (IntPtr)int.Parse(argq.Dequeue());
@@ -74,7 +79,7 @@ namespace WndMan
 
 					WinTools.ToTop(ct.GetWindow().Info.HWnd);
 
-					MouseTools.POINT pt = ct.GetCenterPoint();
+					MouseTools.POINT pt = ct.Info.GetCenterPoint();
 
 					MouseTools.LeftClick_KeepPos(pt);
 					continue;
