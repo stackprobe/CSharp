@@ -11,6 +11,12 @@ namespace WndMan
 		public List<ControlTree> Children = new List<ControlTree>();
 		public ControlTree Parent;
 
+		/// <summary>
+		/// ルートはウィンドウ・コントロールではない。
+		/// ルートの直下がウィンドウになる。
+		/// ウィンドウの配下は全部コントロール(多分..
+		/// </summary>
+		/// <returns></returns>
 		public static ControlTree GetControlTree()
 		{
 			ControlTree root = new ControlTree();
