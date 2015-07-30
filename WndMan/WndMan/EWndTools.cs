@@ -12,6 +12,7 @@ namespace WndMan
 		{
 			public string Title;
 			public string ClassName;
+			public string Text;
 			public WinTools.RECT Rect;
 			public IntPtr HWnd;
 
@@ -79,7 +80,7 @@ namespace WndMan
 			}
 
 			{
-				StringBuilder buff = new StringBuilder(256);
+				StringBuilder buff = new StringBuilder(1024);
 
 				GetClassName(hWnd, buff, buff.Capacity);
 				ci.ClassName = buff.ToString();
@@ -87,6 +88,8 @@ namespace WndMan
 
 			ci.Title = ci.Title.Trim();
 			ci.ClassName = ci.ClassName.Trim();
+			ci.Text = GetTextTools.GetText(hWnd);
+			ci.Text = ci.Text.Trim();
 			ci.Rect = WinTools.GetRect(hWnd);
 			ci.HWnd = hWnd;
 

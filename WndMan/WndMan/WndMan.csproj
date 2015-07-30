@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="ControlTree.cs" />
     <Compile Include="EWndTools.cs" />
+    <Compile Include="GetTextTools.cs" />
     <Compile Include="MouseTools.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

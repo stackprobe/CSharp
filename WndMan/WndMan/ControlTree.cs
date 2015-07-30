@@ -42,6 +42,7 @@ namespace WndMan
 
 			Console.WriteLine(indent + "Title: " + ci.Title);
 			Console.WriteLine(indent + "ClassName: " + ci.ClassName);
+			Console.WriteLine(indent + "Text: " + ci.Text);
 			Console.WriteLine(indent + "Rect: " + ci.Rect.L + ", " + ci.Rect.T + ", " + ci.Rect.R + ", " + ci.Rect.B);
 			Console.WriteLine(indent + "HWnd: " + ci.HWnd);
 
@@ -68,6 +69,7 @@ namespace WndMan
 			Console.WriteLine("" + ci.HWnd);
 			Console.WriteLine(this.GetTitlePath());
 			Console.WriteLine(this.GetClassNamePath());
+			//Console.WriteLine(ci.Text);
 
 			MouseTools.POINT pt = ci.GetCenterPoint();
 
