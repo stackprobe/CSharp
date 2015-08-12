@@ -20,7 +20,13 @@ namespace Charlotte
 			Application.ThreadException += new ThreadExceptionEventHandler(ThreadException);
 			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(UnhandledException);
 
-			SystemTools.WL_Enabled = true;
+			SystemTools.WL_Start();
+
+#if false // test
+			SystemTools.WriteLog("LOG_TEST_01");
+			SystemTools.WriteLog("LOG_TEST_02");
+			SystemTools.WriteLog("LOG_TEST_03");
+#endif
 
 			Mutex procMtx = new Mutex(false, "{3884a7c2-49e5-4211-9c1b-cbc2c6890b95}");
 

@@ -11,8 +11,14 @@ namespace Charlotte
 {
 	public class SystemTools
 	{
-		public static bool WL_Enabled = false;
+		private static bool WL_Enabled = false;
 		private static int WL_Count = 0;
+
+		public static void WL_Start()
+		{
+			WL_Enabled = true;
+			File.Delete(GetLogFile());
+		}
 
 		public static void WriteLog(object e)
 		{
@@ -38,7 +44,7 @@ namespace Charlotte
 				if (1000 < WL_Count)
 					return;
 
-				using (StreamWriter sw = new StreamWriter(GetLogFile(), 1 <= WL_Count, StringTools.ENCODING_SJIS))
+				using (StreamWriter sw = new StreamWriter(GetLogFile(), true, StringTools.ENCODING_SJIS))
 				{
 					sw.WriteLine("[" + DateTime.Now + "." + WL_Count + "] " + e);
 				}
