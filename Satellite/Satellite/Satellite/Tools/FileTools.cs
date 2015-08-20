@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace Charlotte.Satellite
+namespace Charlotte.Satellite.Tools
 {
 	public class FileTools
 	{
@@ -35,17 +35,13 @@ namespace Charlotte.Satellite
 
 		public static void DeleteDir(string dir, bool recursive = false)
 		{
-			if (recursive == false && IsEmptyDir(dir) == false)
+			if (Directory.Exists(dir) == false)
+				return;
+
+			if (recursive == false && 1 <= Directory.GetFileSystemEntries(dir).Length)
 				return;
 
 			Directory.Delete(dir, recursive);
-		}
-
-		public static bool IsEmptyDir(string dir)
-		{
-			return
-				Directory.GetDirectories(dir).Length == 0 &&
-				Directory.GetFiles(dir).Length == 0;
 		}
 
 		/// <summary>

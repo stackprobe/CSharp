@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ObjectList = Charlotte.Satellite.ObjectList;
-using ObjectMap = Charlotte.Satellite.ObjectMap;
-using Satellizer = Charlotte.Satellite.Satellizer;
+using Charlotte.Satellite;
 
 namespace Charlotte
 {

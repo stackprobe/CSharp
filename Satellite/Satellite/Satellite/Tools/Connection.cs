@@ -6,7 +6,7 @@ using System.IO;
 using System.Threading;
 using System.Diagnostics;
 
-namespace Charlotte.Satellite
+namespace Charlotte.Satellite.Tools
 {
 	public class Connection
 	{
@@ -51,7 +51,9 @@ namespace Charlotte.Satellite
 			{
 				if (FileTools.ExistFile(this.FirstTimeFile) == false)
 				{
-					FileTools.DeleteDir(this.CommonDir, true);
+					if (FileTools.ExistDir(this.CommonDir))
+						FileTools.DeleteDir(this.CommonDir, true);
+
 					FileTools.CreateFile(this.FirstTimeFile);
 					SystemTools.MoveFileEx(this.FirstTimeFile, null, SystemTools.MoveFileFlags.DelayUntilReboot);
 				}

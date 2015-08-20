@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using Satellizer = Charlotte.Satellite.Satellizer;
+using Charlotte.Satellite;
 
 namespace Charlotte
 {

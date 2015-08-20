@@ -5,7 +5,7 @@ using System.Text;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace Charlotte.Satellite
+namespace Charlotte.Satellite.Tools
 {
 	public class SystemTools
 	{

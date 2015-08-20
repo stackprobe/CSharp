@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace Charlotte.Satellite
+namespace Charlotte.Satellite.Tools
 {
 	public class MutexObject : IDisposable
 	{
