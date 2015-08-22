@@ -31,7 +31,14 @@ namespace Charlotte.Satellite.Tools
 
 		public static bool IsProcessAlive(int pid)
 		{
-			return Process.GetProcessById(pid) != null;
+			try
+			{
+				return Process.GetProcessById(pid) != null;
+			}
+			catch
+			{ }
+
+			return false;
 		}
 
 		// ---- MoveFileEx ----
