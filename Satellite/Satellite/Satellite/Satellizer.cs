@@ -33,8 +33,8 @@ namespace Charlotte.Satellite
 			if (ident == null)
 				throw new ArgumentNullException("ident");
 
-			if (millis < 0)
-				throw new ArgumentException("millis: " + millis);
+			if (millis < Timeout.Infinite)
+				throw new ArgumentException("millis lt min");
 
 			if (server == null)
 				throw new ArgumentNullException("server");
@@ -92,8 +92,8 @@ namespace Charlotte.Satellite
 
 		public bool Connect(int millis)
 		{
-			if (millis < 0)
-				throw new ArgumentException("millis: " + millis);
+			if (millis < Timeout.Infinite)
+				throw new ArgumentException("millis lt min");
 
 			lock (SYNCROOT)
 			{
@@ -132,8 +132,8 @@ namespace Charlotte.Satellite
 
 		public object Recv(int millis)
 		{
-			if (millis < 0)
-				throw new Exception("millis: " + millis);
+			if (millis < Timeout.Infinite)
+				throw new ArgumentException("millis lt min");
 
 			lock (SYNCROOT)
 			{

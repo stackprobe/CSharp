@@ -1,0 +1,105 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Charlotte.Satellite.Tools;
+using System.IO;
+
+namespace Charlotte.Flowertact.Tools
+{
+	public class PostOfficeBox
+	{
+		private const string IDENT_PREFIX = "Fortewave_{d8600f7d-1ff4-47f3-b1c9-4b5aa15b6461}_"; // shared_uuid:2
+		private string _ident;
+		private MutexObject _mutex;
+		private NamedEventObject _messagePostEvent;
+		private string _messageDir;
+
+		public PostOfficeBox(String ident)
+		{
+			_ident = IDENT_PREFIX + SecurityTools.GetSHA512_128String(ident);
+			_mutex = new MutexObject(_ident + "_m");
+			_messagePostEvent = new NamedEventObject(_ident + "_e");
+			_messageDir = Path.Combine(SystemTools.GetTmp(), _ident);
+		}
+
+		public void Clear()
+		{
+			using (_mutex.Section())
+			{
+				FileTools.DeleteDir(_messageDir, true);
+			}
+		}
+
+		public void Send(QueueData<SubBlock> sendData)
+		{
+			using (_mutex.Section())
+			{
+				int lastNo = this.GetMessageRange()[1];
+
+				if (lastNo == -1)
+					FileTools.CreateDir(_messageDir);
+
+				FileTools.WriteAllBytes(
+						Path.Combine(_messageDir, StringTools.ZPad(lastNo + 1, 4)),
+						sendData
+						);
+			}
+			_messagePostEvent.Set();
+		}
+
+		public byte[] Recv(int millis)
+		{
+			byte[] recvData = this.TryRecv();
+
+			if (recvData == null)
+			{
+				_messagePostEvent.WaitOne(millis);
+				recvData = this.TryRecv();
+			}
+			return recvData;
+		}
+
+		private byte[] TryRecv()
+		{
+			using (_mutex.Section())
+			{
+				int[] messageRange = this.GetMessageRange();
+				int firstNo = messageRange[0];
+				int lastNo = messageRange[1];
+
+				if (firstNo != -1)
+				{
+					String file = Path.Combine(_messageDir, StringTools.ZPad(firstNo, 4));
+					byte[] recvData = File.ReadAllBytes(file);
+
+					FileTools.DeleteFile(file);
+
+					if (firstNo == lastNo)
+						FileTools.DeleteDir(_messageDir);
+
+					return recvData;
+				}
+			}
+			return null;
+		}
+
+		private int[] GetMessageRange()
+		{
+			if (FileTools.ExistDir(_messageDir) == false)
+				return new int[] { -1, -1 };
+
+			List<string> files = FileTools.List(_messageDir);
+
+			files.Sort(delegate(string a, string b)
+			{
+				return int.Parse(a) - int.Parse(b);
+			});
+			return new int[]
+			{
+				int.Parse(files[0]),
+				int.Parse(files[files.Count - 1]),
+			};
+		}
+	}
+}

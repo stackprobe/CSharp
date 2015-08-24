@@ -6,6 +6,7 @@ using Charlotte.Satellite.Tools;
 using System.Diagnostics;
 using Charlotte.Satellite;
 using System.Threading;
+using Charlotte.Flowertact;
 
 namespace Charlotte
 {
@@ -39,8 +40,19 @@ namespace Charlotte
 					Test01_Server();
 					return;
 				}
+				if (args[0] == "/T2C")
+				{
+					Test02_Client();
+					return;
+				}
+				if (args[0] == "/T2S")
+				{
+					Test02_Server();
+					return;
+				}
 			}
-			Test01();
+			//Test01();
+			Test02();
 		}
 
 		private const string SELF_FILE = @"C:\Dev\CSharp\Satellite\Test\bin\Debug\Test.exe";
@@ -138,6 +150,67 @@ namespace Charlotte
 						{
 							_c++;
 						}
+						break;
+					}
+				}
+			}
+		}
+
+		private Fortewave T2Client = new Fortewave("CLIENT", "SERVER");
+		private Fortewave T2Server = new Fortewave("SERVER", "CLIENT");
+
+		private void Test02()
+		{
+			T2Server.Clear();
+
+			Process.Start(SELF_FILE, "/T2S");
+			Test02_Client();
+		}
+
+		private void Test02_Client()
+		{
+			for (int c = 0; c < 100; c++)
+			{
+				Console.WriteLine("c_send: " + c);
+
+				T2Client.Send("TEST_STRING_" + c);
+			}
+			for (int c = 0; c < 100; c++)
+			{
+				string assumeRet = "TEST_STRING_" + c + "_RET";
+
+				Console.WriteLine("assumeRet: " + assumeRet);
+
+				for (; ; )
+				{
+					string ret = (string)T2Client.Recv(2000);
+
+					Console.WriteLine("c_ret: " + ret);
+
+					if (ret != null)
+					{
+						if (ret != assumeRet)
+							throw new Exception("ng");
+
+						break;
+					}
+				}
+			}
+		}
+
+		private void Test02_Server()
+		{
+			for (int c = 0; c < 100; c++)
+			{
+				for (; ; )
+				{
+					string ret = (string)T2Server.Recv(2000);
+
+					Console.WriteLine("s_ret: " + ret);
+
+					if (ret != null)
+					{
+						T2Server.Send(ret + "_RET");
 						break;
 					}
 				}

@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Flowertact\Fortewave.cs" />
+    <Compile Include="Flowertact\Tools\PostOfficeBox.cs" />
     <Compile Include="Satellite\Tools\Deserializer.cs" />
     <Compile Include="Satellite\Tools\IntTools.cs" />
     <Compile Include="Satellite\ObjectList.cs" />
