@@ -68,10 +68,10 @@ Satellite for C#
 
 	Charlotte.Satellite.Satellizer
 
-		このパッケージの外部インターフェイス
+		このモジュールの外部インターフェイス
 
 
-	★ Charlotte.Satellite.Tools パッケージ内のクラスは使用しないで下さい。
+	★ Charlotte.Satellite.Tools 名前空間内のクラスは使用しないで下さい。
 
 
 クライアント用・インターフェイス

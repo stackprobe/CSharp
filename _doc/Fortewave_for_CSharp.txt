@@ -63,14 +63,14 @@ Fortewave for C#
 
 	Charlotte.Flowertact.Fortewave
 
-		このパッケージの外部インターフェイス
+		このモジュールの外部インターフェイス
 
 
-	★ Charlotte.Flowertact.Tools 及び Charlotte.Satellite.Tools パッケージ内のクラスは使用しないで下さい。
+	★ Charlotte.Flowertact.Tools, Charlotte.Satellite.Tools 名前空間内のクラスは使用しないで下さい。
 
 
-クライアント用・インターフェイス
---------------------------------
+インターフェイス
+----------------
 
 	TODO
 
