@@ -9,7 +9,7 @@ namespace Charlotte.Flowertact.Tools
 {
 	public class PostOfficeBox
 	{
-		private const string IDENT_PREFIX = "Fortewave_{d8600f7d-1ff4-47f3-b1c9-4b5aa15b6461}_"; // shared_uuid:2
+		private const string IDENT_PREFIX = "Fortewave_{d8600f7d-1ff4-47f3-b1c9-4b5aa15b6461}_"; // shared_uuid:3
 		private string _ident;
 		private MutexObject _mutex;
 		private NamedEventObject _messagePostEvent;
