@@ -35,13 +35,14 @@ namespace Charlotte.Flowertact.Tools
 		{
 			using (_mutex.Section())
 			{
-				int lastNo = this.GetMessageRange()[1];
+				this.GetMessageRange();
+				this.TryRenumber();
 
-				if (lastNo == -1)
+				if (this.GMR_LastNo == -1)
 					FileTools.CreateDir(_messageDir);
 
 				FileTools.WriteAllBytes(
-						Path.Combine(_messageDir, StringTools.ZPad(lastNo + 1, 4)),
+						Path.Combine(_messageDir, StringTools.ZPad(this.GMR_LastNo + 1, 4)),
 						sendData
 						);
 			}
@@ -64,18 +65,16 @@ namespace Charlotte.Flowertact.Tools
 		{
 			using (_mutex.Section())
 			{
-				int[] messageRange = this.GetMessageRange();
-				int firstNo = messageRange[0];
-				int lastNo = messageRange[1];
+				this.GetMessageRange();
 
-				if (firstNo != -1)
+				if (this.GMR_FirstNo != -1)
 				{
-					String file = Path.Combine(_messageDir, StringTools.ZPad(firstNo, 4));
+					String file = Path.Combine(_messageDir, StringTools.ZPad(this.GMR_FirstNo, 4));
 					byte[] recvData = File.ReadAllBytes(file);
 
 					FileTools.DeleteFile(file);
 
-					if (firstNo == lastNo)
+					if (this.GMR_FirstNo == this.GMR_LastNo)
 						FileTools.DeleteDir(_messageDir);
 
 					return recvData;
@@ -84,22 +83,48 @@ namespace Charlotte.Flowertact.Tools
 			return null;
 		}
 
-		private int[] GetMessageRange()
+		private int GMR_FirstNo;
+		private int GMR_LastNo;
+
+		private void GetMessageRange()
 		{
 			if (FileTools.ExistDir(_messageDir) == false)
-				return new int[] { -1, -1 };
+			{
+				this.GMR_FirstNo = -1;
+				this.GMR_LastNo = -1;
 
+				return;
+			}
 			List<string> files = FileTools.List(_messageDir);
 
 			files.Sort(delegate(string a, string b)
 			{
 				return int.Parse(a) - int.Parse(b);
 			});
-			return new int[]
+
+			this.GMR_FirstNo = int.Parse(files[0]);
+			this.GMR_LastNo = int.Parse(files[files.Count - 1]);
+		}
+
+		private void TryRenumber()
+		{
+			if (1000 < this.GMR_FirstNo)
 			{
-				int.Parse(files[0]),
-				int.Parse(files[files.Count - 1]),
-			};
+				this.Renumber();
+			}
+		}
+
+		private void Renumber()
+		{
+			for (int no = this.GMR_FirstNo; no <= this.GMR_LastNo; no++)
+			{
+				File.Move(
+					Path.Combine(_messageDir, StringTools.ZPad(no, 4)),
+					Path.Combine(_messageDir, StringTools.ZPad(no - this.GMR_FirstNo, 4))
+					);
+			}
+			this.GMR_LastNo -= this.GMR_FirstNo;
+			this.GMR_FirstNo = 0;
 		}
 	}
 }
