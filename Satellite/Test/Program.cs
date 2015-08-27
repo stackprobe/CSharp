@@ -52,7 +52,8 @@ namespace Charlotte
 				}
 			}
 			//Test01();
-			Test02();
+			//Test02();
+			Test03();
 		}
 
 		private const string SELF_FILE = @"C:\Dev\CSharp\Satellite\Test\bin\Debug\Test.exe";
@@ -215,6 +216,10 @@ namespace Charlotte
 					}
 				}
 			}
+		}
+
+		private void Test03()
+		{
 		}
 	}
 }

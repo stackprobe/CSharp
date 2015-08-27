@@ -14,6 +14,10 @@ namespace Charlotte.Flowertact
 		private PostOfficeBox _rPob;
 		private PostOfficeBox _wPob;
 
+		public Fortewave(string ident)
+			: this(ident, ident)
+		{ }
+
 		public Fortewave(string rIdent, string wIdent)
 		{
 			if (rIdent == null)
