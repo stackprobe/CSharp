@@ -126,5 +126,11 @@ namespace Charlotte.Flowertact.Tools
 			this.GMR_LastNo -= this.GMR_FirstNo;
 			this.GMR_FirstNo = 0;
 		}
+
+		public void Close()
+		{
+			_mutex.Close();
+			_messagePostEvent.Close();
+		}
 	}
 }

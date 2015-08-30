@@ -8,10 +8,10 @@ using System.Threading;
 
 namespace Charlotte.Flowertact
 {
-	public class Fortewave
+	public class Fortewave : IDisposable
 	{
 		private object SYNCROOT = new object();
-		private PostOfficeBox _rPob;
+		private PostOfficeBox _rPob; // closed 確認用
 		private PostOfficeBox _wPob;
 
 		public Fortewave(string ident)
@@ -34,6 +34,9 @@ namespace Charlotte.Flowertact
 		{
 			lock (SYNCROOT)
 			{
+				if (_rPob == null)
+					throw new Exception("already closed");
+
 				_rPob.Clear();
 				_wPob.Clear();
 			}
@@ -46,6 +49,9 @@ namespace Charlotte.Flowertact
 
 			lock (SYNCROOT)
 			{
+				if (_rPob == null)
+					throw new Exception("already closed");
+
 				QueueData<SubBlock> sendData = new Serializer(sendObj).GetBuff();
 				_wPob.Send(sendData);
 			}
@@ -58,6 +64,9 @@ namespace Charlotte.Flowertact
 
 			lock (SYNCROOT)
 			{
+				if (_rPob == null)
+					throw new Exception("already closed");
+
 				byte[] recvData = _rPob.Recv(millis);
 
 				if (recvData == null)
@@ -66,6 +75,25 @@ namespace Charlotte.Flowertact
 				object recvObj = new Deserializer(recvData).Next();
 				return recvObj;
 			}
+		}
+
+		public void Close()
+		{
+			lock (SYNCROOT)
+			{
+				if (_rPob != null) // ? not closed
+				{
+					_rPob.Close();
+					_wPob.Close();
+					_rPob = null;
+					_wPob = null;
+				}
+			}
+		}
+
+		public void Dispose()
+		{
+			this.Close();
 		}
 	}
 }

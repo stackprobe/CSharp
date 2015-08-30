@@ -52,8 +52,9 @@ namespace Charlotte
 				}
 			}
 			//Test01();
-			//Test02();
-			Test03();
+			Test02();
+			//Test02_b();
+			//Test03();
 		}
 
 		private const string SELF_FILE = @"C:\Dev\CSharp\Satellite\Test\bin\Debug\Test.exe";
@@ -166,6 +167,9 @@ namespace Charlotte
 
 			Process.Start(SELF_FILE, "/T2S");
 			Test02_Client();
+
+			T2Client.Close();
+			T2Server.Close();
 		}
 
 		private void Test02_Client()
@@ -214,6 +218,18 @@ namespace Charlotte
 						T2Server.Send(ret + "_RET");
 						break;
 					}
+				}
+			}
+		}
+
+		private void Test02_b() // リーク
+		{
+			for (int c = 0; c < 10000; c++)
+			{
+				using (Fortewave f = new Fortewave("TEST_" + c))
+				{
+					f.Send("TEST_STRING_" + c);
+					f.Recv(2000);
 				}
 			}
 		}
