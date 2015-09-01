@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -42,6 +44,11 @@
   <ItemGroup>
     <Compile Include="Flowertact\Fortewave.cs" />
     <Compile Include="Flowertact\Tools\PostOfficeBox.cs" />
+    <Compile Include="Htt\HttRequest.cs" />
+    <Compile Include="Htt\HttResponse.cs" />
+    <Compile Include="Htt\HttServer.cs" />
+    <Compile Include="Htt\HttService.cs" />
+    <Compile Include="Htt\Response\HttResHtml.cs" />
     <Compile Include="Satellite\Tools\Deserializer.cs" />
     <Compile Include="Satellite\Tools\IntTools.cs" />
     <Compile Include="Satellite\ObjectList.cs" />

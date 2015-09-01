@@ -1,0 +1,122 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Charlotte.Satellite.Tools;
+using Charlotte.Flowertact;
+using Charlotte.Satellite;
+using System.IO;
+
+namespace Charlotte.Htt
+{
+	public class HttServer
+	{
+		private const string COMMON_ID = "{7da01163-efa3-4941-a5a6-be0800720d8e}"; // shared_uuid:3
+		private const string MUTEX_ID = COMMON_ID + "_m";
+		private const string HTT_ID = COMMON_ID + "_h";
+		private const string HTT_SERVICE_ID = COMMON_ID + "_hs";
+
+		private static readonly byte[] EMPTY = new byte[0];
+		private static readonly byte[] COMMAND_CLEAR = Encoding.ASCII.GetBytes("C");
+		private static readonly byte[] COMMAND_RESPONSE = Encoding.ASCII.GetBytes("R");
+		private static readonly byte[] COMMAND_ERROR = Encoding.ASCII.GetBytes("E");
+
+		private static MutexObject _mutex = new MutexObject(MUTEX_ID);
+		private static Fortewave _pipeline;
+
+		public static void Perform(HttService service)
+		{
+			if (service == null)
+				throw new ArgumentNullException("service");
+
+			if (_mutex.WaitOne(0))
+			{
+				try
+				{
+					_pipeline = new Fortewave(HTT_SERVICE_ID, HTT_ID);
+					_pipeline.Send(new ObjectList(COMMAND_CLEAR));
+
+					while (service.Interlude())
+					{
+						Object recvData = _pipeline.Recv(2000);
+
+						if (recvData != null)
+						{
+							try
+							{
+								HttResponse res = service.Service(new HttRequest((ObjectList)recvData));
+								ObjectList ol = new ObjectList();
+
+								ol.Add(COMMAND_RESPONSE);
+								ol.Add(((ObjectList)recvData).GetList()[0]);
+								ol.Add(Encoding.ASCII.GetBytes(res.GetHTTPVersion()));
+								ol.Add(Encoding.ASCII.GetBytes("" + res.GetStatusCode()));
+								ol.Add(Encoding.ASCII.GetBytes(res.GetReasonPhrase()));
+
+								{
+									Dictionary<String, String> headerFields = new Dictionary<String, String>();
+
+									res.WriteHeaderFields(headerFields);
+
+									ol.Add(Encoding.ASCII.GetBytes("" + headerFields.Keys.Count));
+
+									foreach (String key in headerFields.Keys)
+									{
+										String value = headerFields[key];
+
+										ol.Add(Encoding.ASCII.GetBytes(key));
+										ol.Add(Encoding.ASCII.GetBytes(value));
+									}
+								}
+
+								{
+									string bodyPartFile = res.GetBodyPartFile();
+
+									if (bodyPartFile != null)
+									{
+										ol.Add(StringTools.ENCODING_SJIS.GetBytes(Path.GetFullPath(bodyPartFile)));
+										ol.Add(EMPTY);
+									}
+									else
+									{
+										ol.Add(EMPTY);
+
+										{
+											byte[] bodyPart = res.GetBodyPart();
+
+											if (bodyPart == null)
+												bodyPart = EMPTY;
+
+											ol.Add(bodyPart);
+										}
+									}
+								}
+
+								_pipeline.Send(ol);
+							}
+							catch //(Exception e)
+							{
+								//Console.WriteLine(e);
+
+								_pipeline.Send(new ObjectList(
+										COMMAND_ERROR,
+										((ObjectList)recvData).GetList()[0]
+										));
+							}
+						}
+					}
+				}
+				finally
+				{
+					if (_pipeline != null)
+					{
+						_pipeline.Send(new ObjectList(COMMAND_CLEAR));
+						_pipeline.Close();
+						_pipeline = null;
+					}
+					_mutex.Release();
+				}
+			}
+		}
+	}
+}

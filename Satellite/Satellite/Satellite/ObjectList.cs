@@ -14,10 +14,15 @@ namespace Charlotte.Satellite
 
 		public ObjectList(ICollection<object> list)
 		{
-			this.Add(list);
+			this.AddRange(list);
 		}
 
-		public void Add(ICollection<object> list)
+		public ObjectList(params object[] arr)
+		{
+			this.AddRange(arr);
+		}
+
+		public void AddRange(ICollection<object> list)
 		{
 			this.List.AddRange(list);
 		}

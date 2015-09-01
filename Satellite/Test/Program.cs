@@ -158,46 +158,51 @@ namespace Charlotte
 			}
 		}
 
-		private Fortewave T2Client = new Fortewave("CLIENT", "SERVER");
-		private Fortewave T2Server = new Fortewave("SERVER", "CLIENT");
-
 		private void Test02()
 		{
-			T2Server.Clear();
-
 			Process.Start(SELF_FILE, "/T2S");
 			Test02_Client();
+		}
 
-			T2Client.Close();
-			T2Server.Close();
+		private Fortewave GetT2Client()
+		{
+			return new Fortewave("CLIENT", "SERVER");
+		}
+
+		private Fortewave GetT2Server()
+		{
+			return new Fortewave("SERVER", "CLIENT");
 		}
 
 		private void Test02_Client()
 		{
-			for (int c = 0; c < 100; c++)
+			using (Fortewave client = GetT2Client())
 			{
-				Console.WriteLine("c_send: " + c);
-
-				T2Client.Send("TEST_STRING_" + c);
-			}
-			for (int c = 0; c < 100; c++)
-			{
-				string assumeRet = "TEST_STRING_" + c + "_RET";
-
-				Console.WriteLine("assumeRet: " + assumeRet);
-
-				for (; ; )
+				for (int c = 0; c < 100; c++)
 				{
-					string ret = (string)T2Client.Recv(2000);
+					Console.WriteLine("c_send: " + c);
 
-					Console.WriteLine("c_ret: " + ret);
+					client.Send("TEST_STRING_" + c);
+				}
+				for (int c = 0; c < 100; c++)
+				{
+					string assumeRet = "TEST_STRING_" + c + "_RET";
 
-					if (ret != null)
+					Console.WriteLine("assumeRet: " + assumeRet);
+
+					for (; ; )
 					{
-						if (ret != assumeRet)
-							throw new Exception("ng");
+						string ret = (string)client.Recv(2000);
 
-						break;
+						Console.WriteLine("c_ret: " + ret);
+
+						if (ret != null)
+						{
+							if (ret != assumeRet)
+								throw new Exception("ng");
+
+							break;
+						}
 					}
 				}
 			}
@@ -205,18 +210,21 @@ namespace Charlotte
 
 		private void Test02_Server()
 		{
-			for (int c = 0; c < 100; c++)
+			using (Fortewave server = GetT2Server())
 			{
-				for (; ; )
+				for (int c = 0; c < 100; c++)
 				{
-					string ret = (string)T2Server.Recv(2000);
-
-					Console.WriteLine("s_ret: " + ret);
-
-					if (ret != null)
+					for (; ; )
 					{
-						T2Server.Send(ret + "_RET");
-						break;
+						string ret = (string)server.Recv(2000);
+
+						Console.WriteLine("s_ret: " + ret);
+
+						if (ret != null)
+						{
+							server.Send(ret + "_RET");
+							break;
+						}
 					}
 				}
 			}
@@ -226,10 +234,19 @@ namespace Charlotte
 		{
 			for (int c = 0; c < 10000; c++)
 			{
-				using (Fortewave f = new Fortewave("TEST_" + c))
+				using (GetT2Client())
+				using (GetT2Server())
+				{ }
+			}
+			for (int c = 0; c < 10000; c++)
+			{
+				using (Fortewave client = GetT2Client())
+				using (Fortewave server = GetT2Server())
 				{
-					f.Send("TEST_STRING_" + c);
-					f.Recv(2000);
+					client.Send("TEST_STRING_" + c);
+					client.Recv(0);
+					server.Send("TEST_STRING_" + c);
+					client.Recv(0);
 				}
 			}
 		}
