@@ -68,5 +68,24 @@ namespace Charlotte.Satellite.Tools
 		{
 			return s1.ToLower() == s2.ToLower();
 		}
+
+		public static List<string> Tokenize(string str, char delimiter)
+		{
+			List<string> tokens = new List<string>();
+			StringBuilder buff = new StringBuilder();
+
+			foreach (char chr in str)
+			{
+				if (chr == delimiter)
+				{
+					tokens.Add(buff.ToString());
+					buff = new StringBuilder();
+				}
+				else
+					buff.Append(chr);
+			}
+			tokens.Add(buff.ToString());
+			return tokens;
+		}
 	}
 }

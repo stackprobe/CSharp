@@ -58,15 +58,41 @@ namespace Charlotte.Htt
 
 									res.WriteHeaderFields(headerFields);
 
-									ol.Add(Encoding.ASCII.GetBytes("" + headerFields.Keys.Count));
+#if true
+									List<string> lines = new List<string>();
 
-									foreach (String key in headerFields.Keys)
+									foreach (string key in headerFields.Keys)
 									{
-										String value = headerFields[key];
+										string value = headerFields[key];
+
+										foreach (string colo_value in StringTools.Tokenize(value, ':'))
+										{
+											string colo_key = key;
+
+											foreach (string line_value in StringTools.Tokenize(colo_value, '\n'))
+											{
+												ol.Add(Encoding.ASCII.GetBytes(colo_key));
+												ol.Add(Encoding.ASCII.GetBytes(line_value));
+
+												colo_key = "";
+											}
+										}
+									}
+									ol.Add(Encoding.ASCII.GetBytes("" + (lines.Count / 2)));
+
+									foreach (string line in lines)
+										ol.Add(Encoding.ASCII.GetBytes(line));
+#else // old
+									ol.Add(Encoding.ASCII.GetBytes("" + headerFields.Count));
+
+									foreach (string key in headerFields.Keys)
+									{
+										string value = headerFields[key];
 
 										ol.Add(Encoding.ASCII.GetBytes(key));
 										ol.Add(Encoding.ASCII.GetBytes(value));
 									}
+#endif
 								}
 
 								{
