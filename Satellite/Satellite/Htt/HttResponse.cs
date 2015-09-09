@@ -10,7 +10,7 @@ namespace Charlotte.Htt
 		string GetHTTPVersion();
 		int GetStatusCode();
 		string GetReasonPhrase();
-		void WriteHeaderFields(Dictionary<string, string> headerFields);
+		void WriteHeaderFields(Dictionary<string, string> dest);
 		string GetBodyPartFile();
 		byte[] GetBodyPart();
 	}

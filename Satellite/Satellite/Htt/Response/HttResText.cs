@@ -5,22 +5,22 @@ using System.Text;
 
 namespace Charlotte.Htt.Response
 {
-	public class HttResHtml : HttResponse
+	public class HttResText : HttResponse
 	{
-		private string _htmlText;
+		private string _text;
 		private Encoding _encoding;
 
-		public HttResHtml()
-			: this("<html><body><h1>Happy tea time!</h1></body></html>")
+		public HttResText()
+			: this("Happy tea time!")
 		{ }
 
-		public HttResHtml(String htmlText)
-			: this(htmlText, Encoding.UTF8)
+		public HttResText(String text)
+			: this(text, Encoding.UTF8)
 		{ }
 
-		public HttResHtml(String htmlText, Encoding encoding)
+		public HttResText(String text, Encoding encoding)
 		{
-			_htmlText = htmlText;
+			_text = text;
 			_encoding = encoding;
 		}
 
@@ -41,7 +41,7 @@ namespace Charlotte.Htt.Response
 
 		public void WriteHeaderFields(Dictionary<string, string> dest)
 		{
-			dest.Add("Content-Type", "text/html; charset=" + _encoding.WebName);
+			dest.Add("Content-Type", "text/plain; charset=" + _encoding.WebName);
 		}
 
 		public string GetBodyPartFile()
@@ -51,7 +51,7 @@ namespace Charlotte.Htt.Response
 
 		public byte[] GetBodyPart()
 		{
-			return _encoding.GetBytes(_htmlText);
+			return _encoding.GetBytes(_text);
 		}
 	}
 }

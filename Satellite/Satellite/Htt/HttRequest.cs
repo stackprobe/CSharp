@@ -15,6 +15,7 @@ namespace Charlotte.Htt
 		private string _urlString;
 		private string _httpVersion;
 		private Dictionary<string, string> _headerFields;
+		private string _headerPartFile;
 		private string _bodyPartFile;
 
 		public HttRequest(ObjectList rawData)
@@ -40,6 +41,7 @@ namespace Charlotte.Htt
 				}
 			}
 
+			_headerPartFile = StringTools.ENCODING_SJIS.GetString((byte[])rawData.GetList()[c++]);
 			_bodyPartFile = StringTools.ENCODING_SJIS.GetString((byte[])rawData.GetList()[c++]);
 		}
 
@@ -71,6 +73,16 @@ namespace Charlotte.Htt
 		public Dictionary<string, string> GetHeaderFields()
 		{
 			return _headerFields;
+		}
+
+		public string GetHeaderPartFile()
+		{
+			return _headerPartFile;
+		}
+
+		public byte[] GetHeaderPart()
+		{
+			return File.ReadAllBytes(_headerPartFile);
 		}
 
 		public string GetBodyPartFile()
