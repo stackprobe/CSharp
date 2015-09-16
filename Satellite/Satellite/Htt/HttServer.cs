@@ -34,7 +34,6 @@ namespace Charlotte.Htt
 				try
 				{
 					_pipeline = new Fortewave(HTT_SERVICE_ID, HTT_ID);
-					_pipeline.Send(new ObjectList(COMMAND_CLEAR));
 
 					while (service.Interlude())
 					{
@@ -136,7 +135,6 @@ namespace Charlotte.Htt
 				{
 					if (_pipeline != null)
 					{
-						_pipeline.Send(new ObjectList(COMMAND_CLEAR));
 						_pipeline.Close();
 						_pipeline = null;
 					}
