@@ -77,6 +77,18 @@ namespace Charlotte.Flowertact
 			}
 		}
 
+		public void Pulse()
+		{
+			lock (SYNCROOT)
+			{
+				if (_rPob == null)
+					throw new Exception("already closed");
+
+				_rPob.Pulse();
+				_wPob.Pulse();
+			}
+		}
+
 		public void Close()
 		{
 			lock (SYNCROOT)

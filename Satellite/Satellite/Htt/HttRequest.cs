@@ -5,6 +5,7 @@ using System.Text;
 using Charlotte.Satellite;
 using Charlotte.Satellite.Tools;
 using System.IO;
+using Charlotte.Flowertact;
 
 namespace Charlotte.Htt
 {
@@ -17,8 +18,9 @@ namespace Charlotte.Htt
 		private Dictionary<string, string> _headerFields;
 		private string _headerPartFile;
 		private string _bodyPartFile;
+		private Fortewave _pipeline;
 
-		public HttRequest(ObjectList rawData)
+		public HttRequest(ObjectList rawData, Fortewave pipeline)
 		{
 			int c = 1;
 
@@ -43,6 +45,8 @@ namespace Charlotte.Htt
 
 			_headerPartFile = StringTools.ENCODING_SJIS.GetString((byte[])rawData.GetList()[c++]);
 			_bodyPartFile = StringTools.ENCODING_SJIS.GetString((byte[])rawData.GetList()[c++]);
+
+			_pipeline = pipeline;
 		}
 
 		public String GetClientIPAddress()
@@ -93,6 +97,11 @@ namespace Charlotte.Htt
 		public byte[] GetBodyPart()
 		{
 			return File.ReadAllBytes(_bodyPartFile);
+		}
+
+		public void Pulse()
+		{
+			_pipeline.Pulse();
 		}
 	}
 }

@@ -43,7 +43,7 @@ namespace Charlotte.Htt
 						{
 							try
 							{
-								HttResponse res = service.Service(new HttRequest((ObjectList)recvData));
+								HttResponse res = service.Service(new HttRequest((ObjectList)recvData, _pipeline));
 								ObjectList ol = new ObjectList();
 
 								ol.Add(COMMAND_RESPONSE);
@@ -57,7 +57,6 @@ namespace Charlotte.Htt
 
 									res.WriteHeaderFields(headerFields);
 
-#if true
 									List<string> lines = new List<string>();
 
 									foreach (string key in headerFields.Keys)
@@ -81,17 +80,6 @@ namespace Charlotte.Htt
 
 									foreach (string line in lines)
 										ol.Add(Encoding.ASCII.GetBytes(line));
-#else // old
-									ol.Add(Encoding.ASCII.GetBytes("" + headerFields.Count));
-
-									foreach (string key in headerFields.Keys)
-									{
-										string value = headerFields[key];
-
-										ol.Add(Encoding.ASCII.GetBytes(key));
-										ol.Add(Encoding.ASCII.GetBytes(value));
-									}
-#endif
 								}
 
 								{
