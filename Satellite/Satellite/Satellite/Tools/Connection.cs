@@ -81,6 +81,12 @@ namespace Charlotte.Satellite.Tools
 					return true;
 
 				FileTools.DeleteFile(pidFile);
+
+				if (this.ListenFlag)
+				{
+					string listenFile = Path.Combine(this.SessionDir, "_listen");
+					FileTools.DeleteFile(listenFile);
+				}
 				FileTools.DeleteDir(this.SessionDir);
 				FileTools.DeleteDir(this.IdentDir);
 				FileTools.DeleteDir(this.GroupDir);
