@@ -17,7 +17,6 @@ namespace Charlotte.Htt
 		private const string HTT_SERVICE_ID = COMMON_ID + "_hs";
 
 		private static readonly byte[] EMPTY = new byte[0];
-		private static readonly byte[] COMMAND_CLEAR = Encoding.ASCII.GetBytes("C");
 		private static readonly byte[] COMMAND_RESPONSE = Encoding.ASCII.GetBytes("R");
 		private static readonly byte[] COMMAND_ERROR = Encoding.ASCII.GetBytes("E");
 
