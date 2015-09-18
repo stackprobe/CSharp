@@ -40,9 +40,12 @@ namespace Charlotte.Htt
 
 						if (recvData != null)
 						{
+							HttRequest req = new HttRequest((ObjectList)recvData, _pipeline);
+
 							try
 							{
-								HttResponse res = service.Service(new HttRequest((ObjectList)recvData, _pipeline));
+								HttResponse res = service.Service(req);
+
 								ObjectList ol = new ObjectList();
 
 								ol.Add(COMMAND_RESPONSE);
@@ -114,6 +117,11 @@ namespace Charlotte.Htt
 										COMMAND_ERROR,
 										((ObjectList)recvData).GetList()[0]
 										));
+							}
+							finally
+							{
+								FileTools.DelFile(req.GetHeaderPartFile());
+								FileTools.DelFile(req.GetBodyPartFile());
 							}
 						}
 					}

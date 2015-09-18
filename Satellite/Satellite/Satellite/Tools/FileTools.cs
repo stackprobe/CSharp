@@ -33,6 +33,16 @@ namespace Charlotte.Satellite.Tools
 			File.Delete(file);
 		}
 
+		public static void DelFile(string file)
+		{
+			try
+			{
+				File.Delete(file);
+			}
+			catch
+			{ }
+		}
+
 		public static void DeleteDir(string dir, bool recursive = false)
 		{
 			if (Directory.Exists(dir) == false)
