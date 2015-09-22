@@ -49,17 +49,17 @@ namespace Charlotte.Htt
 			_pipeline = pipeline;
 		}
 
-		public String GetClientIPAddress()
+		public string GetClientIPAddress()
 		{
 			return _clientIPAddress;
 		}
 
-		public String GetMethod()
+		public string GetMethod()
 		{
 			return _method;
 		}
 
-		public String GetUrlString()
+		public string GetUrlString()
 		{
 			return _urlString;
 		}
@@ -69,7 +69,7 @@ namespace Charlotte.Htt
 			return new Uri(_urlString);
 		}
 
-		public String GetHTTPVersion()
+		public string GetHTTPVersion()
 		{
 			return _httpVersion;
 		}
