@@ -71,8 +71,8 @@ namespace Charlotte.Htt
 
 											foreach (string line_value in StringTools.Tokenize(colo_value, '\n'))
 											{
-												ol.Add(Encoding.ASCII.GetBytes(colo_key));
-												ol.Add(Encoding.ASCII.GetBytes(line_value));
+												lines.Add(colo_key);
+												lines.Add(line_value);
 
 												colo_key = "";
 											}
