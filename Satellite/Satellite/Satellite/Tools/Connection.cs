@@ -26,6 +26,8 @@ namespace Charlotte.Satellite.Tools
 		private string OtherSessionDir;
 		private NamedEventObject OtherEv;
 		private string FirstTimeFile;
+		private MutexObject ProcAliveMtx;
+		private MutexObject OtherProcAliveMtx;
 
 		public Connection(string group, string ident)
 		{
@@ -39,6 +41,8 @@ namespace Charlotte.Satellite.Tools
 			this.Mtx = new MutexObject(COMMON_ID);
 			this.Ev = new NamedEventObject(this.Session);
 			this.FirstTimeFile = this.CommonDir + "_1";
+			this.ProcAliveMtx = new MutexObject(this.Session + "_PA");
+			this.ProcAliveMtx.WaitOne();
 		}
 
 		public bool ListenFlag;
@@ -112,6 +116,7 @@ namespace Charlotte.Satellite.Tools
 					this.OtherSession = tokens[c++];
 					this.OtherSessionDir = tokens[c++];
 					this.OtherEv = new NamedEventObject(this.OtherSession);
+					this.OtherProcAliveMtx = new MutexObject(this.OtherSession + "_PA");
 
 					return true;
 				}
@@ -178,15 +183,22 @@ namespace Charlotte.Satellite.Tools
 				if (FileTools.ExistFile(connectFile))
 					continue;
 
-				if (this.CheckDisconnected(otherSessionDir))
-					continue;
+				this.OtherProcAliveMtx = new MutexObject(this.OtherSession + "_PA");
 
+				if (this.CheckDisconnected(otherSessionDir))
+				{
+					this.OtherProcAliveMtx.Close();
+					continue;
+				}
 				if (this.ListenFlag)
 				{
 					string listenFile = Path.Combine(otherSessionDir, "_listen");
 
 					if (FileTools.ExistFile(listenFile))
+					{
+						this.OtherProcAliveMtx.Close();
 						continue;
+					}
 				}
 				return otherSession;
 			}
@@ -285,17 +297,37 @@ namespace Charlotte.Satellite.Tools
 
 		private bool CheckDisconnected(string otherSessionDir)
 		{
-			string pidFile = Path.Combine(otherSessionDir, "_PID");
-
-			if (FileTools.ExistFile(pidFile))
+			if (this.CD_IsDisconnected(otherSessionDir))
 			{
+				FileTools.DeleteDir(otherSessionDir, true);
+				return true;
+			}
+			return false;
+		}
+
+		private bool CD_IsDisconnected(string otherSessionDir)
+		{
+			if (this.OtherProcAliveMtx.WaitOne(0))
+			{
+				this.OtherProcAliveMtx.Release();
+				return true;
+			}
+
+#if false // test
+			{
+				string pidFile = Path.Combine(otherSessionDir, "_PID");
+
+				if (FileTools.ExistFile(pidFile) == false)
+					return true;
+
 				int pid = IntTools.Read(File.ReadAllBytes(pidFile));
 
-				if (SystemTools.IsProcessAlive(pid))
-					return false;
+				if (SystemTools.IsProcessAlive(pid) == false)
+					return true;
 			}
-			FileTools.DeleteDir(otherSessionDir, true);
-			return true;
+#endif
+
+			return false;
 		}
 
 		public void Disconnect()
@@ -309,11 +341,15 @@ namespace Charlotte.Satellite.Tools
 			}
 			this.OtherEv.Set();
 			this.OtherEv.Close();
+			this.OtherProcAliveMtx.Close();
 		}
 
 		public void Close()
 		{
+			this.Mtx.Close();
 			this.Ev.Close();
+			this.ProcAliveMtx.Release();
+			this.ProcAliveMtx.Close();
 		}
 	}
 }
