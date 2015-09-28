@@ -49,7 +49,7 @@ namespace Charlotte.Satellite.Tools
 
 		public bool Connect(int millis, MutexObject outerMtx)
 		{
-			string pidFile = Path.Combine(this.SessionDir, "_PID");
+			//string pidFile = Path.Combine(this.SessionDir, "_PID");
 
 			using (this.Mtx.Section())
 			{
@@ -65,7 +65,7 @@ namespace Charlotte.Satellite.Tools
 				FileTools.CreateDir(this.GroupDir);
 				FileTools.CreateDir(this.IdentDir);
 				FileTools.CreateDir(this.SessionDir);
-				File.WriteAllBytes(pidFile, IntTools.ToBytes(Process.GetCurrentProcess().Id));
+				//File.WriteAllBytes(pidFile, IntTools.ToBytes(Process.GetCurrentProcess().Id));
 
 				if (this.ListenFlag)
 				{
@@ -84,7 +84,7 @@ namespace Charlotte.Satellite.Tools
 				if (this.TryConnect())
 					return true;
 
-				FileTools.DeleteFile(pidFile);
+				//FileTools.DeleteFile(pidFile);
 
 				if (this.ListenFlag)
 				{
