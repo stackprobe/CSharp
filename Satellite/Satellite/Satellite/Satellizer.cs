@@ -9,7 +9,7 @@ namespace Charlotte.Satellite
 {
 	public class Satellizer : IDisposable
 	{
-		private const string COMMON_ID = "{cb88beb3-4661-4399-98a8-a5dff3654347}"; // shared_uuid:3
+		private const string COMMON_ID = "{cb88beb3-4661-4399-98a8-a5dff3654347}"; // shared_uuid
 		private object SYNCROOT = new object();
 		private Connection Conn;
 		private bool Connected;

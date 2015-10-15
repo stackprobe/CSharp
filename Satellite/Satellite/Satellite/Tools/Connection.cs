@@ -10,7 +10,7 @@ namespace Charlotte.Satellite.Tools
 {
 	public class Connection
 	{
-		private const string COMMON_ID = "{f5f0b66c-3aa9-48ef-a924-9918f1c69b7a}"; // shared_uuid:3
+		private const string COMMON_ID = "{f5f0b66c-3aa9-48ef-a924-9918f1c69b7a}"; // shared_uuid
 		private string Group;
 		private string Ident;
 		private string Session;
