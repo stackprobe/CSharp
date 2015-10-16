@@ -4,6 +4,8 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Threading;
 using System.IO;
+using Microsoft.Win32;
+using System.Text;
 
 namespace Charlotte
 {
@@ -17,10 +19,11 @@ namespace Charlotte
 		{
 			BootTools.OnBoot();
 
-			Application.ThreadException += new ThreadExceptionEventHandler(ThreadException);
-			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(UnhandledException);
+			File.Delete(SESSION_ENDING_LOG);
 
-			SystemTools.WL_Start();
+			Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
+			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+			SystemEvents.SessionEnding += new SessionEndingEventHandler(SessionEnding);
 
 #if false // test
 			SystemTools.WriteLog("LOG_TEST_01");
@@ -30,20 +33,25 @@ namespace Charlotte
 
 			Mutex procMtx = new Mutex(false, "{3884a7c2-49e5-4211-9c1b-cbc2c6890b95}");
 
-			{
-				const string DIR = "tmp";
-
-				if (Directory.Exists(DIR))
-					Directory.Delete(DIR, true);
-
-				Directory.CreateDirectory(DIR);
-			}
-
-			Gnd.I.Sd.Load();
-			Gnd.I.Sd.PostLoad();
-
 			if (procMtx.WaitOne(0))
 			{
+				CheckSelfDir();
+				CheckCopiedExe();
+
+				{
+					const string DIR = "tmp";
+
+					if (Directory.Exists(DIR))
+						Directory.Delete(DIR, true);
+
+					Directory.CreateDirectory(DIR);
+				}
+
+				SystemTools.WL_Start();
+
+				Gnd.I.Sd.Load();
+				Gnd.I.Sd.PostLoad();
+
 				{
 					Gnd.I.ChatMan = new ChatMan();
 					Gnd.I.FileSvMan.Begin();
@@ -96,27 +104,101 @@ namespace Charlotte
 			procMtx.Close();
 		}
 
-		private static void ThreadException(object sender, ThreadExceptionEventArgs e)
-		{
-			UnhandledError(e.Exception, "ThreadException");
-		}
+		public const string APP_TITLE = "Chat";
 
-		private static void UnhandledException(object sender, UnhandledExceptionEventArgs e)
-		{
-			UnhandledError(e.ExceptionObject, "UnhandledException");
-		}
-
-		private static void UnhandledError(object message, string reason)
+		private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
 		{
 			try
 			{
-				message = "[" + reason + "] " + message;
-				SystemTools.WriteLog(message);
+				MessageBox.Show(
+					"[Application_ThreadException]\n" + e.Exception,
+					APP_TITLE + " / エラー",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error
+					);
 			}
 			catch
 			{ }
 
 			Environment.Exit(1);
+		}
+
+		private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+		{
+			try
+			{
+				MessageBox.Show(
+					"[CurrentDomain_UnhandledException]\n" + e.ExceptionObject,
+					APP_TITLE + " / エラー",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error
+					);
+			}
+			catch
+			{ }
+
+			Environment.Exit(2);
+		}
+
+		private static void SessionEnding(object sender, SessionEndingEventArgs e)
+		{
+			try
+			{
+				File.WriteAllText(SESSION_ENDING_LOG, "" + DateTime.Now);
+			}
+			catch
+			{ }
+
+			Environment.Exit(3);
+		}
+
+		private static string SESSION_ENDING_LOG { get { return BootTools.SelfFile + ".session-ending.log"; } }
+
+		private static void CheckSelfDir()
+		{
+			string dir = BootTools.SelfDir;
+			Encoding SJIS = Encoding.GetEncoding(932);
+
+			if (dir != SJIS.GetString(SJIS.GetBytes(dir)))
+			{
+				MessageBox.Show(
+					"Shift_JIS に変換出来ない文字を含むパスからは実行できません。",
+					APP_TITLE + " / エラー",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error
+					);
+
+				Environment.Exit(4);
+			}
+			if (dir.StartsWith("\\\\"))
+			{
+				MessageBox.Show(
+					"ネットワークフォルダからは実行できません。",
+					APP_TITLE + " / エラー",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error
+					);
+
+				Environment.Exit(5);
+			}
+		}
+
+		private static void CheckCopiedExe()
+		{
+			if (Directory.Exists(@"..\Debug")) // ? devenv
+				return;
+
+			if (File.Exists("JIS0208.txt")) // リリースに含まれるファイル
+				return;
+
+			MessageBox.Show(
+				"WHY AM I ALONE ?",
+				"",
+				MessageBoxButtons.OK,
+				MessageBoxIcon.Error
+				);
+
+			Environment.Exit(6);
 		}
 	}
 }

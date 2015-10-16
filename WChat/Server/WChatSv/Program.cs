@@ -4,6 +4,8 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Threading;
 using System.IO;
+using Microsoft.Win32;
+using System.Text;
 
 namespace Charlotte
 {
@@ -17,22 +19,28 @@ namespace Charlotte
 		{
 			BootTools.OnBoot();
 
-			Application.ThreadException += new ThreadExceptionEventHandler(ThreadException);
-			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(UnhandledException);
+			File.Delete(SESSION_ENDING_LOG);
+
+			Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
+			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+			SystemEvents.SessionEnding += new SessionEndingEventHandler(SessionEnding);
 
 			Mutex procMtx = new Mutex(false, "{281697a9-5205-46a6-93d1-05d1eda9bb94}");
 
-			{
-				const string DIR = "tmp";
-
-				if (Directory.Exists(DIR))
-					Directory.Delete(DIR, true);
-
-				Directory.CreateDirectory(DIR);
-			}
-
 			if (procMtx.WaitOne(0))
 			{
+				CheckSelfDir();
+				CheckCopiedExe();
+
+				{
+					const string DIR = "tmp";
+
+					if (Directory.Exists(DIR))
+						Directory.Delete(DIR, true);
+
+					Directory.CreateDirectory(DIR);
+				}
+
 				Gnd.I.DoLoad();
 				//Gnd.I.ConsoleProcBegin(); // moved
 
@@ -53,23 +61,15 @@ namespace Charlotte
 			procMtx.Close();
 		}
 
-		private static void ThreadException(object sender, ThreadExceptionEventArgs e)
-		{
-			UnhandledError(e.Exception, "ThreadException");
-		}
+		public const string APP_TITLE = "Chat";
 
-		private static void UnhandledException(object sender, UnhandledExceptionEventArgs e)
-		{
-			UnhandledError(e.ExceptionObject, "UnhandledException");
-		}
-
-		private static void UnhandledError(object message, string reason)
+		private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
 		{
 			try
 			{
 				MessageBox.Show(
-					"[" + reason + "]" + message,
-					"Chat Server - エラー",
+					"[Application_ThreadException]\n" + e.Exception,
+					APP_TITLE + " / エラー",
 					MessageBoxButtons.OK,
 					MessageBoxIcon.Error
 					);
@@ -78,6 +78,84 @@ namespace Charlotte
 			{ }
 
 			Environment.Exit(1);
+		}
+
+		private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+		{
+			try
+			{
+				MessageBox.Show(
+					"[CurrentDomain_UnhandledException]\n" + e.ExceptionObject,
+					APP_TITLE + " / エラー",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error
+					);
+			}
+			catch
+			{ }
+
+			Environment.Exit(2);
+		}
+
+		private static void SessionEnding(object sender, SessionEndingEventArgs e)
+		{
+			try
+			{
+				File.WriteAllText(SESSION_ENDING_LOG, "" + DateTime.Now);
+			}
+			catch
+			{ }
+
+			Environment.Exit(3);
+		}
+
+		private static string SESSION_ENDING_LOG { get { return BootTools.SelfFile + ".session-ending.log"; } }
+
+		private static void CheckSelfDir()
+		{
+			string dir = BootTools.SelfDir;
+			Encoding SJIS = Encoding.GetEncoding(932);
+
+			if (dir != SJIS.GetString(SJIS.GetBytes(dir)))
+			{
+				MessageBox.Show(
+					"Shift_JIS に変換出来ない文字を含むパスからは実行できません。",
+					APP_TITLE + " / エラー",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error
+					);
+
+				Environment.Exit(4);
+			}
+			if (dir.StartsWith("\\\\"))
+			{
+				MessageBox.Show(
+					"ネットワークフォルダからは実行できません。",
+					APP_TITLE + " / エラー",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error
+					);
+
+				Environment.Exit(5);
+			}
+		}
+
+		private static void CheckCopiedExe()
+		{
+			if (Directory.Exists(@"..\Debug")) // ? devenv
+				return;
+
+			if (File.Exists("JIS0208.txt")) // リリースに含まれるファイル
+				return;
+
+			MessageBox.Show(
+				"WHY AM I ALONE ?",
+				"",
+				MessageBoxButtons.OK,
+				MessageBoxIcon.Error
+				);
+
+			Environment.Exit(6);
 		}
 	}
 }

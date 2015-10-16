@@ -107,6 +107,7 @@
 			this.ErrProv = new System.Windows.Forms.ErrorProvider(this.components);
 			this.BtnCancel = new System.Windows.Forms.Button();
 			this.BtnOk = new System.Windows.Forms.Button();
+			this.TimeLineTextUTF対応 = new System.Windows.Forms.CheckBox();
 			this.MainTab.SuspendLayout();
 			this.接続Tab.SuspendLayout();
 			this.ファイル転送Tab.SuspendLayout();
@@ -400,7 +401,7 @@
 			this.FileSvEnabled.AutoSize = true;
 			this.FileSvEnabled.Location = new System.Drawing.Point(25, 27);
 			this.FileSvEnabled.Name = "FileSvEnabled";
-			this.FileSvEnabled.Size = new System.Drawing.Size(184, 24);
+			this.FileSvEnabled.Size = new System.Drawing.Size(143, 16);
 			this.FileSvEnabled.TabIndex = 0;
 			this.FileSvEnabled.Text = "ファイル転送を有効にする";
 			this.FileSvEnabled.UseVisualStyleBackColor = true;
@@ -462,6 +463,7 @@
 			// 
 			// タイムラインTab
 			// 
+			this.タイムラインTab.Controls.Add(this.TimeLineTextUTF対応);
 			this.タイムラインTab.Controls.Add(this.label16);
 			this.タイムラインTab.Controls.Add(this.TimeLineTextPathClickMode);
 			this.タイムラインTab.Controls.Add(this.label15);
@@ -985,6 +987,16 @@
 			this.BtnOk.UseVisualStyleBackColor = true;
 			this.BtnOk.Click += new System.EventHandler(this.BtnOk_Click);
 			// 
+			// TimeLineTextUTF対応
+			// 
+			this.TimeLineTextUTF対応.AutoSize = true;
+			this.TimeLineTextUTF対応.Location = new System.Drawing.Point(322, 294);
+			this.TimeLineTextUTF対応.Name = "TimeLineTextUTF対応";
+			this.TimeLineTextUTF対応.Size = new System.Drawing.Size(184, 24);
+			this.TimeLineTextUTF対応.TabIndex = 18;
+			this.TimeLineTextUTF対応.Text = "Compatibility with UTF_x";
+			this.TimeLineTextUTF対応.UseVisualStyleBackColor = true;
+			// 
 			// SettingWin
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -1107,5 +1119,6 @@
 		private System.Windows.Forms.TextBox B_BackColor;
 		private System.Windows.Forms.Button Btn_B_LinkColor;
 		private System.Windows.Forms.TextBox B_LinkColor;
+		private System.Windows.Forms.CheckBox TimeLineTextUTF対応;
 	}
 }

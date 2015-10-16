@@ -192,7 +192,7 @@ namespace Charlotte
 		// ----
 
 		private const int TIMER_END_MIN = 20;
-		private const int TIMER_END_ADD = 20;
+		private const int TIMER_END_ADD = 1;//20;
 		private const int TIMER_END_MAX = 200;
 		private int TimerCount; // -1 == スケジュールされている。
 		private int TimerEnd = TIMER_END_MIN;
@@ -295,6 +295,7 @@ namespace Charlotte
 		/// <param name="remarkText"></param>
 		public void DoRemark(string remarkText)
 		{
+			remarkText = UtfStringFltr.Serialize(remarkText);
 			remarkText = JString.ToJString(remarkText, true, true, false, true);
 			remarkText = remarkText.Trim();
 

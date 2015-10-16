@@ -127,6 +127,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueueData.cs" />
     <Compile Include="ReflecTools.cs" />
+    <Compile Include="UtfStringFltr.cs" />
     <Compile Include="RevClientMan.cs" />
     <Compile Include="RtbMan.cs" />
     <Compile Include="SockTest.cs" />

@@ -178,6 +178,7 @@ namespace Charlotte
 		private string MessageFltr(string message)
 		{
 			message = JString.ToJString(message, true, true, false, true);
+			message = UtfStringFltr.Deserialize(message);
 			message = message.Trim();
 
 			if (Gnd.I.Sd.TimeLineText字下げする)

@@ -78,6 +78,7 @@ namespace Charlotte
 		public bool TimeLineText行間を詰める;
 		public bool TimeLineText空行を挟む;
 		public bool TimeLineText字下げする;
+		public bool TimeLineTextUTF対応;
 		public int TimeLineTextTimeFormat; // TimeFormat_e
 		public int TimeLineTextファイルDLモード; // FileDLMode_e
 		public int TimeLineTextPathClickMode; // PathClickMode_e
