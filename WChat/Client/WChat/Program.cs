@@ -19,17 +19,9 @@ namespace Charlotte
 		{
 			BootTools.OnBoot();
 
-			File.Delete(SESSION_ENDING_LOG);
-
 			Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
 			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 			SystemEvents.SessionEnding += new SessionEndingEventHandler(SessionEnding);
-
-#if false // test
-			SystemTools.WriteLog("LOG_TEST_01");
-			SystemTools.WriteLog("LOG_TEST_02");
-			SystemTools.WriteLog("LOG_TEST_03");
-#endif
 
 			Mutex procMtx = new Mutex(false, "{3884a7c2-49e5-4211-9c1b-cbc2c6890b95}");
 
@@ -48,6 +40,12 @@ namespace Charlotte
 				}
 
 				SystemTools.WL_Start();
+
+#if false // test
+				SystemTools.WriteLog("LOG_TEST_01");
+				SystemTools.WriteLog("LOG_TEST_02");
+				SystemTools.WriteLog("LOG_TEST_03");
+#endif
 
 				Gnd.I.Sd.Load();
 				Gnd.I.Sd.PostLoad();
@@ -142,17 +140,8 @@ namespace Charlotte
 
 		private static void SessionEnding(object sender, SessionEndingEventArgs e)
 		{
-			try
-			{
-				File.WriteAllText(SESSION_ENDING_LOG, "" + DateTime.Now);
-			}
-			catch
-			{ }
-
 			Environment.Exit(3);
 		}
-
-		private static string SESSION_ENDING_LOG { get { return BootTools.SelfFile + ".session-ending.log"; } }
 
 		private static void CheckSelfDir()
 		{

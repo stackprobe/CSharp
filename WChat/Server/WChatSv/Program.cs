@@ -19,8 +19,6 @@ namespace Charlotte
 		{
 			BootTools.OnBoot();
 
-			File.Delete(SESSION_ENDING_LOG);
-
 			Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
 			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 			SystemEvents.SessionEnding += new SessionEndingEventHandler(SessionEnding);
@@ -99,17 +97,8 @@ namespace Charlotte
 
 		private static void SessionEnding(object sender, SessionEndingEventArgs e)
 		{
-			try
-			{
-				File.WriteAllText(SESSION_ENDING_LOG, "" + DateTime.Now);
-			}
-			catch
-			{ }
-
 			Environment.Exit(3);
 		}
-
-		private static string SESSION_ENDING_LOG { get { return BootTools.SelfFile + ".session-ending.log"; } }
 
 		private static void CheckSelfDir()
 		{
