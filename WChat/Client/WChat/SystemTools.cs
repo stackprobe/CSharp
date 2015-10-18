@@ -6,6 +6,8 @@ using System.IO;
 using System.Drawing;
 using System.Drawing.Text;
 using System.Security.Cryptography;
+using System.Net;
+using System.Management;
 
 namespace Charlotte
 {
@@ -130,6 +132,69 @@ namespace Charlotte
 		public static uint GetCryptoRand(uint minval, uint maxval)
 		{
 			return GetCryptoRand(maxval + 1 - minval) + minval;
+		}
+
+		public static string GetEnvHashCode()
+		{
+			try
+			{
+				//return "DVSN:" + GetHDDVolumeSerial() + ":IP:" + GetSelfIPAddress();
+				return "DVSN:" + GetHDDVolumeSerial();
+			}
+			catch
+			{ }
+
+			return "EHC_UNKNOWN";
+		}
+
+		public static string GetHDDVolumeSerial()
+		{
+			try
+			{
+				using (ManagementObject mo = new ManagementObject("Win32_LogicalDisk=\"" + BootTools.SelfDir.Substring(0, 2) + "\""))
+				{
+					string ret = "" + mo.Properties["VolumeSerialNumber"].Value;
+					ret = StringTools.ToContainsOnly(ret, StringTools.DIGIT + StringTools.ALPHA + StringTools.alpha);
+
+					if (ret == "")
+						throw null;
+
+					return ret;
+				}
+			}
+			catch
+			{ }
+
+			return "DVSN_UNKNOWN";
+		}
+
+		public static string GetSelfIPAddress()
+		{
+			try
+			{
+				List<string> ips = new List<string>();
+
+				foreach (IPAddress ipa in Dns.GetHostAddresses(Dns.GetHostName()))
+				{
+					string ip = "" + ipa;
+
+					if (ip.Contains(':')) // ignore v6
+						continue;
+
+					ips.Add(ip);
+				}
+				string ret = string.Join(":", ips);
+				ret = StringTools.ToContainsOnly(ret, StringTools.DIGIT + ".:");
+
+				if (ret == "")
+					throw null;
+
+				return ret;
+			}
+			catch
+			{ }
+
+			return "IP_UNKNOWN";
 		}
 	}
 }

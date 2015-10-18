@@ -307,5 +307,16 @@ namespace Charlotte
 
 		private static readonly byte[] NO_PCT_CHR_BYTES = Encoding.ASCII.GetBytes(DIGIT + ALPHA + alpha + ".:/?&=");
 		private static readonly byte[] hexadecmial_bytes = Encoding.ASCII.GetBytes(hexadecimal);
+
+		public static string ToContainsOnly(string str, string validChrs)
+		{
+			StringBuilder buff = new StringBuilder();
+
+			foreach (char chr in str)
+				if (validChrs.Contains(chr))
+					buff.Append(chr);
+
+			return buff.ToString();
+		}
 	}
 }

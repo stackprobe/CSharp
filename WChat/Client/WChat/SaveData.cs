@@ -26,6 +26,17 @@ namespace Charlotte
 			if (this.Ident == null)
 				this.Ident = StringTools.MakeUUID();
 
+			// 環境が変わった。== クライアントが複製された。-> Ident更新
+			{
+				string ehc = SystemTools.GetEnvHashCode();
+
+				if (this.EnvHashCode != ehc)
+				{
+					this.EnvHashCode = ehc;
+					this.Ident = StringTools.MakeUUID();
+				}
+			}
+
 			if (this.TrackName == null)
 				this.TrackName = StringTools.MakePassword_du();
 
@@ -94,6 +105,7 @@ namespace Charlotte
 		public string Ident;
 		public string TrackName;
 		public string UserName;
+		public string EnvHashCode;
 
 		// ---- hidden ----
 

@@ -61,6 +61,7 @@
 			this.MemberListBackColor = new System.Windows.Forms.TextBox();
 			this.BtnLListBackColor = new System.Windows.Forms.Button();
 			this.タイムラインTab = new System.Windows.Forms.TabPage();
+			this.TimeLineTextUTF対応 = new System.Windows.Forms.CheckBox();
 			this.label16 = new System.Windows.Forms.Label();
 			this.TimeLineTextPathClickMode = new System.Windows.Forms.ComboBox();
 			this.label15 = new System.Windows.Forms.Label();
@@ -107,7 +108,8 @@
 			this.ErrProv = new System.Windows.Forms.ErrorProvider(this.components);
 			this.BtnCancel = new System.Windows.Forms.Button();
 			this.BtnOk = new System.Windows.Forms.Button();
-			this.TimeLineTextUTF対応 = new System.Windows.Forms.CheckBox();
+			this.label3 = new System.Windows.Forms.Label();
+			this.EnvHashCode = new System.Windows.Forms.TextBox();
 			this.MainTab.SuspendLayout();
 			this.接続Tab.SuspendLayout();
 			this.ファイル転送Tab.SuspendLayout();
@@ -401,7 +403,7 @@
 			this.FileSvEnabled.AutoSize = true;
 			this.FileSvEnabled.Location = new System.Drawing.Point(25, 27);
 			this.FileSvEnabled.Name = "FileSvEnabled";
-			this.FileSvEnabled.Size = new System.Drawing.Size(143, 16);
+			this.FileSvEnabled.Size = new System.Drawing.Size(184, 24);
 			this.FileSvEnabled.TabIndex = 0;
 			this.FileSvEnabled.Text = "ファイル転送を有効にする";
 			this.FileSvEnabled.UseVisualStyleBackColor = true;
@@ -489,6 +491,16 @@
 			this.タイムラインTab.TabIndex = 3;
 			this.タイムラインTab.Text = "タイムライン";
 			this.タイムラインTab.UseVisualStyleBackColor = true;
+			// 
+			// TimeLineTextUTF対応
+			// 
+			this.TimeLineTextUTF対応.AutoSize = true;
+			this.TimeLineTextUTF対応.Location = new System.Drawing.Point(322, 294);
+			this.TimeLineTextUTF対応.Name = "TimeLineTextUTF対応";
+			this.TimeLineTextUTF対応.Size = new System.Drawing.Size(184, 24);
+			this.TimeLineTextUTF対応.TabIndex = 18;
+			this.TimeLineTextUTF対応.Text = "Compatibility with UTF_x";
+			this.TimeLineTextUTF対応.UseVisualStyleBackColor = true;
 			// 
 			// label16
 			// 
@@ -885,6 +897,8 @@
 			// 
 			// ユーザー設定Tab
 			// 
+			this.ユーザー設定Tab.Controls.Add(this.EnvHashCode);
+			this.ユーザー設定Tab.Controls.Add(this.label3);
 			this.ユーザー設定Tab.Controls.Add(this.label13);
 			this.ユーザー設定Tab.Controls.Add(this.TrackName);
 			this.ユーザー設定Tab.Controls.Add(this.UserName);
@@ -987,15 +1001,26 @@
 			this.BtnOk.UseVisualStyleBackColor = true;
 			this.BtnOk.Click += new System.EventHandler(this.BtnOk_Click);
 			// 
-			// TimeLineTextUTF対応
+			// label3
 			// 
-			this.TimeLineTextUTF対応.AutoSize = true;
-			this.TimeLineTextUTF対応.Location = new System.Drawing.Point(322, 294);
-			this.TimeLineTextUTF対応.Name = "TimeLineTextUTF対応";
-			this.TimeLineTextUTF対応.Size = new System.Drawing.Size(184, 24);
-			this.TimeLineTextUTF対応.TabIndex = 18;
-			this.TimeLineTextUTF対応.Text = "Compatibility with UTF_x";
-			this.TimeLineTextUTF対応.UseVisualStyleBackColor = true;
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(17, 128);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(36, 20);
+			this.label3.TabIndex = 6;
+			this.label3.Text = "EHC";
+			// 
+			// EnvHashCode
+			// 
+			this.EnvHashCode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.EnvHashCode.Location = new System.Drawing.Point(115, 125);
+			this.EnvHashCode.MaxLength = 300;
+			this.EnvHashCode.Name = "EnvHashCode";
+			this.EnvHashCode.ReadOnly = true;
+			this.EnvHashCode.Size = new System.Drawing.Size(516, 27);
+			this.EnvHashCode.TabIndex = 7;
+			this.EnvHashCode.Text = "127.0.0.1";
 			// 
 			// SettingWin
 			// 
@@ -1120,5 +1145,7 @@
 		private System.Windows.Forms.Button Btn_B_LinkColor;
 		private System.Windows.Forms.TextBox B_LinkColor;
 		private System.Windows.Forms.CheckBox TimeLineTextUTF対応;
+		private System.Windows.Forms.TextBox EnvHashCode;
+		private System.Windows.Forms.Label label3;
 	}
 }
