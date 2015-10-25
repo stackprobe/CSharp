@@ -66,8 +66,6 @@ namespace Charlotte
 
 				// < orig
 
-				// ログオフ・シャットダウンした場合、ここまで来ない。
-
 				BusyDlg.Perform(delegate
 				{
 					BusyDlg.I.SetMessage("コマンドの完了を待っています。");

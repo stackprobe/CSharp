@@ -65,6 +65,8 @@ namespace Charlotte
 						SystemTools.WriteLog("STD: " + Gnd.I.ServerTimeDiff);
 				});
 			}
+			if (Gnd.I.Sd.MainWinAlwaysTop)
+				EventTools.MainWinToTop();
 		}
 
 		private void MainWin_FormClosing(object sender, FormClosingEventArgs e)

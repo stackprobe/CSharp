@@ -99,6 +99,8 @@
 			this.BouyomichanDomain = new System.Windows.Forms.TextBox();
 			this.BouyomichanEnabled = new System.Windows.Forms.CheckBox();
 			this.ユーザー設定Tab = new System.Windows.Forms.TabPage();
+			this.EnvHashCode = new System.Windows.Forms.TextBox();
+			this.label3 = new System.Windows.Forms.Label();
 			this.label13 = new System.Windows.Forms.Label();
 			this.TrackName = new System.Windows.Forms.TextBox();
 			this.UserName = new System.Windows.Forms.TextBox();
@@ -108,8 +110,7 @@
 			this.ErrProv = new System.Windows.Forms.ErrorProvider(this.components);
 			this.BtnCancel = new System.Windows.Forms.Button();
 			this.BtnOk = new System.Windows.Forms.Button();
-			this.label3 = new System.Windows.Forms.Label();
-			this.EnvHashCode = new System.Windows.Forms.TextBox();
+			this.MainWinAlwaysTop = new System.Windows.Forms.CheckBox();
 			this.MainTab.SuspendLayout();
 			this.接続Tab.SuspendLayout();
 			this.ファイル転送Tab.SuspendLayout();
@@ -465,6 +466,7 @@
 			// 
 			// タイムラインTab
 			// 
+			this.タイムラインTab.Controls.Add(this.MainWinAlwaysTop);
 			this.タイムラインTab.Controls.Add(this.TimeLineTextUTF対応);
 			this.タイムラインTab.Controls.Add(this.label16);
 			this.タイムラインTab.Controls.Add(this.TimeLineTextPathClickMode);
@@ -913,6 +915,27 @@
 			this.ユーザー設定Tab.Text = "ユーザー設定";
 			this.ユーザー設定Tab.UseVisualStyleBackColor = true;
 			// 
+			// EnvHashCode
+			// 
+			this.EnvHashCode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.EnvHashCode.Location = new System.Drawing.Point(115, 125);
+			this.EnvHashCode.MaxLength = 300;
+			this.EnvHashCode.Name = "EnvHashCode";
+			this.EnvHashCode.ReadOnly = true;
+			this.EnvHashCode.Size = new System.Drawing.Size(516, 27);
+			this.EnvHashCode.TabIndex = 7;
+			this.EnvHashCode.Text = "127.0.0.1";
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(17, 128);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(36, 20);
+			this.label3.TabIndex = 6;
+			this.label3.Text = "EHC";
+			// 
 			// label13
 			// 
 			this.label13.AutoSize = true;
@@ -1001,26 +1024,15 @@
 			this.BtnOk.UseVisualStyleBackColor = true;
 			this.BtnOk.Click += new System.EventHandler(this.BtnOk_Click);
 			// 
-			// label3
+			// MainWinAlwaysTop
 			// 
-			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(17, 128);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(36, 20);
-			this.label3.TabIndex = 6;
-			this.label3.Text = "EHC";
-			// 
-			// EnvHashCode
-			// 
-			this.EnvHashCode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.EnvHashCode.Location = new System.Drawing.Point(115, 125);
-			this.EnvHashCode.MaxLength = 300;
-			this.EnvHashCode.Name = "EnvHashCode";
-			this.EnvHashCode.ReadOnly = true;
-			this.EnvHashCode.Size = new System.Drawing.Size(516, 27);
-			this.EnvHashCode.TabIndex = 7;
-			this.EnvHashCode.Text = "127.0.0.1";
+			this.MainWinAlwaysTop.AutoSize = true;
+			this.MainWinAlwaysTop.Location = new System.Drawing.Point(322, 316);
+			this.MainWinAlwaysTop.Name = "MainWinAlwaysTop";
+			this.MainWinAlwaysTop.Size = new System.Drawing.Size(262, 24);
+			this.MainWinAlwaysTop.TabIndex = 19;
+			this.MainWinAlwaysTop.Text = "メインウィンドウを常に手前に表示する";
+			this.MainWinAlwaysTop.UseVisualStyleBackColor = true;
 			// 
 			// SettingWin
 			// 
@@ -1147,5 +1159,6 @@
 		private System.Windows.Forms.CheckBox TimeLineTextUTF対応;
 		private System.Windows.Forms.TextBox EnvHashCode;
 		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.CheckBox MainWinAlwaysTop;
 	}
 }

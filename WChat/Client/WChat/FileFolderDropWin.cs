@@ -16,6 +16,8 @@ namespace Charlotte
 		public FileFolderDropWin()
 		{
 			InitializeComponent();
+
+			this.TopMost = Gnd.I.Sd.MainWinAlwaysTop; // XXX
 		}
 
 		private void FileFolderDropWin_Load(object sender, EventArgs e)

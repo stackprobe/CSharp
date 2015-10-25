@@ -13,6 +13,9 @@ namespace Charlotte
 			{
 				bool flag = c % 2 == 0;
 
+				if (Gnd.I.Sd.MainWinAlwaysTop)
+					flag = flag == false;
+
 				EventCenter.I.AddEvent(Consts.EVENT_PREFERENCE, delegate
 				{
 					Gnd.I.MainWin.TopMost = flag;

@@ -107,6 +107,8 @@ namespace Charlotte
 		public string UserName;
 		public string EnvHashCode;
 
+		public bool MainWinAlwaysTop;
+
 		// ---- hidden ----
 
 		public bool ServerTimeDiffを取得しない;
