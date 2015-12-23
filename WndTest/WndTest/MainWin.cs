@@ -91,27 +91,5 @@ namespace WndTest
 				e.Handled = true;
 			}
 		}
-
-		private void leftClickToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			SendMessageTools.LeftClick(
-				new IntPtr(int.Parse(this.ParamText.Text))
-				);
-		}
-
-		private void getTextToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			this.MainText.Text = GetTextTools.GetText(
-				new IntPtr(int.Parse(this.ParamText.Text))
-				);
-		}
-
-		private void setTextToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			SetTextTools.SetText(
-				new IntPtr(int.Parse(this.ParamText.Text)),
-				this.MainText.Text
-				);
-		}
 	}
 }

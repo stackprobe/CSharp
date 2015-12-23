@@ -13,7 +13,7 @@ namespace WndTest
 
 		private const int WM_GETTEXT = 0x000D;
 
-		public static string GetText(IntPtr hWnd)
+		public static string Perform(IntPtr hWnd)
 		{
 			StringBuilder buff = new StringBuilder(1024);
 			SendMessage(hWnd, WM_GETTEXT, buff.Capacity, buff);

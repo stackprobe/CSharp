@@ -64,7 +64,7 @@ namespace WndTest
 				info.ClassName = buff.ToString();
 			}
 
-			info.Text = GetTextTools.GetText(hWnd);
+			info.Text = GetTextTools.Perform(hWnd);
 			info.Rect = GetRect(hWnd);
 			info.HWnd = hWnd;
 			info.Parent = Parent;

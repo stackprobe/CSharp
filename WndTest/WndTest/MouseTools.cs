@@ -8,7 +8,13 @@ namespace WndTest
 {
 	public class MouseTools
 	{
-		public struct POINT
+		private struct POINT
+		{
+			public int X;
+			public int Y;
+		}
+
+		public class Point
 		{
 			public int X;
 			public int Y;
@@ -28,19 +34,22 @@ namespace WndTest
 		private const int MOUSEEVENTF_RIGHTDOWN = 0x08;
 		private const int MOUSEEVENTF_RIGHTUP = 0x10;
 
-		public static POINT GetCursor()
+		public static Point GetCursor()
 		{
 			POINT pt;
 
 			if (GetCursorPos(out pt) == false) // ? 失敗
-			{
-				pt.X = 0;
-				pt.Y = 0;
-			}
-			return pt;
+				return null;
+
+			Point ret = new Point();
+
+			ret.X = pt.X;
+			ret.Y = pt.Y;
+
+			return ret;
 		}
 
-		public static void SetCursor(POINT pt)
+		public static void SetCursor(Point pt)
 		{
 			SetCursorPos(pt.X, pt.Y);
 		}
