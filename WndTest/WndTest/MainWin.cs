@@ -91,5 +91,13 @@ namespace WndTest
 				e.Handled = true;
 			}
 		}
+
+		private void keyboardToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			using (Form f = new KeyboardWin())
+			{
+				f.ShowDialog();
+			}
+		}
 	}
 }
