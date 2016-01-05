@@ -79,7 +79,10 @@ namespace WndTest
 				}
 				lines.Add(string.Join(" ", parts));
 			}
-			this.MainText.Text = string.Join("\r\n", lines);
+			string text = string.Join("\r\n", lines);
+
+			if (this.MainText.Text != text)
+				this.MainText.Text = text;
 		}
 
 		private void MainText_TextChanged(object sender, EventArgs e)
