@@ -56,21 +56,30 @@ namespace WCluster
 			return Path.Combine(Environment.GetEnvironmentVariable("TMP"), Guid.NewGuid().ToString("B"));
 		}
 
+		private static readonly Encoding Encoding_SJIS = Encoding.GetEncoding(932);
+
 		private int Cipher(string file, bool encFlag)
 		{
+			string exeFile = GetTempPath() + ".exe";
 			string prmFile = GetTempPath();
 
-			File.WriteAllLines(prmFile, new string[]
-			{
-				"/KB",
-				"*" + Passphrase,
-				encFlag ? "/E+" : "/D+",
-				file,
-			});
+			File.Copy(GetZClusterFile(), exeFile);
+
+			File.WriteAllLines(
+				prmFile,
+				new string[]
+				{
+					"/KB",
+					"*" + Passphrase,
+					encFlag ? "/E+" : "/D+",
+					file,
+				},
+				Encoding_SJIS
+				);
 
 			ProcessStartInfo psi = new ProcessStartInfo();
 
-			psi.FileName = GetZClusterFile();
+			psi.FileName = exeFile;
 			psi.Arguments = "//R \"" + prmFile + "\"";
 			psi.CreateNoWindow = true;
 			psi.UseShellExecute = false;
@@ -79,6 +88,7 @@ namespace WCluster
 			p.WaitForExit();
 			int ret = p.ExitCode;
 
+			File.Delete(exeFile);
 			File.Delete(prmFile);
 
 			return ret;
