@@ -81,7 +81,7 @@ namespace WCluster
 					this.MainProcTh = new Thread(MainProc);
 					this.MainProcTh.Start();
 				}
-				if (5 < this.MT_Count)
+				if (10 < this.MT_Count)
 				{
 					if (this.MainProcTh.IsAlive == false)
 					{
@@ -121,44 +121,136 @@ namespace WCluster
 		private Thread MainProcTh;
 		public static Exception MainProcEx;
 
+		private const string CLUSTER_EXT = ".wclu";
+		private const string DEF_OUT_EXT = ".out";
+
 		private void MainProc()
 		{
 			try
 			{
 				string[] args = Environment.GetCommandLineArgs();
+				args = ShiftArray(args);
 
+				Clusterizer clusterizer = new Clusterizer();
+				bool forceMode = false;
+
+				for (; ; )
+				{
+					if (args[0].ToUpper() == "/F")
+					{
+						forceMode = true;
+						args = ShiftArray(args);
+						continue;
+					}
+					if (args[0].ToUpper() == "/P")
+					{
+						clusterizer = new CipherClusterizer(args[1]);
+						args = ShiftArray(args);
+						args = ShiftArray(args);
+						continue;
+					}
+					if (args[0].ToUpper() == "/-")
+					{
+						args = ShiftArray(args);
+						break;
+					}
+					break;
+				}
+				if (args.Length == 1)
+				{
+					string rPath = args[0];
+
+					rPath = Path.GetFullPath(rPath);
+
+					if (File.Exists(rPath))
+					{
+						string wPath =
+							Path.GetExtension(rPath).ToLower() == CLUSTER_EXT ?
+								EraseExtension(rPath) :
+								rPath + DEF_OUT_EXT;
+
+						if (forceMode == false && ExistsPath(wPath))
+							throw new Exception("出力パスは既に存在します。[1F]");
+
+						clusterizer.FileToDirectory(rPath, wPath);
+						return;
+					}
+					if (Directory.Exists(rPath))
+					{
+						string wPath = rPath + CLUSTER_EXT;
+
+						if (forceMode == false && ExistsPath(wPath))
+							throw new Exception("出力パスは既に存在します。[1D]");
+
+						clusterizer.DirectoryToFile(rPath, wPath);
+						return;
+					}
+					throw new Exception("入力パスは存在しません。[1]");
+				}
 				if (args.Length == 2)
 				{
-					new Clusterizer().Perform(args[1]);
-					return;
-				}
-				if (args.Length == 3)
-				{
-					string rPath = args[1];
-					string wPath = args[2];
+					string rPath = args[0];
+					string wPath = args[1];
+
+					rPath = Path.GetFullPath(rPath);
+					wPath = Path.GetFullPath(wPath);
 
 					if (File.Exists(rPath))
 					{
 						if (Directory.Exists(wPath))
-							wPath = Path.Combine(wPath, Path.GetFileNameWithoutExtension(rPath));
+						{
+							wPath = Path.Combine(
+								wPath,
+								Path.GetExtension(rPath).ToLower() == CLUSTER_EXT ?
+									Path.GetFileNameWithoutExtension(rPath) :
+									Path.GetFileName(rPath) + DEF_OUT_EXT
+								);
+						}
+						if (forceMode == false && ExistsPath(wPath))
+							throw new Exception("出力パスは既に存在します。[2F]");
 
-						new Clusterizer().FileToDirectory(rPath, wPath);
+						clusterizer.FileToDirectory(rPath, wPath);
+						return;
 					}
-					else if (Directory.Exists(rPath))
+					if (Directory.Exists(rPath))
 					{
 						if (Directory.Exists(wPath))
-							wPath = Path.Combine(wPath, Path.GetFileName(rPath) + ".wclu");
+							wPath = Path.Combine(wPath, Path.GetFileName(rPath) + CLUSTER_EXT);
 
-						new Clusterizer().DirectoryToFile(rPath, wPath);
+						if (forceMode == false && ExistsPath(wPath))
+							throw new Exception("出力パスは既に存在します。[2D]");
+
+						clusterizer.DirectoryToFile(rPath, wPath);
+						return;
 					}
-					return;
+					throw new Exception("入力パスは存在しません。[2]");
 				}
-				throw new Exception("コマンド引数に問題があります。");
+				throw new Exception("コマンド引数エラー");
 			}
 			catch (Exception e)
 			{
 				MainProcEx = e;
 			}
+		}
+
+		public static string[] ShiftArray(string[] src)
+		{
+			string[] dest = new string[src.Length - 1];
+
+			for (int index = 1; index < src.Length; index++)
+				dest[index - 1] = src[index];
+
+			return dest;
+		}
+
+		public static string EraseExtension(string path)
+		{
+			return Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path));
+		}
+
+		public static bool ExistsPath(string path)
+		{
+			return File.Exists(path) || Directory.Exists(path);
 		}
 	}
 }

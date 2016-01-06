@@ -9,38 +9,10 @@ namespace WCluster
 {
 	public class Clusterizer
 	{
-		public string Perform(string rPath)
-		{
-			rPath = Path.GetFullPath(rPath);
-
-			if (File.Exists(rPath))
-			{
-				string wDir = EraseExtension(rPath);
-
-				if (File.Exists(wDir)) // ? wDir == rPath
-					wDir += ".out";
-
-				FileToDirectory(rPath, wDir);
-				return wDir;
-			}
-			if (Directory.Exists(rPath))
-			{
-				string wFile = rPath + ".wclu";
-				DirectoryToFile(rPath, wFile);
-				return wFile;
-			}
-			throw new Exception("入力パスは存在しません。");
-		}
-
-		public static string EraseExtension(string path)
-		{
-			return Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path));
-		}
-
 		private GZipStream Wfs;
 		private byte[] RWBuff = new byte[1024 * 1024 * 4];
 
-		public void DirectoryToFile(string rDir, string wFile)
+		public virtual void DirectoryToFile(string rDir, string wFile)
 		{
 			rDir = Path.GetFullPath(rDir);
 			wFile = Path.GetFullPath(wFile);
@@ -133,7 +105,7 @@ namespace WCluster
 
 		private GZipStream Rfs;
 
-		public void FileToDirectory(string rFile, string wDir)
+		public virtual void FileToDirectory(string rFile, string wDir)
 		{
 			rFile = Path.GetFullPath(rFile);
 			wDir = Path.GetFullPath(wDir);
@@ -181,8 +153,8 @@ namespace WCluster
 
 					WriteDir(aPath);
 
-					File.SetAttributes(aPath, attr);
 					Directory.SetCreationTimeUtc(aPath, creationTimeUtc);
+					File.SetAttributes(aPath, attr); // 最後に！
 				}
 				else // ? chr == 0x0f
 				{
@@ -201,10 +173,10 @@ namespace WCluster
 							rPos += (ulong)readSize;
 						}
 					}
-					File.SetAttributes(aPath, attr);
 					File.SetCreationTimeUtc(aPath, creationTimeUtc);
 					File.SetLastAccessTimeUtc(aPath, lastAccessTimeUtc);
 					File.SetLastWriteTimeUtc(aPath, lastWriteTimeUtc);
+					File.SetAttributes(aPath, attr); // 最後にやること。書き込み禁止の場合、日時の変更が出来なくなる！
 				}
 			}
 		}
@@ -236,14 +208,62 @@ namespace WCluster
 			return DateTime.MinValue + TimeSpan.FromSeconds((double)sec);
 		}
 
+		private const string LPATH_NG_CHRS = "\"*/:<>?\\|";
+
 		public static bool IsFairLocalPath(string lPath)
 		{
 			return
-				lPath != "." &&
-				lPath != ".." &&
-				lPath.Contains(':') == false &&
-				lPath.Contains('/') == false &&
-				lPath.Contains('\\') == false;
+				//lPath != "." &&
+				//lPath != ".." &&
+				lPath.EndsWith(".") == false &&
+				ContainsChars(lPath, LPATH_NG_CHRS) == false &&
+				IsWindowsReserveLocalPath(lPath) == false;
+		}
+
+		private static bool ContainsChars(string str, string chrs)
+		{
+			foreach (char chr in chrs)
+				if (str.Contains(chr))
+					return true;
+
+			return false;
+		}
+
+		private static string[] WindowsReserveNodeList;
+
+		public static bool IsWindowsReserveLocalPath(string lPath)
+		{
+			if (WindowsReserveNodeList == null)
+			{
+				List<string> buff = new List<string>();
+
+				buff.Add("AUX");
+				buff.Add("CON");
+				buff.Add("NUL");
+				buff.Add("PRN");
+
+				for (int i = 1; i <= 9; i++)
+				{
+					buff.Add("COM" + i);
+					buff.Add("LPT" + i);
+				}
+
+				// グレーゾーン {
+				buff.Add("COM0");
+				buff.Add("LPT0");
+				buff.Add("CLOCK$");
+				buff.Add("CONFIG$");
+				// }
+
+				WindowsReserveNodeList = buff.ToArray();
+			}
+			lPath = lPath.ToUpper();
+
+			foreach (string wrn in WindowsReserveNodeList)
+				if (lPath.Equals(wrn) || lPath.StartsWith(wrn + "."))
+					return true;
+
+			return false;
 		}
 	}
 }
