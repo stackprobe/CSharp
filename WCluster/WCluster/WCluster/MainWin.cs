@@ -129,7 +129,7 @@ namespace WCluster
 
 				if (args.Length == 2)
 				{
-					new Clusterizer().Perform(Environment.GetCommandLineArgs()[1]);
+					new Clusterizer().Perform(args[1]);
 					return;
 				}
 				if (args.Length == 3)
