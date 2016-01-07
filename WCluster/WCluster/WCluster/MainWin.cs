@@ -50,6 +50,8 @@ namespace WCluster
 			this.ProgressImg.Width = this.ProgressImg.Image.Width;
 			this.ProgressImg.Height = this.ProgressImg.Image.Height;
 
+			this.Status.ForeColor = Color.White;
+
 			this.MT_Enabled = true;
 		}
 
@@ -81,7 +83,7 @@ namespace WCluster
 					this.MainProcTh = new Thread(MainProc);
 					this.MainProcTh.Start();
 				}
-				if (10 < this.MT_Count)
+				if (5 < this.MT_Count)
 				{
 					if (this.MainProcTh.IsAlive == false)
 					{
@@ -91,15 +93,55 @@ namespace WCluster
 					}
 				}
 
+				lock (Confirm_SYNCROOT)
+				{
+					if (Confirm_Message != null)
+					{
+						this.MT_Enabled = false;
+						//this.Visible = false;
+
+						DialogResult ret = MessageBox.Show(
+							Confirm_Message,
+							"WCluster / 確認",
+							MessageBoxButtons.OKCancel,
+							MessageBoxIcon.Warning
+							);
+
+						Confirm_Message = null;
+						Confirm_Ret = ret == DialogResult.OK;
+
+						//this.Visible = true;
+						this.MT_Enabled = true;
+					}
+				}
+
+				if (this.MT_Count % 3 == 0)
 				{
 					int l = (this.MainPanel.Width - this.ProgressImg.Width) / 2;
 					int t = (this.MainPanel.Height - this.ProgressImg.Height) / 2;
+					t -= 5;
 
 					if (this.ProgressImg.Left != l)
 						this.ProgressImg.Left = l;
 
 					if (this.ProgressImg.Top != t)
 						this.ProgressImg.Top = t;
+
+					if (20 < this.MT_Count)
+					{
+						this.Status.Text = Clusterizer.DirCounter.GetCount() +
+							" directories, " +
+							Clusterizer.FileCounter.GetCount() +
+							" files processed";
+					}
+					l += (this.ProgressImg.Width - this.Status.Width) / 2;
+					t += this.ProgressImg.Height + 10;
+
+					if (this.Status.Left != l)
+						this.Status.Left = l;
+
+					if (this.Status.Top != t)
+						this.Status.Top = t;
 				}
 
 				Image img = this.ProgressImg.Image;
@@ -149,6 +191,12 @@ namespace WCluster
 						args = ShiftArray(args);
 						continue;
 					}
+					if (args[0].ToUpper() == "/S")
+					{
+						Clusterizer.ShowConsoleFlag = true;
+						args = ShiftArray(args);
+						continue;
+					}
 					if (args[0].ToUpper() == "/-")
 					{
 						args = ShiftArray(args);
@@ -169,8 +217,12 @@ namespace WCluster
 								EraseExtension(rPath) :
 								rPath + DEF_OUT_EXT;
 
-						if (forceMode == false && ExistsPath(wPath))
-							throw new Exception("出力パスは既に存在します。[1F]");
+						if (
+							forceMode == false &&
+							ExistsPath(wPath) &&
+							ConfirmOverwrite("[1F]") == false
+							)
+							return;
 
 						clusterizer.FileToDirectory(rPath, wPath);
 						return;
@@ -179,8 +231,12 @@ namespace WCluster
 					{
 						string wPath = rPath + CLUSTER_EXT;
 
-						if (forceMode == false && ExistsPath(wPath))
-							throw new Exception("出力パスは既に存在します。[1D]");
+						if (
+							forceMode == false &&
+							ExistsPath(wPath) &&
+							ConfirmOverwrite("[1D]") == false
+							)
+							return;
 
 						clusterizer.DirectoryToFile(rPath, wPath);
 						return;
@@ -206,8 +262,12 @@ namespace WCluster
 									Path.GetFileName(rPath) + DEF_OUT_EXT
 								);
 						}
-						if (forceMode == false && ExistsPath(wPath))
-							throw new Exception("出力パスは既に存在します。[2F]");
+						if (
+							forceMode == false &&
+							ExistsPath(wPath) &&
+							ConfirmOverwrite("[2F]") == false
+							)
+							return;
 
 						clusterizer.FileToDirectory(rPath, wPath);
 						return;
@@ -217,8 +277,12 @@ namespace WCluster
 						if (Directory.Exists(wPath))
 							wPath = Path.Combine(wPath, Path.GetFileName(rPath) + CLUSTER_EXT);
 
-						if (forceMode == false && ExistsPath(wPath))
-							throw new Exception("出力パスは既に存在します。[2D]");
+						if (
+							forceMode == false &&
+							ExistsPath(wPath) &&
+							ConfirmOverwrite("[2D]") == false
+							)
+							return;
 
 						clusterizer.DirectoryToFile(rPath, wPath);
 						return;
@@ -251,6 +315,35 @@ namespace WCluster
 		public static bool ExistsPath(string path)
 		{
 			return File.Exists(path) || Directory.Exists(path);
+		}
+
+		private object Confirm_SYNCROOT = new object();
+		private string Confirm_Message;
+		private bool Confirm_Ret;
+
+		private bool ConfirmOverwrite(string trailer)
+		{
+			return Confirm("出力パスは既に存在します。上書きしますか？ " + trailer);
+		}
+
+		private bool Confirm(string message)
+		{
+			lock (Confirm_SYNCROOT)
+			{
+				Confirm_Message = message;
+			}
+			for (; ; )
+			{
+				Thread.Sleep(200); // XXX
+
+				lock (Confirm_SYNCROOT)
+				{
+					if (Confirm_Message == null)
+					{
+						return Confirm_Ret;
+					}
+				}
+			}
 		}
 	}
 }

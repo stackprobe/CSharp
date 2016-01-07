@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="CipherClusterizer.cs" />
     <Compile Include="Clusterizer.cs" />
+    <Compile Include="SyncLongCounter.cs" />
     <Compile Include="MainWin.cs">
       <SubType>Form</SubType>
     </Compile>

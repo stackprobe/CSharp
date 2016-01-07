@@ -14,6 +14,9 @@ namespace WCluster
 		public CipherClusterizer(string passphrase)
 		{
 			Passphrase = passphrase;
+
+			if (!IsFairPassphrase(Passphrase))
+				throw new Exception("パスフレーズの書式に問題があります。");
 		}
 
 		public override void DirectoryToFile(string rDir, string wFile)
@@ -65,8 +68,8 @@ namespace WCluster
 
 			try
 			{
-				if (IsFairPassphrase(Passphrase) == false)
-					throw new Exception("パスフレーズの書式に問題があります。");
+				if (!IsFairPassphrase(Passphrase))
+					throw null;
 
 				exeFile = GetTempPath() + ".exe";
 				prmFile = GetTempPath() + ".prm";
@@ -92,6 +95,12 @@ namespace WCluster
 				psi.CreateNoWindow = true;
 				psi.UseShellExecute = false;
 
+				if (ShowConsoleFlag)
+				{
+					psi.CreateNoWindow = false;
+					psi.UseShellExecute = true;
+				}
+
 				Process p = Process.Start(psi);
 				p.WaitForExit();
 				int ret = p.ExitCode;
@@ -113,12 +122,6 @@ namespace WCluster
 			// 空文字列は /KB * オプションに指定出来ない！
 
 			if (passphrase == "")
-				return false;
-
-			if (passphrase[0] <= ' ')
-				return false;
-
-			if (passphrase[passphrase.Length - 1] <= ' ')
 				return false;
 
 			foreach (char chr in passphrase)

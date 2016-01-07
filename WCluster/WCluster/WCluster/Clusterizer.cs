@@ -9,6 +9,14 @@ namespace WCluster
 {
 	public class Clusterizer
 	{
+		// extra {
+
+		public static bool ShowConsoleFlag;
+		public static SyncLongCounter DirCounter = new SyncLongCounter();
+		public static SyncLongCounter FileCounter = new SyncLongCounter();
+
+		// }
+
 		private GZipStream Wfs;
 		private byte[] RWBuff = new byte[1024 * 1024 * 4];
 
@@ -21,6 +29,7 @@ namespace WCluster
 			using (GZipStream gzs = new GZipStream(wfs, CompressionMode.Compress))
 			{
 				Wfs = gzs;
+				Wfs.WriteByte(0x0c);
 				IntoDir(rDir);
 				Wfs = null;
 			}
@@ -30,6 +39,8 @@ namespace WCluster
 		{
 			foreach (string dir in Directory.GetDirectories(rDir))
 			{
+				DirCounter.Increment();
+
 				string lDir = Path.GetFileName(dir);
 				byte[] bLDir = Encoding.UTF8.GetBytes(lDir);
 				string aDir = Path.Combine(rDir, lDir);
@@ -41,11 +52,11 @@ namespace WCluster
 				Add(GetBytes(RWBuff, GetValue(Directory.GetCreationTimeUtc(aDir))), 8);
 
 				IntoDir(aDir);
-
-				Wfs.WriteByte(0x0e);
 			}
 			foreach (string file in Directory.GetFiles(rDir))
 			{
+				FileCounter.Increment();
+
 				string lFile = Path.GetFileName(file);
 				byte[] bLFile = Encoding.UTF8.GetBytes(lFile);
 				string aFile = Path.Combine(rDir, lFile);
@@ -72,6 +83,7 @@ namespace WCluster
 					}
 				}
 			}
+			Wfs.WriteByte(0x0e);
 		}
 
 		private ulong GetValue(DateTime time)
@@ -114,6 +126,10 @@ namespace WCluster
 			using (GZipStream gzs = new GZipStream(rfs, CompressionMode.Decompress))
 			{
 				Rfs = gzs;
+
+				if (Rfs.ReadByte() != 0x0c)
+					throw new Exception("想定外の先頭バイト");
+
 				WriteDir(wDir);
 				Rfs = null;
 			}
@@ -128,7 +144,10 @@ namespace WCluster
 			{
 				int chr = Rfs.ReadByte();
 
-				if (chr == -1 || chr == 0x0e)
+				if (chr == -1)
+					throw new Exception("ファイルの終端に達した。");
+
+				if (chr == 0x0e)
 					break;
 
 				if (chr != 0x0d && chr != 0x0f)
@@ -148,6 +167,8 @@ namespace WCluster
 
 				if (chr == 0x0d)
 				{
+					DirCounter.Increment();
+
 					FileAttributes attr = (FileAttributes)GetValue(Next(RWBuff, 8));
 					DateTime creationTimeUtc = GetDateTime(GetValue(Next(RWBuff, 8)));
 
@@ -158,6 +179,8 @@ namespace WCluster
 				}
 				else // ? chr == 0x0f
 				{
+					FileCounter.Increment();
+
 					FileAttributes attr = (FileAttributes)GetValue(Next(RWBuff, 8));
 					DateTime creationTimeUtc = GetDateTime(GetValue(Next(RWBuff, 8)));
 					DateTime lastAccessTimeUtc = GetDateTime(GetValue(Next(RWBuff, 8)));
@@ -216,8 +239,18 @@ namespace WCluster
 				//lPath != "." &&
 				//lPath != ".." &&
 				lPath.EndsWith(".") == false &&
+				ContainsControlCode(lPath) == false &&
 				ContainsChars(lPath, LPATH_NG_CHRS) == false &&
 				IsWindowsReserveLocalPath(lPath) == false;
+		}
+
+		private static bool ContainsControlCode(string str)
+		{
+			foreach (char chr in str)
+				if (chr < ' ')
+					return true;
+
+			return false;
 		}
 
 		private static bool ContainsChars(string str, string chrs)
