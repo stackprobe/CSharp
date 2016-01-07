@@ -41,7 +41,7 @@ namespace WCluster
 				File.Copy(rFile, midFile);
 
 				if (Cipher(midFile, false) != 0)
-					throw new Exception("復号に失敗しました。");
+					throw new Exception("復号に失敗しました。パスフレーズに間違があるか、入力ファイルが破損しています。");
 
 				base.FileToDirectory(midFile, wDir);
 			}
@@ -60,38 +60,72 @@ namespace WCluster
 
 		private int Cipher(string file, bool encFlag)
 		{
-			string exeFile = GetTempPath() + ".exe";
-			string prmFile = GetTempPath();
+			string exeFile = null;
+			string prmFile = null;
 
-			File.Copy(GetZClusterFile(), exeFile);
+			try
+			{
+				if (IsFairPassphrase(Passphrase) == false)
+					throw new Exception("パスフレーズの書式に問題があります。");
 
-			File.WriteAllLines(
-				prmFile,
-				new string[]
-				{
-					"/KB",
-					"*" + Passphrase,
-					encFlag ? "/E+" : "/D+",
-					file,
-				},
-				Encoding_SJIS
-				);
+				exeFile = GetTempPath() + ".exe";
+				prmFile = GetTempPath() + ".prm";
 
-			ProcessStartInfo psi = new ProcessStartInfo();
+				File.Copy(GetZClusterFile(), exeFile);
 
-			psi.FileName = exeFile;
-			psi.Arguments = "//R \"" + prmFile + "\"";
-			psi.CreateNoWindow = true;
-			psi.UseShellExecute = false;
+				File.WriteAllLines(
+					prmFile,
+					new string[]
+					{
+						"/KB",
+						"*" + Passphrase,
+						encFlag ? "/E+" : "/D+",
+						file,
+					},
+					Encoding_SJIS
+					);
 
-			Process p = Process.Start(psi);
-			p.WaitForExit();
-			int ret = p.ExitCode;
+				ProcessStartInfo psi = new ProcessStartInfo();
 
-			File.Delete(exeFile);
-			File.Delete(prmFile);
+				psi.FileName = exeFile;
+				psi.Arguments = "//R \"" + prmFile + "\"";
+				psi.CreateNoWindow = true;
+				psi.UseShellExecute = false;
 
-			return ret;
+				Process p = Process.Start(psi);
+				p.WaitForExit();
+				int ret = p.ExitCode;
+
+				return ret;
+			}
+			finally
+			{
+				if (exeFile != null)
+					File.Delete(exeFile);
+
+				if (prmFile != null)
+					File.Delete(prmFile);
+			}
+		}
+
+		public static bool IsFairPassphrase(string passphrase)
+		{
+			// 空文字列は /KB * オプションに指定出来ない！
+
+			if (passphrase == "")
+				return false;
+
+			if (passphrase[0] <= ' ')
+				return false;
+
+			if (passphrase[passphrase.Length - 1] <= ' ')
+				return false;
+
+			foreach (char chr in passphrase)
+				if (chr < ' ')
+					return false;
+
+			return true;
 		}
 
 		private static string ZClusterFile;
