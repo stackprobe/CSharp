@@ -322,5 +322,22 @@ namespace WCluster
 
 			return false;
 		}
+
+		public void CopyFile(string rFile, string wFile)
+		{
+			using (FileStream rfs = new FileStream(rFile, FileMode.Open, FileAccess.Read))
+			using (FileStream wfs = new FileStream(wFile, FileMode.Create, FileAccess.Write))
+			{
+				for (; ; )
+				{
+					int readSize = rfs.Read(RWBuff, 0, RWBuff.Length);
+
+					if (readSize <= 0)
+						break;
+
+					wfs.Write(RWBuff, 0, readSize);
+				}
+			}
+		}
 	}
 }

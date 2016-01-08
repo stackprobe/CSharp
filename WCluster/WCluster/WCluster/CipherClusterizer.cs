@@ -33,10 +33,10 @@ namespace WCluster
 				Cipher(midFile, true);
 
 				CheckCancel();
-				Clusterizer.Status.SetString("Moving cluster file");
+				Clusterizer.Status.SetString("Copying cluster file");
 
-				File.Delete(wFile); // File.Move は上書き出来ない。
-				File.Move(midFile, wFile);
+				File.Delete(wFile); // 2bs -- 既存のファイルを上書きすると、権限とか引き継いじゃう？？？
+				CopyFile(midFile, wFile);
 			}
 			finally
 			{
