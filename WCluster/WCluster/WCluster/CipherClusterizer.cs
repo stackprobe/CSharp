@@ -143,6 +143,9 @@ namespace WCluster
 				if (chr < ' ')
 					return false;
 
+			if (passphrase != Encoding_SJIS.GetString(Encoding_SJIS.GetBytes(passphrase)))
+				return false;
+
 			return true;
 		}
 
