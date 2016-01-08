@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="CipherClusterizer.cs" />
     <Compile Include="Clusterizer.cs" />
+    <Compile Include="SyncFlag.cs" />
     <Compile Include="SyncLongCounter.cs" />
     <Compile Include="MainWin.cs">
       <SubType>Form</SubType>
@@ -62,6 +63,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SyncString.cs" />
     <EmbeddedResource Include="MainWin.resx">
       <DependentUpon>MainWin.cs</DependentUpon>
     </EmbeddedResource>

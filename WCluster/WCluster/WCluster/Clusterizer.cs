@@ -12,8 +12,21 @@ namespace WCluster
 		// extra {
 
 		public static bool ShowConsoleFlag;
+		public static SyncFlag CancelFlag = new SyncFlag();
+		public static SyncString Status = new SyncString("Starting...");
 		public static SyncLongCounter DirCounter = new SyncLongCounter();
 		public static SyncLongCounter FileCounter = new SyncLongCounter();
+
+		public static void CheckCancel()
+		{
+			if (CancelFlag.GetFlag())
+			{
+				throw new Cancelled();
+			}
+		}
+
+		public class Cancelled : Exception
+		{ }
 
 		// }
 
@@ -22,6 +35,9 @@ namespace WCluster
 
 		public virtual void DirectoryToFile(string rDir, string wFile)
 		{
+			CheckCancel();
+			Clusterizer.Status.SetString("Clusterizing...");
+
 			rDir = Path.GetFullPath(rDir);
 			wFile = Path.GetFullPath(wFile);
 
@@ -39,8 +55,6 @@ namespace WCluster
 		{
 			foreach (string dir in Directory.GetDirectories(rDir))
 			{
-				DirCounter.Increment();
-
 				string lDir = Path.GetFileName(dir);
 				byte[] bLDir = Encoding.UTF8.GetBytes(lDir);
 				string aDir = Path.Combine(rDir, lDir);
@@ -52,11 +66,12 @@ namespace WCluster
 				Add(GetBytes(RWBuff, GetValue(Directory.GetCreationTimeUtc(aDir))), 8);
 
 				IntoDir(aDir);
+
+				CheckCancel();
+				DirCounter.Increment();
 			}
 			foreach (string file in Directory.GetFiles(rDir))
 			{
-				FileCounter.Increment();
-
 				string lFile = Path.GetFileName(file);
 				byte[] bLFile = Encoding.UTF8.GetBytes(lFile);
 				string aFile = Path.Combine(rDir, lFile);
@@ -80,8 +95,11 @@ namespace WCluster
 							break;
 
 						Wfs.Write(RWBuff, 0, readSize);
+						CheckCancel();
 					}
 				}
+				CheckCancel();
+				FileCounter.Increment();
 			}
 			Wfs.WriteByte(0x0e);
 		}
@@ -119,6 +137,9 @@ namespace WCluster
 
 		public virtual void FileToDirectory(string rFile, string wDir)
 		{
+			CheckCancel();
+			Clusterizer.Status.SetString("Extracting...");
+
 			rFile = Path.GetFullPath(rFile);
 			wDir = Path.GetFullPath(wDir);
 
@@ -167,8 +188,6 @@ namespace WCluster
 
 				if (chr == 0x0d)
 				{
-					DirCounter.Increment();
-
 					FileAttributes attr = (FileAttributes)GetValue(Next(RWBuff, 8));
 					DateTime creationTimeUtc = GetDateTime(GetValue(Next(RWBuff, 8)));
 
@@ -176,11 +195,12 @@ namespace WCluster
 
 					Directory.SetCreationTimeUtc(aPath, creationTimeUtc);
 					File.SetAttributes(aPath, attr); // 最後に！
+
+					CheckCancel();
+					DirCounter.Increment();
 				}
 				else // ? chr == 0x0f
 				{
-					FileCounter.Increment();
-
 					FileAttributes attr = (FileAttributes)GetValue(Next(RWBuff, 8));
 					DateTime creationTimeUtc = GetDateTime(GetValue(Next(RWBuff, 8)));
 					DateTime lastAccessTimeUtc = GetDateTime(GetValue(Next(RWBuff, 8)));
@@ -194,12 +214,16 @@ namespace WCluster
 							int readSize = (int)Math.Min((ulong)RWBuff.Length, fileSize - rPos);
 							wfs.Write(Next(RWBuff, readSize), 0, readSize);
 							rPos += (ulong)readSize;
+							CheckCancel();
 						}
 					}
 					File.SetCreationTimeUtc(aPath, creationTimeUtc);
 					File.SetLastAccessTimeUtc(aPath, lastAccessTimeUtc);
 					File.SetLastWriteTimeUtc(aPath, lastWriteTimeUtc);
 					File.SetAttributes(aPath, attr); // 最後にやること。書き込み禁止の場合、日時の変更が出来なくなる！
+
+					CheckCancel();
+					FileCounter.Increment();
 				}
 			}
 		}

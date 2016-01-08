@@ -26,7 +26,16 @@ namespace WCluster
 			try
 			{
 				base.DirectoryToFile(rDir, midFile);
+
+				CheckCancel();
+				Clusterizer.Status.SetString("Encrypting cluster file");
+
 				Cipher(midFile, true);
+
+				CheckCancel();
+				Clusterizer.Status.SetString("Moving cluster file");
+
+				File.Delete(wFile); // File.Move は上書き出来ない。
 				File.Move(midFile, wFile);
 			}
 			finally
@@ -41,10 +50,16 @@ namespace WCluster
 
 			try
 			{
+				CheckCancel();
+				Clusterizer.Status.SetString("Copying cluster file");
+
 				File.Copy(rFile, midFile);
 
+				CheckCancel();
+				Clusterizer.Status.SetString("Decrypting cluster file");
+
 				if (Cipher(midFile, false) != 0)
-					throw new Exception("復号に失敗しました。パスフレーズに間違があるか、入力ファイルが破損しています。");
+					throw new Exception("復号に失敗しました。\nパスフレーズが間違っているか、入力ファイルが破損しています。");
 
 				base.FileToDirectory(midFile, wDir);
 			}
@@ -68,7 +83,7 @@ namespace WCluster
 
 			try
 			{
-				if (!IsFairPassphrase(Passphrase))
+				if (!IsFairPassphrase(Passphrase)) // 2bs -- コンストラクタで確認しているはず。
 					throw null;
 
 				exeFile = GetTempPath() + ".exe";

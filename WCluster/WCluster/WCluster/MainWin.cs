@@ -23,8 +23,10 @@ namespace WCluster
 			const long SC_CLOSE = 0xF060L;
 
 			if (m.Msg == WM_SYSCOMMAND && (m.WParam.ToInt64() & 0xFFF0L) == SC_CLOSE)
+			{
+				Clusterizer.CancelFlag.SetFlag(true);
 				return;
-
+			}
 			base.WndProc(ref m);
 		}
 
@@ -51,6 +53,7 @@ namespace WCluster
 			this.ProgressImg.Height = this.ProgressImg.Image.Height;
 
 			this.Status.ForeColor = Color.White;
+			this.Status2.ForeColor = Color.Gray;
 
 			this.MT_Enabled = true;
 		}
@@ -97,9 +100,6 @@ namespace WCluster
 				{
 					if (Confirm_Message != null)
 					{
-						this.MT_Enabled = false;
-						//this.Visible = false;
-
 						DialogResult ret = MessageBox.Show(
 							Confirm_Message,
 							"WCluster / 確認",
@@ -109,9 +109,6 @@ namespace WCluster
 
 						Confirm_Message = null;
 						Confirm_Ret = ret == DialogResult.OK;
-
-						//this.Visible = true;
-						this.MT_Enabled = true;
 					}
 				}
 
@@ -119,7 +116,7 @@ namespace WCluster
 				{
 					int l = (this.MainPanel.Width - this.ProgressImg.Width) / 2;
 					int t = (this.MainPanel.Height - this.ProgressImg.Height) / 2;
-					t -= 5;
+					t -= 10;
 
 					if (this.ProgressImg.Left != l)
 						this.ProgressImg.Left = l;
@@ -127,13 +124,33 @@ namespace WCluster
 					if (this.ProgressImg.Top != t)
 						this.ProgressImg.Top = t;
 
-					if (20 < this.MT_Count)
 					{
-						this.Status.Text = Clusterizer.DirCounter.GetCount() +
-							" directories, " +
-							Clusterizer.FileCounter.GetCount() +
-							" files processed";
+						string status = Clusterizer.CancelFlag.GetFlag() ?
+							"Cancelling..." :
+							Clusterizer.Status.GetString();
+
+						long dirCount = Clusterizer.DirCounter.GetCount();
+						long fileCount = Clusterizer.FileCounter.GetCount();
+						string status2;
+
+						if (dirCount == 0 && fileCount == 0)
+						{
+							status2 = "";
+						}
+						else
+						{
+							status2 = Clusterizer.DirCounter.GetCount() +
+								" directories, " +
+								Clusterizer.FileCounter.GetCount() +
+								" files processed";
+						}
+						if (this.Status.Text != status)
+							this.Status.Text = status;
+
+						if (this.Status2.Text != status2)
+							this.Status2.Text = status2;
 					}
+
 					l += (this.ProgressImg.Width - this.Status.Width) / 2;
 					t += this.ProgressImg.Height + 10;
 
@@ -142,6 +159,15 @@ namespace WCluster
 
 					if (this.Status.Top != t)
 						this.Status.Top = t;
+
+					l = this.ProgressImg.Left + (this.ProgressImg.Width - this.Status2.Width) / 2;
+					t += 20;
+
+					if (this.Status2.Left != l)
+						this.Status2.Left = l;
+
+					if (this.Status2.Top != t)
+						this.Status2.Top = t;
 				}
 
 				Image img = this.ProgressImg.Image;
@@ -225,6 +251,7 @@ namespace WCluster
 							return;
 
 						clusterizer.FileToDirectory(rPath, wPath);
+						Completed();
 						return;
 					}
 					if (Directory.Exists(rPath))
@@ -239,6 +266,7 @@ namespace WCluster
 							return;
 
 						clusterizer.DirectoryToFile(rPath, wPath);
+						Completed();
 						return;
 					}
 					throw new Exception("入力パスは存在しません。[1]");
@@ -270,6 +298,7 @@ namespace WCluster
 							return;
 
 						clusterizer.FileToDirectory(rPath, wPath);
+						Completed();
 						return;
 					}
 					if (Directory.Exists(rPath))
@@ -285,6 +314,7 @@ namespace WCluster
 							return;
 
 						clusterizer.DirectoryToFile(rPath, wPath);
+						Completed();
 						return;
 					}
 					throw new Exception("入力パスは存在しません。[2]");
@@ -334,7 +364,7 @@ namespace WCluster
 			}
 			for (; ; )
 			{
-				Thread.Sleep(200); // XXX
+				Thread.Sleep(200); // MainTimer_Tick でロックされるまで、、ロックされたら回らなくなるので注意！
 
 				lock (Confirm_SYNCROOT)
 				{
@@ -344,6 +374,12 @@ namespace WCluster
 					}
 				}
 			}
+		}
+
+		private void Completed()
+		{
+			Clusterizer.Status.SetString("Completed successfully");
+			Thread.Sleep(500);
 		}
 	}
 }

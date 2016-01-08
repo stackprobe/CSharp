@@ -34,6 +34,7 @@
 			this.ProgressImg = new System.Windows.Forms.PictureBox();
 			this.MainPanel = new System.Windows.Forms.Panel();
 			this.Status = new System.Windows.Forms.Label();
+			this.Status2 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.ProgressImg)).BeginInit();
 			this.MainPanel.SuspendLayout();
 			this.SuspendLayout();
@@ -58,6 +59,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.MainPanel.Controls.Add(this.Status);
+			this.MainPanel.Controls.Add(this.Status2);
 			this.MainPanel.Controls.Add(this.ProgressImg);
 			this.MainPanel.Location = new System.Drawing.Point(12, 12);
 			this.MainPanel.Name = "MainPanel";
@@ -74,6 +76,17 @@
 			this.Status.TabIndex = 1;
 			this.Status.Text = "Ready...";
 			this.Status.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// Status2
+			// 
+			this.Status2.AutoSize = true;
+			this.Status2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.Status2.Location = new System.Drawing.Point(21, 177);
+			this.Status2.Name = "Status2";
+			this.Status2.Size = new System.Drawing.Size(55, 13);
+			this.Status2.TabIndex = 2;
+			this.Status2.Text = "Ready...";
+			this.Status2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// MainWin
 			// 
@@ -104,6 +117,7 @@
 		private System.Windows.Forms.PictureBox ProgressImg;
 		private System.Windows.Forms.Panel MainPanel;
 		private System.Windows.Forms.Label Status;
+		private System.Windows.Forms.Label Status2;
 	}
 }
 

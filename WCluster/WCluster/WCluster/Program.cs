@@ -23,12 +23,24 @@ namespace WCluster
 
 			if (MainWin.MainProcEx != null)
 			{
-				MessageBox.Show(
-					"" + MainWin.MainProcEx,
-					"WCluster / エラー",
-					MessageBoxButtons.OK,
-					MessageBoxIcon.Error
-					);
+				if (MainWin.MainProcEx is Clusterizer.Cancelled)
+				{
+					MessageBox.Show(
+						"キャンセルしました。",
+						"WCluster / キャンセル",
+						MessageBoxButtons.OK,
+						MessageBoxIcon.Information
+						);
+				}
+				else
+				{
+					MessageBox.Show(
+						MainWin.MainProcEx.Message,
+						"WCluster / エラー",
+						MessageBoxButtons.OK,
+						MessageBoxIcon.Error
+						);
+				}
 			}
 		}
 	}
