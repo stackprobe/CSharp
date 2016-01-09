@@ -201,6 +201,7 @@ namespace WCluster
 
 				Clusterizer clusterizer = new Clusterizer();
 				bool forceMode = false;
+				string autoWPath = null;
 
 				for (; ; )
 				{
@@ -223,12 +224,23 @@ namespace WCluster
 						args = ShiftArray(args);
 						continue;
 					}
+					if (args[0].ToUpper() == "/O")
+					{
+						autoWPath = args[1];
+						args = ShiftArray(args);
+						args = ShiftArray(args);
+						continue;
+					}
 					if (args[0].ToUpper() == "/-")
 					{
 						args = ShiftArray(args);
 						break;
 					}
 					break;
+				}
+				if (args.Length == 1 && autoWPath != null)
+				{
+					args = PushArray(args, autoWPath);
 				}
 				if (args.Length == 1)
 				{
@@ -337,6 +349,17 @@ namespace WCluster
 			return dest;
 		}
 
+		public static string[] PushArray(string[] src, string appendix)
+		{
+			string[] dest = new string[src.Length + 1];
+
+			for (int index = 0; index < src.Length; index++)
+				dest[index] = src[index];
+
+			dest[src.Length] = appendix;
+			return dest;
+		}
+
 		public static string EraseExtension(string path)
 		{
 			return Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path));
@@ -364,7 +387,7 @@ namespace WCluster
 			}
 			for (; ; )
 			{
-				Thread.Sleep(200); // MainTimer_Tick でロックされるまで、、ロックされたら回らなくなるので注意！
+				Thread.Sleep(100); // MainTimer_Tick でロックされるまで、、ロックされたら回らなくなるので注意！
 
 				lock (Confirm_SYNCROOT)
 				{
