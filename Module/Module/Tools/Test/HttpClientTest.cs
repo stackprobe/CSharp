@@ -18,7 +18,7 @@ namespace Charlotte.Tools.Test
 		{
 			HttpClient hc = new HttpClient(url);
 			hc.AddHeader("X-Header", "Value 123 ABC");
-			hc.SendBody(body);
+			hc.Send(body);
 
 			DebugTools.WriteLog(url);
 

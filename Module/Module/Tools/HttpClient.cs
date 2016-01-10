@@ -27,15 +27,37 @@ namespace Charlotte.Tools
 			Hwr.Headers.Add(name, value);
 		}
 
-		public void SendBody(byte[] body)
+		public void SetProxy(string host, int port)
 		{
-			if (body == null)
+			Hwr.Proxy = new WebProxy(host, port);
+		}
+
+		public void Head()
+		{
+			Send(null, "HEAD");
+		}
+
+		public void Get()
+		{
+			Send(null);
+		}
+
+		public void Post(byte[] body)
+		{
+			Send(body);
+		}
+
+		public void Send(byte[] body)
+		{
+			Send(body, body == null ? "GET" : "POST");
+		}
+
+		public void Send(byte[] body, string method)
+		{
+			Hwr.Method = method;
+
+			if (body != null)
 			{
-				Hwr.Method = "GET";
-			}
-			else
-			{
-				Hwr.Method = "POST";
 				Hwr.GetRequestStream().Write(body, 0, body.Length);
 				Hwr.GetRequestStream().Close();
 			}
