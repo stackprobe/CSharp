@@ -18,5 +18,24 @@ namespace Charlotte.Tools
 		{
 			return str.Substring(0, index) + str.Substring(index + count);
 		}
+
+		public static string ZPad(int value, int minlen = 1)
+		{
+			return ZPad("" + value, minlen);
+		}
+
+		public static string ZPad(string str, int minlen = 1)
+		{
+			return LPad(str, minlen, '0');
+		}
+
+		public static string LPad(string str, int minlen, char padding)
+		{
+			while (str.Length < minlen)
+			{
+				str = padding + str;
+			}
+			return str;
+		}
 	}
 }

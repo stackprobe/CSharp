@@ -15,7 +15,10 @@ namespace Charlotte.Tools
 			if (LogStrm == null)
 				LogStrm = new FileStream(@"C:\temp\Module.log", FileMode.Create, FileAccess.Write);
 
-			StreamTools.Write(LogStrm, StringTools.ENCODING_SJIS.GetBytes(line + "\r\n"));
+			StreamTools.Write(
+				LogStrm,
+				StringTools.ENCODING_SJIS.GetBytes("[" + DateTimeTools.GetCommonString(DateTime.Now) + "] " + line + "\r\n")
+				);
 		}
 	}
 }

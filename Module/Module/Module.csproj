@@ -64,12 +64,16 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Test\Program2.cs" />
+    <Compile Include="Test\Tools\ArrayToolsTest.cs" />
     <Compile Include="Tools\ArrayTools.cs" />
     <Compile Include="Tools\DebugTools.cs" />
     <Compile Include="Tools\HttpClient.cs" />
+    <Compile Include="Tools\HttpRequest.cs" />
+    <Compile Include="Tools\MathTools.cs" />
     <Compile Include="Tools\StreamTools.cs" />
     <Compile Include="Tools\StringTools.cs" />
     <Compile Include="Test\Tools\HttpClientTest.cs" />
+    <Compile Include="Tools\DateTimeTools.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
