@@ -63,12 +63,13 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Test\Program2.cs" />
     <Compile Include="Tools\ArrayTools.cs" />
     <Compile Include="Tools\DebugTools.cs" />
     <Compile Include="Tools\HttpClient.cs" />
     <Compile Include="Tools\StreamTools.cs" />
     <Compile Include="Tools\StringTools.cs" />
-    <Compile Include="Tools\Test\HttpClientTest.cs" />
+    <Compile Include="Test\Tools\HttpClientTest.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

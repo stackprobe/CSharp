@@ -32,6 +32,11 @@ namespace Charlotte.Tools
 			Hwr.Proxy = new WebProxy(host, port);
 		}
 
+		public void SetIEProxy()
+		{
+			Hwr.Proxy = WebRequest.GetSystemWebProxy();
+		}
+
 		public void Head()
 		{
 			Send(null, "HEAD");

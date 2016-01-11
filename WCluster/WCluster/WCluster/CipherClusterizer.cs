@@ -158,7 +158,7 @@ namespace WCluster
 				string selfFile = System.Reflection.Assembly.GetEntryAssembly().Location;
 				string selfDir = Path.GetDirectoryName(selfFile);
 
-				string file = Path.Combine(selfDir, "ZCluster.exe");
+				string file = Path.Combine(selfDir, "ZCluster.exe_");
 
 				if (File.Exists(file) == false)
 					file = @"C:\Factory\Tools\ZCluster.exe";
