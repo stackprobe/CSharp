@@ -54,16 +54,19 @@ namespace Charlotte.Tools
 
 		public static void Delete(string dir)
 		{
-			if (Directory.Exists(dir))
-			{
-				foreach (string path in GetAllPath(dir))
-				{
-					FileInfo fi = new FileInfo(path);
+			if (dir == null)
+				return;
 
-					fi.Attributes &= ~FileAttributes.ReadOnly;
-				}
-				Directory.Delete(dir, true);
+			if (Directory.Exists(dir) == false)
+				return;
+
+			foreach (string path in GetAllPath(dir))
+			{
+				FileInfo fi = new FileInfo(path);
+
+				fi.Attributes &= ~FileAttributes.ReadOnly;
 			}
+			Directory.Delete(dir, true);
 		}
 	}
 }
