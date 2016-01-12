@@ -30,6 +30,7 @@ namespace WCluster
 
 		// }
 
+		private static readonly byte[] Signature = Encoding.ASCII.GetBytes("wclu");
 		private GZipStream Wfs;
 		private byte[] RWBuff = new byte[1024 * 1024 * 4];
 
@@ -45,7 +46,7 @@ namespace WCluster
 			using (GZipStream gzs = new GZipStream(wfs, CompressionMode.Compress))
 			{
 				Wfs = gzs;
-				Wfs.WriteByte(0x0c);
+				Add(Signature);
 				IntoDir(rDir);
 				Wfs = null;
 			}
@@ -147,9 +148,10 @@ namespace WCluster
 			using (GZipStream gzs = new GZipStream(rfs, CompressionMode.Decompress))
 			{
 				Rfs = gzs;
+				Next(RWBuff, Signature.Length);
 
-				if (Rfs.ReadByte() != 0x0c)
-					throw new Exception("想定外の先頭バイト");
+				if (IsSame(RWBuff, Signature, Signature.Length) == false)
+					throw new Exception("不明なファイル形式");
 
 				WriteDir(wDir);
 				Rfs = null;
@@ -255,6 +257,15 @@ namespace WCluster
 			return DateTime.MinValue + TimeSpan.FromSeconds((double)sec);
 		}
 
+		public static bool IsSame(byte[] b1, byte[] b2, int size)
+		{
+			for (int index = 0; index < size; index++)
+				if (b1[index] != b2[index])
+					return false;
+
+			return true;
+		}
+
 		private const string LPATH_NG_CHRS = "\"*/:<>?\\|";
 
 		public static bool IsFairLocalPath(string lPath)
@@ -321,6 +332,23 @@ namespace WCluster
 					return true;
 
 			return false;
+		}
+
+		public void CopyFile(string rFile, string wFile)
+		{
+			using (FileStream rfs = new FileStream(rFile, FileMode.Open, FileAccess.Read))
+			using (FileStream wfs = new FileStream(wFile, FileMode.Create, FileAccess.Write))
+			{
+				for (; ; )
+				{
+					int readSize = rfs.Read(RWBuff, 0, RWBuff.Length);
+
+					if (readSize <= 0)
+						break;
+
+					wfs.Write(RWBuff, 0, readSize);
+				}
+			}
 		}
 	}
 }

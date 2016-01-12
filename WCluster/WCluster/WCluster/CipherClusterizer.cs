@@ -32,11 +32,18 @@ namespace WCluster
 
 				Cipher(midFile, true);
 
+#if false
 				CheckCancel();
 				Clusterizer.Status.SetString("Moving cluster file");
 
 				File.Delete(wFile); // File.Move は既存のファイルを上書き出来ない。
 				File.Move(midFile, wFile);
+#else
+				CheckCancel();
+				Clusterizer.Status.SetString("Copying cluster file");
+
+				CopyFile(midFile, wFile);
+#endif
 			}
 			finally
 			{
@@ -69,7 +76,7 @@ namespace WCluster
 			}
 		}
 
-		private string GetTempPath()
+		private static string GetTempPath()
 		{
 			return Path.Combine(Environment.GetEnvironmentVariable("TMP"), Guid.NewGuid().ToString("B"));
 		}
