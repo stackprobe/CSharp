@@ -67,7 +67,7 @@ namespace Charlotte.Tools
 				Hwr.GetRequestStream().Close();
 			}
 			WebResponse res = Hwr.GetResponse();
-			ResHeaders = new Dictionary<string, string>();
+			ResHeaders = new Dictionary<string, string>(new StringTools.IgnoreCaseIEComparer());
 
 			foreach (string name in res.Headers.Keys)
 				ResHeaders.Add(name, res.Headers[name]);

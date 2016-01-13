@@ -63,9 +63,9 @@ namespace Charlotte.Tools
 
 		public static void Shuffle<T>(T[] array)
 		{
-			for (int index = array.Length; 0 < index; index--)
+			for (int index = array.Length; 1 < index; index--)
 			{
-				Swap(array, MathTools.Random(index + 1), index);
+				Swap(array, MathTools.Random(index), index - 1);
 			}
 		}
 	}
