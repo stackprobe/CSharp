@@ -12,6 +12,12 @@ namespace Charlotte.Tools
 
 		public static List<string> GetAllPath(string dir, bool dirFlag = true, bool fileFlag = true)
 		{
+			if (dir == null)
+				throw new Exception("dir == null");
+
+			if (Directory.Exists(dir) == false)
+				throw new Exception("dir not found: " + dir);
+
 			dir = Path.GetFullPath(dir);
 
 			List<string> dest = new List<string>();
