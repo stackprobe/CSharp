@@ -9,6 +9,11 @@ namespace Charlotte.Tools
 	{
 		public static Encoding ENCODING_SJIS = Encoding.GetEncoding(932);
 
+		public static string Set(string str, int index, char chr)
+		{
+			return str.Substring(0, index) + chr + str.Substring(index + 1);
+		}
+
 		public static string Insert(string str, int index, string appendix)
 		{
 			return str.Substring(0, index) + appendix + str.Substring(index);
@@ -82,6 +87,42 @@ namespace Charlotte.Tools
 				str2 = str2.ToLower();
 			}
 			return str1 == str2;
+		}
+
+		public static string Combine(string path1, string path2)
+		{
+			return PathFltr(path1 + '\\' + path2);
+		}
+
+		public static string PathFltr(string path)
+		{
+			bool networkFlag = path.StartsWith("\\\\");
+
+			for (int c = 0; c < 20; c++)
+				path = path.Replace("\\\\", "\\");
+
+			if (networkFlag)
+				path = '\\' + path;
+
+			return path;
+		}
+
+		public static string Trim(string str)
+		{
+			for (int index = 0; index < str.Length; index++)
+				if (str[index] < ' ')
+					str = Set(str, index, ' ');
+
+			for (int c = 0; c < 20; c++)
+				str = str.Replace("  ", " ");
+
+			if (str.StartsWith(" "))
+				str = str.Substring(1);
+
+			if (str.EndsWith(" "))
+				str = str.Substring(0, str.Length - 1);
+
+			return str;
 		}
 	}
 }
