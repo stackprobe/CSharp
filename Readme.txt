@@ -26,7 +26,7 @@ Satellite
 
 SatelliteTest
 
-	Satelliteのテスト用...の予定
+	Satelliteのテスト用
 
 Test
 
