@@ -2,13 +2,216 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Net.Sockets;
 
 namespace Charlotte.Tools
 {
 	public class HttpRequest
 	{
+		private string _domain = "localhost";
+		private int _portNo = 80;
+		private string _path = "/";
+		private Dictionary<string, string> _headerFields = new Dictionary<string, string>();
+		private byte[] _body = null; // null -> GET, not null -> POST
+		private int _connectTimeoutMillis = 20000; // 0 -> infinite
+		private int _soTimeoutMillis = 60000; // 0 -> infinite
+		private String _proxyDomain = null; // null -> no proxy
+		private int _proxyPortNo = -1;
+		private bool _head; // true -> HEAD, false -> GET or POST
+
+		public HttpRequest()
+		{ }
+
 		public HttpRequest(string url)
 		{
+			this.SetUrl(url);
+		}
+
+		public void SetUrl(string url)
+		{
+			if (url.StartsWith("https://"))
+			{
+				throw new Exception("not compatible with HTTPS!");
+			}
+			if (url.StartsWith("http://"))
+			{
+				url = url.Substring(7);
+			}
+			int index = url.IndexOf('/');
+
+			if (index != -1)
+			{
+				_domain = url.Substring(0, index);
+				_path = url.Substring(index);
+			}
+			else
+			{
+				_domain = url;
+				_path = "/";
+			}
+			index = _domain.IndexOf(':');
+
+			if (index != -1)
+			{
+				_portNo = int.Parse(_domain.Substring(index + 1));
+				_domain = url.Substring(0, index);
+			}
+			else
+			{
+				_portNo = 80;
+			}
+		}
+
+		public void SetDomain(string domain)
+		{
+			_domain = domain;
+		}
+
+		public void SetPortNo(int portNo)
+		{
+			_portNo = portNo;
+		}
+
+		public void setPath(string path)
+		{
+			_path = path;
+		}
+
+		public void SetAuthorization(string user, string password)
+		{
+			String plain = user + ":" + password;
+			String enc = System.Convert.ToBase64String(Encoding.UTF8.GetBytes(plain));
+			this.SetHeaderField("Authorization", "Basic " + enc);
+		}
+
+		public void SetHeaderField(string name, string value)
+		{
+			_headerFields.Add(name, value);
+		}
+
+		public void SetBody(byte[] body)
+		{
+			_body = body;
+		}
+
+		public void SetConnectTimeoutMillis(int millis)
+		{
+			_connectTimeoutMillis = millis;
+		}
+
+		public void SetSoTimeoutMillis(int millis)
+		{
+			_soTimeoutMillis = millis;
+		}
+
+		public void SetProxy(string domain, int portNo)
+		{
+			_proxyDomain = domain;
+			_proxyPortNo = portNo;
+		}
+
+		public void setHeadFlag(bool head)
+		{
+			_head = head;
+		}
+
+		public HttpResponse Head()
+		{
+			_body = null;
+			_head = true;
+			return this.Perform();
+		}
+
+		public HttpResponse Get()
+		{
+			return this.Post(null);
+		}
+
+		public HttpResponse Post(byte[] body)
+		{
+			_body = body;
+			_head = false;
+			return this.Perform();
+		}
+
+		public HttpResponse Perform()
+		{
+			if (_portNo == 80)
+			{
+				this.SetHeaderField("Host", _domain);
+			}
+			else
+			{
+				this.SetHeaderField("Host", _domain + ":" + _portNo);
+			}
+			if (_body != null)
+			{
+				this.SetHeaderField("Content-Length", "" + _body.Length);
+			}
+			using (TcpClient client = _proxyDomain == null ?
+				new TcpClient(_domain, _portNo) :
+				new TcpClient(_proxyDomain, _proxyPortNo)
+				)
+			{
+				client.SendTimeout = _soTimeoutMillis;
+				client.ReceiveTimeout = _soTimeoutMillis;
+
+				using (NetworkStream ns = client.GetStream())
+				{
+					if (_head)
+					{
+						Write(ns, "HEAD ");
+					}
+					else if (_body == null)
+					{
+						Write(ns, "GET ");
+					}
+					else
+					{
+						Write(ns, "POST ");
+					}
+					if (_proxyDomain == null)
+					{
+						Write(ns, _path);
+					}
+					else if (_proxyPortNo == 80)
+					{
+						Write(ns, "http://" + _domain + _path);
+					}
+					else
+					{
+						Write(ns, "http://" + _domain + ":" + _portNo + _path);
+					}
+					Write(ns, " HTTP/1.1\r\n");
+
+					foreach (string name in _headerFields.Keys)
+					{
+						String value = _headerFields[name];
+
+						Write(ns, name);
+						Write(ns, ": ");
+						Write(ns, value);
+						Write(ns, "\r\n");
+					}
+					Write(ns, "\r\n");
+
+					if (_body != null)
+					{
+						Write(ns, _body);
+					}
+				}
+			}
+			return null; // TODO
+		}
+
+		private static void Write(NetworkStream ns, string str)
+		{
+			Write(ns, Encoding.ASCII.GetBytes(str));
+		}
+
+		private static void Write(NetworkStream ns, byte[] bytes)
+		{
+			ns.Write(bytes, 0, bytes.Length);
 		}
 	}
 }

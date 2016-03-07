@@ -74,6 +74,7 @@
     <Compile Include="Tools\FileTools.cs" />
     <Compile Include="Tools\HttpClient.cs" />
     <Compile Include="Tools\HttpRequest.cs" />
+    <Compile Include="Tools\HttpResponse.cs" />
     <Compile Include="Tools\MathTools.cs" />
     <Compile Include="Tools\StreamTools.cs" />
     <Compile Include="Tools\StringTools.cs" />
