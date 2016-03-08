@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Net.Sockets;
+using System.Net;
 
 namespace Charlotte.Tools
 {
@@ -13,10 +14,11 @@ namespace Charlotte.Tools
 		private string _path = "/";
 		private Dictionary<string, string> _headerFields = new Dictionary<string, string>();
 		private byte[] _body = null; // null -> GET, not null -> POST
-		private int _connectTimeoutMillis = 20000; // 0 -> infinite
-		private int _soTimeoutMillis = 60000; // 0 -> infinite
+		private int _sendTimeoutMillis = 60000; // 0 -> infinite
+		private int _recvTimeoutMillis = 60000; // 0 -> infinite
 		private String _proxyDomain = null; // null -> no proxy
 		private int _proxyPortNo = -1;
+		private bool _useIEProxy = false;
 		private bool _head; // true -> HEAD, false -> GET or POST
 
 		public HttpRequest()
@@ -94,20 +96,25 @@ namespace Charlotte.Tools
 			_body = body;
 		}
 
-		public void SetConnectTimeoutMillis(int millis)
+		public void SetSendTimeoutMillis(int millis)
 		{
-			_connectTimeoutMillis = millis;
+			_sendTimeoutMillis = millis;
 		}
 
-		public void SetSoTimeoutMillis(int millis)
+		public void SetRecvTimeoutMillis(int millis)
 		{
-			_soTimeoutMillis = millis;
+			_recvTimeoutMillis = millis;
 		}
 
 		public void SetProxy(string domain, int portNo)
 		{
 			_proxyDomain = domain;
 			_proxyPortNo = portNo;
+		}
+
+		public void SetIEProxy()
+		{
+			_useIEProxy = true;
 		}
 
 		public void setHeadFlag(bool head)
@@ -148,13 +155,23 @@ namespace Charlotte.Tools
 			{
 				this.SetHeaderField("Content-Length", "" + _body.Length);
 			}
+			if (_useIEProxy)
+			{
+				Uri proxy = WebRequest.GetSystemWebProxy().GetProxy(new Uri(this.GetUrl()));
+
+				if (_domain != proxy.Host || _portNo != proxy.Port)
+				{
+					_proxyDomain = proxy.Host;
+					_proxyPortNo = proxy.Port;
+				}
+			}
 			using (TcpClient client = _proxyDomain == null ?
 				new TcpClient(_domain, _portNo) :
 				new TcpClient(_proxyDomain, _proxyPortNo)
 				)
 			{
-				client.SendTimeout = _soTimeoutMillis;
-				client.ReceiveTimeout = _soTimeoutMillis;
+				client.SendTimeout = _sendTimeoutMillis;
+				client.ReceiveTimeout = _recvTimeoutMillis;
 
 				using (NetworkStream ns = client.GetStream())
 				{
@@ -199,9 +216,14 @@ namespace Charlotte.Tools
 					{
 						Write(ns, _body);
 					}
+					return new HttpResponse(ns);
 				}
 			}
-			return null; // TODO
+		}
+
+		private string GetUrl()
+		{
+			return "http://" + _domain + ":" + _portNo + _path;
 		}
 
 		private static void Write(NetworkStream ns, string str)

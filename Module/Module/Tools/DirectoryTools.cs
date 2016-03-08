@@ -8,76 +8,49 @@ namespace Charlotte.Tools
 {
 	public class DirectoryTools
 	{
-		public delegate void FoundPath_d(string path);
-
-		public static List<string> GetAllPath(string dir, bool dirFlag = true, bool fileFlag = true, bool recursive = true)
+		public static List<string> GetAllDir(string rootDir)
 		{
-			if (dir == null)
-				throw new Exception("dir == null");
+			return GetAllPath(rootDir, true, false);
+		}
 
-			if (Directory.Exists(dir) == false)
-				throw new Exception("dir not found: " + dir);
+		public static List<string> GetAllFile(string rootDir)
+		{
+			return GetAllPath(rootDir, false, true);
+		}
 
-			dir = Path.GetFullPath(dir);
+		public static List<string> GetAllPath(string rootDir, bool dirFlag = true, bool fileFlag = true, List<string> dest = null)
+		{
+			if (dest == null)
+				dest = new List<string>();
 
-			List<string> dest = new List<string>();
-			Stack<string> entryDirs = new Stack<string>();
-			entryDirs.Push(dir);
-
-			while (1 <= entryDirs.Count)
+			foreach (string dir in Directory.GetDirectories(rootDir))
 			{
-				dir = entryDirs.Pop();
+				if (dirFlag)
+					dest.Add(dir);
 
-				foreach (string sDir in Directory.GetDirectories(dir))
-				{
-					string aDir = StringTools.Combine(dir, Path.GetFileName(sDir));
-
-					if (dirFlag)
-						dest.Add(aDir);
-
-					if (recursive)
-						entryDirs.Push(aDir);
-				}
-				foreach (string sFile in Directory.GetFiles(dir))
-				{
-					string aFile = StringTools.Combine(dir, Path.GetFileName(sFile));
-
-					if (fileFlag)
-						dest.Add(aFile);
-				}
+				GetAllPath(dir, dirFlag, fileFlag, dest);
 			}
+			if (fileFlag)
+				foreach (string file in Directory.GetFiles(rootDir))
+					dest.Add(file);
+
 			return dest;
 		}
 
-		public static List<string> GetAllDir(string dir)
+		public class Into : IDisposable
 		{
-			return GetAllPath(dir, true, false);
-		}
+			private string _home;
 
-		public static List<string> GetAllFile(string dir)
-		{
-			return GetAllPath(dir, false, true);
-		}
-
-		public static void Delete(string dir)
-		{
-			if (dir == null)
-				return;
-
-			if (Directory.Exists(dir) == false)
-				return;
-
-			List<string> paths = GetAllPath(dir);
-
-			paths.Add(dir);
-
-			foreach (string path in paths)
+			public Into(string dir)
 			{
-				FileInfo fi = new FileInfo(path);
-
-				fi.Attributes &= ~FileAttributes.ReadOnly;
+				_home = Directory.GetCurrentDirectory();
+				Directory.SetCurrentDirectory(dir);
 			}
-			Directory.Delete(dir, true);
+
+			public void Dispose()
+			{
+				Directory.SetCurrentDirectory(_home);
+			}
 		}
 	}
 }

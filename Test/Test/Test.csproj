@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="AttachString.cs" />
     <Compile Include="CsvData.cs" />
+    <Compile Include="DirectoryTest.cs" />
     <Compile Include="DnsCache.cs" />
     <Compile Include="EscapeString.cs" />
     <Compile Include="HttpClient.cs" />

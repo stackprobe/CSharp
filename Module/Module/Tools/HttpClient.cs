@@ -67,12 +67,12 @@ namespace Charlotte.Tools
 				Hwr.GetRequestStream().Close();
 			}
 			WebResponse res = Hwr.GetResponse();
-			ResHeaders = new Dictionary<string, string>(new StringTools.IgnoreCaseIEComparer());
+			ResHeaders = DictionaryTools.CreateIgnoreCase<string>();
 
 			foreach (string name in res.Headers.Keys)
 				ResHeaders.Add(name, res.Headers[name]);
 
-			ResBody = StreamTools.ReadToEnd(res.GetResponseStream());
+			ResBody = FileTools.ReadToEnd(res.GetResponseStream());
 		}
 
 		private Dictionary<string, string> ResHeaders;

@@ -11,6 +11,7 @@ namespace Charlotte.Test
 		public static void Main2()
 		{
 			//HttpClientTest.Test01();
+			//HttpRequestTest.Test01();
 			DirectoryToolsTest.Test01();
 		}
 	}

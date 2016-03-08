@@ -9,30 +9,35 @@ namespace Charlotte.Tools
 	{
 		public static Encoding ENCODING_SJIS = Encoding.GetEncoding(932);
 
+		public static List<char> ToCharList(string src)
+		{
+			return src.ToCharArray().ToList();
+		}
+
+		public static string ToString(List<char> src)
+		{
+			return new string(src.ToArray());
+		}
+
 		public static string Set(string str, int index, char chr)
 		{
-			return str.Substring(0, index) + chr + str.Substring(index + 1);
+			List<char> tmp = ToCharList(str);
+			tmp[index] = chr;
+			return ToString(tmp);
 		}
 
-		public static string Insert(string str, int index, string appendix)
+		public static string Insert(string str, int insertPos, string ptn)
 		{
-			return str.Substring(0, index) + appendix + str.Substring(index);
+			List<char> tmp = ToCharList(str);
+			tmp.InsertRange(insertPos, ptn.ToCharArray());
+			return ToString(tmp);
 		}
 
-		public static string Remove(string str, int index, int count)
+		public static string Remove(string str, int startPos, int count)
 		{
-			return str.Substring(0, index) + str.Substring(index + count);
-		}
-
-		public static string[] RemoveEmpty(string[] src)
-		{
-			List<string> dest = new List<string>();
-
-			foreach (string line in src)
-				if (string.IsNullOrEmpty(line) == false)
-					dest.Add(line);
-
-			return dest.ToArray();
+			List<char> tmp = ToCharList(str);
+			tmp.RemoveRange(startPos, count);
+			return ToString(tmp);
 		}
 
 		public static string ZPad(int value, int minlen = 1)
@@ -54,7 +59,20 @@ namespace Charlotte.Tools
 			return str;
 		}
 
-		public class IgnoreCaseIEComparer : IEqualityComparer<string>
+		public class Comp : IEqualityComparer<string>
+		{
+			public bool Equals(string a, string b)
+			{
+				return a == b;
+			}
+
+			public int GetHashCode(string str)
+			{
+				return str.GetHashCode();
+			}
+		}
+
+		public class CompIgnoreCase : IEqualityComparer<string>
 		{
 			public bool Equals(string a, string b)
 			{
@@ -96,6 +114,8 @@ namespace Charlotte.Tools
 
 		public static string PathFltr(string path)
 		{
+			path = path.Replace('/', '\\');
+
 			bool networkFlag = path.StartsWith("\\\\");
 
 			for (int c = 0; c < 20; c++)
@@ -107,22 +127,59 @@ namespace Charlotte.Tools
 			return path;
 		}
 
-		public static string Trim(string str)
+		public static string Trim(string src)
 		{
-			for (int index = 0; index < str.Length; index++)
-				if (str[index] < ' ')
-					str = Set(str, index, ' ');
+			List<char> tmp = ToCharList(src);
+
+			for (int index = 0; index < tmp.Count; index++)
+				if (tmp[index] < ' ')
+					tmp[index] = ' ';
+
+			string dest = ToString(tmp);
 
 			for (int c = 0; c < 20; c++)
-				str = str.Replace("  ", " ");
+				dest = dest.Replace("  ", " ");
 
-			if (str.StartsWith(" "))
-				str = str.Substring(1);
+			dest = StringTools.RemoveStartsWith(dest, " ");
+			dest = StringTools.RemoveEndsWith(dest, " ");
 
-			if (str.EndsWith(" "))
-				str = str.Substring(0, str.Length - 1);
+			return dest;
+		}
+
+		public static string RemoveStartsWith(string str, string ptn, bool ignoreCase = false)
+		{
+			if (StartsWith(str, ptn, ignoreCase))
+				return str.Substring(ptn.Length);
 
 			return str;
+		}
+
+		public static string RemoveEndsWith(string str, string ptn, bool ignoreCase = false)
+		{
+			if (EndsWith(str, ptn, ignoreCase))
+				return str.Substring(0, str.Length - ptn.Length);
+
+			return str;
+		}
+
+		public static bool StartsWith(string str, string ptn, bool ignoreCase)
+		{
+			if (ignoreCase)
+			{
+				str = str.ToLower();
+				ptn = ptn.ToLower();
+			}
+			return str.StartsWith(ptn);
+		}
+
+		public static bool EndsWith(string str, string ptn, bool ignoreCase)
+		{
+			if (ignoreCase)
+			{
+				str = str.ToLower();
+				ptn = ptn.ToLower();
+			}
+			return str.EndsWith(ptn);
 		}
 	}
 }

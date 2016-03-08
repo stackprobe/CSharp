@@ -11,31 +11,27 @@ namespace Charlotte.Test.Tools
 	{
 		public static void Test01()
 		{
-			DebugTools.WriteLog("null=" + Directory.Exists(null)); // false
-			DebugTools.WriteLog("[]=" + Directory.Exists("")); // false
-			DebugTools.WriteLog("[*]=" + Directory.Exists("*")); // false
-			DebugTools.WriteLog("[\\]=" + Directory.Exists("\\")); // true
-			DebugTools.WriteLog("[.]=" + Directory.Exists(".")); // true
-			DebugTools.WriteLog("[..]=" + Directory.Exists("..")); // true
-			DebugTools.WriteLog("[\\.]=" + Directory.Exists("\\.")); // true
-			DebugTools.WriteLog("[\\..]=" + Directory.Exists("\\..")); // true <- !?w
+			Test01_a(@"C:\tmp\ifxまとめ");
 
-			//DebugTools.WriteLog("null=" + Path.GetFullPath(null)); // ex
-			//DebugTools.WriteLog("[]=" + Path.GetFullPath("")); // ex
-			//DebugTools.WriteLog("[*]=" + Path.GetFullPath("*")); // ex
-			DebugTools.WriteLog("[\\]=" + Path.GetFullPath("\\"));
-			DebugTools.WriteLog("[.]=" + Path.GetFullPath("."));
-			DebugTools.WriteLog("[..]=" + Path.GetFullPath(".."));
-			DebugTools.WriteLog("[\\.]=" + Path.GetFullPath("\\."));
-			DebugTools.WriteLog("[\\..]=" + Path.GetFullPath("\\.."));
+			using (new DirectoryTools.Into(@"C:\etc\画像\壁紙\ゆるゆり大"))
+			{
+				Test01_a(".."); // -> @"..\aaaaa_bbbbbb\1234567.jpg"
+				Test01_a(Path.GetFullPath("..")); // -> @"C:\etc\画像\壁紙\aaaaa_bbbbbb\1234567.jpg"
+			}
+		}
 
-			Directory.CreateDirectory(@"C:\temp\a\b\c\d\e\f");
-			File.WriteAllText(@"C:\temp\a\b\c\d\e\f\ro", "abcdef", Encoding.ASCII);
-			new FileInfo(@"C:\temp\a\b\c\d\e\f").Attributes = FileAttributes.ReadOnly;
-			new FileInfo(@"C:\temp\a\b\c\d\e\f\ro").Attributes = FileAttributes.ReadOnly;
-			DirectoryTools.Delete(@"C:\temp\a");
+		private static void Test01_a(string rootDir)
+		{
+			DebugTools.WriteLog("rootDir: " + rootDir);
 
-			DebugTools.WriteLog("[C:/tmp_0]: " + Directory.GetDirectories(@"C:\tmp")[0]);
+			foreach (string dir in DirectoryTools.GetAllDir(rootDir))
+			{
+				DebugTools.WriteLog("dir: " + dir);
+			}
+			foreach (string file in DirectoryTools.GetAllFile(rootDir))
+			{
+				DebugTools.WriteLog("file: " + file);
+			}
 		}
 	}
 }

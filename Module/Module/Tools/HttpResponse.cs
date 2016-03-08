@@ -14,7 +14,7 @@ namespace Charlotte.Tools
 
 		private NetworkStream _rs;
 		private string _firstLine;
-		private Dictionary<string, string> _headerFields = new Dictionary<string, string>(new StringTools.IgnoreCaseIEComparer());
+		private Dictionary<string, string> _headerFields = DictionaryTools.CreateIgnoreCase<string>();
 		private int _contentLength;
 		private bool _chunked;
 		private byte[] _body;
@@ -116,8 +116,8 @@ namespace Charlotte.Tools
 
 		private void CheckHeaderFields()
 		{
-			String sConLen = _headerFields["Content-Length"];
-			String sTrnEnc = _headerFields["Transfer-Encoding"];
+			String sConLen = DictionaryTools.Get(_headerFields, "Content-Length", null);
+			String sTrnEnc = DictionaryTools.Get(_headerFields, "Transfer-Encoding", null);
 
 			if (sConLen != null)
 			{

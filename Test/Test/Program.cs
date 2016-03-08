@@ -11,7 +11,9 @@ namespace Charlotte
 		{
 			try
 			{
-				new Program().Main4();
+				new Program().Main5();
+				//new DirectoryTest().Test01();
+				//new Program().Main4();
 				//new Program().Main3();
 				//new Program().Main2();
 			}
@@ -137,6 +139,17 @@ namespace Charlotte
 			Console.ReadLine();
 
 			hs.End();
+		}
+
+		private void Main5()
+		{
+			string[] a = new string[] { "1", "22", "333" };
+			List<string> l = a.ToList();
+			l.RemoveAt(1);
+			l.Add("4444");
+			string[] b = l.ToArray();
+
+			Console.WriteLine(string.Join(", ", b));
 		}
 	}
 }

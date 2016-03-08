@@ -7,11 +7,16 @@ namespace Charlotte.Tools
 {
 	public class MathTools
 	{
-		private static Random SharedRandom = new Random();
+		private static Random _random = new Random();
 
 		public static int Random(int modulo)
 		{
-			return SharedRandom.Next(modulo);
+			return _random.Next(modulo);
+		}
+
+		public static int Random(int minval, int maxval)
+		{
+			return _random.Next(minval, maxval);
 		}
 	}
 }
