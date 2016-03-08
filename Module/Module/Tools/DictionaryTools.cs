@@ -9,12 +9,12 @@ namespace Charlotte.Tools
 	{
 		public static Dictionary<string, V> Create<V>()
 		{
-			return new Dictionary<string, V>(new StringTools.Comp());
+			return new Dictionary<string, V>(new StringTools.IEComp());
 		}
 
 		public static Dictionary<string, V> CreateIgnoreCase<V>()
 		{
-			return new Dictionary<string, V>(new StringTools.CompIgnoreCase());
+			return new Dictionary<string, V>(new StringTools.IECompIgnoreCase());
 		}
 
 		public static V Get<K, V>(Dictionary<K, V> dict, K key, V defval)

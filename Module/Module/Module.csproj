@@ -61,15 +61,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Tools\CrossDictionary.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Test\Program2.cs" />
     <Compile Include="Test\Tools\ArrayToolsTest.cs" />
     <Compile Include="Test\Tools\BracketParserTest.cs" />
     <Compile Include="Test\Tools\DirectoryToolsTest.cs" />
     <Compile Include="Test\Tools\HttpRequestTest.cs" />
     <Compile Include="Tools\ArrayTools.cs" />
+    <Compile Include="Tools\AutoTable.cs" />
     <Compile Include="Tools\BracketParser.cs" />
+    <Compile Include="Tools\CsvData.cs" />
     <Compile Include="Tools\DebugTools.cs" />
     <Compile Include="Tools\DictionaryTools.cs" />
     <Compile Include="Tools\DirectoryTools.cs" />
@@ -77,6 +79,7 @@
     <Compile Include="Tools\HttpClient.cs" />
     <Compile Include="Tools\HttpRequest.cs" />
     <Compile Include="Tools\HttpResponse.cs" />
+    <Compile Include="Tools\IntTools.cs" />
     <Compile Include="Tools\MathTools.cs" />
     <Compile Include="Tools\StringIndexOf.cs" />
     <Compile Include="Tools\StringTools.cs" />

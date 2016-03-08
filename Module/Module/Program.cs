@@ -14,13 +14,18 @@ namespace Module
 		{
 			try
 			{
-				Program2.Main2();
+				Main2();
 			}
 			catch (Exception e)
 			{
 				DebugTools.WriteLog("e: " + e);
 			}
 			Process.Start(@"C:\temp");
+		}
+
+		private static void Main2()
+		{
+
 		}
 	}
 }

@@ -7,7 +7,7 @@ namespace Charlotte.Tools
 {
 	public class StringTools
 	{
-		public static Encoding ENCODING_SJIS = Encoding.GetEncoding(932);
+		public static readonly Encoding ENCODING_SJIS = Encoding.GetEncoding(932);
 
 		public static List<char> ToCharList(string src)
 		{
@@ -59,7 +59,17 @@ namespace Charlotte.Tools
 			return str;
 		}
 
-		public class Comp : IEqualityComparer<string>
+		public static int Comp(string a, string b)
+		{
+			return a.CompareTo(b);
+		}
+
+		public static int CompIgnoreCase(string a, string b)
+		{
+			return a.ToLower().CompareTo(b.ToLower());
+		}
+
+		public class IEComp : IEqualityComparer<string>
 		{
 			public bool Equals(string a, string b)
 			{
@@ -72,7 +82,7 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public class CompIgnoreCase : IEqualityComparer<string>
+		public class IECompIgnoreCase : IEqualityComparer<string>
 		{
 			public bool Equals(string a, string b)
 			{
@@ -180,6 +190,78 @@ namespace Charlotte.Tools
 				ptn = ptn.ToLower();
 			}
 			return str.EndsWith(ptn);
+		}
+
+		public static string ToBase64(byte[] block)
+		{
+			return System.Convert.ToBase64String(block);
+		}
+
+		public static byte[] DecodeBase64(string str)
+		{
+			return System.Convert.FromBase64String(str);
+		}
+
+		public const string DIGIT = "0123456789";
+		public const string ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		public const string alpha = "abcdefghijklmnopqrstuvwxyz";
+		public const string HEXADECIMAL = "0123456789ABCDEF";
+		public const string hexadecimal = "0123456789abcdef";
+
+		private static StringIndexOf _hexadecimal_i = new StringIndexOf(hexadecimal);
+
+		public static byte[] Hex(string str)
+		{
+			List<byte> buff = new List<byte>();
+
+			for (int index = 0; index < str.Length; index += 2)
+			{
+				int h = _hexadecimal_i.IndexOf(str[index]);
+				int l = _hexadecimal_i.IndexOf(str[index + 1]);
+
+				buff.Add((byte)((h << 4) | l));
+			}
+			return buff.ToArray();
+		}
+
+		public static string ToHex(byte[] block)
+		{
+			StringBuilder buff = new StringBuilder();
+
+			foreach (byte chr in block)
+			{
+				buff.Append(hexadecimal[chr >> 4]);
+				buff.Append(hexadecimal[chr & 15]);
+			}
+			return buff.ToString();
+		}
+
+		public static string Repeat(char chr, int count)
+		{
+			StringBuilder buff = new StringBuilder();
+
+			while (1 <= count)
+			{
+				buff.Append(chr);
+				count--;
+			}
+			return buff.ToString();
+		}
+
+		public static string ReplaceChar(string str, string fromChrs, char toChr)
+		{
+			foreach (char fromChr in fromChrs)
+				str = str.Replace(fromChr, toChr);
+
+			return str;
+		}
+
+		public static string ReplaceChar(string str, string fromChrs, string toChrs)
+		{
+			for (int index = 0; index < fromChrs.Length; index++)
+				str = str.Replace(fromChrs[index], toChrs[index]);
+
+			return str;
 		}
 	}
 }
