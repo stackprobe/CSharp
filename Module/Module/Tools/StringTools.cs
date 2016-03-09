@@ -263,5 +263,41 @@ namespace Charlotte.Tools
 
 			return str;
 		}
+
+		public static int IndexOfChar(string str, string chrs)
+		{
+			int ret = int.MaxValue;
+
+			foreach (char chr in chrs)
+			{
+				int index = str.IndexOf(chrs);
+
+				if (index != -1)
+					ret = Math.Min(index, ret);
+			}
+			if (ret == int.MaxValue)
+				ret = -1;
+
+			return ret;
+		}
+
+		public static int LastIndexOfChar(string str, string chrs)
+		{
+			int ret = -1;
+
+			foreach (char chr in chrs)
+				ret = Math.Max(ret, str.IndexOf(chr));
+
+			return ret;
+		}
+
+		public static bool ContainsChar(string str, string chrs)
+		{
+			foreach (char chr in chrs)
+				if (str.Contains(chr))
+					return true;
+
+			return false;
+		}
 	}
 }

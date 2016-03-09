@@ -5,6 +5,7 @@ using System.Text;
 using System.Diagnostics;
 using Charlotte.Test;
 using Charlotte.Tools;
+using Charlotte.Test.Tools;
 
 namespace Module
 {
@@ -25,7 +26,8 @@ namespace Module
 
 		private static void Main2()
 		{
-
+			TimeDataTest.Test01();
+			//CsvDataTest.Test01();
 		}
 	}
 }

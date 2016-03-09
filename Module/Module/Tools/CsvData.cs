@@ -66,16 +66,152 @@ namespace Charlotte.Tools
 			_rPos = 0;
 
 			_table.Clear();
+			_table.AddRow();
 
 			for (; ; )
 			{
-				_table.AddRow();
+				int chr = this.NextChar();
 
-				// TODO
+				if (chr == -1)
+					break;
+
+				StringBuilder buff = new StringBuilder();
+
+				if (chr == '"')
+				{
+					for (; ; )
+					{
+						chr = this.NextChar();
+
+						if (chr == -1)
+							break;
+
+						if (chr == '"')
+						{
+							chr = this.NextChar();
+
+							if (chr != '"')
+								break;
+						}
+						buff.Append((char)chr);
+					}
+				}
+				else
+				{
+					for (; ; )
+					{
+						if (chr == _delimiter || chr == '\n')
+							break;
+
+						buff.Append((char)chr);
+						chr = this.NextChar();
+
+						if (chr == -1)
+							break;
+					}
+				}
+				_table.Add(buff.ToString());
+
+				if (chr == '\n')
+					_table.AddRow();
 			}
 			_text = null;
 		}
 
-		// TODO
+		public AutoTable<string> Table
+		{
+			get
+			{
+				return _table;
+			}
+		}
+
+		public string GetCell(int x, int y)
+		{
+			string cell = _table[x, y];
+
+			if (StringTools.ContainsChar(cell, "\r\n\"" + _delimiter))
+				cell = "\"" + cell.Replace("\"", "\"\"") + "\"";
+
+			return cell;
+		}
+
+		public string GetLine(int y)
+		{
+			List<string> cells = new List<string>();
+
+			for (int x = 0; x < _table.W; x++)
+				cells.Add(this.GetCell(x, y));
+
+			return string.Join("" + _delimiter, cells);
+		}
+
+		public List<string> GetLines()
+		{
+			List<string> lines = new List<string>();
+
+			for (int y = 0; y < _table.H; y++)
+				lines.Add(this.GetLine(y));
+
+			return lines;
+		}
+
+		public string GetText()
+		{
+			return string.Join("\n", this.GetLines());
+		}
+
+		private void WriteFile(string csvFile, Encoding encoding)
+		{
+			File.WriteAllText(csvFile, this.GetText(), encoding);
+		}
+
+		public void WriteFile(string csvFile)
+		{
+			this.WriteFile(csvFile, StringTools.ENCODING_SJIS);
+		}
+
+		public void TT()
+		{
+			this.TrimAllCell();
+			this.Trim();
+		}
+
+		public void TrimAllCell()
+		{
+			for (int x = 0; x < _table.W; x++)
+				for (int y = 0; y < _table.H; y++)
+					_table[x, y] = _table[x, y].Trim();
+		}
+
+		public void Trim()
+		{
+			this.TrimX();
+			this.TrimY();
+		}
+
+		public void TrimX()
+		{
+			while (1 <= _table.W)
+			{
+				for (int y = 0; y < _table.H; y++)
+					if (_table[_table.W - 1, y] != "")
+						return;
+
+				_table.W--;
+			}
+		}
+
+		public void TrimY()
+		{
+			while (1 <= _table.H)
+			{
+				for (int x = 0; x < _table.GetWidth(_table.H - 1); x++)
+					if (_table[x, _table.H - 1] != "")
+						return;
+
+				_table.H--;
+			}
+		}
 	}
 }

@@ -11,7 +11,7 @@ namespace Charlotte.Tools
 
 		public StringIndexOf(string str)
 		{
-			for (int index = str.Length - 1; 0 <= index; index++)
+			for (int index = str.Length - 1; 0 <= index; index--)
 			{
 				DictionaryTools.Put(_map, str[index], index);
 			}

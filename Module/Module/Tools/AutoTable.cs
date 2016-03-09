@@ -28,7 +28,7 @@ namespace Charlotte.Tools
 		{
 			set
 			{
-				if (value < 0) throw null;
+				if (value < 0) new IndexOutOfRangeException("" + value);
 				_w = value;
 			}
 			get
@@ -41,7 +41,7 @@ namespace Charlotte.Tools
 		{
 			set
 			{
-				if (value < 0) throw null;
+				if (value < 0) new IndexOutOfRangeException("" + value);
 				_h = value;
 			}
 			get
@@ -50,16 +50,24 @@ namespace Charlotte.Tools
 			}
 		}
 
-		private void Touch(int x, int y)
+		public void Touch(int x, int y)
 		{
-			if (x < 0) throw null;
-			if (y < 0) throw null;
+			if (x < 0) throw new IndexOutOfRangeException("" + x);
+			if (y < 0) throw new IndexOutOfRangeException("" + y);
 
 			while (_rows.Count <= y)
 				_rows.Add(new List<T>());
 
 			while (_rows[y].Count <= x)
 				_rows[y].Add(_defval);
+		}
+
+		public bool IsTouched(int x, int y)
+		{
+			if (x < 0) throw null;
+			if (y < 0) throw null;
+
+			return y < _rows.Count && x < _rows[y].Count;
 		}
 
 		public T this[int x, int y]
@@ -73,8 +81,7 @@ namespace Charlotte.Tools
 			}
 			get
 			{
-				this.Touch(x, y);
-				return _rows[y][x];
+				return this.IsTouched(x, y) ? _rows[y][x] : _defval;
 			}
 		}
 
@@ -137,7 +144,17 @@ namespace Charlotte.Tools
 
 		public void Add(T element)
 		{
-			this[_rows[_rows.Count - 1].Count - 1, _rows.Count - 1] = element;
+			this[_rows[_rows.Count - 1].Count, _rows.Count - 1] = element;
+		}
+
+		public int GetWidth(int y)
+		{
+			if (y < 0) new IndexOutOfRangeException("" + y);
+
+			if (y < _rows.Count)
+				return _rows[y].Count;
+
+			return 0;
 		}
 	}
 }

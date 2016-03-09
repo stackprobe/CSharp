@@ -61,6 +61,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Test\Tools\CsvDataTest.cs" />
+    <Compile Include="Test\Tools\TimeDataTest.cs" />
     <Compile Include="Tools\CrossDictionary.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -85,6 +87,7 @@
     <Compile Include="Tools\StringTools.cs" />
     <Compile Include="Test\Tools\HttpClientTest.cs" />
     <Compile Include="Tools\DateTimeTools.cs" />
+    <Compile Include="Tools\TimeData.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
