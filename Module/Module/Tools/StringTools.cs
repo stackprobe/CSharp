@@ -137,23 +137,19 @@ namespace Charlotte.Tools
 			return path;
 		}
 
-		public static string Trim(string src)
+		public static string Trim(string str)
 		{
-			List<char> tmp = ToCharList(src);
-
-			for (int index = 0; index < tmp.Count; index++)
-				if (tmp[index] < ' ')
-					tmp[index] = ' ';
-
-			string dest = ToString(tmp);
+			for (int index = 0; index < str.Length; index++)
+				if (str[index] < ' ')
+					Set(str, index, ' ');
 
 			for (int c = 0; c < 20; c++)
-				dest = dest.Replace("  ", " ");
+				str = str.Replace("  ", " ");
 
-			dest = StringTools.RemoveStartsWith(dest, " ");
-			dest = StringTools.RemoveEndsWith(dest, " ");
+			str = StringTools.RemoveStartsWith(str, " ");
+			str = StringTools.RemoveEndsWith(str, " ");
 
-			return dest;
+			return str;
 		}
 
 		public static string RemoveStartsWith(string str, string ptn, bool ignoreCase = false)
@@ -298,6 +294,51 @@ namespace Charlotte.Tools
 					return true;
 
 			return false;
+		}
+
+		public static List<string> NumericTokenize(string str)
+		{
+			return MeaningTokenize(str, StringTools.DIGIT);
+		}
+
+		public static List<string> MeaningTokenize(string str, string meanings)
+		{
+			return Tokenize(str, meanings, true, true);
+		}
+
+		public static List<string> Tokenize(string str, string delimiters, bool meaningFlag = false, bool ignoreEmpty = false)
+		{
+			List<string> tokens = new List<string>();
+			StringBuilder buff = new StringBuilder();
+
+			foreach (char chr in str)
+			{
+				if (delimiters.Contains(chr) != meaningFlag)
+				{
+					tokens.Add(buff.ToString());
+					buff = new StringBuilder();
+				}
+				else
+					buff.Append(chr);
+			}
+			tokens.Add(buff.ToString());
+
+			if (ignoreEmpty)
+				RemoveEmpty(tokens);
+
+			return tokens;
+		}
+
+		public static void RemoveEmpty(List<string> lines)
+		{
+			for (int index = 0; index < lines.Count; index++)
+			{
+				if (lines[index] == null || lines[index] == "")
+				{
+					lines.RemoveAt(index);
+					index--;
+				}
+			}
 		}
 	}
 }

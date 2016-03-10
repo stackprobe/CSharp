@@ -7,5 +7,8 @@ namespace Charlotte.Test.Tools
 {
 	public class BracketParserTest
 	{
+		public static void Test01()
+		{
+		}
 	}
 }

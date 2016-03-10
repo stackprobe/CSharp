@@ -29,31 +29,31 @@ namespace Charlotte.Tools
 			_t = GetTime(dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, dt.Second);
 		}
 
-		public int GetWeekday()
-		{
-			return (int)(_t / 86400L) % 7;
-		}
-
-		public string GetJWeekday()
-		{
-			return GetJWeekday(this.GetWeekday());
-		}
-
-		public static string GetJWeekday(int weekday)
-		{
-			return "月火水木金土日".Substring(weekday, 1);
-		}
-
 		public static long GetTime(int[] timeStamp)
 		{
-			return GetTime(
-				timeStamp[0],
-				timeStamp[1],
-				timeStamp[2],
-				timeStamp[3],
-				timeStamp[4],
-				timeStamp[5]
-				);
+			switch (timeStamp.Length)
+			{
+				case 3:
+					return GetTime(
+						timeStamp[0],
+						timeStamp[1],
+						timeStamp[2],
+						0,
+						0,
+						0
+						);
+
+				case 6:
+					return GetTime(
+						timeStamp[0],
+						timeStamp[1],
+						timeStamp[2],
+						timeStamp[3],
+						timeStamp[4],
+						timeStamp[5]
+						);
+			}
+			throw new ArgumentException("" + timeStamp.Length);
 		}
 
 		public static long GetTime(int y, int m, int d, int h, int i, int s)
@@ -154,6 +154,21 @@ namespace Charlotte.Tools
 			return new int[] { y, m, d, h, i, s };
 		}
 
+		public int GetWeekday()
+		{
+			return (int)(_t / 86400L) % 7;
+		}
+
+		public string GetJWeekday()
+		{
+			return GetJWeekday(this.GetWeekday());
+		}
+
+		public static string GetJWeekday(int weekday)
+		{
+			return "月火水木金土日".Substring(weekday, 1);
+		}
+
 		public override string ToString()
 		{
 			return this.GetString("Y/M/D (W) h:m:s");
@@ -163,6 +178,7 @@ namespace Charlotte.Tools
 		{
 			string ret = format;
 			int[] timeStamp = GetTimeStamp(_t);
+			int weekday = this.GetWeekday();
 
 			if (9999 < timeStamp[0])
 			{
@@ -172,6 +188,7 @@ namespace Charlotte.Tools
 				timeStamp[3] = 99;
 				timeStamp[4] = 99;
 				timeStamp[5] = 99;
+				weekday = 0;
 			}
 			ret = ret.Replace("Y", StringTools.ZPad(timeStamp[0], 4));
 			ret = ret.Replace("M", StringTools.ZPad(timeStamp[1], 2));
@@ -179,19 +196,14 @@ namespace Charlotte.Tools
 			ret = ret.Replace("h", StringTools.ZPad(timeStamp[3], 2));
 			ret = ret.Replace("m", StringTools.ZPad(timeStamp[4], 2));
 			ret = ret.Replace("s", StringTools.ZPad(timeStamp[5], 2));
-			ret = ret.Replace("W", this.GetJWeekday());
+			ret = ret.Replace("W", GetJWeekday(weekday));
 
 			return ret;
 		}
 
-		public string GetLongString()
+		public string GetSimpleString()
 		{
 			return this.GetString("YMDhms");
-		}
-
-		public long GetLong()
-		{
-			return long.Parse(this.GetLongString());
 		}
 
 		public static TimeData Now()
@@ -218,7 +230,7 @@ namespace Charlotte.Tools
 			}
 		}
 
-		private void SetTimeStampAt(int index, int value)
+		private void SetTimeStampByIndex(int index, int value)
 		{
 			int[] timeStamp = GetTimeStamp(_t);
 			timeStamp[index] = value;
@@ -229,7 +241,7 @@ namespace Charlotte.Tools
 		{
 			set
 			{
-				this.SetTimeStampAt(0, value);
+				this.SetTimeStampByIndex(0, value);
 			}
 			get
 			{
@@ -241,7 +253,7 @@ namespace Charlotte.Tools
 		{
 			set
 			{
-				this.SetTimeStampAt(1, value);
+				this.SetTimeStampByIndex(1, value);
 			}
 			get
 			{
@@ -253,7 +265,7 @@ namespace Charlotte.Tools
 		{
 			set
 			{
-				this.SetTimeStampAt(2, value);
+				this.SetTimeStampByIndex(2, value);
 			}
 			get
 			{
@@ -265,7 +277,7 @@ namespace Charlotte.Tools
 		{
 			set
 			{
-				this.SetTimeStampAt(3, value);
+				this.SetTimeStampByIndex(3, value);
 			}
 			get
 			{
@@ -277,7 +289,7 @@ namespace Charlotte.Tools
 		{
 			set
 			{
-				this.SetTimeStampAt(4, value);
+				this.SetTimeStampByIndex(4, value);
 			}
 			get
 			{
@@ -289,7 +301,7 @@ namespace Charlotte.Tools
 		{
 			set
 			{
-				this.SetTimeStampAt(5, value);
+				this.SetTimeStampByIndex(5, value);
 			}
 			get
 			{
