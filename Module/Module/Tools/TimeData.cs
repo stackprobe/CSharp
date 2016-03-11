@@ -230,11 +230,21 @@ namespace Charlotte.Tools
 			}
 		}
 
+		public int[] GetTimeStamp()
+		{
+			return GetTimeStamp(_t);
+		}
+
+		public void SetTimeStamp(int[] timeStamp)
+		{
+			_t = GetTime(timeStamp);
+		}
+
 		private void SetTimeStampByIndex(int index, int value)
 		{
-			int[] timeStamp = GetTimeStamp(_t);
+			int[] timeStamp = this.GetTimeStamp();
 			timeStamp[index] = value;
-			_t = GetTime(timeStamp);
+			this.SetTimeStamp(timeStamp);
 		}
 
 		public int Y
@@ -245,7 +255,7 @@ namespace Charlotte.Tools
 			}
 			get
 			{
-				return GetTimeStamp(_t)[0];
+				return this.GetTimeStamp()[0];
 			}
 		}
 
@@ -257,7 +267,7 @@ namespace Charlotte.Tools
 			}
 			get
 			{
-				return GetTimeStamp(_t)[1];
+				return this.GetTimeStamp()[1];
 			}
 		}
 
@@ -269,7 +279,7 @@ namespace Charlotte.Tools
 			}
 			get
 			{
-				return GetTimeStamp(_t)[2];
+				return this.GetTimeStamp()[2];
 			}
 		}
 
@@ -281,7 +291,7 @@ namespace Charlotte.Tools
 			}
 			get
 			{
-				return GetTimeStamp(_t)[3];
+				return this.GetTimeStamp()[3];
 			}
 		}
 
@@ -293,7 +303,7 @@ namespace Charlotte.Tools
 			}
 			get
 			{
-				return GetTimeStamp(_t)[4];
+				return this.GetTimeStamp()[4];
 			}
 		}
 
@@ -305,7 +315,7 @@ namespace Charlotte.Tools
 			}
 			get
 			{
-				return GetTimeStamp(_t)[5];
+				return this.GetTimeStamp()[5];
 			}
 		}
 	}

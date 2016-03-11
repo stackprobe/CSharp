@@ -158,7 +158,7 @@ namespace Charlotte.Tools
 
 		public string GetText()
 		{
-			return string.Join("\n", this.GetLines());
+			return string.Join("\r\n", this.GetLines());
 		}
 
 		private void WriteFile(string csvFile, Encoding encoding)

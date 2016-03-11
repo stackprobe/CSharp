@@ -89,6 +89,7 @@
     <Compile Include="Test\Tools\HttpClientTest.cs" />
     <Compile Include="Tools\DateTimeTools.cs" />
     <Compile Include="Tools\TimeData.cs" />
+    <Compile Include="Tools\XNode.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
