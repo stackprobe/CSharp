@@ -24,7 +24,7 @@ namespace Charlotte.Tools
 			_h = 0;
 		}
 
-		public int W
+		public int Width
 		{
 			set
 			{
@@ -37,7 +37,7 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public int H
+		public int Height
 		{
 			set
 			{
@@ -145,6 +145,17 @@ namespace Charlotte.Tools
 		public void Add(T element)
 		{
 			this[_rows[_rows.Count - 1].Count, _rows.Count - 1] = element;
+		}
+
+		public void AddTable(AutoTable<T> table)
+		{
+			for (int y = 0; y < table.Height; y++)
+			{
+				this.AddRow();
+
+				for (int x = 0; x < table.GetWidth(y); x++)
+					this.Add(table[x, y]);
+			}
 		}
 
 		public int GetWidth(int y)

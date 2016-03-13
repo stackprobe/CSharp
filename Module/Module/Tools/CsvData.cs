@@ -140,7 +140,7 @@ namespace Charlotte.Tools
 		{
 			List<string> cells = new List<string>();
 
-			for (int x = 0; x < _table.W; x++)
+			for (int x = 0; x < _table.Width; x++)
 				cells.Add(this.GetCell(x, y));
 
 			return string.Join("" + _delimiter, cells);
@@ -150,7 +150,7 @@ namespace Charlotte.Tools
 		{
 			List<string> lines = new List<string>();
 
-			for (int y = 0; y < _table.H; y++)
+			for (int y = 0; y < _table.Height; y++)
 				lines.Add(this.GetLine(y));
 
 			return lines;
@@ -179,8 +179,8 @@ namespace Charlotte.Tools
 
 		public void TrimAllCell()
 		{
-			for (int x = 0; x < _table.W; x++)
-				for (int y = 0; y < _table.H; y++)
+			for (int x = 0; x < _table.Width; x++)
+				for (int y = 0; y < _table.Height; y++)
 					_table[x, y] = _table[x, y].Trim();
 		}
 
@@ -192,25 +192,25 @@ namespace Charlotte.Tools
 
 		public void TrimX()
 		{
-			while (1 <= _table.W)
+			while (1 <= _table.Width)
 			{
-				for (int y = 0; y < _table.H; y++)
-					if (_table[_table.W - 1, y] != "")
+				for (int y = 0; y < _table.Height; y++)
+					if (_table[_table.Width - 1, y] != "")
 						return;
 
-				_table.W--;
+				_table.Width--;
 			}
 		}
 
 		public void TrimY()
 		{
-			while (1 <= _table.H)
+			while (1 <= _table.Height)
 			{
-				for (int x = 0; x < _table.GetWidth(_table.H - 1); x++)
-					if (_table[x, _table.H - 1] != "")
+				for (int x = 0; x < _table.GetWidth(_table.Height - 1); x++)
+					if (_table[x, _table.Height - 1] != "")
 						return;
 
-				_table.H--;
+				_table.Height--;
 			}
 		}
 	}

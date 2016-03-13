@@ -15,24 +15,21 @@ namespace Charlotte.Test.Tools
 			DebugTools.WriteLog(new TimeData(long.MaxValue).ToString());
 
 			TimeData td = TimeData.Now();
-			DebugTools.WriteLog("" + td); td.s++;
-			DebugTools.WriteLog("" + td); td.s++;
-			DebugTools.WriteLog("" + td); td.s++;
-			DebugTools.WriteLog("" + td); td.m++;
-			DebugTools.WriteLog("" + td); td.m++;
-			DebugTools.WriteLog("" + td); td.m++;
-			DebugTools.WriteLog("" + td); td.h++;
-			DebugTools.WriteLog("" + td); td.h++;
-			DebugTools.WriteLog("" + td); td.h++;
-			DebugTools.WriteLog("" + td); td.D++;
-			DebugTools.WriteLog("" + td); td.D++;
-			DebugTools.WriteLog("" + td); td.D++;
-			DebugTools.WriteLog("" + td); td.M++;
-			DebugTools.WriteLog("" + td); td.M++;
-			DebugTools.WriteLog("" + td); td.M++;
-			DebugTools.WriteLog("" + td); td.Y++;
-			DebugTools.WriteLog("" + td); td.Y++;
-			DebugTools.WriteLog("" + td); td.Y++;
+			DebugTools.WriteLog("" + td); td.T++;
+			DebugTools.WriteLog("" + td); td.T++;
+			DebugTools.WriteLog("" + td); td.T++;
+			DebugTools.WriteLog("" + td); td.T += 60;
+			DebugTools.WriteLog("" + td); td.T += 60;
+			DebugTools.WriteLog("" + td); td.T += 60;
+			DebugTools.WriteLog("" + td); td.T += 3600;
+			DebugTools.WriteLog("" + td); td.T += 3600;
+			DebugTools.WriteLog("" + td); td.T += 3600;
+			DebugTools.WriteLog("" + td); td.T += 86400;
+			DebugTools.WriteLog("" + td); td.T += 86400;
+			DebugTools.WriteLog("" + td); td.T += 86400;
+			DebugTools.WriteLog("" + td); td.T += 7 * 86400;
+			DebugTools.WriteLog("" + td); td.T += 7 * 86400;
+			DebugTools.WriteLog("" + td); td.T += 7 * 86400;
 		}
 	}
 }

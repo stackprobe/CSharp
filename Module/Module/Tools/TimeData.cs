@@ -21,7 +21,7 @@ namespace Charlotte.Tools
 
 		public TimeData(int y, int m, int d)
 		{
-			_t = GetTime(y, m, d, 0, 0, 0);
+			_t = GetTime(y, m, d);
 		}
 
 		public TimeData(DateTime dt)
@@ -37,10 +37,7 @@ namespace Charlotte.Tools
 					return GetTime(
 						timeStamp[0],
 						timeStamp[1],
-						timeStamp[2],
-						0,
-						0,
-						0
+						timeStamp[2]
 						);
 
 				case 6:
@@ -54,6 +51,37 @@ namespace Charlotte.Tools
 						);
 			}
 			throw new ArgumentException("" + timeStamp.Length);
+		}
+
+		public static long GetTime(string timeStamp)
+		{
+			List<string> c = StringTools.NumericTokenize(timeStamp);
+
+			if (c.Count == 3)
+			{
+				return GetTime(
+					int.Parse(c[0]),
+					int.Parse(c[1]),
+					int.Parse(c[2])
+					);
+			}
+			if (c.Count == 6)
+			{
+				return GetTime(
+					int.Parse(c[0]),
+					int.Parse(c[1]),
+					int.Parse(c[2]),
+					int.Parse(c[3]),
+					int.Parse(c[4]),
+					int.Parse(c[5])
+					);
+			}
+			throw new Exception("不明な日時フォーマット: " + timeStamp);
+		}
+
+		public static long GetTime(int y, int m, int d)
+		{
+			return GetTime(y, m, d, 0, 0, 0);
 		}
 
 		public static long GetTime(int y, int m, int d, int h, int i, int s)
@@ -238,85 +266,6 @@ namespace Charlotte.Tools
 		public void SetTimeStamp(int[] timeStamp)
 		{
 			_t = GetTime(timeStamp);
-		}
-
-		private void SetTimeStampByIndex(int index, int value)
-		{
-			int[] timeStamp = this.GetTimeStamp();
-			timeStamp[index] = value;
-			this.SetTimeStamp(timeStamp);
-		}
-
-		public int Y
-		{
-			set
-			{
-				this.SetTimeStampByIndex(0, value);
-			}
-			get
-			{
-				return this.GetTimeStamp()[0];
-			}
-		}
-
-		public int M
-		{
-			set
-			{
-				this.SetTimeStampByIndex(1, value);
-			}
-			get
-			{
-				return this.GetTimeStamp()[1];
-			}
-		}
-
-		public int D
-		{
-			set
-			{
-				this.SetTimeStampByIndex(2, value);
-			}
-			get
-			{
-				return this.GetTimeStamp()[2];
-			}
-		}
-
-		public int h
-		{
-			set
-			{
-				this.SetTimeStampByIndex(3, value);
-			}
-			get
-			{
-				return this.GetTimeStamp()[3];
-			}
-		}
-
-		public int m
-		{
-			set
-			{
-				this.SetTimeStampByIndex(4, value);
-			}
-			get
-			{
-				return this.GetTimeStamp()[4];
-			}
-		}
-
-		public int s
-		{
-			set
-			{
-				this.SetTimeStampByIndex(5, value);
-			}
-			get
-			{
-				return this.GetTimeStamp()[5];
-			}
 		}
 	}
 }
