@@ -213,6 +213,8 @@ namespace WConsole
 		{
 			if (e.KeyChar == (char)13) // enter
 			{
+				e.Handled = true;
+
 				_cmdStdin.Write(this.InputText.Text + "\n");
 				_cmdStdin.Flush();
 
