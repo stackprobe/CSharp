@@ -43,6 +43,10 @@ WCluster
 	ディレクトリ -> 圧縮 -> 暗号化 -> ファイル
 	と、その逆
 
+WConsole
+
+	簡易コマンドプロンプト
+
 WndTest
 
 	EnumWindows などのテスト用
