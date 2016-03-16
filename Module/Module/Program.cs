@@ -26,7 +26,8 @@ namespace Module
 
 		private static void Main2()
 		{
-			TimeDataTest.Test01();
+			NectarTest.Test01();
+			//TimeDataTest.Test01();
 			//CsvDataTest.Test01();
 		}
 	}

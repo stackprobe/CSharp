@@ -2,22 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using Charlotte.Tools;
 
-namespace Charlotte.Tools
+namespace Charlotte.XXXTools
 {
+	/// <summary>
+	/// 送受信どちらかのプロセスが強制終了した場合、内部状態が壊れることがある。-- XXX 回避できないのか？
+	/// -- 送受信両オブジェクトを再作成すること。
+	/// -- 送受信両オブジェクトが存在しないタイミングを確保すること。== イベントのセット状態をクリアするため。
+	/// </summary>
 	public class Nectar : IDisposable
 	{
-		private const string COMMON_ID = "{91ed4458-fe67-4093-a430-9dbf09db9904}";
+		private const string COMMON_ID = "{4498e8a7-3511-4512-8ac3-f58c27da720c}";
 
 		private MutexData _mtx;
+		private NamedEventData _evReady;
 		private NamedEventData _evData;
 		private NamedEventData _evCtrl;
 		private NamedEventData _evSync;
-		private NamedEventData _evSend;
-		private NamedEventData _evPost;
 		private int _timeoutMillis;
-
-		public int RecvSizeMax = 20000000;
 
 		public Nectar(string name, int timeoutMillis = 5000)
 		{
@@ -27,29 +31,20 @@ namespace Charlotte.Tools
 
 			using (new MutexData.Section(_mtx))
 			{
+				_evReady = new NamedEventData(ident + "_Ready");
 				_evData = new NamedEventData(ident + "_Data");
 				_evCtrl = new NamedEventData(ident + "_Ctrl");
 				_evSync = new NamedEventData(ident + "_Sync");
-				_evSend = new NamedEventData(ident + "_Send");
-				_evPost = new NamedEventData(ident + "_Post");
 			}
 			_timeoutMillis = timeoutMillis;
 		}
 
 		/// <summary>
-		/// タイムアウト又は送信に失敗すると例外を投げる。
+		/// タイムアウトすると例外を投げる。
 		/// </summary>
 		/// <param name="message"></param>
 		public void Send(byte[] message)
 		{
-			using (new MutexData.Section(_mtx))
-			{
-				_evData.WaitForMillis(0); // clear
-				_evCtrl.WaitForMillis(0); // clear
-				_evSync.WaitForMillis(0); // clear
-				_evSend.WaitForMillis(0); // clear
-				_evPost.WaitForMillis(0); // clear
-			}
 			this.SendBit(false, true);
 
 			for (int index = 0; index < message.Length; index++)
@@ -64,61 +59,53 @@ namespace Charlotte.Tools
 
 		private void SendBit(bool data, bool ctrl)
 		{
-			using (new MutexData.Section(_mtx))
-			{
-				if (data)
-				{
-					_evData.Set();
-				}
-				if (ctrl)
-				{
-					_evCtrl.Set();
-				}
-				_evSync.Set();
-				_evSend.Set();
-			}
-			if (_evPost.WaitForMillis(_timeoutMillis) == false)
+			if (_evReady.WaitForMillis(_timeoutMillis) == false)
 			{
 				throw new Exception("送信タイムアウト");
 			}
+			if (data)
+			{
+				_evData.Set();
+			}
+			if (ctrl)
+			{
+				_evCtrl.Set();
+			}
+			_evSync.Set();
 		}
 
 		private int _chr = 0;
 		private int _bIndex = 0;
-		private ByteBuffer _buff = new ByteBuffer();
+		private List<byte> _buff = new List<byte>();
 
 		/// <summary>
-		/// タイムアウト又は受信に失敗すると例外を投げる。
+		/// タイムアウトすると例外を投げる。
 		/// </summary>
 		/// <returns></returns>
 		public byte[] Recv()
 		{
 			for (; ; )
 			{
-				int ret = this.RecvBit();
+				int bit = this.RecvBit();
 
-				if (ret == 2)
+				if (bit == 2)
 				{
 					_chr = 0;
 					_bIndex = 0;
 					_buff.Clear();
 				}
-				else if (ret == 3)
+				else if (bit == 3)
 				{
-					return _buff.Join();
+					return _buff.ToArray();
 				}
 				else
 				{
 					_chr <<= 1;
-					_chr |= ret;
+					_chr |= bit;
 					_bIndex++;
 
 					if (_bIndex == 8)
 					{
-						if (this.RecvSizeMax <= _buff.Length)
-						{
-							throw new Exception("受信サイズ超過");
-						}
 						_buff.Add((byte)_chr);
 						_chr = 0;
 						_bIndex = 0;
@@ -127,42 +114,37 @@ namespace Charlotte.Tools
 			}
 		}
 
+		private bool _ready;
+
 		private int RecvBit()
 		{
+			if (_ready == false)
+			{
+				_evReady.Set();
+				_ready = true;
+			}
 			if (_evSync.WaitForMillis(_timeoutMillis) == false)
 			{
 				throw new Exception("受信タイムアウト");
 			}
-			int ret = 0;
+			_ready = false;
 
-			using (new MutexData.Section(_mtx))
-			{
-				if (_evSend.WaitForMillis(0) == false)
-				{
-					throw new Exception("受信失敗");
-				}
-				if (_evData.WaitForMillis(0))
-				{
-					ret |= 1;
-				}
-				if (_evCtrl.WaitForMillis(0))
-				{
-					ret |= 2;
-				}
-				_evPost.Set();
-			}
-			return ret;
+			int bit = 0;
+
+			bit |= _evData.WaitForMillis(0) ? 1 : 0;
+			bit |= _evCtrl.WaitForMillis(0) ? 2 : 0;
+
+			return bit;
 		}
 
 		public void Dispose()
 		{
 			using (new MutexData.Section(_mtx))
 			{
+				_evReady.Dispose();
 				_evData.Dispose();
 				_evCtrl.Dispose();
 				_evSync.Dispose();
-				_evSend.Dispose();
-				_evPost.Dispose();
 			}
 			_mtx.Dispose();
 		}
@@ -176,13 +158,17 @@ namespace Charlotte.Tools
 				_n = new Nectar(name, 30000); // 30 秒 -- 受信側が存在すること前提なので、長め。
 			}
 
-			/// <summary>
-			/// タイムアウト又は送信に失敗すると例外を投げる。
-			/// </summary>
-			/// <param name="message"></param>
-			public void Send(byte[] message)
+			public bool Send(byte[] message)
 			{
-				_n.Send(message);
+				try
+				{
+					_n.Send(message);
+					return true;
+				}
+				catch
+				{ }
+
+				return false;
 			}
 
 			public void Dispose()
@@ -200,16 +186,11 @@ namespace Charlotte.Tools
 				_n = new Nectar(name, 2000); // 2 秒 -- タイムアウトしても送信中のメッセージは維持される。interrupt 確保のため、短め。
 			}
 
-			public void SetRecvSizeMax(int recvSizeMax)
-			{
-				_n.RecvSizeMax = recvSizeMax;
-			}
-
 			/// <summary>
 			/// クライアント応答用？
 			/// </summary>
 			/// <param name="count"></param>
-			/// <returns>null == タイムアウト又は受信に失敗</returns>
+			/// <returns></returns>
 			public byte[] Recv(int count = 30) // def 30 -> 60 秒 -- 相手側の処理時間 + 応答が必ずあることが前提なので、長め。
 			{
 				for (int c = 0; c < count; c++)
