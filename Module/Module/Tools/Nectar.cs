@@ -7,114 +7,222 @@ using System.Threading;
 namespace Charlotte.Tools
 {
 	/// <summary>
-	/// XXX botsu
+	/// 送受信どちらかのプロセスが強制終了した場合、内部状態が壊れることがある。
+	/// -- 送受信両オブジェクトを再作成すること。
+	/// -- 送受信両オブジェクトが存在しないタイミングを確保すること。== イベントのセット状態をクリアするため。
 	/// </summary>
 	public class Nectar : IDisposable
 	{
-		private string _ident;
+		private MutexData _mtx;
 		private NamedEventData _evReady;
 		private NamedEventData _evData;
+		private NamedEventData _evCtrl;
 		private NamedEventData _evSync;
 		private int _timeoutMillis;
 
-		public Nectar(string name, int timeoutMillis = 2000)
+		public Nectar(string name, int timeoutMillis = 5000)
 		{
-			_ident = "{4498e8a7-3511-4512-8ac3-f58c27da720c}_" + SecurityTools.GetSHA512_128String(Encoding.UTF8.GetBytes(name));
+			string ident = "{4498e8a7-3511-4512-8ac3-f58c27da720c}_" + SecurityTools.GetSHA512_128String(StringTools.ENCODING_SJIS.GetBytes(name));
 
-			_evReady = new NamedEventData(_ident + "_Ready");
-			_evData = new NamedEventData(_ident + "_Data");
-			_evSync = new NamedEventData(_ident + "_Sync");
+			_mtx = new MutexData(ident + "_Mutex");
 
+			using (new MutexData.Section(_mtx))
+			{
+				_evReady = new NamedEventData(ident + "_Ready");
+				_evData = new NamedEventData(ident + "_Data");
+				_evCtrl = new NamedEventData(ident + "_Ctrl");
+				_evSync = new NamedEventData(ident + "_Sync");
+			}
 			_timeoutMillis = timeoutMillis;
-		}
-
-		public string GetIdent()
-		{
-			return _ident;
 		}
 
 		/// <summary>
 		/// タイムアウトすると例外を投げる。
 		/// </summary>
-		/// <param name="data"></param>
-		public void Send(byte[] data)
+		/// <param name="message"></param>
+		public void Send(byte[] message)
 		{
-			for (int index = 0; index < data.Length; index++)
+			this.SendBit(false, true);
+
+			for (int index = 0; index < message.Length; index++)
 			{
 				for (int bit = 1 << 7; bit != 0; bit >>= 1)
 				{
-					this.SendBit((data[index] & bit) != 0);
+					this.SendBit((message[index] & bit) != 0, false);
 				}
 			}
+			this.SendBit(true, true);
 		}
 
-		private void SendBit(bool flag)
+		private void SendBit(bool data, bool ctrl)
 		{
 			if (_evReady.WaitForMillis(_timeoutMillis) == false)
 			{
 				throw new Exception("送信タイムアウト");
 			}
-			if (flag)
+			if (data)
 			{
 				_evData.Set();
+			}
+			if (ctrl)
+			{
+				_evCtrl.Set();
 			}
 			_evSync.Set();
 		}
 
-		public byte[] Recv(int size)
-		{
-			byte[] buff = new byte[size];
-			Recv(buff);
-			return buff;
-		}
-
-		public void Recv(byte[] buff)
-		{
-			Recv(buff, 0, buff.Length);
-		}
+		private int _chr = 0;
+		private int _bIndex = 0;
+		private List<byte> _buff = new List<byte>();
 
 		/// <summary>
 		/// タイムアウトすると例外を投げる。
 		/// </summary>
-		/// <param name="buff"></param>
-		/// <param name="startPos"></param>
-		/// <param name="size"></param>
-		public void Recv(byte[] buff, int startPos, int size)
+		/// <returns></returns>
+		public byte[] Recv()
 		{
-			for (int index = 0; index < size; index++)
+			for (; ; )
 			{
-				buff[startPos + index] = this.RecvChar();
+				int bit = this.RecvBit();
+
+				if (bit == 2)
+				{
+					_chr = 0;
+					_bIndex = 0;
+					_buff.Clear();
+				}
+				else if (bit == 3)
+				{
+					return _buff.ToArray();
+				}
+				else
+				{
+					_chr <<= 1;
+					_chr |= bit;
+					_bIndex++;
+
+					if (_bIndex == 8)
+					{
+						_buff.Add((byte)_chr);
+						_chr = 0;
+						_bIndex = 0;
+					}
+				}
 			}
 		}
 
-		private byte RecvChar()
-		{
-			int chr = 0;
+		private bool _ready;
 
-			for (int bit = 0; bit < 8; bit++)
+		private int RecvBit()
+		{
+			if (_ready == false)
 			{
-				chr <<= 1;
-				chr |= this.RecvBit() ? 1 : 0;
+				_evReady.Set();
+				_ready = true;
 			}
-			return (byte)chr;
-		}
-
-		private bool RecvBit()
-		{
-			_evReady.Set();
-
 			if (_evSync.WaitForMillis(_timeoutMillis) == false)
 			{
 				throw new Exception("受信タイムアウト");
 			}
-			return _evData.WaitForMillis(0);
+			_ready = false;
+
+			int bit = 0;
+
+			bit |= _evData.WaitForMillis(0) ? 1 : 0;
+			bit |= _evCtrl.WaitForMillis(0) ? 2 : 0;
+
+			return bit;
 		}
 
 		public void Dispose()
 		{
-			_evReady.Dispose();
-			_evData.Dispose();
-			_evSync.Dispose();
+			using (new MutexData.Section(_mtx))
+			{
+				_evReady.Dispose();
+				_evData.Dispose();
+				_evCtrl.Dispose();
+				_evSync.Dispose();
+			}
+			_mtx.Dispose();
+		}
+
+		public class Sender : IDisposable
+		{
+			private Nectar _n;
+
+			public Sender(string name)
+			{
+				_n = new Nectar(name, 30000); // 30 秒 -- 受信側が存在すること前提なので、長め。
+			}
+
+			public bool Send(byte[] message)
+			{
+				try
+				{
+					_n.Send(message);
+					return true;
+				}
+				catch
+				{ }
+
+				return false;
+			}
+
+			public void Dispose()
+			{
+				_n.Dispose();
+			}
+		}
+
+		public class Recver : IDisposable
+		{
+			private Nectar _n;
+
+			public Recver(string name)
+			{
+				_n = new Nectar(name, 2000); // 2 秒 -- タイムアウトしても送信中のメッセージは維持される。interrupt 確保のため、短め。
+			}
+
+			/// <summary>
+			/// クライアント応答用？
+			/// </summary>
+			/// <param name="count"></param>
+			/// <returns></returns>
+			public byte[] Recv(int count = 90) // def 90 -> 3 分 -- 相手側の処理時間 + 応答が必ずあることが前提なので、長め。
+			{
+				for (int c = 0; c < count; c++)
+				{
+					byte[] message = this.RecvOnce();
+
+					if (message != null)
+					{
+						return message;
+					}
+				}
+				return null;
+			}
+
+			/// <summary>
+			/// サーバー用？
+			/// 受信を待機する場合、時間を空けずに繰り返し呼び出すこと。
+			/// </summary>
+			/// <returns></returns>
+			public byte[] RecvOnce()
+			{
+				try
+				{
+					return _n.Recv();
+				}
+				catch
+				{ }
+
+				return null;
+			}
+
+			public void Dispose()
+			{
+				_n.Dispose();
+			}
 		}
 	}
 }
