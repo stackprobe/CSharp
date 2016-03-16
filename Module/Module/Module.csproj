@@ -84,6 +84,10 @@
     <Compile Include="Tools\IntTools.cs" />
     <Compile Include="Tools\LongTools.cs" />
     <Compile Include="Tools\MathTools.cs" />
+    <Compile Include="Tools\MutexData.cs" />
+    <Compile Include="Tools\NamedEventData.cs" />
+    <Compile Include="Tools\Nectar.cs" />
+    <Compile Include="Tools\SecurityTools.cs" />
     <Compile Include="Tools\StringIndexOf.cs" />
     <Compile Include="Tools\StringTools.cs" />
     <Compile Include="Test\Tools\HttpClientTest.cs" />

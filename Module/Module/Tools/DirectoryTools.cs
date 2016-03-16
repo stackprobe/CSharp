@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Diagnostics;
 
 namespace Charlotte.Tools
 {
@@ -50,6 +51,33 @@ namespace Charlotte.Tools
 			public void Dispose()
 			{
 				Directory.SetCurrentDirectory(_home);
+			}
+		}
+
+		public static void DeleteAllSubDirUnhandled(string dir)
+		{
+			DeleteSubDirsUnhandled(dir, Directory.GetDirectories(dir));
+		}
+
+		public static void DeleteSubDirsUnhandled(string dir, string[] subDirs)
+		{
+			foreach (string subDir in subDirs)
+			{
+				string delDir = "$del_" + Guid.NewGuid().ToString("B");
+
+				{
+					ProcessStartInfo psi = new ProcessStartInfo();
+
+					psi.WorkingDirectory = dir;
+					psi.FileName = "cmd.exe";
+					psi.Arguments = "/C ren \"" + Path.GetFileName(subDir) + "\" " + delDir;
+					psi.CreateNoWindow = true;
+					psi.UseShellExecute = false;
+
+					Process.Start(psi).WaitForExit();
+				}
+
+				Directory.Delete(StringTools.Combine(dir, delDir));
 			}
 		}
 	}
