@@ -11,124 +11,173 @@ namespace Charlotte.Tools
 		where Writer_t : class
 		where Record_t : class
 	{
-		public void Perform(string rwFile)
+		public void MergeSort(string rwFile)
 		{
-			this.Perform(rwFile, rwFile);
+			this.MergeSort(rwFile, rwFile);
 		}
 
-		public void Perform(string rFile, string wFile)
+		public void MergeSort(string rFile, string wFile)
+		{
+			using (new FileStream(rFile, FileMode.Open, FileAccess.Read)) // read check !
+			{ }
+
+			Queue<string> divFiles = this.MakeDivFiles(rFile);
+
+			while (2 < divFiles.Count)
+			{
+				string divFile1 = divFiles.Dequeue();
+				string divFile2 = divFiles.Dequeue();
+				string divFile3 = FileTools.MakeTempPath();
+
+				this.MergeFile(divFile1, divFile2, divFile3);
+
+				divFiles.Enqueue(divFile3);
+			}
+
+			using (new FileStream(wFile, FileMode.Create, FileAccess.Write)) // write check !
+			{ }
+
+			switch (divFiles.Count)
+			{
+				case 2:
+					this.MergeFile(divFiles.Dequeue(), divFiles.Dequeue(), wFile);
+					break;
+
+				case 1:
+					this.FlowFile(divFiles.Dequeue(), wFile);
+					break;
+
+				case 0:
+					this.WriteClose(this.WriteOpen(wFile));
+					break;
+
+				default:
+					throw null;
+			}
+		}
+
+		private Queue<string> MakeDivFiles(string rFile)
 		{
 			Reader_t reader = this.ReadOpen(rFile);
-			List<Record_t> records = null;
+			List<Record_t> records = new List<Record_t>();
 			long weight = 0L;
 			long weightMax = this.GetWeightMax();
-			Queue<string> midFiles = new Queue<string>();
+			Queue<string> divFiles = new Queue<string>();
 
 			for (; ; )
 			{
 				Record_t record = this.ReadRecord(reader);
 
 				if (record == null)
+				{
 					break;
-
-				if (records == null)
-					records = new List<Record_t>();
-
+				}
 				records.Add(record);
 				weight += this.GetWeight(record);
 
 				if (weightMax < weight)
 				{
-					midFiles.Enqueue(this.MakeMidFile(records));
-					records = null;
+					divFiles.Enqueue(this.MakeDivFile(records));
+					records.Clear();
 					weight = 0L;
 				}
 			}
-			if (records != null)
-				midFiles.Enqueue(this.MakeMidFile(records));
+			this.ReadClose(reader);
+
+			if (1 <= records.Count)
+			{
+				divFiles.Enqueue(this.MakeDivFile(records));
+			}
+			return divFiles;
 		}
 
-		private string MakeMidFile(List<Record_t> records)
+		private string MakeDivFile(List<Record_t> records)
 		{
-			string midFile = FileTools.MakeTempPath();
+			string wFile = FileTools.MakeTempPath();
 
 			records.Sort(this.Comp);
 
-			Writer_t writer = this.WriteOpen(midFile);
+			Writer_t writer = this.WriteOpen(wFile);
 
 			foreach (Record_t record in records)
+			{
 				this.WriteRecord(writer, record);
-
+			}
 			this.WriteClose(writer);
-			return midFile;
+			return wFile;
 		}
 
-		public abstract Reader_t ReadOpen(string file);
-		public abstract Record_t ReadRecord(Reader_t reader);
-		public abstract void ReadClose(Reader_t reader);
-
-		public abstract Writer_t WriteOpen(string file);
-		public abstract void WriteRecord(Writer_t writer, Record_t record);
-		public abstract void WriteClose(Writer_t writer);
-
-		public abstract long GetWeight(Record_t record);
-		public abstract long GetWeightMax();
-
-		public abstract int Comp(Record_t a, Record_t b);
-
-		public class TextFileSorter : FileSorter<StreamReader, StreamWriter, string>
+		private void MergeFile(string rFile1, string rFile2, string wFile)
 		{
-			private Encoding _encoding;
+			Reader_t reader1 = this.ReadOpen(rFile1);
+			Reader_t reader2 = this.ReadOpen(rFile2);
+			Writer_t writer = this.WriteOpen(wFile);
+			Record_t record1 = this.ReadRecord(reader1);
+			Record_t record2 = this.ReadRecord(reader2);
 
-			public TextFileSorter(Encoding encoding)
+			for (; ; )
 			{
-				_encoding = encoding;
-			}
+				int ret;
 
-			public override StreamReader ReadOpen(string file)
-			{
-				return new StreamReader(file, _encoding);
+				if (record1 == null)
+				{
+					if (record2 == null)
+					{
+						break;
+					}
+					ret = 1;
+				}
+				else if (record2 == null)
+				{
+					ret = -1;
+				}
+				else
+				{
+					ret = this.Comp(record1, record2);
+				}
+				if (ret < 0)
+				{
+					this.WriteRecord(writer, record1);
+					record1 = this.ReadRecord(reader1);
+				}
+				else if (0 < ret)
+				{
+					this.WriteRecord(writer, record2);
+					record2 = this.ReadRecord(reader2);
+				}
+				else
+				{
+					this.WriteRecord(writer, record1);
+					this.WriteRecord(writer, record2);
+					record1 = this.ReadRecord(reader1);
+					record2 = this.ReadRecord(reader2);
+				}
 			}
+			this.ReadClose(reader1);
+			this.ReadClose(reader2);
+			this.WriteClose(writer);
 
-			public override string ReadRecord(StreamReader reader)
-			{
-				return reader.ReadLine();
-			}
-
-			public override void ReadClose(StreamReader reader)
-			{
-				reader.Dispose();
-			}
-
-			public override StreamWriter WriteOpen(string file)
-			{
-				return new StreamWriter(file, false,_encoding);
-			}
-
-			public override void WriteRecord(StreamWriter writer, string record)
-			{
-				writer.WriteLine(record);
-			}
-
-			public override void WriteClose(StreamWriter writer)
-			{
-				writer.Dispose();
-			}
-
-			public override long GetWeight(string record)
-			{
-				return 100 + record.Length * 2;
-			}
-
-			public override long GetWeightMax()
-			{
-				return 100000000; // 100 MB !!!
-			}
-
-			public override int Comp(string a, string b)
-			{
-				return string.Compare(a, b);
-			}
+			File.Delete(rFile1);
+			File.Delete(rFile2);
 		}
+
+		private void FlowFile(string rFile, string wFile)
+		{
+			File.Delete(wFile);
+			File.Move(rFile, wFile);
+		}
+
+		protected abstract Reader_t ReadOpen(string file);
+		protected abstract Record_t ReadRecord(Reader_t reader);
+		protected abstract void ReadClose(Reader_t reader);
+
+		protected abstract Writer_t WriteOpen(string file);
+		protected abstract void WriteRecord(Writer_t writer, Record_t record);
+		protected abstract void WriteClose(Writer_t writer);
+
+		protected abstract long GetWeight(Record_t record);
+		protected abstract long GetWeightMax();
+
+		protected abstract int Comp(Record_t a, Record_t b);
 	}
 }

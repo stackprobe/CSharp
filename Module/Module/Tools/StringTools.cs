@@ -340,5 +340,8 @@ namespace Charlotte.Tools
 				}
 			}
 		}
+
+		public static readonly string ASCII = Encoding.ASCII.GetString(ArrayTools.ByteSq(0x21, 0x7e));
+		public static readonly string ASCII_SPC = Encoding.ASCII.GetString(ArrayTools.ByteSq(0x20, 0x7e));
 	}
 }

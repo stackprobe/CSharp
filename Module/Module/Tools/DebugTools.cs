@@ -24,5 +24,30 @@ namespace Charlotte.Tools
 					);
 			}
 		}
+
+		public static void MakeRandTextFile(string file, Encoding encoding, string chrs, string lineNew, int linecnt, int chrcntMin, int chrcntMax)
+		{
+			byte[] bLineNew = encoding.GetBytes(lineNew);
+
+			using (FileStream fs = new FileStream(file, FileMode.Create, FileAccess.Write))
+			{
+				for (int index = 0; index < linecnt; index++)
+				{
+					FileTools.Write(fs, encoding.GetBytes(MakeRandString(chrs, MathTools.Random(chrcntMin, chrcntMax))));
+					FileTools.Write(fs, bLineNew);
+				}
+			}
+		}
+
+		private static string MakeRandString(string chrs, int chrcnt)
+		{
+			StringBuilder buff = new StringBuilder();
+
+			for (int index = 0; index < chrcnt; index++)
+			{
+				buff.Append(chrs[MathTools.Random(chrs.Length)]);
+			}
+			return buff.ToString();
+		}
 	}
 }

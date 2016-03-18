@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Test\Tools\CsvDataTest.cs" />
+    <Compile Include="Test\Tools\FileSorterTest.cs" />
     <Compile Include="Test\Tools\NectarTest.cs" />
     <Compile Include="Test\Tools\TimeDataTest.cs" />
     <Compile Include="Tools\ByteBuffer.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Tools\MutexData.cs" />
     <Compile Include="Tools\NamedEventData.cs" />
     <Compile Include="Tools\Nectar.cs" />
+    <Compile Include="Tools\TextFileSorter.cs" />
     <Compile Include="XXXTools\Nectar.cs" />
     <Compile Include="Tools\SecurityTools.cs" />
     <Compile Include="Tools\StringIndexOf.cs" />

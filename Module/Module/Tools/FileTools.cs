@@ -69,5 +69,28 @@ namespace Charlotte.Tools
 		{
 			return StringTools.Combine(Environment.GetEnvironmentVariable("TMP"), Guid.NewGuid().ToString("B"));
 		}
+
+		public static bool IsSame(string file1, string file2)
+		{
+			using (FileStream fs1 = new FileStream(file1, FileMode.Open, FileAccess.Read, FileShare.None, 1000000))
+			using (FileStream fs2 = new FileStream(file2, FileMode.Open, FileAccess.Read, FileShare.None, 1000000))
+			{
+				for (; ; )
+				{
+					int chr1 = fs1.ReadByte();
+					int chr2 = fs2.ReadByte();
+
+					if (chr1 != chr2)
+					{
+						return false;
+					}
+					if (chr1 == -1)
+					{
+						break;
+					}
+				}
+			}
+			return true;
+		}
 	}
 }
