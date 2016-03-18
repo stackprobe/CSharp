@@ -88,6 +88,9 @@ namespace Charlotte.Tools
 
 		public byte[] Join()
 		{
+			if (this.Buff != null)
+				this.AddBuff();
+
 			byte[] dest = new byte[this.TotalSize];
 			int wPos = 0;
 

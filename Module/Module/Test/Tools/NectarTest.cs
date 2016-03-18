@@ -43,6 +43,8 @@ namespace Charlotte.Test.Tools
 					sender.Send(Encoding.UTF8.GetBytes("123"));
 					sender.Send(Encoding.UTF8.GetBytes("ABCDEF"));
 					sender.Send(Encoding.UTF8.GetBytes("朝比奈みらいちゃんの秘密が茂る宝島(ワンダーランド)を、僕のリンクルステッキで探検&冒険したい！"));
+
+					Thread.Sleep(100); // 受信待ち。-- th の recver.Receipt() で２秒待たされる。
 				}
 				finally
 				{

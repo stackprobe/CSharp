@@ -64,5 +64,10 @@ namespace Charlotte.Tools
 		{
 			s.Write(block, 0, block.Length);
 		}
+
+		public static string MakeTempPath()
+		{
+			return StringTools.Combine(Environment.GetEnvironmentVariable("TMP"), Guid.NewGuid().ToString("B"));
+		}
 	}
 }
