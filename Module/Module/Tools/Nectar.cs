@@ -7,7 +7,7 @@ namespace Charlotte.Tools
 {
 	public class Nectar : IDisposable
 	{
-		private const string COMMON_ID = "{91ed4458-fe67-4093-a430-9dbf09db9904}";
+		private const string COMMON_ID = "{91ed4458-fe67-4093-a430-9dbf09db9904}"; // shared_uuid
 
 		private MutexData _mtx;
 		private NamedEventData _evData;

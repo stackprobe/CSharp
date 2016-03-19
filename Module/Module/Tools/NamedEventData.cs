@@ -29,7 +29,7 @@ namespace Charlotte.Tools
 		/// 
 		/// </summary>
 		/// <param name="millis">-1 == INFINITE</param>
-		/// <returns>? シグナルを受け取った。</returns>
+		/// <returns>シグナルを受け取った。</returns>
 		public bool WaitForMillis(int millis)
 		{
 			return _ewh.WaitOne(millis);

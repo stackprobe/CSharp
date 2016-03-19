@@ -24,7 +24,7 @@ namespace Charlotte.Tools
 		/// 
 		/// </summary>
 		/// <param name="millis">-1 == INFINITE</param>
-		/// <returns>? ロックした。</returns>
+		/// <returns>ロックした。</returns>
 		public bool WaitForMillis(int millis)
 		{
 			return _m.WaitOne(millis);

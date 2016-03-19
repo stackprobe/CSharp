@@ -343,5 +343,104 @@ namespace Charlotte.Tools
 
 		public static readonly string ASCII = Encoding.ASCII.GetString(ArrayTools.ByteSq(0x21, 0x7e));
 		public static readonly string ASCII_SPC = Encoding.ASCII.GetString(ArrayTools.ByteSq(0x20, 0x7e));
+
+		public static string TextToLine(string src)
+		{
+			StringBuilder buff = new StringBuilder();
+
+			foreach (char chr in src)
+			{
+				if (chr == '\t')
+				{
+					buff.Append('\\');
+					buff.Append('t');
+				}
+				else if (chr == '\n')
+				{
+					buff.Append('\\');
+					buff.Append('n');
+				}
+				else if (chr == ' ')
+				{
+					buff.Append('\\');
+					buff.Append('s');
+				}
+				else if (chr == '\\')
+				{
+					buff.Append('\\');
+					buff.Append('\\');
+				}
+				else if (chr < ' ') // ? control code
+				{
+					// ignore
+				}
+				else
+				{
+					buff.Append(chr);
+				}
+			}
+			return buff.ToString();
+		}
+
+		public static string LineToText(string src)
+		{
+			StringBuilder buff = new StringBuilder();
+			bool escapeMode = false;
+
+			foreach (char chr in src)
+			{
+				if (escapeMode)
+				{
+					char trueChr;
+
+					switch (chr)
+					{
+						case 't':
+							trueChr = '\t';
+							break;
+						case 'n':
+							trueChr = '\n';
+							break;
+						case 's':
+							trueChr = ' ';
+							break;
+						case '\\':
+							trueChr = '\\';
+							break;
+
+						default:
+							trueChr = chr;
+							break;
+					}
+					buff.Append(trueChr);
+					escapeMode = false;
+				}
+				else
+				{
+					if (chr == '\\')
+					{
+						escapeMode = true;
+					}
+					else
+					{
+						buff.Append(chr);
+					}
+				}
+			}
+			return buff.ToString();
+		}
+
+		public const string S_TRUE = "true";
+		public const string S_FALSE = "false";
+
+		public static string ToString(bool flag)
+		{
+			return flag ? S_TRUE : S_FALSE;
+		}
+
+		public static bool ToFlag(string str)
+		{
+			return IsSame(str, S_TRUE, true);
+		}
 	}
 }
