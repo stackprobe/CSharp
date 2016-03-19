@@ -92,5 +92,15 @@ namespace Charlotte.Tools
 			}
 			return true;
 		}
+
+		internal static void TryDelete(string file)
+		{
+			try
+			{
+				File.Delete(file);
+			}
+			catch
+			{ }
+		}
 	}
 }

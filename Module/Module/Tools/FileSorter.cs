@@ -16,53 +16,71 @@ namespace Charlotte.Tools
 			this.MergeSort(rwFile, rwFile);
 		}
 
+		private string _divFileBase;
+		private long _rSerial;
+		private long _wSerial;
+
 		public void MergeSort(string rFile, string wFile)
 		{
-			using (new FileStream(rFile, FileMode.Open, FileAccess.Read)) // read check !
-			{ }
+			_divFileBase = FileTools.MakeTempPath() + "_FileSorter_div_";
+			_rSerial = 0L;
+			_wSerial = 0L;
 
-			Queue<string> divFiles = this.MakeDivFiles(rFile);
-
-			while (2 < divFiles.Count)
+			try
 			{
-				string divFile1 = divFiles.Dequeue();
-				string divFile2 = divFiles.Dequeue();
-				string divFile3 = FileTools.MakeTempPath();
+				using (new FileStream(rFile, FileMode.Open, FileAccess.Read)) // read check !
+				{ }
 
-				this.MergeFile(divFile1, divFile2, divFile3);
+				this.MakeDivFiles(rFile);
 
-				divFiles.Enqueue(divFile3);
+				while (_rSerial + 2 < _wSerial)
+				{
+					string divFile1 = this.GetDivFile(_rSerial++);
+					string divFile2 = this.GetDivFile(_rSerial++);
+					string divFile3 = this.GetDivFile(_wSerial++);
+
+					this.MergeFile(divFile1, divFile2, divFile3);
+				}
+
+				using (new FileStream(wFile, FileMode.Create, FileAccess.Write)) // write check !
+				{ }
+
+				switch ((int)(_wSerial - _rSerial))
+				{
+					case 2:
+						this.MergeFile(this.GetDivFile(_rSerial++), this.GetDivFile(_rSerial++), wFile);
+						break;
+
+					case 1:
+						this.FlowFile(this.GetDivFile(_rSerial++), wFile);
+						break;
+
+					case 0:
+						this.WriteClose(this.WriteOpen(wFile));
+						break;
+
+					default:
+						throw null;
+				}
 			}
-
-			using (new FileStream(wFile, FileMode.Create, FileAccess.Write)) // write check !
-			{ }
-
-			switch (divFiles.Count)
+			finally
 			{
-				case 2:
-					this.MergeFile(divFiles.Dequeue(), divFiles.Dequeue(), wFile);
-					break;
-
-				case 1:
-					this.FlowFile(divFiles.Dequeue(), wFile);
-					break;
-
-				case 0:
-					this.WriteClose(this.WriteOpen(wFile));
-					break;
-
-				default:
-					throw null;
+				while (_rSerial < _wSerial)
+				{
+					FileTools.TryDelete(this.GetDivFile(_rSerial++));
+				}
+				_divFileBase = null;
+				_rSerial = -1L;
+				_wSerial = -1L;
 			}
 		}
 
-		private Queue<string> MakeDivFiles(string rFile)
+		private void MakeDivFiles(string rFile)
 		{
 			Reader_t reader = this.ReadOpen(rFile);
 			List<Record_t> records = new List<Record_t>();
 			long weight = 0L;
 			long weightMax = this.GetWeightMax();
-			Queue<string> divFiles = new Queue<string>();
 
 			for (; ; )
 			{
@@ -77,7 +95,7 @@ namespace Charlotte.Tools
 
 				if (weightMax < weight)
 				{
-					divFiles.Enqueue(this.MakeDivFile(records));
+					this.MakeDivFile(records);
 					records.Clear();
 					weight = 0L;
 				}
@@ -86,14 +104,13 @@ namespace Charlotte.Tools
 
 			if (1 <= records.Count)
 			{
-				divFiles.Enqueue(this.MakeDivFile(records));
+				this.MakeDivFile(records);
 			}
-			return divFiles;
 		}
 
-		private string MakeDivFile(List<Record_t> records)
+		private void MakeDivFile(List<Record_t> records)
 		{
-			string wFile = FileTools.MakeTempPath();
+			string wFile = this.GetDivFile(_wSerial++);
 
 			records.Sort(this.Comp);
 
@@ -104,7 +121,11 @@ namespace Charlotte.Tools
 				this.WriteRecord(writer, record);
 			}
 			this.WriteClose(writer);
-			return wFile;
+		}
+
+		private string GetDivFile(long serial)
+		{
+			return _divFileBase + serial;
 		}
 
 		private void MergeFile(string rFile1, string rFile2, string wFile)

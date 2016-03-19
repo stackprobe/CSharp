@@ -52,8 +52,6 @@ namespace Charlotte.Test.Tools
 			Test01(10000, 1000);
 			Test01(100000, 1000);
 			Test01(1000000, 1000);
-
-			DebugTools.WriteLog("OK!");
 		}
 
 		private static void Test01(int linecnt, int chrcnt)

@@ -15,7 +15,9 @@ namespace Module
 		{
 			try
 			{
+				DebugTools.WriteLog("START!");
 				Main2();
+				DebugTools.WriteLog("OK!");
 			}
 			catch (Exception e)
 			{
@@ -26,8 +28,8 @@ namespace Module
 
 		private static void Main2()
 		{
-			FileSorterTest.Test01();
-			//NectarTest.Test01();
+			//FileSorterTest.Test01();
+			NectarTest.Test01();
 			//TimeDataTest.Test01();
 			//CsvDataTest.Test01();
 		}
