@@ -28,7 +28,7 @@ namespace Charlotte.Htt
 			if (service == null)
 				throw new ArgumentNullException("service");
 
-			if (_mutex.WaitOne(0))
+			if (_mutex.WaitOne(3000)) // XXX
 			{
 				try
 				{
