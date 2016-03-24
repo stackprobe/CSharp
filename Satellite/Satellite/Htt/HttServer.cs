@@ -12,6 +12,7 @@ namespace Charlotte.Htt
 	public class HttServer
 	{
 		private const string COMMON_ID = "{7da01163-efa3-4941-a5a6-be0800720d8e}"; // shared_uuid
+		private const string EXCL_ID = COMMON_ID + "_e";
 		private const string MUTEX_ID = COMMON_ID + "_m";
 		private const string HTT_ID = COMMON_ID + "_h";
 		private const string HTT_SERVICE_ID = COMMON_ID + "_hs";
@@ -20,6 +21,7 @@ namespace Charlotte.Htt
 		private static readonly byte[] COMMAND_RESPONSE = Encoding.ASCII.GetBytes("R");
 		private static readonly byte[] COMMAND_ERROR = Encoding.ASCII.GetBytes("E");
 
+		private static MutexObject _excl = new MutexObject(EXCL_ID);
 		private static MutexObject _mutex = new MutexObject(MUTEX_ID);
 		private static Fortewave _pipeline;
 
@@ -28,8 +30,10 @@ namespace Charlotte.Htt
 			if (service == null)
 				throw new ArgumentNullException("service");
 
-			if (_mutex.WaitOne(3000)) // XXX
+			if (_excl.WaitOne(0))
 			{
+				_mutex.WaitOne(); // handled by also WHTTR.exe, Service.exe
+
 				try
 				{
 					_pipeline = new Fortewave(HTT_SERVICE_ID, HTT_ID);
@@ -134,6 +138,7 @@ namespace Charlotte.Htt
 						_pipeline = null;
 					}
 					_mutex.Release();
+					_excl.Release();
 				}
 			}
 		}
