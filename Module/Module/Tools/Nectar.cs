@@ -156,15 +156,24 @@ namespace Charlotte.Tools
 
 		public void Dispose()
 		{
-			using (new MutexData.Section(_mtx))
+			if (_mtx != null)
 			{
-				_evData.Dispose();
-				_evCtrl.Dispose();
-				_evSync.Dispose();
-				_evSend.Dispose();
-				_evPost.Dispose();
+				using (new MutexData.Section(_mtx))
+				{
+					_evData.Dispose();
+					_evData = null;
+					_evCtrl.Dispose();
+					_evCtrl = null;
+					_evSync.Dispose();
+					_evSync = null;
+					_evSend.Dispose();
+					_evSend = null;
+					_evPost.Dispose();
+					_evPost = null;
+				}
+				_mtx.Dispose();
+				_mtx = null;
 			}
-			_mtx.Dispose();
 		}
 
 		public class Sender : IDisposable
@@ -187,7 +196,11 @@ namespace Charlotte.Tools
 
 			public void Dispose()
 			{
-				_n.Dispose();
+				if (_n != null)
+				{
+					_n.Dispose();
+					_n = null;
+				}
 			}
 		}
 
@@ -210,7 +223,7 @@ namespace Charlotte.Tools
 			/// </summary>
 			/// <param name="count"></param>
 			/// <returns>null == タイムアウト又は受信に失敗</returns>
-			public byte[] Recv(int count = 30) // def 30 -> 60 秒 -- 相手側の処理時間 + 応答が必ずあることが前提なので、長め。
+			public byte[] Recv(int count = 30) // def 30 == 60 秒 -- 相手側の処理時間 + 応答が必ずあることが前提なので、長め。
 			{
 				for (int c = 0; c < count; c++)
 				{
@@ -243,7 +256,11 @@ namespace Charlotte.Tools
 
 			public void Dispose()
 			{
-				_n.Dispose();
+				if (_n != null)
+				{
+					_n.Dispose();
+					_n = null;
+				}
 			}
 		}
 	}

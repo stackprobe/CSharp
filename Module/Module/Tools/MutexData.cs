@@ -37,7 +37,11 @@ namespace Charlotte.Tools
 
 		public void Dispose()
 		{
-			_m.Dispose();
+			if (_m != null)
+			{
+				_m.Dispose();
+				_m = null;
+			}
 		}
 
 		public class Section : IDisposable
@@ -58,10 +62,15 @@ namespace Charlotte.Tools
 
 			public void Dispose()
 			{
-				_md.Unlock();
+				if (_md != null)
+				{
+					_md.Unlock();
 
-				if (_autoDispose)
-					_md.Dispose();
+					if (_autoDispose)
+						_md.Dispose();
+
+					_md = null;
+				}
 			}
 		}
 	}

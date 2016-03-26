@@ -139,14 +139,22 @@ namespace Charlotte.XXXTools
 
 		public void Dispose()
 		{
-			using (new MutexData.Section(_mtx))
+			if (_mtx != null)
 			{
-				_evReady.Dispose();
-				_evData.Dispose();
-				_evCtrl.Dispose();
-				_evSync.Dispose();
+				using (new MutexData.Section(_mtx))
+				{
+					_evReady.Dispose();
+					_evReady = null;
+					_evData.Dispose();
+					_evData = null;
+					_evCtrl.Dispose();
+					_evCtrl = null;
+					_evSync.Dispose();
+					_evSync = null;
+				}
+				_mtx.Dispose();
+				_mtx = null;
 			}
-			_mtx.Dispose();
 		}
 
 		public class Sender : IDisposable
@@ -173,7 +181,11 @@ namespace Charlotte.XXXTools
 
 			public void Dispose()
 			{
-				_n.Dispose();
+				if (_n != null)
+				{
+					_n.Dispose();
+					_n = null;
+				}
 			}
 		}
 
@@ -224,7 +236,11 @@ namespace Charlotte.XXXTools
 
 			public void Dispose()
 			{
-				_n.Dispose();
+				if (_n != null)
+				{
+					_n.Dispose();
+					_n = null;
+				}
 			}
 		}
 	}

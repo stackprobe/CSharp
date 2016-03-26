@@ -50,7 +50,11 @@ namespace Charlotte.Tools
 
 			public void Dispose()
 			{
-				Directory.SetCurrentDirectory(_home);
+				if (_home != null)
+				{
+					Directory.SetCurrentDirectory(_home);
+					_home = null;
+				}
 			}
 		}
 

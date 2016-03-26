@@ -32,8 +32,12 @@ namespace Charlotte
 
 		public void Dispose()
 		{
-			SetWindowRedraw(this.Target, true);
-			this.Target.Refresh();
+			if (this.Target != null)
+			{
+				SetWindowRedraw(this.Target, true);
+				this.Target.Refresh();
+				this.Target = null;
+			}
 		}
 	}
 }

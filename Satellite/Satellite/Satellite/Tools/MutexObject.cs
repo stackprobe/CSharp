@@ -61,7 +61,11 @@ namespace Charlotte.Satellite.Tools
 
 			public void Dispose()
 			{
-				this.Mo.Release();
+				if (this.Mo != null)
+				{
+					this.Mo.Release();
+					this.Mo = null;
+				}
 			}
 		}
 
@@ -82,7 +86,11 @@ namespace Charlotte.Satellite.Tools
 
 			public void Dispose()
 			{
-				this.Mo.WaitOne();
+				if (this.Mo != null)
+				{
+					this.Mo.WaitOne();
+					this.Mo = null;
+				}
 			}
 		}
 	}

@@ -37,7 +37,11 @@ namespace Charlotte.Tools
 
 		public void Dispose()
 		{
-			_ewh.Dispose();
+			if (_ewh != null)
+			{
+				_ewh.Dispose();
+				_ewh = null;
+			}
 		}
 	}
 }
