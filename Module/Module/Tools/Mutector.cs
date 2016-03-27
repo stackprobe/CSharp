@@ -110,7 +110,7 @@ namespace Charlotte.Tools
 
 				try
 				{
-					this.SendBit(false, false);
+					this.SendBit(true, true);
 
 					for (int index = 0; index < message.Length; index++)
 					{
@@ -122,7 +122,6 @@ namespace Charlotte.Tools
 								this.SendBit(true, false);
 						}
 					}
-					this.SendBit(true, true);
 					this.SendBit(false, false);
 					this.SendBit(false, false);
 					this.SendBit(false, false);
@@ -233,19 +232,18 @@ namespace Charlotte.Tools
 					bool b0 = _m.Get((int)M_INDEX.Bit_0_0 + m1);
 					bool b1 = _m.Get((int)M_INDEX.Bit_1_0 + m1);
 
-					if (b0)
+					if (_buff == null)
 					{
-						if (b1)
+						if (b0 && b1)
 						{
-							if (_buff == null)
-								_buff = new ByteBuffer();
-
-							_recver.Recved(_buff.Join());
+							_buff = new ByteBuffer();
+							_bChr = 0;
+							_bIndex = 0;
 						}
-						else
-						{
-							this.RecvedBit(0);
-						}
+					}
+					else if (b0)
+					{
+						this.RecvedBit(0);
 					}
 					else if (b1)
 					{
@@ -253,16 +251,18 @@ namespace Charlotte.Tools
 					}
 					else
 					{
+						_recver.Recved(_buff.Join());
+
 						_buff = null;
-						_bChr = 0;
-						_bIndex = 0;
+						_bChr = -1;
+						_bIndex = -1;
 					}
 				}
 			}
 
 			private ByteBuffer _buff = null;
-			private int _bChr = 0;
-			private int _bIndex = 0;
+			private int _bChr = -1;
+			private int _bIndex = -1;
 
 			private void RecvedBit(int bit)
 			{
@@ -272,9 +272,6 @@ namespace Charlotte.Tools
 
 				if (_bIndex == 8)
 				{
-					if (_buff == null)
-						_buff = new ByteBuffer();
-
 					_buff.Add((byte)_bChr);
 					_bChr = 0;
 					_bIndex = 0;
