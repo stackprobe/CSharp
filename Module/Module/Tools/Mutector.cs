@@ -168,29 +168,17 @@ namespace Charlotte.Tools
 				_m = new Mutector(name);
 			}
 
-			public delegate bool Interlude_d(); // ret: ? 継続する。
-			public delegate void Recved_d(byte[] message);
+			private IRecver _recver = null;
 
-			private Interlude_d _interlude = null;
-			private Recved_d _recved = null;
-
-			public void SetInterlude(Interlude_d interlude)
+			public void SetRecver(IRecver recver)
 			{
-				_interlude = interlude;
-			}
-
-			public void SetRecved(Recved_d recved)
-			{
-				_recved = recved;
+				_recver = recver;
 			}
 
 			public void Perform()
 			{
-				if (_interlude == null)
-					throw new NullReferenceException();
-
-				if (_recved == null)
-					throw new NullReferenceException();
+				if (_recver == null)
+					throw new ArgumentNullException();
 
 				_m.Set((int)M_INDEX.Recver, true);
 
@@ -206,7 +194,7 @@ namespace Charlotte.Tools
 						{
 							_elapsed -= 2000;
 
-							if (_interlude() == false)
+							if (_recver.Interlude() == false)
 								break;
 						}
 					}
@@ -252,7 +240,7 @@ namespace Charlotte.Tools
 							if (_buff == null)
 								_buff = new ByteBuffer();
 
-							_recved(_buff.Join());
+							_recver.Recved(_buff.Join());
 						}
 						else
 						{
@@ -301,6 +289,12 @@ namespace Charlotte.Tools
 					_m = null;
 				}
 			}
+		}
+
+		public interface IRecver
+		{
+			bool Interlude(); // ret: ? 継続する。
+			void Recved(byte[] message);
 		}
 	}
 }

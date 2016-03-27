@@ -9,22 +9,16 @@ namespace Charlotte.Test.Tools
 {
 	public class MutectorTest
 	{
+		private static bool[] _death = new bool[1];
+
 		public static void Test01()
 		{
 			using (Mutector.Sender sender = new Mutector.Sender("キュア☆マジカル"))
 			using (Mutector.Recver recver = new Mutector.Recver("キュア☆マジカル"))
 			{
-				bool[] death = new bool[1];
+				_death[0] = false;
 
-				recver.SetInterlude(delegate
-				{
-					return death[0] == false;
-				});
-
-				recver.SetRecved(delegate(byte[] message)
-				{
-					DebugTools.WriteLog(Encoding.UTF8.GetString(message));
-				});
+				recver.SetRecver(new Test01Recver());
 
 				Thread th = new Thread((ThreadStart)delegate
 				{
@@ -50,9 +44,22 @@ namespace Charlotte.Test.Tools
 				}
 				finally
 				{
-					death[0] = true;
+					_death[0] = true;
 					th.Join();
 				}
+			}
+		}
+
+		private class Test01Recver : Mutector.IRecver
+		{
+			public bool Interlude()
+			{
+				return _death[0] == false;
+			}
+
+			public void Recved(byte[] message)
+			{
+				DebugTools.WriteLog(Encoding.UTF8.GetString(message));
 			}
 		}
 	}
