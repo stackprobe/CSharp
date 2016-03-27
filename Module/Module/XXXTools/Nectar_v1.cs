@@ -12,7 +12,7 @@ namespace Charlotte.XXXTools
 	/// -- 送受信両オブジェクトを再作成すること。
 	/// -- 送受信両オブジェクトが存在しないタイミングを確保すること。== イベントのセット状態をクリアするため。
 	/// </summary>
-	public class Nectar : IDisposable
+	public class Nectar_v1 : IDisposable
 	{
 		private const string COMMON_ID = "{4498e8a7-3511-4512-8ac3-f58c27da720c}";
 
@@ -23,7 +23,7 @@ namespace Charlotte.XXXTools
 		private NamedEventData _evSync;
 		private int _timeoutMillis;
 
-		public Nectar(string name, int timeoutMillis = 5000)
+		public Nectar_v1(string name, int timeoutMillis = 5000)
 		{
 			string ident = COMMON_ID + "_" + SecurityTools.GetSHA512_128String(StringTools.ENCODING_SJIS.GetBytes(name));
 
@@ -159,11 +159,11 @@ namespace Charlotte.XXXTools
 
 		public class Sender : IDisposable
 		{
-			private Nectar _n;
+			private Nectar_v1 _n;
 
 			public Sender(string name)
 			{
-				_n = new Nectar(name, 30000); // 30 秒 -- 受信側が存在すること前提なので、長め。
+				_n = new Nectar_v1(name, 30000); // 30 秒 -- 受信側が存在すること前提なので、長め。
 			}
 
 			public bool Send(byte[] message)
@@ -191,11 +191,11 @@ namespace Charlotte.XXXTools
 
 		public class Recver : IDisposable
 		{
-			private Nectar _n;
+			private Nectar_v1 _n;
 
 			public Recver(string name)
 			{
-				_n = new Nectar(name, 2000); // 2 秒 -- タイムアウトしても送信中のメッセージは維持される。interrupt 確保のため、短め。
+				_n = new Nectar_v1(name, 2000); // 2 秒 -- タイムアウトしても送信中のメッセージは維持される。interrupt 確保のため、短め。
 			}
 
 			/// <summary>
