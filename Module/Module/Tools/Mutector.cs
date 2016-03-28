@@ -159,6 +159,8 @@ namespace Charlotte.Tools
 		{
 			private Mutector _m;
 
+			public int RecvSizeMax = 20000000;
+
 			public Recver(string name)
 			{
 				_m = new Mutector(name);
@@ -235,24 +237,25 @@ namespace Charlotte.Tools
 						_bChr = 0;
 						_bIndex = 0;
 					}
-					else if (_buff != null)
+					else if (_buff == null)
 					{
-						if (b0)
-						{
-							this.RecvedBit(0);
-						}
-						else if (b1)
-						{
-							this.RecvedBit(1);
-						}
-						else
-						{
-							_recver.Recved(_buff.Join());
+						// noop
+					}
+					else if (b0)
+					{
+						this.RecvedBit(0);
+					}
+					else if (b1)
+					{
+						this.RecvedBit(1);
+					}
+					else
+					{
+						_recver.Recved(_buff.Join());
 
-							_buff = null;
-							_bChr = -1;
-							_bIndex = -1;
-						}
+						_buff = null;
+						_bChr = -1;
+						_bIndex = -1;
 					}
 				}
 			}
@@ -269,6 +272,10 @@ namespace Charlotte.Tools
 
 				if (_bIndex == 8)
 				{
+					if (this.RecvSizeMax <= _buff.Length)
+					{
+						throw new Exception("受信サイズ超過");
+					}
 					_buff.Add((byte)_bChr);
 					_bChr = 0;
 					_bIndex = 0;

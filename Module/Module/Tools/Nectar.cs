@@ -9,12 +9,10 @@ namespace Charlotte.Tools
 	{
 		private const string COMMON_ID = "{91ed4458-fe67-4093-a430-9dbf09db9904}"; // shared_uuid
 
-		private MutexData _mtx;
 		private NamedEventData _evData;
 		private NamedEventData _evCtrl;
-		private NamedEventData _evSync;
 		private NamedEventData _evSend;
-		private NamedEventData _evPost;
+		private NamedEventData _evRecv;
 		private int _timeoutMillis;
 
 		public int RecvSizeMax = 20000000;
@@ -23,16 +21,10 @@ namespace Charlotte.Tools
 		{
 			string ident = COMMON_ID + "_" + SecurityTools.GetSHA512_128String(StringTools.ENCODING_SJIS.GetBytes(name));
 
-			_mtx = new MutexData(ident + "_Mutex");
-
-			using (new MutexData.Section(_mtx))
-			{
-				_evData = new NamedEventData(ident + "_Data");
-				_evCtrl = new NamedEventData(ident + "_Ctrl");
-				_evSync = new NamedEventData(ident + "_Sync");
-				_evSend = new NamedEventData(ident + "_Send");
-				_evPost = new NamedEventData(ident + "_Post");
-			}
+			_evData = new NamedEventData(ident + "_Data");
+			_evCtrl = new NamedEventData(ident + "_Ctrl");
+			_evSend = new NamedEventData(ident + "_Send");
+			_evRecv = new NamedEventData(ident + "_Recv");
 			_timeoutMillis = timeoutMillis;
 		}
 
@@ -42,13 +34,12 @@ namespace Charlotte.Tools
 		/// <param name="message"></param>
 		public void Send(byte[] message)
 		{
-			using (new MutexData.Section(_mtx))
+			// 前回正常終了しなかった可能性を考慮して、念のためクリア
 			{
-				_evData.WaitForMillis(0); // clear
-				_evCtrl.WaitForMillis(0); // clear
-				_evSync.WaitForMillis(0); // clear
-				_evSend.WaitForMillis(0); // clear
-				_evPost.WaitForMillis(0); // clear
+				_evData.WaitForMillis(0);
+				_evCtrl.WaitForMillis(0);
+				_evSend.WaitForMillis(0);
+				_evRecv.WaitForMillis(0);
 			}
 			this.SendBit(false, true);
 
@@ -64,28 +55,25 @@ namespace Charlotte.Tools
 
 		private void SendBit(bool data, bool ctrl)
 		{
-			using (new MutexData.Section(_mtx))
+			if (data)
 			{
-				if (data)
-				{
-					_evData.Set();
-				}
-				if (ctrl)
-				{
-					_evCtrl.Set();
-				}
-				_evSync.Set();
-				_evSend.Set();
+				_evData.Set();
 			}
-			if (_evPost.WaitForMillis(_timeoutMillis) == false)
+			if (ctrl)
+			{
+				_evCtrl.Set();
+			}
+			_evSend.Set();
+
+			if (_evRecv.WaitForMillis(_timeoutMillis) == false)
 			{
 				throw new Exception("送信タイムアウト");
 			}
 		}
 
-		private int _chr = 0;
-		private int _bIndex = 0;
-		private ByteBuffer _buff = new ByteBuffer();
+		private ByteBuffer _buff = null;
+		private int _bChr = -1;
+		private int _bIndex = -1;
 
 		/// <summary>
 		/// タイムアウト又は受信に失敗すると例外を投げる。
@@ -99,18 +87,28 @@ namespace Charlotte.Tools
 
 				if (ret == 2)
 				{
-					_chr = 0;
+					_buff = new ByteBuffer();
+					_bChr = 0;
 					_bIndex = 0;
-					_buff.Clear();
+				}
+				else if (_buff == null)
+				{
+					// noop
 				}
 				else if (ret == 3)
 				{
-					return _buff.Join();
+					byte[] message = _buff.Join();
+
+					_buff = null;
+					_bChr = -1;
+					_bIndex = -1;
+
+					return message;
 				}
 				else
 				{
-					_chr <<= 1;
-					_chr |= ret;
+					_bChr <<= 1;
+					_bChr |= ret;
 					_bIndex++;
 
 					if (_bIndex == 8)
@@ -119,8 +117,8 @@ namespace Charlotte.Tools
 						{
 							throw new Exception("受信サイズ超過");
 						}
-						_buff.Add((byte)_chr);
-						_chr = 0;
+						_buff.Add((byte)_bChr);
+						_bChr = 0;
 						_bIndex = 0;
 					}
 				}
@@ -129,50 +127,37 @@ namespace Charlotte.Tools
 
 		private int RecvBit()
 		{
-			if (_evSync.WaitForMillis(_timeoutMillis) == false)
+			if (_evSend.WaitForMillis(_timeoutMillis) == false)
 			{
 				throw new Exception("受信タイムアウト");
 			}
 			int ret = 0;
 
-			using (new MutexData.Section(_mtx))
+			if (_evData.WaitForMillis(0))
 			{
-				if (_evSend.WaitForMillis(0) == false)
-				{
-					throw new Exception("受信失敗");
-				}
-				if (_evData.WaitForMillis(0))
-				{
-					ret |= 1;
-				}
-				if (_evCtrl.WaitForMillis(0))
-				{
-					ret |= 2;
-				}
-				_evPost.Set();
+				ret |= 1;
 			}
+			if (_evCtrl.WaitForMillis(0))
+			{
+				ret |= 2;
+			}
+			_evRecv.Set();
+
 			return ret;
 		}
 
 		public void Dispose()
 		{
-			if (_mtx != null)
+			if (_evData != null)
 			{
-				using (new MutexData.Section(_mtx))
-				{
-					_evData.Dispose();
-					_evData = null;
-					_evCtrl.Dispose();
-					_evCtrl = null;
-					_evSync.Dispose();
-					_evSync = null;
-					_evSend.Dispose();
-					_evSend = null;
-					_evPost.Dispose();
-					_evPost = null;
-				}
-				_mtx.Dispose();
-				_mtx = null;
+				_evData.Dispose();
+				_evData = null;
+				_evCtrl.Dispose();
+				_evCtrl = null;
+				_evSend.Dispose();
+				_evSend = null;
+				_evRecv.Dispose();
+				_evRecv = null;
 			}
 		}
 
