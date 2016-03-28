@@ -14,15 +14,12 @@ namespace Charlotte.Tools
 		{
 			Sender,
 			Recver,
-
 			Sync_0,
 			Sync_1,
 			Sync_2,
-
 			Bit_0_0,
 			Bit_0_1,
 			Bit_0_2,
-
 			Bit_1_0,
 			Bit_1_1,
 			Bit_1_2,
@@ -232,30 +229,30 @@ namespace Charlotte.Tools
 					bool b0 = _m.Get((int)M_INDEX.Bit_0_0 + m1);
 					bool b1 = _m.Get((int)M_INDEX.Bit_1_0 + m1);
 
-					if (_buff == null)
+					if (b0 && b1)
 					{
-						if (b0 && b1)
+						_buff = new ByteBuffer();
+						_bChr = 0;
+						_bIndex = 0;
+					}
+					else if (_buff != null)
+					{
+						if (b0)
 						{
-							_buff = new ByteBuffer();
-							_bChr = 0;
-							_bIndex = 0;
+							this.RecvedBit(0);
 						}
-					}
-					else if (b0)
-					{
-						this.RecvedBit(0);
-					}
-					else if (b1)
-					{
-						this.RecvedBit(1);
-					}
-					else
-					{
-						_recver.Recved(_buff.Join());
+						else if (b1)
+						{
+							this.RecvedBit(1);
+						}
+						else
+						{
+							_recver.Recved(_buff.Join());
 
-						_buff = null;
-						_bChr = -1;
-						_bIndex = -1;
+							_buff = null;
+							_bChr = -1;
+							_bIndex = -1;
+						}
 					}
 				}
 			}
