@@ -203,14 +203,15 @@ namespace Charlotte.Tools
 				_n.RecvSizeMax = recvSizeMax;
 			}
 
+
 			/// <summary>
 			/// クライアント応答用？
 			/// </summary>
-			/// <param name="count"></param>
+			/// <param name="timeoutMillis"></param>
 			/// <returns>null == タイムアウト又は受信に失敗</returns>
-			public byte[] Recv(int count = 30) // def 30 == 60 秒 -- 相手側の処理時間 + 応答が必ずあることが前提なので、長め。
+			public byte[] Recv(int timeoutMillis = 60000) // 60 秒 -- 相手側の処理時間 + 応答が必ずあることが前提なので、長め。
 			{
-				for (int c = 0; c < count; c++)
+				for (int c = 0; c < timeoutMillis; c += _n._timeoutMillis)
 				{
 					byte[] message = this.Receipt();
 
