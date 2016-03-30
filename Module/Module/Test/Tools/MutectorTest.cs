@@ -35,16 +35,16 @@ namespace Charlotte.Test.Tools
 				th.Start();
 				try
 				{
-					// recver の受信開始前に送信した分は捨てられる！
+					// recver の受信開始前に送信すると例外を投げる！
 
-					Thread.Sleep(100); // recver の開始待ち。時間は適当！
+					Thread.Sleep(100); // recver の開始待ち。待ち時間は適当！
 
 					sender.Send(Encoding.UTF8.GetBytes("#"));
 					sender.Send(Encoding.UTF8.GetBytes("123"));
 					sender.Send(Encoding.UTF8.GetBytes("ABCDEF"));
 					sender.Send(Encoding.UTF8.GetBytes("リズ先生の秘密が茂る宝島(ワンダーランド)を、僕のリンクルステッキで探検&冒険したい！"));
 
-					// この時点で recver の受信は完了している。-- Interlude が false を返しても良いはず！
+					// この時点で recver の受信は完了している。-- Test01Recver.Interlude が false を返しても良い！
 				}
 				finally
 				{

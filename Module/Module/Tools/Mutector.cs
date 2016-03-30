@@ -73,9 +73,21 @@ namespace Charlotte.Tools
 			}
 		}
 
+		public bool TrySet(int index)
+		{
+			if (_statuses[index]) throw null; // この系は無いはず！
+
+			if (_mtxs[index].WaitForMillis(0))
+			{
+				_statuses[index] = true;
+				return true;
+			}
+			return false;
+		}
+
 		public bool Get(int index)
 		{
-			//if (_statuses[index]) return true;
+			if (_statuses[index]) throw null; // この系は無いはず！
 
 			if (_mtxs[index].WaitForMillis(0))
 			{
@@ -95,7 +107,8 @@ namespace Charlotte.Tools
 			}
 
 			/// <summary>
-			/// Recver の Perform 未実行の場合 -> 空送信して終わる。
+			/// Recver.Perform() 実行中ではない -> 即例外
+			/// 別の Sender 送信中 -> 終わるまで待つ。
 			/// </summary>
 			/// <param name="message"></param>
 			public void Send(byte[] message)
@@ -107,6 +120,20 @@ namespace Charlotte.Tools
 
 				try
 				{
+					// Recver.Perform() 実行中かどうか検査
+					{
+						if (
+							_m.TrySet((int)M_INDEX.Sync_0) &&
+							_m.TrySet((int)M_INDEX.Sync_1) &&
+							_m.TrySet((int)M_INDEX.Sync_2)
+							)
+							throw new Exception("recver is not running");
+
+						_m.Set((int)M_INDEX.Sync_0, false);
+						_m.Set((int)M_INDEX.Sync_1, false);
+						_m.Set((int)M_INDEX.Sync_2, false);
+					}
+
 					this.SendBit(true, true);
 
 					for (int index = 0; index < message.Length; index++)
@@ -173,12 +200,16 @@ namespace Charlotte.Tools
 				_recver = recver;
 			}
 
+			/// <summary>
+			/// 別の Recver 受信中 -> 即例外
+			/// </summary>
 			public void Perform()
 			{
 				if (_recver == null)
 					throw new ArgumentNullException();
 
-				_m.Set((int)M_INDEX.Recver, true);
+				if (_m.TrySet((int)M_INDEX.Recver) == false)
+					throw new Exception("already Perform() running");
 
 				try
 				{

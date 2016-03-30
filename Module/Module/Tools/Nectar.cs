@@ -67,6 +67,14 @@ namespace Charlotte.Tools
 
 			if (_evRecv.WaitForMillis(_timeoutMillis) == false)
 			{
+				// 異常終了なのでクリア
+				{
+					_evData.WaitForMillis(0);
+					_evCtrl.WaitForMillis(0);
+					_evSend.WaitForMillis(0);
+					_evRecv.WaitForMillis(100); // シビアなタイミングで受信された可能性を考慮して、受信側の _ecRecv セットを少しだけ待つ。
+				}
+
 				throw new Exception("送信タイムアウト");
 			}
 		}
