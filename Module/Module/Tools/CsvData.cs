@@ -213,5 +213,229 @@ namespace Charlotte.Tools
 				_table.Height--;
 			}
 		}
+
+		public class Stream : IDisposable
+		{
+			public Stream(string file)
+				: this(file, StringTools.ENCODING_SJIS)
+			{ }
+
+			private string _file;
+			private Encoding _encoding;
+			private char _delimiter;
+
+			public Stream(string file, Encoding encoding, char delimiter = ',')
+			{
+				_file = file;
+				_encoding = encoding;
+				_delimiter = delimiter;
+			}
+
+			public static Stream createTsv(string file)
+			{
+				return createTsv(file, StringTools.ENCODING_SJIS);
+			}
+
+			public static Stream createTsv(string file, Encoding encoding)
+			{
+				return new Stream(file, encoding, '\t');
+			}
+
+			// ---- reader ----
+
+			private StreamReader _r = null;
+
+			public void ReadOpen()
+			{
+				_r = new StreamReader(_file, _encoding);
+			}
+
+			public int NextChar()
+			{
+				int chr;
+
+				do
+				{
+					chr = _r.Read();
+				}
+				while (chr == '\r');
+
+				return chr;
+			}
+
+			private int _termChr;
+
+			public string ReadCell()
+			{
+				StringBuilder buff = new StringBuilder();
+				int chr = this.NextChar();
+
+				if (chr == '"')
+				{
+					for (; ; )
+					{
+						chr = this.NextChar();
+
+						if (chr == -1)
+							break;
+
+						if (chr == '"')
+						{
+							chr = this.NextChar();
+
+							if (chr != '"')
+								break;
+						}
+						buff.Append((char)chr);
+					}
+				}
+				else
+				{
+					for (; ; )
+					{
+						if (chr == _delimiter || chr == '\n' || chr == -1)
+							break;
+
+						buff.Append((char)chr);
+						chr = this.NextChar();
+					}
+				}
+				_termChr = chr;
+				return buff.ToString();
+			}
+
+			public List<string> readRow()
+			{
+				List<string> row = new List<string>();
+
+				do
+				{
+					row.Add(this.ReadCell());
+				}
+				while (_termChr != '\n' && _termChr != -1);
+
+				if (_termChr == -1 && row.Count == 1 && row[0].Length == 0)
+				{
+					return null;
+				}
+				return row;
+			}
+
+			public List<List<string>> readToEnd()
+			{
+				List<List<string>> rows = new List<List<string>>();
+
+				for (; ; )
+				{
+					List<string> row = readRow();
+
+					if (row == null)
+						break;
+
+					rows.Add(row);
+				}
+				return rows;
+			}
+
+			public void ReadClose()
+			{
+				if (_r != null)
+				{
+					_r.Dispose();
+					_r = null;
+				}
+			}
+
+			// ---- writer ----
+
+			private StreamWriter _w = null;
+
+			public void WriteOpen()
+			{
+				_w = new StreamWriter(_file, false, _encoding);
+			}
+
+			public void WriteCell(string cell)
+			{
+				if (StringTools.ContainsChar(cell, "\r\n\"" + _delimiter))
+				{
+					_w.Write('"');
+
+					foreach (char chr in cell)
+					{
+						if (chr == '"')
+							_w.Write('"');
+
+						_w.Write(chr);
+					}
+					_w.Write('"');
+				}
+				else
+					_w.Write(cell);
+			}
+
+			public void WriteDelimiter()
+			{
+				_w.Write(_delimiter);
+			}
+
+			public void WriteReturn()
+			{
+				_w.Write("\r\n");
+			}
+
+			public void WriteRow(string[] row)
+			{
+				for (int index = 0; index < row.Length; index++)
+				{
+					if (1 <= index)
+						this.WriteDelimiter();
+
+					this.WriteCell(row[index]);
+				}
+				this.WriteReturn();
+			}
+
+			public void WriteRow(List<string> row)
+			{
+				this.WriteRow(row.ToArray());
+			}
+
+			public void WriteRows(List<List<string>> rows)
+			{
+				foreach (List<string> row in rows)
+					this.WriteRow(row);
+			}
+
+			public void WriteClose()
+			{
+				if (_w != null)
+				{
+					_w.Dispose();
+					_w = null;
+				}
+			}
+
+			private List<string> _row = new List<string>();
+
+			public void Add(string cell)
+			{
+				_row.Add(cell);
+			}
+
+			public void EndRow()
+			{
+				this.WriteRow(_row);
+				_row.Clear();
+			}
+
+			// ----
+
+			public void Dispose()
+			{
+				this.ReadClose();
+				this.WriteClose();
+			}
+		}
 	}
 }

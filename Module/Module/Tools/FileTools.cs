@@ -72,8 +72,8 @@ namespace Charlotte.Tools
 
 		public static bool IsSame(string file1, string file2)
 		{
-			using (FileStream fs1 = new FileStream(file1, FileMode.Open, FileAccess.Read, FileShare.None, 1000000))
-			using (FileStream fs2 = new FileStream(file2, FileMode.Open, FileAccess.Read, FileShare.None, 1000000))
+			using (FileStream fs1 = new FileStream(file1, FileMode.Open, FileAccess.Read, FileShare.Read, 1000000))
+			using (FileStream fs2 = new FileStream(file2, FileMode.Open, FileAccess.Read, FileShare.Read, 1000000))
 			{
 				for (; ; )
 				{
@@ -93,7 +93,7 @@ namespace Charlotte.Tools
 			return true;
 		}
 
-		internal static void TryDelete(string file)
+		public static void TryDelete(string file)
 		{
 			try
 			{
