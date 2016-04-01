@@ -205,6 +205,9 @@ namespace Charlotte.Tools
 					{
 						String value = _headerFields[name];
 
+						if (value.Contains('\n'))
+							value = string.Join("\r\n\t", StringTools.Tokenize(value, "\r\n", false, true));
+
 						Write(ns, name);
 						Write(ns, ": ");
 						Write(ns, value);

@@ -17,9 +17,8 @@ namespace Charlotte.Tools
 
 		public static byte[] ReadToEnd(Stream s, bool readZeroKeepReading = false)
 		{
-			List<byte[]> buff = new List<byte[]>();
-			int size = 1024;
-			byte[] block = new byte[size];
+			ByteBuffer buff = new ByteBuffer();
+			byte[] block = new byte[2000000]; // 2 MB
 			int waitMillis = 0;
 
 			for (; ; )
@@ -42,22 +41,10 @@ namespace Charlotte.Tools
 				else
 				{
 					waitMillis = 0;
-
-					if (readSize < block.Length)
-					{
-						block = ArrayTools.GetPart(block, 0, readSize);
-
-						if (1024 < size)
-							size /= 2;
-					}
-					else
-						size *= 2;
-
-					buff.Add(block);
-					block = new byte[size];
+					buff.Add(block, 0, readSize);
 				}
 			}
-			return ArrayTools.Join(buff.ToArray());
+			return buff.Join();
 		}
 
 		public static void Write(Stream s, byte[] block)
