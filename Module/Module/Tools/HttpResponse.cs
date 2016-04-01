@@ -11,21 +11,24 @@ namespace Charlotte.Tools
 		private const int CR = 0x0d;
 		private const int LF = 0x0a;
 		private const int HEADER_LINE_LENMAX = 65536;
+		private const int HEADER_SIZE_MAX = 500000; // 500 KB
 
 		private NetworkStream _rs;
+		private int _resBodySizeMax;
 		private string _firstLine;
 		private Dictionary<string, string> _headerFields = DictionaryTools.CreateIgnoreCase<string>();
 		private int _contentLength;
 		private bool _chunked;
 		private byte[] _body;
 
-		public HttpResponse(NetworkStream rs)
-			: this(rs, false)
+		public HttpResponse(NetworkStream rs, int resBodySizeMax)
+			: this(rs, resBodySizeMax, false)
 		{ }
 
-		public HttpResponse(NetworkStream rs, bool noBody)
+		public HttpResponse(NetworkStream rs, int resBodySizeMax, bool noBody)
 		{
 			_rs = rs;
+			_resBodySizeMax = resBodySizeMax;
 			this.ReadFirstLine();
 			this.ReadHeaderFields();
 			this.CheckHeaderFields();
@@ -36,6 +39,8 @@ namespace Charlotte.Tools
 			}
 			_rs = null;
 		}
+
+		private int _totalSize = 0;
 
 		private String ReadLine()
 		{
@@ -50,6 +55,8 @@ namespace Charlotte.Tools
 				{
 					throw new Exception("文字列の途中で終端に到達しました。");
 				}
+				_totalSize++;
+
 				if (chr == CR)
 				{
 					chr = _rs.ReadByte();
@@ -82,6 +89,10 @@ namespace Charlotte.Tools
 				if (line.Length == 0)
 				{
 					break;
+				}
+				if (HEADER_SIZE_MAX < _totalSize)
+				{
+					throw new Exception("HTTP response-header size is overflow");
 				}
 				char firstChr = line[0];
 
@@ -170,9 +181,17 @@ namespace Charlotte.Tools
 					line = line.Trim();
 					int partSize = Convert.ToInt32(line, 16);
 
+					if (partSize < 0)
+					{
+						throw new Exception("HTTP chunked-part size is negative");
+					}
 					if (partSize == 0)
 					{
 						break;
+					}
+					if (_resBodySizeMax - totalSize < partSize)
+					{
+						throw new Exception("HTTP chunked-body size is overflow");
 					}
 					byte[] part = this.ReadBytes(partSize);
 					parts.Add(part);
@@ -193,6 +212,10 @@ namespace Charlotte.Tools
 			}
 			else
 			{
+				if (_resBodySizeMax < _contentLength)
+				{
+					throw new Exception("HTTP response-body size is overflow");
+				}
 				_body = this.ReadBytes(_contentLength);
 			}
 		}
@@ -223,7 +246,7 @@ namespace Charlotte.Tools
 			return int.Parse(this.GetFirstLineTokens()[1]);
 		}
 
-		public String getReasonPhrase()
+		public String GetReasonPhrase()
 		{
 			return this.GetFirstLineTokens()[2];
 		}

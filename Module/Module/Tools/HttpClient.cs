@@ -17,6 +17,8 @@ namespace Charlotte.Tools
 			Hwr.Timeout = 20000;
 		}
 
+		public int ResBodySizeMax = 20000000; // 20 MB
+
 		public void SetContentType(string contentType)
 		{
 			Hwr.ContentType = contentType;
@@ -63,8 +65,9 @@ namespace Charlotte.Tools
 
 			if (body != null)
 			{
-				Hwr.GetRequestStream().Write(body, 0, body.Length);
-				Hwr.GetRequestStream().Close();
+				Stream w = Hwr.GetRequestStream();
+				w.Write(body, 0, body.Length);
+				w.Close();
 			}
 			WebResponse res = Hwr.GetResponse();
 			ResHeaders = DictionaryTools.CreateIgnoreCase<string>();
@@ -72,7 +75,7 @@ namespace Charlotte.Tools
 			foreach (string name in res.Headers.Keys)
 				ResHeaders.Add(name, res.Headers[name]);
 
-			ResBody = FileTools.ReadToEnd(res.GetResponseStream());
+			ResBody = FileTools.ReadToEnd(res.GetResponseStream(), false, this.ResBodySizeMax);
 		}
 
 		private Dictionary<string, string> ResHeaders;

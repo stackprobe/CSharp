@@ -29,6 +29,8 @@ namespace Charlotte.Tools
 			this.SetUrl(url);
 		}
 
+		public int ResBodySizeMax = 20000000; // 20 MB
+
 		public void SetUrl(string url)
 		{
 			if (url.StartsWith("https://"))
@@ -219,7 +221,7 @@ namespace Charlotte.Tools
 					{
 						Write(ns, _body);
 					}
-					return new HttpResponse(ns);
+					return new HttpResponse(ns, this.ResBodySizeMax, _head);
 				}
 			}
 		}
