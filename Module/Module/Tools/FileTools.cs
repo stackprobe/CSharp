@@ -15,15 +15,15 @@ namespace Charlotte.Tools
 			{ }
 		}
 
-		public static byte[] ReadToEnd(Stream s, bool readZeroKeepReading = false)
+		public static byte[] ReadToEnd(Stream s, bool readZeroKeepReading = false, int size = int.MaxValue)
 		{
 			ByteBuffer buff = new ByteBuffer();
 			byte[] block = new byte[2000000]; // 2 MB
 			int waitMillis = 0;
 
-			for (; ; )
+			while (buff.Length < size)
 			{
-				int readSize = s.Read(block, 0, block.Length);
+				int readSize = s.Read(block, 0, Math.Min(block.Length, size - buff.Length));
 
 				if (readSize < 0)
 					break;
