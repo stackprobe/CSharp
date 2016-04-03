@@ -10,9 +10,18 @@ namespace Charlotte.Test.Tools
 	{
 		public static void Test01()
 		{
-			GetTest("http://localhost/");
+#if false
+			{
+				string s = "a\n".Trim();
+				DebugTools.WriteLog("[" + s + "]");
+				s = "a\r\n".Trim();
+				DebugTools.WriteLog("[" + s + "]");
+			}
+#endif
+
+			//GetTest("http://localhost/");
 			GetTest("https://www.google.co.jp/");
-			GetTest("http://localhost/Echo/Echo.cgi", Encoding.ASCII.GetBytes("Test Body"));
+			//GetTest("http://localhost/Echo/Echo.cgi", Encoding.ASCII.GetBytes("Test Body"));
 		}
 
 		private static void GetTest(string url, byte[] body = null)

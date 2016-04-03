@@ -87,6 +87,7 @@
     <Compile Include="Tools\HttpRequest.cs" />
     <Compile Include="Tools\HttpResponse.cs" />
     <Compile Include="Tools\IntTools.cs" />
+    <Compile Include="Tools\JString.cs" />
     <Compile Include="Tools\LongTools.cs" />
     <Compile Include="Tools\MathTools.cs" />
     <Compile Include="Tools\Mutector.cs" />

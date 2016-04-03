@@ -28,9 +28,10 @@ namespace Module
 
 		private static void Main2()
 		{
+			HttpClientTest.Test01();
 			//FileSorterTest.Test01();
-			NectarTest.Test01();
-			MutectorTest.Test01();
+			//NectarTest.Test01();
+			//MutectorTest.Test01();
 			//TimeDataTest.Test01();
 			//CsvDataTest.Test01();
 		}

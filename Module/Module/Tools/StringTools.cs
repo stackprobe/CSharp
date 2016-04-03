@@ -442,5 +442,63 @@ namespace Charlotte.Tools
 		{
 			return IsSame(str, S_TRUE, true);
 		}
+
+		public static int IndexOfIgnoreCase(string str, string ptn)
+		{
+			return str.ToLower().IndexOf(ptn.ToLower());
+		}
+
+		public class UrlData
+		{
+			public string Scheme;
+			public string Host; // Domain or (Domain + ":" + Port)
+			public string Domain;
+			public string Port;
+			public string Path;
+
+			public UrlData(string url)
+			{
+				int index;
+
+				index = url.IndexOf("://");
+				if (index != -1)
+				{
+					this.Scheme = url.Substring(0, index);
+					url = url.Substring(index + 3);
+				}
+				else
+					this.Scheme = "http";
+
+				index = url.IndexOf('/');
+				if (index != -1)
+				{
+					this.Host = url.Substring(0, index);
+					this.Path = url.Substring(index);
+				}
+				else
+				{
+					this.Host = url;
+					this.Path = "/";
+				}
+
+				index = this.Host.IndexOf(':');
+				if (index != -1)
+				{
+					this.Domain = this.Host.Substring(0, index);
+					this.Port = this.Host.Substring(index + 1);
+				}
+				else
+				{
+					this.Domain = this.Host;
+
+					if (this.Scheme == "http")
+						this.Port = "" + 80;
+					else if (this.Scheme == "https")
+						this.Port = "" + 443;
+					else
+						this.Port = "" + 65535;
+				}
+			}
+		}
 	}
 }

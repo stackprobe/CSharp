@@ -9,15 +9,32 @@ namespace Charlotte.Tools
 {
 	public class HttpClient
 	{
-		private WebRequest Hwr;
+		private HttpWebRequest Hwr;
 
 		public HttpClient(string url)
 		{
-			Hwr = HttpWebRequest.Create(url);
+			Hwr = (HttpWebRequest)HttpWebRequest.Create(url);
 			Hwr.Timeout = 20000;
 		}
 
 		public int ResBodySizeMax = 20000000; // 20 MB
+
+		public void SetVersion(string version)
+		{
+			switch (version)
+			{
+				case HttpRequest.HTTP_10:
+					Hwr.ProtocolVersion = HttpVersion.Version10;
+					break;
+
+				case HttpRequest.HTTP_11:
+					Hwr.ProtocolVersion = HttpVersion.Version11;
+					break;
+
+				default:
+					throw null;
+			}
+		}
 
 		public void SetContentType(string contentType)
 		{
@@ -26,6 +43,11 @@ namespace Charlotte.Tools
 
 		public void AddHeader(string name, string value)
 		{
+			if (StringTools.IsSame(name, "User-Agent", true))
+			{
+				Hwr.UserAgent = value;
+				return;
+			}
 			Hwr.Headers.Add(name, value);
 		}
 

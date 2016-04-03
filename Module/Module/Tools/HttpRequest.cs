@@ -9,9 +9,13 @@ namespace Charlotte.Tools
 {
 	public class HttpRequest
 	{
+		public const string HTTP_10 = "HTTP/1.0";
+		public const string HTTP_11 = "HTTP/1.1";
+
 		private string _domain = "localhost";
 		private int _portNo = 80;
 		private string _path = "/";
+		private string _version = HTTP_11;
 		private Dictionary<string, string> _headerFields = new Dictionary<string, string>();
 		private byte[] _body = null; // null -> GET, not null -> POST
 		private int _sendTimeoutMillis = 60000; // 0 -> infinite
@@ -81,6 +85,11 @@ namespace Charlotte.Tools
 			_path = path;
 		}
 
+		public void SetVersion(string version)
+		{
+			_version = version;
+		}
+
 		public void SetAuthorization(string user, string password)
 		{
 			String plain = user + ":" + password;
@@ -145,18 +154,23 @@ namespace Charlotte.Tools
 
 		public HttpResponse Perform()
 		{
-			if (_portNo == 80)
+			if (_version != HTTP_10)
 			{
-				this.SetHeaderField("Host", _domain);
-			}
-			else
-			{
-				this.SetHeaderField("Host", _domain + ":" + _portNo);
+				if (_portNo == 80)
+				{
+					this.SetHeaderField("Host", _domain);
+				}
+				else
+				{
+					this.SetHeaderField("Host", _domain + ":" + _portNo);
+				}
 			}
 			if (_body != null)
 			{
 				this.SetHeaderField("Content-Length", "" + _body.Length);
 			}
+			this.SetHeaderField("Connection", "close");
+
 			if (_useIEProxy)
 			{
 				Uri proxy = WebRequest.GetSystemWebProxy().GetProxy(new Uri(this.GetUrl()));
@@ -201,7 +215,9 @@ namespace Charlotte.Tools
 					{
 						Write(ns, "http://" + _domain + ":" + _portNo + _path);
 					}
-					Write(ns, " HTTP/1.1\r\n");
+					Write(ns, " ");
+					Write(ns, _version);
+					Write(ns, "\r\n");
 
 					foreach (string name in _headerFields.Keys)
 					{
