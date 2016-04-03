@@ -8,6 +8,7 @@ namespace Charlotte.Tools
 	public class StringTools
 	{
 		public static readonly Encoding ENCODING_SJIS = Encoding.GetEncoding(932);
+		public static readonly Encoding ENCODING_EUC = Encoding.GetEncoding(51932);
 
 		public static List<char> ToCharList(string src)
 		{
