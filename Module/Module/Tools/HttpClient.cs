@@ -15,6 +15,9 @@ namespace Charlotte.Tools
 		{
 			Hwr = (HttpWebRequest)HttpWebRequest.Create(url);
 			Hwr.Timeout = 20000;
+
+			Hwr.Proxy = null;
+			//Hwr.Proxy = GlobalProxySelection.GetEmptyWebProxy(); // 古い実装
 		}
 
 		public int ResBodySizeMax = 20000000; // 20 MB
@@ -36,13 +39,13 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public void SetContentType(string contentType)
-		{
-			Hwr.ContentType = contentType;
-		}
-
 		public void AddHeader(string name, string value)
 		{
+			if (StringTools.IsSame(name, "Content-Type", true))
+			{
+				Hwr.ContentType = value;
+				return;
+			}
 			if (StringTools.IsSame(name, "User-Agent", true))
 			{
 				Hwr.UserAgent = value;
@@ -87,9 +90,10 @@ namespace Charlotte.Tools
 
 			if (body != null)
 			{
-				Stream w = Hwr.GetRequestStream();
-				w.Write(body, 0, body.Length);
-				w.Close();
+				using (Stream w = Hwr.GetRequestStream())
+				{
+					w.Write(body, 0, body.Length);
+				}
 			}
 			WebResponse res = Hwr.GetResponse();
 			ResHeaders = DictionaryTools.CreateIgnoreCase<string>();
@@ -97,7 +101,10 @@ namespace Charlotte.Tools
 			foreach (string name in res.Headers.Keys)
 				ResHeaders.Add(name, res.Headers[name]);
 
-			ResBody = FileTools.ReadToEnd(res.GetResponseStream(), false, this.ResBodySizeMax);
+			using (Stream r = res.GetResponseStream())
+			{
+				ResBody = FileTools.ReadToEnd(r, false, this.ResBodySizeMax);
+			}
 		}
 
 		private Dictionary<string, string> ResHeaders;
