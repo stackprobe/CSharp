@@ -18,9 +18,9 @@ namespace Charlotte.Tools
 		private string _version = HTTP_11;
 		private Dictionary<string, string> _headerFields = new Dictionary<string, string>();
 		private byte[] _body = null; // null -> GET, not null -> POST
-		private int _sendTimeoutMillis = 60000; // 0 -> infinite
-		private int _recvTimeoutMillis = 60000; // 0 -> infinite
-		private String _proxyDomain = null; // null -> no proxy
+		private int _sendTimeoutMillis = 20000; // 0 -> infinite
+		private int _recvTimeoutMillis = 20000; // 0 -> infinite
+		private string _proxyDomain = null; // null -> no proxy
 		private int _proxyPortNo = -1;
 		private bool _useIEProxy = false;
 		private bool _head; // true -> HEAD, false -> GET or POST

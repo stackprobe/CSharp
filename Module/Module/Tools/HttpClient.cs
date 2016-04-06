@@ -14,10 +14,9 @@ namespace Charlotte.Tools
 		public HttpClient(string url)
 		{
 			Hwr = (HttpWebRequest)HttpWebRequest.Create(url);
-			Hwr.Timeout = 20000;
 
-			Hwr.Proxy = null;
-			//Hwr.Proxy = GlobalProxySelection.GetEmptyWebProxy(); // 古い実装
+			this.SetTimeout(20000);
+			this.SetProxyNone();
 		}
 
 		public int ResBodySizeMax = 20000000; // 20 MB
@@ -39,6 +38,13 @@ namespace Charlotte.Tools
 			}
 		}
 
+		public void SetAuthorization(string user, string password)
+		{
+			String plain = user + ":" + password;
+			String enc = System.Convert.ToBase64String(Encoding.UTF8.GetBytes(plain));
+			this.AddHeader("Authorization", "Basic " + enc);
+		}
+
 		public void AddHeader(string name, string value)
 		{
 			if (StringTools.IsSame(name, "Content-Type", true))
@@ -54,14 +60,25 @@ namespace Charlotte.Tools
 			Hwr.Headers.Add(name, value);
 		}
 
-		public void SetProxy(string host, int port)
+		public void SetTimeout(int millis)
 		{
-			Hwr.Proxy = new WebProxy(host, port);
+			Hwr.Timeout = millis;
+		}
+
+		public void SetProxyNone()
+		{
+			Hwr.Proxy = null;
+			//Hwr.Proxy = GlobalProxySelection.GetEmptyWebProxy(); // 古い実装
 		}
 
 		public void SetIEProxy()
 		{
 			Hwr.Proxy = WebRequest.GetSystemWebProxy();
+		}
+
+		public void SetProxy(string host, int port)
+		{
+			Hwr.Proxy = new WebProxy(host, port);
 		}
 
 		public void Head()
