@@ -49,6 +49,7 @@
 			this.OutputText.TabIndex = 0;
 			this.OutputText.TabStop = false;
 			this.OutputText.TextChanged += new System.EventHandler(this.OutputText_TextChanged);
+			this.OutputText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OutputText_KeyDown);
 			this.OutputText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OutputText_KeyPress);
 			// 
 			// MainTimer
@@ -66,6 +67,7 @@
 			this.InputText.TabIndex = 1;
 			this.InputText.Text = "echo ここにコマンドを入力+ENTER";
 			this.InputText.TextChanged += new System.EventHandler(this.InputText_TextChanged);
+			this.InputText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.InputText_KeyDown);
 			this.InputText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.InputText_KeyPress);
 			// 
 			// MainWin

@@ -84,5 +84,11 @@ namespace Charlotte.Tools
 				Directory.Delete(StringTools.Combine(dir, delDir));
 			}
 		}
+
+		public static void DeleteDirIfExist(string dir)
+		{
+			if (Directory.Exists(dir))
+				Directory.Delete(dir, true);
+		}
 	}
 }

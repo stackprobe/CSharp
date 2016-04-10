@@ -304,7 +304,7 @@ namespace Charlotte.Tools
 				return buff.ToString();
 			}
 
-			public List<string> readRow()
+			public List<string> ReadRow()
 			{
 				List<string> row = new List<string>();
 
@@ -321,13 +321,13 @@ namespace Charlotte.Tools
 				return row;
 			}
 
-			public List<List<string>> readToEnd()
+			public List<List<string>> ReadToEnd()
 			{
 				List<List<string>> rows = new List<List<string>>();
 
 				for (; ; )
 				{
-					List<string> row = readRow();
+					List<string> row = ReadRow();
 
 					if (row == null)
 						break;

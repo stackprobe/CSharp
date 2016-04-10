@@ -204,10 +204,19 @@ namespace WConsole
 			this.InputText.Focus();
 		}
 
+		private void OutputText_KeyDown(object sender, KeyEventArgs e)
+		{
+			//this.InputText.Focus(); // 効かない。
+		}
+
 		private void InputText_TextChanged(object sender, EventArgs e)
 		{
 			// noop
 		}
+
+		private const int HISTORY_MAX = 100;
+		private List<string> _history = new List<string>();
+		private int _historyCurrPos = 0;
 
 		private void InputText_KeyPress(object sender, KeyPressEventArgs e)
 		{
@@ -215,10 +224,43 @@ namespace WConsole
 			{
 				e.Handled = true;
 
+				if (this.InputText.Text != "")
+				{
+					if (HISTORY_MAX <= _history.Count)
+						_history.RemoveAt(0);
+
+					_history.Add(this.InputText.Text);
+					_historyCurrPos = _history.Count;
+				}
 				_cmdStdin.Write(this.InputText.Text + "\n");
 				_cmdStdin.Flush();
 
 				this.InputText.Text = "";
+			}
+		}
+
+		private void InputText_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
+			{
+				e.Handled = true;
+
+				if (1 <= _history.Count)
+				{
+					if (e.KeyCode == Keys.Up)
+					{
+						if (1 <= _historyCurrPos)
+							_historyCurrPos--;
+					}
+					else
+					{
+						if (_historyCurrPos < _history.Count - 1)
+							_historyCurrPos++;
+					}
+					this.InputText.Text = _history[_historyCurrPos];
+					this.InputText.SelectionStart = this.InputText.Text.Length;
+					this.InputText.ScrollToCaret();
+				}
 			}
 		}
 	}

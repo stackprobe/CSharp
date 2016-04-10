@@ -9,7 +9,7 @@ namespace Charlotte.Tools
 {
 	public class FileTools
 	{
-		public static void Create(string file)
+		public static void CreateFile(string file)
 		{
 			using (new FileStream(file, FileMode.Create, FileAccess.Write))
 			{ }
@@ -88,6 +88,55 @@ namespace Charlotte.Tools
 			}
 			catch
 			{ }
+		}
+
+		public static string ChangeRoot(string file, string oldRootDir, string newRootDir = null)
+		{
+			if (oldRootDir != null)
+			{
+				oldRootDir = StringTools.PathFltr(oldRootDir + '\\');
+
+				if (StringTools.StartsWith(file, oldRootDir, true) == false)
+					throw new Exception("Wrong oldRootDir: " + oldRootDir + ", " + file);
+
+				file = file.Substring(oldRootDir.Length);
+			}
+			if (newRootDir != null)
+			{
+				file = StringTools.Combine(newRootDir, file);
+			}
+			return file;
+		}
+
+		public enum CreatePath_e
+		{
+			Dir,
+			File,
+			None,
+		}
+
+		public static void CreatePath(string path, CreatePath_e mode = CreatePath_e.None)
+		{
+			Directory.CreateDirectory(path);
+
+			switch (mode)
+			{
+				case CreatePath_e.Dir:
+					// noop
+					break;
+
+				case CreatePath_e.File:
+					Directory.Delete(path);
+					CreateFile(path);
+					break;
+
+				case CreatePath_e.None:
+					Directory.Delete(path);
+					break;
+
+				default:
+					throw null;
+			}
 		}
 	}
 }
