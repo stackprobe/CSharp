@@ -15,15 +15,31 @@ namespace Charlotte.Tools
 			{ }
 		}
 
-		public static byte[] ReadToEnd(Stream s, bool readZeroKeepReading = false, int size = int.MaxValue)
+		public static byte[] ReadToEnd(Stream s, int size = int.MaxValue)
 		{
 			ByteBuffer buff = new ByteBuffer();
-			byte[] block = new byte[2000000]; // 2 MB
-			int waitMillis = 0;
 
-			while (buff.Length < size)
+			for (int count = 0; count < size; count++)
 			{
-				int readSize = s.Read(block, 0, Math.Min(block.Length, size - buff.Length));
+				int chr = s.ReadByte();
+
+				if (chr == -1)
+					break;
+
+				buff.Add((byte)chr);
+			}
+			return buff.Join();
+		}
+
+		public static byte[] ReadToSize(Stream s, int size, bool readZeroKeepReading = false)
+		{
+			byte[] buff = new byte[size];
+			int waitMillis = 0;
+			int wPos = 0;
+
+			while (wPos < size)
+			{
+				int readSize = s.Read(buff, wPos, size - wPos);
 
 				if (readSize < 0)
 					break;
@@ -41,10 +57,13 @@ namespace Charlotte.Tools
 				else
 				{
 					waitMillis = 0;
-					buff.Add(block, 0, readSize);
+					wPos += readSize;
 				}
 			}
-			return buff.Join();
+			if (wPos < size)
+				buff = ArrayTools.GetPart(buff, 0, wPos);
+
+			return buff;
 		}
 
 		public static void Write(Stream s, byte[] block)

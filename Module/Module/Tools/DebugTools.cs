@@ -49,5 +49,16 @@ namespace Charlotte.Tools
 			}
 			return buff.ToString();
 		}
+
+		public static byte[] MakeRandBytes(int size)
+		{
+			byte[] buff = new byte[size];
+
+			for (int index = 0; index < size; index++)
+			{
+				buff[index] = (byte)MathTools.Random(256);
+			}
+			return buff;
+		}
 	}
 }

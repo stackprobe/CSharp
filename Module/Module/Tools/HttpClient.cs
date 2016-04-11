@@ -120,7 +120,7 @@ namespace Charlotte.Tools
 
 			using (Stream r = res.GetResponseStream())
 			{
-				ResBody = FileTools.ReadToEnd(r, false, this.ResBodySizeMax);
+				ResBody = FileTools.ReadToEnd(r, this.ResBodySizeMax);
 			}
 		}
 

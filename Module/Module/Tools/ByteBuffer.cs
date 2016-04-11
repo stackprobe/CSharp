@@ -7,11 +7,11 @@ namespace Charlotte.Tools
 {
 	public class ByteBuffer
 	{
-		private List<Part> Parts = new List<Part>();
+		private List<byte[]> Parts = new List<byte[]>();
 		private byte[] Buff = null;
 		private int Index = -1;
 		private int TotalSize = 0;
-		private int BuffSize = 10;
+		private int BuffSize = 16;
 
 		public int Length
 		{
@@ -40,74 +40,32 @@ namespace Charlotte.Tools
 
 			if (this.BuffSize <= this.Index)
 			{
-				this.AddBuff();
+				this.Parts.Add(this.Buff);
+				this.Buff = null;
 
-				if (this.BuffSize < 1000000)
+				if (this.BuffSize < 0x200000) // < 2 MB
 					this.BuffSize *= 2;
-				else
-					this.BuffSize = 2000000;
 			}
 			this.TotalSize++;
 		}
 
-		private void AddBuff()
-		{
-			this.Parts.Add(new Part()
-			{
-				Block = this.Buff,
-				StartPos = 0,
-				Size = this.Index,
-			});
-			this.Buff = null;
-		}
-
-		public void Add(byte[] block)
-		{
-			this.Add(block, 0, block.Length);
-		}
-
-		public void Add(byte[] block, int startPos, int size)
-		{
-			if (this.Buff != null)
-			{
-				this.AddBuff();
-
-				if (3 < this.BuffSize)
-					this.BuffSize /= 3;
-				else
-					this.BuffSize = 1;
-			}
-			this.Parts.Add(new Part()
-			{
-				Block = block,
-				StartPos = startPos,
-				Size = size,
-			});
-			this.TotalSize += size;
-		}
-
 		public byte[] Join()
 		{
-			if (this.Buff != null)
-				this.AddBuff();
-
 			byte[] dest = new byte[this.TotalSize];
 			int wPos = 0;
 
-			foreach (Part part in this.Parts)
+			foreach (byte[] part in this.Parts)
 			{
-				Array.Copy(part.Block, part.StartPos, dest, wPos, part.Size);
-				wPos += part.Size;
+				Array.Copy(part, 0, dest, wPos, part.Length);
+				wPos += part.Length;
+			}
+			if (this.Buff != null)
+			{
+				Array.Copy(this.Buff, 0, dest, wPos, this.Index);
+				wPos += this.Index;
 			}
 			if (this.TotalSize != wPos) throw null; // 2bs
 			return dest;
-		}
-
-		private class Part
-		{
-			public byte[] Block;
-			public int StartPos;
-			public int Size;
 		}
 	}
 }
