@@ -39,7 +39,7 @@ namespace Charlotte.Tools
 			}
 		}
 
-		private static string MakeRandString(string chrs, int chrcnt)
+		public static string MakeRandString(string chrs, int chrcnt)
 		{
 			StringBuilder buff = new StringBuilder();
 

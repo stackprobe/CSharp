@@ -8,6 +8,7 @@ namespace Charlotte.Tools
 	public class FatUInt
 	{
 		private List<uint> _figures = new List<uint>();
+		public FatUInt Rem = null;
 
 		public FatUInt()
 		{ }
@@ -15,6 +16,12 @@ namespace Charlotte.Tools
 		public FatUInt(uint value)
 		{
 			_figures.Add(value);
+		}
+
+		public FatUInt(UInt64 value)
+		{
+			_figures.Add((uint)(value & 0xfffffffful));
+			_figures.Add((uint)(value >> 32));
 		}
 
 		public List<uint> Figures
@@ -57,13 +64,24 @@ namespace Charlotte.Tools
 		{
 			if (bit < -IntTools.IMAX || IntTools.IMAX < bit) throw new ArgumentException();
 
+			//Console.WriteLine("**1" + this); // test
+			//Console.WriteLine("**2" + bit); // test
 			this.Normalize();
+
+			if (_figures.Count == 0)
+				return;
 
 			List<uint> buff = new List<uint>();
 
 			if (bit < 0)
 			{
 				bit = -bit;
+
+				if (this.GetFarthestBit() <= bit)
+				{
+					_figures.Clear();
+					return;
+				}
 				int index = bit / 32;
 				bit %= 32;
 
@@ -99,12 +117,15 @@ namespace Charlotte.Tools
 
 					for (index = 0; index + 1 < _figures.Count; index++)
 						buff.Add((_figures[index] >> (32 - bit)) | (_figures[index + 1] << bit));
+
+					buff.Add(_figures[index] >> (32 - bit));
 				}
 			}
 			_figures = buff;
+			//Console.WriteLine("**3" + this); // test
 		}
 
-		public int GetFarthestBit()
+		public int GetFarthestBit() // ret: 1 ～ == ビット位置, 0 == 無し
 		{
 			this.Normalize();
 
@@ -114,11 +135,52 @@ namespace Charlotte.Tools
 			return (_figures.Count - 1) * 32 + GetFarthestBit(_figures[_figures.Count - 1]);
 		}
 
-		private static int GetFarthestBit(uint value)
+		private static int GetFarthestBit(uint value) // ret: 1 ～ 32
 		{
 			for (int bit = 31; ; bit--)
 				if ((value & (1u << bit)) != 0)
-					return bit;
+					return bit + 1;
+		}
+
+		public void SetBit_1(int bit) // bit: 0 ～ == ビット位置
+		{
+			if (bit < 0 || IntTools.IMAX < bit) throw new ArgumentException();
+
+			int index = bit / 32;
+			bit %= 32;
+
+			while (_figures.Count <= index)
+				_figures.Add(0u);
+
+			_figures[index] |= 1u << bit;
+		}
+
+		public void SetBit_0(int bit) // bit: 0 ～ == ビット位置
+		{
+			if (bit < 0 || IntTools.IMAX < bit) throw new ArgumentException();
+
+			int index = bit / 32;
+			bit %= 32;
+
+			if (_figures.Count <= index)
+				return;
+
+			_figures[index] &= ~(1u << bit);
+		}
+
+		public UInt64 GetValue64()
+		{
+			this.Normalize();
+
+			switch (_figures.Count)
+			{
+				case 0: return 0;
+				case 1: return _figures[0];
+				case 2: return _figures[0] | ((UInt64)_figures[1] << 32);
+
+				default:
+					throw null;
+			}
 		}
 
 		public static FatUInt Add(FatUInt a, FatUInt b)
@@ -223,6 +285,7 @@ namespace Charlotte.Tools
 					}
 				}
 			}
+			ret.Normalize(); // 1 x 1 など、最上位(終端)が 0 になる場合がある。
 			return ret;
 		}
 
@@ -240,12 +303,203 @@ namespace Charlotte.Tools
 			FatUInt ret = new FatUInt();
 
 			if (af < bf)
-				return ret; // return 0;
+			{
+				ret.Rem = a.GetClone();
+				return ret;
+			}
+			int diff = af - bf;
 
-			a = a.GetClone();
 			b = b.GetClone();
+			b.Shift(diff);
 
-			throw null; // TODO
+			for (; ; )
+			{
+				FatUInt t = Red(a, b);
+
+				if (t != null)
+				{
+					a = t;
+					ret.SetBit_1(diff);
+
+					af = a.GetFarthestBit();
+					int d = bf - af;
+
+					if (diff < d)
+						break;
+
+					b.Shift(-d);
+					diff -= d;
+				}
+				else
+				{
+					if (diff < 1)
+						break;
+
+					b.Shift(-1);
+					diff--;
+				}
+			}
+			ret.Rem = a.GetClone();
+			return ret;
+		}
+
+		public static FatUInt Mod(FatUInt a, FatUInt b)
+		{
+			return Div(a, b).Rem;
+		}
+
+		/// <summary>
+		/// 10^19
+		/// </summary>
+		private const UInt64 Z19 = 0x8ac7230489e80000ul;
+
+		private static FatUInt FromZ19(List<UInt64> src)
+		{
+			FatUInt ret = new FatUInt();
+			FatUInt b = new FatUInt(Z19);
+
+			if (1 <= src.Count)
+			{
+				ret = Add(ret, new FatUInt(src[src.Count - 1]));
+
+				for (int index = src.Count - 2; 0 <= index; index--)
+				{
+					ret = Mul(ret, b);
+					ret = Add(ret, new FatUInt(src[index]));
+				}
+			}
+			ret.Normalize();
+			return ret;
+		}
+
+		private static List<UInt64> ToZ19(FatUInt src)
+		{
+			src.Normalize();
+
+			List<UInt64> ret = new List<UInt64>();
+			FatUInt b = new FatUInt(Z19);
+
+			while (1 <= src.Figures.Count)
+			{
+				src = Div(src, b);
+				ret.Add(src.Rem.GetValue64());
+			}
+			return ret;
+		}
+
+		public static FatUInt FromString(string src)
+		{
+			List<UInt64> buff = new List<UInt64>();
+			UInt64 value = 0;
+			UInt64 scale = 1;
+
+			for (int index = src.Length - 1; 0 <= index; index--)
+			{
+				int val = StringTools.DIGIT.IndexOf(src[index]);
+
+				if (val != -1)
+				{
+					if (scale == 10000000000000000000ul)
+					{
+						buff.Add(value);
+						value = (UInt64)val;
+						scale = 10;
+					}
+					else
+					{
+						value += (UInt64)val * scale;
+						scale *= 10;
+					}
+				}
+			}
+			buff.Add(value);
+			return FromZ19(buff);
+		}
+
+		public string GetString()
+		{
+			StringBuilder ret = new StringBuilder();
+			List<UInt64> buff = ToZ19(this);
+
+			if (1 <= buff.Count)
+			{
+				ret.Append(buff[buff.Count - 1].ToString());
+
+				for (int index = buff.Count - 2; 0 <= index; index--)
+					ret.Append(buff[index].ToString("D19"));
+			}
+			else
+				ret.Append('0');
+
+			return ret.ToString();
+		}
+
+		public override string ToString()
+		{
+			StringBuilder buff = new StringBuilder();
+
+			buff.Append("[");
+
+			if (1 <= _figures.Count)
+			{
+				buff.Append(_figures[_figures.Count - 1].ToString("x8"));
+
+				for (int index = _figures.Count - 2; 0 <= index; index--)
+				{
+					buff.Append(":");
+					buff.Append(_figures[index].ToString("x8"));
+				}
+			}
+			buff.Append("]");
+			return buff.ToString();
+		}
+
+		public static FatUInt Power(FatUInt a, int exponent)
+		{
+			if (exponent < 0 || IntTools.IMAX < exponent) throw new ArgumentException();
+
+			if (exponent == 0)
+				return new FatUInt(1);
+
+			if (exponent == 1)
+				return a.GetClone();
+
+			if (exponent == 2)
+				return Mul(a, a);
+
+			FatUInt ret = Power(a, exponent / 2);
+
+			if (exponent % 2 == 1)
+				ret = Mul(ret, Mul(ret, a));
+			else
+				ret = Mul(ret, ret);
+
+			return ret;
+		}
+
+		public static FatUInt Root(FatUInt a, int exponent)
+		{
+			if (exponent < 1 || IntTools.IMAX < exponent) throw new ArgumentException();
+
+			if (exponent == 1)
+				return a.GetClone();
+
+			int bit = a.GetFarthestBit();
+			bit /= 2;
+			bit += 5; // XXX マージン適当
+
+			FatUInt ret = new FatUInt();
+
+			for (; 0 <= bit; bit--)
+			{
+				ret.SetBit_1(bit);
+				FatUInt t = Power(ret, exponent);
+
+				if (Red(a, t) == null)
+					ret.SetBit_0(bit);
+			}
+			ret.Normalize();
+			return ret;
 		}
 	}
 }

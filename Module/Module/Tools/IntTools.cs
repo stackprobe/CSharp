@@ -46,5 +46,19 @@ namespace Charlotte.Tools
 
 			return defval;
 		}
+
+		public static uint Root(UInt64 value)
+		{
+			uint ret = 0u;
+
+			for (uint bit = 1u << 31; bit != 0; bit >>= 1)
+			{
+				uint t = ret | bit;
+
+				if ((UInt64)t * t <= value)
+					ret = t;
+			}
+			return ret;
+		}
 	}
 }
