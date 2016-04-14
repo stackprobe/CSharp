@@ -416,22 +416,73 @@ namespace Charlotte.Tools
 			return FromZ19(buff);
 		}
 
+		public static FatUInt FromHexString(string src)
+		{
+			FatUInt ret = new FatUInt();
+			uint value = 0;
+			int scale = 0;
+
+			src = src.ToLower();
+
+			for (int index = src.Length - 1; 0 <= index; index--)
+			{
+				int val = StringTools.hexadecimal.IndexOf(src[index]);
+
+				if (val != -1)
+				{
+					if (scale == 32)
+					{
+						ret.Figures.Add(value);
+						value = (uint)val;
+						scale = 4;
+					}
+					else
+					{
+						value |= (uint)val << scale;
+						scale += 4;
+					}
+				}
+			}
+			ret.Figures.Add(value);
+			ret.Normalize();
+			return ret;
+		}
+
 		public string GetString()
 		{
-			StringBuilder ret = new StringBuilder();
-			List<UInt64> buff = ToZ19(this);
+			StringBuilder buff = new StringBuilder();
+			List<UInt64> src = ToZ19(this);
 
-			if (1 <= buff.Count)
+			if (1 <= src.Count)
 			{
-				ret.Append(buff[buff.Count - 1].ToString());
+				buff.Append(src[src.Count - 1].ToString());
 
-				for (int index = buff.Count - 2; 0 <= index; index--)
-					ret.Append(buff[index].ToString("D19"));
+				for (int index = src.Count - 2; 0 <= index; index--)
+					buff.Append(src[index].ToString("D19"));
 			}
 			else
-				ret.Append('0');
+				buff.Append('0');
 
-			return ret.ToString();
+			return buff.ToString();
+		}
+
+		public string GetHexString()
+		{
+			StringBuilder buff = new StringBuilder();
+
+			this.Normalize();
+
+			if (1 <= _figures.Count)
+			{
+				buff.Append(_figures[_figures.Count - 1].ToString("x"));
+
+				for (int index = _figures.Count - 2; 0 <= index; index--)
+					buff.Append(_figures[index].ToString("x8"));
+			}
+			else
+				buff.Append('0');
+
+			return buff.ToString();
 		}
 
 		public override string ToString()
