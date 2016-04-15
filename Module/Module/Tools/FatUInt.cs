@@ -64,8 +64,6 @@ namespace Charlotte.Tools
 		{
 			if (bit < -IntTools.IMAX || IntTools.IMAX < bit) throw new ArgumentException();
 
-			//Console.WriteLine("**1" + this); // test
-			//Console.WriteLine("**2" + bit); // test
 			this.Normalize();
 
 			if (_figures.Count == 0)
@@ -122,7 +120,6 @@ namespace Charlotte.Tools
 				}
 			}
 			_figures = buff;
-			//Console.WriteLine("**3" + this); // test
 		}
 
 		public int GetFarthestBit() // ret: 1 ～ == ビット位置, 0 == 無し
@@ -389,6 +386,8 @@ namespace Charlotte.Tools
 
 		public static FatUInt FromString(string src)
 		{
+			src = StringTools.ReplaceChar(src, StringTools.ZEN_DIGIT, StringTools.DIGIT);
+
 			List<UInt64> buff = new List<UInt64>();
 			UInt64 value = 0;
 			UInt64 scale = 1;
@@ -416,38 +415,6 @@ namespace Charlotte.Tools
 			return FromZ19(buff);
 		}
 
-		public static FatUInt FromHexString(string src)
-		{
-			FatUInt ret = new FatUInt();
-			uint value = 0;
-			int scale = 0;
-
-			src = src.ToLower();
-
-			for (int index = src.Length - 1; 0 <= index; index--)
-			{
-				int val = StringTools.hexadecimal.IndexOf(src[index]);
-
-				if (val != -1)
-				{
-					if (scale == 32)
-					{
-						ret.Figures.Add(value);
-						value = (uint)val;
-						scale = 4;
-					}
-					else
-					{
-						value |= (uint)val << scale;
-						scale += 4;
-					}
-				}
-			}
-			ret.Figures.Add(value);
-			ret.Normalize();
-			return ret;
-		}
-
 		public string GetString()
 		{
 			StringBuilder buff = new StringBuilder();
@@ -459,25 +426,6 @@ namespace Charlotte.Tools
 
 				for (int index = src.Count - 2; 0 <= index; index--)
 					buff.Append(src[index].ToString("D19"));
-			}
-			else
-				buff.Append('0');
-
-			return buff.ToString();
-		}
-
-		public string GetHexString()
-		{
-			StringBuilder buff = new StringBuilder();
-
-			this.Normalize();
-
-			if (1 <= _figures.Count)
-			{
-				buff.Append(_figures[_figures.Count - 1].ToString("x"));
-
-				for (int index = _figures.Count - 2; 0 <= index; index--)
-					buff.Append(_figures[index].ToString("x8"));
 			}
 			else
 				buff.Append('0');
