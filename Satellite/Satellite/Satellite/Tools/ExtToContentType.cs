@@ -229,6 +229,11 @@ namespace Charlotte.Satellite.Tools
 			"xhtml","application/xhtml+xml",
 			"xls",  "application/vnd.ms-excel",
 			"doc",  "application/msword",
+
+			// 2016.4.16 追加
+
+			"swf",  "application/x-shockwave-flash",
+			"webm", "video/webm",
 		};
 
 		public const string DEF_EXT = "bin";
