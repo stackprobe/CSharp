@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Charlotte.Tools
+namespace Charlotte.Satellite.Tools
 {
 	public class CrossDictionary<K, V>
 	{

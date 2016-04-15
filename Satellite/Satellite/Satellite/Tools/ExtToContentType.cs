@@ -234,19 +234,19 @@ namespace Charlotte.Satellite.Tools
 		public const string DEF_EXT = "bin";
 		public const string DEF_CONTENT_TYPE = "application/octet-stream";
 
-		private static CrossMap<string, string> _map;
+		private static CrossDictionary<string, string> _map;
 
-		public static CrossMap<string, string> Map
+		public static CrossDictionary<string, string> Map
 		{
 			get
 			{
 				if (_map == null)
 				{
-					_map = new CrossMap<String, String>();
+					_map = CrossDictionaryTools.CreateIgnoreCase();
 
 					for (int index = 0; index < _rawData.Length; index += 2)
 					{
-						_map.Add(_rawData[index], _rawData[index + 1]);
+						_map.Put(_rawData[index], _rawData[index + 1]);
 					}
 				}
 				return _map;
@@ -255,22 +255,12 @@ namespace Charlotte.Satellite.Tools
 
 		public static String GetContentType(String ext)
 		{
-			String ret = Map.Map[ext];
-
-			if (ret == null)
-				ret = DEF_CONTENT_TYPE;
-
-			return ret;
+			return DictionaryTools.Get(Map.Values, ext, DEF_CONTENT_TYPE);
 		}
 
 		public static String GetExt(String contentType)
 		{
-			String ret = Map.Inv[contentType];
-
-			if (ret == null)
-				ret = DEF_EXT;
-
-			return ret;
+			return DictionaryTools.Get(Map.Keys, contentType, DEF_EXT);
 		}
 	}
 }

@@ -87,5 +87,31 @@ namespace Charlotte.Satellite.Tools
 			tokens.Add(buff.ToString());
 			return tokens;
 		}
+
+		public class IEComp : IEqualityComparer<string>
+		{
+			public bool Equals(string a, string b)
+			{
+				return a == b;
+			}
+
+			public int GetHashCode(string str)
+			{
+				return str.GetHashCode();
+			}
+		}
+
+		public class IECompIgnoreCase : IEqualityComparer<string>
+		{
+			public bool Equals(string a, string b)
+			{
+				return a.ToLower() == b.ToLower();
+			}
+
+			public int GetHashCode(string str)
+			{
+				return str.ToLower().GetHashCode();
+			}
+		}
 	}
 }

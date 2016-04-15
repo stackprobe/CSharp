@@ -59,8 +59,10 @@
     <Compile Include="Satellite\Satellizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Satellite\Tools\Connection.cs" />
-    <Compile Include="Satellite\Tools\CrossMap.cs" />
+    <Compile Include="Satellite\Tools\CrossDictionary.cs" />
+    <Compile Include="Satellite\Tools\CrossDictionaryTools.cs" />
     <Compile Include="Satellite\Tools\Deserializer.cs" />
+    <Compile Include="Satellite\Tools\DictionaryTools.cs" />
     <Compile Include="Satellite\Tools\ExtToContentType.cs" />
     <Compile Include="Satellite\Tools\FileTools.cs" />
     <Compile Include="Satellite\Tools\IntTools.cs" />

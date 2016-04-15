@@ -220,7 +220,7 @@ namespace Charlotte.Tools
 			a.Normalize();
 			b.Normalize();
 
-			if (a._figures.Count < b._figures.Count)
+			if (a.Figures.Count < b.Figures.Count)
 				return null;
 
 			FatUInt ret = new FatUInt();
@@ -499,6 +499,12 @@ namespace Charlotte.Tools
 			}
 			ret.Normalize();
 			return ret;
+		}
+
+		public bool IsZero()
+		{
+			this.Normalize();
+			return _figures.Count == 0;
 		}
 	}
 }

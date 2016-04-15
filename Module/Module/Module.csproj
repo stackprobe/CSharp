@@ -79,6 +79,7 @@
     <Compile Include="Tools\ArrayTools.cs" />
     <Compile Include="Tools\AutoTable.cs" />
     <Compile Include="Tools\BracketParser.cs" />
+    <Compile Include="Tools\CrossDictionaryTools.cs" />
     <Compile Include="Tools\CsvData.cs" />
     <Compile Include="Tools\DebugTools.cs" />
     <Compile Include="Tools\DictionaryTools.cs" />
