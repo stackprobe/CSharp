@@ -134,8 +134,13 @@ namespace Charlotte.Tools
 			None,
 		}
 
-		public static void CreatePath(string path, CreatePath_e mode = CreatePath_e.None)
+		public static void CreatePath(string path, CreatePath_e mode = CreatePath_e.None, bool delFlag = false)
 		{
+			if (delFlag)
+			{
+				DeleteFileIfExist(path);
+				DirectoryTools.DeleteDirIfExist(path);
+			}
 			Directory.CreateDirectory(path);
 
 			switch (mode)
@@ -156,6 +161,23 @@ namespace Charlotte.Tools
 				default:
 					throw null;
 			}
+		}
+
+		public static void CreatePathIfNotExist(string path, CreatePath_e mode = CreatePath_e.None)
+		{
+			if (File.Exists(path))
+				return;
+
+			if (Directory.Exists(path))
+				return;
+
+			CreatePath(path, mode);
+		}
+
+		public static void DeleteFileIfExist(string file)
+		{
+			if (File.Exists(file))
+				File.Delete(file);
 		}
 	}
 }
