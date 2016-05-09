@@ -386,8 +386,6 @@ namespace Charlotte.Tools
 
 		public static FatUInt FromString(string src)
 		{
-			src = StringTools.ReplaceChar(src, StringTools.ZEN_DIGIT, StringTools.DIGIT);
-
 			List<UInt64> buff = new List<UInt64>();
 			UInt64 value = 0;
 			UInt64 scale = 1;

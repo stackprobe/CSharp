@@ -40,7 +40,7 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public FatUInt Rem = null;
+		public FatUFloat Rem = null;
 
 		public FatUFloat(FatUInt value, UInt64 radix = DEF_RADIX, int exponent = 0)
 		{
@@ -58,38 +58,47 @@ namespace Charlotte.Tools
 			return new FatUFloat(_value.GetClone(), _radix, _exponent);
 		}
 
-		private static void Synchronize(FatUFloat a, FatUFloat b, int basement = 0)
+		public FatUFloat ChangeExponent(int exponentNew)
+		{
+			if (exponentNew < 0 || IntTools.IMAX < exponentNew) throw new ArgumentOutOfRangeException();
+
+			int e = exponentNew - _exponent;
+			FatUInt value;
+
+			if (e < 0)
+				value = FatUInt.Div(_value, FatUInt.Power(new FatUInt(_radix), -e));
+			else if (0 < e)
+				value = FatUInt.Mul(_value, FatUInt.Power(new FatUInt(_radix), e));
+			else
+				value = _value.GetClone();
+
+			return new FatUFloat(value, _radix, exponentNew);
+		}
+
+		private static void Synchronize(ref FatUFloat a, ref FatUFloat b, int basement = 0)
 		{
 			if (a == null) throw new ArgumentException();
 			if (b == null) throw new ArgumentException();
 			if (a.Radix != b.Radix) throw new ArgumentException("different radix");
-			if (basement < 0 || IntTools.IMAX < basement) throw new ArgumentException();
+			if (basement < 0 || IntTools.IMAX < basement) throw new ArgumentOutOfRangeException();
 
 			int e = a.Exponent - b.Exponent - basement;
 
-			if (e < -IntTools.IMAX || IntTools.IMAX < e) throw new ArgumentException();
-
 			if (e < 0)
-				a.Synchronize(-e);
+				a = a.ChangeExponent(a.Exponent - e);
 			else if (0 < e)
-				b.Synchronize(e);
-		}
-
-		private void Synchronize(int e)
-		{
-			_value = FatUInt.Mul(_value, FatUInt.Power(new FatUInt(_radix), e));
-			_exponent += e;
+				b = b.ChangeExponent(b.Exponent + e);
 		}
 
 		public static FatUFloat Add(FatUFloat a, FatUFloat b)
 		{
-			Synchronize(a, b);
+			Synchronize(ref a, ref b);
 			return new FatUFloat(FatUInt.Add(a.Value, b.Value), a.Radix, a.Exponent);
 		}
 
 		public static FatUFloat Red(FatUFloat a, FatUFloat b)
 		{
-			Synchronize(a, b);
+			Synchronize(ref a, ref b);
 			return new FatUFloat(FatUInt.Red(a.Value, b.Value), a.Radix, a.Exponent);
 		}
 
@@ -101,27 +110,42 @@ namespace Charlotte.Tools
 
 		public static FatUFloat Div(FatUFloat a, FatUFloat b, int basement = DEF_BASEMENT)
 		{
-			Synchronize(a, b, basement);
+			Synchronize(ref a, ref b, basement);
 			FatUInt value = FatUInt.Div(a.Value, b.Value);
 			FatUFloat ret = new FatUFloat(value, a.Radix, basement);
-			ret.Rem = value.Rem;
+
+			if (value.Rem != null)
+				ret.Rem = new FatUFloat(value.Rem, a.Radix, basement);
+
 			return ret;
 		}
 
-		public static FatUInt Mod(FatUFloat a, FatUFloat b, int basement = DEF_BASEMENT)
+		public static FatUFloat Mod(FatUFloat a, FatUFloat b, int basement = DEF_BASEMENT)
 		{
 			return Div(a, b, basement).Rem;
 		}
 
 		public static FatUFloat Power(FatUFloat a, int exponent)
 		{
-			if (exponent < 0 || IntTools.IMAX / a.Exponent < exponent) throw new ArgumentException();
+			if (exponent < 0 || IntTools.IMAX / a.Exponent < exponent) throw new ArgumentOutOfRangeException();
 			return new FatUFloat(FatUInt.Power(a.Value, exponent), a.Radix, a.Exponent * exponent);
 		}
 
 		public static FatUFloat Root(FatUFloat a, int exponent, int basement = DEF_BASEMENT)
 		{
-			throw null; // TODO
+			if (a == null) throw new ArgumentException();
+			if (exponent < 0 || IntTools.IMAX < exponent) throw new ArgumentOutOfRangeException();
+			if (basement < 0 || IntTools.IMAX / exponent < basement) throw new ArgumentOutOfRangeException();
+
+			FatUFloat b = a.GetClone();
+			b.Exponent = exponent * basement;
+			FatUFloat ret = new FatUFloat(FatUInt.Root(b.Value, exponent), a.Radix, basement);
+			FatUFloat rem = FatUFloat.Red(a, Power(ret, exponent));
+
+			if (rem.Value.IsZero() == false)
+				ret.Rem = rem;
+
+			return ret;
 		}
 
 		public void ChangeRadix(int radix = DEF_RADIX, int basement = DEF_BASEMENT)

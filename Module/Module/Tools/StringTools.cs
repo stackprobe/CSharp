@@ -501,7 +501,5 @@ namespace Charlotte.Tools
 				}
 			}
 		}
-
-		public const string ZEN_DIGIT = "０１２３４５６７８９";
 	}
 }
