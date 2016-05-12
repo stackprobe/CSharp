@@ -69,6 +69,7 @@
     <Compile Include="Test\Tools\NectarTest.cs" />
     <Compile Include="Test\Tools\TimeDataTest.cs" />
     <Compile Include="Tools\ByteBuffer.cs" />
+    <Compile Include="Tools\Calc.cs" />
     <Compile Include="Tools\CrossDictionary.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -84,8 +85,10 @@
     <Compile Include="Tools\DebugTools.cs" />
     <Compile Include="Tools\DictionaryTools.cs" />
     <Compile Include="Tools\DirectoryTools.cs" />
+    <Compile Include="Tools\FatFloat.cs" />
     <Compile Include="Tools\FatUFloat.cs" />
     <Compile Include="Tools\FatUInt.cs" />
+    <Compile Include="Tools\FatValue.cs" />
     <Compile Include="Tools\FileSorter.cs" />
     <Compile Include="Tools\FileTools.cs" />
     <Compile Include="Tools\HttpClient.cs" />
