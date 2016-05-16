@@ -53,7 +53,7 @@ namespace Charlotte.Tools
 			return new FatUFloat(_value.GetClone(), _radix, _exponent);
 		}
 
-		public FatUFloat ChangeExponent(int exponent)
+		public FatUFloat ChangeExponent(int exponent) // ret: .Value.Rem != null ... 丸め発生
 		{
 			if (exponent < 0 || IntTools.IMAX < exponent) throw new ArgumentOutOfRangeException();
 
@@ -108,7 +108,7 @@ namespace Charlotte.Tools
 			return new FatUFloat(FatUInt.Mul(a.Value, b.Value), a.Radix, a.Exponent + b.Exponent);
 		}
 
-		public static FatUFloat Div(FatUFloat a, FatUFloat b, int basement) // ret: .Value.Rem != null ... 余りあり
+		public static FatUFloat Div(FatUFloat a, FatUFloat b, int basement) // ret: .Value.Rem != null ... 丸め発生
 		{
 			Synchronize(ref a, ref b, basement);
 			return new FatUFloat(FatUInt.Div(a.Value, b.Value), a.Radix, basement);
@@ -135,16 +135,22 @@ namespace Charlotte.Tools
 			return new FatUFloat(FatUInt.Power(a.Value, exponent), a.Radix, a.Exponent * exponent);
 		}
 
-		public static FatUFloat Root(FatUFloat a, int exponent, int basement) // ret: .Value.Rem != null ... 余りあり
+		public static FatUFloat Root(FatUFloat a, int exponent, int basement) // ret: .Value.Rem != null ... 丸め発生
 		{
 			if (a == null) throw new ArgumentException();
 			if (exponent < 1 || IntTools.IMAX < exponent) throw new ArgumentOutOfRangeException();
 			if (basement < 0 || IntTools.IMAX / exponent < basement) throw new ArgumentOutOfRangeException();
 
-			return new FatUFloat(FatUInt.Root(a.ChangeExponent(exponent * basement).Value, exponent), a.Radix, basement);
+			FatUFloat ret = new FatUFloat(FatUInt.Root(a.ChangeExponent(exponent * basement).Value, exponent), a.Radix, basement);
+			FatUFloat rem = Red(a, Power(a, exponent));
+
+			if (rem.Value.IsZero() == false)
+				ret.Value.Rem = rem.Value;
+
+			return ret;
 		}
 
-		public FatUFloat ChangeRadix(UInt64 radix, int basement) // ret: .Value.Rem != null ... 余りあり
+		public FatUFloat ChangeRadix(UInt64 radix, int basement) // ret: .Value.Rem != null ... 丸め発生
 		{
 			if (radix < 2) throw new ArgumentOutOfRangeException();
 			if (basement < 0 || IntTools.IMAX < basement) throw new ArgumentOutOfRangeException();

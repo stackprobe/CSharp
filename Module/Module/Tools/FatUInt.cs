@@ -10,6 +10,14 @@ namespace Charlotte.Tools
 		private List<uint> _figures = new List<uint>();
 		public FatUInt Rem = null;
 
+		public List<uint> Figures
+		{
+			get
+			{
+				return _figures;
+			}
+		}
+
 		public FatUInt()
 		{ }
 
@@ -22,14 +30,6 @@ namespace Charlotte.Tools
 		{
 			_figures.Add((uint)(value & 0xfffffffful));
 			_figures.Add((uint)(value >> 32));
-		}
-
-		public List<uint> Figures
-		{
-			get
-			{
-				return _figures;
-			}
 		}
 
 		public void Normalize()
@@ -286,7 +286,7 @@ namespace Charlotte.Tools
 			return ret;
 		}
 
-		public static FatUInt Div(FatUInt a, FatUInt b)
+		public static FatUInt Div(FatUInt a, FatUInt b) // ret: .Rem == null ... 余りなし
 		{
 			a.Normalize();
 			b.Normalize();

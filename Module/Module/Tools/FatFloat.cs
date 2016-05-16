@@ -92,7 +92,7 @@ namespace Charlotte.Tools
 			return new FatFloat(FatUFloat.Mul(a.Value, b.Value), a.Sign * b.Sign);
 		}
 
-		public static FatFloat Div(FatFloat a, FatFloat b, int basement) // ret: .Value.Value.Rem != null ... 余りあり
+		public static FatFloat Div(FatFloat a, FatFloat b, int basement) // ret: .Value.Value.Rem != null ... 丸め発生
 		{
 			return new FatFloat(FatUFloat.Div(a.Value, b.Value, basement), a.Sign * b.Sign);
 		}
@@ -107,12 +107,12 @@ namespace Charlotte.Tools
 			return new FatFloat(FatUFloat.Power(a.Value, exponent), 1);
 		}
 
-		public static FatFloat Root(FatFloat a, int exponent, int basement) // ret: .Value.Value.Rem != null ... 余りあり
+		public static FatFloat Root(FatFloat a, int exponent, int basement) // ret: .Value.Value.Rem != null ... 丸め発生
 		{
 			return new FatFloat(FatUFloat.Root(a.Value, exponent, basement), 1);
 		}
 
-		public FatFloat ChangeRadix(UInt64 radix, int basement) // ret: .Value.Value.Rem != null ... 余りあり
+		public FatFloat ChangeRadix(UInt64 radix, int basement) // ret: .Value.Value.Rem != null ... 丸め発生
 		{
 			return new FatFloat(_value.ChangeRadix(radix, basement), _sign);
 		}

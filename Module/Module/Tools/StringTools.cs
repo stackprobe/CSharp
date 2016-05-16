@@ -501,5 +501,15 @@ namespace Charlotte.Tools
 				}
 			}
 		}
+
+		public static string Reverse(string src)
+		{
+			StringBuilder buff = new StringBuilder();
+
+			for (int index = src.Length - 1; 0 <= index; index--)
+				buff.Append(src[index]);
+
+			return buff.ToString();
+		}
 	}
 }

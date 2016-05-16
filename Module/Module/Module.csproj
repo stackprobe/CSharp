@@ -63,7 +63,6 @@
   <ItemGroup>
     <Compile Include="Test\Tools\ByteBufferTest.cs" />
     <Compile Include="Test\Tools\CsvDataTest.cs" />
-    <Compile Include="Test\Tools\FatUIntTest.cs" />
     <Compile Include="Test\Tools\FileSorterTest.cs" />
     <Compile Include="Test\Tools\MutectorTest.cs" />
     <Compile Include="Test\Tools\NectarTest.cs" />
