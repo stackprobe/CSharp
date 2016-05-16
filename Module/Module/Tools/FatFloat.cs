@@ -35,7 +35,7 @@ namespace Charlotte.Tools
 
 		public FatFloat(FatUFloat value, int sign)
 		{
-			if (value != null) throw new ArgumentNullException();
+			if (value == null) throw new ArgumentNullException();
 			if (sign != -1 && sign != 1) throw new ArgumentException();
 
 			_value = value;

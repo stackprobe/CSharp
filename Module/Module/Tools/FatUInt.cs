@@ -299,6 +299,9 @@ namespace Charlotte.Tools
 
 			FatUInt ret = new FatUInt();
 
+			if (af == 0)
+				return ret;
+
 			if (af < bf)
 			{
 				ret.Rem = a.GetClone();
@@ -336,7 +339,9 @@ namespace Charlotte.Tools
 					diff--;
 				}
 			}
-			ret.Rem = a.GetClone();
+			if (a.IsZero() == false)
+				ret.Rem = a.GetClone();
+
 			return ret;
 		}
 

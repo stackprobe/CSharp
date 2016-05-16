@@ -28,7 +28,8 @@ namespace Module
 
 		private static void Main2()
 		{
-			ByteBufferTest.Test01();
+			CalcTest.Test01();
+			//ByteBufferTest.Test01();
 			//HttpClientTest.Test01();
 			//FileSorterTest.Test01();
 			//NectarTest.Test01();

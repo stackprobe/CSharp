@@ -78,28 +78,7 @@ namespace Charlotte.Tools
 				}
 			}
 			_figures.Reverse();
-
-			// normalize
-			{
-				int bgn = 0;
-				int end = _figures.Count;
-
-				while (0 < end && _figures[end - 1] == 0)
-					end--;
-
-				while (bgn < end && _figures[bgn] == 0 && 1 <= _exponent)
-				{
-					bgn++;
-					_exponent--;
-				}
-				_figures = _figures.GetRange(bgn, end - bgn);
-
-				if (_figures.Count == 0)
-				{
-					_exponent = 0;
-					_sign = 1;
-				}
-			}
+			Normalize();
 		}
 
 		private void AddToFigures(UInt64 value, bool readDot)
@@ -113,7 +92,32 @@ namespace Charlotte.Tools
 				_exponent++;
 		}
 
-		public string GetString(int bracketMin = 36) // bracketMin: 0 ～ 36
+		private void Normalize()
+		{
+			int bgn = 0;
+			int end = _figures.Count;
+
+			while (0 < end && _figures[end - 1] == 0)
+				end--;
+
+			if (_rem == false)
+			{
+				while (bgn < end && _figures[bgn] == 0 && 1 <= _exponent)
+				{
+					bgn++;
+					_exponent--;
+				}
+			}
+			_figures = _figures.GetRange(bgn, end - bgn);
+
+			if (_figures.Count == 0)
+			{
+				_exponent = 0;
+				_sign = 1;
+			}
+		}
+
+		public string GetString(int bracketMin = Calc.DEF_BRACKET_MIN) // bracketMin: 0 ～ 36
 		{
 			if (bracketMin < 0 || 36 < bracketMin) throw new ArgumentOutOfRangeException();
 
@@ -186,7 +190,8 @@ namespace Charlotte.Tools
 				}
 				if (
 					ret.EndsWith("0") ||
-					ret.EndsWith("[0]")
+					ret.EndsWith("[0]") ||
+					ret.EndsWith(".")
 					)
 				{
 					int end = ret.Length;
@@ -223,12 +228,85 @@ namespace Charlotte.Tools
 		{
 			if (src == null) throw new ArgumentNullException();
 
-			UInt64 denom = RadixToDenom();
+			UInt64 d;
+			int z;
+			MkDZ(out d, out z);
+
+			// init
+			{
+				_figures.Clear();
+				_radix = src.Value.Radix;
+				_exponent = src.Value.Exponent;
+				_sign = src.Sign;
+				_rem = src.Value.Value.Rem != null;
+			}
+
+			FatUInt value = src.Value.Value;
+			FatUInt denom = new FatUInt(d);
+
+			while (value.IsZero() == false)
+			{
+				value = FatUInt.Div(value, denom);
+				UInt64 rem = value.Rem != null ? value.Rem.GetValue64() : 0;
+
+				for (int c = 0; c < z; c++)
+				{
+					_figures.Add(rem % _radix);
+					rem /= _radix;
+				}
+				if (rem != 0) throw null; // test
+			}
+			Normalize();
 		}
 
 		public FatFloat GetFatFloat()
 		{
-			throw null; // TODO
+			UInt64 d;
+			int z;
+			MkDZ(out d, out z);
+
+			FatUInt value = new FatUInt();
+			FatUInt denom = new FatUInt(d);
+
+			for (int index = 0; index < _figures.Count; )
+			{
+				UInt64 val = 0;
+
+				for (int c = 0; c < z && index < _figures.Count; c++)
+				{
+					val *= _radix;
+					val += _figures[index++];
+				}
+				value = FatUInt.Mul(value, denom);
+				value = FatUInt.Add(value, new FatUInt(val));
+			}
+			return new FatFloat(new FatUFloat(value, _radix, _exponent), _sign);
+		}
+
+		private void MkDZ(out UInt64 d, out int z)
+		{
+			d = _radix;
+			z = 1;
+
+			while(d <= UInt64.MaxValue / _radix)
+			{
+				d *= _radix;
+				z++;
+			}
+		}
+
+		public static FatFloat GetFatFloat(string str, UInt64 radix = Calc.DEF_RADIX)
+		{
+			FatValue mid = new FatValue();
+			mid.SetString(str, radix);
+			return mid.GetFatFloat();
+		}
+
+		public static string GetString(FatFloat src, int bracketMin = Calc.DEF_BRACKET_MIN)
+		{
+			FatValue mid = new FatValue();
+			mid.SetFatFloat(src);
+			return mid.GetString(bracketMin);
 		}
 	}
 }
