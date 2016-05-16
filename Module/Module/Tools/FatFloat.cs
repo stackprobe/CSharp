@@ -112,9 +112,9 @@ namespace Charlotte.Tools
 			return new FatFloat(FatUFloat.Root(a.Value, exponent, basement), 1);
 		}
 
-		public FatFloat ChangeRadix(UInt64 radix, int basement) // ret: .Value.Value.Rem != null ... 丸め発生
+		public FatFloat ChangeRadix(UInt64 radixNew, int basement) // ret: .Value.Value.Rem != null ... 丸め発生
 		{
-			return new FatFloat(_value.ChangeRadix(radix, basement), _sign);
+			return new FatFloat(_value.ChangeRadix(radixNew, basement), _sign);
 		}
 
 		public override string ToString()

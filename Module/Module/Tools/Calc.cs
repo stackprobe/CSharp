@@ -65,8 +65,11 @@ namespace Charlotte.Tools
 			_bracketMin = bracketMin;
 		}
 
-		public string Perform(string leftOperand, char operation, string rightOperand)
+		public string Execute(string leftOperand, char operation, string rightOperand)
 		{
+			if (leftOperand == null) throw new ArgumentNullException();
+			if (rightOperand == null) throw new ArgumentNullException();
+
 			FatFloat a = FatValue.GetFatFloat(leftOperand, _radix);
 			FatFloat b = FatValue.GetFatFloat(rightOperand, _radix);
 			FatFloat ans;
@@ -88,6 +91,9 @@ namespace Charlotte.Tools
 
 		public string Power(string operand, int exponent)
 		{
+			if (operand == null) throw new ArgumentNullException();
+			if (exponent < 0 || IntTools.IMAX < exponent) throw new ArgumentOutOfRangeException();
+
 			FatFloat a = FatValue.GetFatFloat(operand);
 			FatFloat ans = FatFloat.Power(a, exponent);
 			string ret = FatValue.GetString(ans);
@@ -96,9 +102,32 @@ namespace Charlotte.Tools
 
 		public string Root(string operand, int exponent)
 		{
+			if (operand == null) throw new ArgumentNullException();
+			if (exponent < 1 || IntTools.IMAX < exponent) throw new ArgumentOutOfRangeException();
+
 			FatFloat a = FatValue.GetFatFloat(operand);
 			FatFloat ans = FatFloat.Root(a, exponent, _basement);
 			string ret = FatValue.GetString(ans);
+			return ret;
+		}
+
+		public string ChangeRadix(string operand, UInt64 radixNew)
+		{
+			if (operand == null) throw new ArgumentNullException();
+			if (radixNew < 2) throw new ArgumentOutOfRangeException();
+
+			FatFloat a = FatValue.GetFatFloat(operand);
+			FatFloat ans = a.ChangeRadix(radixNew, _basement);
+			string ret = FatValue.GetString(ans, _bracketMin);
+			return ret;
+		}
+
+		public string Normalize(string operand)
+		{
+			if (operand == null) throw new ArgumentNullException();
+
+			FatFloat a = FatValue.GetFatFloat(operand);
+			string ret = FatValue.GetString(a, _bracketMin);
 			return ret;
 		}
 	}

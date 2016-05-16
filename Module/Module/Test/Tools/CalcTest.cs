@@ -35,7 +35,7 @@ namespace Charlotte.Test.Tools
 			string ans;
 			try
 			{
-				ans = _calc.Perform(a, operation, b);
+				ans = _calc.Execute(a, operation, b);
 			}
 			catch (Exception e)
 			{

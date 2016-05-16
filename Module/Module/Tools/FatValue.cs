@@ -15,7 +15,7 @@ namespace Charlotte.Tools
 
 		private const string DIGIT_36 = StringTools.DIGIT + StringTools.alpha;
 
-		public void SetString(string str, UInt64 radix = Calc.DEF_RADIX)
+		public void SetString(string str, UInt64 radix = Calc.DEF_RADIX) // 丸め記号は無視する！
 		{
 			if (str == null) throw new ArgumentNullException();
 			if (radix < 2) throw new ArgumentOutOfRangeException();
@@ -58,7 +58,7 @@ namespace Charlotte.Tools
 
 						if (val != -1)
 						{
-							//if ((UInt64.MaxValue - (UInt64)val) / 10 < value) throw new OverflowException();
+							if ((UInt64.MaxValue - (UInt64)val) / 10 < value) throw new OverflowException();
 
 							value *= 10;
 							value += (UInt64)val;
@@ -254,12 +254,12 @@ namespace Charlotte.Tools
 					_figures.Add(rem % _radix);
 					rem /= _radix;
 				}
-				if (rem != 0) throw null; // test
+				//if (rem != 0) throw null; // test
 			}
 			Normalize();
 		}
 
-		public FatFloat GetFatFloat()
+		public FatFloat GetFatFloat() // _rem は無視する！
 		{
 			UInt64 d;
 			int z;
@@ -280,6 +280,9 @@ namespace Charlotte.Tools
 				value = FatUInt.Mul(value, denom);
 				value = FatUInt.Add(value, new FatUInt(val));
 			}
+
+			// 面倒なので normalize しない。ていうか多分必要無い。
+
 			return new FatFloat(new FatUFloat(value, _radix, _exponent), _sign);
 		}
 
@@ -288,7 +291,7 @@ namespace Charlotte.Tools
 			d = _radix;
 			z = 1;
 
-			while(d <= UInt64.MaxValue / _radix)
+			while (d <= UInt64.MaxValue / _radix)
 			{
 				d *= _radix;
 				z++;

@@ -53,11 +53,11 @@ namespace Charlotte.Tools
 			return new FatUFloat(_value.GetClone(), _radix, _exponent);
 		}
 
-		public FatUFloat ChangeExponent(int exponent) // ret: .Value.Rem != null ... 丸め発生
+		public FatUFloat ChangeExponent(int exponentNew) // ret: .Value.Rem != null ... 丸め発生
 		{
-			if (exponent < 0 || IntTools.IMAX < exponent) throw new ArgumentOutOfRangeException();
+			if (exponentNew < 0 || IntTools.IMAX < exponentNew) throw new ArgumentOutOfRangeException();
 
-			int e = exponent - _exponent;
+			int e = exponentNew - _exponent;
 			FatUInt value;
 
 			if (e < 0)
@@ -67,7 +67,7 @@ namespace Charlotte.Tools
 			else
 				value = _value.GetClone();
 
-			return new FatUFloat(value, _radix, exponent);
+			return new FatUFloat(value, _radix, exponentNew);
 		}
 
 		private static void Synchronize(ref FatUFloat a, ref FatUFloat b, int basement = 0)
@@ -150,16 +150,16 @@ namespace Charlotte.Tools
 			return ret;
 		}
 
-		public FatUFloat ChangeRadix(UInt64 radix, int basement) // ret: .Value.Rem != null ... 丸め発生
+		public FatUFloat ChangeRadix(UInt64 radixNew, int basement) // ret: .Value.Rem != null ... 丸め発生
 		{
-			if (radix < 2) throw new ArgumentOutOfRangeException();
+			if (radixNew < 2) throw new ArgumentOutOfRangeException();
 			if (basement < 0 || IntTools.IMAX < basement) throw new ArgumentOutOfRangeException();
 
 			FatUInt value = _value;
-			value = FatUInt.Mul(value, FatUInt.Power(new FatUInt(radix), basement));
+			value = FatUInt.Mul(value, FatUInt.Power(new FatUInt(radixNew), basement));
 			value = FatUInt.Div(value, FatUInt.Power(new FatUInt(_radix), _exponent));
 
-			return new FatUFloat(value, radix, basement);
+			return new FatUFloat(value, radixNew, basement);
 		}
 
 		public override string ToString()
