@@ -97,6 +97,7 @@
     <Compile Include="Tools\NamedEventData.cs" />
     <Compile Include="Tools\Nectar.cs" />
     <Compile Include="Tools\TextFileSorter.cs" />
+    <Compile Include="Tools\UInt64Tools.cs" />
     <Compile Include="XXXTools\Nectar_v1.cs" />
     <Compile Include="Tools\SecurityTools.cs" />
     <Compile Include="Tools\StringIndexOf.cs" />

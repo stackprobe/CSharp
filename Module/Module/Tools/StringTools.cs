@@ -261,6 +261,14 @@ namespace Charlotte.Tools
 			return str;
 		}
 
+		public static string ReplaceLoop(string str, string srcPtn, string destPtn, int count = 20)
+		{
+			for (int index = 0; index < count; index++)
+				str = str.Replace(srcPtn, destPtn);
+
+			return str;
+		}
+
 		public static int IndexOfChar(string str, string chrs)
 		{
 			int ret = int.MaxValue;

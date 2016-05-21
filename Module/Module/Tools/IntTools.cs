@@ -7,7 +7,7 @@ namespace Charlotte.Tools
 {
 	public class IntTools
 	{
-		public const int IMAX = 1000000000;
+		public const int IMAX = 1000000000; // 10^9
 
 		public static int Comp(int a, int b)
 		{
@@ -28,6 +28,29 @@ namespace Charlotte.Tools
 		public static int ToRange(int value, int minval = 0, int maxval = IMAX)
 		{
 			return Math.Min(Math.Max(value, minval), maxval);
+		}
+
+		public static int ToInt(double value)
+		{
+			if (value < 0.0)
+				return (int)(value - 0.5);
+			else
+				return (int)(value + 0.5);
+		}
+
+		public static int ToInt(string str, int minval = 0, int maxval = IMAX, int defval = 0)
+		{
+			try
+			{
+				int value = int.Parse(str);
+
+				if (IsRange(value, minval, maxval))
+					return value;
+			}
+			catch
+			{ }
+
+			return defval;
 		}
 
 		public int Parse(string str, int minval = 0, int maxval = IMAX, int defval = -1)
