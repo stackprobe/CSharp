@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using System.Threading;
+using Microsoft.Win32;
+using System.Text;
+using System.IO;
 
-namespace WCluster
+namespace Charlotte
 {
 	static class Program
 	{
@@ -13,35 +17,118 @@ namespace WCluster
 		[STAThread]
 		static void Main()
 		{
-			// orig >
+			BootTools.OnBoot();
 
-			Application.EnableVisualStyles();
-			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new MainWin());
+			Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
+			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+			SystemEvents.SessionEnding += new SessionEndingEventHandler(SessionEnding);
 
-			// < orig
+			Mutex procMutex = new Mutex(false, "{40d6bc7d-352a-416b-8fae-7a639e07035e}");
 
-			if (MainWin.MainProcEx != null)
+			if (procMutex.WaitOne(0))
 			{
-				if (MainWin.MainProcEx is Clusterizer.Cancelled)
-				{
-					MessageBox.Show(
-						"キャンセルしました。",
-						"WCluster / キャンセル",
-						MessageBoxButtons.OK,
-						MessageBoxIcon.Information
-						);
-				}
-				else
-				{
-					MessageBox.Show(
-						MainWin.MainProcEx.Message,
-						"WCluster / エラー",
-						MessageBoxButtons.OK,
-						MessageBoxIcon.Error
-						);
-				}
+				CheckSelfDir();
+				CheckCopiedExe();
+
+				// orig >
+
+				Application.EnableVisualStyles();
+				Application.SetCompatibleTextRenderingDefault(false);
+				Application.Run(new MainWin());
+
+				// < orig
+
+				procMutex.ReleaseMutex();
 			}
+			procMutex.Close();
+		}
+
+		public const string APP_TITLE = "WCluster";
+
+		private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
+		{
+			try
+			{
+				MessageBox.Show(
+					"[Application_ThreadException]\n" + e.Exception,
+					APP_TITLE + " / Error",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error
+					);
+			}
+			catch
+			{ }
+
+			Environment.Exit(1);
+		}
+
+		private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+		{
+			try
+			{
+				MessageBox.Show(
+					"[CurrentDomain_UnhandledException]\n" + e.ExceptionObject,
+					APP_TITLE + " / Error",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error
+					);
+			}
+			catch
+			{ }
+
+			Environment.Exit(2);
+		}
+
+		private static void SessionEnding(object sender, SessionEndingEventArgs e)
+		{
+			Environment.Exit(3);
+		}
+
+		private static void CheckSelfDir()
+		{
+			string dir = BootTools.SelfDir;
+			Encoding SJIS = Encoding.GetEncoding(932);
+
+			if (dir != SJIS.GetString(SJIS.GetBytes(dir)))
+			{
+				MessageBox.Show(
+					"Shift_JIS に変換出来ない文字を含むパスからは実行できません。",
+					APP_TITLE + " / エラー",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error
+					);
+
+				Environment.Exit(4);
+			}
+			if (dir.StartsWith("\\\\"))
+			{
+				MessageBox.Show(
+					"ネットワークフォルダからは実行できません。",
+					APP_TITLE + " / エラー",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error
+					);
+
+				Environment.Exit(5);
+			}
+		}
+
+		private static void CheckCopiedExe()
+		{
+			if (Directory.Exists(@"..\Debug")) // ? devenv
+				return;
+
+			if (File.Exists("WCluster.sig")) // リリースに含まれるファイル
+				return;
+
+			MessageBox.Show(
+				"WHY AM I ALONE ?",
+				"",
+				MessageBoxButtons.OK,
+				MessageBoxIcon.Error
+				);
+
+			Environment.Exit(6);
 		}
 	}
 }
