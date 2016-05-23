@@ -106,6 +106,7 @@ namespace Charlotte
 				this.Top = Gnd.MainWin_T;
 				this.Width = Gnd.MainWin_W;
 				this.Height = Gnd.MainWin_H;
+				this.MainTab.SelectedIndex = 1; // op1にフォーカスを..
 				this.MainTab.SelectedIndex = Gnd.MainTab_SelectedIndex;
 			}
 
