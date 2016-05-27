@@ -30,6 +30,8 @@ namespace Charlotte
 
 		#endregion
 
+		public static PostBox<string> StatusBox = new PostBox<string>(null);
+
 		private Thread _th;
 
 		public BusyDlg(Thread th)
@@ -41,7 +43,7 @@ namespace Charlotte
 
 		private void BusyDlg_Load(object sender, EventArgs e)
 		{
-			// noop
+			this.Elapsed.Text = "";
 		}
 
 		private void BusyDlg_Shown(object sender, EventArgs e)
@@ -72,18 +74,11 @@ namespace Charlotte
 
 			try
 			{
-				if (MT_Count % 10 == 0)
-				{
-					long t = MT_Count / 10;
-					long m = t / 60;
-					long s = t % 60;
-
-					this.Message.Text = "経過時間 ... だいたい " + m + " 分 " + s + " 秒 くらい";
-				}
 				if (Cancelled)
 				{
-					MT_Enabled = false;
 					Common.StartKillAndBoot();
+					MT_Enabled = false;
+					return;
 				}
 				if (5 < MT_Count)
 				{
@@ -93,6 +88,22 @@ namespace Charlotte
 						this.Close();
 						return;
 					}
+				}
+
+				{
+					string status = StatusBox.Post(null);
+
+					if (status != null)
+						this.Status.Text = status;
+				}
+
+				if (MT_Count % 10 == 0)
+				{
+					long t = MT_Count / 10;
+					long m = t / 60;
+					long s = t % 60;
+
+					this.Elapsed.Text = "経過時間 ... だいたい " + m + " 分 " + s + " 秒 くらい";
 				}
 			}
 			finally

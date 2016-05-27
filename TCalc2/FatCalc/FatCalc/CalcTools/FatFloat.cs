@@ -59,6 +59,9 @@ namespace Charlotte.CalcTools
 				b.Sign = -1;
 				return ret;
 			}
+
+			BusyDlg.StatusBox.Post("足し算(引き算)を実行しています。"); // app
+
 			return new FatFloat(FatUFloat.Add(a.Value, b.Value), 1);
 		}
 
@@ -79,6 +82,9 @@ namespace Charlotte.CalcTools
 				b.Sign = -1;
 				return ret;
 			}
+
+			BusyDlg.StatusBox.Post("引き算(足し算)を実行しています。"); // app
+
 			FatUFloat value = FatUFloat.Red(a.Value, b.Value);
 
 			if (value == null)
@@ -89,31 +95,43 @@ namespace Charlotte.CalcTools
 
 		public static FatFloat Mul(FatFloat a, FatFloat b)
 		{
+			BusyDlg.StatusBox.Post("掛け算を実行しています。"); // app
+
 			return new FatFloat(FatUFloat.Mul(a.Value, b.Value), a.Sign * b.Sign);
 		}
 
 		public static FatFloat Div(FatFloat a, FatFloat b, int basement) // ret: .Value.Value.Rem != null ... 丸め発生
 		{
+			BusyDlg.StatusBox.Post("割り算を実行しています。"); // app
+
 			return new FatFloat(FatUFloat.Div(a.Value, b.Value, basement), a.Sign * b.Sign);
 		}
 
 		public static FatFloat Mod(FatFloat a, FatFloat b, int basement)
 		{
+			BusyDlg.StatusBox.Post("割り算(剰余算)を実行しています。"); // app
+
 			return new FatFloat(FatUFloat.Mod(a.Value, b.Value, basement), a.Sign);
 		}
 
 		public static FatFloat Power(FatFloat a, int exponent)
 		{
+			BusyDlg.StatusBox.Post("べき乗の計算を実行しています。"); // app
+
 			return new FatFloat(FatUFloat.Power(a.Value, exponent), 1);
 		}
 
 		public static FatFloat Root(FatFloat a, int exponent, int basement) // ret: .Value.Value.Rem != null ... 丸め発生
 		{
+			BusyDlg.StatusBox.Post("べき根の計算を実行しています。"); // app
+
 			return new FatFloat(FatUFloat.Root(a.Value, exponent, basement), 1);
 		}
 
 		public FatFloat ChangeRadix(UInt64 radixNew, int basement) // ret: .Value.Value.Rem != null ... 丸め発生
 		{
+			BusyDlg.StatusBox.Post("基数変換を実行しています。"); // app
+
 			return new FatFloat(_value.ChangeRadix(radixNew, basement), _sign);
 		}
 

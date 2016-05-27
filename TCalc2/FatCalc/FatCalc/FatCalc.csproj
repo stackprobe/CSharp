@@ -76,6 +76,7 @@
       <DependentUpon>MainWin.cs</DependentUpon>
     </Compile>
     <Compile Include="ControlRectMan.cs" />
+    <Compile Include="PostBox.cs" />
     <Compile Include="Tools\UInt64Tools.cs" />
     <Compile Include="WordWrapOffTools.cs" />
     <Compile Include="Program.cs" />

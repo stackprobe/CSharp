@@ -49,6 +49,17 @@ namespace Charlotte.CalcTools
 			}
 		}
 
+		public void Extend(int count)
+		{
+			Extend(_figures, count);
+		}
+
+		public static void Extend(List<uint> buff, int count)
+		{
+			while (buff.Count < count)
+				buff.Add(0u);
+		}
+
 		public FatUInt GetClone()
 		{
 			this.Normalize();
@@ -102,8 +113,7 @@ namespace Charlotte.CalcTools
 				int index = bit / 32;
 				bit %= 32;
 
-				while (buff.Count < index)
-					buff.Add(0u);
+				Extend(buff, index);
 
 				if (bit == 0)
 				{
@@ -147,8 +157,7 @@ namespace Charlotte.CalcTools
 			int index = bit / 32;
 			bit %= 32;
 
-			while (_figures.Count <= index)
-				_figures.Add(0u);
+			this.Extend(index + 1);
 
 			_figures[index] |= 1u << bit;
 		}
@@ -179,6 +188,14 @@ namespace Charlotte.CalcTools
 				default:
 					throw null;
 			}
+		}
+
+		public void SetValue64(UInt64 value)
+		{
+			this.Extend(2);
+
+			_figures[0] = (uint)(value & 0xfffffffful);
+			_figures[1] = (uint)(value >> 32);
 		}
 
 		public static FatUInt Add(FatUInt a, FatUInt b)
@@ -263,9 +280,7 @@ namespace Charlotte.CalcTools
 			b.Normalize();
 
 			FatUInt ret = new FatUInt();
-
-			while (ret.Figures.Count < a.Figures.Count + b.Figures.Count)
-				ret.Figures.Add(0u);
+			ret.Extend(a.Figures.Count + b.Figures.Count);
 
 			for (int ai = 0; ai < a.Figures.Count; ai++)
 			{
@@ -287,26 +302,69 @@ namespace Charlotte.CalcTools
 			return ret;
 		}
 
-		public static bool PastoralMode = false;
-
 		public static FatUInt Div(FatUInt a, FatUInt b) // ret: .Rem == null ... 余りなし
 		{
-			if (PastoralMode == false)
-				return FatPowerOfMSDN.Div(a, b);
-
-			// XXX 遅い！遅い！遅い！遅い！遅い！遅い！遅い！遅い！遅い！遅い！遅い！遅い！遅い！遅い！遅い！遅い！遅い！遅い！遅い！遅い！
-
 			a.Normalize();
 			b.Normalize();
 
 			if (b.Figures.Count == 0)
 				throw new DivideByZeroException();
 
+			if (a.Figures.Count == 0)
+				return new FatUInt();
+
 			FatUInt ret = new FatUInt();
 
-			if (a.Figures.Count == 0)
+			if (a.Figures.Count < b.Figures.Count)
+			{
+				ret.Rem = a.GetClone();
 				return ret;
+			}
+			if (a.Figures.Count <= 2)
+			{
+				UInt64 numer = a.GetValue64();
+				UInt64 denom = b.GetValue64();
+				UInt64 ans = numer / denom;
+				UInt64 rem = numer % denom;
 
+				ret.SetValue64(ans);
+
+				if (rem != 0ul)
+					ret.Rem = new FatUInt(rem);
+
+				return ret;
+			}
+			if (b.Figures.Count == 1)
+			{
+				UInt64 numer = a.Figures[a.Figures.Count - 1];
+				UInt64 denom = b.Figures[0];
+
+				ret.Extend(a.Figures.Count);
+
+				for (int index = a.Figures.Count - 2; 0 <= index; index--)
+				{
+					numer <<= 32;
+					numer |= a.Figures[index];
+
+					UInt64 val = numer / denom;
+
+					for (int c = index; val != 0ul; c++)
+					{
+						val += ret.Figures[c];
+						ret.Figures[c] = (uint)(val & 0xfffffffful);
+						val >>= 32;
+					}
+					numer %= denom;
+				}
+				if (numer != 0ul)
+					ret.Rem = new FatUInt(numer);
+
+				return ret;
+			}
+
+#if true
+			FatPowerOfMSDN.Div(a, b, ret);
+#else
 			int af = a.GetFarthestBit();
 			int bf = b.GetFarthestBit();
 
@@ -330,13 +388,13 @@ namespace Charlotte.CalcTools
 					ret.SetBit_1(diff);
 
 					af = a.GetFarthestBit();
-					int d = bf - af;
+					int d = af - bf;
 
-					if (diff < d)
+					if (d < 0)
 						break;
 
-					b.Shift(-d);
-					diff -= d;
+					b.Shift(d - diff);
+					diff = d;
 				}
 				else
 				{
@@ -349,6 +407,7 @@ namespace Charlotte.CalcTools
 			}
 			if (a.IsZero() == false)
 				ret.Rem = a.GetClone();
+#endif
 
 			return ret;
 		}

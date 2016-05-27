@@ -16,6 +16,7 @@ namespace Charlotte
 		public static int BracketMin = 36; // 0 ～ 36
 		public static int OperandLenMax = 100000; // 1 ～ IMAX
 		public static int AnswerLenMax = 200000; // 1 ～ IMAX
+		public static bool DebugMode = true;
 
 		public static void LoadConf()
 		{
@@ -29,6 +30,7 @@ namespace Charlotte
 				BracketMin = IntTools.ToInt(lines[c++], 0, 36, 36);
 				OperandLenMax = IntTools.ToInt(lines[c++], 1, IntTools.IMAX, 100000);
 				AnswerLenMax = IntTools.ToInt(lines[c++], 1, IntTools.IMAX, 200000);
+				DebugMode = StringTools.ToFlag(lines[c++]);
 			}
 			catch
 			{ }

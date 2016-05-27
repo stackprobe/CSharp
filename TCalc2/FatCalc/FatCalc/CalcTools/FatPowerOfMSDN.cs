@@ -8,14 +8,12 @@ namespace Charlotte.CalcTools
 {
 	public class FatPowerOfMSDN
 	{
-		public static FatUInt Div(FatUInt a, FatUInt b)
+		public static void Div(FatUInt a, FatUInt b, FatUInt ret)
 		{
 			BigInteger l = new BigInteger(ToBytes(a.Figures));
 			BigInteger r = new BigInteger(ToBytes(b.Figures));
 
 			BigInteger ans = BigInteger.Divide(l, r);
-
-			FatUInt ret = new FatUInt();
 
 			ToFigures(ans.ToByteArray(), ret.Figures);
 
@@ -25,8 +23,6 @@ namespace Charlotte.CalcTools
 				if (rem.IsZero() == false)
 					ret.Rem = rem;
 			}
-
-			return ret;
 		}
 
 		private static byte[] ToBytes(List<uint> src)

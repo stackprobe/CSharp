@@ -21,6 +21,8 @@ namespace Charlotte.CalcTools
 			if (str == null) throw new ArgumentNullException();
 			if (radix < 2) throw new ArgumentOutOfRangeException();
 
+			BusyDlg.StatusBox.Post("表示可能な形式をセットしています。"); // app
+
 			// init
 			{
 				_figures.Clear();
@@ -121,6 +123,8 @@ namespace Charlotte.CalcTools
 		public string GetString(int bracketMin = Calc.DEF_BRACKET_MIN) // bracketMin: 0 ～ 36
 		{
 			if (bracketMin < 0 || 36 < bracketMin) throw new ArgumentOutOfRangeException();
+
+			BusyDlg.StatusBox.Post("表示可能な形式を取得しています。"); // app
 
 			StringBuilder buff = new StringBuilder();
 
@@ -231,6 +235,8 @@ namespace Charlotte.CalcTools
 
 			if (src == null) throw new ArgumentNullException();
 
+			BusyDlg.StatusBox.Post("計算可能な形式をセットしています。"); // app
+
 			// init
 			{
 				_figures.Clear();
@@ -299,6 +305,8 @@ namespace Charlotte.CalcTools
 
 		public FatFloat GetFatFloat() // _rem は無視する！
 		{
+			BusyDlg.StatusBox.Post("計算可能な形式を取得しています。"); // app
+
 			UInt64 d;
 			int z;
 			MkDZ(out d, out z);

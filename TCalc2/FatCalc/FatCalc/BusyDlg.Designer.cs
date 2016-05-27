@@ -31,30 +31,32 @@
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BusyDlg));
 			this.progressBar1 = new System.Windows.Forms.ProgressBar();
-			this.Message = new System.Windows.Forms.Label();
+			this.Elapsed = new System.Windows.Forms.Label();
 			this.MainTimer = new System.Windows.Forms.Timer(this.components);
 			this.BtnCancel = new System.Windows.Forms.Button();
 			this.ChkBoxCancel = new System.Windows.Forms.CheckBox();
+			this.Status = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// progressBar1
 			// 
-			this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.progressBar1.Location = new System.Drawing.Point(12, 83);
+			this.progressBar1.Location = new System.Drawing.Point(12, 77);
 			this.progressBar1.Name = "progressBar1";
-			this.progressBar1.Size = new System.Drawing.Size(428, 27);
+			this.progressBar1.Size = new System.Drawing.Size(515, 27);
 			this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
 			this.progressBar1.TabIndex = 1;
 			// 
-			// Message
+			// Elapsed
 			// 
-			this.Message.AutoSize = true;
-			this.Message.Location = new System.Drawing.Point(25, 35);
-			this.Message.Name = "Message";
-			this.Message.Size = new System.Drawing.Size(237, 20);
-			this.Message.TabIndex = 0;
-			this.Message.Text = "経過時間 ... だいたい 0 分 0 秒 くらい";
+			this.Elapsed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.Elapsed.AutoSize = true;
+			this.Elapsed.Location = new System.Drawing.Point(12, 127);
+			this.Elapsed.Name = "Elapsed";
+			this.Elapsed.Size = new System.Drawing.Size(317, 20);
+			this.Elapsed.TabIndex = 0;
+			this.Elapsed.Text = "経過時間 ... だいたい 1234567890 分 59 秒 くらい";
 			// 
 			// MainTimer
 			// 
@@ -65,7 +67,7 @@
 			// 
 			this.BtnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.BtnCancel.Enabled = false;
-			this.BtnCancel.Location = new System.Drawing.Point(347, 125);
+			this.BtnCancel.Location = new System.Drawing.Point(434, 119);
 			this.BtnCancel.Name = "BtnCancel";
 			this.BtnCancel.Size = new System.Drawing.Size(93, 37);
 			this.BtnCancel.TabIndex = 3;
@@ -75,8 +77,9 @@
 			// 
 			// ChkBoxCancel
 			// 
+			this.ChkBoxCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.ChkBoxCancel.AutoSize = true;
-			this.ChkBoxCancel.Location = new System.Drawing.Point(248, 132);
+			this.ChkBoxCancel.Location = new System.Drawing.Point(335, 126);
 			this.ChkBoxCancel.Name = "ChkBoxCancel";
 			this.ChkBoxCancel.Size = new System.Drawing.Size(93, 24);
 			this.ChkBoxCancel.TabIndex = 2;
@@ -84,14 +87,24 @@
 			this.ChkBoxCancel.UseVisualStyleBackColor = true;
 			this.ChkBoxCancel.CheckedChanged += new System.EventHandler(this.ChkBoxCancel_CheckedChanged);
 			// 
+			// Status
+			// 
+			this.Status.AutoSize = true;
+			this.Status.Location = new System.Drawing.Point(25, 31);
+			this.Status.Name = "Status";
+			this.Status.Size = new System.Drawing.Size(115, 20);
+			this.Status.TabIndex = 4;
+			this.Status.Text = "準備しています...";
+			// 
 			// BusyDlg
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(452, 174);
+			this.ClientSize = new System.Drawing.Size(539, 168);
+			this.Controls.Add(this.Status);
 			this.Controls.Add(this.ChkBoxCancel);
 			this.Controls.Add(this.BtnCancel);
-			this.Controls.Add(this.Message);
+			this.Controls.Add(this.Elapsed);
 			this.Controls.Add(this.progressBar1);
 			this.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -113,9 +126,10 @@
 		#endregion
 
 		private System.Windows.Forms.ProgressBar progressBar1;
-		private System.Windows.Forms.Label Message;
+		private System.Windows.Forms.Label Elapsed;
 		private System.Windows.Forms.Timer MainTimer;
 		private System.Windows.Forms.Button BtnCancel;
 		private System.Windows.Forms.CheckBox ChkBoxCancel;
+		private System.Windows.Forms.Label Status;
 	}
 }
