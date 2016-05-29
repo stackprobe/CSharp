@@ -146,6 +146,10 @@ namespace Charlotte
 
 				this.SouthEastStatus.Text = message;
 			}
+
+			this.PrExponent.Text = "" + IntTools.ToInt(this.PrExponent.Text, int.MinValue, int.MaxValue, 0);
+			this.CxOpRadix.Text = "" + IntTools.ToInt(this.CxOpRadix.Text, int.MinValue, int.MaxValue, 0);
+			this.CxAnsRadix.Text = "" + IntTools.ToInt(this.CxAnsRadix.Text, int.MinValue, int.MaxValue, 0);
 		}
 
 		private void MainWin_FormClosing(object sender, FormClosingEventArgs e)
