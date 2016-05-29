@@ -365,49 +365,29 @@ namespace Charlotte.CalcTools
 #if true
 			FatPowerOfMSDN.Div(a, b, ret);
 #else
-			int af = a.GetFarthestBit();
-			int bf = b.GetFarthestBit();
-
-			if (af < bf)
-			{
-				ret.Rem = a.GetClone();
-				return ret;
-			}
-			int diff = af - bf;
-
-			b = b.GetClone();
-			b.Shift(diff);
-
-			for (; ; )
-			{
-				FatUInt t = Red(a, b);
-
-				if (t != null)
-				{
-					a = t;
-					ret.SetBit_1(diff);
-
-					af = a.GetFarthestBit();
-					int d = af - bf;
-
-					if (d < 0)
-						break;
-
-					b.Shift(d - diff);
-					diff = d;
-				}
-				else
-				{
-					if (diff < 1)
-						break;
-
-					b.Shift(-1);
-					diff--;
-				}
-			}
-			if (a.IsZero() == false)
-				ret.Rem = a.GetClone();
+			FatUIntDiv.Perform(a, b, ret);
 #endif
+
+			if (Gnd.DebugMode)
+			{
+				FatUInt r1 = new FatUInt();
+				FatUInt r2 = new FatUInt();
+
+				FatPowerOfMSDN.Div(a, b, r1);
+				FatUIntDiv.Perform(a, b, r2);
+
+				if (FatUInt.Red(r1, r2).IsZero() == false)
+					throw null;
+
+				if (r1.Rem != null || r2.Rem != null)
+				{
+					if (r1.Rem == null || r2.Rem == null)
+						throw null;
+
+					if (FatUInt.Red(r1.Rem, r2.Rem).IsZero() == false)
+						throw null;
+				}
+			}
 
 			return ret;
 		}
