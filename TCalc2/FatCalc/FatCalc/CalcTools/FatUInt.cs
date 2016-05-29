@@ -71,68 +71,7 @@ namespace Charlotte.CalcTools
 
 			return ret;
 		}
-
-		public void Shift(int bit)
-		{
-			if (bit < -IntTools.IMAX || IntTools.IMAX < bit) throw new ArgumentException();
-
-			this.Normalize();
-
-			if (_figures.Count == 0)
-				return;
-
-			List<uint> buff = new List<uint>();
-
-			if (bit < 0)
-			{
-				bit = -bit;
-
-				if (this.GetFarthestBit() <= bit)
-				{
-					_figures.Clear();
-					return;
-				}
-				int index = bit / 32;
-				bit %= 32;
-
-				if (bit == 0)
-				{
-					for (; index < _figures.Count; index++)
-						buff.Add(_figures[index]);
-				}
-				else
-				{
-					for (; index + 1 < _figures.Count; index++)
-						buff.Add((_figures[index] >> bit) | (_figures[index + 1] << (32 - bit)));
-
-					buff.Add(_figures[index] >> bit);
-				}
-			}
-			else
-			{
-				int index = bit / 32;
-				bit %= 32;
-
-				Extend(buff, index);
-
-				if (bit == 0)
-				{
-					for (index = 0; index < _figures.Count; index++)
-						buff.Add(_figures[index]);
-				}
-				else
-				{
-					buff.Add(_figures[0] << bit);
-
-					for (index = 0; index + 1 < _figures.Count; index++)
-						buff.Add((_figures[index] >> (32 - bit)) | (_figures[index + 1] << bit));
-
-					buff.Add(_figures[index] >> (32 - bit));
-				}
-			}
-			_figures = buff;
-		}
-
+		
 		public int GetFarthestBit() // ret: 1 ～ == ビット位置, 0 == 無し
 		{
 			this.Normalize();
@@ -362,11 +301,10 @@ namespace Charlotte.CalcTools
 				return ret;
 			}
 
-#if true
-			FatPowerOfMSDN.Div(a, b, ret);
-#else
-			FatUIntDiv.Perform(a, b, ret);
-#endif
+			if (Gnd.MsdnDivFlag)
+				FatPowerOfMSDN.Div(a, b, ret);
+			else
+				FatUIntDiv.Perform(a, b, ret);
 
 			if (Gnd.DebugMode)
 			{

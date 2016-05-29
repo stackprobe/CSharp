@@ -11,12 +11,13 @@ namespace Charlotte
 {
 	public class Gnd
 	{
+		public static bool DebugMode = true;
+		public static bool MsdnDivFlag = true;
 		public static UInt64 Radix = 10; // 2 ～ 2^64-1
 		public static int Basement = 100; // 0 ～ IMAX
 		public static int BracketMin = 36; // 0 ～ 36
 		public static int OperandLenMax = 100000; // 1 ～ IMAX
 		public static int AnswerLenMax = 200000; // 1 ～ IMAX
-		public static bool DebugMode = true;
 
 		public static void LoadConf()
 		{
@@ -25,12 +26,13 @@ namespace Charlotte
 				List<string> lines = LoadConfFile(StringTools.Combine(BootTools.SelfDir, "FatCalc.conf"));
 				int c = 0;
 
+				DebugMode = StringTools.ToFlag(lines[c++]);
+				MsdnDivFlag = StringTools.ToFlag(lines[c++]);
 				Radix = UInt64Tools.ToUInt64(lines[c++], 2, UInt64.MaxValue, 10);
 				Basement = IntTools.ToInt(lines[c++], 0, IntTools.IMAX, 100);
 				BracketMin = IntTools.ToInt(lines[c++], 0, 36, 36);
 				OperandLenMax = IntTools.ToInt(lines[c++], 1, IntTools.IMAX, 100000);
 				AnswerLenMax = IntTools.ToInt(lines[c++], 1, IntTools.IMAX, 200000);
-				DebugMode = StringTools.ToFlag(lines[c++]);
 			}
 			catch
 			{ }
