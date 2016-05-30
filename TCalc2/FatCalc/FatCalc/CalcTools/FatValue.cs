@@ -231,7 +231,7 @@ namespace Charlotte.CalcTools
 
 		public void SetFatFloat(FatFloat src)
 		{
-			// XXX 遅い！ -- 改善した。様子見 @ 2016.5.21
+			// XXX 遅い！ -- 改善した。様子見 @ 2016.5.21 -- 元に戻してみたけど、遅かった。@ 2016.5.30
 
 			if (src == null) throw new ArgumentNullException();
 
@@ -248,26 +248,50 @@ namespace Charlotte.CalcTools
 
 			UInt64 d;
 			int z;
-			MkDZ(out d, out z);
+			//MkDZ(out d, out z);
 
-			List<FatUInt> denoms = new List<FatUInt>();
-			FatUInt denom = new FatUInt(d);
-
-			do
+			if (Gnd.DivBinaryMode)
 			{
-				denoms.Add(denom);
-				denom = FatUInt.Mul(denom, denom);
-			}
-			while (denom.GetFarthestBit() <= src.Value.Value.GetFarthestBit());
+				MkDZ(out d, out z);
 
-			new SetToFigures()
-			{
-				Dest = _figures,
-				Denoms = denoms,
-				Z = z,
-				Radix = _radix,
+				List<FatUInt> denoms = new List<FatUInt>();
+				FatUInt denom = new FatUInt(d);
+
+				do
+				{
+					denoms.Add(denom);
+					denom = FatUInt.Mul(denom, denom);
+				}
+				while (denom.GetFarthestBit() <= src.Value.Value.GetFarthestBit());
+
+				new SetToFigures()
+				{
+					Dest = _figures,
+					Denoms = denoms,
+					Z = z,
+					Radix = _radix,
+				}
+				.Perform(src.Value.Value, denoms.Count - 1);
 			}
-			.Perform(src.Value.Value, denoms.Count - 1);
+			else
+			{
+				MkDZ(out d, out z, _radix <= uint.MaxValue ? uint.MaxValue : UInt64.MaxValue);
+
+				FatUInt numer = src.Value.Value;
+				FatUInt denom = new FatUInt(d);
+
+				while (numer.IsZero() == false)
+				{
+					numer = FatUInt.Div(numer, denom);
+					UInt64 val = numer.Rem != null ? numer.Rem.GetValue64() : 0ul;
+
+					for (int c = 0; c < z; c++)
+					{
+						_figures.Add(val % _radix);
+						val /= _radix;
+					}
+				}
+			}
 
 			Normalize();
 		}
@@ -334,12 +358,14 @@ namespace Charlotte.CalcTools
 			return new FatFloat(new FatUFloat(value, _radix, _exponent), _sign);
 		}
 
-		private void MkDZ(out UInt64 d, out int z)
+		private void MkDZ(out UInt64 d, out int z, UInt64 maxval = UInt64.MaxValue)
 		{
+			if (maxval < _radix) throw null;
+
 			d = _radix;
 			z = 1;
 
-			while (d <= UInt64.MaxValue / _radix)
+			while (d <= maxval / _radix)
 			{
 				d *= _radix;
 				z++;

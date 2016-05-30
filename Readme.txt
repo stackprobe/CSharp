@@ -16,6 +16,10 @@ C#で書いたコードの寄せ集めです。
 フォルダの説明
 --------------
 
+Labo
+
+	何か試したり、試しに何か作ったりするところ。
+
 Module
 
 	引用用コード
@@ -28,9 +32,15 @@ SatelliteTest
 
 	Satelliteのテスト用
 
-Test
+TCalc2
 
-	テスト
+	多倍長演算, 2 ～ _UI64_MAX 進数対応
+
+	実行形式はこちら -> http://stackprobe.dip.jp/FatCalc/index.html
+
+Template
+
+	テンプレート
 
 WChat
 
@@ -38,15 +48,9 @@ WChat
 	クライアント・サーバー方式
 	各クライアントのローカルディスクをブラウザで閲覧する機能が付いています。
 
+	実行形式はこちら -> http://stackprobe.dip.jp/WChat/index.html
+
 WCluster
 
-	ディレクトリ -> 圧縮 -> 暗号化 -> ファイル
-	と、その逆
-
-WConsole
-
-	簡易コマンドプロンプト
-
-WndTest
-
-	EnumWindows などのテスト用
+	ファイル又はディレクトリ -> 圧縮 -> 暗号化 -> ファイル
+	と、その逆を行う。

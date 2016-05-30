@@ -71,7 +71,7 @@ namespace Charlotte.CalcTools
 
 			return ret;
 		}
-		
+
 		public int GetFarthestBit() // ret: 1 ～ == ビット位置, 0 == 無し
 		{
 			this.Normalize();

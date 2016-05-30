@@ -196,7 +196,7 @@ namespace Charlotte.CalcTools
 
 						_buff.RemoveRange(size, _buff.Count - size);
 					}
-					return _buff.Count;
+					return size;
 				}
 			}
 
