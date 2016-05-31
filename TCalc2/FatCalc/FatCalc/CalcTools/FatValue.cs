@@ -250,7 +250,7 @@ namespace Charlotte.CalcTools
 			int z;
 			//MkDZ(out d, out z);
 
-			if (Gnd.DivBinaryMode)
+			if (Gnd.SffBinaryMode)
 			{
 				MkDZ(out d, out z);
 

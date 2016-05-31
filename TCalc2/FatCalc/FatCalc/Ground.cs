@@ -13,7 +13,7 @@ namespace Charlotte
 	{
 		public static bool DebugMode = true;
 		public static bool MsdnDivFlag = true;
-		public static bool DivBinaryMode = true;
+		public static bool SffBinaryMode = true;
 		public static UInt64 Radix = 10; // 2 ～ 2^64-1
 		public static int Basement = 100; // 0 ～ IMAX
 		public static int BracketMin = 36; // 0 ～ 36
@@ -29,7 +29,7 @@ namespace Charlotte
 
 				DebugMode = StringTools.ToFlag(lines[c++]);
 				MsdnDivFlag = StringTools.ToFlag(lines[c++]);
-				DivBinaryMode = StringTools.ToFlag(lines[c++]);
+				SffBinaryMode = StringTools.ToFlag(lines[c++]);
 				Radix = UInt64Tools.ToUInt64(lines[c++], 2, UInt64.MaxValue, 10);
 				Basement = IntTools.ToInt(lines[c++], 0, IntTools.IMAX, 100);
 				BracketMin = IntTools.ToInt(lines[c++], 0, 36, 36);

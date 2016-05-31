@@ -59,7 +59,7 @@ namespace Charlotte
 			tb.Text = text;
 		}
 
-		public static void UIntChanged(TextBox tb, UInt64 minval, UInt64 maxval)
+		public static bool UIntChanged(TextBox tb, UInt64 minval, UInt64 maxval)
 		{
 			try
 			{
@@ -96,11 +96,15 @@ namespace Charlotte
 
 				tb.ForeColor = Consts.DefForeColor;
 				tb.BackColor = Consts.DefBackColor;
+
+				return true;
 			}
 			catch
 			{
 				tb.ForeColor = Consts.ErrorForeColor;
 				tb.BackColor = Consts.ErrorBackColor;
+
+				return false;
 			}
 		}
 
