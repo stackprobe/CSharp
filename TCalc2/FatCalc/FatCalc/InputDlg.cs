@@ -75,10 +75,7 @@ namespace Charlotte
 
 		private void InputText_TextChanged(object sender, EventArgs e)
 		{
-			if (Common.UIntChanged(this.InputText, this.MinVal, this.MaxVal))
-				this.BtnOk.Enabled = true;
-			else
-				this.BtnOk.Enabled = false;
+			Common.UIntChanged(this.InputText, this.MinVal, this.MaxVal);
 		}
 
 		private void InputText_KeyPress(object sender, KeyPressEventArgs e)
