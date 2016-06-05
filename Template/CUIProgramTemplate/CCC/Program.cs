@@ -31,6 +31,8 @@ namespace Charlotte
 #endif
 		}
 
+		public const string APP_IDENT = "{22eda4a5-9029-4bf3-b8d8-c687a5729ec3}";
+
 		private static Queue<string> _argq;
 
 		private static bool ArgIs(string spell)

@@ -23,7 +23,7 @@ namespace Charlotte
 			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 			SystemEvents.SessionEnding += new SessionEndingEventHandler(SessionEnding);
 
-			Mutex procMutex = new Mutex(false, "{30fdc31f-0583-4da2-a56f-bef0249ec712}");
+			Mutex procMutex = new Mutex(false, APP_IDENT);
 
 			if (procMutex.WaitOne(0))
 			{
@@ -43,6 +43,7 @@ namespace Charlotte
 			procMutex.Close();
 		}
 
+		public const string APP_IDENT = "{30fdc31f-0583-4da2-a56f-bef0249ec712}";
 		public const string APP_TITLE = "TTT";
 
 		private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)

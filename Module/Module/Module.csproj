@@ -67,6 +67,7 @@
     <Compile Include="Test\Tools\MutectorTest.cs" />
     <Compile Include="Test\Tools\NectarTest.cs" />
     <Compile Include="Test\Tools\TimeDataTest.cs" />
+    <Compile Include="Test\Tools\WorkBenchDirTest.cs" />
     <Compile Include="Tools\ByteBuffer.cs" />
     <Compile Include="Tools\CrossDictionary.cs" />
     <Compile Include="Program.cs" />
@@ -98,6 +99,8 @@
     <Compile Include="Tools\Nectar.cs" />
     <Compile Include="Tools\TextFileSorter.cs" />
     <Compile Include="Tools\UInt64Tools.cs" />
+    <Compile Include="Tools\WorkBenchDir.cs" />
+    <Compile Include="Tools\XYPoint.cs" />
     <Compile Include="XXXTools\Nectar_v1.cs" />
     <Compile Include="Tools\SecurityTools.cs" />
     <Compile Include="Tools\StringIndexOf.cs" />

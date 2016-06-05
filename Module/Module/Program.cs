@@ -7,10 +7,12 @@ using Charlotte.Test;
 using Charlotte.Tools;
 using Charlotte.Test.Tools;
 
-namespace Module
+namespace Charlotte
 {
 	class Program
 	{
+		public const string APP_IDENT = "{1611e518-4715-4f66-99f7-5bb9d5ff3910}";
+
 		static void Main(string[] args)
 		{
 			try
@@ -28,7 +30,8 @@ namespace Module
 
 		private static void Main2()
 		{
-			ByteBufferTest.Test01();
+			WorkBenchDirTest.Test01();
+			//ByteBufferTest.Test01();
 			//HttpClientTest.Test01();
 			//FileSorterTest.Test01();
 			//NectarTest.Test01();

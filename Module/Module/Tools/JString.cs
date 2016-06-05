@@ -118,6 +118,11 @@ namespace Charlotte.Tools
 			return ret;
 		}
 
+		public static bool IsJString(string str, bool okJpn, bool okRet, bool okTab, bool okSpc, bool noTrim, int minlen = MINLEN, int maxlen = MAXLEN, char defchr = DEFCHR)
+		{
+			return str == ToJString(str, okJpn, okRet, okTab, okSpc, noTrim, minlen, maxlen, defchr);
+		}
+
 		public class JChar
 		{
 			private static JChar _i = null;
