@@ -38,7 +38,17 @@ namespace Charlotte.Tools
 				return (int)(value + 0.5);
 		}
 
-		public static int ToInt(string str, int minval = 0, int maxval = IMAX, int defval = 0)
+		public static int ToInt(string str, int minval = 0, int maxval = IMAX)
+		{
+			int value = int.Parse(str);
+
+			if (IsRange(value, minval, maxval))
+				return value;
+
+			throw new Exception("Out of Range -- " + minval + " to " + maxval + ")");
+		}
+
+		public static int ToInt(string str, int minval, int maxval, int defval)
 		{
 			try
 			{
