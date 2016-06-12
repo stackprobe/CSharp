@@ -18,8 +18,9 @@ namespace Charlotte
 			表示_最小化,
 		};
 
-		//public Mode_e Mode = Mode_e.表示; // test
 		public Mode_e Mode = Mode_e.非表示;
+		//public Mode_e Mode = Mode_e.表示; // test
+		//public Mode_e Mode = Mode_e.表示_最小化; // test
 
 		private Process Proc;
 		private string LastCommandLine;

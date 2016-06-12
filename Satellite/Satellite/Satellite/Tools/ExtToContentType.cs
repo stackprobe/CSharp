@@ -234,6 +234,10 @@ namespace Charlotte.Satellite.Tools
 
 			"swf",  "application/x-shockwave-flash",
 			"webm", "video/webm",
+
+			// 2016.6.13 追加
+
+			"mp4", "video/mp4",
 		};
 
 		public const string DEF_EXT = "bin";
