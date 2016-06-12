@@ -118,10 +118,10 @@ namespace Charlotte
 
 		private static void CheckCopiedExe()
 		{
-			if (Directory.Exists(@"..\Debug")) // ? devenv
+			if (File.Exists("KillAndBoot.exe")) // リリースに含まれるファイル
 				return;
 
-			if (File.Exists("KillAndBoot.exe")) // リリースに含まれるファイル
+			if (Directory.Exists(@"..\Debug")) // ? devenv
 				return;
 
 			MessageBox.Show(

@@ -115,10 +115,10 @@ namespace Charlotte
 
 		private static void CheckCopiedExe()
 		{
-			if (Directory.Exists(@"..\Debug")) // ? devenv
+			if (File.Exists("WCluster.sig")) // リリースに含まれるファイル
 				return;
 
-			if (File.Exists("WCluster.sig")) // リリースに含まれるファイル
+			if (Directory.Exists(@"..\Debug")) // ? devenv
 				return;
 
 			MessageBox.Show(
