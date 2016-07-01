@@ -40,7 +40,7 @@ namespace Charlotte
 			this.ProcMan.Start(GetFile(), this.LastConArgs);
 		}
 
-		public bool IsEnd(int count = 0)
+		public bool End_IsEnd(int count = 0)
 		{
 			if (this.ProcMan.IsEnd())
 				return true;
@@ -57,7 +57,7 @@ namespace Charlotte
 
 		public void End()
 		{
-			for (int c = 0; this.IsEnd(c) == false; c++)
+			for (int c = 0; this.End_IsEnd(c) == false; c++)
 			{
 				Thread.Sleep(100);
 			}

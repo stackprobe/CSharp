@@ -21,7 +21,19 @@ namespace Charlotte
 
 		private void SettingWin_Load(object sender, EventArgs e)
 		{
-			// noop
+			// 特殊な色 -- 環境によっては見えないんじゃないかと危惧..
+			{
+				this.Caution.ForeColor = Color.Red;
+				this.Caution.BackColor = Color.LightYellow;
+
+				Color memoColor = Color.DarkCyan;
+
+				this.Memo1.ForeColor = memoColor;
+				this.Memo2.ForeColor = memoColor;
+				this.Memo3.ForeColor = memoColor;
+				this.FileSvRecvPort_Memo.ForeColor = memoColor;
+				this.NamedTrackPort_Memo.ForeColor = memoColor;
+			}
 		}
 
 		private void SettingWin_Shown(object sender, EventArgs e)
@@ -139,8 +151,10 @@ namespace Charlotte
 
 				this.FileSvRecvPortLabel.Enabled = flag;
 				this.FileSvRecvPort.Enabled = flag;
+				this.FileSvRecvPort_Memo.Enabled = flag;
 				this.NamedTrackPortLabel.Enabled = flag;
 				this.NamedTrackPort.Enabled = flag;
+				this.NamedTrackPort_Memo.Enabled = flag;
 				this.BtnFileSvHomeDir.Enabled = flag;
 				this.FileSvHomeDir.Enabled = flag;
 				this.Btn_B_LinkColor.Enabled = flag;

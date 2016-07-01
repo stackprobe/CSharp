@@ -47,7 +47,7 @@ namespace Charlotte
 
 		private static void NamedTrackHttpMan_End(int c)
 		{
-			if (Gnd.I.NamedTrackHttpMan.IsEnd(c) == false)
+			if (Gnd.I.NamedTrackHttpMan.End_IsEnd(c) == false)
 			{
 				EventCenter.I.AddEvent(Consts.EVENT_PREFERENCE, delegate
 				{
@@ -65,7 +65,7 @@ namespace Charlotte
 
 		private static void NamedTrackMan_End(int c)
 		{
-			if (Gnd.I.NamedTrackMan.IsEnd(c) == false)
+			if (Gnd.I.NamedTrackMan.End_IsEnd(c) == false)
 			{
 				EventCenter.I.AddEvent(Consts.EVENT_PREFERENCE, delegate
 				{
@@ -83,7 +83,7 @@ namespace Charlotte
 
 		private static void RevClientMan_End(int c)
 		{
-			if (Gnd.I.RevClientMan.IsEnd(c) == false)
+			if (Gnd.I.RevClientMan.End_IsEnd(c) == false)
 			{
 				EventCenter.I.AddEvent(Consts.EVENT_PREFERENCE, delegate
 				{
