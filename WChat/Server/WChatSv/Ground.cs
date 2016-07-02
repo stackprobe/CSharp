@@ -30,9 +30,20 @@ namespace Charlotte
 		{
 			get
 			{
-				return BootTools.SelfFile + ".dat";
+				return EraseExt(BootTools.SelfFile) + ".dat";
 			}
 		}
+
+		public static string EraseExt(string path)
+		{
+			int index = path.LastIndexOf('.');
+
+			if (index != -1 && path.IndexOf('\\', index + 1) == -1)
+				path = path.Substring(0, index);
+
+			return path;
+		}
+
 		private static readonly Encoding DAT_FILE_ENCODING = Encoding.ASCII;
 
 		public void DoLoad()

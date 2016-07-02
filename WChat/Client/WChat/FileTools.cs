@@ -33,5 +33,15 @@ namespace Charlotte
 			path = prefix + path;
 			return path;
 		}
+
+		public static string EraseExt(string path)
+		{
+			int index = path.LastIndexOf('.');
+
+			if (index != -1 && path.IndexOf('\\', index + 1) == -1)
+				path = path.Substring(0, index);
+
+			return path;
+		}
 	}
 }

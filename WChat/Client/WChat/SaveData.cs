@@ -50,6 +50,12 @@ namespace Charlotte
 				this.FileSvRecvPort = st.PortNoFltr(this.FileSvRecvPort);
 				this.NamedTrackPort = st.PortNoFltr(this.NamedTrackPort);
 			}
+
+			if (this.常駐プロセスのコンソールを表示する)
+				ProcessMan.Mode[1] = ProcessMan.Mode_e.表示;
+
+			if (this.常駐プロセスのコンソールを最小化して表示する)
+				ProcessMan.Mode[1] = ProcessMan.Mode_e.表示_最小化;
 		}
 
 		public int MainWin_L;
@@ -112,6 +118,8 @@ namespace Charlotte
 		// ---- hidden ----
 
 		public bool ServerTimeDiffを取得しない;
+		public bool 常駐プロセスのコンソールを表示する;
+		public bool 常駐プロセスのコンソールを最小化して表示する;
 
 		// ----
 

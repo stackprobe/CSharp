@@ -23,7 +23,7 @@ namespace Charlotte
 			return _file;
 		}
 
-		private ProcessMan ProcMan = new ProcessMan();
+		private ProcessMan ProcMan = new ProcessMan(1);
 		private string LastConArgs;
 
 		public void Begin()

@@ -58,12 +58,12 @@ namespace Charlotte
 
 		public static string GetLogFile()
 		{
-			return BootTools.SelfFile + ".log";
+			return FileTools.EraseExt(BootTools.SelfFile) + ".log";
 		}
 
 		public static string GetSaveDataFile()
 		{
-			return BootTools.SelfFile + ".dat";
+			return FileTools.EraseExt(BootTools.SelfFile) + ".dat";
 		}
 
 		public static string GetTmp()

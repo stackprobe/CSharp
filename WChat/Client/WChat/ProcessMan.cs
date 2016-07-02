@@ -8,8 +8,10 @@ namespace Charlotte
 {
 	public class ProcessMan
 	{
-		public ProcessMan()
-		{ }
+		public ProcessMan(int mIdx = 0)
+		{
+			this.MIdx = mIdx;
+		}
 
 		public enum Mode_e
 		{
@@ -18,10 +20,13 @@ namespace Charlotte
 			表示_最小化,
 		};
 
-		public Mode_e Mode = Mode_e.非表示;
-		//public Mode_e Mode = Mode_e.表示; // test
-		//public Mode_e Mode = Mode_e.表示_最小化; // test
+		public static Mode_e[] Mode = new Mode_e[]
+		{
+			Mode_e.非表示,
+			Mode_e.非表示,
+		};
 
+		private int MIdx;
 		private Process Proc;
 		private string LastCommandLine;
 
@@ -37,7 +42,9 @@ namespace Charlotte
 			psi.FileName = file;
 			psi.Arguments = args;
 
-			if (this.Mode == Mode_e.非表示)
+			Mode_e mode = Mode[this.MIdx];
+
+			if (mode == Mode_e.非表示)
 			{
 				psi.CreateNoWindow = true;
 				psi.UseShellExecute = false;
@@ -47,7 +54,7 @@ namespace Charlotte
 				psi.CreateNoWindow = false;
 				psi.UseShellExecute = true;
 
-				if (this.Mode == Mode_e.表示_最小化)
+				if (mode == Mode_e.表示_最小化)
 					psi.WindowStyle = ProcessWindowStyle.Minimized;
 			}
 			this.Proc = Process.Start(psi);
