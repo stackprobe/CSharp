@@ -46,7 +46,15 @@
 
 ■ソースコード
 
-　https://github.com/stackprobe/CSharp/tree/master/WChat
+　main
+
+　　https://github.com/stackprobe/CSharp/tree/master/WChat
+
+　external
+
+　　https://github.com/stackprobe/Factory/tree/master/SubTools/Chat
+　　https://github.com/stackprobe/Factory/tree/master/Labo/Socket/tunnel
+　　https://github.com/stackprobe/Factory/tree/master/Resource
 
 
 ■取り扱い種別
