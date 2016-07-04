@@ -50,7 +50,7 @@ namespace Charlotte.Tools
 				: this(new MutexData(name), true)
 			{ }
 
-			private MutexData _md;
+			public MutexData _md;
 			private bool _autoDispose;
 
 			public Section(MutexData md, bool autoDispose = false)
@@ -69,6 +69,30 @@ namespace Charlotte.Tools
 					if (_autoDispose)
 						_md.Dispose();
 
+					_md = null;
+				}
+			}
+		}
+
+		public class UnlockSection : IDisposable
+		{
+			public UnlockSection(Section section)
+				: this(section._md)
+			{ }
+
+			private MutexData _md;
+
+			public UnlockSection(MutexData md)
+			{
+				_md = md;
+				_md.Unlock();
+			}
+
+			public void Dispose()
+			{
+				if (_md != null)
+				{
+					_md.WaitForever();
 					_md = null;
 				}
 			}
