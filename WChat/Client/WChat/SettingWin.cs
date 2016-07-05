@@ -36,6 +36,8 @@ namespace Charlotte
 			}
 		}
 
+		private bool ShownFlag = false;
+
 		private void SettingWin_Shown(object sender, EventArgs e)
 		{
 #if false
@@ -59,6 +61,8 @@ namespace Charlotte
 			this.BtnCancel.Focus();
 			this.DoLoad();
 			this.RefreshUi();
+
+			this.ShownFlag = true;
 		}
 
 		private void BtnOk_Click(object sender, EventArgs e)
@@ -177,7 +181,7 @@ namespace Charlotte
 
 		private void FileSvEnabled_CheckedChanged(object sender, EventArgs e)
 		{
-			if (this.FileSvEnabled.Checked)
+			if (this.FileSvEnabled.Checked && this.ShownFlag)
 			{
 				DialogResult ret = MessageBox.Show(
 					"この設定を有効にすると、このコンピュータの論理ドライブ及びこのコンピュータから" +
