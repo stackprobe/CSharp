@@ -11,3 +11,9 @@
 	C:\Factory\SubTools\Chat\FileListTemplate.html_
 	C:\Factory\SubTools\Chat\FileSv.exe
 	C:\Factory\SubTools\Chat\namedTrackHttp.exe
+
+
+↑のソースは以下の配下
+
+	https://github.com/stackprobe/Factory
+

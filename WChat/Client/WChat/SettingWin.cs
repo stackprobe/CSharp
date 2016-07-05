@@ -177,6 +177,23 @@ namespace Charlotte
 
 		private void FileSvEnabled_CheckedChanged(object sender, EventArgs e)
 		{
+			if (this.FileSvEnabled.Checked)
+			{
+				DialogResult ret = MessageBox.Show(
+					"この設定を有効にすると、このコンピュータの論理ドライブ及びこのコンピュータから" +
+					"アクセスできるネットワークフォルダを他のコンピュータから閲覧できるようになります。\n" +
+					"この設定を有効にして宜しいですか？",
+					"確認",
+					MessageBoxButtons.YesNo,
+					MessageBoxIcon.Warning
+					);
+
+				if (ret != DialogResult.Yes)
+				{
+					this.FileSvEnabled.Checked = false;
+					return;
+				}
+			}
 			this.RefreshUi();
 		}
 
