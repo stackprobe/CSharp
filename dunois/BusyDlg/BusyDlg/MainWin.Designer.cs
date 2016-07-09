@@ -38,12 +38,12 @@
 			// Status
 			// 
 			this.Status.AutoSize = true;
-			this.Status.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.Status.Location = new System.Drawing.Point(50, 42);
+			this.Status.Font = new System.Drawing.Font("メイリオ", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.Status.Location = new System.Drawing.Point(50, 40);
 			this.Status.Name = "Status";
-			this.Status.Size = new System.Drawing.Size(440, 24);
+			this.Status.Size = new System.Drawing.Size(430, 28);
 			this.Status.TabIndex = 0;
-			this.Status.Text = "準備しています...012345678901234567890123456789";
+			this.Status.Text = "準備しています...0123456789012345678901";
 			// 
 			// MainTimer
 			// 
@@ -54,9 +54,9 @@
 			// 
 			this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.progressBar1.Location = new System.Drawing.Point(12, 102);
+			this.progressBar1.Location = new System.Drawing.Point(12, 101);
 			this.progressBar1.Name = "progressBar1";
-			this.progressBar1.Size = new System.Drawing.Size(520, 30);
+			this.progressBar1.Size = new System.Drawing.Size(514, 30);
 			this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
 			this.progressBar1.TabIndex = 1;
 			// 
@@ -64,12 +64,11 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(544, 144);
+			this.ClientSize = new System.Drawing.Size(534, 139);
 			this.ControlBox = false;
 			this.Controls.Add(this.progressBar1);
 			this.Controls.Add(this.Status);
 			this.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.MaximizeBox = false;

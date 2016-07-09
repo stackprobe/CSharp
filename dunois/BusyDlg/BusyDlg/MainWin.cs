@@ -41,6 +41,9 @@ namespace BusyDlg
 			int d = this.Status.Width - w;
 			this.Width += d;
 			this.Left -= d / 2;
+
+			this.MinimumSize = this.Size;
+			//this.MaximumSize = this.Size;
 		}
 
 		private void MainWin_Shown(object sender, EventArgs e)
