@@ -39,7 +39,7 @@
 			// 
 			this.Status.AutoSize = true;
 			this.Status.Font = new System.Drawing.Font("メイリオ", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.Status.Location = new System.Drawing.Point(50, 40);
+			this.Status.Location = new System.Drawing.Point(50, 45);
 			this.Status.Name = "Status";
 			this.Status.Size = new System.Drawing.Size(430, 28);
 			this.Status.TabIndex = 0;
@@ -54,7 +54,7 @@
 			// 
 			this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.progressBar1.Location = new System.Drawing.Point(12, 101);
+			this.progressBar1.Location = new System.Drawing.Point(12, 109);
 			this.progressBar1.Name = "progressBar1";
 			this.progressBar1.Size = new System.Drawing.Size(514, 30);
 			this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
@@ -64,7 +64,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(534, 139);
+			this.ClientSize = new System.Drawing.Size(534, 147);
 			this.ControlBox = false;
 			this.Controls.Add(this.progressBar1);
 			this.Controls.Add(this.Status);
@@ -77,13 +77,12 @@
 			this.ShowIcon = false;
 			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			this.Text = "準備しています...";
 			this.TopMost = true;
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWin_FormClosing);
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainWin_FormClosed);
 			this.Load += new System.EventHandler(this.MainWin_Load);
 			this.Shown += new System.EventHandler(this.MainWin_Shown);
-			this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainWin_MouseDown);
-			this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainWin_MouseMove);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

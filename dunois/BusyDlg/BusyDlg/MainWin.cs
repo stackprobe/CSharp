@@ -44,6 +44,8 @@ namespace BusyDlg
 
 			this.MinimumSize = this.Size;
 			//this.MaximumSize = this.Size;
+
+			this.Text = Program.Title;
 		}
 
 		private void MainWin_Shown(object sender, EventArgs e)
@@ -61,6 +63,7 @@ namespace BusyDlg
 			this.MT_Enabled = false;
 		}
 
+#if false // フォームを掴んで移動
 		private Point _mouseDownPos;
 
 		private void MainWin_MouseDown(object sender, MouseEventArgs e)
@@ -81,6 +84,7 @@ namespace BusyDlg
 					);
 			}
 		}
+#endif
 
 		private bool MT_Enabled;
 		private bool MT_Busy;

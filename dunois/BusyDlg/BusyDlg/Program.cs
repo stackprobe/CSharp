@@ -12,6 +12,7 @@ namespace BusyDlg
 		public static bool StopFlag;
 		public static int ParentProcessId;
 		public static string Message;
+		public static string Title;
 		public static EventWaitHandle EvStop;
 
 		/// <summary>
@@ -26,6 +27,7 @@ namespace BusyDlg
 			StopFlag = int.Parse(Environment.GetCommandLineArgs()[c++]) != 0;
 			ParentProcessId = int.Parse(Environment.GetCommandLineArgs()[c++]);
 			Message = Environment.GetCommandLineArgs()[c++];
+			Title = Environment.GetCommandLineArgs()[c++];
 
 			using (EvStop = new EventWaitHandle(false, EventResetMode.AutoReset, SessionId))
 			{
