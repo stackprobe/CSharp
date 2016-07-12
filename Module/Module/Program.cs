@@ -30,13 +30,13 @@ namespace Charlotte
 
 		private static void Main2()
 		{
-			WorkBenchDirTest.Test01();
+			//WorkBenchDirTest.Test01();
 			//ByteBufferTest.Test01();
 			//HttpClientTest.Test01();
 			//FileSorterTest.Test01();
 			//NectarTest.Test01();
 			//MutectorTest.Test01();
-			//TimeDataTest.Test01();
+			TimeDataTest.Test01();
 			//CsvDataTest.Test01();
 		}
 	}

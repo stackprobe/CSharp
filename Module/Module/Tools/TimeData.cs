@@ -5,8 +5,31 @@ using System.Text;
 
 namespace Charlotte.Tools
 {
-	public class TimeData
+	public struct TimeData
 	{
+		public static TimeData FromTimeStamp(long dateTimeStamp)
+		{
+			return FromTimeStamp(
+				(int)(dateTimeStamp / 1000000L),
+				(int)(dateTimeStamp % 1000000L)
+				);
+		}
+
+		public static TimeData FromTimeStamp(int dateStamp, int timeStamp)
+		{
+			int d = dateStamp % 100;
+			dateStamp /= 100;
+			int m = dateStamp % 100;
+			int y = dateStamp / 100;
+
+			int s = timeStamp % 100;
+			timeStamp /= 100;
+			int i = timeStamp % 100;
+			int h = timeStamp / 100;
+
+			return new TimeData(y, m, d, h, i, s);
+		}
+
 		private long _t;
 
 		public TimeData(long t)
@@ -14,69 +37,19 @@ namespace Charlotte.Tools
 			_t = t;
 		}
 
-		public TimeData(int y, int m, int d, int h, int i, int s)
-		{
-			_t = GetTime(y, m, d, h, i, s);
-		}
-
 		public TimeData(int y, int m, int d)
 		{
 			_t = GetTime(y, m, d);
 		}
 
+		public TimeData(int y, int m, int d, int h, int i, int s)
+		{
+			_t = GetTime(y, m, d, h, i, s);
+		}
+
 		public TimeData(DateTime dt)
 		{
 			_t = GetTime(dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, dt.Second);
-		}
-
-		public static long GetTime(int[] timeStamp)
-		{
-			switch (timeStamp.Length)
-			{
-				case 3:
-					return GetTime(
-						timeStamp[0],
-						timeStamp[1],
-						timeStamp[2]
-						);
-
-				case 6:
-					return GetTime(
-						timeStamp[0],
-						timeStamp[1],
-						timeStamp[2],
-						timeStamp[3],
-						timeStamp[4],
-						timeStamp[5]
-						);
-			}
-			throw new ArgumentException("" + timeStamp.Length);
-		}
-
-		public static long GetTime(string timeStamp)
-		{
-			List<string> c = StringTools.NumericTokenize(timeStamp);
-
-			if (c.Count == 3)
-			{
-				return GetTime(
-					int.Parse(c[0]),
-					int.Parse(c[1]),
-					int.Parse(c[2])
-					);
-			}
-			if (c.Count == 6)
-			{
-				return GetTime(
-					int.Parse(c[0]),
-					int.Parse(c[1]),
-					int.Parse(c[2]),
-					int.Parse(c[3]),
-					int.Parse(c[4]),
-					int.Parse(c[5])
-					);
-			}
-			throw new Exception("不明な日時フォーマット: " + timeStamp);
 		}
 
 		public static long GetTime(int y, int m, int d)
@@ -94,7 +67,7 @@ namespace Charlotte.Tools
 				i < 0 ||
 				s < 0
 				)
-				return -1;
+				return 0L;
 
 			m--;
 			long ly = (long)y + m / 12;
@@ -139,7 +112,7 @@ namespace Charlotte.Tools
 		public static int[] GetTimeStamp(long t)
 		{
 			if (t < 0)
-				return new int[] { 0, 0, 0, 0, 0, 0 };
+				return new int[] { 1, 1, 1, 0, 0, 0 };
 
 			int s = (int)(t % 60);
 			t /= 60;
@@ -174,7 +147,7 @@ namespace Charlotte.Tools
 			t %= 31;
 
 			if ((long)int.MaxValue < ly)
-				return new int[] { int.MaxValue, 99, 99, 99, 99, 99 };
+				return new int[] { int.MaxValue, 12, 31, 23, 59, 59 };
 
 			int y = (int)ly;
 			int d = (int)t + 1;
@@ -202,22 +175,27 @@ namespace Charlotte.Tools
 			return this.GetString("Y/M/D (W) h:m:s");
 		}
 
+		public string GetString()
+		{
+			return this.GetString("YMDhms");
+		}
+
 		public string GetString(string format)
 		{
-			string ret = format;
 			int[] timeStamp = GetTimeStamp(_t);
-			int weekday = this.GetWeekday();
 
 			if (9999 < timeStamp[0])
 			{
 				timeStamp[0] = 9999;
-				timeStamp[1] = 99;
-				timeStamp[2] = 99;
-				timeStamp[3] = 99;
-				timeStamp[4] = 99;
-				timeStamp[5] = 99;
-				weekday = 0;
+				timeStamp[1] = 12;
+				timeStamp[2] = 31;
+				timeStamp[3] = 23;
+				timeStamp[4] = 59;
+				timeStamp[5] = 59;
 			}
+			int weekday = this.GetWeekday();
+			string ret = format;
+
 			ret = ret.Replace("Y", StringTools.ZPad(timeStamp[0], 4));
 			ret = ret.Replace("M", StringTools.ZPad(timeStamp[1], 2));
 			ret = ret.Replace("D", StringTools.ZPad(timeStamp[2], 2));
@@ -229,33 +207,9 @@ namespace Charlotte.Tools
 			return ret;
 		}
 
-		public string GetSimpleString()
+		public long GetTime()
 		{
-			return this.GetString("YMDhms");
-		}
-
-		public static TimeData Now()
-		{
-			return new TimeData(DateTime.Now);
-		}
-
-		public static readonly TimeData EPOCH_TIME_ZERO = new TimeData(1970, 1, 1);
-
-		public long GetEpochTime()
-		{
-			return _t - EPOCH_TIME_ZERO._t;
-		}
-
-		public long T
-		{
-			set
-			{
-				_t = value;
-			}
-			get
-			{
-				return _t;
-			}
+			return _t;
 		}
 
 		public int[] GetTimeStamp()
@@ -263,9 +217,19 @@ namespace Charlotte.Tools
 			return GetTimeStamp(_t);
 		}
 
-		public void SetTimeStamp(int[] timeStamp)
+		public static TimeData Now
 		{
-			_t = GetTime(timeStamp);
+			get
+			{
+				return new TimeData(DateTime.Now);
+			}
+		}
+
+		public static readonly TimeData EPOCH_TIME_ZERO = new TimeData(1970, 1, 1);
+
+		public long GetEpochTime()
+		{
+			return _t - EPOCH_TIME_ZERO._t;
 		}
 	}
 }
