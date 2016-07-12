@@ -7,27 +7,84 @@ namespace Charlotte.Tools
 {
 	public struct TimeData
 	{
-		public static TimeData FromTimeStamp(long dateTimeStamp)
+		public static TimeData FromString(string src)
 		{
-			return FromTimeStamp(
-				(int)(dateTimeStamp / 1000000L),
-				(int)(dateTimeStamp % 1000000L)
+			List<string> tokens = StringTools.MeaningTokenize(src, StringTools.DIGIT);
+
+			if (tokens.Count == 1)
+			{
+				src = tokens[0];
+
+				if (src.Length == 8)
+					return FromDateStamp(int.Parse(src));
+
+				if (11 <= src.Length && src.Length <= 14)
+					return FromTimeStamp(long.Parse(src));
+			}
+			else if (tokens.Count == 3)
+			{
+				return new TimeData(
+					int.Parse(tokens[0]),
+					int.Parse(tokens[1]),
+					int.Parse(tokens[2])
+					);
+			}
+			else if (tokens.Count == 6)
+			{
+				return new TimeData(
+					int.Parse(tokens[0]),
+					int.Parse(tokens[1]),
+					int.Parse(tokens[2]),
+					int.Parse(tokens[3]),
+					int.Parse(tokens[4]),
+					int.Parse(tokens[5])
+					);
+			}
+			throw new ArgumentException();
+		}
+
+		public static TimeData FromTimeStamp(long timeStamp)
+		{
+			return FromDateStamp(
+				(int)(timeStamp / 1000000L),
+				(int)(timeStamp % 1000000L)
 				);
 		}
 
-		public static TimeData FromTimeStamp(int dateStamp, int timeStamp)
+		public static TimeData FromDateStamp(int dateStamp, int dayTimeStamp = 0)
 		{
 			int d = dateStamp % 100;
 			dateStamp /= 100;
 			int m = dateStamp % 100;
 			int y = dateStamp / 100;
 
-			int s = timeStamp % 100;
-			timeStamp /= 100;
-			int i = timeStamp % 100;
-			int h = timeStamp / 100;
+			int s = dayTimeStamp % 100;
+			dayTimeStamp /= 100;
+			int i = dayTimeStamp % 100;
+			int h = dayTimeStamp / 100;
 
 			return new TimeData(y, m, d, h, i, s);
+		}
+
+		public static TimeData FromTimeStamp(int[] timeStamp)
+		{
+			return new TimeData(
+				timeStamp[0],
+				timeStamp[1],
+				timeStamp[2],
+				timeStamp[3],
+				timeStamp[4],
+				timeStamp[5]
+				);
+		}
+
+		public static TimeData FromDateStamp(int[] dateStamp)
+		{
+			return new TimeData(
+				dateStamp[0],
+				dateStamp[1],
+				dateStamp[2]
+				);
 		}
 
 		private long _t;
@@ -155,17 +212,17 @@ namespace Charlotte.Tools
 			return new int[] { y, m, d, h, i, s };
 		}
 
-		public int GetWeekday()
+		public int GetWeekdayIndex()
 		{
 			return (int)(_t / 86400L) % 7;
 		}
 
-		public string GetJWeekday()
+		public string GetWeekday()
 		{
-			return GetJWeekday(this.GetWeekday());
+			return GetWeekday(this.GetWeekdayIndex());
 		}
 
-		public static string GetJWeekday(int weekday)
+		public static string GetWeekday(int weekday)
 		{
 			return "月火水木金土日".Substring(weekday, 1);
 		}
@@ -193,7 +250,7 @@ namespace Charlotte.Tools
 				timeStamp[4] = 59;
 				timeStamp[5] = 59;
 			}
-			int weekday = this.GetWeekday();
+			string weekday = FromTimeStamp(timeStamp).GetWeekday();
 			string ret = format;
 
 			ret = ret.Replace("Y", StringTools.ZPad(timeStamp[0], 4));
@@ -202,7 +259,7 @@ namespace Charlotte.Tools
 			ret = ret.Replace("h", StringTools.ZPad(timeStamp[3], 2));
 			ret = ret.Replace("m", StringTools.ZPad(timeStamp[4], 2));
 			ret = ret.Replace("s", StringTools.ZPad(timeStamp[5], 2));
-			ret = ret.Replace("W", GetJWeekday(weekday));
+			ret = ret.Replace("W", weekday);
 
 			return ret;
 		}
@@ -215,6 +272,20 @@ namespace Charlotte.Tools
 		public int[] GetTimeStamp()
 		{
 			return GetTimeStamp(_t);
+		}
+
+		public DateTime GetDateTime()
+		{
+			int[] timeStamp = GetTimeStamp(_t);
+
+			return new DateTime(
+				timeStamp[0],
+				timeStamp[1],
+				timeStamp[2],
+				timeStamp[3],
+				timeStamp[4],
+				timeStamp[5]
+				);
 		}
 
 		public static TimeData Now
@@ -230,6 +301,11 @@ namespace Charlotte.Tools
 		public long GetEpochTime()
 		{
 			return _t - EPOCH_TIME_ZERO._t;
+		}
+
+		public static TimeData FromEpochTime(long t)
+		{
+			return new TimeData(EPOCH_TIME_ZERO._t + t);
 		}
 	}
 }
