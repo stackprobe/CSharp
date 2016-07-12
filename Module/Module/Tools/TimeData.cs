@@ -222,9 +222,9 @@ namespace Charlotte.Tools
 			return GetWeekday(this.GetWeekdayIndex());
 		}
 
-		public static string GetWeekday(int weekday)
+		public static string GetWeekday(int index)
 		{
-			return "月火水木金土日".Substring(weekday, 1);
+			return "月火水木金土日".Substring(index, 1);
 		}
 
 		public override string ToString()
