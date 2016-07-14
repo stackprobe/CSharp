@@ -14,21 +14,21 @@ namespace Charlotte
 		{
 			string encFile = file + ".fkug";
 
-			if (File.Exists(encFile) == false)
-				return file;
-
-			string decFile = @".\" + file;
-
-			if (File.Exists(decFile) == false)
+			if (File.Exists(encFile))
 			{
-				ProcessMan pm = new ProcessMan();
-				pm.Start("FJammer.exe", "/D \"" + encFile + "\" \"" + decFile + "\"");
-				pm.End();
-				pm = null;
+				if (File.Exists(file) == false)
+				{
+					ProcessMan pm = new ProcessMan();
+					pm.Start("FJammer.exe", "/D \"" + encFile + "\" \"" + file + "\"");
+					pm.End();
+					pm = null;
+
+					if (File.Exists(file) == false)
+						throw new Exception("ファイル出力エラー：" + file);
+				}
+				DecFiles.Add(Path.GetFullPath(file));
 			}
-			decFile = Path.GetFullPath(decFile);
-			DecFiles.Add(decFile);
-			return decFile;
+			return file;
 		}
 
 		public static void Clear()
