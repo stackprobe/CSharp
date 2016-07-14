@@ -58,6 +58,7 @@
     <Compile Include="BusyDlg.Designer.cs">
       <DependentUpon>BusyDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="FJammer.cs" />
     <Compile Include="Ground.cs" />
     <Compile Include="MainWin.cs">
       <SubType>Form</SubType>

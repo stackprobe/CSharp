@@ -99,6 +99,7 @@
     </Compile>
     <Compile Include="FileSvMan.cs" />
     <Compile Include="FileTools.cs" />
+    <Compile Include="FJammer.cs" />
     <Compile Include="FontMan.cs" />
     <Compile Include="FontWin.cs">
       <SubType>Form</SubType>

@@ -95,6 +95,8 @@ namespace Charlotte
 					Gnd.I.RevClientMan.End();
 				});
 
+				FJammer.Clear();
+
 				procMtx.ReleaseMutex();
 			}
 			procMtx.Close();

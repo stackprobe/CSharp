@@ -80,8 +80,19 @@ namespace Charlotte
 			return file;
 		}
 
-		private readonly string ChatSvFile = GetFile("ChatSv.exe", @"C:\Factory\SubTools\Chat");
-		private readonly string RevServerFile = GetFile("revServer.exe", @"C:\Factory\Labo\Socket\tunnel");
+		private static string GetFile_FJ(string file, string dir)
+		{
+			return GetFile(FJammer.GetFile(file), dir);
+		}
+
+		private string ChatSvFile;
+		private string RevServerFile;
+
+		public void Init_Files()
+		{
+			ChatSvFile = GetFile_FJ("ChatSv.exe", @"C:\Factory\SubTools\Chat");
+			RevServerFile = GetFile("revServer.exe", @"C:\Factory\Labo\Socket\tunnel");
+		}
 
 		public void ConsoleProcBegin()
 		{

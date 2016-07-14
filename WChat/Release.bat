@@ -6,20 +6,25 @@ COPY C:\Factory\Labo\Socket\tunnel\namedTrack.exe out\Client
 COPY C:\Factory\Labo\Socket\tunnel\revClient.exe out\Client
 COPY C:\Factory\SubTools\Chat\Chat.exe out\Client
 COPY C:\Factory\SubTools\Chat\FileSv.exe out\Client
+COPY C:\Factory\SubTools\Chat\FJammer.exe out\Client
 COPY C:\Factory\SubTools\Chat\namedTrackHttp.exe out\Client
 
 COPY C:\Factory\SubTools\Chat\ChatSv.exe out\Server
+COPY C:\Factory\SubTools\Chat\FJammer.exe out\Server
 COPY C:\Factory\Labo\Socket\tunnel\revServer.exe out\Server
 
 FOR /R out %%E IN (*.exe) DO (
 	C:\Factory\SubTools\EmbedConfig.exe --factory-dir-disabled "%%E"
 )
 
+C:\Factory\SubTools\Chat\FJammer.exe /OAD /E out\Client\FileSv.exe
+C:\Factory\SubTools\Chat\FJammer.exe /OAD /E out\Server\ChatSv.exe
+
 MD out\Client\tmp
-> out\Client\tmp\1.txt TYPE NUL
+> out\Client\tmp\1.tmp TYPE NUL
 
 MD out\Server\tmp
-> out\Server\tmp\1.txt TYPE NUL
+> out\Server\tmp\1.tmp TYPE NUL
 
 COPY C:\Factory\Resource\CP932.txt out\Client
 COPY C:\Factory\Resource\JIS0208.txt out\Client
