@@ -39,7 +39,7 @@ namespace Charlotte
 					Directory.CreateDirectory(DIR);
 				}
 
-				Gnd.I.Init_Files();
+				//Gnd.I.Init_Files(); // moved -> MainWin_Shown()
 				Gnd.I.DoLoad();
 				//Gnd.I.ConsoleProcBegin(); // moved
 
@@ -54,7 +54,6 @@ namespace Charlotte
 				// ログオフ・シャットダウンした場合、ここまで来ない。
 
 				Gnd.I.ConsoleProcEnd();
-				FJammer.Clear();
 
 				procMtx.ReleaseMutex();
 			}

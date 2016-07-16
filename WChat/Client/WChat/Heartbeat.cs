@@ -106,7 +106,7 @@ namespace Charlotte
 			{
 				return new Message()
 				{
-					UserName = Gnd.I.Sd.UserName,
+					UserName = AppTools.GetUserName4Disp(),
 					TrackName = Gnd.I.Sd.TrackName,
 					FileSvEnabled = Gnd.I.Sd.FileSvEnabled,
 					FileSvHomeDir = Gnd.I.Sd.FileSvHomeDir,

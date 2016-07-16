@@ -136,7 +136,7 @@ namespace Charlotte
 				Stamp = new TimeData(TimeData.Now().T + Gnd.I.ServerTimeDiff).ToCompact(),
 				Message = new Message()
 				{
-					UserName = Gnd.I.Sd.UserName,
+					UserName = AppTools.GetUserName4Disp(),
 					RemarkText = remarkText,
 					LinkPaths = new List<string>(),
 				},
@@ -152,7 +152,7 @@ namespace Charlotte
 				Stamp = new TimeData(TimeData.Now().T + Gnd.I.ServerTimeDiff).ToCompact(),
 				Message = new Message()
 				{
-					UserName = Gnd.I.Sd.UserName,
+					UserName = AppTools.GetUserName4Disp(),
 					RemarkText = linkPaths.Count + "件のファイル又はフォルダ",
 					LinkPaths = linkPaths,
 				},

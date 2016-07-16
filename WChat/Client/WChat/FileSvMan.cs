@@ -16,7 +16,8 @@ namespace Charlotte
 			if (_file == null)
 			{
 				_file = "FileSv.exe";
-				_file = FJammer.GetFile(_file);
+
+				FJammer.Decode(_file);
 
 				if (File.Exists(_file) == false)
 					_file = @"C:\Factory\SubTools\Chat\FileSv.exe";

@@ -82,7 +82,8 @@ namespace Charlotte
 
 		private static string GetFile_FJ(string file, string dir)
 		{
-			return GetFile(FJammer.GetFile(file), dir);
+			FJammer.Decode(file);
+			return GetFile(file, dir);
 		}
 
 		private string ChatSvFile;

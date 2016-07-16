@@ -32,6 +32,9 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingWin));
 			this.MainTab = new System.Windows.Forms.TabControl();
 			this.接続Tab = new System.Windows.Forms.TabPage();
+			this.Memo3 = new System.Windows.Forms.Label();
+			this.Memo2 = new System.Windows.Forms.Label();
+			this.Memo1 = new System.Windows.Forms.Label();
 			this.FileSvPort = new System.Windows.Forms.TextBox();
 			this.label12 = new System.Windows.Forms.Label();
 			this.NamedTrackHttpPort = new System.Windows.Forms.TextBox();
@@ -41,6 +44,8 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.ServerDomain = new System.Windows.Forms.TextBox();
 			this.ファイル転送Tab = new System.Windows.Forms.TabPage();
+			this.NamedTrackPort_Memo = new System.Windows.Forms.Label();
+			this.FileSvRecvPort_Memo = new System.Windows.Forms.Label();
 			this.Btn_B_TextColor = new System.Windows.Forms.Button();
 			this.B_TextColor = new System.Windows.Forms.TextBox();
 			this.Btn_B_BackColor = new System.Windows.Forms.Button();
@@ -111,11 +116,9 @@
 			this.ErrProv = new System.Windows.Forms.ErrorProvider(this.components);
 			this.BtnCancel = new System.Windows.Forms.Button();
 			this.BtnOk = new System.Windows.Forms.Button();
-			this.Memo1 = new System.Windows.Forms.Label();
-			this.Memo2 = new System.Windows.Forms.Label();
-			this.Memo3 = new System.Windows.Forms.Label();
-			this.FileSvRecvPort_Memo = new System.Windows.Forms.Label();
-			this.NamedTrackPort_Memo = new System.Windows.Forms.Label();
+			this.TripWord = new System.Windows.Forms.TextBox();
+			this.label9 = new System.Windows.Forms.Label();
+			this.TimeLineWordWrap = new System.Windows.Forms.CheckBox();
 			this.MainTab.SuspendLayout();
 			this.接続Tab.SuspendLayout();
 			this.ファイル転送Tab.SuspendLayout();
@@ -170,6 +173,36 @@
 			this.接続Tab.TabIndex = 0;
 			this.接続Tab.Text = "接続";
 			this.接続Tab.UseVisualStyleBackColor = true;
+			// 
+			// Memo3
+			// 
+			this.Memo3.AutoSize = true;
+			this.Memo3.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.Memo3.Location = new System.Drawing.Point(294, 129);
+			this.Memo3.Name = "Memo3";
+			this.Memo3.Size = new System.Drawing.Size(336, 18);
+			this.Memo3.TabIndex = 10;
+			this.Memo3.Text = "... このコンピュータの空いているポートを指定して下さい。";
+			// 
+			// Memo2
+			// 
+			this.Memo2.AutoSize = true;
+			this.Memo2.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.Memo2.Location = new System.Drawing.Point(294, 96);
+			this.Memo2.Name = "Memo2";
+			this.Memo2.Size = new System.Drawing.Size(300, 18);
+			this.Memo2.TabIndex = 7;
+			this.Memo2.Text = "... ファイル転送サーバーのポートを指定して下さい。";
+			// 
+			// Memo1
+			// 
+			this.Memo1.AutoSize = true;
+			this.Memo1.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.Memo1.Location = new System.Drawing.Point(294, 63);
+			this.Memo1.Name = "Memo1";
+			this.Memo1.Size = new System.Drawing.Size(276, 18);
+			this.Memo1.TabIndex = 4;
+			this.Memo1.Text = "... チャットサーバーのポートを指定して下さい。";
 			// 
 			// FileSvPort
 			// 
@@ -274,6 +307,26 @@
 			this.ファイル転送Tab.TabIndex = 1;
 			this.ファイル転送Tab.Text = "ファイル転送";
 			this.ファイル転送Tab.UseVisualStyleBackColor = true;
+			// 
+			// NamedTrackPort_Memo
+			// 
+			this.NamedTrackPort_Memo.AutoSize = true;
+			this.NamedTrackPort_Memo.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.NamedTrackPort_Memo.Location = new System.Drawing.Point(274, 187);
+			this.NamedTrackPort_Memo.Name = "NamedTrackPort_Memo";
+			this.NamedTrackPort_Memo.Size = new System.Drawing.Size(336, 18);
+			this.NamedTrackPort_Memo.TabIndex = 7;
+			this.NamedTrackPort_Memo.Text = "... このコンピュータの空いているポートを指定して下さい。";
+			// 
+			// FileSvRecvPort_Memo
+			// 
+			this.FileSvRecvPort_Memo.AutoSize = true;
+			this.FileSvRecvPort_Memo.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.FileSvRecvPort_Memo.Location = new System.Drawing.Point(274, 154);
+			this.FileSvRecvPort_Memo.Name = "FileSvRecvPort_Memo";
+			this.FileSvRecvPort_Memo.Size = new System.Drawing.Size(336, 18);
+			this.FileSvRecvPort_Memo.TabIndex = 4;
+			this.FileSvRecvPort_Memo.Text = "... このコンピュータの空いているポートを指定して下さい。";
 			// 
 			// Btn_B_TextColor
 			// 
@@ -476,6 +529,7 @@
 			// 
 			// タイムラインTab
 			// 
+			this.タイムラインTab.Controls.Add(this.TimeLineWordWrap);
 			this.タイムラインTab.Controls.Add(this.MainWinAlwaysTop);
 			this.タイムラインTab.Controls.Add(this.TimeLineTextUTF対応);
 			this.タイムラインTab.Controls.Add(this.label16);
@@ -919,6 +973,8 @@
 			// 
 			// ユーザー設定Tab
 			// 
+			this.ユーザー設定Tab.Controls.Add(this.label9);
+			this.ユーザー設定Tab.Controls.Add(this.TripWord);
 			this.ユーザー設定Tab.Controls.Add(this.EnvHashCode);
 			this.ユーザー設定Tab.Controls.Add(this.label3);
 			this.ユーザー設定Tab.Controls.Add(this.label13);
@@ -939,21 +995,21 @@
 			// 
 			this.EnvHashCode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.EnvHashCode.Location = new System.Drawing.Point(115, 125);
+			this.EnvHashCode.Location = new System.Drawing.Point(115, 158);
 			this.EnvHashCode.MaxLength = 300;
 			this.EnvHashCode.Name = "EnvHashCode";
 			this.EnvHashCode.ReadOnly = true;
 			this.EnvHashCode.Size = new System.Drawing.Size(516, 27);
-			this.EnvHashCode.TabIndex = 7;
+			this.EnvHashCode.TabIndex = 9;
 			this.EnvHashCode.Text = "127.0.0.1";
 			// 
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(17, 128);
+			this.label3.Location = new System.Drawing.Point(17, 161);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(36, 20);
-			this.label3.TabIndex = 6;
+			this.label3.TabIndex = 8;
 			this.label3.Text = "EHC";
 			// 
 			// label13
@@ -1044,55 +1100,35 @@
 			this.BtnOk.UseVisualStyleBackColor = true;
 			this.BtnOk.Click += new System.EventHandler(this.BtnOk_Click);
 			// 
-			// Memo1
+			// TripWord
 			// 
-			this.Memo1.AutoSize = true;
-			this.Memo1.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.Memo1.Location = new System.Drawing.Point(294, 63);
-			this.Memo1.Name = "Memo1";
-			this.Memo1.Size = new System.Drawing.Size(276, 18);
-			this.Memo1.TabIndex = 4;
-			this.Memo1.Text = "... チャットサーバーのポートを指定して下さい。";
+			this.TripWord.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.TripWord.Location = new System.Drawing.Point(115, 125);
+			this.TripWord.MaxLength = 300;
+			this.TripWord.Name = "TripWord";
+			this.TripWord.Size = new System.Drawing.Size(516, 27);
+			this.TripWord.TabIndex = 7;
+			this.TripWord.Text = "トリップ123";
 			// 
-			// Memo2
+			// label9
 			// 
-			this.Memo2.AutoSize = true;
-			this.Memo2.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.Memo2.Location = new System.Drawing.Point(294, 96);
-			this.Memo2.Name = "Memo2";
-			this.Memo2.Size = new System.Drawing.Size(300, 18);
-			this.Memo2.TabIndex = 7;
-			this.Memo2.Text = "... ファイル転送サーバーのポートを指定して下さい。";
+			this.label9.AutoSize = true;
+			this.label9.Location = new System.Drawing.Point(17, 128);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(61, 20);
+			this.label9.TabIndex = 6;
+			this.label9.Text = "トリップ";
 			// 
-			// Memo3
+			// TimeLineWordWrap
 			// 
-			this.Memo3.AutoSize = true;
-			this.Memo3.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.Memo3.Location = new System.Drawing.Point(294, 129);
-			this.Memo3.Name = "Memo3";
-			this.Memo3.Size = new System.Drawing.Size(336, 18);
-			this.Memo3.TabIndex = 10;
-			this.Memo3.Text = "... このコンピュータの空いているポートを指定して下さい。";
-			// 
-			// FileSvRecvPort_Memo
-			// 
-			this.FileSvRecvPort_Memo.AutoSize = true;
-			this.FileSvRecvPort_Memo.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.FileSvRecvPort_Memo.Location = new System.Drawing.Point(274, 154);
-			this.FileSvRecvPort_Memo.Name = "FileSvRecvPort_Memo";
-			this.FileSvRecvPort_Memo.Size = new System.Drawing.Size(336, 18);
-			this.FileSvRecvPort_Memo.TabIndex = 4;
-			this.FileSvRecvPort_Memo.Text = "... このコンピュータの空いているポートを指定して下さい。";
-			// 
-			// NamedTrackPort_Memo
-			// 
-			this.NamedTrackPort_Memo.AutoSize = true;
-			this.NamedTrackPort_Memo.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.NamedTrackPort_Memo.Location = new System.Drawing.Point(274, 187);
-			this.NamedTrackPort_Memo.Name = "NamedTrackPort_Memo";
-			this.NamedTrackPort_Memo.Size = new System.Drawing.Size(336, 18);
-			this.NamedTrackPort_Memo.TabIndex = 7;
-			this.NamedTrackPort_Memo.Text = "... このコンピュータの空いているポートを指定して下さい。";
+			this.TimeLineWordWrap.AutoSize = true;
+			this.TimeLineWordWrap.Location = new System.Drawing.Point(322, 338);
+			this.TimeLineWordWrap.Name = "TimeLineWordWrap";
+			this.TimeLineWordWrap.Size = new System.Drawing.Size(196, 24);
+			this.TimeLineWordWrap.TabIndex = 20;
+			this.TimeLineWordWrap.Text = "ワードラップ(自動折り返し)";
+			this.TimeLineWordWrap.UseVisualStyleBackColor = true;
 			// 
 			// SettingWin
 			// 
@@ -1225,5 +1261,8 @@
 		private System.Windows.Forms.Label Memo1;
 		private System.Windows.Forms.Label NamedTrackPort_Memo;
 		private System.Windows.Forms.Label FileSvRecvPort_Memo;
+		private System.Windows.Forms.Label label9;
+		private System.Windows.Forms.TextBox TripWord;
+		private System.Windows.Forms.CheckBox TimeLineWordWrap;
 	}
 }

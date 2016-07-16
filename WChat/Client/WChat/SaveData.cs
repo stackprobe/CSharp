@@ -40,7 +40,7 @@ namespace Charlotte
 			if (this.TrackName == null)
 				this.TrackName = StringTools.MakePassword_du();
 
-			if (this.UserName == null)
+			if (this.UserName == null || this.UserName.Contains(Consts.TRIP_PREFIX))
 				this.UserName = "名無しさん" + SystemTools.GetCryptoRand(100000);
 
 			{
@@ -96,6 +96,7 @@ namespace Charlotte
 		public bool TimeLineText空行を挟む;
 		public bool TimeLineText字下げする;
 		public bool TimeLineTextUTF対応;
+		public bool TimeLineWordWrap = true;
 		public int TimeLineTextTimeFormat; // TimeFormat_e
 		public int TimeLineTextファイルDLモード; // FileDLMode_e
 		public int TimeLineTextPathClickMode; // PathClickMode_e
@@ -111,6 +112,7 @@ namespace Charlotte
 		public string Ident;
 		public string TrackName;
 		public string UserName;
+		public string TripWord = "";
 		public string EnvHashCode;
 
 		public bool MainWinAlwaysTop;

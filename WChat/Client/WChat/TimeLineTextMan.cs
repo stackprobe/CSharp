@@ -22,6 +22,7 @@ namespace Charlotte
 		{
 			this.I.I.BackColor = Gnd.I.Sd.TimeLineTextBackColor;
 			this.I.Set行間を詰める(Gnd.I.Sd.TimeLineText行間を詰める);
+			this.I.I.WordWrap = Gnd.I.Sd.TimeLineWordWrap;
 		}
 
 		private string SavedRtf;

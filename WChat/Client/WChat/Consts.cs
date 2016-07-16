@@ -36,5 +36,7 @@ namespace Charlotte
 			確認せずに開く,
 			何もしない,
 		}
+
+		public const string TRIP_PREFIX = "◆";
 	}
 }

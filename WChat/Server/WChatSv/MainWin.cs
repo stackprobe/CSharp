@@ -23,6 +23,7 @@ namespace Charlotte
 
 		private void MainWin_Shown(object sender, EventArgs e)
 		{
+			Gnd.I.Init_Files(); // zantei -- ウィルス対策ソフトか何かで FJammer.Decode が重いことがある。
 			this.RefreshUi();
 		}
 

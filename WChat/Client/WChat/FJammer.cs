@@ -8,9 +8,7 @@ namespace Charlotte
 {
 	public class FJammer
 	{
-		private static List<string> DecFiles = new List<string>();
-
-		public static string GetFile(string file)
+		public static void Decode(string file)
 		{
 			string encFile = file + ".fkug";
 
@@ -26,17 +24,8 @@ namespace Charlotte
 					if (File.Exists(file) == false)
 						throw new Exception("ファイル出力エラー：" + file);
 				}
-				DecFiles.Add(Path.GetFullPath(file));
+				File.Delete(encFile);
 			}
-			return file;
-		}
-
-		public static void Clear()
-		{
-			foreach (string file in DecFiles)
-				File.Delete(file);
-
-			DecFiles.Clear();
 		}
 	}
 }
