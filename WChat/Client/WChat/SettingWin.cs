@@ -95,7 +95,7 @@ namespace Charlotte
 
 			_epm.Check(this.UserName, true, false, false, true, 1, 30);
 			if (this.UserName.Text.Contains(Consts.TRIP_PREFIX)) _epm.SetError(this.UserName, "「" + Consts.TRIP_PREFIX + "」は使用できません。");
-			_epm.Check(this.TripWord, true, false, false, true, 0, 100);
+			_epm.Check(this.TripKey, true, false, false, true, 0, 100);
 
 			_epm.Check(this.BouyomichanDomain, StringTools.DIGIT + StringTools.ALPHA + StringTools.alpha + "-.", 1);
 			_epm.Check(this.BouyomichanPort, 1, 65535);

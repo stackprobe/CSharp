@@ -112,7 +112,7 @@ namespace Charlotte
 		public string Ident;
 		public string TrackName;
 		public string UserName;
-		public string TripWord = "";
+		public string TripKey = "";
 		public string EnvHashCode;
 
 		public bool MainWinAlwaysTop;

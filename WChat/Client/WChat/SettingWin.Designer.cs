@@ -66,6 +66,7 @@
 			this.MemberListBackColor = new System.Windows.Forms.TextBox();
 			this.BtnLListBackColor = new System.Windows.Forms.Button();
 			this.タイムラインTab = new System.Windows.Forms.TabPage();
+			this.TimeLineWordWrap = new System.Windows.Forms.CheckBox();
 			this.MainWinAlwaysTop = new System.Windows.Forms.CheckBox();
 			this.TimeLineTextUTF対応 = new System.Windows.Forms.CheckBox();
 			this.label16 = new System.Windows.Forms.Label();
@@ -105,6 +106,8 @@
 			this.BouyomichanDomain = new System.Windows.Forms.TextBox();
 			this.BouyomichanEnabled = new System.Windows.Forms.CheckBox();
 			this.ユーザー設定Tab = new System.Windows.Forms.TabPage();
+			this.label9 = new System.Windows.Forms.Label();
+			this.TripKey = new System.Windows.Forms.TextBox();
 			this.EnvHashCode = new System.Windows.Forms.TextBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.label13 = new System.Windows.Forms.Label();
@@ -116,9 +119,6 @@
 			this.ErrProv = new System.Windows.Forms.ErrorProvider(this.components);
 			this.BtnCancel = new System.Windows.Forms.Button();
 			this.BtnOk = new System.Windows.Forms.Button();
-			this.TripWord = new System.Windows.Forms.TextBox();
-			this.label9 = new System.Windows.Forms.Label();
-			this.TimeLineWordWrap = new System.Windows.Forms.CheckBox();
 			this.MainTab.SuspendLayout();
 			this.接続Tab.SuspendLayout();
 			this.ファイル転送Tab.SuspendLayout();
@@ -558,6 +558,16 @@
 			this.タイムラインTab.Text = "タイムライン";
 			this.タイムラインTab.UseVisualStyleBackColor = true;
 			// 
+			// TimeLineWordWrap
+			// 
+			this.TimeLineWordWrap.AutoSize = true;
+			this.TimeLineWordWrap.Location = new System.Drawing.Point(322, 338);
+			this.TimeLineWordWrap.Name = "TimeLineWordWrap";
+			this.TimeLineWordWrap.Size = new System.Drawing.Size(196, 24);
+			this.TimeLineWordWrap.TabIndex = 20;
+			this.TimeLineWordWrap.Text = "ワードラップ(自動折り返し)";
+			this.TimeLineWordWrap.UseVisualStyleBackColor = true;
+			// 
 			// MainWinAlwaysTop
 			// 
 			this.MainWinAlwaysTop.AutoSize = true;
@@ -974,7 +984,7 @@
 			// ユーザー設定Tab
 			// 
 			this.ユーザー設定Tab.Controls.Add(this.label9);
-			this.ユーザー設定Tab.Controls.Add(this.TripWord);
+			this.ユーザー設定Tab.Controls.Add(this.TripKey);
 			this.ユーザー設定Tab.Controls.Add(this.EnvHashCode);
 			this.ユーザー設定Tab.Controls.Add(this.label3);
 			this.ユーザー設定Tab.Controls.Add(this.label13);
@@ -990,6 +1000,26 @@
 			this.ユーザー設定Tab.TabIndex = 6;
 			this.ユーザー設定Tab.Text = "ユーザー設定";
 			this.ユーザー設定Tab.UseVisualStyleBackColor = true;
+			// 
+			// label9
+			// 
+			this.label9.AutoSize = true;
+			this.label9.Location = new System.Drawing.Point(17, 128);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(87, 20);
+			this.label9.TabIndex = 6;
+			this.label9.Text = "トリップキー";
+			// 
+			// TripKey
+			// 
+			this.TripKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.TripKey.Location = new System.Drawing.Point(115, 125);
+			this.TripKey.MaxLength = 300;
+			this.TripKey.Name = "TripKey";
+			this.TripKey.Size = new System.Drawing.Size(516, 27);
+			this.TripKey.TabIndex = 7;
+			this.TripKey.Text = "トリップ123";
 			// 
 			// EnvHashCode
 			// 
@@ -1099,36 +1129,6 @@
 			this.BtnOk.Text = "OK";
 			this.BtnOk.UseVisualStyleBackColor = true;
 			this.BtnOk.Click += new System.EventHandler(this.BtnOk_Click);
-			// 
-			// TripWord
-			// 
-			this.TripWord.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.TripWord.Location = new System.Drawing.Point(115, 125);
-			this.TripWord.MaxLength = 300;
-			this.TripWord.Name = "TripWord";
-			this.TripWord.Size = new System.Drawing.Size(516, 27);
-			this.TripWord.TabIndex = 7;
-			this.TripWord.Text = "トリップ123";
-			// 
-			// label9
-			// 
-			this.label9.AutoSize = true;
-			this.label9.Location = new System.Drawing.Point(17, 128);
-			this.label9.Name = "label9";
-			this.label9.Size = new System.Drawing.Size(61, 20);
-			this.label9.TabIndex = 6;
-			this.label9.Text = "トリップ";
-			// 
-			// TimeLineWordWrap
-			// 
-			this.TimeLineWordWrap.AutoSize = true;
-			this.TimeLineWordWrap.Location = new System.Drawing.Point(322, 338);
-			this.TimeLineWordWrap.Name = "TimeLineWordWrap";
-			this.TimeLineWordWrap.Size = new System.Drawing.Size(196, 24);
-			this.TimeLineWordWrap.TabIndex = 20;
-			this.TimeLineWordWrap.Text = "ワードラップ(自動折り返し)";
-			this.TimeLineWordWrap.UseVisualStyleBackColor = true;
 			// 
 			// SettingWin
 			// 
@@ -1262,7 +1262,7 @@
 		private System.Windows.Forms.Label NamedTrackPort_Memo;
 		private System.Windows.Forms.Label FileSvRecvPort_Memo;
 		private System.Windows.Forms.Label label9;
-		private System.Windows.Forms.TextBox TripWord;
+		private System.Windows.Forms.TextBox TripKey;
 		private System.Windows.Forms.CheckBox TimeLineWordWrap;
 	}
 }

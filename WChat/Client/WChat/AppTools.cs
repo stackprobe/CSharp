@@ -66,9 +66,9 @@ namespace Charlotte
 		{
 			string ret = Gnd.I.Sd.UserName;
 
-			if (Gnd.I.Sd.TripWord != "")
+			if (Gnd.I.Sd.TripKey != "")
 			{
-				byte[] bHash = _sha512.ComputeHash(StringTools.ENCODING_SJIS.GetBytes(Gnd.I.Sd.TripWord));
+				byte[] bHash = _sha512.ComputeHash(StringTools.ENCODING_SJIS.GetBytes(Gnd.I.Sd.TripKey));
 				string code = GetTripCode(bHash);
 
 				ret += Consts.TRIP_PREFIX + code;
