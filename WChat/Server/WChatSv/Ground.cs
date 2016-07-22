@@ -92,7 +92,7 @@ namespace Charlotte
 		public void Init_Files()
 		{
 			ChatSvFile = GetFile_FJ("ChatSv.exe", @"C:\Factory\SubTools\Chat");
-			RevServerFile = GetFile("revServer.exe", @"C:\Factory\Labo\Socket\tunnel");
+			RevServerFile = GetFile_FJ("revServer.exe", @"C:\Factory\Labo\Socket\tunnel");
 		}
 
 		public void ConsoleProcBegin()

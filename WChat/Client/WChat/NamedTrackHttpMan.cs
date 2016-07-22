@@ -17,6 +17,8 @@ namespace Charlotte
 			{
 				_file = "namedTrackHttp.exe";
 
+				FJammer.Decode(_file);
+
 				if (File.Exists(_file) == false)
 					_file = @"C:\Factory\SubTools\Chat\namedTrackHttp.exe";
 			}

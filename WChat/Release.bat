@@ -17,8 +17,14 @@ FOR /R out %%E IN (*.exe) DO (
 	C:\Factory\SubTools\EmbedConfig.exe --factory-dir-disabled "%%E"
 )
 
+out\Client\FJammer.exe /OAD /E out\Client\namedTrack.exe
+out\Client\FJammer.exe /OAD /E out\Client\revClient.exe
+out\Client\FJammer.exe /OAD /E out\Client\Chat.exe
 out\Client\FJammer.exe /OAD /E out\Client\FileSv.exe
+out\Client\FJammer.exe /OAD /E out\Client\namedTrackHttp.exe
+
 out\Server\FJammer.exe /OAD /E out\Server\ChatSv.exe
+out\Server\FJammer.exe /OAD /E out\Server\revServer.exe
 
 MD out\Client\tmp
 > out\Client\tmp\1.tmp TYPE NUL

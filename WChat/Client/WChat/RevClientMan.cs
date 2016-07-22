@@ -17,6 +17,8 @@ namespace Charlotte
 			{
 				_file = "revClient.exe";
 
+				FJammer.Decode(_file);
+
 				if (File.Exists(_file) == false)
 					_file = @"C:\Factory\Labo\Socket\tunnel\revClient.exe";
 			}
