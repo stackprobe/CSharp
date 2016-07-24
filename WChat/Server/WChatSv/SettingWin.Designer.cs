@@ -81,7 +81,7 @@
 			this.ProcMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.ProcMode.FormattingEnabled = true;
 			this.ProcMode.Items.AddRange(new object[] {
-            "コンソールを表示しない",
+            "コンソールを表示しない（推奨）",
             "コンソールを表示する・通常",
             "コンソールを表示する・最小化"});
 			this.ProcMode.Location = new System.Drawing.Point(28, 98);

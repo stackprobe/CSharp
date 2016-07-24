@@ -72,19 +72,19 @@
 			// 設定SToolStripMenuItem
 			// 
 			this.設定SToolStripMenuItem.Name = "設定SToolStripMenuItem";
-			this.設定SToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.設定SToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
 			this.設定SToolStripMenuItem.Text = "設定(&S)";
 			this.設定SToolStripMenuItem.Click += new System.EventHandler(this.設定SToolStripMenuItem_Click);
 			// 
 			// toolStripMenuItem1
 			// 
 			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-			this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(115, 6);
 			// 
 			// 終了XToolStripMenuItem
 			// 
 			this.終了XToolStripMenuItem.Name = "終了XToolStripMenuItem";
-			this.終了XToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.終了XToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
 			this.終了XToolStripMenuItem.Text = "終了(&X)";
 			this.終了XToolStripMenuItem.Click += new System.EventHandler(this.終了XToolStripMenuItem_Click);
 			// 
@@ -158,18 +158,18 @@
 			this.ChatSvStatus.AutoSize = true;
 			this.ChatSvStatus.Location = new System.Drawing.Point(221, 46);
 			this.ChatSvStatus.Name = "ChatSvStatus";
-			this.ChatSvStatus.Size = new System.Drawing.Size(47, 20);
+			this.ChatSvStatus.Size = new System.Drawing.Size(63, 20);
 			this.ChatSvStatus.TabIndex = 2;
-			this.ChatSvStatus.Text = "[状態]";
+			this.ChatSvStatus.Text = "取得中...";
 			// 
 			// FileSvStatus
 			// 
 			this.FileSvStatus.AutoSize = true;
 			this.FileSvStatus.Location = new System.Drawing.Point(221, 85);
 			this.FileSvStatus.Name = "FileSvStatus";
-			this.FileSvStatus.Size = new System.Drawing.Size(47, 20);
+			this.FileSvStatus.Size = new System.Drawing.Size(63, 20);
 			this.FileSvStatus.TabIndex = 4;
-			this.FileSvStatus.Text = "[状態]";
+			this.FileSvStatus.Text = "取得中...";
 			// 
 			// MainWin
 			// 

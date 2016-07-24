@@ -40,9 +40,6 @@ namespace Charlotte
 		{
 			this.ProcMan.Start(GetFile(), Gnd.I.Sd.NamedTrackHttpPort + " " + Gnd.I.Sd.ServerDomain + " " + Gnd.I.Sd.FileSvPort);
 			this.LastIdentPort = Gnd.I.Sd.NamedTrackHttpPort;
-
-			if (this.ProcMan.IsEnd())
-				SystemTools.WriteLog("プロセス開始エラー123");
 		}
 
 		public bool End_IsEnd(int count = 0)
