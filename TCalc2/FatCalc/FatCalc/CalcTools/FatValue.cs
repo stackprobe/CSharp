@@ -250,7 +250,7 @@ namespace Charlotte.CalcTools
 			int z;
 			//MkDZ(out d, out z);
 
-			if (_radix == (_radix & (~_radix + 1)) && (_radix & 0x000000010001011eul) != 0)
+			if (_radix == (_radix & (~_radix + 1)) && (_radix & 0x0000000100010116ul) != 0)
 			{
 				this.SetFatFloat2(src);
 			}
@@ -352,7 +352,7 @@ namespace Charlotte.CalcTools
 
 			FatUInt value = new FatUInt();
 
-			if (_radix == (_radix & (~_radix + 1)) && (_radix & 0x000000010001011eul) != 0)
+			if (_radix == (_radix & (~_radix + 1)) && (_radix & 0x0000000100010116ul) != 0)
 			{
 				this.GetFatFloat2(value);
 			}
