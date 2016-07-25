@@ -453,13 +453,13 @@ namespace Charlotte
 							break;
 
 						default:
-							throw new Exception("unknown operation");
+							throw new Exception("Unknown operation: " + operation);
 					}
 				}
 				catch (Exception ex)
 				{
 					if (Gnd.DebugMode)
-						MessageBox.Show("" + ex, "FatCalc_1_Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						Logger.WriteLine(ex);
 
 					Gnd.ErrorMessage = ex.Message;
 				}
@@ -508,13 +508,13 @@ namespace Charlotte
 							break;
 
 						default:
-							throw new Exception("unknown operation");
+							throw new Exception("Unknown operation: " + operation);
 					}
 				}
 				catch (Exception ex)
 				{
 					if (Gnd.DebugMode)
-						MessageBox.Show("" + ex, "FatCalc_2_Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						Logger.WriteLine(ex);
 
 					Gnd.ErrorMessage = ex.Message;
 				}
@@ -555,7 +555,7 @@ namespace Charlotte
 				catch (Exception ex)
 				{
 					if (Gnd.DebugMode)
-						MessageBox.Show("" + ex, "FatCalc_3_Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						Logger.WriteLine(ex);
 
 					Gnd.ErrorMessage = ex.Message;
 				}

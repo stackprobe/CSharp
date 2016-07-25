@@ -250,7 +250,11 @@ namespace Charlotte.CalcTools
 			int z;
 			//MkDZ(out d, out z);
 
-			if (Gnd.SffBinaryMode)
+			if (_radix == (_radix & (~_radix + 1)) && (_radix & 0x000000010001011eul) != 0)
+			{
+				this.SetFatFloat2(src);
+			}
+			else if (Gnd.SffBinaryMode)
 			{
 				MkDZ(out d, out z);
 
@@ -296,6 +300,21 @@ namespace Charlotte.CalcTools
 			Normalize();
 		}
 
+		private void SetFatFloat2(FatFloat src)
+		{
+			src.Value.Value.Normalize(); // 2bs
+
+			for (int index = 0; index < src.Value.Value.Figures.Count; index++)
+			{
+				UInt64 val = src.Value.Value.Figures[index];
+
+				for (UInt64 bit = 1; bit < (1ul << 32); bit *= _radix)
+				{
+					_figures.Add((val & (bit * (_radix - 1))) / bit);
+				}
+			}
+		}
+
 		private class SetToFigures
 		{
 			public List<UInt64> Dest;
@@ -331,31 +350,53 @@ namespace Charlotte.CalcTools
 		{
 			BusyDlg.StatusBox.Post("計算可能な形式を取得しています。"); // app
 
-			UInt64 d;
-			int z;
-			MkDZ(out d, out z);
-
 			FatUInt value = new FatUInt();
-			FatUInt denom = new FatUInt(d);
 
-			for (int index = _figures.Count; 0 < index; )
+			if (_radix == (_radix & (~_radix + 1)) && (_radix & 0x000000010001011eul) != 0)
 			{
-				UInt64 val = 0;
+				this.GetFatFloat2(value);
+			}
+			else
+			{
+				UInt64 d;
+				int z;
+				MkDZ(out d, out z);
 
-				do
+				FatUInt denom = new FatUInt(d);
+
+				for (int index = _figures.Count; 0 < index; )
 				{
-					val *= _radix;
-					val += _figures[--index];
-				}
-				while (index % z != 0);
+					UInt64 val = 0;
 
-				value = FatUInt.Mul(value, denom);
-				value = FatUInt.Add(value, new FatUInt(val));
+					do
+					{
+						val *= _radix;
+						val += _figures[--index];
+					}
+					while (index % z != 0);
+
+					value = FatUInt.Mul(value, denom);
+					value = FatUInt.Add(value, new FatUInt(val));
+				}
 			}
 
 			// 面倒なので normalize しない。ていうか多分必要無い。
 
 			return new FatFloat(new FatUFloat(value, _radix, _exponent), _sign);
+		}
+
+		private void GetFatFloat2(FatUInt value)
+		{
+			for (int index = 0; index < _figures.Count; )
+			{
+				UInt64 val = 0ul;
+
+				for (UInt64 bit = 1; bit < (1ul << 32) && index < _figures.Count; bit *= _radix)
+				{
+					val += _figures[index++] * bit;
+				}
+				value.Figures.Add((uint)val);
+			}
 		}
 
 		private void MkDZ(out UInt64 d, out int z, UInt64 maxval = UInt64.MaxValue)

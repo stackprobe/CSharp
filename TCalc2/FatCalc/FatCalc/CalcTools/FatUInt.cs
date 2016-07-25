@@ -311,8 +311,11 @@ namespace Charlotte.CalcTools
 				FatUInt r1 = new FatUInt();
 				FatUInt r2 = new FatUInt();
 
+				Logger.WriteLine("FatPowerOfMSDN.Div Before");
 				FatPowerOfMSDN.Div(a, b, r1);
+				Logger.WriteLine("FatUIntDiv.Perform Before");
 				FatUIntDiv.Perform(a, b, r2);
+				Logger.WriteLine("FatUIntDiv.Perform After");
 
 				if (FatUInt.Red(r1, r2).IsZero() == false)
 					throw null;
