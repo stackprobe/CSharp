@@ -155,6 +155,8 @@ namespace Charlotte
 			Gnd.MainWin.Visible = false;
 			GC.Collect();
 
+			BusyDlg.StatusBox.Clear();
+
 			Thread th = new Thread((ThreadStart)delegate
 			{
 				d_background();

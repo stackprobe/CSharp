@@ -41,8 +41,14 @@ namespace Charlotte
 			InitializeComponent();
 		}
 
+		private int Status_Base_T;
+		private int Status_Base_H;
+
 		private void BusyDlg_Load(object sender, EventArgs e)
 		{
+			this.Status_Base_T = this.Status.Top;
+			this.Status_Base_H = this.Status.Height;
+
 			this.Elapsed.Text = "";
 		}
 
@@ -90,11 +96,16 @@ namespace Charlotte
 					}
 				}
 
+				//if (2 < MT_Count) // ちゃんと見えるように...
+				//if (2 < MT_Count && MT_Count % 2 == 1) // ちゃんと見えるように...
 				{
-					string status = StatusBox.Post(null);
+					string status = StatusBox.Get();
 
 					if (status != null)
+					{
 						this.Status.Text = status;
+						this.Status.Top = Status_Base_T - (this.Status.Height - this.Status_Base_H) / 2;
+					}
 				}
 
 				if (MT_Count % 10 == 0)

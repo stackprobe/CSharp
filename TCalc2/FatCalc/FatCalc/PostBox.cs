@@ -8,20 +8,38 @@ namespace Charlotte
 	public class PostBox<T>
 	{
 		private object SYNCROOT = new object();
-		private T _lastValue;
+		private Queue<T> _values = new Queue<T>();
+		private T _dummyValue;
 
-		public PostBox(T initValue)
+		public PostBox(T dummyValue)
 		{
-			_lastValue = initValue;
+			_dummyValue = dummyValue;
 		}
 
-		public T Post(T valueNew)
+		public void Clear()
 		{
 			lock (SYNCROOT)
 			{
-				T ret = _lastValue;
-				_lastValue = valueNew;
-				return ret;
+				_values.Clear();
+			}
+		}
+
+		public void Post(T value)
+		{
+			lock (SYNCROOT)
+			{
+				_values.Enqueue(value);
+			}
+		}
+
+		public T Get()
+		{
+			lock (SYNCROOT)
+			{
+				if (_values.Count == 0)
+					return _dummyValue;
+
+				return _values.Dequeue();
 			}
 		}
 	}

@@ -236,7 +236,7 @@ namespace Charlotte.CalcTools
 
 			if (src == null) throw new ArgumentNullException();
 
-			BusyDlg.StatusBox.Post("計算可能な形式をセットしています。"); // app
+			BusyDlg.StatusBox.Post("計算可能な形式をセットしています。\nこの処理は 2, 4, 16, 256, 65536, 4294967296 進数以外のとき時間が掛かります。"); // app
 
 			// init
 			{

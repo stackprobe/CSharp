@@ -35,8 +35,8 @@ namespace Charlotte
 			}
 		}
 
-		public static readonly Color AnswerForeColor = Color.Blue;
-		public static readonly Color AnswerBackColor = Color.FromArgb(240, 240, 255);
+		public static readonly Color AnswerForeColor = Color.DarkGreen;
+		public static readonly Color AnswerBackColor = Color.FromArgb(240, 255, 255);
 		public static readonly Color ErrorForeColor = Color.Red;
 		public static readonly Color ErrorBackColor = Color.FromArgb(255, 255, 220);
 

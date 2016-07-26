@@ -44,7 +44,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.progressBar1.Location = new System.Drawing.Point(12, 77);
 			this.progressBar1.Name = "progressBar1";
-			this.progressBar1.Size = new System.Drawing.Size(515, 27);
+			this.progressBar1.Size = new System.Drawing.Size(563, 27);
 			this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
 			this.progressBar1.TabIndex = 1;
 			// 
@@ -67,7 +67,7 @@
 			// 
 			this.BtnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.BtnCancel.Enabled = false;
-			this.BtnCancel.Location = new System.Drawing.Point(434, 119);
+			this.BtnCancel.Location = new System.Drawing.Point(482, 119);
 			this.BtnCancel.Name = "BtnCancel";
 			this.BtnCancel.Size = new System.Drawing.Size(93, 37);
 			this.BtnCancel.TabIndex = 3;
@@ -79,7 +79,7 @@
 			// 
 			this.ChkBoxCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.ChkBoxCancel.AutoSize = true;
-			this.ChkBoxCancel.Location = new System.Drawing.Point(335, 126);
+			this.ChkBoxCancel.Location = new System.Drawing.Point(383, 126);
 			this.ChkBoxCancel.Name = "ChkBoxCancel";
 			this.ChkBoxCancel.Size = new System.Drawing.Size(93, 24);
 			this.ChkBoxCancel.TabIndex = 2;
@@ -100,7 +100,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(539, 168);
+			this.ClientSize = new System.Drawing.Size(587, 168);
 			this.Controls.Add(this.Status);
 			this.Controls.Add(this.ChkBoxCancel);
 			this.Controls.Add(this.BtnCancel);
