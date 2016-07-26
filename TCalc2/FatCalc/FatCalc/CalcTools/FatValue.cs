@@ -232,6 +232,7 @@ namespace Charlotte.CalcTools
 		public void SetFatFloat(FatFloat src)
 		{
 			// XXX 遅い！ -- 改善した。様子見 @ 2016.5.21 -- 元に戻してみたけど、遅かった。@ 2016.5.30
+			// -- 2^(2^n) 進数のときは速く。@ 2016.7.25
 
 			if (src == null) throw new ArgumentNullException();
 
@@ -250,9 +251,17 @@ namespace Charlotte.CalcTools
 			int z;
 			//MkDZ(out d, out z);
 
-			if (_radix == (_radix & (~_radix + 1)) && (_radix & 0x0000000100010116ul) != 0)
+			if (_radix == (_radix & (~_radix + 1) & 0x0000000100010116ul)) // ? 2^(2^n) 進数
 			{
-				this.SetFatFloat2(src);
+				for (int index = 0; index < src.Value.Value.Figures.Count; index++)
+				{
+					UInt64 val = src.Value.Value.Figures[index];
+
+					for (UInt64 bit = 1; bit < (1ul << 32); bit *= _radix)
+					{
+						_figures.Add((val & (bit * (_radix - 1))) / bit);
+					}
+				}
 			}
 			else if (Gnd.SffBinaryMode)
 			{
@@ -300,21 +309,6 @@ namespace Charlotte.CalcTools
 			Normalize();
 		}
 
-		private void SetFatFloat2(FatFloat src)
-		{
-			src.Value.Value.Normalize(); // 2bs
-
-			for (int index = 0; index < src.Value.Value.Figures.Count; index++)
-			{
-				UInt64 val = src.Value.Value.Figures[index];
-
-				for (UInt64 bit = 1; bit < (1ul << 32); bit *= _radix)
-				{
-					_figures.Add((val & (bit * (_radix - 1))) / bit);
-				}
-			}
-		}
-
 		private class SetToFigures
 		{
 			public List<UInt64> Dest;
@@ -352,9 +346,18 @@ namespace Charlotte.CalcTools
 
 			FatUInt value = new FatUInt();
 
-			if (_radix == (_radix & (~_radix + 1)) && (_radix & 0x0000000100010116ul) != 0)
+			if (_radix == (_radix & (~_radix + 1) & 0x0000000100010116ul)) // ? 2^(2^n) 進数
 			{
-				this.GetFatFloat2(value);
+				for (int index = 0; index < _figures.Count; )
+				{
+					UInt64 val = 0ul;
+
+					for (UInt64 bit = 1; bit < (1ul << 32) && index < _figures.Count; bit *= _radix)
+					{
+						val += _figures[index++] * bit;
+					}
+					value.Figures.Add((uint)val);
+				}
 			}
 			else
 			{
@@ -383,20 +386,6 @@ namespace Charlotte.CalcTools
 			// 面倒なので normalize しない。ていうか多分必要無い。
 
 			return new FatFloat(new FatUFloat(value, _radix, _exponent), _sign);
-		}
-
-		private void GetFatFloat2(FatUInt value)
-		{
-			for (int index = 0; index < _figures.Count; )
-			{
-				UInt64 val = 0ul;
-
-				for (UInt64 bit = 1; bit < (1ul << 32) && index < _figures.Count; bit *= _radix)
-				{
-					val += _figures[index++] * bit;
-				}
-				value.Figures.Add((uint)val);
-			}
 		}
 
 		private void MkDZ(out UInt64 d, out int z, UInt64 maxval = UInt64.MaxValue)
