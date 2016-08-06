@@ -21,6 +21,7 @@ namespace Charlotte
 			年月日時分秒,
 			年月日時分秒_曜日なし,
 			POSIX_TIME,
+			POSIX_TIME_86400,
 		};
 
 		public enum FileDLMode_e

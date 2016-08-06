@@ -180,6 +180,8 @@ namespace Charlotte
 		{
 			int[] c = this.C;
 
+			str = str.Replace("<P-Day>", "" + (this.GetPosixTime() / 86400.0));
+
 			str = str.Replace("Y", StringTools.ZPad(c[0], 4));
 			str = str.Replace("M", StringTools.ZPad(c[1], 2));
 			str = str.Replace("D", StringTools.ZPad(c[2], 2));

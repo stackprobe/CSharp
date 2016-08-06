@@ -30,7 +30,7 @@ namespace Charlotte
 
 		public delegate bool Timer_d(long count);
 		private Timer_d D_Timer;
-		
+
 		public BusyDlg(Timer_d d_timer)
 		{
 			this.D_Timer = d_timer;
@@ -40,12 +40,65 @@ namespace Charlotte
 
 		private void BusyDlg_Load(object sender, EventArgs e)
 		{
-			// noop
+			this.BackColor = Color.Black;
+			//this.AdjustToImage(); // move to _Shown
+		}
+
+		private void AdjustToImage()
+		{
+			int w = this.MainPic.Width - this.MainPic.Image.Width;
+			int h = this.MainPic.Height - this.MainPic.Image.Height;
+
+			this.MainPic.Anchor = AnchorStyles.Left | AnchorStyles.Top;
+
+			this.MainPic.Width -= w;
+			this.MainPic.Height -= h;
+
+			this.Width -= w;
+			this.Height -= h;
+
+#if true
+			w = 10;
+			h = 10;
+
+			this.MainPic.Left += w;
+			this.MainPic.Top += h;
+			this.Width += w * 2;
+			this.Height += h * 2;
+#endif
+
+#if true
+			this.Width += 300;
+			this.Left -= 150;
+
+			{
+				Label l = new Label();
+
+				l.ForeColor = Color.White;
+				l.Left = 230;
+				l.Top = (this.Height - l.Height) / 2;
+				l.Text = "お茶でも飲んでお待ち下さい...";
+				l.Width = 200;
+
+				this.Controls.Add(l);
+			}
+#endif
+
+#if false
+			this.Width = Screen.PrimaryScreen.Bounds.Width;
+			this.MainPic.Left = (this.Width - this.MainPic.Width) / 2;
+			this.Left = 0;
+
+			this.Height += 40;
+			this.MainPic.Top = (this.Height - this.MainPic.Height) / 2;
+			this.Top = (Screen.PrimaryScreen.Bounds.Height - this.Height) / 2;
+#endif
 		}
 
 		private void BusyDlg_Shown(object sender, EventArgs e)
 		{
-			this.MT_Enabled = true;			
+			this.AdjustToImage();
+			this.MT_Enabled = true;
 		}
 
 		private bool MT_Enabled;
@@ -64,7 +117,7 @@ namespace Charlotte
 				this.MainPic.Image = img;
 			}
 
-			if (this.MT_Count < 5)
+			if (this.MT_Count < 10)
 				return;
 
 			if (this.D_Timer(this.MT_Count))

@@ -134,6 +134,7 @@ namespace Charlotte
 				"Y年M月D日 (W) h時m分s秒",
 				"Y年M月D日 h時m分s秒",
 				"P",
+				"<P-Day>",
 			}
 			[Gnd.I.Sd.TimeLineTextTimeFormat];
 		}

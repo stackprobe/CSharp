@@ -661,7 +661,8 @@
             "シンプル",
             "年月日時分秒",
             "年月日時分秒（曜日なし）",
-            "POSIX TIME"});
+            "POSIX TIME",
+            "POSIX TIME / 86400.0"});
 			this.TimeLineTextTimeFormat.Location = new System.Drawing.Point(450, 228);
 			this.TimeLineTextTimeFormat.Name = "TimeLineTextTimeFormat";
 			this.TimeLineTextTimeFormat.Size = new System.Drawing.Size(202, 28);

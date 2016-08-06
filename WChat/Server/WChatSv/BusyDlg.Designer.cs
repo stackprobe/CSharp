@@ -45,7 +45,7 @@
 			this.MainPic.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.MainPic.Image = global::Charlotte.Properties.Resources.app_sv_1001;
+			this.MainPic.Image = global::Charlotte.Properties.Resources.Progress_1001;
 			this.MainPic.Location = new System.Drawing.Point(12, 12);
 			this.MainPic.Name = "MainPic";
 			this.MainPic.Size = new System.Drawing.Size(148, 148);
@@ -61,7 +61,7 @@
 			this.Controls.Add(this.MainPic);
 			this.DoubleBuffered = true;
 			this.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.MaximizeBox = false;

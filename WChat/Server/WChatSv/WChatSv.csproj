@@ -106,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app_sv.ico" />
+    <None Include="Resources\Progress~1001.png" />
     <None Include="Resources\app_sv~1001.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
