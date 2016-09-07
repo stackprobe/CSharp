@@ -59,9 +59,12 @@ namespace Charlotte.Htt
 								ol.Add(Encoding.ASCII.GetBytes(res.GetReasonPhrase()));
 
 								{
-									Dictionary<String, String> headerFields = new Dictionary<String, String>();
+									Dictionary<string, string> headerFields = DictionaryTools.CreateIgnoreCase<string>();
 
 									res.WriteHeaderFields(headerFields);
+
+									DictionaryTools.Remove(headerFields, "Content-Length");
+									DictionaryTools.Remove(headerFields, "Connection");
 
 									List<string> lines = new List<string>();
 

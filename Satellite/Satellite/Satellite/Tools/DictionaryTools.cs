@@ -37,5 +37,13 @@ namespace Charlotte.Satellite.Tools
 				dict.Add(key, value);
 			}
 		}
+
+		public static void Remove<K, V>(Dictionary<K, V> dict, K key)
+		{
+			if (dict.ContainsKey(key))
+			{
+				dict.Remove(key);
+			}
+		}
 	}
 }

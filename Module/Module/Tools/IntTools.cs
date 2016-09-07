@@ -63,14 +63,9 @@ namespace Charlotte.Tools
 			return defval;
 		}
 
-		public static int Parse(string str, int minval = 0, int maxval = IMAX)
+		public static int Parse(string str, int radix)
 		{
-			int value = int.Parse(str);
-
-			if (IsRange(value, minval, maxval) == false)
-				throw new Exception();
-
-			return value;
+			return Convert.ToInt32(str, radix);
 		}
 
 		public static uint Root(UInt64 value)

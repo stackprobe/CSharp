@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Charlotte.Satellite
+namespace Charlotte.Tools
 {
 	public class ObjectList
 	{
@@ -11,6 +11,11 @@ namespace Charlotte.Satellite
 
 		public ObjectList()
 		{ }
+
+		public ObjectList(ICollection<object> list)
+		{
+			this.AddRange(list);
+		}
 
 		public ObjectList(params object[] arr)
 		{

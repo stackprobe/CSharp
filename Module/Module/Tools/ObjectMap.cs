@@ -3,11 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Charlotte.Satellite
+namespace Charlotte.Tools
 {
 	public class ObjectMap
 	{
-		private Dictionary<string, object> Map = new Dictionary<string, object>();
+		private Dictionary<string, object> Map;
+
+		public static ObjectMap Create()
+		{
+			return new ObjectMap(DictionaryTools.Create<object>());
+		}
+
+		public static ObjectMap CreateIgnoreCase()
+		{
+			return new ObjectMap(DictionaryTools.CreateIgnoreCase<object>());
+		}
+
+		public ObjectMap(Dictionary<string, object> map)
+		{
+			this.Map = map;
+		}
 
 		public void Add(Dictionary<object, object> map)
 		{
