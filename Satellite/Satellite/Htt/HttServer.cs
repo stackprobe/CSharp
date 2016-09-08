@@ -63,6 +63,7 @@ namespace Charlotte.Htt
 
 									res.WriteHeaderFields(headerFields);
 
+									DictionaryTools.Remove(headerFields, "Transfer-Encoding");
 									DictionaryTools.Remove(headerFields, "Content-Length");
 									DictionaryTools.Remove(headerFields, "Connection");
 
