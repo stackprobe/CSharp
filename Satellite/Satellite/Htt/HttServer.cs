@@ -73,16 +73,16 @@ namespace Charlotte.Htt
 									{
 										string value = headerFields[key];
 
-										foreach (string colo_value in StringTools.Tokenize(value, ':'))
+										foreach (string div_value in StringTools.Tokenize(value, '／'))
 										{
-											string colo_key = key;
+											string div_key = key;
 
-											foreach (string line_value in StringTools.Tokenize(colo_value, '\n'))
+											foreach (string line_value in StringTools.Tokenize(div_value, '\n'))
 											{
-												lines.Add(colo_key);
+												lines.Add(div_key);
 												lines.Add(line_value);
 
-												colo_key = "";
+												div_key = "";
 											}
 										}
 									}
