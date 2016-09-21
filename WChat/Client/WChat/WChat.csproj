@@ -108,6 +108,7 @@
       <DependentUpon>FontWin.cs</DependentUpon>
     </Compile>
     <Compile Include="FreezeUi.cs" />
+    <Compile Include="GlobalProcMtx.cs" />
     <Compile Include="Ground.cs" />
     <Compile Include="Heartbeat.cs" />
     <Compile Include="IntTools.cs" />

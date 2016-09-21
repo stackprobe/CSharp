@@ -63,6 +63,7 @@
     <Compile Include="CalcTools\FatUIntDiv.cs" />
     <Compile Include="Common.cs" />
     <Compile Include="Consts.cs" />
+    <Compile Include="GlobalProcMtx.cs" />
     <Compile Include="Ground.cs" />
     <Compile Include="InputDlg.cs">
       <SubType>Form</SubType>
