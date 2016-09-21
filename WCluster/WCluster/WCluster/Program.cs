@@ -27,6 +27,7 @@ namespace Charlotte
 
 			if (procMutex.WaitOne(0))
 			{
+				CreateGlobalProcMtx();
 				CheckSelfDir();
 				CheckCopiedExe();
 
@@ -38,6 +39,7 @@ namespace Charlotte
 
 				// < orig
 
+				ReleaseGlobalProcMtx();
 				procMutex.ReleaseMutex();
 			}
 			procMutex.Close();
@@ -82,6 +84,39 @@ namespace Charlotte
 		private static void SessionEnding(object sender, SessionEndingEventArgs e)
 		{
 			Environment.Exit(3);
+		}
+
+		private static Mutex _globalProcMtx;
+
+		private static void CreateGlobalProcMtx()
+		{
+			try
+			{
+				_globalProcMtx = new Mutex(false, @"Global\{94cc323a-40d6-42bc-85b6-cd0e057fde32}");
+
+				if (_globalProcMtx.WaitOne(0) == false)
+				{
+					throw null;
+				}
+			}
+			catch (Exception e)
+			{
+				MessageBox.Show(
+					"Already started on the other logon session !",
+					APP_TITLE + " / Error",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error
+					);
+
+				throw e;
+			}
+		}
+
+		private static void ReleaseGlobalProcMtx()
+		{
+			_globalProcMtx.ReleaseMutex();
+			_globalProcMtx.Close();
+			_globalProcMtx = null;
 		}
 
 		private static void CheckSelfDir()
