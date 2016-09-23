@@ -77,7 +77,7 @@ namespace Charlotte
 				l.ForeColor = Color.White;
 				l.Left = 230;
 				l.Top = (this.Height - l.Height) / 2;
-				l.Text = "お茶でも飲んでお待ち下さい...";
+				l.Text = "処理中です。お待ち下さい...";
 				l.Width = 200;
 
 				this.Controls.Add(l);
