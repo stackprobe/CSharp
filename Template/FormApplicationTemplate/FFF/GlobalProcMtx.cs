@@ -24,8 +24,8 @@ namespace Charlotte
 					)
 				);
 
-			_globalProcMtx = new System.Threading.Mutex(false, @"Global\Global_" + ident);
-			_globalProcMtx.SetAccessControl(security);
+			bool createdNew;
+			_globalProcMtx = new System.Threading.Mutex(false, @"Global\Global_" + ident, out createdNew, security);
 
 			if (_globalProcMtx.WaitOne(0) == false)
 			{
