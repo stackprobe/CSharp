@@ -11,6 +11,7 @@ namespace Charlotte
 
 		public static bool Create(string ident, string title)
 		{
+#if false
 			System.Security.AccessControl.MutexSecurity security = new System.Security.AccessControl.MutexSecurity();
 
 			security.AddAccessRule(
@@ -42,6 +43,32 @@ namespace Charlotte
 				return false;
 			}
 			return true;
+#else
+			try
+			{
+				_globalProcMtx = new System.Threading.Mutex(false, @"Global\Global_" + ident);
+
+				if (_globalProcMtx.WaitOne(0) == false)
+				{
+					_globalProcMtx.Close();
+					_globalProcMtx = null;
+
+					throw null;
+				}
+			}
+			catch
+			{
+				System.Windows.Forms.MessageBox.Show(
+					"Already started on the other logon session !",
+					title + " / Error",
+					System.Windows.Forms.MessageBoxButtons.OK,
+					System.Windows.Forms.MessageBoxIcon.Error
+					);
+
+				return false;
+			}
+			return true;
+#endif
 		}
 
 		public static void Release()
