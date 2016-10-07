@@ -227,3 +227,5 @@
 
 　https://github.com/stackprobe/CSharp/tree/master/TCalc2
 
+　★最新のリポジトリはリリース時のソースコードと異なるかもしれません。
+

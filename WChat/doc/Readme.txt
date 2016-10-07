@@ -57,6 +57,9 @@
 　　https://github.com/stackprobe/Factory/tree/master/Resource
 
 
+　★最新のリポジトリはリリース時のソースコードと異なるかもしれません。
+
+
 ■取り扱い種別
 
 　フリーソフト
