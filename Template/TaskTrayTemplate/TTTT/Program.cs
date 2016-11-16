@@ -44,8 +44,8 @@ namespace Charlotte
 			procMutex.Close();
 		}
 
-		public const string APP_IDENT = "{40d6bc7d-352a-416b-8fae-7a639e07035e}";
-		public const string APP_TITLE = "FFF";
+		public const string APP_IDENT = "{30fdc31f-0583-4da2-a56f-bef0249ec712}";
+		public const string APP_TITLE = "TTTT";
 
 		private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
 		{
@@ -117,7 +117,7 @@ namespace Charlotte
 
 		private static void CheckCopiedExe()
 		{
-			if (File.Exists("FFF.sig")) // リリースに含まれるファイル
+			if (File.Exists("TTTT.sig")) // リリースに含まれるファイル
 				return;
 
 			if (Directory.Exists(@"..\Debug")) // ? devenv

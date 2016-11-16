@@ -36,35 +36,35 @@
 			this.MainTimer = new System.Windows.Forms.Timer(this.components);
 			this.TTIMenu.SuspendLayout();
 			this.SuspendLayout();
-			// 
+			//
 			// TaskTrayIcon
-			// 
+			//
 			this.TaskTrayIcon.ContextMenuStrip = this.TTIMenu;
 			this.TaskTrayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("TaskTrayIcon.Icon")));
-			this.TaskTrayIcon.Text = "TTT";
-			// 
+			this.TaskTrayIcon.Text = "TTTT";
+			//
 			// TTIMenu
-			// 
+			//
 			this.TTIMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.終了XToolStripMenuItem});
 			this.TTIMenu.Name = "TTIMenu";
 			this.TTIMenu.Size = new System.Drawing.Size(119, 26);
-			// 
+			//
 			// 終了XToolStripMenuItem
-			// 
+			//
 			this.終了XToolStripMenuItem.Name = "終了XToolStripMenuItem";
 			this.終了XToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
 			this.終了XToolStripMenuItem.Text = "終了(&X)";
 			this.終了XToolStripMenuItem.Click += new System.EventHandler(this.終了XToolStripMenuItem_Click);
-			// 
+			//
 			// MainTimer
-			// 
+			//
 			this.MainTimer.Enabled = true;
 			this.MainTimer.Interval = 300;
 			this.MainTimer.Tick += new System.EventHandler(this.MainTimer_Tick);
-			// 
+			//
 			// MainWin
-			// 
+			//
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(284, 262);
