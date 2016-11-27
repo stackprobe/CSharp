@@ -6,14 +6,14 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Threading;
 using System.Security.Permissions;
+using System.Threading;
 
 namespace Charlotte
 {
 	public partial class BusyDlg : Form
 	{
-		#region ALT_F4 抑止
+		// ---- ALT_F4 抑止 ----
 
 		[SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.UnmanagedCode)]
 		protected override void WndProc(ref Message m)
@@ -27,110 +27,188 @@ namespace Charlotte
 			base.WndProc(ref m);
 		}
 
-		#endregion
+		// ----
 
 		public static BusyDlg I;
 
-		public static void Perform(EventCenter.Event_d d_event)
+		public static void Perform(Perform_d dPerform)
 		{
-			using (BusyDlg f = new BusyDlg())
+			using (BusyDlg f = new BusyDlg(dPerform))
 			{
 				I = f;
-				f.D_Event = d_event;
+				f.D_Perform = dPerform;
 				f.ShowDialog();
 				I = null;
 			}
 		}
 
-		private EventCenter.Event_d D_Event;
+		public delegate void Perform_d();
+		private Perform_d D_Perform;
 
-		public BusyDlg()
+		public BusyDlg(Perform_d dPerform)
 		{
+			this.D_Perform = dPerform;
+
 			InitializeComponent();
 		}
 
 		private void BusyDlg_Load(object sender, EventArgs e)
 		{
-			// noop
+			this.BackColor = Color.Black;
+			//this.AdjustToImage(); // move to _Shown
+		}
+
+		private Label MessageLabel;
+
+		private void AdjustToImage()
+		{
+			int w = this.MainPic.Width - this.MainPic.Image.Width;
+			int h = this.MainPic.Height - this.MainPic.Image.Height;
+
+			this.MainPic.Anchor = AnchorStyles.Left | AnchorStyles.Top;
+
+			this.MainPic.Width -= w;
+			this.MainPic.Height -= h;
+
+			this.Width -= w;
+			this.Height -= h;
+
+#if true
+			w = 10;
+			h = 10;
+
+			this.MainPic.Left += w;
+			this.MainPic.Top += h;
+			this.Width += w * 2;
+			this.Height += h * 2;
+			this.Left -= w;
+			this.Top -= h;
+#endif
+
+#if true
+			this.Width += 400;
+			this.Left -= 200;
+			//this.Width += 300;
+			//this.Left -= 150;
+
+			{
+				Label l = new Label();
+
+				l.ForeColor = Color.White;
+				l.Left = 230;
+				l.Top = (this.Height - l.Height) / 2;
+				l.Text = "メッセージを準備しています...";
+				l.Width = 350;
+				//l.Width = 200;
+				l.TextAlign = ContentAlignment.MiddleLeft;
+
+				//l.BackColor = Color.Blue; // test
+
+				this.Controls.Add(l);
+
+				this.MessageLabel = l;
+			}
+#endif
+
+#if false
+			this.Width = Screen.PrimaryScreen.Bounds.Width;
+			this.MainPic.Left = (this.Width - this.MainPic.Width) / 2;
+			this.Left = 0;
+
+			this.Height += 40;
+			this.MainPic.Top = (this.Height - this.MainPic.Height) / 2;
+			this.Top = (Screen.PrimaryScreen.Bounds.Height - this.Height) / 2;
+#endif
 		}
 
 		private void BusyDlg_Shown(object sender, EventArgs e)
 		{
-			new Thread((ThreadStart)delegate
-			{
-				Thread th = new Thread((ThreadStart)delegate
-				{
-					try
-					{
-						this.D_Event();
-					}
-					catch (Exception ex)
-					{
-						SystemTools.WriteLog(ex);
-					}
-				});
-				th.Start();
-				Thread.Sleep(500);
-				th.Join();
-
-				this.BeginInvoke((MethodInvoker)delegate
-				{
-					this.Close();
-				});
-			})
-			.Start();
-
+			this.AdjustToImage();
 			this.MT_Enabled = true;
 		}
 
-		private void BusyDlg_FormClosed(object sender, FormClosedEventArgs e)
-		{
-			this.MT_Enabled = false;
-		}
-
-		// ---- setting ----
-
-		private object Setting_SyncRoot = new object();
-		private string NextMessage;
-
-		public void SetMessage(string message)
-		{
-			lock (this.Setting_SyncRoot)
-			{
-				this.NextMessage = message;
-			}
-		}
-
-		// ----
-
 		private bool MT_Enabled;
 		private bool MT_Busy;
+		private long MT_Count;
+
+		private Thread PerformTh;
 
 		private void MainTimer_Tick(object sender, EventArgs e)
 		{
-			if (this.MT_Enabled == false && this.MT_Busy)
+			if (this.MT_Enabled == false || this.MT_Busy)
 				return;
 
 			this.MT_Busy = true;
 
 			try
 			{
-				lock (this.Setting_SyncRoot)
 				{
-					if (this.NextMessage != null)
+					Image img = this.MainPic.Image;
+					img.RotateFlip(RotateFlipType.Rotate90FlipNone);
+					this.MainPic.Image = img;
+				}
+
+				{
+					string message = this.NextMessage();
+
+					if (message != null)
 					{
-						this.MainMessage.Text = this.NextMessage;
-						this.NextMessage = null;
+						this.MessageLabel.Text = message;
+						return;
 					}
 				}
-			}
-			catch (Exception ex)
-			{
-				SystemTools.WriteLog(ex);
+
+				if (this.PerformTh == null)
+				{
+					this.PerformTh = new Thread((ThreadStart)delegate
+					{
+						Thread th = new Thread((ThreadStart)delegate
+						{
+							try
+							{
+								this.D_Perform();
+							}
+							catch (Exception ex)
+							{
+								SystemTools.WriteLog(ex);
+							}
+						});
+						th.Start();
+						Thread.Sleep(500);
+						th.Join();
+					});
+					this.PerformTh.Start();
+				}
+				if (this.PerformTh.IsAlive == false)
+				{
+					this.MT_Enabled = false;
+					this.Close();
+					return;
+				}
 			}
 			finally
 			{
 				this.MT_Busy = false;
+				this.MT_Count++;
+			}
+		}
+
+		private object Messages_SYNCROOT = new object();
+		private QueueData<string> Messages = new QueueData<string>();
+
+		public void SetMessage(string message)
+		{
+			lock (Messages_SYNCROOT)
+			{
+				this.Messages.Add(message);
+			}
+		}
+
+		private string NextMessage()
+		{
+			lock (Messages_SYNCROOT)
+			{
+				return this.Messages.Poll(null);
 			}
 		}
 	}

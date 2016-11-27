@@ -40,7 +40,8 @@ namespace Charlotte
 
 		private void BusyDlg_Load(object sender, EventArgs e)
 		{
-			this.BackColor = Color.Black;
+			this.BackColor = Color.FromArgb(16, 0, 0);
+			//this.BackColor = Color.Black;
 			//this.AdjustToImage(); // move to _Shown
 		}
 

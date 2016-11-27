@@ -93,6 +93,8 @@ namespace Charlotte
 					BusyDlg.I.SetMessage("ファイル転送・中継サーバーを停止しています。(RC)");
 
 					Gnd.I.RevClientMan.End();
+
+					BusyDlg.I.SetMessage("プログラムを終了しています。");
 				});
 
 				GlobalProcMtx.Release();
