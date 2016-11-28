@@ -6,6 +6,7 @@ using System.Diagnostics;
 using Charlotte.Test;
 using Charlotte.Tools;
 using Charlotte.Test.Tools;
+using Charlotte.Test.Tools.Types;
 
 namespace Charlotte
 {
@@ -36,8 +37,9 @@ namespace Charlotte
 			//FileSorterTest.Test01();
 			//NectarTest.Test01();
 			//MutectorTest.Test01();
-			TimeDataTest.Test01();
+			//TimeDataTest.Test01();
 			//CsvDataTest.Test01();
+			new Base_tTest().Test01();
 		}
 	}
 }

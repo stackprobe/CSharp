@@ -36,7 +36,7 @@ namespace Charlotte
 			}
 
 			EditWordBreakProc ewbp = new EditWordBreakProc(EWBP_WordWrapOff);
-			Gnd.Anythings.Add(ewbp); // アンマネージドコードに渡す。-- どこからも参照が無いように見える。-- GCに解放されるっぽい。
+			Gnd.Anythings.Add(ewbp); // アンマネージドコードに渡す -> どこからも参照が無いように見える -> GCに解放される。-- なので Gnd で掴んでおく。
 			SendMessageW(tb.Handle, EM_SETWORDBREAKPROC, IntPtr.Zero, ewbp);
 		}
 	}

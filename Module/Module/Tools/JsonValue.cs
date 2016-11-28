@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Charlotte.Tools
 {
+	/// <summary>
+	/// ダブルクォーテーションで囲まれていない値
+	/// </summary>
 	public class JsonValue
 	{
 		private string _value;

@@ -213,6 +213,8 @@ namespace Charlotte.Tools
 
 				try
 				{
+					_m.Set((int)M_INDEX.Sync_0, true);
+
 					for (; ; )
 					{
 						this.RecvBit(0, 1, 2);

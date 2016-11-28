@@ -302,7 +302,7 @@ namespace Charlotte.CalcTools
 			}
 
 			if (Gnd.MsdnDivFlag)
-				FatPowerOfMSDN.Div(a, b, ret);
+				FatUIntDivMS.Div(a, b, ret);
 			else
 				FatUIntDiv.Perform(a, b, ret);
 
@@ -311,8 +311,8 @@ namespace Charlotte.CalcTools
 				FatUInt r1 = new FatUInt();
 				FatUInt r2 = new FatUInt();
 
-				Logger.WriteLine("FatPowerOfMSDN.Div Before");
-				FatPowerOfMSDN.Div(a, b, r1);
+				Logger.WriteLine("FatUIntDivMS.Div Before");
+				FatUIntDivMS.Div(a, b, r1);
 				Logger.WriteLine("FatUIntDiv.Perform Before");
 				FatUIntDiv.Perform(a, b, r2);
 				Logger.WriteLine("FatUIntDiv.Perform After");

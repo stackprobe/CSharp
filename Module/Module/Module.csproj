@@ -67,6 +67,7 @@
     <Compile Include="Test\Tools\MutectorTest.cs" />
     <Compile Include="Test\Tools\NectarTest.cs" />
     <Compile Include="Test\Tools\TimeDataTest.cs" />
+    <Compile Include="Test\Tools\Types\Base_tTest.cs" />
     <Compile Include="Test\Tools\WorkBenchDirTest.cs" />
     <Compile Include="Tools\ByteBuffer.cs" />
     <Compile Include="Tools\CrossDictionary.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Tools\JsonTools.cs" />
     <Compile Include="Tools\JsonValue.cs" />
     <Compile Include="Tools\JString.cs" />
+    <Compile Include="Tools\Logger.cs" />
     <Compile Include="Tools\LongTools.cs" />
     <Compile Include="Tools\MathTools.cs" />
     <Compile Include="Tools\Mutector.cs" />
@@ -102,6 +104,9 @@
     <Compile Include="Tools\ObjectList.cs" />
     <Compile Include="Tools\ObjectMap.cs" />
     <Compile Include="Tools\TextFileSorter.cs" />
+    <Compile Include="Tools\Types\Base_t.cs" />
+    <Compile Include="Tools\Types\Int_t.cs" />
+    <Compile Include="Tools\Types\JString_t.cs" />
     <Compile Include="Tools\UInt64Tools.cs" />
     <Compile Include="Tools\WorkBenchDir.cs" />
     <Compile Include="Tools\XYPoint.cs" />
