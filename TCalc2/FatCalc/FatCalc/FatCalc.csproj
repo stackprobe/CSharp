@@ -59,7 +59,6 @@
     <Compile Include="BusyDlg.Designer.cs">
       <DependentUpon>BusyDlg.cs</DependentUpon>
     </Compile>
-    <Compile Include="CalcTools\FatPowerOfMSDN.cs" />
     <Compile Include="CalcTools\FatUIntDiv.cs" />
     <Compile Include="CalcTools\FatUIntDivMS.cs" />
     <Compile Include="Common.cs" />
