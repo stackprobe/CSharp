@@ -66,5 +66,31 @@ namespace Charlotte.Test.Tools
 				DebugTools.WriteLog(Encoding.UTF8.GetString(message));
 			}
 		}
+
+		/// <summary>
+		/// 対 Factory
+		/// </summary>
+		public static void Test02()
+		{
+			using (Mutector.Recver recver = new Mutector.Recver("Mutector_Test"))
+			{
+				recver.SetRecver(new Test02Recver());
+				recver.Perform();
+			}
+		}
+
+		private class Test02Recver : Mutector.IRecver
+		{
+			public bool Interlude()
+			{
+				return Console.KeyAvailable == false;
+			}
+
+			public void Recved(byte[] message)
+			{
+				Console.WriteLine("[" + StringTools.ENCODING_SJIS.GetString(message) + "]");
+				//DebugTools.WriteLog(StringTools.ENCODING_SJIS.GetString(message));
+			}
+		}
 	}
 }

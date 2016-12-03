@@ -55,5 +55,25 @@ namespace Charlotte.Test.Tools
 				}
 			}
 		}
+
+		/// <summary>
+		/// 対 Factory
+		/// </summary>
+		public static void Test02()
+		{
+			using (Nectar.Recver recver = new Nectar.Recver("Nector_Test"))
+			{
+				while (Console.KeyAvailable == false)
+				{
+					byte[] message = recver.Receipt();
+
+					if (message != null)
+					{
+						Console.WriteLine("[" + StringTools.ENCODING_SJIS.GetString(message) + "]");
+						//DebugTools.WriteLog(StringTools.ENCODING_SJIS.GetString(message));
+					}
+				}
+			}
+		}
 	}
 }

@@ -35,11 +35,13 @@ namespace Charlotte
 			//ByteBufferTest.Test01();
 			//HttpClientTest.Test01();
 			//FileSorterTest.Test01();
-			//NectarTest.Test01();
 			//MutectorTest.Test01();
+			//MutectorTest.Test02();
+			//NectarTest.Test01();
+			NectarTest.Test02();
 			//TimeDataTest.Test01();
 			//CsvDataTest.Test01();
-			new Base_tTest().Test01();
+			//new Base_tTest().Test01();
 		}
 	}
 }

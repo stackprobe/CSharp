@@ -15,7 +15,7 @@ namespace Charlotte.Tools
 		private NamedEventData _evRecv;
 		private int _timeoutMillis;
 
-		public int RecvSizeMax = 20000000;
+		public int RecvSizeMax = 20000000; // 20 MB
 
 		public Nectar(string name, int timeoutMillis = 5000)
 		{
@@ -72,7 +72,7 @@ namespace Charlotte.Tools
 					_evData.WaitForMillis(0);
 					_evCtrl.WaitForMillis(0);
 					_evSend.WaitForMillis(0);
-					_evRecv.WaitForMillis(100); // シビアなタイミングで受信された可能性を考慮して、受信側の _ecRecv セットを少しだけ待つ。
+					_evRecv.WaitForMillis(100); // シビアなタイミングで受信された可能性を考慮して、受信側の _evRecv セットを少しだけ待つ。
 				}
 
 				throw new Exception("送信タイムアウト");

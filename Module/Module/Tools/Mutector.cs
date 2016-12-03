@@ -186,7 +186,7 @@ namespace Charlotte.Tools
 		{
 			private Mutector _m;
 
-			public int RecvSizeMax = 20000000;
+			public int RecvSizeMax = 20000000; // 20 MB
 
 			public Recver(string name)
 			{
