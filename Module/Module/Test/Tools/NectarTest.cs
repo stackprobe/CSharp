@@ -61,7 +61,7 @@ namespace Charlotte.Test.Tools
 		/// </summary>
 		public static void Test02()
 		{
-			using (Nectar.Recver recver = new Nectar.Recver("Nector_Test"))
+			using (Nectar.Recver recver = new Nectar.Recver("Nectar_Test"))
 			{
 				while (Console.KeyAvailable == false)
 				{
