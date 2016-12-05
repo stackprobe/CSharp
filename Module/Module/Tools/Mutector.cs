@@ -56,7 +56,7 @@ namespace Charlotte.Tools
 
 		public void Clear(bool status = false)
 		{
-			for (int index = 0; index < (int)M_INDEX.Max; index++)
+			for (int index = (int)M_INDEX.Max - 1; 0 <= index; index--) // 排他用を最後に解放したい。
 				this.Set(index, status);
 		}
 
@@ -116,7 +116,7 @@ namespace Charlotte.Tools
 				if (message == null)
 					throw new ArgumentNullException();
 
-				_m.Set((int)M_INDEX.Sender, true);
+				_m.Set((int)M_INDEX.Sender, true); // 送信側の排他
 
 				try
 				{

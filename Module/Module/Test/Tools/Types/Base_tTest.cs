@@ -14,6 +14,7 @@ namespace Charlotte.Test.Tools.Types
 		private readonly JString_t JS_AT = JString_t.CreateAsciiToken();
 		private readonly JString_t JS_D1_10 = JString_t.CreateDoc(1, 10);
 		private readonly JString_t HissuToken = JString_t.CreateToken(1);
+		private readonly JString_t JS_Inited = JString_t.CreateDoc().Init("ABC");
 
 		public void Test01()
 		{
@@ -40,6 +41,8 @@ namespace Charlotte.Test.Tools.Types
 
 			HissuToken.Value = "";
 			DebugTools.WriteLog("HissuToken.Value: " + HissuToken.Value);
+
+			DebugTools.WriteLog("JS_Inited.Value: " + JS_Inited.Value);
 		}
 	}
 }

@@ -200,5 +200,99 @@ namespace Charlotte.Tools
 		protected abstract long GetWeightMax();
 
 		protected abstract int Comp(Record_t a, Record_t b);
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="leftFile"></param>
+		/// <param name="rightFile"></param>
+		/// <param name="leftOnlyFile"></param>
+		/// <param name="existsBothFile"></param>
+		/// <param name="existsBothFile_r">null可</param>
+		/// <param name="rightOnlyFile"></param>
+		public void Merging(string leftFile, string rightFile, string leftOnlyFile, string existsBothFile, string existsBothFile_r, string rightOnlyFile)
+		{
+			using (new FileStream(leftFile, FileMode.Open, FileAccess.Read)) // read check !
+			{ }
+			using (new FileStream(rightFile, FileMode.Open, FileAccess.Read)) // read check !
+			{ }
+			using (new FileStream(leftOnlyFile, FileMode.Create, FileAccess.Write)) // write check !
+			{ }
+			using (new FileStream(existsBothFile, FileMode.Create, FileAccess.Write)) // write check !
+			{ }
+			if (existsBothFile_r != null)
+			{
+				using (new FileStream(existsBothFile_r, FileMode.Create, FileAccess.Write)) // write check !
+				{ }
+			}
+			using (new FileStream(rightOnlyFile, FileMode.Create, FileAccess.Write)) // write check !
+			{ }
+
+			string midFileBase = FileTools.MakeTempPath() + "_FileSorter_mid_";
+
+			string midLFile = midFileBase + "left";
+			string midRFile = midFileBase + "right";
+
+			try
+			{
+				this.MergeSort(leftFile, midLFile);
+				this.MergeSort(rightFile, midRFile);
+
+				Reader_t lr = this.ReadOpen(midLFile);
+				Reader_t rr = this.ReadOpen(midRFile);
+
+				Record_t l = this.ReadRecord(lr);
+				Record_t r = this.ReadRecord(rr);
+
+				Writer_t low = this.WriteOpen(leftOnlyFile);
+				Writer_t xbw = this.WriteOpen(existsBothFile);
+				Writer_t xbw_r = existsBothFile_r == null ? null : this.WriteOpen(existsBothFile);
+				Writer_t row = this.WriteOpen(rightOnlyFile);
+
+				while (l != null && r != null)
+				{
+					int ret = this.Comp(l, r);
+
+					if (ret < 0)
+					{
+						this.WriteRecord(low, l);
+						l = this.ReadRecord(lr);
+					}
+					else if (0 < ret)
+					{
+						this.WriteRecord(row, r);
+						r = this.ReadRecord(rr);
+					}
+					else
+					{
+						this.WriteRecord(xbw, l);
+						if (xbw_r != null) this.WriteRecord(xbw_r, r);
+						l = this.ReadRecord(lr);
+						r = this.ReadRecord(rr);
+					}
+				}
+				while (l != null)
+				{
+					this.WriteRecord(low, l);
+					l = this.ReadRecord(lr);
+				}
+				while (r != null)
+				{
+					this.WriteRecord(row, r);
+					r = this.ReadRecord(rr);
+				}
+				this.ReadClose(lr);
+				this.ReadClose(rr);
+				this.WriteClose(low);
+				this.WriteClose(xbw);
+				if (xbw_r != null) this.WriteClose(xbw_r);
+				this.WriteClose(row);
+			}
+			finally
+			{
+				File.Delete(midLFile);
+				File.Delete(midRFile);
+			}
+		}
 	}
 }

@@ -26,7 +26,7 @@ namespace Charlotte.Tools.Types
 			bool okSpc = true,
 			bool noTrim = true,
 			int minlen = 0,
-			int maxlen = COMMON_MAXLEN_TOKEN
+			int maxlen = COMMON_MAXLEN_DOC
 			)
 		{
 			_okJpn = okJpn;

@@ -98,8 +98,10 @@
     <Compile Include="Tools\LongTools.cs" />
     <Compile Include="Tools\MathTools.cs" />
     <Compile Include="Tools\Mutector.cs" />
+    <Compile Include="Tools\MutectorTh.cs" />
     <Compile Include="Tools\MutexData.cs" />
     <Compile Include="Tools\NamedEventData.cs" />
+    <Compile Include="Tools\NamedEventPair.cs" />
     <Compile Include="Tools\Nectar.cs" />
     <Compile Include="Tools\ObjectList.cs" />
     <Compile Include="Tools\ObjectMap.cs" />
