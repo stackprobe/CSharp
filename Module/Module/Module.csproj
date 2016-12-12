@@ -103,6 +103,7 @@
     <Compile Include="Tools\NamedEventData.cs" />
     <Compile Include="Tools\NamedEventPair.cs" />
     <Compile Include="Tools\Nectar.cs" />
+    <Compile Include="Tools\Nectar2.cs" />
     <Compile Include="Tools\ObjectList.cs" />
     <Compile Include="Tools\ObjectMap.cs" />
     <Compile Include="Tools\TextFileSorter.cs" />
