@@ -8,22 +8,31 @@ namespace Charlotte.Tools
 {
 	public class DebugTools
 	{
-		private static object LogStrm_SYNCROOT = new object();
-		private static FileStream LogStrm;
+#if DEBUG
+		private static object WriteLog_SYNCROOT = new object();
+		private static bool WriteLog_Wrote = false;
 
 		public static void WriteLog(string line)
 		{
-			lock (LogStrm_SYNCROOT)
+			lock (WriteLog_SYNCROOT)
 			{
-				if (LogStrm == null)
-					LogStrm = new FileStream(@"C:\temp\Module.log", FileMode.Create, FileAccess.Write);
+				FileMode mode = WriteLog_Wrote ? FileMode.Append : FileMode.Create;
 
-				FileTools.Write(
-					LogStrm,
-					StringTools.ENCODING_SJIS.GetBytes("[" + DateTimeTools.GetCommonString(DateTime.Now) + "] " + line + "\r\n")
-					);
+				using (FileStream writer = new FileStream(@"C:\temp\Module.log", mode, FileAccess.Write))
+				{
+					FileTools.Write(
+						writer,
+						StringTools.ENCODING_SJIS.GetBytes("[" + DateTimeTools.GetCommonString_Millis(DateTime.Now) + "] " + line + "\r\n")
+						);
+
+					WriteLog_Wrote = true;
+				}
 			}
 		}
+#else
+		public static void WriteLog(string line)
+		{ }
+#endif
 
 		public static void MakeRandTextFile(string file, Encoding encoding, string chrs, string lineNew, int linecnt, int chrcntMin, int chrcntMax)
 		{

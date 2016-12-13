@@ -17,6 +17,16 @@ namespace Charlotte.Tools
 			return GetString(dt, "YMDhms");
 		}
 
+		public static string GetCommonString_Millis(DateTime dt)
+		{
+			return GetString(dt, "Y/M/D h:m:s.L");
+		}
+
+		public static string GetSimpleString_Millis(DateTime dt)
+		{
+			return GetString(dt, "YMDhmsL");
+		}
+
 		public static string GetString(DateTime dt, string format)
 		{
 			string ret = format;
@@ -27,6 +37,7 @@ namespace Charlotte.Tools
 			ret = ret.Replace("h", StringTools.ZPad(dt.Hour, 2));
 			ret = ret.Replace("m", StringTools.ZPad(dt.Minute, 2));
 			ret = ret.Replace("s", StringTools.ZPad(dt.Second, 2));
+			ret = ret.Replace("L", StringTools.ZPad(dt.Millisecond, 3));
 
 			return ret;
 		}

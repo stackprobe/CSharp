@@ -65,6 +65,7 @@
     <Compile Include="Test\Tools\CsvDataTest.cs" />
     <Compile Include="Test\Tools\FileSorterTest.cs" />
     <Compile Include="Test\Tools\MutectorTest.cs" />
+    <Compile Include="Test\Tools\Nectar2Test.cs" />
     <Compile Include="Test\Tools\NectarTest.cs" />
     <Compile Include="Test\Tools\TimeDataTest.cs" />
     <Compile Include="Test\Tools\Types\Base_tTest.cs" />
@@ -94,7 +95,6 @@
     <Compile Include="Tools\JsonTools.cs" />
     <Compile Include="Tools\JsonValue.cs" />
     <Compile Include="Tools\JString.cs" />
-    <Compile Include="Tools\Logger.cs" />
     <Compile Include="Tools\LongTools.cs" />
     <Compile Include="Tools\MathTools.cs" />
     <Compile Include="Tools\Mutector.cs" />
