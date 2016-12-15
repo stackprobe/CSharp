@@ -69,6 +69,7 @@ namespace Charlotte.Tools
 			private object SYNCROOT = new object();
 			private NamedEventPair _evDoSend;
 			private Queue<byte[]> _messages = new Queue<byte[]>();
+			private bool _sending;
 
 			public Sender(string ident)
 			{
@@ -82,7 +83,16 @@ namespace Charlotte.Tools
 
 						lock (SYNCROOT)
 						{
-							message = _messages.Count == 0 ? null : _messages.Dequeue();
+							if (_messages.Count == 0)
+							{
+								message = null;
+								_sending = false;
+							}
+							else
+							{
+								message = _messages.Dequeue();
+								_sending = true;
+							}
 						}
 						if (message == null)
 						{
@@ -137,7 +147,15 @@ namespace Charlotte.Tools
 						return;
 
 					_messages.Enqueue(message);
-					_evDoSend.Set();
+				}
+				_evDoSend.Set();
+			}
+
+			public bool IsBusy()
+			{
+				lock (SYNCROOT)
+				{
+					return 1 <= _messages.Count || _sending;
 				}
 			}
 
