@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace Charlotte.Test.Tools
 {
-	class Nectar2Test
+	public class Nectar2Test
 	{
 		public static void Test01()
 		{
@@ -34,6 +34,27 @@ namespace Charlotte.Test.Tools
 				Thread.Sleep(c);
 			}
 			throw new Exception("時間掛かり過ぎンゴ");
+		}
+
+		/// <summary>
+		/// Kirara test 2016.12.15
+		/// </summary>
+		public static void Test02()
+		{
+			using (Nectar2.Sender sender = new Nectar2.Sender("{4d7beb3b-fbd9-4d29-8ad3-6c403ed6a281}")) // shared_uuid
+			using (Nectar2.Recver recver = new Nectar2.Recver("{54d2a688-3ffc-4c77-85d2-3e24ba4cba85}")) // shared_uuid
+			{
+				DebugTools.WriteLog("SEND-BEFORE");
+
+				sender.Send(Encoding.ASCII.GetBytes("Kirara Milky-way !"));
+				sender.Send(new byte[] { 0x00 });
+
+				DebugTools.WriteLog("SEND-DONE");
+
+				DebugTools.WriteLog("Recv: " + Encoding.ASCII.GetString(RecvWait(recver)));
+
+				DebugTools.WriteLog("RECV-DONE");
+			}
 		}
 	}
 }

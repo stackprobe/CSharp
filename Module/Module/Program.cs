@@ -39,7 +39,8 @@ namespace Charlotte
 			//MutectorTest.Test02();
 			//NectarTest.Test01();
 			//NectarTest.Test02();
-			Nectar2Test.Test01();
+			//Nectar2Test.Test01();
+			Nectar2Test.Test02();
 			//TimeDataTest.Test01();
 			//CsvDataTest.Test01();
 			//new Base_tTest().Test01();
