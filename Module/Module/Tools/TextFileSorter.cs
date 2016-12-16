@@ -22,31 +22,7 @@ namespace Charlotte.Tools
 
 		protected override string ReadRecord(StreamReader reader)
 		{
-			StringBuilder buff = new StringBuilder();
-
-			for (; ; )
-			{
-				int chr = reader.Read();
-
-				if (chr == -1)
-				{
-					if (buff.Length == 0)
-					{
-						return null;
-					}
-					break;
-				}
-				if (chr == '\n')
-				{
-					break;
-				}
-				if (chr == '\r')
-				{
-					continue;
-				}
-				buff.Append((char)chr);
-			}
-			return buff.ToString();
+			return reader.ReadLine();
 		}
 
 		protected override void ReadClose(StreamReader reader)
@@ -61,9 +37,7 @@ namespace Charlotte.Tools
 
 		protected override void WriteRecord(StreamWriter writer, string record)
 		{
-			writer.Write(record);
-			writer.Write('\r');
-			writer.Write('\n');
+			writer.WriteLine(record);
 		}
 
 		protected override void WriteClose(StreamWriter writer)
@@ -83,28 +57,7 @@ namespace Charlotte.Tools
 
 		protected override int Comp(string str1, string str2)
 		{
-			byte[] bStr1 = _encoding.GetBytes(str1);
-			byte[] bStr2 = _encoding.GetBytes(str2);
-			int end = Math.Min(bStr1.Length, bStr2.Length);
-
-			for (int index = 0; index < end; index++)
-			{
-				int chr1 = bStr1[index];
-				int chr2 = bStr2[index];
-
-				if (chr1 < chr2)
-					return -1;
-
-				if (chr2 < chr1)
-					return 1;
-			}
-			if (end < bStr1.Length)
-				return 1;
-
-			if (end < bStr2.Length)
-				return -1;
-
-			return 0;
+			return StringTools.Comp(str1, str2);
 		}
 	}
 }

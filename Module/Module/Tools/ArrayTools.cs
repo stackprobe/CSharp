@@ -143,6 +143,23 @@ namespace Charlotte.Tools
 			return buff;
 		}
 
+		public static int Comp(byte[] a, byte[] b)
+		{
+			int len = Math.Min(a.Length, b.Length);
+
+			for (int index = 0; index < len; index++)
+				if (a[index] != b[index])
+					return (int)a[index] - (int)b[index];
+
+			if (a.Length < b.Length)
+				return -1;
+
+			if (b.Length < a.Length)
+				return 1;
+
+			return 0;
+		}
+
 		public static List<T> ShallowCopy<T>(List<T> src)
 		{
 			List<T> dest = new List<T>();

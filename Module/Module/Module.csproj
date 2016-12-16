@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Test\Test1.cs" />
     <Compile Include="Test\Tools\ByteBufferTest.cs" />
     <Compile Include="Test\Tools\CsvDataTest.cs" />
     <Compile Include="Test\Tools\FileSorterTest.cs" />
@@ -88,6 +89,8 @@
     <Compile Include="Tools\DirectoryTools.cs" />
     <Compile Include="Tools\FileSorter.cs" />
     <Compile Include="Tools\FileTools.cs" />
+    <Compile Include="Tools\FilingCase3.cs" />
+    <Compile Include="Tools\FilingCase3Client.cs" />
     <Compile Include="Tools\HttpClient.cs" />
     <Compile Include="Tools\HttpRequest.cs" />
     <Compile Include="Tools\HttpResponse.cs" />
@@ -107,9 +110,10 @@
     <Compile Include="Tools\ObjectList.cs" />
     <Compile Include="Tools\ObjectMap.cs" />
     <Compile Include="Tools\TextFileSorter.cs" />
-    <Compile Include="Tools\Types\Base_t.cs" />
-    <Compile Include="Tools\Types\Int_t.cs" />
-    <Compile Include="Tools\Types\JString_t.cs" />
+    <Compile Include="Tools\TextFileSorterIgnoreCase.cs" />
+    <Compile Include="Test\Types\Base_t.cs" />
+    <Compile Include="Test\Types\Int_t.cs" />
+    <Compile Include="Test\Types\JString_t.cs" />
     <Compile Include="Tools\UInt64Tools.cs" />
     <Compile Include="Tools\WorkBenchDir.cs" />
     <Compile Include="Tools\XYPoint.cs" />

@@ -62,12 +62,17 @@ namespace Charlotte.Tools
 
 		public static int Comp(string a, string b)
 		{
+#if true
+			return ArrayTools.Comp(Encoding.UTF8.GetBytes(a), Encoding.UTF8.GetBytes(b));
+#else
+			// "X" < "x-" < "-x" < "X" 問題があるため、CompareTo は使わない。@ 2016.12.16
 			return a.CompareTo(b);
+#endif
 		}
 
 		public static int CompIgnoreCase(string a, string b)
 		{
-			return a.ToLower().CompareTo(b.ToLower());
+			return Comp(a.ToLower(), b.ToLower());
 		}
 
 		public class IEComp : IEqualityComparer<string>

@@ -14,7 +14,7 @@ namespace Charlotte.Test.Tools
 			using (Nectar2.Sender sender = new Nectar2.Sender("CURE-MIRACLE"))
 			using (Nectar2.Recver recver = new Nectar2.Recver("CURE-MIRACLE", Encoding.ASCII.GetBytes("\n")[0]))
 			{
-				sender.Send(Encoding.ASCII.GetBytes("[CURE UP]\n[RA PA PA!]\n"));
+				sender.Send(Encoding.ASCII.GetBytes("[CURE UP^]\n[RA PA PA!]\n"));
 
 				DebugTools.WriteLog("1: " + Encoding.ASCII.GetString(RecvWait(recver)));
 				DebugTools.WriteLog("2: " + Encoding.ASCII.GetString(RecvWait(recver)));
@@ -54,6 +54,37 @@ namespace Charlotte.Test.Tools
 				DebugTools.WriteLog("Recv: " + Encoding.ASCII.GetString(RecvWait(recver)));
 
 				DebugTools.WriteLog("RECV-DONE");
+			}
+		}
+
+		/// <summary>
+		/// Factory test 2016.12.16
+		/// </summary>
+		public static void Test03()
+		{
+			using (Nectar2.Sender sender = new Nectar2.Sender("Kira_Kira_PRE-CURE_a_la_mode"))
+			{
+				sender.Send(Encoding.ASCII.GetBytes("123456789"));
+				sender.Send(new byte[] { 0x00 });
+				sender.Send(Encoding.ASCII.GetBytes("abc"));
+				sender.Send(new byte[] { 0x00 });
+				sender.Send(Encoding.ASCII.GetBytes("def-ghi"));
+				sender.Send(new byte[] { 0x00 });
+				sender.Send(StringTools.ENCODING_SJIS.GetBytes("ああああいいいいうううう"));
+				sender.Send(StringTools.ENCODING_SJIS.GetBytes("ええええおおおお"));
+				sender.Send(StringTools.ENCODING_SJIS.GetBytes("かかかか"));
+				sender.Send(new byte[] { 0x00 });
+
+				{
+					int c = 0;
+
+					while (sender.IsBusy())
+					{
+						DebugTools.WriteLog("待つンゴ: " + c);
+						Thread.Sleep(c);
+						c++;
+					}
+				}
 			}
 		}
 	}

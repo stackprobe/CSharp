@@ -12,6 +12,8 @@ namespace Charlotte.Test.Tools
 	{
 		public static void Test01()
 		{
+			Test01(1000000, 3); // zantei
+
 			Test01(0, 0);
 
 			for (int linecnt = 1; linecnt <= 10; linecnt++)
@@ -38,10 +40,12 @@ namespace Charlotte.Test.Tools
 			Test01(10000000, 1);
 			Test01(30000000, 1);
 
-			Test01(1000000, 2);
-			Test01(3000000, 2);
 			Test01(1000000, 3);
 			Test01(3000000, 3);
+			Test01(1000000, 4);
+			Test01(3000000, 4);
+			Test01(1000000, 5);
+			Test01(3000000, 5);
 
 			Test01(1000, 30);
 			Test01(10000, 30);
@@ -56,9 +60,9 @@ namespace Charlotte.Test.Tools
 
 		private static void Test01(int linecnt, int chrcnt)
 		{
-			Console.WriteLine("begin " + linecnt + ", " + chrcnt);
+			DebugTools.WriteLog_Console("begin " + linecnt + ", " + chrcnt);
 
-			Console.WriteLine("begin make");
+			DebugTools.WriteLog("begin make");
 			DebugTools.MakeRandTextFile(
 				@"C:\temp\1.txt",
 				StringTools.ENCODING_SJIS,
@@ -69,19 +73,28 @@ namespace Charlotte.Test.Tools
 				chrcnt
 				);
 
-			Console.WriteLine("begin delete");
+			DebugTools.WriteLog("begin delete");
 			File.Delete(
 				@"C:\temp\2.txt"
 				);
 
-			Console.WriteLine("begin copy");
+			DebugTools.WriteLog("begin copy");
 			File.Copy(
 				@"C:\temp\1.txt",
 				@"C:\temp\2.txt"
 				);
 
-			Console.WriteLine("begin sort 1/2");
+			DebugTools.WriteLog("begin sort 1/2");
 
+#if true
+			{
+				string[] lines = File.ReadAllLines(@"C:\temp\2.txt", StringTools.ENCODING_SJIS);
+
+				ArrayTools.Sort<string>(lines, StringTools.Comp);
+
+				File.WriteAllLines(@"C:\temp\3.txt", lines, StringTools.ENCODING_SJIS);
+			}
+#else // old
 			{
 				ProcessStartInfo psi = new ProcessStartInfo();
 
@@ -92,11 +105,12 @@ namespace Charlotte.Test.Tools
 
 				Process.Start(psi).WaitForExit();
 			}
+#endif
 
-			Console.WriteLine("begin sort 2/2");
+			DebugTools.WriteLog("begin sort 2/2");
 			new TextFileSorter(StringTools.ENCODING_SJIS).MergeSort(@"C:\temp\1.txt");
 
-			Console.WriteLine("begin comp");
+			DebugTools.WriteLog("begin comp");
 			bool ret = FileTools.IsSame(
 				@"C:\temp\1.txt",
 				@"C:\temp\3.txt"
@@ -106,7 +120,7 @@ namespace Charlotte.Test.Tools
 			{
 				throw null;
 			}
-			Console.WriteLine("done");
+			DebugTools.WriteLog("done");
 		}
 	}
 }

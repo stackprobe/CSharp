@@ -9,6 +9,12 @@ namespace Charlotte.Tools
 	public class DebugTools
 	{
 #if DEBUG
+		public static void WriteLog_Console(string line)
+		{
+			Console.WriteLine(line);
+			WriteLog(line);
+		}
+
 		private static object WriteLog_SYNCROOT = new object();
 		private static bool WriteLog_Wrote = false;
 
@@ -30,6 +36,9 @@ namespace Charlotte.Tools
 			}
 		}
 #else
+		public static void WriteLog_Console(string line)
+		{ }
+
 		public static void WriteLog(string line)
 		{ }
 #endif
@@ -57,6 +66,17 @@ namespace Charlotte.Tools
 				buff.Append(chrs[MathTools.Random(chrs.Length)]);
 			}
 			return buff.ToString();
+		}
+
+		public static string[] MakeRandLines(string chrs, int chrcntMin, int chrcntMax, int linecnt)
+		{
+			string[] dest = new string[linecnt];
+
+			for (int index = 0; index < linecnt; index++)
+			{
+				dest[index] = MakeRandString(chrs, MathTools.Random(chrcntMin, chrcntMax));
+			}
+			return dest;
 		}
 
 		public static byte[] MakeRandBytes(int size)

@@ -8,6 +8,8 @@ namespace Charlotte.Tools
 {
 	public class Nectar2 : IDisposable
 	{
+		private const string COMMON_ID = "{8cf92c5e-c4f7-4867-9e1a-5371bb53aa63}"; // shared_uuid
+
 		public enum E_INDEX
 		{
 			E_SEND,
@@ -26,13 +28,17 @@ namespace Charlotte.Tools
 
 		private NamedEventData[] _evs;
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="ident">名前付きイベント名に使うので注意！</param>
 		public Nectar2(string ident)
 		{
 			_evs = new NamedEventData[(int)E_INDEX.E_MAX];
 
 			for (int index = 0; index < (int)E_INDEX.E_MAX; index++)
 			{
-				_evs[index] = new NamedEventData("Nectar2_" + ident + "_" + index);
+				_evs[index] = new NamedEventData("Nectar2_" + COMMON_ID + "_" + ident + "_" + index);
 			}
 		}
 
@@ -113,7 +119,7 @@ namespace Charlotte.Tools
 								{
 									lock (SYNCROOT)
 									{
-										_messages.Clear();
+										_messages.Clear(); // 全部失敗扱い。
 									}
 									break;
 								}
