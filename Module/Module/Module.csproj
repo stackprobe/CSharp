@@ -89,8 +89,6 @@
     <Compile Include="Tools\DirectoryTools.cs" />
     <Compile Include="Tools\FileSorter.cs" />
     <Compile Include="Tools\FileTools.cs" />
-    <Compile Include="Tools\FilingCase3.cs" />
-    <Compile Include="Tools\FilingCase3Client.cs" />
     <Compile Include="Tools\HttpClient.cs" />
     <Compile Include="Tools\HttpRequest.cs" />
     <Compile Include="Tools\HttpResponse.cs" />

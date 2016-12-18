@@ -63,7 +63,7 @@ namespace Charlotte.Tools
 		public static int Comp(string a, string b)
 		{
 #if true
-			return ArrayTools.Comp(Encoding.UTF8.GetBytes(a), Encoding.UTF8.GetBytes(b));
+			return ArrayTools.Comp(Encoding.Unicode.GetBytes(a), Encoding.Unicode.GetBytes(b));
 #else
 			// "X" < "x-" < "-x" < "X" 問題があるため、CompareTo は使わない。@ 2016.12.16
 			return a.CompareTo(b);

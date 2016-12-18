@@ -35,6 +35,8 @@ namespace Charlotte.Test
 			DebugTools.WriteLog("" + ("X".CompareTo("x-")));
 			DebugTools.WriteLog("" + ("x-".CompareTo("-x")));
 			DebugTools.WriteLog("" + ("-x".CompareTo("X")));
+
+			Test01_02(new string[] { "X", "x-", "-x" }, StringTools.Comp);
 		}
 
 		private void Test01_01(string[] strSet)
