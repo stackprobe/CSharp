@@ -22,6 +22,9 @@ namespace Charlotte.Tools
 			_forWait = new NamedEventData(name);
 		}
 
+		/// <summary>
+		/// thread safe
+		/// </summary>
 		public void Set()
 		{
 			lock (SYNCROOT_forSet)
@@ -30,6 +33,9 @@ namespace Charlotte.Tools
 			}
 		}
 
+		/// <summary>
+		/// thread safe
+		/// </summary>
 		public void WaitForever()
 		{
 			lock (SYNCROOT_forWait)
@@ -38,6 +44,10 @@ namespace Charlotte.Tools
 			}
 		}
 
+		/// <summary>
+		/// thread safe
+		/// </summary>
+		/// <param name="millis"></param>
 		public void WaitForMillis(int millis)
 		{
 			lock (SYNCROOT_forWait)

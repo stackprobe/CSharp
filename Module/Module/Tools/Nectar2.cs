@@ -139,6 +139,10 @@ namespace Charlotte.Tools
 				return false;
 			}
 
+			/// <summary>
+			/// thread safe
+			/// </summary>
+			/// <param name="message"></param>
 			public void Send(byte[] message)
 			{
 				if (message == null)
@@ -157,6 +161,10 @@ namespace Charlotte.Tools
 				_evDoSend.Set();
 			}
 
+			/// <summary>
+			/// thread safe
+			/// </summary>
+			/// <returns></returns>
 			public bool IsBusy()
 			{
 				lock (SYNCROOT)
@@ -237,6 +245,10 @@ namespace Charlotte.Tools
 				_th.Start();
 			}
 
+			/// <summary>
+			/// thread safe
+			/// </summary>
+			/// <returns></returns>
 			public byte[] Recv()
 			{
 				lock (SYNCROOT)
