@@ -7,22 +7,61 @@ namespace Charlotte.Tools
 {
 	public class JString
 	{
-		public static string ToJString(string str, bool okJpn, bool okRet, bool okTab, bool okSpc)
+		public const int MINLEN = 0;
+		public const int MAXLEN = 50000;
+		public const char DEFCHR = '?';
+
+		public static string ToAsciiToken(string str, int minlen = MINLEN, int maxlen = MAXLEN, char defchr = DEFCHR)
+		{
+			return ToJString(str, false, false, false, false, false, minlen, maxlen, defchr);
+		}
+
+		public static string ToAsciiLine(string str, int minlen = MINLEN, int maxlen = MAXLEN, char defchr = DEFCHR)
+		{
+			return ToJString(str, false, false, false, true, false, minlen, maxlen, defchr);
+		}
+
+		public static string ToAsciiText(string str, int minlen = MINLEN, int maxlen = MAXLEN, char defchr = DEFCHR)
+		{
+			return ToJString(str, false, true, false, true, false, minlen, maxlen, defchr);
+		}
+
+		public static string ToToken(string str, int minlen = MINLEN, int maxlen = MAXLEN, char defchr = DEFCHR)
+		{
+			return ToJString(str, true, false, false, false, false, minlen, maxlen, defchr);
+		}
+
+		public static string ToLine(string str, int minlen = MINLEN, int maxlen = MAXLEN, char defchr = DEFCHR)
+		{
+			return ToJString(str, true, false, false, true, false, minlen, maxlen, defchr);
+		}
+
+		public static string ToText(string str, int minlen = MINLEN, int maxlen = MAXLEN, char defchr = DEFCHR)
+		{
+			return ToJString(str, true, true, false, true, false, minlen, maxlen, defchr);
+		}
+
+		public static string ToDoc(string str, int minlen = MINLEN, int maxlen = MAXLEN, char defchr = DEFCHR)
+		{
+			return ToJString(str, true, true, true, true, true, minlen, maxlen, defchr);
+		}
+
+		public static string ToJString(string str, bool okJpn, bool okRet, bool okTab, bool okSpc, bool noTrim, int minlen = MINLEN, int maxlen = MAXLEN, char defchr = DEFCHR)
 		{
 			if (str == null)
 				str = "";
 
 			byte[] src = StringTools.ENCODING_SJIS.GetBytes(str);
 
-			return ToJString(src, okJpn, okRet, okTab, okSpc);
+			return ToJString(src, okJpn, okRet, okTab, okSpc, noTrim, minlen, maxlen, defchr);
 		}
 
-		public static string ToJString(byte[] src, bool okJpn, bool okRet, bool okTab, bool okSpc)
+		public static string ToJString(byte[] src, bool okJpn, bool okRet, bool okTab, bool okSpc, bool noTrim, int minlen = MINLEN, int maxlen = MAXLEN, char defchr = DEFCHR)
 		{
 			if (src == null)
-				src = new byte[0];
+				src = new byte[] { };
 
-			List<byte> dest = new List<byte>();
+			ByteBuffer dest = new ByteBuffer();
 
 			for (int index = 0; index < src.Length; index++)
 			{
@@ -74,7 +113,39 @@ namespace Charlotte.Tools
 				}
 				dest.Add(chr);
 			}
-			return StringTools.ENCODING_SJIS.GetString(dest.ToArray());
+			string ret = StringTools.ENCODING_SJIS.GetString(dest.Join());
+
+			if (noTrim == false)
+				ret = Trim(ret);
+
+			if (maxlen < ret.Length)
+			{
+				ret = ret.Substring(0, maxlen);
+
+				if (noTrim == false)
+					ret = Trim(ret);
+			}
+			while (ret.Length < minlen)
+				ret += defchr;
+
+			return ret;
+		}
+
+		private static string Trim(string str)
+		{
+			List<string> lines = StringTools.Tokenize(str, "\n");
+
+			for (int index = 0; index < lines.Count; index++)
+				lines[index] = lines[index].Trim();
+
+			str = string.Join("\n", lines);
+			str = str.Trim();
+			return str;
+		}
+
+		public static bool IsJString(string str, bool okJpn, bool okRet, bool okTab, bool okSpc, bool noTrim, int minlen = MINLEN, int maxlen = MAXLEN, char defchr = DEFCHR)
+		{
+			return str == ToJString(str, okJpn, okRet, okTab, okSpc, noTrim, minlen, maxlen, defchr);
 		}
 
 		public class JChar

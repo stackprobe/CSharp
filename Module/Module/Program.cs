@@ -3,49 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Diagnostics;
-using Charlotte.Test;
 using Charlotte.Tools;
 using Charlotte.Test.Tools;
-using Charlotte.Test.Tools.Types;
+using Charlotte.Labo;
 
 namespace Charlotte
 {
 	class Program
 	{
-		public const string APP_IDENT = "{1611e518-4715-4f66-99f7-5bb9d5ff3910}";
+		public const string APP_IDENT = "{b85575ee-4b6f-4501-874f-7aeff90c4019}";
 
 		static void Main(string[] args)
 		{
 			try
 			{
-				DebugTools.WriteLog("START!");
 				Main2();
-				DebugTools.WriteLog("OK!");
+				Console.WriteLine("OK!");
 			}
 			catch (Exception e)
 			{
-				DebugTools.WriteLog("e: " + e);
+				Console.WriteLine(e);
 			}
-			Process.Start(@"C:\temp");
+			Console.WriteLine("Press ENTER to exit.");
+			Console.ReadLine();
 		}
 
 		private static void Main2()
 		{
-			//WorkBenchDirTest.Test01();
-			//ByteBufferTest.Test01();
-			//HttpClientTest.Test01();
-			//FileSorterTest.Test01();
-			//MutectorTest.Test01();
-			//MutectorTest.Test02();
-			//NectarTest.Test01();
-			//NectarTest.Test02();
-			//Nectar2Test.Test01();
-			//Nectar2Test.Test02();
-			//Nectar2Test.Test03();
-			//TimeDataTest.Test01();
-			//CsvDataTest.Test01();
-			//new Base_tTest().Test01();
-			new Test1().Test01();
+			new LaboTest01().Test01();
+			new FileToolsTest().Test01();
 		}
 	}
 }
