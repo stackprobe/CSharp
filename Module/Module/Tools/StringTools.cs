@@ -69,5 +69,24 @@ namespace Charlotte.Tools
 		{
 			return a.ToLower().CompareTo(b.ToLower());
 		};
+
+		public static string ZPad(string str, int minlen, string padding = "0")
+		{
+			while (str.Length < minlen)
+			{
+				str = padding + str;
+			}
+			return str;
+		}
+
+		public static bool StartsWithIgnoreCase(string str, string ptn)
+		{
+			return str.ToLower().StartsWith(ptn.ToLower());
+		}
+
+		public static bool EqualsIgnoreCase(string a, string b)
+		{
+			return a.ToLower() == b.ToLower();
+		}
 	}
 }

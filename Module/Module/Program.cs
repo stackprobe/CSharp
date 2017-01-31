@@ -5,7 +5,7 @@ using System.Text;
 using System.Diagnostics;
 using Charlotte.Tools;
 using Charlotte.Test.Tools;
-using Charlotte.Labo;
+using Charlotte.Test;
 
 namespace Charlotte
 {
@@ -30,7 +30,7 @@ namespace Charlotte
 
 		private static void Main2()
 		{
-			new LaboTest01().Test01();
+			//new Test01().Main01();
 			new FileToolsTest().Test01();
 		}
 	}
