@@ -14,24 +14,29 @@ namespace Charlotte.Tools
 			File.WriteAllBytes(file, new byte[0]);
 		}
 
-		public static void DeleteDir(string dir)
+		public static void Delete(string path)
 		{
-			for (int c = 0; ; c++)
+			for (int c = 0; File.Exists(path) || Directory.Exists(path); c++)
 			{
+				if (20 < c)
+					throw new Exception("[" + path + "] の削除に失敗しました。");
+
+				if (1 <= c)
+					Thread.Sleep(100);
+
 				try
 				{
-					Directory.Delete(dir, true);
+					File.Delete(path);
 				}
 				catch
 				{ }
 
-				if (Directory.Exists(dir) == false)
-					break;
-
-				if (20 < c)
-					throw new Exception("[" + dir + "] の削除に失敗しました。");
-
-				Thread.Sleep(100);
+				try
+				{
+					Directory.Delete(path, true);
+				}
+				catch
+				{ }
 			}
 		}
 
@@ -62,7 +67,7 @@ namespace Charlotte.Tools
 					tmp += "\\";
 				}
 				tmp = Path.Combine(tmp, Program.APP_IDENT);
-				DeleteDir(tmp);
+				Delete(tmp);
 				Directory.CreateDirectory(tmp);
 				_tmp = tmp;
 			}
@@ -73,7 +78,7 @@ namespace Charlotte.Tools
 		{
 			if (_tmp != null)
 			{
-				DeleteDir(_tmp);
+				Delete(_tmp);
 				_tmp = null;
 			}
 		}
@@ -122,11 +127,6 @@ namespace Charlotte.Tools
 			return path;
 		}
 
-		public static string EraseExt(string path)
-		{
-			return Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path));
-		}
-
 		public static string MakeFullPath(string path)
 		{
 			if (path == null)
@@ -140,11 +140,23 @@ namespace Charlotte.Tools
 			if (path.Contains('/'))
 				throw null;
 
-			if (path.StartsWith(@"\\"))
+			if (path.StartsWith("\\\\"))
 				throw new Exception("ネットワークパスまたはデバイス名は使用出来ません。");
 
 			if (path.Substring(1, 2) != ":\\")
 				throw null;
+
+			path = PutYen(path) + ".";
+			path = Path.GetFullPath(path);
+
+			return path;
+		}
+
+		public static string ToFullPath(string path)
+		{
+			path = Path.GetFullPath(path);
+			path = PutYen(path) + ".";
+			path = Path.GetFullPath(path);
 
 			return path;
 		}

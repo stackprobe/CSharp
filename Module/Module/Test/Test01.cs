@@ -12,6 +12,10 @@ namespace Charlotte.Test
 		{
 			Console.WriteLine(Path.GetFullPath("C:/temp/abc.txt")); // -> "C:\\temp\\abc.txt"
 
+			//Console.WriteLine(Path.GetFullPath(null)); // -> ex
+			//Console.WriteLine(Path.GetFullPath("")); // -> ex
+			Console.WriteLine(Path.GetFullPath(".")); // -> カレント
+
 			//Console.WriteLine(Path.GetFullPath("file://hoge-host/hoge-path")); // -> ex
 			//Console.WriteLine(Path.GetFullPath("file:///C:/123")); // -> ex
 
@@ -21,6 +25,25 @@ namespace Charlotte.Test
 			Console.WriteLine(Path.GetDirectoryName("123")); // -> ""
 			Console.WriteLine(Path.GetDirectoryName(".\\123")); // -> "."
 			Console.WriteLine(Path.GetDirectoryName(".\\.\\123")); // -> ".\\."
+
+			//Console.WriteLine(Path.GetFullPath("\\\\.")); // -> ex
+			//Console.WriteLine(Path.GetFullPath("\\\\mimiko")); // -> ex
+			//Console.WriteLine(Path.GetFullPath("\\\\mimiko\\")); // -> ex
+			//Console.WriteLine(Path.GetFullPath("\\\\mimiko\\.")); // -> ex
+			Console.WriteLine(Path.GetFullPath("\\\\mimiko\\pub")); // -> "\\\\mimiko\\pub"
+			Console.WriteLine(Path.GetFullPath("\\\\mimiko\\pub\\")); // -> "\\\\mimiko\\pub\\"
+			Console.WriteLine(Path.GetFullPath("\\\\mimiko\\pub\\.")); // -> "\\\\mimiko\\pub"
+			Console.WriteLine(Path.GetFullPath("\\\\mimiko\\pub\\..")); // -> "\\\\mimiko\\pub"
+			Console.WriteLine(Path.GetFullPath("\\\\mimiko\\pub\\\\.")); // -> "\\\\mimiko\\pub"
+			Console.WriteLine(Path.GetFullPath("\\\\mimiko\\pub\\\\..")); // -> "\\\\mimiko\\pub"
+			Console.WriteLine(Path.GetFullPath("\\\\mimiko\\pub\\.\\")); // -> "\\\\mimiko\\pub\\"
+			Console.WriteLine(Path.GetFullPath("\\\\mimiko\\pub\\..\\")); // -> "\\\\mimiko\\pub\\"
+			Console.WriteLine(Path.GetFullPath("\\\\mimiko\\pub\\abc\\.")); // -> "\\\\mimiko\\pub\\abc"
+			Console.WriteLine(Path.GetFullPath("\\\\mimiko\\pub\\abc\\..")); // -> "\\\\mimiko\\pub"
+			Console.WriteLine(Path.GetFullPath("\\\\mimiko\\pub\\abc\\\\.")); // -> "\\\\mimiko\\pub\\abc"
+			Console.WriteLine(Path.GetFullPath("\\\\mimiko\\pub\\abc\\\\..")); // -> "\\\\mimiko\\pub"
+			Console.WriteLine(Path.GetFullPath("\\\\mimiko\\pub\\abc\\.\\")); // -> "\\\\mimiko\\pub\\abc\\"
+			Console.WriteLine(Path.GetFullPath("\\\\mimiko\\pub\\abc\\..\\")); // -> "\\\\mimiko\\pub\\"
 		}
 	}
 }

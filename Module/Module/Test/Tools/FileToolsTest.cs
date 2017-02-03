@@ -12,7 +12,7 @@ namespace Charlotte.Test.Tools
 		{
 			foreach (string file in FileTools.LsFiles("."))
 			{
-				Console.WriteLine(file); // ".\\～"
+				Console.WriteLine(file); // ".\\～" -- フルパスにはならない。
 			}
 
 			Test01_a("."); // カレントDIR

@@ -30,8 +30,8 @@ namespace Charlotte
 
 		private static void Main2()
 		{
-			//new Test01().Main01();
-			new FileToolsTest().Test01();
+			new Test01().Main01();
+			//new FileToolsTest().Test01();
 		}
 	}
 }
