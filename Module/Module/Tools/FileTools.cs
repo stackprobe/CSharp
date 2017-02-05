@@ -14,7 +14,7 @@ namespace Charlotte.Tools
 			File.WriteAllBytes(file, new byte[0]);
 		}
 
-		public static void Delete(string path)
+		public static void DeletePath(string path)
 		{
 			for (int c = 0; File.Exists(path) || Directory.Exists(path); c++)
 			{
@@ -50,24 +50,14 @@ namespace Charlotte.Tools
 
 				if (
 					tmp == null ||
-					tmp == "" ||
-					Directory.Exists(tmp) == false ||
-					tmp != Encoding.ASCII.GetString(Encoding.ASCII.GetBytes(tmp)) ||
-					tmp.Contains(' ')
+					tmp.Length < 3 ||
+					tmp.Substring(1, 2) != ":\\" ||
+					Directory.Exists(tmp) == false
 					)
-				{
-					tmp = Environment.GetEnvironmentVariable("SystemDrive");
+					throw new Exception("環境変数 TMP に問題があります。");
 
-					if (
-						tmp == null ||
-						tmp.Length != 2
-						)
-						tmp = "C:";
-
-					tmp += "\\";
-				}
 				tmp = Path.Combine(tmp, Program.APP_IDENT);
-				Delete(tmp);
+				DeletePath(tmp);
 				Directory.CreateDirectory(tmp);
 				_tmp = tmp;
 			}
@@ -78,7 +68,7 @@ namespace Charlotte.Tools
 		{
 			if (_tmp != null)
 			{
-				Delete(_tmp);
+				DeletePath(_tmp);
 				_tmp = null;
 			}
 		}

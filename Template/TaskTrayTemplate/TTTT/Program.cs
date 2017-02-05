@@ -29,6 +29,7 @@ namespace Charlotte
 			{
 				CheckSelfDir();
 				CheckCopiedExe();
+				CheckLogonUser();
 
 				// orig >
 
@@ -131,6 +132,30 @@ namespace Charlotte
 				);
 
 			Environment.Exit(6);
+		}
+
+		private static void CheckLogonUser()
+		{
+			string userName = Environment.GetEnvironmentVariable("UserName");
+			Encoding SJIS = Encoding.GetEncoding(932);
+
+			if (
+				userName == null ||
+				userName == "" ||
+				userName != SJIS.GetString(SJIS.GetBytes(userName)) ||
+				userName.StartsWith(" ") ||
+				userName.EndsWith(" ")
+				)
+			{
+				MessageBox.Show(
+					"Windows ログオンユーザー名に問題があります。",
+					APP_TITLE + " / エラー",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error
+					);
+
+				Environment.Exit(7);
+			}
 		}
 	}
 }
