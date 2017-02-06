@@ -46,38 +46,18 @@ namespace Charlotte.Tools
 		{
 			if (_tmp == null)
 			{
-				string tmp = Environment.GetEnvironmentVariable("TMP");
+				string tmp = GetTMP_EnvName("TMP");
 
-				if (
-					tmp == null ||
-					tmp.Length < 3 ||
-					tmp.Substring(1, 2) != ":\\" ||
-					Directory.Exists(tmp) == false ||
-					tmp != Encoding.ASCII.GetString(Encoding.ASCII.GetBytes(tmp)) ||
-					tmp.Contains(' ')
-					)
+				if (tmp == null)
 				{
-					tmp = Environment.GetEnvironmentVariable("ProgramData");
+					tmp = GetTMP_EnvName("TEMP");
 
-					if (
-						tmp == null ||
-						tmp.Length < 3 ||
-						tmp.Substring(1, 2) != ":\\" ||
-						Directory.Exists(tmp) == false ||
-						tmp != Encoding.ASCII.GetString(Encoding.ASCII.GetBytes(tmp)) ||
-						tmp.Contains(' ')
-						)
+					if (tmp == null)
 					{
-						tmp = Environment.GetEnvironmentVariable("SystemDrive");
+						tmp = GetTMP_EnvName("ProgramData");
 
-						if (
-							tmp == null ||
-							tmp.Length != 2 ||
-							tmp[1] != ':'
-							)
+						if (tmp == null)
 							throw null;
-
-						tmp += "\\";
 					}
 				}
 				tmp = Path.Combine(tmp, Program.APP_IDENT);
@@ -86,6 +66,23 @@ namespace Charlotte.Tools
 				_tmp = tmp;
 			}
 			return _tmp;
+		}
+
+		private static string GetTMP_EnvName(string envName)
+		{
+			string tmp = Environment.GetEnvironmentVariable(envName);
+
+			if (
+				tmp == null ||
+				tmp.Length < 3 ||
+				tmp.Substring(1, 2) != ":\\" ||
+				Directory.Exists(tmp) == false ||
+				tmp != Encoding.ASCII.GetString(Encoding.ASCII.GetBytes(tmp)) ||
+				tmp.Contains(' ')
+				)
+				return null;
+
+			return tmp;
 		}
 
 		public static void ClearTMP()
