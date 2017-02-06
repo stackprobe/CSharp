@@ -52,10 +52,34 @@ namespace Charlotte.Tools
 					tmp == null ||
 					tmp.Length < 3 ||
 					tmp.Substring(1, 2) != ":\\" ||
-					Directory.Exists(tmp) == false
+					Directory.Exists(tmp) == false ||
+					tmp != Encoding.ASCII.GetString(Encoding.ASCII.GetBytes(tmp)) ||
+					tmp.Contains(' ')
 					)
-					throw new Exception("環境変数 TMP に問題があります。");
+				{
+					tmp = Environment.GetEnvironmentVariable("ProgramData");
 
+					if (
+						tmp == null ||
+						tmp.Length < 3 ||
+						tmp.Substring(1, 2) != ":\\" ||
+						Directory.Exists(tmp) == false ||
+						tmp != Encoding.ASCII.GetString(Encoding.ASCII.GetBytes(tmp)) ||
+						tmp.Contains(' ')
+						)
+					{
+						tmp = Environment.GetEnvironmentVariable("SystemDrive");
+
+						if (
+							tmp == null ||
+							tmp.Length != 2 ||
+							tmp[1] != ':'
+							)
+							throw null;
+
+						tmp += "\\";
+					}
+				}
 				tmp = Path.Combine(tmp, Program.APP_IDENT);
 				DeletePath(tmp);
 				Directory.CreateDirectory(tmp);
