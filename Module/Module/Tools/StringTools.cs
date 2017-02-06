@@ -17,7 +17,7 @@ namespace Charlotte.Tools
 
 		public static readonly Encoding ENCODING_SJIS = Encoding.GetEncoding(932);
 
-		public static List<string> Tokenize(string str, string delimiters, bool meaningFlag = false, bool ignoreEmpty = false)
+		public static List<string> tokenize(string str, string delimiters, bool meaningFlag = false, bool ignoreEmpty = false)
 		{
 			StringBuilder buff = new StringBuilder();
 			List<string> tokens = new List<string>();
@@ -42,7 +42,7 @@ namespace Charlotte.Tools
 			return tokens;
 		}
 
-		public static string Replace(string str, string fromChrs, char toChr)
+		public static string replace(string str, string fromChrs, char toChr)
 		{
 			foreach (char fromChr in fromChrs)
 			{
@@ -51,7 +51,7 @@ namespace Charlotte.Tools
 			return str;
 		}
 
-		public static string ReplaceLoop(string str, string fromPtn, string toPtn, int maxCount)
+		public static string replaceLoop(string str, string fromPtn, string toPtn, int maxCount)
 		{
 			for (int count = 0; count < maxCount; count++)
 			{
@@ -60,17 +60,17 @@ namespace Charlotte.Tools
 			return str;
 		}
 
-		public static Comparison<string> Comp = delegate(string a, string b)
+		public static Comparison<string> comp = delegate(string a, string b)
 		{
 			return a.CompareTo(b);
 		};
 
-		public static Comparison<string> CompIgnoreCase = delegate(string a, string b)
+		public static Comparison<string> compIgnoreCase = delegate(string a, string b)
 		{
 			return a.ToLower().CompareTo(b.ToLower());
 		};
 
-		public static string ZPad(string str, int minlen, string padding = "0")
+		public static string zPad(string str, int minlen, string padding = "0")
 		{
 			while (str.Length < minlen)
 			{
@@ -79,14 +79,19 @@ namespace Charlotte.Tools
 			return str;
 		}
 
-		public static bool StartsWithIgnoreCase(string str, string ptn)
+		public static bool startsWithIgnoreCase(string str, string ptn)
 		{
 			return str.ToLower().StartsWith(ptn.ToLower());
 		}
 
-		public static bool EqualsIgnoreCase(string a, string b)
+		public static bool equalsIgnoreCase(string a, string b)
 		{
 			return a.ToLower() == b.ToLower();
+		}
+
+		public static string getUUID()
+		{
+			return Guid.NewGuid().ToString("B");
 		}
 	}
 }

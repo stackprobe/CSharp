@@ -10,7 +10,7 @@ namespace Charlotte.Test.Tools
 	{
 		public void Test01()
 		{
-			foreach (string file in FileTools.LsFiles("."))
+			foreach (string file in FileTools.lsFiles("."))
 			{
 				Console.WriteLine(file); // ".\\～" -- フルパスにはならない。
 			}
@@ -26,7 +26,7 @@ namespace Charlotte.Test.Tools
 		{
 			try
 			{
-				Console.WriteLine("[" + FileTools.MakeFullPath(path) + "]");
+				Console.WriteLine("[" + FileTools.makeFullPath(path) + "]");
 			}
 			catch (Exception e)
 			{

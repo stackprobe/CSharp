@@ -9,12 +9,12 @@ namespace Charlotte.Tools
 {
 	public class FileTools
 	{
-		public static void CreateFile(string file)
+		public static void createFile(string file)
 		{
 			File.WriteAllBytes(file, new byte[0]);
 		}
 
-		public static void DeletePath(string path)
+		public static void deletePath(string path)
 		{
 			for (int c = 0; File.Exists(path) || Directory.Exists(path); c++)
 			{
@@ -42,33 +42,41 @@ namespace Charlotte.Tools
 
 		private static string _tmp = null;
 
-		public static string GetTMP()
+		public static string getTMP()
 		{
 			if (_tmp == null)
 			{
-				string tmp = GetTMP_EnvName("TMP");
+				string tmp = getTMP_EnvName("TMP");
 
 				if (tmp == null)
 				{
-					tmp = GetTMP_EnvName("TEMP");
+					tmp = getTMP_EnvName("TEMP");
 
 					if (tmp == null)
 					{
-						tmp = GetTMP_EnvName("ProgramData");
+						tmp = getTMP_EnvName("ProgramData");
+
+						// 書き込みテスト -- ProgramDataってゲストでも書けるっぽい。
+						{
+							string dir = Path.Combine(tmp, StringTools.getUUID() + "_test");
+
+							Directory.CreateDirectory(dir);
+							Directory.Delete(dir);
+						}
 
 						if (tmp == null)
 							throw null;
 					}
 				}
 				tmp = Path.Combine(tmp, Program.APP_IDENT);
-				DeletePath(tmp);
+				deletePath(tmp);
 				Directory.CreateDirectory(tmp);
 				_tmp = tmp;
 			}
 			return _tmp;
 		}
 
-		private static string GetTMP_EnvName(string envName)
+		private static string getTMP_EnvName(string envName)
 		{
 			string tmp = Environment.GetEnvironmentVariable(envName);
 
@@ -85,11 +93,11 @@ namespace Charlotte.Tools
 			return tmp;
 		}
 
-		public static void ClearTMP()
+		public static void clearTMP()
 		{
 			if (_tmp != null)
 			{
-				DeletePath(_tmp);
+				deletePath(_tmp);
 				_tmp = null;
 			}
 		}
@@ -99,38 +107,38 @@ namespace Charlotte.Tools
 		/// </summary>
 		/// <param name="dir">相対パスの場合、戻り値のリストも相対パスになる。</param>
 		/// <returns></returns>
-		public static string[] LsFiles(string dir)
+		public static string[] lsFiles(string dir)
 		{
 			return Directory.GetFiles(dir);
 		}
 
-		public static string[] LsDirs(string dir)
+		public static string[] lsDirs(string dir)
 		{
 			return Directory.GetDirectories(dir);
 		}
 
-		public static string[] LssFiles(string dir)
+		public static string[] lssFiles(string dir)
 		{
 			return Directory.GetFiles(dir, "*", SearchOption.AllDirectories);
 		}
 
-		public static string[] LssDirs(string dir)
+		public static string[] lssDirs(string dir)
 		{
 			return Directory.GetDirectories(dir, "*", SearchOption.AllDirectories);
 		}
 
-		public static string ChangeRoot(string path, string rootOld, string rootNew)
+		public static string changeRoot(string path, string rootOld, string rootNew)
 		{
-			rootOld = PutYen(rootOld);
-			rootNew = PutYen(rootNew);
+			rootOld = putYen(rootOld);
+			rootNew = putYen(rootNew);
 
-			if (StringTools.StartsWithIgnoreCase(path, rootOld) == false)
+			if (StringTools.startsWithIgnoreCase(path, rootOld) == false)
 				throw new Exception("[" + path + "] のルートは [" + rootOld + "] ではありません。");
 
 			return rootNew + path.Substring(rootOld.Length);
 		}
 
-		public static string PutYen(string path)
+		public static string putYen(string path)
 		{
 			if (path.EndsWith("\\") == false)
 				path += "\\";
@@ -138,7 +146,7 @@ namespace Charlotte.Tools
 			return path;
 		}
 
-		public static string MakeFullPath(string path)
+		public static string makeFullPath(string path)
 		{
 			if (path == null)
 				throw new Exception("パスが定義されていません。(null)");
@@ -157,16 +165,16 @@ namespace Charlotte.Tools
 			if (path.Substring(1, 2) != ":\\")
 				throw null;
 
-			path = PutYen(path) + ".";
+			path = putYen(path) + ".";
 			path = Path.GetFullPath(path);
 
 			return path;
 		}
 
-		public static string ToFullPath(string path)
+		public static string toFullPath(string path)
 		{
 			path = Path.GetFullPath(path);
-			path = PutYen(path) + ".";
+			path = putYen(path) + ".";
 			path = Path.GetFullPath(path);
 
 			return path;
