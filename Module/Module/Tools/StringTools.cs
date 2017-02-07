@@ -84,6 +84,11 @@ namespace Charlotte.Tools
 			return str.ToLower().StartsWith(ptn.ToLower());
 		}
 
+		public static bool endsWithIgnoreCase(string str, string ptn)
+		{
+			return str.ToLower().EndsWith(ptn.ToLower());
+		}
+
 		public static bool equalsIgnoreCase(string a, string b)
 		{
 			return a.ToLower() == b.ToLower();

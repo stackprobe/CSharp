@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Threading;
+using System.Collections;
 
 namespace Charlotte.Tools
 {
@@ -56,6 +57,9 @@ namespace Charlotte.Tools
 					{
 						tmp = getTMP_EnvName("ProgramData");
 
+						if (tmp == null)
+							throw null;
+
 						// 書き込みテスト -- ProgramDataってゲストでも書けるっぽい。
 						{
 							string dir = Path.Combine(tmp, StringTools.getUUID() + "_test");
@@ -63,9 +67,6 @@ namespace Charlotte.Tools
 							Directory.CreateDirectory(dir);
 							Directory.Delete(dir);
 						}
-
-						if (tmp == null)
-							throw null;
 					}
 				}
 				tmp = Path.Combine(tmp, Program.APP_IDENT);
@@ -102,11 +103,8 @@ namespace Charlotte.Tools
 			}
 		}
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="dir">相対パスの場合、戻り値のリストも相対パスになる。</param>
-		/// <returns></returns>
+		// ls* -- 相対パスの場合、戻り値のリストも相対パスになる。
+
 		public static string[] lsFiles(string dir)
 		{
 			return Directory.GetFiles(dir);
@@ -178,6 +176,62 @@ namespace Charlotte.Tools
 			path = Path.GetFullPath(path);
 
 			return path;
+		}
+
+		public static IEnumerable<string> readAllLines(string file, Encoding encoding)
+		{
+			return new TextFileReader(file, encoding);
+		}
+
+		private class TextFileReader : IEnumerable<string>, IEnumerator<string>
+		{
+			private StreamReader _rfs;
+			private string _line = null;
+
+			public TextFileReader(string file, Encoding encoding)
+			{
+				_rfs = new StreamReader(file, encoding);
+			}
+
+			public IEnumerator<string> GetEnumerator()
+			{
+				return this;
+			}
+
+			IEnumerator IEnumerable.GetEnumerator()
+			{
+				return this.GetEnumerator();
+			}
+
+			public string Current
+			{
+				get { return _line; }
+			}
+
+			object IEnumerator.Current
+			{
+				get { return this.Current; }
+			}
+
+			public bool MoveNext()
+			{
+				_line = _rfs.ReadLine();
+				return _line != null;
+			}
+
+			public void Reset()
+			{
+				throw null;
+			}
+
+			public void Dispose()
+			{
+				if (_rfs != null)
+				{
+					_rfs.Dispose();
+					_rfs = null;
+				}
+			}
 		}
 	}
 }

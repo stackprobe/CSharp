@@ -64,11 +64,19 @@
     <Compile Include="Test\Test01.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Test\Tools\DateTimeToSecTest.cs" />
+    <Compile Include="Test\Tools\DateToDayTest.cs" />
     <Compile Include="Test\Tools\FileToolsTest.cs" />
+    <Compile Include="Tools\ArgsReader.cs" />
     <Compile Include="Tools\ArrayTools.cs" />
+    <Compile Include="Tools\DateTimeToSec.cs" />
+    <Compile Include="Tools\DateToDay.cs" />
     <Compile Include="Tools\FileTools.cs" />
     <Compile Include="Tools\JString.cs" />
+    <Compile Include="Tools\Rect.cs" />
     <Compile Include="Tools\StringTools.cs" />
+    <Compile Include="Tools\XNode.cs" />
+    <Compile Include="Tools\XYPoint.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

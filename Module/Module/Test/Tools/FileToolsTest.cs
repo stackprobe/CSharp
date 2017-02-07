@@ -33,5 +33,13 @@ namespace Charlotte.Test.Tools
 				Console.WriteLine(e);
 			}
 		}
+
+		public void Test02()
+		{
+			foreach (string line in FileTools.readAllLines(@"C:\var\report_20160417162109_2.txt", Encoding.UTF8))
+			{
+				Console.WriteLine(line);
+			}
+		}
 	}
 }
