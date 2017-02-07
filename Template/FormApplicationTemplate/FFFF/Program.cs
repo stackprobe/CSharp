@@ -29,6 +29,7 @@ namespace Charlotte
 			if (procMutex.WaitOne(0) && GlobalProcMtx.create(APP_IDENT, APP_TITLE))
 			{
 				checkSelfDir();
+				Directory.SetCurrentDirectory(selfDir);
 				checkAloneExe();
 				checkLogonUser();
 
@@ -95,8 +96,6 @@ namespace Charlotte
 		{
 			selfFile = Assembly.GetEntryAssembly().Location;
 			selfDir = Path.GetDirectoryName(selfFile);
-
-			Directory.SetCurrentDirectory(selfDir);
 		}
 
 		private static void checkSelfDir()
