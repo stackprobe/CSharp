@@ -72,6 +72,7 @@
     <Compile Include="Tools\DateTimeToSec.cs" />
     <Compile Include="Tools\DateToDay.cs" />
     <Compile Include="Tools\FileTools.cs" />
+    <Compile Include="Tools\IntTools.cs" />
     <Compile Include="Tools\JString.cs" />
     <Compile Include="Tools\Rect.cs" />
     <Compile Include="Tools\StringTools.cs" />

@@ -98,5 +98,18 @@ namespace Charlotte.Tools
 		{
 			return Guid.NewGuid().ToString("B");
 		}
+
+		public const string S_TRUE = "true";
+		public const string S_FALSE = "false";
+
+		public static bool toFlag(string str)
+		{
+			return equalsIgnoreCase(str, S_TRUE);
+		}
+
+		public static string toString(bool flag)
+		{
+			return flag ? S_TRUE : S_FALSE;
+		}
 	}
 }
