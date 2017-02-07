@@ -6,6 +6,7 @@ using System.Threading;
 using Microsoft.Win32;
 using System.Text;
 using System.IO;
+using System.Reflection;
 
 namespace Charlotte
 {
@@ -17,19 +18,19 @@ namespace Charlotte
 		[STAThread]
 		static void Main()
 		{
-			BootTools.OnBoot();
+			onBoot();
 
-			Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
-			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
-			SystemEvents.SessionEnding += new SessionEndingEventHandler(SessionEnding);
+			Application.ThreadException += new ThreadExceptionEventHandler(applicationThreadException);
+			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(currentDomainUnhandledException);
+			SystemEvents.SessionEnding += new SessionEndingEventHandler(sessionEnding);
 
 			Mutex procMutex = new Mutex(false, APP_IDENT);
 
-			if (procMutex.WaitOne(0) && GlobalProcMtx.Create(APP_IDENT, APP_TITLE))
+			if (procMutex.WaitOne(0) && GlobalProcMtx.create(APP_IDENT, APP_TITLE))
 			{
-				CheckSelfDir();
-				CheckCopiedExe();
-				CheckLogonUser();
+				checkSelfDir();
+				checkAloneExe();
+				checkLogonUser();
 
 				// orig >
 
@@ -39,7 +40,7 @@ namespace Charlotte
 
 				// < orig
 
-				GlobalProcMtx.Release();
+				GlobalProcMtx.release();
 				procMutex.ReleaseMutex();
 			}
 			procMutex.Close();
@@ -48,7 +49,7 @@ namespace Charlotte
 		public const string APP_IDENT = "{40d6bc7d-352a-416b-8fae-7a639e07035e}";
 		public const string APP_TITLE = "FFFF";
 
-		private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
+		private static void applicationThreadException(object sender, ThreadExceptionEventArgs e)
 		{
 			try
 			{
@@ -65,7 +66,7 @@ namespace Charlotte
 			Environment.Exit(1);
 		}
 
-		private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+		private static void currentDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
 		{
 			try
 			{
@@ -82,14 +83,25 @@ namespace Charlotte
 			Environment.Exit(2);
 		}
 
-		private static void SessionEnding(object sender, SessionEndingEventArgs e)
+		private static void sessionEnding(object sender, SessionEndingEventArgs e)
 		{
 			Environment.Exit(3);
 		}
 
-		private static void CheckSelfDir()
+		public static string selfFile;
+		public static string selfDir;
+
+		public static void onBoot()
 		{
-			string dir = BootTools.SelfDir;
+			selfFile = Assembly.GetEntryAssembly().Location;
+			selfDir = Path.GetDirectoryName(selfFile);
+
+			Directory.SetCurrentDirectory(selfDir);
+		}
+
+		private static void checkSelfDir()
+		{
+			string dir = selfDir;
 			Encoding SJIS = Encoding.GetEncoding(932);
 
 			if (dir != SJIS.GetString(SJIS.GetBytes(dir)))
@@ -103,10 +115,10 @@ namespace Charlotte
 
 				Environment.Exit(4);
 			}
-			if (dir.StartsWith("\\\\"))
+			if (dir.Substring(1, 2) != ":\\")
 			{
 				MessageBox.Show(
-					"ネットワークフォルダからは実行できません。",
+					"ネットワークパスからは実行できません。",
 					APP_TITLE + " / エラー",
 					MessageBoxButtons.OK,
 					MessageBoxIcon.Error
@@ -116,7 +128,7 @@ namespace Charlotte
 			}
 		}
 
-		private static void CheckCopiedExe()
+		private static void checkAloneExe()
 		{
 			if (File.Exists("FFFF.sig")) // リリースに含まれるファイル
 				return;
@@ -134,7 +146,7 @@ namespace Charlotte
 			Environment.Exit(6);
 		}
 
-		private static void CheckLogonUser()
+		private static void checkLogonUser()
 		{
 			string userName = Environment.GetEnvironmentVariable("UserName");
 			Encoding SJIS = Encoding.GetEncoding(932);

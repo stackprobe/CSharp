@@ -51,7 +51,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BootTools.cs" />
     <Compile Include="Consts.cs" />
     <Compile Include="GlobalProcMtx.cs" />
     <Compile Include="Ground.cs" />

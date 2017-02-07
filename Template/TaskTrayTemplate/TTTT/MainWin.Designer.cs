@@ -30,41 +30,41 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWin));
-			this.TaskTrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
-			this.TTIMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.taskTrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
+			this.ttiMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.終了XToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.MainTimer = new System.Windows.Forms.Timer(this.components);
-			this.TTIMenu.SuspendLayout();
+			this.mainTimer = new System.Windows.Forms.Timer(this.components);
+			this.ttiMenu.SuspendLayout();
 			this.SuspendLayout();
-			//
-			// TaskTrayIcon
-			//
-			this.TaskTrayIcon.ContextMenuStrip = this.TTIMenu;
-			this.TaskTrayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("TaskTrayIcon.Icon")));
-			this.TaskTrayIcon.Text = "TTTT";
-			//
-			// TTIMenu
-			//
-			this.TTIMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+			// 
+			// taskTrayIcon
+			// 
+			this.taskTrayIcon.ContextMenuStrip = this.ttiMenu;
+			this.taskTrayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("taskTrayIcon.Icon")));
+			this.taskTrayIcon.Text = "TTTT";
+			// 
+			// ttiMenu
+			// 
+			this.ttiMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.終了XToolStripMenuItem});
-			this.TTIMenu.Name = "TTIMenu";
-			this.TTIMenu.Size = new System.Drawing.Size(119, 26);
-			//
+			this.ttiMenu.Name = "TTIMenu";
+			this.ttiMenu.Size = new System.Drawing.Size(119, 26);
+			// 
 			// 終了XToolStripMenuItem
-			//
+			// 
 			this.終了XToolStripMenuItem.Name = "終了XToolStripMenuItem";
 			this.終了XToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
 			this.終了XToolStripMenuItem.Text = "終了(&X)";
 			this.終了XToolStripMenuItem.Click += new System.EventHandler(this.終了XToolStripMenuItem_Click);
-			//
-			// MainTimer
-			//
-			this.MainTimer.Enabled = true;
-			this.MainTimer.Interval = 300;
-			this.MainTimer.Tick += new System.EventHandler(this.MainTimer_Tick);
-			//
+			// 
+			// mainTimer
+			// 
+			this.mainTimer.Enabled = true;
+			this.mainTimer.Interval = 300;
+			this.mainTimer.Tick += new System.EventHandler(this.mainTimer_Tick);
+			// 
 			// MainWin
-			//
+			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(284, 262);
@@ -75,22 +75,22 @@
 			this.Name = "MainWin";
 			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-			this.Text = "TTT_FourRoses";
+			this.Text = "TTTT_MainWindow";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWin_FormClosing);
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainWin_FormClosed);
 			this.Load += new System.EventHandler(this.MainWin_Load);
 			this.Shown += new System.EventHandler(this.MainWin_Shown);
-			this.TTIMenu.ResumeLayout(false);
+			this.ttiMenu.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
 
 		#endregion
 
-		private System.Windows.Forms.NotifyIcon TaskTrayIcon;
-		private System.Windows.Forms.ContextMenuStrip TTIMenu;
+		private System.Windows.Forms.NotifyIcon taskTrayIcon;
+		private System.Windows.Forms.ContextMenuStrip ttiMenu;
 		private System.Windows.Forms.ToolStripMenuItem 終了XToolStripMenuItem;
-		private System.Windows.Forms.Timer MainTimer;
+		private System.Windows.Forms.Timer mainTimer;
 	}
 }
 
