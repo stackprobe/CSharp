@@ -8,7 +8,7 @@ namespace Charlotte.Test
 {
 	public class Test01
 	{
-		public void Main01()
+		public void main01()
 		{
 			Console.WriteLine(Path.GetFullPath("C:/temp/abc.txt")); // -> "C:\\temp\\abc.txt"
 

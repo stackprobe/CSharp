@@ -8,7 +8,7 @@ namespace Charlotte.Test.Tools
 {
 	public class DateToDayTest
 	{
-		public void Test01()
+		public void test01()
 		{
 			Console.WriteLine("" + DateToDay.Today.getDate());
 			Console.WriteLine("" + DateToDay.toDate(DateToDay.Today.getDay()));

@@ -8,21 +8,21 @@ namespace Charlotte.Test.Tools
 {
 	public class FileToolsTest
 	{
-		public void Test01()
+		public void test01()
 		{
 			foreach (string file in FileTools.lsFiles("."))
 			{
 				Console.WriteLine(file); // ".\\～" -- フルパスにはならない。
 			}
 
-			Test01_a("."); // カレントDIR
-			Test01_a("*"); // ex
-			Test01_a("abc "); // 空白削られる。
-			Test01_a(" abc"); // 空白削られない。
-			Test01_a("PRN.txt"); // ex
+			test01_a("."); // カレントDIR
+			test01_a("*"); // ex
+			test01_a("abc "); // 空白削られる。
+			test01_a(" abc"); // 空白削られない。
+			test01_a("PRN.txt"); // ex
 		}
 
-		private void Test01_a(string path)
+		private void test01_a(string path)
 		{
 			try
 			{
@@ -34,7 +34,7 @@ namespace Charlotte.Test.Tools
 			}
 		}
 
-		public void Test02()
+		public void test02()
 		{
 			foreach (string line in FileTools.readAllLines(@"C:\var\report_20160417162109_2.txt", Encoding.UTF8))
 			{
