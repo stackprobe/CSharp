@@ -70,6 +70,11 @@ namespace Charlotte.Tools
 			return a.ToLower().CompareTo(b.ToLower());
 		};
 
+		public static string zPad(int value, int minlen, string padding = "0")
+		{
+			return zPad("" + value, minlen, padding);
+		}
+
 		public static string zPad(string str, int minlen, string padding = "0")
 		{
 			while (str.Length < minlen)
@@ -110,6 +115,49 @@ namespace Charlotte.Tools
 		public static string toString(bool flag)
 		{
 			return flag ? S_TRUE : S_FALSE;
+		}
+
+		public static string toBase64(byte[] data)
+		{
+			return Convert.ToBase64String(data);
+		}
+
+		public static byte[] decodeBase64(string str)
+		{
+			return Convert.FromBase64String(str);
+		}
+
+		public static string encode(string str)
+		{
+			return toBase64(Encoding.UTF8.GetBytes(str));
+		}
+
+		public static string decode(string str)
+		{
+			return Encoding.UTF8.GetString(decodeBase64(str));
+		}
+
+		public static string encodeLines(string[] lines)
+		{
+			List<string> tokens = new List<string>();
+
+			foreach (string line in lines)
+				tokens.Add(encode(line));
+
+			tokens.Add("");
+			return string.Join(":", tokens);
+		}
+
+		public static string[] decodeLines(string line)
+		{
+			List<string> tokens = tokenize(line, ":");
+			int count = tokens.Count - 1;
+			string[] lines = new string[count];
+
+			for (int index = 0; index < count; index++)
+				lines[index] = decode(tokens[index]);
+
+			return lines;
 		}
 	}
 }

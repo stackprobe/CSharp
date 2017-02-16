@@ -54,7 +54,7 @@ namespace Charlotte.Tools
 			else
 			{
 				MessageBox.Show(
-					getMessage(e),
+					getMessage(e) + "\n----\n" + e,
 					title + " / エラー",
 					MessageBoxButtons.OK,
 					MessageBoxIcon.Error
