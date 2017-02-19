@@ -67,7 +67,7 @@ namespace Charlotte.Tools
 		public class Sender : IDisposable
 		{
 			private const int MESSAGE_SIZE_MAX = 2000; // 2 KB
-			private const int BUFF_MAX = 100;
+			private const int BUFF_MAX = 1000;
 
 			private Nectar2 _n;
 			private Thread _th;
@@ -195,7 +195,7 @@ namespace Charlotte.Tools
 		public class Recver : IDisposable
 		{
 			private const int MESSAGE_SIZE_MAX = 2000; // 2 KB
-			private const int BUFF_MAX = 100;
+			private const int BUFF_MAX = 1000;
 
 			private Nectar2 _n;
 			private Thread _th;
