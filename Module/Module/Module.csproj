@@ -72,7 +72,9 @@
     <Compile Include="Test\Tools\FileToolsTest.cs" />
     <Compile Include="Tools\ArgsReader.cs" />
     <Compile Include="Tools\ArrayTools.cs" />
+    <Compile Include="Tools\AutoTable.cs" />
     <Compile Include="Tools\BinaryTools.cs" />
+    <Compile Include="Tools\Bmp.cs" />
     <Compile Include="Tools\Cancelled.cs" />
     <Compile Include="Tools\Completed.cs" />
     <Compile Include="Tools\DateTimeToSec.cs" />
@@ -87,6 +89,7 @@
     <Compile Include="Tools\NamedEventPair.cs" />
     <Compile Include="Tools\Nectar2.cs" />
     <Compile Include="Tools\Rect.cs" />
+    <Compile Include="Tools\RectTable.cs" />
     <Compile Include="Tools\StringTools.cs" />
     <Compile Include="Tools\XNode.cs" />
     <Compile Include="Tools\XYPoint.cs" />

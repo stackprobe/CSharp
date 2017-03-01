@@ -64,6 +64,11 @@ namespace Charlotte.Tools
 				);
 		}
 
+		public static int toInt(double value)
+		{
+			return value < 0.0 ? (int)(value - 0.5) : (int)(value + 0.5);
+		}
+
 		public static Comparison<int> comp = delegate(int a, int b)
 		{
 			if (a < b)
