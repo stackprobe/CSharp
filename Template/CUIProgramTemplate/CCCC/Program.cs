@@ -33,38 +33,9 @@ namespace Charlotte
 
 		public const string APP_IDENT = "{22eda4a5-9029-4bf3-b8d8-c687a5729ec3}";
 
-		private static Queue<string> _argq;
-
-		private static bool argIs(string spell)
-		{
-			if (1 <= _argq.Count && _argq.Peek().ToLower() == spell.ToLower())
-			{
-				_argq.Dequeue();
-				return true;
-			}
-			return false;
-		}
-
-		private static string nextArg()
-		{
-			return _argq.Dequeue();
-		}
-
 		private static void main2(string[] args)
 		{
-			_argq = new Queue<string>(args);
-
-			while (argIs("/-") == false)
-			{
-				if (argIs("/3"))
-				{
-					nextArg();
-					nextArg();
-					nextArg();
-					continue;
-				}
-				break;
-			}
+			System.Windows.Forms.MessageBox.Show("a");
 		}
 	}
 }

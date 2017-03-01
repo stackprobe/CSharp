@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 
 namespace Charlotte.Tools
 {
@@ -43,5 +44,37 @@ namespace Charlotte.Tools
 		{
 			return minval <= value && value <= maxval;
 		}
+
+		public static int toInt(Color color)
+		{
+			return (int)(
+				((uint)color.A << 24) |
+				((uint)color.R << 16) |
+				((uint)color.G << 8) |
+				((uint)color.B << 0));
+		}
+
+		public static Color toColor(int color)
+		{
+			return Color.FromArgb(
+				(int)(((uint)color >> 24) & 0xff),
+				(int)(((uint)color >> 16) & 0xff),
+				(int)(((uint)color >> 8) & 0xff),
+				(int)(((uint)color >> 0) & 0xff)
+				);
+		}
+
+		public static Comparison<int> comp = delegate(int a, int b)
+		{
+			if (a < b)
+			{
+				return -1;
+			}
+			if (a > b)
+			{
+				return 1;
+			}
+			return 0;
+		};
 	}
 }

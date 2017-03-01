@@ -8,14 +8,12 @@ namespace Charlotte.Tools
 {
 	public class FaultOperation : Exception
 	{
-		public static readonly FaultOperation i = new FaultOperation();
-
-		public FaultOperation()
-			: this("失敗しました。")
+		public FaultOperation(Exception e = null)
+			: this("失敗しました。", e)
 		{ }
 
-		public FaultOperation(string message)
-			: base(message)
+		public FaultOperation(string message, Exception e = null)
+			: base(message, e)
 		{ }
 
 		public static void caught(Exception e, string title = Program.APP_TITLE)
@@ -23,7 +21,7 @@ namespace Charlotte.Tools
 			if (e is Completed)
 			{
 				MessageBox.Show(
-					"完了しました。",
+					getMessage(e),
 					title + " / 完了",
 					MessageBoxButtons.OK,
 					MessageBoxIcon.Information
@@ -36,7 +34,7 @@ namespace Charlotte.Tools
 			else if (e is Cancelled)
 			{
 				MessageBox.Show(
-					"中止しました。",
+					getMessage(e),
 					title + " / 中止",
 					MessageBoxButtons.OK,
 					MessageBoxIcon.Warning

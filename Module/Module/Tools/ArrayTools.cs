@@ -20,5 +20,29 @@ namespace Charlotte.Tools
 
 			return -1;
 		}
+
+		public static int arrComp<T>(T[] a, T[] b, Comparison<T> comp)
+		{
+			int minlen = Math.Min(a.Length, b.Length);
+
+			for (int index = 0; index < minlen; index++)
+			{
+				int ret = comp(a[index], b[index]);
+
+				if (ret != 0)
+					return ret;
+			}
+			return IntTools.comp(a.Length, b.Length);
+		}
+
+		public static void sort<T>(T[] arr, Comparison<T> comp)
+		{
+			Array.Sort(arr, comp);
+		}
+
+		public static void sort<T>(List<T> list, Comparison<T> comp)
+		{
+			list.Sort(comp);
+		}
 	}
 }

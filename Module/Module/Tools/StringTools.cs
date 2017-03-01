@@ -60,16 +60,6 @@ namespace Charlotte.Tools
 			return str;
 		}
 
-		public static Comparison<string> comp = delegate(string a, string b)
-		{
-			return a.CompareTo(b);
-		};
-
-		public static Comparison<string> compIgnoreCase = delegate(string a, string b)
-		{
-			return a.ToLower().CompareTo(b.ToLower());
-		};
-
 		public static string zPad(int value, int minlen, string padding = "0")
 		{
 			return zPad("" + value, minlen, padding);
@@ -158,6 +148,30 @@ namespace Charlotte.Tools
 				lines[index] = decode(tokens[index]);
 
 			return lines;
+		}
+
+		public static Comparison<string> comp = delegate(string a, string b)
+		{
+#if true
+			return eComp(a, b);
+#else
+			return a.CompareTo(b); // "X" < "x-" < "-x" < "X"
+#endif
+		};
+
+		public static Comparison<string> compIgnoreCase = delegate(string a, string b)
+		{
+			return comp(a.ToLower(), b.ToLower());
+		};
+
+		public static int eComp(string a, string b)
+		{
+			return eComp(a, b, Encoding.UTF8);
+		}
+
+		public static int eComp(string a, string b, Encoding encoding)
+		{
+			return ArrayTools.arrComp<byte>(encoding.GetBytes(a), encoding.GetBytes(b), BinaryTools.comp);
 		}
 	}
 }

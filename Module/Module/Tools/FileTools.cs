@@ -19,11 +19,10 @@ namespace Charlotte.Tools
 		{
 			for (int c = 0; File.Exists(path) || Directory.Exists(path); c++)
 			{
-				if (20 < c)
+				if (10 <= c)
 					throw new Exception("[" + path + "] の削除に失敗しました。");
 
-				if (1 <= c)
-					Thread.Sleep(100);
+				Thread.Sleep(c * 100);
 
 				try
 				{
@@ -230,6 +229,32 @@ namespace Charlotte.Tools
 				{
 					_rfs.Dispose();
 					_rfs = null;
+				}
+			}
+		}
+
+		public static void copyDir(string rDir, string wDir)
+		{
+			Queue<string> dirq = new Queue<string>();
+
+			dirq.Enqueue(rDir);
+			dirq.Enqueue(wDir);
+
+			while (1 <= dirq.Count)
+			{
+				rDir = dirq.Dequeue();
+				wDir = dirq.Dequeue();
+
+				Directory.CreateDirectory(wDir);
+
+				foreach (string dir in FileTools.lsDirs(rDir))
+				{
+					dirq.Enqueue(dir);
+					dirq.Enqueue(Path.Combine(wDir, Path.GetFileName(dir)));
+				}
+				foreach (string file in FileTools.lsFiles(rDir))
+				{
+					File.Copy(file, Path.Combine(wDir, Path.GetFileName(file)));
 				}
 			}
 		}

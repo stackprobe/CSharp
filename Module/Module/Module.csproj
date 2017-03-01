@@ -53,6 +53,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Net" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
@@ -71,6 +72,7 @@
     <Compile Include="Test\Tools\FileToolsTest.cs" />
     <Compile Include="Tools\ArgsReader.cs" />
     <Compile Include="Tools\ArrayTools.cs" />
+    <Compile Include="Tools\BinaryTools.cs" />
     <Compile Include="Tools\Cancelled.cs" />
     <Compile Include="Tools\Completed.cs" />
     <Compile Include="Tools\DateTimeToSec.cs" />
@@ -80,6 +82,7 @@
     <Compile Include="Tools\FileTools.cs" />
     <Compile Include="Tools\IntTools.cs" />
     <Compile Include="Tools\JString.cs" />
+    <Compile Include="Tools\LongTools.cs" />
     <Compile Include="Tools\NamedEventObject.cs" />
     <Compile Include="Tools\NamedEventPair.cs" />
     <Compile Include="Tools\Nectar2.cs" />
