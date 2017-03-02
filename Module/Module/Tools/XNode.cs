@@ -163,5 +163,14 @@ namespace Charlotte.Tools
 				buff.Append(SAVE_NEW_LINE);
 			}
 		}
+
+		public XNode get(string name)
+		{
+			foreach (XNode child in children)
+				if (child.name == name)
+					return child;
+
+			return null; // not found
+		}
 	}
 }
