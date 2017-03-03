@@ -41,8 +41,8 @@ namespace Charlotte.Test.Tools
 		/// </summary>
 		public static void Test02()
 		{
-			using (Nectar2.Sender sender = new Nectar2.Sender("{4d7beb3b-fbd9-4d29-8ad3-6c403ed6a281}")) // shared_uuid@g
-			using (Nectar2.Recver recver = new Nectar2.Recver("{54d2a688-3ffc-4c77-85d2-3e24ba4cba85}")) // shared_uuid@g
+			using (Nectar2.Sender sender = new Nectar2.Sender("{4d7beb3b-fbd9-4d29-8ad3-6c403ed6a281}")) // shared_uuid@ign -- テストなので
+			using (Nectar2.Recver recver = new Nectar2.Recver("{54d2a688-3ffc-4c77-85d2-3e24ba4cba85}")) // shared_uuid@ign -- テストなので
 			{
 				DebugTools.WriteLog("SEND-BEFORE");
 
