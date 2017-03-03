@@ -11,7 +11,7 @@ namespace Charlotte.Htt
 {
 	public class HttServer
 	{
-		private const string COMMON_ID = "{7da01163-efa3-4941-a5a6-be0800720d8e}"; // shared_uuid
+		private const string COMMON_ID = "{7da01163-efa3-4941-a5a6-be0800720d8e}"; // shared_uuid@g
 		private const string EXCL_ID = COMMON_ID + "_e";
 		private const string MUTEX_ID = COMMON_ID + "_m";
 		private const string HTT_ID = COMMON_ID + "_h";

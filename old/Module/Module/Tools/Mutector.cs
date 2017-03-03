@@ -8,7 +8,7 @@ namespace Charlotte.Tools
 {
 	public class Mutector : IDisposable
 	{
-		private const string COMMON_ID = "{fab3c841-8891-4273-8bd1-50525845fea7}"; // shared_uuid
+		private const string COMMON_ID = "{fab3c841-8891-4273-8bd1-50525845fea7}"; // shared_uuid@g
 
 		private enum M_INDEX
 		{

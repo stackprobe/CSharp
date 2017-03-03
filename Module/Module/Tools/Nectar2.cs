@@ -8,7 +8,7 @@ namespace Charlotte.Tools
 {
 	public class Nectar2 : IDisposable
 	{
-		private const string COMMON_ID = "{8cf92c5e-c4f7-4867-9e1a-5371bb53aa63}"; // shared_uuid
+		private const string COMMON_ID = "{8cf92c5e-c4f7-4867-9e1a-5371bb53aa63}"; // shared_uuid@g
 
 		public enum E_INDEX
 		{
@@ -29,7 +29,7 @@ namespace Charlotte.Tools
 		private NamedEventObject[] _evs;
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="ident">名前付きイベント名に使うので注意！</param>
 		public Nectar2(string ident)
