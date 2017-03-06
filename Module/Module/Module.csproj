@@ -95,6 +95,7 @@
     <Compile Include="Tools\Rect.cs" />
     <Compile Include="Tools\RectTable.cs" />
     <Compile Include="Tools\StringTools.cs" />
+    <Compile Include="Tools\WorkingDir.cs" />
     <Compile Include="Tools\XNode.cs" />
     <Compile Include="Tools\XYPoint.cs" />
   </ItemGroup>

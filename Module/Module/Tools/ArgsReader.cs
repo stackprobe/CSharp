@@ -10,6 +10,12 @@ namespace Charlotte.Tools
 		private string[] _args;
 		private int _index = 0;
 
+		public ArgsReader()
+		{
+			_args = Environment.GetCommandLineArgs();
+			_index = 1;
+		}
+
 		public ArgsReader(string[] args)
 		{
 			_args = args;

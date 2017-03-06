@@ -30,11 +30,6 @@ namespace Charlotte.Tools
 				do
 				{
 					chr = _reader.Read();
-
-					if (chr == '\r') // test
-					{
-						"".ToString();
-					}
 				}
 				while (chr == '\r');
 
