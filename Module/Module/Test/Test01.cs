@@ -44,6 +44,9 @@ namespace Charlotte.Test
 			Console.WriteLine(Path.GetFullPath("\\\\mimiko\\pub\\abc\\\\..")); // -> "\\\\mimiko\\pub"
 			Console.WriteLine(Path.GetFullPath("\\\\mimiko\\pub\\abc\\.\\")); // -> "\\\\mimiko\\pub\\abc\\"
 			Console.WriteLine(Path.GetFullPath("\\\\mimiko\\pub\\abc\\..\\")); // -> "\\\\mimiko\\pub\\"
+
+			//Directory.GetFiles(@"C:\存在しないDir_wefojwefowefuvkjnsdvl"); // -> ex
+			//Directory.GetDirectories(@"C:\存在しないDir_wefojwefowefuvkjnsdvl"); // -> ex
 		}
 	}
 }
