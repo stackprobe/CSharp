@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Windows.Forms;
+using Charlotte.Tools;
 
 namespace Charlotte
 {
@@ -13,9 +14,12 @@ namespace Charlotte
 
 		public static void WriteLine(object obj)
 		{
+			if (Gnd.DebugMode == false)
+				return;
+
 			try
 			{
-				using (StreamWriter sw = new StreamWriter(@"C:\temp\FatCalc.log", _wrote, Encoding.UTF8))
+				using (StreamWriter sw = new StreamWriter(LogFile, _wrote, Encoding.UTF8))
 				{
 					sw.WriteLine("[" + DateTime.Now + "] " + obj);
 				}
@@ -24,6 +28,14 @@ namespace Charlotte
 			catch (Exception e)
 			{
 				MessageBox.Show("" + e);
+			}
+		}
+
+		private static string LogFile
+		{
+			get
+			{
+				return Path.Combine(BootTools.SelfDir, Path.GetFileNameWithoutExtension(BootTools.SelfFile) + ".log");
 			}
 		}
 	}

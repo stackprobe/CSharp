@@ -458,9 +458,7 @@ namespace Charlotte
 				}
 				catch (Exception ex)
 				{
-					if (Gnd.DebugMode)
-						Logger.WriteLine(ex);
-
+					Logger.WriteLine(ex);
 					Gnd.ErrorMessage = ex.Message;
 				}
 			});
@@ -513,9 +511,7 @@ namespace Charlotte
 				}
 				catch (Exception ex)
 				{
-					if (Gnd.DebugMode)
-						Logger.WriteLine(ex);
-
+					Logger.WriteLine(ex);
 					Gnd.ErrorMessage = ex.Message;
 				}
 			});
@@ -554,9 +550,7 @@ namespace Charlotte
 				}
 				catch (Exception ex)
 				{
-					if (Gnd.DebugMode)
-						Logger.WriteLine(ex);
-
+					Logger.WriteLine(ex);
 					Gnd.ErrorMessage = ex.Message;
 				}
 			});
