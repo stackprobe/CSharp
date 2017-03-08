@@ -47,6 +47,17 @@ namespace Charlotte.Test
 
 			//Directory.GetFiles(@"C:\存在しないDir_wefojwefowefuvkjnsdvl"); // -> ex
 			//Directory.GetDirectories(@"C:\存在しないDir_wefojwefowefuvkjnsdvl"); // -> ex
+
+			//Directory.Delete(@"C:\temp\123");
+			//Directory.Delete(@"C:\temp\123"); // 存在しなければ -> ex
+			Directory.CreateDirectory(@"C:\temp\123");
+			Directory.CreateDirectory(@"C:\temp\123"); // 存在したら何もせず続行
+			Directory.Delete(@"C:\temp\123");
+
+			Console.WriteLine("" + Directory.Exists(null)); // -> false
+			Console.WriteLine("" + Directory.Exists("")); // -> false
+			Console.WriteLine("" + File.Exists(null)); // -> false
+			Console.WriteLine("" + File.Exists("")); // -> false
 		}
 	}
 }
