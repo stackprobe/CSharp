@@ -113,6 +113,7 @@ namespace Charlotte.Tools
 		}
 
 		// ls* -- 相対パスの場合、戻り値のリストも相対パスになる。
+		// -- 存在しないディレクトリの場合、例外を投げる。
 
 		public static string[] lsFiles(string dir)
 		{

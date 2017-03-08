@@ -83,6 +83,7 @@
     <Compile Include="Tools\DateToDay.cs" />
     <Compile Include="Tools\DoubleTools.cs" />
     <Compile Include="Tools\Ended.cs" />
+    <Compile Include="Tools\ExceptionCarrier.cs" />
     <Compile Include="Tools\FaultOperation.cs" />
     <Compile Include="Tools\FileTools.cs" />
     <Compile Include="Tools\IntTools.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="Tools\NamedEventObject.cs" />
     <Compile Include="Tools\NamedEventPair.cs" />
     <Compile Include="Tools\Nectar2.cs" />
+    <Compile Include="Tools\ProcessTools.cs" />
     <Compile Include="Tools\Rect.cs" />
     <Compile Include="Tools\RectTable.cs" />
     <Compile Include="Tools\StringTools.cs" />

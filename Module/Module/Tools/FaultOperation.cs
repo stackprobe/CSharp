@@ -18,6 +18,8 @@ namespace Charlotte.Tools
 
 		public static void caught(Exception e, string title = Program.APP_TITLE)
 		{
+			e = getCarried(e);
+
 			if (e is Completed)
 			{
 				MessageBox.Show(
@@ -58,6 +60,15 @@ namespace Charlotte.Tools
 					MessageBoxIcon.Error
 					);
 			}
+		}
+
+		public static Exception getCarried(Exception e)
+		{
+			while (e != null && e is ExceptionCarrier && e.InnerException != null)
+			{
+				e = e.InnerException;
+			}
+			return e;
 		}
 
 		public static string getMessage(Exception e)

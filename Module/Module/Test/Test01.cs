@@ -58,6 +58,16 @@ namespace Charlotte.Test
 			Console.WriteLine("" + Directory.Exists("")); // -> false
 			Console.WriteLine("" + File.Exists(null)); // -> false
 			Console.WriteLine("" + File.Exists("")); // -> false
+
+			Console.WriteLine("" + Path.GetExtension("abc.txt.extent")); // -> ".extent"
+			Console.WriteLine("" + Path.GetExtension("abc.txt")); // -> ".txt"
+			Console.WriteLine("" + Path.GetExtension("abc")); // -> ""
+			Console.WriteLine("" + Path.GetExtension(".abc")); // -> ".abc"
+			Console.WriteLine("" + Path.GetExtension("")); // -> ""
+			Console.WriteLine("" + Path.GetExtension(null)); // -> null
+			Console.WriteLine("" + Path.GetExtension(@"C:\abc.def\")); // -> ""
+			Console.WriteLine("" + Path.GetExtension(@"C:\abc.def\.")); // -> ""
+			Console.WriteLine("" + Path.GetExtension(@"C:\abc.def\.abc")); // -> ".abc"
 		}
 	}
 }

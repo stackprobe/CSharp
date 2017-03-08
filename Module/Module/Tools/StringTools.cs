@@ -173,5 +173,30 @@ namespace Charlotte.Tools
 		{
 			return ArrayTools.arrComp<byte>(encoding.GetBytes(a), encoding.GetBytes(b), BinaryTools.comp);
 		}
+
+		public static string toFormat(string str, bool antiRepeat = false)
+		{
+			str = replace(str, DIGIT, '9');
+			str = replace(str, ALPHA, 'A');
+			str = replace(str, alpha, 'a');
+
+			if (antiRepeat)
+			{
+				str = replaceLoop(str, "99", "9", 20);
+				str = replaceLoop(str, "AA", "A", 20);
+				str = replaceLoop(str, "aa", "a", 20);
+			}
+			return str;
+		}
+
+		public static string toDigitFormat(string str, bool antiRepeat = false)
+		{
+			str = replace(str, DIGIT, '9');
+
+			if (antiRepeat)
+				str = replaceLoop(str, "99", "9", 20);
+
+			return str;
+		}
 	}
 }
