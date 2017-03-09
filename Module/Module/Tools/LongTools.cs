@@ -19,5 +19,10 @@ namespace Charlotte.Tools
 			}
 			return 0;
 		};
+
+		public static bool isRange(long value, long minval, long maxval)
+		{
+			return minval <= value && value <= maxval;
+		}
 	}
 }

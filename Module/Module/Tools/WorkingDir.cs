@@ -43,7 +43,7 @@ namespace Charlotte.Tools
 			{
 				string dir = _dir;
 				_dir = null;
-				FileTools.deletePath(_dir);
+				FileTools.deletePath(dir);
 			}
 		}
 	}

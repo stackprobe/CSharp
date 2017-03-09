@@ -7,6 +7,9 @@ using System.IO;
 
 namespace Charlotte.Tools
 {
+	/// <summary>
+	/// バッチなので、"%" -> "%%"
+	/// </summary>
 	public class ProcessTools
 	{
 		public static void runOnBatch(string line, string dir = null)
