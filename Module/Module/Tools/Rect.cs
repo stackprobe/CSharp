@@ -37,7 +37,7 @@ namespace Charlotte.Tools
 			return new Rect(this);
 		}
 
-		public static Rect ltrb(int l, int t, int r, int b)
+		public static Rect ltrb(double l, double t, double r, double b)
 		{
 			return new Rect(l, t, r - l, b - t);
 		}

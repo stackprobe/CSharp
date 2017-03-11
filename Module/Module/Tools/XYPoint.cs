@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 
 namespace Charlotte.Tools
 {
@@ -16,6 +17,10 @@ namespace Charlotte.Tools
 
 		public XYPoint(XYPoint p)
 			: this(p.x, p.y)
+		{ }
+
+		public XYPoint(Point p)
+			: this((double)p.X, (double)p.Y)
 		{ }
 
 		public XYPoint(double x, double y)
