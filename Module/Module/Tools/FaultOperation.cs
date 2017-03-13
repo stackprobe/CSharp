@@ -16,8 +16,12 @@ namespace Charlotte.Tools
 			: base(message, e)
 		{ }
 
+		public static bool caughting = false;
+
 		public static void caught(Exception e, string title = Program.APP_TITLE)
 		{
+			caughting = true;
+
 			e = getCarried(e);
 
 			if (e is Completed)
@@ -60,6 +64,7 @@ namespace Charlotte.Tools
 					MessageBoxIcon.Error
 					);
 			}
+			caughting = false;
 		}
 
 		public static Exception getCarried(Exception e)
