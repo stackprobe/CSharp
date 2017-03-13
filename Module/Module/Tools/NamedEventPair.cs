@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Charlotte.Tools
 {
+	/// <summary>
+	/// thread safe
+	/// </summary>
 	public class NamedEventPair : IDisposable
 	{
 		private object SYNCROOT_evForSet = new object();

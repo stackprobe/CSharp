@@ -88,6 +88,7 @@
     <Compile Include="Tools\FileTools.cs" />
     <Compile Include="Tools\IntTools.cs" />
     <Compile Include="Tools\JString.cs" />
+    <Compile Include="Tools\Logger.cs" />
     <Compile Include="Tools\LongTools.cs" />
     <Compile Include="Tools\MutexObject.cs" />
     <Compile Include="Tools\NamedEventObject.cs" />

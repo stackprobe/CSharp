@@ -6,6 +6,8 @@ using System.Diagnostics;
 using Charlotte.Tools;
 using Charlotte.Test.Tools;
 using Charlotte.Test;
+using System.Reflection;
+using System.IO;
 
 namespace Charlotte
 {
@@ -14,8 +16,14 @@ namespace Charlotte
 		public const string APP_IDENT = "{b85575ee-4b6f-4501-874f-7aeff90c4019}";
 		public const string APP_TITLE = "Module";
 
+		public static string selfDir;
+		public static string selfFile;
+
 		static void Main(string[] args)
 		{
+			selfFile = Assembly.GetEntryAssembly().Location;
+			selfDir = Path.GetDirectoryName(selfFile);
+
 			try
 			{
 				main2();
