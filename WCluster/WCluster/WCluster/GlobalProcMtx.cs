@@ -9,7 +9,7 @@ namespace Charlotte
 	{
 		private static System.Threading.Mutex _globalProcMtx;
 
-		public static bool Create(string ident, string title)
+		public static bool create(string ident, string title)
 		{
 #if false
 			System.Security.AccessControl.MutexSecurity security = new System.Security.AccessControl.MutexSecurity();
@@ -71,7 +71,7 @@ namespace Charlotte
 #endif
 		}
 
-		public static void Release()
+		public static void release()
 		{
 			_globalProcMtx.ReleaseMutex();
 			_globalProcMtx.Close();

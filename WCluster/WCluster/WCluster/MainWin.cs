@@ -23,7 +23,15 @@ namespace Charlotte
 
 		private void MainWin_Shown(object sender, EventArgs e)
 		{
-			// noop
+			this.Visible = false;
+
+			// TODO
+
+			using (DebugWin f = new DebugWin()) // test
+			{
+				f.ShowDialog();
+			}
+			this.Close();
 		}
 
 		private void MainWin_FormClosing(object sender, FormClosingEventArgs e)

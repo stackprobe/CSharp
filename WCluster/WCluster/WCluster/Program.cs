@@ -6,6 +6,7 @@ using System.Threading;
 using Microsoft.Win32;
 using System.Text;
 using System.IO;
+using System.Reflection;
 
 namespace Charlotte
 {
@@ -17,18 +18,26 @@ namespace Charlotte
 		[STAThread]
 		static void Main()
 		{
-			BootTools.OnBoot();
+			onBoot();
 
-			Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
-			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
-			SystemEvents.SessionEnding += new SessionEndingEventHandler(SessionEnding);
+			Application.ThreadException += new ThreadExceptionEventHandler(applicationThreadException);
+			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(currentDomainUnhandledException);
+			SystemEvents.SessionEnding += new SessionEndingEventHandler(sessionEnding);
 
-			Mutex procMutex = new Mutex(false, "{5977e988-b117-40fc-84fd-abcd26701123}");
+			Mutex procMutex = new Mutex(false, APP_IDENT);
 
-			if (procMutex.WaitOne(0) && GlobalProcMtx.Create("{84fb2e71-9525-4edf-b774-e2a0052bd41a}", APP_TITLE))
+			if (procMutex.WaitOne(0) && GlobalProcMtx.create(APP_IDENT, APP_TITLE))
 			{
-				CheckSelfDir();
-				CheckCopiedExe();
+				checkSelfDir();
+				Directory.SetCurrentDirectory(selfDir);
+				checkAloneExe();
+				checkLogonUser();
+
+				Gnd.i.loadConf();
+				Gnd.i.loadData();
+
+				Directory.CreateDirectory(KeyCloset.closetDir);
+				Directory.CreateDirectory(KeyBundleCloset.closetDir);
 
 				// orig >
 
@@ -38,15 +47,18 @@ namespace Charlotte
 
 				// < orig
 
-				GlobalProcMtx.Release();
+				Gnd.i.saveData();
+
+				GlobalProcMtx.release();
 				procMutex.ReleaseMutex();
 			}
 			procMutex.Close();
 		}
 
+		public const string APP_IDENT = "{05e37315-7f8a-4f31-b869-802fd2437ae1}";
 		public const string APP_TITLE = "WCluster";
 
-		private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
+		private static void applicationThreadException(object sender, ThreadExceptionEventArgs e)
 		{
 			try
 			{
@@ -63,7 +75,7 @@ namespace Charlotte
 			Environment.Exit(1);
 		}
 
-		private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+		private static void currentDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
 		{
 			try
 			{
@@ -80,14 +92,23 @@ namespace Charlotte
 			Environment.Exit(2);
 		}
 
-		private static void SessionEnding(object sender, SessionEndingEventArgs e)
+		private static void sessionEnding(object sender, SessionEndingEventArgs e)
 		{
 			Environment.Exit(3);
 		}
 
-		private static void CheckSelfDir()
+		public static string selfFile;
+		public static string selfDir;
+
+		public static void onBoot()
 		{
-			string dir = BootTools.SelfDir;
+			selfFile = Assembly.GetEntryAssembly().Location;
+			selfDir = Path.GetDirectoryName(selfFile);
+		}
+
+		private static void checkSelfDir()
+		{
+			string dir = selfDir;
 			Encoding SJIS = Encoding.GetEncoding(932);
 
 			if (dir != SJIS.GetString(SJIS.GetBytes(dir)))
@@ -101,10 +122,10 @@ namespace Charlotte
 
 				Environment.Exit(4);
 			}
-			if (dir.StartsWith("\\\\"))
+			if (dir.Substring(1, 2) != ":\\")
 			{
 				MessageBox.Show(
-					"ネットワークフォルダからは実行できません。",
+					"ネットワークパスからは実行できません。",
 					APP_TITLE + " / エラー",
 					MessageBoxButtons.OK,
 					MessageBoxIcon.Error
@@ -114,7 +135,7 @@ namespace Charlotte
 			}
 		}
 
-		private static void CheckCopiedExe()
+		private static void checkAloneExe()
 		{
 			if (File.Exists("WCluster.sig")) // リリースに含まれるファイル
 				return;
@@ -130,6 +151,30 @@ namespace Charlotte
 				);
 
 			Environment.Exit(6);
+		}
+
+		private static void checkLogonUser()
+		{
+			string userName = Environment.GetEnvironmentVariable("UserName");
+			Encoding SJIS = Encoding.GetEncoding(932);
+
+			if (
+				userName == null ||
+				userName == "" ||
+				userName != SJIS.GetString(SJIS.GetBytes(userName)) ||
+				userName.StartsWith(" ") ||
+				userName.EndsWith(" ")
+				)
+			{
+				MessageBox.Show(
+					"Windows ログオンユーザー名に問題があります。",
+					APP_TITLE + " / エラー",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error
+					);
+
+				Environment.Exit(7);
+			}
 		}
 	}
 }
