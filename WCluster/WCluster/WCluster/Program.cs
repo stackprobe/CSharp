@@ -7,6 +7,7 @@ using Microsoft.Win32;
 using System.Text;
 using System.IO;
 using System.Reflection;
+using Charlotte.Tools;
 
 namespace Charlotte
 {
@@ -48,6 +49,8 @@ namespace Charlotte
 				// < orig
 
 				Gnd.i.saveData();
+
+				FileTools.clearTMP();
 
 				GlobalProcMtx.release();
 				procMutex.ReleaseMutex();

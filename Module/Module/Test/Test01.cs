@@ -68,6 +68,18 @@ namespace Charlotte.Test
 			Console.WriteLine("" + Path.GetExtension(@"C:\abc.def\")); // -> ""
 			Console.WriteLine("" + Path.GetExtension(@"C:\abc.def\.")); // -> ""
 			Console.WriteLine("" + Path.GetExtension(@"C:\abc.def\.abc")); // -> ".abc"
+
+			test01(false, false);
+			test01(false, true);
+			test01(true, false);
+			test01(true, true);
+		}
+
+		private void test01(bool f, bool g)
+		{
+			Console.WriteLine(f + ", " + g);
+			f |= g;
+			Console.WriteLine("f |= g; -> " + f);
 		}
 	}
 }
