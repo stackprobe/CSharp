@@ -128,7 +128,7 @@ namespace Charlotte.Tools
 			return r;
 		}
 
-		public List<T> getAllMatched(T ferret)
+		public List<T> getMatch(T ferret)
 		{
 			//sortIfNeed(); // -> leftIndexOf
 
