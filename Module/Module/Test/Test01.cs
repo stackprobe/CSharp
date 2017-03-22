@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Windows.Forms;
 
 namespace Charlotte.Test
 {
@@ -73,6 +74,8 @@ namespace Charlotte.Test
 			test01(false, true);
 			test01(true, false);
 			test01(true, true);
+
+			//test02(); // ie
 		}
 
 		private void test01(bool f, bool g)
@@ -80,6 +83,51 @@ namespace Charlotte.Test
 			Console.WriteLine(f + ", " + g);
 			f |= g;
 			Console.WriteLine("f |= g; -> " + f);
+		}
+
+		private void test02()
+		{
+			IEnumerator<object> ie = test02_getIE().GetEnumerator();
+
+			MessageBox.Show("go");
+			MessageBox.Show("ret_1: " + ie.MoveNext());
+			MessageBox.Show("ret_2: " + ie.MoveNext());
+			MessageBox.Show("ret_3: " + ie.MoveNext());
+			MessageBox.Show("ret_4: " + ie.MoveNext());
+
+			ie = test02_getIE_B().GetEnumerator();
+
+			try
+			{
+				MessageBox.Show("go_B");
+				MessageBox.Show("ret_1: " + ie.MoveNext());
+				MessageBox.Show("ret_2: " + ie.MoveNext());
+				MessageBox.Show("ret_3: " + ie.MoveNext());
+				MessageBox.Show("ret_4: " + ie.MoveNext());
+			}
+			catch
+			{
+				MessageBox.Show("caught");
+			}
+
+			MessageBox.Show("ret_e1: " + ie.MoveNext());
+			MessageBox.Show("ret_e2: " + ie.MoveNext());
+		}
+
+		private IEnumerable<object> test02_getIE()
+		{
+			MessageBox.Show("a");
+			yield return null;
+			MessageBox.Show("b");
+			yield return null;
+			MessageBox.Show("c");
+		}
+
+		private IEnumerable<object> test02_getIE_B()
+		{
+			MessageBox.Show("aa");
+			yield return null;
+			throw null;
 		}
 	}
 }
