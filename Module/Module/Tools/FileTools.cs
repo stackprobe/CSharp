@@ -19,10 +19,11 @@ namespace Charlotte.Tools
 		{
 			for (int c = 0; File.Exists(path) || Directory.Exists(path); c++)
 			{
-				if (10 <= c)
+				if (8 < c)
 					throw new Exception("[" + path + "] の削除に失敗しました。");
 
-				Thread.Sleep(c * 100);
+				if (0 < c)
+					Thread.Sleep(2000);
 
 				try
 				{
@@ -46,15 +47,15 @@ namespace Charlotte.Tools
 		{
 			if (_tmp == null)
 			{
-				string tmp = getTMP_EnvName("TMP");
+				string tmp = getTMP_envName("TMP");
 
 				if (tmp == null)
 				{
-					tmp = getTMP_EnvName("TEMP");
+					tmp = getTMP_envName("TEMP");
 
 					if (tmp == null)
 					{
-						tmp = getTMP_EnvName("ProgramData");
+						tmp = getTMP_envName("ProgramData");
 
 						if (tmp == null)
 							throw null;
@@ -69,14 +70,24 @@ namespace Charlotte.Tools
 					}
 				}
 				tmp = Path.Combine(tmp, Program.APP_IDENT);
-				deletePath(tmp);
+
+				for (int c = 0; ; c++)
+				{
+					string trialTmp = Path.Combine(tmp, StringTools.zPad(c, 4));
+
+					if (Directory.Exists(trialTmp) == false)
+					{
+						tmp = trialTmp;
+						break;
+					}
+				}
 				Directory.CreateDirectory(tmp);
 				_tmp = tmp;
 			}
 			return _tmp;
 		}
 
-		private static string getTMP_EnvName(string envName)
+		private static string getTMP_envName(string envName)
 		{
 			string tmp = Environment.GetEnvironmentVariable(envName);
 
@@ -97,14 +108,42 @@ namespace Charlotte.Tools
 		{
 			if (_tmp != null)
 			{
-				deletePath(_tmp);
+				clearTMP_main();
 				_tmp = null;
 			}
 		}
 
+		private static void clearTMP_main()
+		{
+			string tmpsDir = Path.GetDirectoryName(_tmp);
+			string tmp0 = Path.Combine(tmpsDir, "dead");
+
+			deletePath(tmp0);
+
+			foreach (string dir in Directory.GetDirectories(tmpsDir))
+			{
+				try
+				{
+					Directory.Move(dir, tmp0);
+				}
+				catch
+				{
+					return;
+				}
+				if (Directory.Exists(dir))
+					return;
+
+				if (Directory.Exists(tmp0) == false)
+					return;
+
+				deletePath(tmp0);
+			}
+			deletePath(tmpsDir);
+		}
+
 		public static string getProgramData()
 		{
-			string dir = getTMP_EnvName("ProgramData");
+			string dir = getTMP_envName("ProgramData");
 
 			if (dir == null)
 				throw null;
@@ -135,15 +174,15 @@ namespace Charlotte.Tools
 			return Directory.GetDirectories(dir, "*", SearchOption.AllDirectories);
 		}
 
-		public static string changeRoot(string path, string rootOld, string rootNew)
+		public static string changeRoot(string path, string oldRoot, string rootNew)
 		{
-			rootOld = putYen(rootOld);
+			oldRoot = putYen(oldRoot);
 			rootNew = putYen(rootNew);
 
-			if (StringTools.startsWithIgnoreCase(path, rootOld) == false)
-				throw new Exception("[" + path + "] のルートは [" + rootOld + "] ではありません。");
+			if (StringTools.startsWithIgnoreCase(path, oldRoot) == false)
+				throw null;
 
-			return rootNew + path.Substring(rootOld.Length);
+			return rootNew + path.Substring(oldRoot.Length);
 		}
 
 		public static string putYen(string path)

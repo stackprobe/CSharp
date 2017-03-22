@@ -41,6 +41,11 @@ namespace Charlotte.Tools
 			}
 		}
 
+		public void waitForever()
+		{
+			waitForMillis(-1);
+		}
+
 		public void Dispose()
 		{
 			if (_evForSet != null)

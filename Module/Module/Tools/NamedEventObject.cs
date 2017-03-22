@@ -30,6 +30,11 @@ namespace Charlotte.Tools
 			return _ev.WaitOne(millis);
 		}
 
+		public void waitForever()
+		{
+			waitForMillis(-1);
+		}
+
 		public void Dispose()
 		{
 			if (_ev != null)

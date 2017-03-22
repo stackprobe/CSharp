@@ -15,14 +15,14 @@ namespace Charlotte.Tools
 			_m = new Mutex(false, name);
 		}
 
-		public void waitForever()
-		{
-			_m.WaitOne();
-		}
-
 		public bool waitForMillis(int millis)
 		{
 			return _m.WaitOne(millis);
+		}
+
+		public void waitForever()
+		{
+			_m.WaitOne();
 		}
 
 		public void release()
@@ -39,48 +39,31 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public class Section : IDisposable
+		public static EnterLeave section(MutexObject m)
 		{
-			private MutexObject _m;
-			private bool _auto;
-
-			public Section(MutexObject m)
+			return new EnterLeave(delegate
 			{
-				_m = m;
-
-				doLock();
-			}
-
-			public Section(string name)
+				m.waitForever();
+			},
+			delegate
 			{
-				_m = new MutexObject(name);
-				_auto = true;
+				m.release();
+			});
+		}
 
-				doLock();
-			}
+		public static EnterLeave section(string name)
+		{
+			MutexObject m = new MutexObject(name);
 
-			private void doLock()
+			return new EnterLeave(delegate
 			{
-				_m.waitForever();
-			}
-
-			private void doUnlock()
+				m.waitForever();
+			},
+			delegate
 			{
-				_m.release();
-			}
-
-			public void Dispose()
-			{
-				if (_m != null)
-				{
-					doUnlock();
-
-					if (_auto)
-						_m.Dispose();
-
-					_m = null;
-				}
-			}
+				m.release();
+				m.Dispose();
+			});
 		}
 	}
 }

@@ -127,7 +127,7 @@ namespace Charlotte.Tools
 			return Encoding.UTF8.GetString(decodeBase64(str));
 		}
 
-		public static string encodeLines(string[] lines)
+		public static string encodeLines(params string[] lines)
 		{
 			List<string> tokens = new List<string>();
 
@@ -192,6 +192,16 @@ namespace Charlotte.Tools
 		public static string toDigitFormat(string str, bool antiRepeat = false)
 		{
 			str = replace(str, DIGIT, '9');
+
+			if (antiRepeat)
+				str = replaceLoop(str, "99", "9", 20);
+
+			return str;
+		}
+
+		public static string toHexFormat(string str, bool antiRepeat = false)
+		{
+			str = replace(str, HEXADECIMAL + hexadecimal, '9');
 
 			if (antiRepeat)
 				str = replaceLoop(str, "99", "9", 20);

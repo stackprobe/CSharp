@@ -39,13 +39,15 @@ namespace Charlotte
 
 		private static void main2()
 		{
-			new Test01().main01();
+			//new Test01().main01();
 			//new FileToolsTest().test01();
 			//new FileToolsTest().test02();
 			//new DateToDayTest().test01();
 			//new DateTimeToSecTest().test01();
 			//new FaultOperationTest().test01();
 			//new CsvFileTest().test01();
+			//new EnterLeaveTest().test01();
+			new SortedListTest().test01();
 		}
 	}
 }
