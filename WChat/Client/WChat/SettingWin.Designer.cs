@@ -119,6 +119,7 @@
 			this.ErrProv = new System.Windows.Forms.ErrorProvider(this.components);
 			this.BtnCancel = new System.Windows.Forms.Button();
 			this.BtnOk = new System.Windows.Forms.Button();
+			this.FileSvVisibleHomeDirOnly = new System.Windows.Forms.CheckBox();
 			this.MainTab.SuspendLayout();
 			this.接続Tab.SuspendLayout();
 			this.ファイル転送Tab.SuspendLayout();
@@ -283,6 +284,7 @@
 			// 
 			// ファイル転送Tab
 			// 
+			this.ファイル転送Tab.Controls.Add(this.FileSvVisibleHomeDirOnly);
 			this.ファイル転送Tab.Controls.Add(this.NamedTrackPort_Memo);
 			this.ファイル転送Tab.Controls.Add(this.FileSvRecvPort_Memo);
 			this.ファイル転送Tab.Controls.Add(this.Btn_B_TextColor);
@@ -1131,6 +1133,16 @@
 			this.BtnOk.UseVisualStyleBackColor = true;
 			this.BtnOk.Click += new System.EventHandler(this.BtnOk_Click);
 			// 
+			// FileSvVisibleHomeDirOnly
+			// 
+			this.FileSvVisibleHomeDirOnly.AutoSize = true;
+			this.FileSvVisibleHomeDirOnly.Location = new System.Drawing.Point(25, 387);
+			this.FileSvVisibleHomeDirOnly.Name = "FileSvVisibleHomeDirOnly";
+			this.FileSvVisibleHomeDirOnly.Size = new System.Drawing.Size(314, 24);
+			this.FileSvVisibleHomeDirOnly.TabIndex = 16;
+			this.FileSvVisibleHomeDirOnly.Text = "ホームディレクトリ以外は見えないようにする。";
+			this.FileSvVisibleHomeDirOnly.UseVisualStyleBackColor = true;
+			// 
 			// SettingWin
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -1265,5 +1277,6 @@
 		private System.Windows.Forms.Label label9;
 		private System.Windows.Forms.TextBox TripKey;
 		private System.Windows.Forms.CheckBox TimeLineWordWrap;
+		private System.Windows.Forms.CheckBox FileSvVisibleHomeDirOnly;
 	}
 }

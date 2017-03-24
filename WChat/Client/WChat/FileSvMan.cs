@@ -44,6 +44,7 @@ namespace Charlotte
 				" /CB #" + DataConv.GetString(Gnd.I.Sd.B_BackColor) +
 				" /CT #" + DataConv.GetString(Gnd.I.Sd.B_TextColor) +
 				" /DD \"" + Gnd.I.Sd.FileSvHomeDir + "\" " +
+				(Gnd.I.Sd.FileSvVisibleHomeDirOnly ? "/VDDO " : "") +
 				Gnd.I.Sd.FileSvRecvPort
 				);
 			this.LastIdentPort = Gnd.I.Sd.FileSvRecvPort;

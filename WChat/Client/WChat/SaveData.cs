@@ -82,6 +82,7 @@ namespace Charlotte
 		public Color B_LinkColor = DataConv.GetColor("0080ff");
 		public Color B_BackColor = DataConv.GetColor("ffffff");
 		public Color B_TextColor = DataConv.GetColor("000000");
+		public bool FileSvVisibleHomeDirOnly;
 
 		public Color MemberListBackColor = DataConv.GetColor("fdfeec");//Color.White;
 		public FontMan MemberListFont = new FontMan(Color.Black);

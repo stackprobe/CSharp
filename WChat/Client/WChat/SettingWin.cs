@@ -169,6 +169,7 @@ namespace Charlotte
 				this.B_LinkColor.Enabled = flag;
 				this.B_BackColor.Enabled = flag;
 				this.B_TextColor.Enabled = flag;
+				this.FileSvVisibleHomeDirOnly.Enabled = flag;
 			}
 
 			{
