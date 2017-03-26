@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace Charlotte
 {
-	public partial class DebugWin : Form
+	public partial class TestWin : Form
 	{
-		public DebugWin()
+		public TestWin()
 		{
 			InitializeComponent();
 		}

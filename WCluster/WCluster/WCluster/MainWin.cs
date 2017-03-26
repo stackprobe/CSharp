@@ -27,7 +27,7 @@ namespace Charlotte
 
 			// TODO
 
-			using (DebugWin f = new DebugWin()) // test
+			using (TestWin f = new TestWin()) // test
 			{
 				f.ShowDialog();
 			}

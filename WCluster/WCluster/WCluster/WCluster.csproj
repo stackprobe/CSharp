@@ -58,11 +58,11 @@
       <DependentUpon>CompressMainDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="Consts.cs" />
-    <Compile Include="DebugWin.cs">
+    <Compile Include="TestWin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DebugWin.Designer.cs">
-      <DependentUpon>DebugWin.cs</DependentUpon>
+    <Compile Include="TestWin.Designer.cs">
+      <DependentUpon>TestWin.cs</DependentUpon>
     </Compile>
     <Compile Include="DecompressMainDlg.cs">
       <SubType>Form</SubType>
@@ -163,8 +163,8 @@
     <EmbeddedResource Include="CompressMainDlg.resx">
       <DependentUpon>CompressMainDlg.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DebugWin.resx">
-      <DependentUpon>DebugWin.cs</DependentUpon>
+    <EmbeddedResource Include="TestWin.resx">
+      <DependentUpon>TestWin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DecompressMainDlg.resx">
       <DependentUpon>DecompressMainDlg.cs</DependentUpon>
