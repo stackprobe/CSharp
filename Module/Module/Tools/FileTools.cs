@@ -287,14 +287,8 @@ namespace Charlotte.Tools
 		{
 			Queue<string> dirq = new Queue<string>();
 
-			dirq.Enqueue(rDir);
-			dirq.Enqueue(wDir);
-
-			while (1 <= dirq.Count)
+			for (; ; )
 			{
-				rDir = dirq.Dequeue();
-				wDir = dirq.Dequeue();
-
 				Directory.CreateDirectory(wDir);
 
 				foreach (string dir in FileTools.lsDirs(rDir))
@@ -306,6 +300,12 @@ namespace Charlotte.Tools
 				{
 					File.Copy(file, Path.Combine(wDir, Path.GetFileName(file)));
 				}
+				if (dirq.Count == 0)
+				{
+					break;
+				}
+				rDir = dirq.Dequeue();
+				wDir = dirq.Dequeue();
 			}
 		}
 	}

@@ -54,5 +54,15 @@ namespace Charlotte.Tools
 
 			return dest;
 		}
+
+		public static T[] toArray<T>(List<T> list)
+		{
+			T[] dest = new T[list.Count];
+
+			for (int index = 0; index < dest.Length; index++)
+				dest[index] = list[index];
+
+			return dest;
+		}
 	}
 }
