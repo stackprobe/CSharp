@@ -39,18 +39,6 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public static EnterLeave section(MutexObject m)
-		{
-			return new EnterLeave(delegate
-			{
-				m.waitForever();
-			},
-			delegate
-			{
-				m.release();
-			});
-		}
-
 		public static EnterLeave section(string name)
 		{
 			MutexObject m = new MutexObject(name);
@@ -63,6 +51,30 @@ namespace Charlotte.Tools
 			{
 				m.release();
 				m.Dispose();
+			});
+		}
+
+		public static EnterLeave section(MutexObject m)
+		{
+			return new EnterLeave(delegate
+			{
+				m.waitForever();
+			},
+			delegate
+			{
+				m.release();
+			});
+		}
+
+		public static EnterLeave deadSection(MutexObject m)
+		{
+			return new EnterLeave(delegate
+			{
+				m.release();
+			},
+			delegate
+			{
+				m.waitForever();
 			});
 		}
 	}

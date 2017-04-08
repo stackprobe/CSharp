@@ -257,6 +257,14 @@ namespace Charlotte.Tools
 				}
 			}
 
+			public int delimiter
+			{
+				get
+				{
+					return _delimiter;
+				}
+			}
+
 			public void Dispose()
 			{
 				if (_n != null)
@@ -269,6 +277,62 @@ namespace Charlotte.Tools
 					_n.Dispose();
 					_n = null;
 				}
+			}
+		}
+
+		public class Wrapper : IDisposable
+		{
+			public Wrapper(Sender sender, Recver recver)
+				: this(sender, recver, StringTools.ENCODING_SJIS)
+			{ }
+
+			private Sender _sender;
+			private Recver _recver;
+			private Encoding _encoding;
+
+			public Wrapper(Sender sender_bind, Recver recver_bind, Encoding encoding)
+			{
+				_sender = sender_bind;
+				_recver = recver_bind;
+				_encoding = encoding;
+			}
+
+			public void sendLine(string line)
+			{
+				_sender.send(_encoding.GetBytes(line));
+				_sender.send(new byte[] { (byte)_recver.delimiter });
+			}
+
+			public string recvLine(string defval = null)
+			{
+				byte[] message = _recver.recv();
+
+				if (message == null)
+					return defval;
+
+				return _encoding.GetString(message);
+			}
+
+			public void waitForBusySending()
+			{
+				int millis = 0;
+
+				while (_sender.isBusy())
+				{
+					if (millis < 200)
+						millis++;
+
+					Thread.Sleep(millis);
+				}
+			}
+
+			public void Dispose()
+			{
+				_sender.Dispose();
+				_sender = null;
+
+				_recver.Dispose();
+				_recver = null;
 			}
 		}
 	}
