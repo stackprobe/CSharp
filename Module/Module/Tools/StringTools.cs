@@ -99,7 +99,7 @@ namespace Charlotte.Tools
 
 		public static bool toFlag(string str)
 		{
-			return equalsIgnoreCase(str, S_TRUE);
+			return equalsIgnoreCase(str, S_TRUE) || str == "1";
 		}
 
 		public static string toString(bool flag)
@@ -148,6 +148,48 @@ namespace Charlotte.Tools
 				lines[index] = decode(tokens[index]);
 
 			return lines;
+		}
+
+		public static string escape(string str)
+		{
+			StringBuilder buff = new StringBuilder();
+
+			foreach (char chr in str)
+			{
+				if (chr <= ' ' || chr == '$')
+				{
+					buff.Append('$');
+					buff.Append(hexadecimal[(int)chr / 16]);
+					buff.Append(hexadecimal[(int)chr % 16]);
+				}
+				else
+				{
+					buff.Append(chr);
+				}
+			}
+			return buff.ToString();
+		}
+
+		public static string unescape(string str)
+		{
+			StringBuilder buff = new StringBuilder();
+
+			for (int index = 0; index < str.Length; index++)
+			{
+				if (str[index] == '$')
+				{
+					buff.Append((char)(
+						hexadecimal.IndexOf(str[index + 1]) * 16 +
+						hexadecimal.IndexOf(str[index + 2])
+						));
+					index += 2;
+				}
+				else
+				{
+					buff.Append(str[index]);
+				}
+			}
+			return buff.ToString();
 		}
 
 		public static Comparison<string> comp = delegate(string a, string b)

@@ -46,7 +46,7 @@ namespace Charlotte.Tools
 		{
 			if (ReflecTools.equals(fi, typeof(string)))
 			{
-				return StringTools.encode((string)src);
+				return StringTools.escape((string)src);
 			}
 			if (ReflecTools.equals(fi, typeof(int)))
 			{
@@ -67,7 +67,7 @@ namespace Charlotte.Tools
 		{
 			if (ReflecTools.equals(fi, typeof(string)))
 			{
-				return StringTools.decode(src);
+				return StringTools.unescape(src);
 			}
 			if (ReflecTools.equals(fi, typeof(int)))
 			{
