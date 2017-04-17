@@ -315,6 +315,8 @@ namespace Charlotte.Tools
 
 			public void waitForBusySending()
 			{
+				// memo: ビットの送信タイムアウトで送信バッファがクリアされるので、永久に待ち続けることは無いだろう..
+
 				int millis = 0;
 
 				while (_sender.isBusy())

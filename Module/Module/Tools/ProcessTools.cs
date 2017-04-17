@@ -43,27 +43,5 @@ namespace Charlotte.Tools
 				}
 			}
 		}
-
-		public static Process startOnBatch(string line, string dir, string batch)
-		{
-			return startOnBatch(new string[] { line }, dir, batch);
-		}
-
-		public static Process startOnBatch(string[] lines, string dir, string batch)
-		{
-			File.WriteAllLines(batch, lines, StringTools.ENCODING_SJIS);
-
-			{
-				ProcessStartInfo psi = new ProcessStartInfo();
-
-				psi.FileName = "cmd.exe";
-				psi.Arguments = "/C " + batch;
-				psi.CreateNoWindow = true;
-				psi.UseShellExecute = false;
-				psi.WorkingDirectory = dir;
-
-				return Process.Start(psi);
-			}
-		}
 	}
 }

@@ -89,6 +89,7 @@
     <Compile Include="Tools\Ended.cs" />
     <Compile Include="Tools\EnterLeave.cs" />
     <Compile Include="Tools\ExceptionCarrier.cs" />
+    <Compile Include="Tools\ExtraTools.cs" />
     <Compile Include="Tools\FaultOperation.cs" />
     <Compile Include="Tools\FieldsSerializer.cs" />
     <Compile Include="Tools\FileTools.cs" />
@@ -101,6 +102,7 @@
     <Compile Include="Tools\NamedEventObject.cs" />
     <Compile Include="Tools\NamedEventPair.cs" />
     <Compile Include="Tools\Nectar2.cs" />
+    <Compile Include="Tools\OperationCenter.cs" />
     <Compile Include="Tools\PostBox.cs" />
     <Compile Include="Tools\PostQueue.cs" />
     <Compile Include="Tools\ProcessTools.cs" />
@@ -110,6 +112,7 @@
     <Compile Include="Tools\SecurityTools.cs" />
     <Compile Include="Tools\SortedList.cs" />
     <Compile Include="Tools\StringTools.cs" />
+    <Compile Include="Tools\ThreadCenter.cs" />
     <Compile Include="Tools\WorkingDir.cs" />
     <Compile Include="Tools\XNode.cs" />
     <Compile Include="Tools\XYPoint.cs" />

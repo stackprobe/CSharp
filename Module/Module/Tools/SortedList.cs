@@ -16,6 +16,12 @@ namespace Charlotte.Tools
 			_comp = comp;
 		}
 
+		public void clear()
+		{
+			_list.Clear();
+			_sorted = true;
+		}
+
 		public void add(T element)
 		{
 			_list.Add(element);

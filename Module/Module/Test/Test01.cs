@@ -76,6 +76,16 @@ namespace Charlotte.Test
 			test01(true, true);
 
 			//test02(); // ie
+
+			Console.WriteLine("" + Path.GetFileName(@"C:\abc\def"));
+			Console.WriteLine("" + Path.GetFileName(@"C:\abc"));
+			Console.WriteLine("" + Path.GetFileName(@"C:\"));
+			Console.WriteLine("" + Path.GetFileName(@"\\host\abc\def"));
+			Console.WriteLine("" + Path.GetFileName(@"\\host\abc"));
+			Console.WriteLine("" + Path.GetFileName(@"\\host\"));
+			Console.WriteLine("" + Path.GetFileName(@"\\host"));
+
+			//File.Copy(@"C:\var\月姫リメイクop.mp3", @"C:\temp\111\222\333\aaa\bbb\ccc\def.mp3"); // コピー咲の親dir無し -> ex -- コピー咲の親dirまでは作ってくれなかった。
 		}
 
 		private void test01(bool f, bool g)

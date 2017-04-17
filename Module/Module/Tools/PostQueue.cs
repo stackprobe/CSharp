@@ -38,5 +38,13 @@ namespace Charlotte.Tools
 				return _q.Dequeue();
 			}
 		}
+
+		public int getCount()
+		{
+			lock (SYNCROOT)
+			{
+				return _q.Count;
+			}
+		}
 	}
 }
