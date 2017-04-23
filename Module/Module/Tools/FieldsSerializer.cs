@@ -32,13 +32,14 @@ namespace Charlotte.Tools
 			{
 				FieldInfo fi = ReflecTools.getField(dest, src[index]);
 				string value = src[index + 1];
+				object objval;
 
 				if (value == "null")
-					value = null;
+					objval = null;
 				else
-					value = value.Substring(1);
+					objval = getObject(fi, value.Substring(1));
 
-				ReflecTools.setValue(fi, dest, getObject(fi, value));
+				ReflecTools.setValue(fi, dest, objval);
 			}
 		}
 
@@ -59,6 +60,10 @@ namespace Charlotte.Tools
 			if (ReflecTools.equals(fi, typeof(bool)))
 			{
 				return StringTools.toString((bool)src);
+			}
+			if (ReflecTools.equalsOrBase(fi, typeof(Serializable)))
+			{
+				return StringTools.encodeLines(serialize(src));
 			}
 			throw new Exception("そんなタイプ知りません：" + fi);
 		}
@@ -81,7 +86,16 @@ namespace Charlotte.Tools
 			{
 				return StringTools.toFlag(src);
 			}
+			if (ReflecTools.equalsOrBase(fi, typeof(Serializable)))
+			{
+				object dest = fi.FieldType.InvokeMember(null, BindingFlags.CreateInstance, null, null, null);
+				deserialize(dest, StringTools.decodeLines(src));
+				return dest;
+			}
 			throw new Exception("そんなタイプ知りません：" + fi);
 		}
+
+		public interface Serializable
+		{ }
 	}
 }

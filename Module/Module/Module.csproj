@@ -70,7 +70,7 @@
     <Compile Include="Test\Tools\DateTimeToSecTest.cs" />
     <Compile Include="Test\Tools\DateToDayTest.cs" />
     <Compile Include="Test\Tools\EnterLeaveTest.cs" />
-    <Compile Include="Test\Tools\FaultOperationTest.cs" />
+    <Compile Include="Test\Tools\FailedOperationTest.cs" />
     <Compile Include="Test\Tools\FileToolsTest.cs" />
     <Compile Include="Test\Tools\FieldsSerializerTest.cs" />
     <Compile Include="Test\Tools\SortedListTest.cs" />
@@ -90,7 +90,7 @@
     <Compile Include="Tools\EnterLeave.cs" />
     <Compile Include="Tools\ExceptionCarrier.cs" />
     <Compile Include="Tools\ExtraTools.cs" />
-    <Compile Include="Tools\FaultOperation.cs" />
+    <Compile Include="Tools\FailedOperation.cs" />
     <Compile Include="Tools\FieldsSerializer.cs" />
     <Compile Include="Tools\FileTools.cs" />
     <Compile Include="Tools\IntTools.cs" />
@@ -98,6 +98,7 @@
     <Compile Include="Tools\Logger.cs" />
     <Compile Include="Tools\LongTools.cs" />
     <Compile Include="Tools\MathTools.cs" />
+    <Compile Include="Tools\MonitorCenter.cs" />
     <Compile Include="Tools\MutexObject.cs" />
     <Compile Include="Tools\NamedEventObject.cs" />
     <Compile Include="Tools\NamedEventPair.cs" />

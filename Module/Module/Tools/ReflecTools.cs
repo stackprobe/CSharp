@@ -67,6 +67,29 @@ namespace Charlotte
 			return a.ToString() == b.ToString();
 		}
 
+		public static bool equalsOrBase(FieldInfo a, Type b)
+		{
+			return equalsOrBase(a.FieldType, b);
+		}
+
+		public static bool equalsOrBase(Type a, Type b)
+		{
+			do
+			{
+				if (equals(a, b))
+					return true;
+
+				foreach (Type ai in a.GetInterfaces())
+					if (equals(ai, b))
+						return true;
+
+				a = a.BaseType;
+			}
+			while (a != null);
+
+			return false;
+		}
+
 		public static object getValue(FieldInfo fieldInfo, object instance)
 		{
 			return fieldInfo.GetValue(instance);

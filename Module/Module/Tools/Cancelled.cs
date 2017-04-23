@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Charlotte.Tools
 {
-	public class Cancelled : FaultOperation
+	public class Cancelled : FailedOperation
 	{
 		public Cancelled(Exception e = null)
 			: this("キャンセルしました。", e)

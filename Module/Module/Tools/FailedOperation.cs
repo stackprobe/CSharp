@@ -6,13 +6,13 @@ using System.Windows.Forms;
 
 namespace Charlotte.Tools
 {
-	public class FaultOperation : Exception
+	public class FailedOperation : Exception
 	{
-		public FaultOperation(Exception e = null)
+		public FailedOperation(Exception e = null)
 			: this("失敗しました。", e)
 		{ }
 
-		public FaultOperation(string message, Exception e = null)
+		public FailedOperation(string message, Exception e = null)
 			: base(message, e)
 		{ }
 
@@ -42,7 +42,7 @@ namespace Charlotte.Tools
 					MessageBoxIcon.Warning
 					);
 			}
-			else if (e is FaultOperation)
+			else if (e is FailedOperation)
 			{
 				MessageBox.Show(
 					getMessage(e),

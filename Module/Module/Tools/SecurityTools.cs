@@ -16,12 +16,15 @@ namespace Charlotte.Tools
 
 		public static byte getCRandByte()
 		{
-			if (GCRB_BUFF_SIZE <= _gcrbIndex)
+			//lock (GCRB_SYNCROOT)
 			{
-				_gcrbBuff = getCRand(GCRB_BUFF_SIZE);
-				_gcrbIndex = 0;
+				if (GCRB_BUFF_SIZE <= _gcrbIndex)
+				{
+					_gcrbBuff = getCRand(GCRB_BUFF_SIZE);
+					_gcrbIndex = 0;
+				}
+				return _gcrbBuff[_gcrbIndex++];
 			}
-			return _gcrbBuff[_gcrbIndex++];
 		}
 
 		private static RandomNumberGenerator _cRandom = RNGCryptoServiceProvider.Create();

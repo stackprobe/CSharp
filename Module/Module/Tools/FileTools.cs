@@ -69,18 +69,7 @@ namespace Charlotte.Tools
 						}
 					}
 				}
-				tmp = Path.Combine(tmp, Program.APP_IDENT);
-
-				for (int c = 0; ; c++)
-				{
-					string trialTmp = Path.Combine(tmp, StringTools.zPad(c, 4));
-
-					if (Directory.Exists(trialTmp) == false)
-					{
-						tmp = trialTmp;
-						break;
-					}
-				}
+				tmp = Path.Combine(tmp, Program.APP_IDENT) + ".tmp";
 				Directory.CreateDirectory(tmp);
 				_tmp = tmp;
 			}
@@ -108,37 +97,9 @@ namespace Charlotte.Tools
 		{
 			if (_tmp != null)
 			{
-				clearTMP_main();
+				deletePath(_tmp);
 				_tmp = null;
 			}
-		}
-
-		private static void clearTMP_main()
-		{
-			string tmpsDir = Path.GetDirectoryName(_tmp);
-			string tmp0 = Path.Combine(tmpsDir, "dead");
-
-			deletePath(tmp0);
-
-			foreach (string dir in Directory.GetDirectories(tmpsDir))
-			{
-				try
-				{
-					Directory.Move(dir, tmp0);
-				}
-				catch
-				{
-					return;
-				}
-				if (Directory.Exists(dir))
-					return;
-
-				if (Directory.Exists(tmp0) == false)
-					return;
-
-				deletePath(tmp0);
-			}
-			deletePath(tmpsDir);
 		}
 
 		public static string getProgramData()
