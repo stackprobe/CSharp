@@ -88,14 +88,16 @@ namespace Charlotte.Flowertact.Tools
 
 		private void GetMessageRange()
 		{
-			if (FileTools.ExistDir(_messageDir) == false)
-			{
-				this.GMR_FirstNo = -1;
-				this.GMR_LastNo = -1;
+			this.GMR_FirstNo = -1;
+			this.GMR_LastNo = -1;
 
+			if (FileTools.ExistDir(_messageDir) == false)
 				return;
-			}
+
 			List<string> files = FileTools.List(_messageDir);
+
+			if (files.Count == 0)
+				return;
 
 			files.Sort(delegate(string a, string b)
 			{

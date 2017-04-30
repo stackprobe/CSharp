@@ -93,6 +93,7 @@
     <Compile Include="Tools\FailedOperation.cs" />
     <Compile Include="Tools\FieldsSerializer.cs" />
     <Compile Include="Tools\FileTools.cs" />
+    <Compile Include="Tools\Fortewave.cs" />
     <Compile Include="Tools\IntTools.cs" />
     <Compile Include="Tools\JString.cs" />
     <Compile Include="Tools\Logger.cs" />
@@ -103,6 +104,8 @@
     <Compile Include="Tools\NamedEventObject.cs" />
     <Compile Include="Tools\NamedEventPair.cs" />
     <Compile Include="Tools\Nectar2.cs" />
+    <Compile Include="Tools\ObjectList.cs" />
+    <Compile Include="Tools\ObjectMap.cs" />
     <Compile Include="Tools\OperationCenter.cs" />
     <Compile Include="Tools\PostBox.cs" />
     <Compile Include="Tools\PostQueue.cs" />

@@ -49,7 +49,7 @@ namespace Charlotte.Satellite.Tools
 				return;
 
 			if (recursive == false && 1 <= Directory.GetFileSystemEntries(dir).Length)
-				return;
+				return; // この動作を意図している呼び出し元もあるよ！
 
 			Directory.Delete(dir, recursive);
 		}
