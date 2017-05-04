@@ -25,7 +25,12 @@ namespace Charlotte.Tools
 			{
 				while (_death == false)
 				{
-					operation_d operation = _operations.dequeue();
+					operation_d operation;
+
+					lock (SYNCROOT)
+					{
+						operation = _operations.dequeue();
+					}
 
 					if (operation == null)
 					{
@@ -47,13 +52,19 @@ namespace Charlotte.Tools
 
 		public void add(operation_d operation)
 		{
-			_operations.enqueue(operation);
+			lock (SYNCROOT)
+			{
+				_operations.enqueue(operation);
+			}
 			_evCatnap.set();
 		}
 
 		public int getCount()
 		{
-			return _operations.getCount();
+			lock (SYNCROOT)
+			{
+				return _operations.getCount();
+			}
 		}
 
 		public void Dispose()
