@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.Threading;
 using Charlotte.Flowertact;
 
-namespace SatelliteTest
+namespace SatelliteTests
 {
 	class Program
 	{
@@ -56,7 +56,7 @@ namespace SatelliteTest
 			//Test03();
 		}
 
-		private static readonly string SELF_FILE = @"C:\Dev\CSharp\SatelliteTest\SatelliteTest\bin\Debug\SatelliteTest.exe";
+		private static readonly string SELF_FILE = @"C:\Dev\CSharp\SatelliteTests\SatelliteTests\bin\Debug\SatelliteTests.exe";
 
 		private void Test01()
 		{
