@@ -30,6 +30,20 @@ namespace Charlotte.Tools
 
 		private object SYNCROOT = new object();
 
+		public void clear()
+		{
+			lock (SYNCROOT)
+			{
+				try
+				{
+					File.Delete(_file);
+					File.Delete(_file2);
+				}
+				catch
+				{ }
+			}
+		}
+
 		public void writeLine(string line)
 		{
 			lock (SYNCROOT)

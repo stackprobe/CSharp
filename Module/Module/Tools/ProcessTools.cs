@@ -43,5 +43,44 @@ namespace Charlotte.Tools
 				}
 			}
 		}
+
+		public enum WindowStyle_e
+		{
+			INVISIBLE,
+			MINIMIZED,
+			NORMAL,
+		};
+
+		public static Process start(string file, string args, string workingDir = null, WindowStyle_e winStyle = WindowStyle_e.INVISIBLE)
+		{
+			ProcessStartInfo psi = new ProcessStartInfo();
+
+			psi.FileName = file;
+			psi.Arguments = args;
+
+			switch (winStyle)
+			{
+				case WindowStyle_e.INVISIBLE:
+					psi.CreateNoWindow = true;
+					psi.UseShellExecute = false;
+					break;
+
+				case WindowStyle_e.MINIMIZED:
+					psi.CreateNoWindow = false;
+					psi.UseShellExecute = true;
+					psi.WindowStyle = ProcessWindowStyle.Minimized;
+					break;
+
+				case WindowStyle_e.NORMAL:
+					break;
+
+				default:
+					throw null;
+			}
+			if (workingDir != null)
+				psi.WorkingDirectory = workingDir; // WorkingDirectory -- 既定値は、空の文字列 ("") です。
+
+			return Process.Start(psi);
+		}
 	}
 }
