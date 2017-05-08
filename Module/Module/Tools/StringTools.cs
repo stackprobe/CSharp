@@ -99,7 +99,7 @@ namespace Charlotte.Tools
 
 		public static bool toFlag(string str)
 		{
-			return equalsIgnoreCase(str, S_TRUE) || str == "1";
+			return equalsIgnoreCase(str, S_TRUE) || IntTools.toInt(str, 0, 2, 0) == 1;
 		}
 
 		public static string toString(bool flag)
