@@ -418,7 +418,7 @@ namespace Charlotte.Tools
 				}
 				if (kind == KIND_MAP)
 				{
-					ObjectMap om = new ObjectMap();
+					ObjectMap om = ObjectMap.create();
 					int size = readInt();
 
 					for (int index = 0; index < size; index++)

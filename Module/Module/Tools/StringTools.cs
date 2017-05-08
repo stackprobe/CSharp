@@ -206,6 +206,32 @@ namespace Charlotte.Tools
 			return comp(a.ToLower(), b.ToLower());
 		};
 
+		public class IEComp : IEqualityComparer<string>
+		{
+			public bool Equals(string a, string b)
+			{
+				return a == b;
+			}
+
+			public int GetHashCode(string a)
+			{
+				return a.GetHashCode();
+			}
+		}
+
+		public class IECompIgnoreCase : IEqualityComparer<string>
+		{
+			public bool Equals(string a, string b)
+			{
+				return a.ToLower() == b.ToLower();
+			}
+
+			public int GetHashCode(string a)
+			{
+				return a.ToLower().GetHashCode();
+			}
+		}
+
 		public static int eComp(string a, string b)
 		{
 			return eComp(a, b, Encoding.UTF8);

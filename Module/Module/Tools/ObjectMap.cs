@@ -9,6 +9,25 @@ namespace Charlotte.Tools
 	{
 		private Dictionary<string, object> _map = new Dictionary<string, object>();
 
+		public static ObjectMap create()
+		{
+			return new ObjectMap()
+			{
+				_map = new Dictionary<string, object>(new StringTools.IEComp()),
+			};
+		}
+
+		public static ObjectMap createIgnoreCase()
+		{
+			return new ObjectMap()
+			{
+				_map = new Dictionary<string, object>(new StringTools.IECompIgnoreCase()),
+			};
+		}
+
+		private ObjectMap()
+		{ }
+
 		public void add(Dictionary<object, object> map)
 		{
 			foreach (object key in map.Keys)
