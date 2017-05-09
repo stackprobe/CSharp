@@ -80,6 +80,8 @@
     <Compile Include="Tools\BinaryTools.cs" />
     <Compile Include="Tools\Bmp.cs" />
     <Compile Include="Tools\Cancelled.cs" />
+    <Compile Include="Tools\DictionaryTools.cs" />
+    <Compile Include="Tools\HTTPClient.cs" />
     <Compile Include="Tools\JsonTools.cs" />
     <Compile Include="Tools\Completed.cs" />
     <Compile Include="Tools\ApprovalSection.cs" />
