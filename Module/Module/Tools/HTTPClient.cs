@@ -15,27 +15,38 @@ namespace Charlotte.Tools
 		{
 			_hwr = (HttpWebRequest)HttpWebRequest.Create(url);
 
-			this.setTimeout(20000);
+			this.connectionTimeoutMillis = 20000;
 			this.setProxyNone();
 		}
+
+		public int connectionTimeoutMillis
+		{
+			set
+			{
+				_hwr.Timeout = value;
+			}
+		}
+
+		public int timeoutMillis = 30000;
+		public int noTrafficTimeoutMillis = 15000;
 
 		public int resBodySizeMax = 20000000; // 20 MB
 
 		public enum Version_e
 		{
-			V_1_0,
-			V_1_1,
+			HTTP_10,
+			HTTP_11,
 		};
 
 		public void setVersion(Version_e version)
 		{
 			switch (version)
 			{
-				case Version_e.V_1_0:
+				case Version_e.HTTP_10:
 					_hwr.ProtocolVersion = HttpVersion.Version10;
 					break;
 
-				case Version_e.V_1_1:
+				case Version_e.HTTP_11:
 					_hwr.ProtocolVersion = HttpVersion.Version11;
 					break;
 
@@ -64,11 +75,6 @@ namespace Charlotte.Tools
 				return;
 			}
 			_hwr.Headers.Add(name, value);
-		}
-
-		public void setTimeout(int millis)
-		{
-			_hwr.Timeout = millis;
 		}
 
 		public void setProxyNone()
@@ -109,6 +115,9 @@ namespace Charlotte.Tools
 
 		public void send(byte[] body, string method)
 		{
+			DateTime startedTime = DateTime.Now;
+			TimeSpan timeoutSpan = TimeSpan.FromMilliseconds(timeoutMillis);
+
 			_hwr.Method = method;
 
 			if (body != null)
@@ -162,6 +171,8 @@ namespace Charlotte.Tools
 					using (Stream r = res.GetResponseStream())
 					using (MemoryStream w = new MemoryStream())
 					{
+						r.ReadTimeout = noTrafficTimeoutMillis; // この時間経過すると r.Read() が例外を投げる。
+
 						byte[] buff = new byte[20000000]; // 20 MB
 
 						for (; ; )
@@ -170,6 +181,9 @@ namespace Charlotte.Tools
 
 							if (readSize <= 0)
 								break;
+
+							if (timeoutSpan < DateTime.Now - startedTime)
+								throw new Exception("Response timed out");
 
 							totalSize += readSize;
 
