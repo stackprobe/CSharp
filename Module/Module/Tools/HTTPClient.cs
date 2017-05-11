@@ -19,6 +19,10 @@ namespace Charlotte.Tools
 			this.setProxyNone();
 		}
 
+		/// <summary>
+		/// 接続を試みてから、応答ヘッダを受信し終えるまでのタイムアウト
+		/// ミリ秒
+		/// </summary>
 		public int connectionTimeoutMillis
 		{
 			set
@@ -27,8 +31,25 @@ namespace Charlotte.Tools
 			}
 		}
 
+		/// <summary>
+		/// 接続を試みてから、全て送受信し終えるまでのタイムアウト
+		/// ミリ秒
+		/// </summary>
 		public int timeoutMillis = 30000;
+
+		/// <summary>
+		/// 応答ヘッダを受信し終えてから～全て送受信し終えるまでの間の、無通信タイムアウト
+		/// ミリ秒
+		/// </summary>
 		public int noTrafficTimeoutMillis = 15000;
+
+		// ～私的参考～
+		//
+		// 応答ヘッダ受信に 1234 sec を見積もる。(応答ボディ受信には 56 sec)
+		// ct, to, ntt == 1234000, 1234000 + 56000, 15000
+		//
+		// 応答ボディ受信に 1234 sec 見積もる。
+		// ct, to, ntt == 20000, 20000 + 1234000, 15000
 
 		public int resBodySizeMax = 20000000; // 20 MB
 
