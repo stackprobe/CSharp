@@ -43,13 +43,13 @@ namespace Charlotte.Tools
 		/// </summary>
 		public int noTrafficTimeoutMillis = 15000;
 
-		// ～私的参考～
+		// memo
 		//
-		// 応答ヘッダ受信に 1234 sec を見積もる。(応答ボディ受信には 56 sec)
-		// ct, to, ntt == 1234000, 1234000 + 56000, 15000
+		// 応答ヘッダ受信を a ミリ秒, 応答ボディ受信を b ～ (b + c) ミリ秒, 最長無通信時間を c ミリ秒
+		// cto, to, ntto == a, (a + b), c
 		//
-		// 応答ボディ受信に 1234 sec 見積もる。
-		// ct, to, ntt == 20000, 20000 + 1234000, 15000
+		// to は、最悪 ntto 延長する。
+		// cto < to にしておくこと。(to <= cto のとき、接続は cto 待ち、応答ボディは受信できるか不定とする)
 
 		public int resBodySizeMax = 20000000; // 20 MB
 
