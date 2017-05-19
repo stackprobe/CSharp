@@ -12,6 +12,9 @@ namespace Charlotte.Tools
 			: this(StringTools.getUUID())
 		{ }
 
+		/// <summary>
+		/// ★空白を含まないはず。
+		/// </summary>
 		private string _dir;
 
 		public WorkingDir(string lDir)
@@ -22,11 +25,19 @@ namespace Charlotte.Tools
 			Directory.CreateDirectory(_dir);
 		}
 
+		/// <summary>
+		/// ★空白を含まないパスを返す。
+		/// </summary>
+		/// <returns></returns>
 		public string getDir()
 		{
 			return _dir;
 		}
 
+		/// <summary>
+		/// ★空白を含まないパスを返す。
+		/// </summary>
+		/// <returns></returns>
 		public string makePath()
 		{
 			return makePath(StringTools.getUUID());

@@ -46,9 +46,9 @@ namespace Charlotte.Tools
 
 		public enum WindowStyle_e
 		{
-			INVISIBLE,
-			MINIMIZED,
-			NORMAL,
+			INVISIBLE, // 0
+			MINIMIZED, // 1
+			NORMAL, // 2
 		};
 
 		public static Process start(string file, string args, string workingDir = null, WindowStyle_e winStyle = WindowStyle_e.INVISIBLE)
@@ -78,7 +78,7 @@ namespace Charlotte.Tools
 					throw null;
 			}
 			if (workingDir != null)
-				psi.WorkingDirectory = workingDir; // WorkingDirectory -- 既定値は、空の文字列 ("") です。
+				psi.WorkingDirectory = workingDir; // WorkingDirectoryの説明 == 既定値は、空の文字列 ("") です。
 
 			return Process.Start(psi);
 		}

@@ -43,6 +43,10 @@ namespace Charlotte.Tools
 
 		private static string _tmp = null;
 
+		/// <summary>
+		/// ★空白を含まないパスを返す。
+		/// </summary>
+		/// <returns></returns>
 		public static string getTMP()
 		{
 			if (_tmp == null)

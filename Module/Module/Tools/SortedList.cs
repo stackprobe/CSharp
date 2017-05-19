@@ -39,6 +39,14 @@ namespace Charlotte.Tools
 			return _list[index];
 		}
 
+		public T this[int index]
+		{
+			get
+			{
+				return get(index);
+			}
+		}
+
 		private void sortIfNeed()
 		{
 			if (_sorted == false)
@@ -86,6 +94,11 @@ namespace Charlotte.Tools
 			return -1; // not found
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="ferret"></param>
+		/// <returns>ferretと同じか大きい最初の位置、無ければ要素数</returns>
 		public int leftIndexOf(T ferret)
 		{
 			sortIfNeed();
@@ -110,6 +123,11 @@ namespace Charlotte.Tools
 			return l;
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="ferret"></param>
+		/// <returns>ferretと同じか小さい最後の位置、無ければ(-1)</returns>
 		public int rightIndexOf(T ferret)
 		{
 			sortIfNeed();
