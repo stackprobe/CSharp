@@ -323,5 +323,22 @@ namespace Charlotte.Tools
 
 		public static readonly string ASCII = Encoding.ASCII.GetString(BinaryTools.makeSq(0x20, 0x7e));
 		public static readonly string HAN_KANA = Encoding.ASCII.GetString(BinaryTools.makeSq(0xa1, 0xdf));
+
+		public static bool isLine(string line)
+		{
+			foreach (char chr in line)
+				if (chr < ' ' && chr != '\t')
+					return false;
+
+			return true;
+		}
+
+		public static string asLine(string line)
+		{
+			if (isLine(line) == false)
+				throw new Exception("asLine-違反");
+
+			return line;
+		}
 	}
 }
