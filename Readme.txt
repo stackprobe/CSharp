@@ -1,13 +1,13 @@
 C# codes
 ========
 
-C#‚Å‘‚¢‚½ƒR[ƒh‚ÌŠñ‚¹W‚ß‚Å‚·B
+C#ã§æ›¸ã„ãŸã‚³ãƒ¼ãƒ‰ã®å¯„ã›é›†ã‚ã§ã™ã€‚
 
 
-ŠJ”­ŠÂ‹«
+é–‹ç™ºç’°å¢ƒ
 --------
 
 	Windows 7 Home Premium
 	Visual C# 2010 Express
 
-	‚±‚Ìƒtƒ@ƒCƒ‹‚ÌêŠ‚Í C:\Dev\CSharp\Readme.txt ‚Å‚·B
+	ã“ã®ãƒ•ã‚¡ã‚¤ãƒ«ã®å ´æ‰€ã¯ C:\Dev\CSharp\Readme.txt ã§ã™ã€‚
