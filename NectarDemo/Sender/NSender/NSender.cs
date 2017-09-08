@@ -11,7 +11,6 @@ namespace Charlotte
 		// ---- ここから
 
 		private const int SEND_TIMEOUT_MILLIS = 2000;
-
 		public void NSend(string ident, string message)
 		{
 			using (var s = new EventWaitHandle(
@@ -33,9 +32,7 @@ namespace Charlotte
 					{
 						if ((bMes[i / 8] & (1 << (i % 8))) != 0)
 							b.Set();
-
 						s.Set();
-
 						if (!r.WaitOne(SEND_TIMEOUT_MILLIS))
 							throw new TimeoutException();
 					}

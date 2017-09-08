@@ -11,7 +11,6 @@ namespace Charlotte
 		// ---- ここから
 
 		public delegate void NRecved_d(string message);
-
 		public void NRecv(string ident, NRecved_d recved)
 		{
 			using (var s = new EventWaitHandle(
@@ -27,7 +26,7 @@ namespace Charlotte
 				byte chr = 0x00;
 				bool recving = false;
 
-				// XXX cleanup
+				// cleanup
 				k.WaitOne(0);
 				b.WaitOne(0);
 
@@ -65,7 +64,6 @@ namespace Charlotte
 				}
 			}
 		}
-
 		public void NRecvEnd(string ident)
 		{
 			using (var s = new EventWaitHandle(
