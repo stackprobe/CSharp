@@ -11,9 +11,7 @@ namespace Charlotte
 		// ---- ここから
 
 		public delegate void MRecved_d(string message);
-
 		public bool MRecvEnd;
-
 		public void MRecv(string ident, MRecved_d recved)
 		{
 			Mutex[] hdls = new Mutex[6];
@@ -26,7 +24,7 @@ namespace Charlotte
 
 				List<byte> buff = new List<byte>();
 				byte chr = 0x00;
-				int waitCount = 0;
+				int waitCount = 1;
 
 				for (int i = 0, c = 0; !this.MRecvEnd; )
 				{
@@ -43,13 +41,15 @@ namespace Charlotte
 					if (waitCount <= 0)
 					{
 						if (bit)
-							chr |= (byte)(1 << (i % 8));
+							chr |= (byte)(1 << i);
 
 						if (8 <= ++i)
 						{
 							if (chr == 0x00)
 							{
-								recved(Encoding.UTF8.GetString(buff.ToArray()));
+								recved(Encoding.UTF8.GetString(
+									buff.ToArray()
+									));
 								buff.Clear();
 								waitCount = 1;
 							}
@@ -64,19 +64,13 @@ namespace Charlotte
 					{
 						if (bit)
 						{
-							if (8 <= ++i)
-							{
-								i = 0;
-								waitCount = 0;
-							}
+							if (8 <= ++i) { i = 0; waitCount = 0; }
 						}
 						else
 						{
 							i = 0;
 							Thread.Sleep(waitCount);
-
-							if (waitCount < 100)
-								waitCount++;
+							if (waitCount < 100) waitCount++;
 						}
 					}
 					c = n;

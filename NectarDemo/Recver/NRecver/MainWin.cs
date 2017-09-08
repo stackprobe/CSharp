@@ -29,7 +29,7 @@ namespace Charlotte
 		{
 			_th = new Thread((ThreadStart)delegate
 			{
-				_mr.NRecv("M-Test", this.Recved);
+				_mr.NRecv("N-Test", this.Recved);
 			});
 			_th.Start();
 		}
@@ -41,7 +41,7 @@ namespace Charlotte
 
 		private void MainWin_FormClosed(object sender, FormClosedEventArgs e)
 		{
-			_mr.NRecvEnd = true;
+			_mr.NRecvEnd("N-Test");
 			_th.Join();
 			_th = null;
 		}

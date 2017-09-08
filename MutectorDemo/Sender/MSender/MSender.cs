@@ -24,9 +24,9 @@ namespace Charlotte
 				int c = 0;
 
 				foreach (byte[] bMes in new byte[][] {
-					new byte[] { 0xff },
-					Encoding.UTF8.GetBytes(message.Replace("\0", "")),
-					new byte[] { 0x00 }
+				new byte[] { 0xff },
+				Encoding.UTF8.GetBytes(message.Replace("\0", "")),
+				new byte[] { 0x00 }
 				})
 				{
 					for (int i = 0; i / 8 < bMes.Length; i++)

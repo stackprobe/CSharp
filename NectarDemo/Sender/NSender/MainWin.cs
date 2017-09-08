@@ -38,8 +38,15 @@ namespace Charlotte
 
 		private void SendBtn_Click(object sender, EventArgs e)
 		{
-			new NSender().NSend("M-Test", this.Message.Text);
-			this.Message.Text = "";
+			try
+			{
+				new NSender().NSend("N-Test", this.Message.Text);
+				this.Message.Text = "";
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("" + ex);
+			}
 		}
 
 		private void Message_KeyPress(object sender, KeyPressEventArgs e)
