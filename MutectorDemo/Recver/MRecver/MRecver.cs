@@ -20,7 +20,7 @@ namespace Charlotte
 				for (int i = 0; i < hdls.Length; i++)
 					hdls[i] = new Mutex(false, ident + i);
 
-				hdls[0].WaitOne();
+				hdls[3].WaitOne();
 
 				List<byte> buff = new List<byte>();
 				byte chr = 0x00;
@@ -30,13 +30,13 @@ namespace Charlotte
 				{
 					int n = (c + 1) % 3;
 
-					hdls[n].WaitOne();
-					hdls[c].ReleaseMutex();
+					hdls[3 + n].WaitOne();
+					hdls[3 + c].ReleaseMutex();
 
-					bool bit = !hdls[3 + n].WaitOne(0);
+					bool bit = !hdls[n].WaitOne(0);
 
 					if (!bit)
-						hdls[3 + n].ReleaseMutex();
+						hdls[n].ReleaseMutex();
 
 					if (waitCount <= 0)
 					{

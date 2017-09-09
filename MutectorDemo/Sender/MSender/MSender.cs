@@ -18,7 +18,7 @@ namespace Charlotte
 				for (int i = 0; i < hdls.Length; i++)
 					hdls[i] = new Mutex(false, ident + i);
 
-				hdls[0].WaitOne();
+				hdls[3].WaitOne();
 
 				bool[] flgs = new bool[3];
 				int c = 0;
@@ -33,20 +33,20 @@ namespace Charlotte
 					{
 						int n = (c + 1) % 3;
 
-						hdls[n].WaitOne();
-						hdls[c].ReleaseMutex();
+						hdls[3 + n].WaitOne();
+						hdls[3 + c].ReleaseMutex();
 
 						if ((bMes[i / 8] & (1 << (i % 8))) != 0)
 						{
 							if (!flgs[n])
 							{
-								hdls[3 + n].WaitOne();
+								hdls[n].WaitOne();
 								flgs[n] = true;
 							}
 						}
 						else if (flgs[n])
 						{
-							hdls[3 + n].ReleaseMutex();
+							hdls[n].ReleaseMutex();
 							flgs[n] = false;
 						}
 						c = n;
