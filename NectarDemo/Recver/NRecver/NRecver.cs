@@ -27,7 +27,7 @@ namespace Charlotte
 				bool recving = false;
 
 				// cleanup
-				k.WaitOne(0);
+				k.WaitOne(0); // 2bs
 				b.WaitOne(0);
 
 				for (int i = 0; ; )

@@ -63,17 +63,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Test\Test01.cs" />
+    <Compile Include="Tests\Test01.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Test\Tools\CsvFileTest.cs" />
-    <Compile Include="Test\Tools\DateTimeToSecTest.cs" />
-    <Compile Include="Test\Tools\DateToDayTest.cs" />
-    <Compile Include="Test\Tools\EnterLeaveTest.cs" />
-    <Compile Include="Test\Tools\FailedOperationTest.cs" />
-    <Compile Include="Test\Tools\FileToolsTest.cs" />
-    <Compile Include="Test\Tools\FieldsSerializerTest.cs" />
-    <Compile Include="Test\Tools\SortedListTest.cs" />
+    <Compile Include="Tests\Tools\CsvFileTest.cs" />
+    <Compile Include="Tests\Tools\DateTimeToSecTest.cs" />
+    <Compile Include="Tests\Tools\DateToDayTest.cs" />
+    <Compile Include="Tests\Tools\EnterLeaveTest.cs" />
+    <Compile Include="Tests\Tools\FailedOperationTest.cs" />
+    <Compile Include="Tests\Tools\FileToolsTest.cs" />
+    <Compile Include="Tests\Tools\FieldsSerializerTest.cs" />
+    <Compile Include="Tests\Tools\SortedListTest.cs" />
     <Compile Include="Tools\ArgsReader.cs" />
     <Compile Include="Tools\ArrayTools.cs" />
     <Compile Include="Tools\AutoTable.cs" />

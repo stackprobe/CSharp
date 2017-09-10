@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Charlotte.Tools;
 
-namespace Charlotte.Test.Tools
+namespace Charlotte.Tests.Tools
 {
 	public class FileToolsTest
 	{

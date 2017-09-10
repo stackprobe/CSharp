@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Diagnostics;
 using Charlotte.Tools;
-using Charlotte.Test.Tools;
-using Charlotte.Test;
+using Charlotte.Tests.Tools;
+using Charlotte.Tests;
 using System.Reflection;
 using System.IO;
 

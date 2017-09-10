@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Windows.Forms;
+using Charlotte.Tools;
 
-namespace Charlotte.Test
+namespace Charlotte.Tests
 {
 	public class Test01
 	{
@@ -86,6 +87,9 @@ namespace Charlotte.Test
 			Console.WriteLine("" + Path.GetFileName(@"\\host"));
 
 			//File.Copy(@"C:\var\月姫リメイクop.mp3", @"C:\temp\111\222\333\aaa\bbb\ccc\def.mp3"); // コピー咲の親dir無し -> ex -- コピー咲の親dirまでは作ってくれなかった。
+
+			Console.WriteLine(StringTools.toHex(Encoding.UTF8.GetBytes("ABC\0def")));
+			Console.WriteLine(StringTools.toHex(Encoding.UTF8.GetBytes("ABC\0def".Replace("\0",""))));
 		}
 
 		private void test01(bool f, bool g)
