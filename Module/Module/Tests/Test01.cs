@@ -51,7 +51,7 @@ namespace Charlotte.Tests
 			//Directory.GetDirectories(@"C:\存在しないDir_wefojwefowefuvkjnsdvl"); // -> ex
 
 			//Directory.Delete(@"C:\temp\123");
-			//Directory.Delete(@"C:\temp\123"); // 存在しなければ -> ex
+			//Directory.Delete(@"C:\temp\123"); // 存在しないので、-> ex
 			Directory.CreateDirectory(@"C:\temp\123");
 			Directory.CreateDirectory(@"C:\temp\123"); // 存在したら何もせず続行
 			Directory.Delete(@"C:\temp\123");

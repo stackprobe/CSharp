@@ -45,6 +45,7 @@ namespace Charlotte
 			//new DateToDayTest().test01();
 			//new DateTimeToSecTest().test01();
 			//new FailedOperationTest().test01();
+			//new FailedOperationTest().test02();
 			//new CsvFileTest().test01();
 			//new EnterLeaveTest().test01();
 			//new SortedListTest().test01();
