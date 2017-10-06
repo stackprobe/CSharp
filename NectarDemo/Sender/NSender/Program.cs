@@ -47,7 +47,7 @@ namespace Charlotte
 			procMutex.Close();
 		}
 
-		public const string APP_IDENT = "{4d98d7c9-1051-4653-a96a-57e224c11363}";
+		public const string APP_IDENT = "{408fbe71-ccb5-4e05-a945-45bcb2b83625}";
 		public const string APP_TITLE = "NSender";
 
 		private static void applicationThreadException(object sender, ThreadExceptionEventArgs e)
