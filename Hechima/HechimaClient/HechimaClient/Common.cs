@@ -8,11 +8,11 @@ namespace Charlotte
 {
 	public class Common
 	{
-		public static void WaitToBgServiceEndable()
+		public static void WaitToBgServiceDisposable()
 		{
 			using (BusyDlg f = new BusyDlg(delegate()
 			{
-				while (Gnd.bgService.IsEndable() == false)
+				while (Gnd.bgService.IsDisposable() == false)
 				{
 					Thread.Sleep(100);
 					Gnd.bgService.Perform();

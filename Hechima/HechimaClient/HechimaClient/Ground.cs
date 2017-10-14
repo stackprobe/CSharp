@@ -7,7 +7,8 @@ namespace Charlotte
 {
 	public class Gnd
 	{
-		public static BgService bgService = new BgService();
+		public static Conf conf = new Conf();
 		public static Setting setting = new Setting();
+		public static BgService bgService = new BgService();
 	}
 }

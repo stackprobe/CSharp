@@ -33,6 +33,7 @@ namespace Charlotte
 				checkAloneExe();
 				checkLogonUser();
 
+				Gnd.conf.Load();
 				Gnd.setting.Load();
 
 				// orig >
@@ -43,10 +44,12 @@ namespace Charlotte
 
 				// < orig
 
-				Common.WaitToBgServiceEndable();
+				Common.WaitToBgServiceDisposable();
 
-				Gnd.bgService.Destroy();
+				Gnd.bgService.Dispose();
 				Gnd.bgService = null;
+
+				Gnd.setting.Save();
 
 				GlobalProcMtx.release();
 				procMutex.ReleaseMutex();
@@ -136,7 +139,7 @@ namespace Charlotte
 
 		private static void checkAloneExe()
 		{
-			if (File.Exists("HechimaClient.sig")) // リリースに含まれるファイル
+			if (File.Exists("HechimaClient.conf")) // リリースに含まれるファイル
 				return;
 
 			if (Directory.Exists(@"..\Debug")) // ? devenv
