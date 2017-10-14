@@ -57,5 +57,14 @@ namespace Charlotte.Tools
 				return sha512.ComputeHash(fs);
 			}
 		}
+
+		public static uint getCRandUInt()
+		{
+			return
+				((uint)getCRandByte() << 24) |
+				((uint)getCRandByte() << 16) |
+				((uint)getCRandByte() << 8) |
+				(uint)getCRandByte();
+		}
 	}
 }

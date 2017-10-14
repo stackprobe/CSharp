@@ -35,6 +35,7 @@ namespace Charlotte
 
 				Gnd.conf.Load();
 				Gnd.setting.Load();
+				Gnd.PostLoadSetting();
 
 				// orig >
 
@@ -49,7 +50,7 @@ namespace Charlotte
 				Gnd.bgService.Dispose();
 				Gnd.bgService = null;
 
-				Gnd.setting.Save();
+				//Gnd.setting.Save();
 
 				GlobalProcMtx.release();
 				procMutex.ReleaseMutex();

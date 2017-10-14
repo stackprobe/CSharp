@@ -18,15 +18,15 @@ namespace Charlotte
 
 		public bool BouyomiChanEnabled = false;
 		public string BouyomiChanDomain = "localhost";
-		public int BouyomiChanPort = 8080;
+		public int BouyomiChanPort = 50001;
 
 		public enum MessageTextEnterMode_e
 		{
-			CtrlEnterで送信_Enterで改行,
 			Enterで送信_CtrlEnterで改行,
+			CtrlEnterで送信_Enterで改行,
 		};
 
-		public MessageTextEnterMode_e MessageTextEnterMode = MessageTextEnterMode_e.CtrlEnterで送信_Enterで改行;
+		public MessageTextEnterMode_e MessageTextEnterMode = MessageTextEnterMode_e.Enterで送信_CtrlEnterで改行;
 
 		/// <summary>
 		/// R == 改行
@@ -48,6 +48,9 @@ namespace Charlotte
 		public int MainWin_T;
 		public int MainWin_W = -1; // -1 == MainWin_LTWH 未設定
 		public int MainWin_H;
+
+		public string UserName = "名無しさん" + SecurityTools.getCRandUInt();
+		public string UserTrip = StringTools.toHex(SecurityTools.getCRand(16));
 
 		// ---- ロード・セーブ
 
@@ -82,7 +85,7 @@ namespace Charlotte
 			string[] lines = File.ReadAllLines(GetSaveFile(), StringTools.ENCODING_SJIS);
 			int c = 0;
 
-			// ----
+			// ---- S/L Items ----
 
 			this.ServerDomain = lines[c++];
 			this.ServerPort = int.Parse(lines[c++]);
@@ -109,16 +112,21 @@ namespace Charlotte
 			this.MainWin_W = int.Parse(lines[c++]);
 			this.MainWin_H = int.Parse(lines[c++]);
 
+			this.UserName = lines[c++];
+			this.UserTrip = lines[c++];
+
 			// 新しい項目、ここへ追加..
 
 			// ----
 		}
 
+		// 既存の項目(行)の間又は前に新しい項目を挿入すると、既存の Setting.dat がぶっ壊れるので、新しい項目は最後に追加すること！
+
 		public void Save()
 		{
 			List<string> lines = new List<string>();
 
-			// ----
+			// ---- S/L Items ----
 
 			lines.Add(this.ServerDomain);
 			lines.Add("" + this.ServerPort);
@@ -144,6 +152,9 @@ namespace Charlotte
 			lines.Add("" + this.MainWin_T);
 			lines.Add("" + this.MainWin_W);
 			lines.Add("" + this.MainWin_H);
+
+			lines.Add(this.UserName);
+			lines.Add(this.UserTrip);
 
 			// 新しい項目、ここへ追加..
 

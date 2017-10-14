@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Charlotte.Tools;
 
 namespace Charlotte
 {
@@ -10,5 +11,15 @@ namespace Charlotte
 		public static Conf conf = new Conf();
 		public static Setting setting = new Setting();
 		public static BgService bgService = new BgService();
+
+		public static void PostLoadSetting()
+		{
+			UserIdent =
+				setting.UserName +
+				Consts.DELIM_NAME_TRIP +
+				Common.ToTrip(setting.UserTrip);
+		}
+
+		public static string UserIdent = "名無しさん12345" + Consts.DELIM_NAME_TRIP + "Trip123";
 	}
 }

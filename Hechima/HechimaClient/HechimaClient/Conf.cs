@@ -9,9 +9,14 @@ namespace Charlotte
 {
 	public class Conf
 	{
+		// doc\HechimaClient.conf の修正も忘れずに！
+
 		public string MessageTextFontFamily = Consts.S_DUMMY; // S_DUMMY == 無効
 		public int MessageTextFontSize = 0; // 0 == 無効
 		public int MessageText_H = 0; // 0 == 無効
+
+		public int RemarksTextMaxLength = 3000000;
+		public int RemarksTextClearPct = 20;
 
 		// ---- 読み込み
 
@@ -34,6 +39,9 @@ namespace Charlotte
 			this.MessageTextFontFamily = lines[c++];
 			this.MessageTextFontSize = int.Parse(lines[c++]);
 			this.MessageText_H = int.Parse(lines[c++]);
+
+			this.RemarksTextMaxLength = int.Parse(lines[c++]);
+			this.RemarksTextClearPct = int.Parse(lines[c++]);
 
 			// 新しい項目_ここへ追加..
 

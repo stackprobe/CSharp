@@ -94,11 +94,6 @@ namespace Charlotte
 			this.SaveSetting();
 		}
 
-		private void 終了XToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			this.Close();
-		}
-
 		private void MessageText_KeyPress(object sender, KeyPressEventArgs e)
 		{
 			if (e.KeyChar == 1) // ctrl + a
@@ -126,7 +121,12 @@ namespace Charlotte
 			// noop
 		}
 
-		private void 設定SSMenuItem_Click(object sender, EventArgs e)
+		private void MainTimer_Tick(object sender, EventArgs e)
+		{
+			Gnd.bgService.Perform();
+		}
+
+		private void 設定SToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			this.Visible = false;
 
@@ -135,18 +135,16 @@ namespace Charlotte
 			Gnd.bgService.Dispose();
 			Gnd.bgService = null;
 
-			// TODO
+			using (SettingWin f = new SettingWin())
+			{
+				f.ShowDialog();
+			}
 
 			Gnd.bgService = new BgService();
 
 			this.LoadSetting();
 
 			this.Visible = true;
-		}
-
-		private void MainTimer_Tick(object sender, EventArgs e)
-		{
-			Gnd.bgService.Perform();
 		}
 	}
 }
