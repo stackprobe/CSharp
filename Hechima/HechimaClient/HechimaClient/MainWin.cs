@@ -21,7 +21,7 @@ namespace Charlotte
 			this.RemarksText.Text = "";
 
 			this.MessageText.Text = "";
-			this.MessageText.Focus();
+			//this.MessageText.Focus(); // ここじゃ効かない。
 
 			this.MinimumSize = new Size(300, 300);
 
@@ -81,7 +81,7 @@ namespace Charlotte
 
 		private void MainWin_Shown(object sender, EventArgs e)
 		{
-			// noop
+			this.MessageText.Focus();
 		}
 
 		private void MainWin_FormClosing(object sender, FormClosingEventArgs e)

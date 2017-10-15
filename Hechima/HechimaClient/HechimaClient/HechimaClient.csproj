@@ -62,6 +62,7 @@
     <Compile Include="Common.cs" />
     <Compile Include="Conf.cs" />
     <Compile Include="Consts.cs" />
+    <Compile Include="CrypTunnelProc.cs" />
     <Compile Include="GlobalProcMtx.cs" />
     <Compile Include="Ground.cs" />
     <Compile Include="MainWin.cs">

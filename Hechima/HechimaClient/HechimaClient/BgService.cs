@@ -9,6 +9,7 @@ namespace Charlotte
 	public class BgService
 	{
 		private SockClient _sockClient = new SockClient();
+		private CrypTunnelProc _crypTunnelProc = new CrypTunnelProc();
 
 		public void Perform()
 		{
@@ -22,7 +23,7 @@ namespace Charlotte
 		/// <returns>良い</returns>
 		public bool IsEndable()
 		{
-			return _sockClient.IsFinished();
+			return _sockClient.IsFinished() && _crypTunnelProc.End();
 		}
 	}
 }
