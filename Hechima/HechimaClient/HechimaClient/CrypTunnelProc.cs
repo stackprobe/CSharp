@@ -24,7 +24,12 @@ namespace Charlotte
 		/// <returns>停止している</returns>
 		public bool End()
 		{
-			return true; // TODO
+			// TODO
+
+			if (Proc != null && Proc.HasExited)
+				Proc = null;
+
+			return Proc == null;
 		}
 	}
 }

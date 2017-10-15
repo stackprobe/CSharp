@@ -62,15 +62,16 @@
 			this.label8 = new System.Windows.Forms.Label();
 			this.MessageTextEnterMode = new System.Windows.Forms.ComboBox();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
-			this.CancelBtn = new System.Windows.Forms.Button();
-			this.OkBtn = new System.Windows.Forms.Button();
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
+			this.label13 = new System.Windows.Forms.Label();
+			this.UserTrip = new System.Windows.Forms.TextBox();
+			this.label12 = new System.Windows.Forms.Label();
 			this.UserName = new System.Windows.Forms.TextBox();
 			this.UpdateUserTripBtn = new System.Windows.Forms.Button();
-			this.label12 = new System.Windows.Forms.Label();
-			this.UserTrip = new System.Windows.Forms.TextBox();
-			this.label13 = new System.Windows.Forms.Label();
+			this.CancelBtn = new System.Windows.Forms.Button();
+			this.OkBtn = new System.Windows.Forms.Button();
 			this.CorrectBtn = new System.Windows.Forms.Button();
+			this.label14 = new System.Windows.Forms.Label();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -283,6 +284,7 @@
 			// 
 			// tabPage2
 			// 
+			this.tabPage2.Controls.Add(this.label14);
 			this.tabPage2.Controls.Add(this.MessageTextBackColorBtn);
 			this.tabPage2.Controls.Add(this.MessageTextForeColorBtn);
 			this.tabPage2.Controls.Add(this.RemarksTextBackColorBtn);
@@ -302,40 +304,40 @@
 			// 
 			// MessageTextBackColorBtn
 			// 
-			this.MessageTextBackColorBtn.Location = new System.Drawing.Point(262, 405);
+			this.MessageTextBackColorBtn.Location = new System.Drawing.Point(262, 325);
 			this.MessageTextBackColorBtn.Name = "MessageTextBackColorBtn";
 			this.MessageTextBackColorBtn.Size = new System.Drawing.Size(250, 40);
-			this.MessageTextBackColorBtn.TabIndex = 8;
+			this.MessageTextBackColorBtn.TabIndex = 9;
 			this.MessageTextBackColorBtn.Text = "入力メッセージ背景色 = ffffff";
 			this.MessageTextBackColorBtn.UseVisualStyleBackColor = true;
 			this.MessageTextBackColorBtn.Click += new System.EventHandler(this.MessageTextBackColorBtn_Click);
 			// 
 			// MessageTextForeColorBtn
 			// 
-			this.MessageTextForeColorBtn.Location = new System.Drawing.Point(6, 405);
+			this.MessageTextForeColorBtn.Location = new System.Drawing.Point(6, 325);
 			this.MessageTextForeColorBtn.Name = "MessageTextForeColorBtn";
 			this.MessageTextForeColorBtn.Size = new System.Drawing.Size(250, 40);
-			this.MessageTextForeColorBtn.TabIndex = 7;
+			this.MessageTextForeColorBtn.TabIndex = 8;
 			this.MessageTextForeColorBtn.Text = "入力メッセージ文字色 = 000000";
 			this.MessageTextForeColorBtn.UseVisualStyleBackColor = true;
 			this.MessageTextForeColorBtn.Click += new System.EventHandler(this.MessageTextForeColorBtn_Click);
 			// 
 			// RemarksTextBackColorBtn
 			// 
-			this.RemarksTextBackColorBtn.Location = new System.Drawing.Point(262, 359);
+			this.RemarksTextBackColorBtn.Location = new System.Drawing.Point(262, 279);
 			this.RemarksTextBackColorBtn.Name = "RemarksTextBackColorBtn";
 			this.RemarksTextBackColorBtn.Size = new System.Drawing.Size(250, 40);
-			this.RemarksTextBackColorBtn.TabIndex = 6;
+			this.RemarksTextBackColorBtn.TabIndex = 7;
 			this.RemarksTextBackColorBtn.Text = "発言リスト背景色 = ffffff";
 			this.RemarksTextBackColorBtn.UseVisualStyleBackColor = true;
 			this.RemarksTextBackColorBtn.Click += new System.EventHandler(this.RemarksTextBackColorBtn_Click);
 			// 
 			// RemarksTextForeColorBtn
 			// 
-			this.RemarksTextForeColorBtn.Location = new System.Drawing.Point(6, 359);
+			this.RemarksTextForeColorBtn.Location = new System.Drawing.Point(6, 279);
 			this.RemarksTextForeColorBtn.Name = "RemarksTextForeColorBtn";
 			this.RemarksTextForeColorBtn.Size = new System.Drawing.Size(250, 40);
-			this.RemarksTextForeColorBtn.TabIndex = 5;
+			this.RemarksTextForeColorBtn.TabIndex = 6;
 			this.RemarksTextForeColorBtn.Text = "発言リスト文字色 = 000000";
 			this.RemarksTextForeColorBtn.UseVisualStyleBackColor = true;
 			this.RemarksTextForeColorBtn.Click += new System.EventHandler(this.RemarksTextForeColorBtn_Click);
@@ -348,10 +350,10 @@
 			this.groupBox3.Controls.Add(this.label10);
 			this.groupBox3.Controls.Add(this.RemarksTextFontFamily);
 			this.groupBox3.Controls.Add(this.label11);
-			this.groupBox3.Location = new System.Drawing.Point(6, 253);
+			this.groupBox3.Location = new System.Drawing.Point(6, 173);
 			this.groupBox3.Name = "groupBox3";
 			this.groupBox3.Size = new System.Drawing.Size(540, 100);
-			this.groupBox3.TabIndex = 4;
+			this.groupBox3.TabIndex = 5;
 			this.groupBox3.TabStop = false;
 			this.groupBox3.Text = "発言リストのフォント";
 			// 
@@ -398,12 +400,11 @@
 			// 
 			this.label9.AutoSize = true;
 			this.label9.ForeColor = System.Drawing.Color.Teal;
-			this.label9.Location = new System.Drawing.Point(131, 70);
+			this.label9.Location = new System.Drawing.Point(235, 70);
 			this.label9.Name = "label9";
-			this.label9.Size = new System.Drawing.Size(192, 180);
+			this.label9.Size = new System.Drawing.Size(113, 100);
 			this.label9.TabIndex = 3;
-			this.label9.Text = "R == 改行\r\nS == 日時\r\nB == ブランク\r\nI == ident\r\nM == メッセージ\r\n設定例:\r\n標準 == RSBIRRMR\r\n改行少なめ " +
-    "== SBIRMR\r\n改行もっと少なめ == SBIBMR";
+			this.label9.Text = "R == 改行\r\nS == 日時\r\nB == ブランク\r\nI == ident\r\nM == メッセージ";
 			// 
 			// RemarkFormat
 			// 
@@ -449,28 +450,6 @@
 			this.tabPage3.Text = "ユーザー";
 			this.tabPage3.UseVisualStyleBackColor = true;
 			// 
-			// CancelBtn
-			// 
-			this.CancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.CancelBtn.Location = new System.Drawing.Point(462, 505);
-			this.CancelBtn.Name = "CancelBtn";
-			this.CancelBtn.Size = new System.Drawing.Size(110, 45);
-			this.CancelBtn.TabIndex = 2;
-			this.CancelBtn.Text = "キャンセル";
-			this.CancelBtn.UseVisualStyleBackColor = true;
-			this.CancelBtn.Click += new System.EventHandler(this.CancelBtn_Click);
-			// 
-			// OkBtn
-			// 
-			this.OkBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.OkBtn.Location = new System.Drawing.Point(346, 505);
-			this.OkBtn.Name = "OkBtn";
-			this.OkBtn.Size = new System.Drawing.Size(110, 45);
-			this.OkBtn.TabIndex = 1;
-			this.OkBtn.Text = "OK";
-			this.OkBtn.UseVisualStyleBackColor = true;
-			this.OkBtn.Click += new System.EventHandler(this.OkBtn_Click);
-			// 
 			// groupBox4
 			// 
 			this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -486,6 +465,35 @@
 			this.groupBox4.TabIndex = 0;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "ユーザー名";
+			// 
+			// label13
+			// 
+			this.label13.AutoSize = true;
+			this.label13.Location = new System.Drawing.Point(6, 62);
+			this.label13.Name = "label13";
+			this.label13.Size = new System.Drawing.Size(71, 20);
+			this.label13.TabIndex = 2;
+			this.label13.Text = "トリップ :";
+			// 
+			// UserTrip
+			// 
+			this.UserTrip.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.UserTrip.Location = new System.Drawing.Point(83, 59);
+			this.UserTrip.MaxLength = 100;
+			this.UserTrip.Name = "UserTrip";
+			this.UserTrip.Size = new System.Drawing.Size(451, 27);
+			this.UserTrip.TabIndex = 3;
+			this.UserTrip.Text = "0123456789abcdef0123456789abcdef";
+			// 
+			// label12
+			// 
+			this.label12.AutoSize = true;
+			this.label12.Location = new System.Drawing.Point(6, 29);
+			this.label12.Name = "label12";
+			this.label12.Size = new System.Drawing.Size(45, 20);
+			this.label12.TabIndex = 0;
+			this.label12.Text = "名前 :";
 			// 
 			// UserName
 			// 
@@ -509,34 +517,27 @@
 			this.UpdateUserTripBtn.UseVisualStyleBackColor = true;
 			this.UpdateUserTripBtn.Click += new System.EventHandler(this.UpdateUserTripBtn_Click);
 			// 
-			// label12
+			// CancelBtn
 			// 
-			this.label12.AutoSize = true;
-			this.label12.Location = new System.Drawing.Point(6, 29);
-			this.label12.Name = "label12";
-			this.label12.Size = new System.Drawing.Size(45, 20);
-			this.label12.TabIndex = 0;
-			this.label12.Text = "名前 :";
+			this.CancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.CancelBtn.Location = new System.Drawing.Point(462, 505);
+			this.CancelBtn.Name = "CancelBtn";
+			this.CancelBtn.Size = new System.Drawing.Size(110, 45);
+			this.CancelBtn.TabIndex = 2;
+			this.CancelBtn.Text = "キャンセル";
+			this.CancelBtn.UseVisualStyleBackColor = true;
+			this.CancelBtn.Click += new System.EventHandler(this.CancelBtn_Click);
 			// 
-			// UserTrip
+			// OkBtn
 			// 
-			this.UserTrip.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.UserTrip.Location = new System.Drawing.Point(83, 59);
-			this.UserTrip.MaxLength = 100;
-			this.UserTrip.Name = "UserTrip";
-			this.UserTrip.Size = new System.Drawing.Size(451, 27);
-			this.UserTrip.TabIndex = 3;
-			this.UserTrip.Text = "0123456789abcdef0123456789abcdef";
-			// 
-			// label13
-			// 
-			this.label13.AutoSize = true;
-			this.label13.Location = new System.Drawing.Point(6, 62);
-			this.label13.Name = "label13";
-			this.label13.Size = new System.Drawing.Size(71, 20);
-			this.label13.TabIndex = 2;
-			this.label13.Text = "トリップ :";
+			this.OkBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.OkBtn.Location = new System.Drawing.Point(346, 505);
+			this.OkBtn.Name = "OkBtn";
+			this.OkBtn.Size = new System.Drawing.Size(110, 45);
+			this.OkBtn.TabIndex = 1;
+			this.OkBtn.Text = "OK";
+			this.OkBtn.UseVisualStyleBackColor = true;
+			this.OkBtn.Click += new System.EventHandler(this.OkBtn_Click);
 			// 
 			// CorrectBtn
 			// 
@@ -548,6 +549,16 @@
 			this.CorrectBtn.Text = "補正";
 			this.CorrectBtn.UseVisualStyleBackColor = true;
 			this.CorrectBtn.Click += new System.EventHandler(this.CorrectBtn_Click);
+			// 
+			// label14
+			// 
+			this.label14.AutoSize = true;
+			this.label14.ForeColor = System.Drawing.Color.Teal;
+			this.label14.Location = new System.Drawing.Point(354, 70);
+			this.label14.Name = "label14";
+			this.label14.Size = new System.Drawing.Size(192, 80);
+			this.label14.TabIndex = 4;
+			this.label14.Text = "設定例:\r\n標準 == RSBIRRMR\r\n改行少なめ == SBIRMR\r\n改行もっと少なめ == SBIBMR";
 			// 
 			// SettingWin
 			// 
@@ -630,5 +641,6 @@
 		private System.Windows.Forms.TextBox UserName;
 		private System.Windows.Forms.Button UpdateUserTripBtn;
 		private System.Windows.Forms.Button CorrectBtn;
+		private System.Windows.Forms.Label label14;
 	}
 }

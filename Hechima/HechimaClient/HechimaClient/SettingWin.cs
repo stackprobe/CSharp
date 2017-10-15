@@ -162,7 +162,7 @@ namespace Charlotte
 
 			//this.MessageTextEnterMode.SelectedIndex
 
-			this.RemarkFormat.Text = CorrectItem(this.RemarkFormat.Text, 1, 100, "RSBIRRMR");
+			this.RemarkFormat.Text = CorrectItem(this.RemarkFormat.Text.ToUpper(), 1, 100, "RSBIRRMR", "RSBIM");
 
 			this.RemarksTextFontFamily.Text = CorrectItem(this.RemarksTextFontFamily.Text, 1, 300, "メイリオ");
 			this.RemarksTextFontSize.Text = CorrectItemInt(this.RemarksTextFontSize.Text, 1, 99, 10);

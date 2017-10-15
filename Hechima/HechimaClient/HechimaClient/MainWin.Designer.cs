@@ -43,7 +43,7 @@
 			this.MessageText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.MessageText.Location = new System.Drawing.Point(12, 384);
-			this.MessageText.MaxLength = 2000;
+			this.MessageText.MaxLength = 500;
 			this.MessageText.Multiline = true;
 			this.MessageText.Name = "MessageText";
 			this.MessageText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
