@@ -3,11 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Diagnostics;
+using Charlotte.Tools;
+using System.IO;
 
 namespace Charlotte
 {
 	public class CrypTunnelProc
 	{
+		private string _crypTunnelExeFile = null;
+
+		private string crypTunnelExeFile
+		{
+			get
+			{
+				if (_crypTunnelExeFile == null)
+				{
+					_crypTunnelExeFile = Path.Combine(Program.selfDir, "crypTunnel.exe");
+
+					if (File.Exists(_crypTunnelExeFile) == false)
+						_crypTunnelExeFile = @"C:\Factory\Labo\Socket\tunnel\crypTunnel.exe";
+				}
+				return _crypTunnelExeFile;
+			}
+		}
+
 		private Process Proc = null;
 
 		/// <summary>
@@ -15,7 +34,15 @@ namespace Charlotte
 		/// </summary>
 		public void Wake()
 		{
-			// TODO
+			CheckEnded();
+
+			if (Proc == null)
+			{
+				Proc = ProcessTools.start(
+					crypTunnelExeFile,
+					Gnd.setting.crypTunnelPort + " " + Gnd.setting.ServerDomain + " " + Gnd.setting.ServerPort + " *" + Gnd.setting.Password
+					);
+			}
 		}
 
 		/// <summary>
@@ -24,12 +51,35 @@ namespace Charlotte
 		/// <returns>停止している</returns>
 		public bool End()
 		{
-			// TODO
+			TryEnd();
+			CheckEnded();
+			return Proc == null;
+		}
 
+		private int TE_FreezeCount = 0;
+		private Process TE_Proc = null;
+
+		private void TryEnd()
+		{
+			if (0 < TE_FreezeCount)
+			{
+				TE_FreezeCount--;
+				return;
+			}
+			if (TE_Proc != null && TE_Proc.HasExited == false)
+				return;
+
+			TE_FreezeCount = 30;
+			TE_Proc = ProcessTools.start(
+				crypTunnelExeFile,
+				Gnd.setting.crypTunnelPort + " " + Gnd.setting.ServerDomain + " " + Gnd.setting.ServerPort + " /S"
+				);
+		}
+
+		private void CheckEnded()
+		{
 			if (Proc != null && Proc.HasExited)
 				Proc = null;
-
-			return Proc == null;
 		}
 	}
 }

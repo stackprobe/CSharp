@@ -10,19 +10,27 @@ namespace Charlotte
 	{
 		private SockClient _sockClient = new SockClient();
 		private CrypTunnelProc _crypTunnelProc = new CrypTunnelProc();
+		private bool _waked = false;
 
 		public void Perform()
 		{
+			if (_waked == false)
+			{
+				_crypTunnelProc.Wake();
+				_waked = true;
+			}
+
 			// TODO
 		}
 
 		/// <summary>
-		/// 今プロセスを終了しても良いか。
-		/// 状態は Perform の実行によって変化する。
+		/// 終了をリクエストする。
+		/// 今プロセスを終了しても良いか返す。
 		/// </summary>
 		/// <returns>良い</returns>
-		public bool IsEndable()
+		public bool End()
 		{
+			_waked = false;
 			return _sockClient.IsFinished() && _crypTunnelProc.End();
 		}
 	}

@@ -9,7 +9,7 @@ namespace Charlotte
 {
 	public class SockClient
 	{
-		public delegate byte[] Recver_d(Socket sock);
+		public delegate byte[] Recver_d(NetworkStream ns);
 
 		private string _serverDomain;
 		private int _serverPort;
@@ -47,7 +47,24 @@ namespace Charlotte
 
 			_th = new Thread((ThreadStart)delegate
 			{
-				_recvData = new byte[0]; // TODO
+				try
+				{
+					using (TcpClient tc = new TcpClient(_serverDomain, _serverPort))
+					using (NetworkStream ns = tc.GetStream())
+					{
+
+						ns.ReadTimeout = 20000;
+						ns.WriteTimeout = 20000;
+
+						ns.Write(_sendData, 0, _sendData.Length);
+
+						_recvData = _recver(ns);
+					}
+				}
+				catch
+				{
+					_recvData = null;
+				}
 			});
 			_th.Start();
 		}
@@ -63,9 +80,6 @@ namespace Charlotte
 		public byte[] GetRecvData()
 		{
 			if (_th != null) // ? 通信中
-				throw null;
-
-			if (_recvData == null) // ? 未受信 || 受信データは無い。
 				throw null;
 
 			return _recvData;

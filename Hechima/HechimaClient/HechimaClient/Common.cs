@@ -14,10 +14,9 @@ namespace Charlotte
 		{
 			using (BusyDlg f = new BusyDlg(delegate()
 			{
-				while (Gnd.bgService.IsEndable() == false)
+				while (Gnd.bgService.End() == false)
 				{
 					Thread.Sleep(100);
-					Gnd.bgService.Perform();
 				}
 			}
 			))

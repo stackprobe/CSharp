@@ -82,6 +82,8 @@ namespace Charlotte
 		private void MainWin_Shown(object sender, EventArgs e)
 		{
 			this.MessageText.Focus();
+
+			this.MainTimer.Enabled = true;
 		}
 
 		private void MainWin_FormClosing(object sender, FormClosingEventArgs e)
@@ -91,6 +93,8 @@ namespace Charlotte
 
 		private void MainWin_FormClosed(object sender, FormClosedEventArgs e)
 		{
+			this.MainTimer.Enabled = false;
+
 			this.ExportSetting();
 		}
 
@@ -121,13 +125,23 @@ namespace Charlotte
 			// noop
 		}
 
+		private long MT_Count;
+
 		private void MainTimer_Tick(object sender, EventArgs e)
 		{
+			MT_Count++;
+
 			Gnd.bgService.Perform();
+
+			if (MT_Count % 1000 == 30)
+			{
+				GC.Collect();
+			}
 		}
 
 		private void 設定SToolStripMenuItem_Click(object sender, EventArgs e)
 		{
+			this.MainTimer.Enabled = false;
 			this.Visible = false;
 			this.ExportSetting();
 
@@ -145,6 +159,7 @@ namespace Charlotte
 				}
 			}
 			this.Visible = true;
+			this.MainTimer.Enabled = true;
 		}
 	}
 }
