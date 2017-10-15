@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace Charlotte
 {
-	public class BgService : IDisposable
+	public class BgService
 	{
 		private SockClient _sockClient = new SockClient();
 
@@ -16,18 +16,13 @@ namespace Charlotte
 		}
 
 		/// <summary>
-		/// このオブジェクトを破棄(Dispose 呼び出し)可能か？
+		/// 今プロセスを終了しても良いか。
 		/// 状態は Perform の実行によって変化する。
 		/// </summary>
-		/// <returns>可能である</returns>
-		public bool IsDisposable()
+		/// <returns>良い</returns>
+		public bool IsEndable()
 		{
 			return _sockClient.IsFinished();
-		}
-
-		public void Dispose()
-		{
-			// noop
 		}
 	}
 }

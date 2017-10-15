@@ -120,14 +120,14 @@ namespace Charlotte
 			this.Close();
 		}
 
+		public bool OkBtnPressed = false;
+
 		private void OkBtn_Click(object sender, EventArgs e)
 		{
 			this.CorrectItems();
 			this.SaveSetting();
 
-			Gnd.PostLoadSetting();
-
-			Gnd.setting.Save();
+			this.OkBtnPressed = true;
 
 			this.Close();
 		}

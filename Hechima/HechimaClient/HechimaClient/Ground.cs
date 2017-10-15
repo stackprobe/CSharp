@@ -12,7 +12,7 @@ namespace Charlotte
 		public static Setting setting = new Setting();
 		public static BgService bgService = new BgService();
 
-		public static void PostLoadSetting()
+		public static void ImportSetting()
 		{
 			UserIdent =
 				setting.UserName +

@@ -25,11 +25,11 @@ namespace Charlotte
 
 			this.MinimumSize = new Size(300, 300);
 
-			this.LoadConf();
-			this.LoadSetting();
+			this.ImportConf();
+			this.ImportSetting();
 		}
 
-		private void LoadConf()
+		private void ImportConf()
 		{
 			if (Gnd.conf.MessageTextFontFamily != Consts.S_DUMMY && Gnd.conf.MessageTextFontSize != 0)
 			{
@@ -45,7 +45,7 @@ namespace Charlotte
 			}
 		}
 
-		private void LoadSetting()
+		private void ImportSetting(bool withoutMainWinLTWH = false)
 		{
 			this.RemarksText.Font = new Font(Gnd.setting.RemarksTextFontFamily, Gnd.setting.RemarksTextFontSize);
 			this.RemarksText.ForeColor = Gnd.setting.RemarksTextForeColor;
@@ -54,7 +54,7 @@ namespace Charlotte
 			this.MessageText.ForeColor = Gnd.setting.MessageTextForeColor;
 			this.MessageText.BackColor = Gnd.setting.MessageTextBackColor;
 
-			if (Gnd.setting.MainWin_W != -1)
+			if (withoutMainWinLTWH == false && Gnd.setting.MainWin_W != -1)
 			{
 				this.Left = Gnd.setting.MainWin_L;
 				this.Top = Gnd.setting.MainWin_T;
@@ -63,7 +63,7 @@ namespace Charlotte
 			}
 		}
 
-		private void SaveSetting()
+		private void ExportSetting()
 		{
 			if (this.WindowState == FormWindowState.Normal)
 			{
@@ -91,7 +91,7 @@ namespace Charlotte
 
 		private void MainWin_FormClosed(object sender, FormClosedEventArgs e)
 		{
-			this.SaveSetting();
+			this.ExportSetting();
 		}
 
 		private void MessageText_KeyPress(object sender, KeyPressEventArgs e)
@@ -129,21 +129,21 @@ namespace Charlotte
 		private void 設定SToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			this.Visible = false;
+			this.ExportSetting();
 
-			Common.WaitToBgServiceDisposable();
-
-			Gnd.bgService.Dispose();
-			Gnd.bgService = null;
+			Common.WaitToBgServiceEndable();
 
 			using (SettingWin f = new SettingWin())
 			{
 				f.ShowDialog();
+
+				if (f.OkBtnPressed)
+				{
+					Gnd.ImportSetting();
+					this.ImportSetting(true);
+					Gnd.setting.Save();
+				}
 			}
-
-			Gnd.bgService = new BgService();
-
-			this.LoadSetting();
-
 			this.Visible = true;
 		}
 	}

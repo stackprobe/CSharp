@@ -35,7 +35,7 @@ namespace Charlotte
 
 				Gnd.conf.Load();
 				Gnd.setting.Load();
-				Gnd.PostLoadSetting();
+				Gnd.ImportSetting();
 
 				// orig >
 
@@ -45,10 +45,7 @@ namespace Charlotte
 
 				// < orig
 
-				Common.WaitToBgServiceDisposable();
-
-				Gnd.bgService.Dispose();
-				Gnd.bgService = null;
+				Common.WaitToBgServiceEndable();
 
 				//Gnd.setting.Save();
 
