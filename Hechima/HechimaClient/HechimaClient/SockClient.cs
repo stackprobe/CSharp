@@ -52,7 +52,6 @@ namespace Charlotte
 					using (TcpClient tc = new TcpClient(_serverDomain, _serverPort))
 					using (NetworkStream ns = tc.GetStream())
 					{
-
 						ns.ReadTimeout = 20000;
 						ns.WriteTimeout = 20000;
 

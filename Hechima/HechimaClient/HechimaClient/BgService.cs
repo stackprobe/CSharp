@@ -8,9 +8,18 @@ namespace Charlotte
 {
 	public class BgService
 	{
+		public List<string> SendingMessages = new List<string>();
+		public List<Remark> RecvedRemarks = new List<Remark>();
+		public long KnownStamp = 0L;
+
+		private bool _waked = false;
 		private SockClient _sockClient = new SockClient();
 		private CrypTunnelProc _crypTunnelProc = new CrypTunnelProc();
-		private bool _waked = false;
+
+		private int _sendFreezeCount = 50;
+		private int _sendFreezeCountMax = 50;
+		private int _recvFreezeCount = 50;
+		private int _recvFreezeCountMax = 50;
 
 		public void Perform()
 		{
