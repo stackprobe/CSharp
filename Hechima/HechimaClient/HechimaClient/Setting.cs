@@ -32,14 +32,15 @@ namespace Charlotte
 		/// R == 改行
 		/// S == 日時
 		/// B == ブランク
+		/// Z == 全角スペース
 		/// I == ident
 		/// M == メッセージ
 		/// </summary>
-		public string RemarkFormat = "RSBIRRMR";
+		public string RemarkFormat = "RSBIRZMR";
 
 		public string RemarksTextFontFamily = "メイリオ";
-		public int RemarksTextFontSize = 10;
-		public Color RemarksTextForeColor = Color.Black;
+		public int RemarksTextFontSize = 8;//10;
+		public Color RemarksTextForeColor = Color.FromArgb(0, 20, 0);
 		public Color RemarksTextBackColor = Color.White;
 		public Color MessageTextForeColor = Color.Black;
 		public Color MessageTextBackColor = Color.White;
@@ -51,6 +52,9 @@ namespace Charlotte
 
 		public string UserName = "名無しさん" + SecurityTools.getCRandUInt();
 		public string UserTrip = StringTools.toHex(SecurityTools.getCRand(16));
+
+		public bool TripEnabled = false;
+		public bool ShowRemarkStampDate = false;
 
 		// ---- ロード・セーブ
 
@@ -115,6 +119,9 @@ namespace Charlotte
 			this.UserName = lines[c++];
 			this.UserTrip = lines[c++];
 
+			this.TripEnabled = int.Parse(lines[c++]) != 0;
+			this.ShowRemarkStampDate = int.Parse(lines[c++]) != 0;
+
 			// 新しい項目、ここへ追加..
 
 			// ----
@@ -155,6 +162,9 @@ namespace Charlotte
 
 			lines.Add(this.UserName);
 			lines.Add(this.UserTrip);
+
+			lines.Add("" + (this.TripEnabled ? 1 : 0));
+			lines.Add("" + (this.ShowRemarkStampDate ? 1 : 0));
 
 			// 新しい項目、ここへ追加..
 

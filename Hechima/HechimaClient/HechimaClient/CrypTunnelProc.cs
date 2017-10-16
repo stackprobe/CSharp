@@ -47,6 +47,7 @@ namespace Charlotte
 
 		/// <summary>
 		/// 起動中であれば停止する。
+		/// 停止するまで何度も呼び出すこと。
 		/// </summary>
 		/// <returns>停止している</returns>
 		public bool End()

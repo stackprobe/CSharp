@@ -47,6 +47,8 @@ namespace Charlotte
 			SetColor(this.RemarksTextBackColorBtn, Gnd.setting.RemarksTextBackColor);
 			SetColor(this.MessageTextForeColorBtn, Gnd.setting.MessageTextForeColor);
 			SetColor(this.MessageTextBackColorBtn, Gnd.setting.MessageTextBackColor);
+			this.TripEnabled.Checked = Gnd.setting.TripEnabled;
+			this.ShowRemarkStampDate.Checked = Gnd.setting.ShowRemarkStampDate;
 
 			this.UserName.Text = Gnd.setting.UserName;
 			this.UserTrip.Text = Gnd.setting.UserTrip;
@@ -77,6 +79,8 @@ namespace Charlotte
 			Gnd.setting.RemarksTextBackColor = GetColor(this.RemarksTextBackColorBtn);
 			Gnd.setting.MessageTextForeColor = GetColor(this.MessageTextForeColorBtn);
 			Gnd.setting.MessageTextBackColor = GetColor(this.MessageTextBackColorBtn);
+			Gnd.setting.TripEnabled = this.TripEnabled.Checked;
+			Gnd.setting.ShowRemarkStampDate = this.ShowRemarkStampDate.Checked;
 
 			Gnd.setting.UserName = this.UserName.Text;
 			Gnd.setting.UserTrip = this.UserTrip.Text;
@@ -149,7 +153,7 @@ namespace Charlotte
 				);
 			this.ServerPort.Text = CorrectItemInt(this.ServerPort.Text, 1, 65535, 52255);
 			this.crypTunnelPort.Text = CorrectItemInt(this.crypTunnelPort.Text, 1, 65535, 52525);
-			this.Password.Text = CorrectItem(this.Password.Text, 1, 1000, "aa9999[x22]", 
+			this.Password.Text = CorrectItem(this.Password.Text, 1, 1000, "aa9999[x22]",
 				StringTools.DIGIT +
 				StringTools.ALPHA +
 				StringTools.alpha +
@@ -162,7 +166,7 @@ namespace Charlotte
 
 			//this.MessageTextEnterMode.SelectedIndex
 
-			this.RemarkFormat.Text = CorrectItem(this.RemarkFormat.Text.ToUpper(), 1, 100, "RSBIRRMR", "RSBIM");
+			this.RemarkFormat.Text = CorrectItem(this.RemarkFormat.Text.ToUpper(), 1, 100, "RSBIRZMR", "RSBZIM");
 
 			this.RemarksTextFontFamily.Text = CorrectItem(this.RemarksTextFontFamily.Text, 1, 300, "メイリオ");
 			this.RemarksTextFontSize.Text = CorrectItemInt(this.RemarksTextFontSize.Text, 1, 99, 10);
@@ -181,8 +185,11 @@ namespace Charlotte
 			//this.RemarksTextBackColorBtn
 			//this.MessageTextForeColorBtn
 			//this.MessageTextBackColorBtn
+			//this.TripEnabled.Checked
+			//this.ShowRemarkStampDate.Checked
 
 			this.UserName.Text = CorrectItem(this.UserName.Text, 1, 20, "名無しさん" + SecurityTools.getCRandUInt());
+			this.UserName.Text = this.UserName.Text.Replace(Consts.DELIM_NAME_TRIP, Consts.S_DUMMY);
 			this.UserTrip.Text = CorrectItem(this.UserTrip.Text, 1, 100, StringTools.toHex(SecurityTools.getCRand(16)));
 
 			// ----

@@ -107,12 +107,54 @@ namespace Charlotte
 			}
 			else if (e.KeyChar == 10) // ctrl + enter
 			{
-				// TODO
+				if (Gnd.setting.MessageTextEnterMode == Setting.MessageTextEnterMode_e.CtrlEnterで送信_Enterで改行)
+				{
+					this.DoRemark();
+					e.Handled = true;
+				}
 			}
 			else if (e.KeyChar == 13) // enter
 			{
-				// TODO
+				if (Gnd.setting.MessageTextEnterMode == Setting.MessageTextEnterMode_e.Enterで送信_CtrlEnterで改行)
+				{
+					this.DoRemark();
+					e.Handled = true;
+				}
 			}
+		}
+
+		private string TrueRemarksText = null;
+
+		private void DoRemark()
+		{
+			string message = this.MessageText.Text;
+
+			this.MessageText.Text = "";
+
+			if (30 < Gnd.bgService.SendingMessages.Count) // ? 未送信発言貯まり過ぎ
+				return;
+
+			message = Common.ToFairMessage(message);
+
+			if (message == "") // ? 空の発言
+				return;
+
+			Remark provRemark = new Remark()
+			{
+				Stamp = Common.GetStamp(),
+				Ident = Gnd.UserRealName + " @ 127.0.0.1",
+				Message = message,
+			};
+			string provText = Common.RemarkToTextBoxText(provRemark);
+
+			if (this.TrueRemarksText == null)
+				this.TrueRemarksText = this.RemarksText.Text;
+
+			this.RemarksText.AppendText(provText);
+			this.RemarksText.SelectionStart = this.RemarksText.TextLength;
+			this.RemarksText.ScrollToCaret();
+
+			Gnd.bgService.SendingMessages.Enqueue(message);
 		}
 
 		private void MessageText_TextChanged(object sender, EventArgs e)
@@ -131,11 +173,66 @@ namespace Charlotte
 		{
 			MT_Count++;
 
-			Gnd.bgService.Perform();
-
 			if (MT_Count % 1000 == 30)
 			{
 				GC.Collect();
+				return;
+			}
+			if (MT_Count % 100 == 30)
+			{
+				// zantei -- このへん適当...
+				if (Gnd.conf.RemarksTextMaxLength < this.RemarksText.TextLength)
+				{
+					int clearLength = (this.RemarksText.TextLength * 100) / Gnd.conf.RemarksTextClearPct;
+
+					this.RemarksText.Text = this.RemarksText.Text.Substring(clearLength);
+					this.RemarksText.SelectionStart = this.RemarksText.TextLength;
+					this.RemarksText.ScrollToCaret();
+
+					return;
+				}
+			}
+
+			Gnd.bgService.Perform();
+
+			if (1 <= Gnd.bgService.RecvedRemarks.Count) // 受信データ -> RemarksText
+			{
+				StringBuilder buff = new StringBuilder();
+
+				while (1 <= Gnd.bgService.RecvedRemarks.Count)
+				{
+					Remark remark = Gnd.bgService.RecvedRemarks.Dequeue();
+					string text = Common.RemarkToTextBoxText(remark);
+
+					buff.Append(text);
+
+					Gnd.bgService.KnownStamp = Math.Max(Gnd.bgService.KnownStamp, remark.Stamp);
+				}
+				string rrsText = buff.ToString();
+
+				// RemarksText 更新 {
+
+				bool caretInEnd = this.RemarksText.TextLength == this.RemarksText.SelectionStart;
+				bool allChanged = false;
+
+				if (this.TrueRemarksText != null)
+				{
+					this.RemarksText.Text = this.TrueRemarksText + rrsText;
+					this.TrueRemarksText = null;
+					allChanged = true;
+				}
+				else
+					this.RemarksText.AppendText(rrsText);
+
+				if (caretInEnd || allChanged)
+				{
+					this.RemarksText.SelectionStart = this.RemarksText.TextLength;
+					this.RemarksText.ScrollToCaret();
+				}
+
+				// }
+
+				return;
 			}
 		}
 

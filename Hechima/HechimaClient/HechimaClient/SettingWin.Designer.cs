@@ -48,6 +48,9 @@
 			this.ServerDomain = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
+			this.ShowRemarkStampDate = new System.Windows.Forms.CheckBox();
+			this.TripEnabled = new System.Windows.Forms.CheckBox();
+			this.label14 = new System.Windows.Forms.Label();
 			this.MessageTextBackColorBtn = new System.Windows.Forms.Button();
 			this.MessageTextForeColorBtn = new System.Windows.Forms.Button();
 			this.RemarksTextBackColorBtn = new System.Windows.Forms.Button();
@@ -71,7 +74,6 @@
 			this.CancelBtn = new System.Windows.Forms.Button();
 			this.OkBtn = new System.Windows.Forms.Button();
 			this.CorrectBtn = new System.Windows.Forms.Button();
-			this.label14 = new System.Windows.Forms.Label();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -284,6 +286,8 @@
 			// 
 			// tabPage2
 			// 
+			this.tabPage2.Controls.Add(this.ShowRemarkStampDate);
+			this.tabPage2.Controls.Add(this.TripEnabled);
 			this.tabPage2.Controls.Add(this.label14);
 			this.tabPage2.Controls.Add(this.MessageTextBackColorBtn);
 			this.tabPage2.Controls.Add(this.MessageTextForeColorBtn);
@@ -302,9 +306,40 @@
 			this.tabPage2.Text = "画面";
 			this.tabPage2.UseVisualStyleBackColor = true;
 			// 
+			// ShowRemarkStampDate
+			// 
+			this.ShowRemarkStampDate.AutoSize = true;
+			this.ShowRemarkStampDate.Location = new System.Drawing.Point(10, 421);
+			this.ShowRemarkStampDate.Name = "ShowRemarkStampDate";
+			this.ShowRemarkStampDate.Size = new System.Drawing.Size(132, 24);
+			this.ShowRemarkStampDate.TabIndex = 11;
+			this.ShowRemarkStampDate.Text = "日付も表示する。";
+			this.ShowRemarkStampDate.UseVisualStyleBackColor = true;
+			// 
+			// TripEnabled
+			// 
+			this.TripEnabled.AutoSize = true;
+			this.TripEnabled.Location = new System.Drawing.Point(10, 391);
+			this.TripEnabled.Name = "TripEnabled";
+			this.TripEnabled.Size = new System.Drawing.Size(158, 24);
+			this.TripEnabled.TabIndex = 10;
+			this.TripEnabled.Text = "トリップを表示する。";
+			this.TripEnabled.UseVisualStyleBackColor = true;
+			// 
+			// label14
+			// 
+			this.label14.AutoSize = true;
+			this.label14.ForeColor = System.Drawing.Color.Teal;
+			this.label14.Location = new System.Drawing.Point(354, 70);
+			this.label14.Name = "label14";
+			this.label14.Size = new System.Drawing.Size(192, 120);
+			this.label14.TabIndex = 4;
+			this.label14.Text = "【設定例】\r\n標準 == RSBIRZMR\r\n字下げ無し == RSBIRMR\r\n改行多め == RSBIRRMR\r\n改行少なめ == SBIRMR\r\n改行もっと" +
+    "少なめ == SBIBMR";
+			// 
 			// MessageTextBackColorBtn
 			// 
-			this.MessageTextBackColorBtn.Location = new System.Drawing.Point(262, 325);
+			this.MessageTextBackColorBtn.Location = new System.Drawing.Point(262, 345);
 			this.MessageTextBackColorBtn.Name = "MessageTextBackColorBtn";
 			this.MessageTextBackColorBtn.Size = new System.Drawing.Size(250, 40);
 			this.MessageTextBackColorBtn.TabIndex = 9;
@@ -314,7 +349,7 @@
 			// 
 			// MessageTextForeColorBtn
 			// 
-			this.MessageTextForeColorBtn.Location = new System.Drawing.Point(6, 325);
+			this.MessageTextForeColorBtn.Location = new System.Drawing.Point(6, 345);
 			this.MessageTextForeColorBtn.Name = "MessageTextForeColorBtn";
 			this.MessageTextForeColorBtn.Size = new System.Drawing.Size(250, 40);
 			this.MessageTextForeColorBtn.TabIndex = 8;
@@ -324,7 +359,7 @@
 			// 
 			// RemarksTextBackColorBtn
 			// 
-			this.RemarksTextBackColorBtn.Location = new System.Drawing.Point(262, 279);
+			this.RemarksTextBackColorBtn.Location = new System.Drawing.Point(262, 299);
 			this.RemarksTextBackColorBtn.Name = "RemarksTextBackColorBtn";
 			this.RemarksTextBackColorBtn.Size = new System.Drawing.Size(250, 40);
 			this.RemarksTextBackColorBtn.TabIndex = 7;
@@ -334,7 +369,7 @@
 			// 
 			// RemarksTextForeColorBtn
 			// 
-			this.RemarksTextForeColorBtn.Location = new System.Drawing.Point(6, 279);
+			this.RemarksTextForeColorBtn.Location = new System.Drawing.Point(6, 299);
 			this.RemarksTextForeColorBtn.Name = "RemarksTextForeColorBtn";
 			this.RemarksTextForeColorBtn.Size = new System.Drawing.Size(250, 40);
 			this.RemarksTextForeColorBtn.TabIndex = 6;
@@ -350,7 +385,7 @@
 			this.groupBox3.Controls.Add(this.label10);
 			this.groupBox3.Controls.Add(this.RemarksTextFontFamily);
 			this.groupBox3.Controls.Add(this.label11);
-			this.groupBox3.Location = new System.Drawing.Point(6, 173);
+			this.groupBox3.Location = new System.Drawing.Point(6, 193);
 			this.groupBox3.Name = "groupBox3";
 			this.groupBox3.Size = new System.Drawing.Size(540, 100);
 			this.groupBox3.TabIndex = 5;
@@ -400,11 +435,11 @@
 			// 
 			this.label9.AutoSize = true;
 			this.label9.ForeColor = System.Drawing.Color.Teal;
-			this.label9.Location = new System.Drawing.Point(235, 70);
+			this.label9.Location = new System.Drawing.Point(225, 70);
 			this.label9.Name = "label9";
-			this.label9.Size = new System.Drawing.Size(113, 100);
+			this.label9.Size = new System.Drawing.Size(123, 120);
 			this.label9.TabIndex = 3;
-			this.label9.Text = "R == 改行\r\nS == 日時\r\nB == ブランク\r\nI == ident\r\nM == メッセージ";
+			this.label9.Text = "R == 改行\r\nS == 日時\r\nB == ブランク\r\nZ == 全角スペース\r\nI == ident\r\nM == メッセージ";
 			// 
 			// RemarkFormat
 			// 
@@ -415,7 +450,7 @@
 			this.RemarkFormat.Name = "RemarkFormat";
 			this.RemarkFormat.Size = new System.Drawing.Size(411, 27);
 			this.RemarkFormat.TabIndex = 2;
-			this.RemarkFormat.Text = "RSBIRRMR";
+			this.RemarkFormat.Text = "RSBIRMR";
 			// 
 			// label8
 			// 
@@ -550,16 +585,6 @@
 			this.CorrectBtn.UseVisualStyleBackColor = true;
 			this.CorrectBtn.Click += new System.EventHandler(this.CorrectBtn_Click);
 			// 
-			// label14
-			// 
-			this.label14.AutoSize = true;
-			this.label14.ForeColor = System.Drawing.Color.Teal;
-			this.label14.Location = new System.Drawing.Point(354, 70);
-			this.label14.Name = "label14";
-			this.label14.Size = new System.Drawing.Size(192, 80);
-			this.label14.TabIndex = 4;
-			this.label14.Text = "設定例:\r\n標準 == RSBIRRMR\r\n改行少なめ == SBIRMR\r\n改行もっと少なめ == SBIBMR";
-			// 
 			// SettingWin
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -642,5 +667,7 @@
 		private System.Windows.Forms.Button UpdateUserTripBtn;
 		private System.Windows.Forms.Button CorrectBtn;
 		private System.Windows.Forms.Label label14;
+		private System.Windows.Forms.CheckBox TripEnabled;
+		private System.Windows.Forms.CheckBox ShowRemarkStampDate;
 	}
 }

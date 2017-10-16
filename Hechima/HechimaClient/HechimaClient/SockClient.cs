@@ -49,15 +49,26 @@ namespace Charlotte
 			{
 				try
 				{
-					using (TcpClient tc = new TcpClient(_serverDomain, _serverPort))
-					using (NetworkStream ns = tc.GetStream())
+					TcpClient tc = null;
+					NetworkStream ns = null;
+					try
 					{
+						tc = new TcpClient(_serverDomain, _serverPort);
+						ns = tc.GetStream();
+
 						ns.ReadTimeout = 20000;
 						ns.WriteTimeout = 20000;
 
 						ns.Write(_sendData, 0, _sendData.Length);
 
 						_recvData = _recver(ns);
+					}
+					finally
+					{
+						try { ns.Close(); }
+						catch { }
+						try { tc.Close(); }
+						catch { }
 					}
 				}
 				catch
@@ -82,6 +93,14 @@ namespace Charlotte
 				throw null;
 
 			return _recvData;
+		}
+
+		public void ClearRecvData()
+		{
+			if (_th != null) // ? 通信中
+				throw null;
+
+			_recvData = null;
 		}
 	}
 }

@@ -14,12 +14,12 @@ namespace Charlotte
 
 		public static void ImportSetting()
 		{
-			UserIdent =
+			UserRealName =
 				setting.UserName +
 				Consts.DELIM_NAME_TRIP +
 				Common.ToTrip(setting.UserTrip);
 		}
 
-		public static string UserIdent = "名無しさん12345" + Consts.DELIM_NAME_TRIP + "Trip123";
+		public static string UserRealName = "名無しさん12345" + Consts.DELIM_NAME_TRIP + "Trip123";
 	}
 }
