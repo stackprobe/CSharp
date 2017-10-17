@@ -40,7 +40,7 @@ namespace Charlotte
 
 		public string RemarksTextFontFamily = "メイリオ";
 		public int RemarksTextFontSize = 8;//10;
-		public Color RemarksTextForeColor = Color.FromArgb(0, 20, 0);
+		public Color RemarksTextForeColor = Color.FromArgb(0, 48, 0);
 		public Color RemarksTextBackColor = Color.White;
 		public Color MessageTextForeColor = Color.Black;
 		public Color MessageTextBackColor = Color.White;
@@ -56,9 +56,9 @@ namespace Charlotte
 		public bool TripEnabled = false;
 		public bool ShowRemarkStampDate = false;
 
-		public int BouyomiChanSpeed = BouyomiChan.SPEED_MAX;
-		public int BouyomiChanTone = BouyomiChan.TONE_MAX;
-		public int BouyomiChanVolume = BouyomiChan.VOLUME_MAX;
+		public int BouyomiChanSpeed = (BouyomiChan.SPEED_MIN + BouyomiChan.SPEED_MAX) / 2;
+		public int BouyomiChanTone = (BouyomiChan.TONE_MIN + BouyomiChan.TONE_MAX) / 2;
+		public int BouyomiChanVolume = (BouyomiChan.VOLUME_MIN + BouyomiChan.VOLUME_MAX) / 2;
 		public bool BouyomiChanSpeedUseDef = true;
 		public bool BouyomiChanToneUseDef = true;
 		public bool BouyomiChanVolumeUseDef = true;

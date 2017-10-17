@@ -27,16 +27,16 @@ namespace Charlotte
 		public const string DEFAULT_MESSAGE = "ぼうよみンゴ";
 
 		public string ServerDomain = "localhost";
-		public int ServerPortNo = 50001;
+		public int ServerPort = 50001;
 		public int Speed = SPEED_DEF;
 		public int Tone = TONE_DEF;
 		public int Volume = VOLUME_DEF;
 		public int Voice = VOICE_MIN;
 		public string Message = DEFAULT_MESSAGE;
 
-		public byte[] GetSendData(string message)
+		public byte[] GetSendData()
 		{
-			byte[] bMsg = StringTools.ENCODING_SJIS.GetBytes(message);
+			byte[] bMsg = StringTools.ENCODING_SJIS.GetBytes(Message);
 			int bMsgLen = bMsg.Length;
 			List<byte> buff = new List<byte>();
 

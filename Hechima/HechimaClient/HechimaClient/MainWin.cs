@@ -207,28 +207,48 @@ namespace Charlotte
 					buff.Append(text);
 
 					Gnd.bgService.KnownStamp = Math.Max(Gnd.bgService.KnownStamp, remark.Stamp);
+
+					if (
+						Gnd.bgService.RecvedRemarks.Count < 30 &&
+						Gnd.setting.BouyomiChanEnabled
+						)
+					{
+						BouyomiChan bc = new BouyomiChan();
+
+						bc.ServerDomain = Gnd.setting.BouyomiChanDomain;
+						bc.ServerPort = Gnd.setting.BouyomiChanPort;
+						bc.Speed =
+							Gnd.setting.BouyomiChanSpeedUseDef ?
+							BouyomiChan.SPEED_DEF :
+							Gnd.setting.BouyomiChanSpeed;
+						bc.Tone =
+							Gnd.setting.BouyomiChanToneUseDef ?
+							BouyomiChan.TONE_DEF :
+							Gnd.setting.BouyomiChanTone;
+						bc.Volume =
+							Gnd.setting.BouyomiChanVolumeUseDef ?
+							BouyomiChan.VOLUME_DEF :
+							Gnd.setting.BouyomiChanVolume;
+						bc.Voice = Gnd.setting.BouyomiChanVoice;
+						bc.Message = remark.Message;
+
+						bc.GetSendData(); // TODO -- 送信
+					}
 				}
 				string rrsText = buff.ToString();
 
 				// RemarksText 更新 {
 
-				bool caretInEnd = this.RemarksText.TextLength == this.RemarksText.SelectionStart;
-				bool allChanged = false;
-
 				if (this.TrueRemarksText != null)
 				{
 					this.RemarksText.Text = this.TrueRemarksText + rrsText;
 					this.TrueRemarksText = null;
-					allChanged = true;
 				}
 				else
 					this.RemarksText.AppendText(rrsText);
 
-				if (caretInEnd || allChanged)
-				{
-					this.RemarksText.SelectionStart = this.RemarksText.TextLength;
-					this.RemarksText.ScrollToCaret();
-				}
+				this.RemarksText.SelectionStart = this.RemarksText.TextLength;
+				this.RemarksText.ScrollToCaret();
 
 				// }
 
