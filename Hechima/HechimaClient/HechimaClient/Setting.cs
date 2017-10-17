@@ -56,6 +56,14 @@ namespace Charlotte
 		public bool TripEnabled = false;
 		public bool ShowRemarkStampDate = false;
 
+		public int BouyomiChanSpeed = BouyomiChan.SPEED_MAX;
+		public int BouyomiChanTone = BouyomiChan.TONE_MAX;
+		public int BouyomiChanVolume = BouyomiChan.VOLUME_MAX;
+		public bool BouyomiChanSpeedUseDef = true;
+		public bool BouyomiChanToneUseDef = true;
+		public bool BouyomiChanVolumeUseDef = true;
+		public int BouyomiChanVoice = BouyomiChan.VOICE_MIN;
+
 		// ---- ロード・セーブ
 
 		private string GetProgDataDir()
@@ -122,6 +130,14 @@ namespace Charlotte
 			this.TripEnabled = int.Parse(lines[c++]) != 0;
 			this.ShowRemarkStampDate = int.Parse(lines[c++]) != 0;
 
+			this.BouyomiChanSpeed = int.Parse(lines[c++]);
+			this.BouyomiChanTone = int.Parse(lines[c++]);
+			this.BouyomiChanVolume = int.Parse(lines[c++]);
+			this.BouyomiChanSpeedUseDef = int.Parse(lines[c++]) != 0;
+			this.BouyomiChanToneUseDef = int.Parse(lines[c++]) != 0;
+			this.BouyomiChanVolumeUseDef = int.Parse(lines[c++]) != 0;
+			this.BouyomiChanVoice = int.Parse(lines[c++]);
+
 			// 新しい項目、ここへ追加..
 
 			// ----
@@ -165,6 +181,14 @@ namespace Charlotte
 
 			lines.Add("" + (this.TripEnabled ? 1 : 0));
 			lines.Add("" + (this.ShowRemarkStampDate ? 1 : 0));
+
+			lines.Add("" + this.BouyomiChanSpeed);
+			lines.Add("" + this.BouyomiChanTone);
+			lines.Add("" + this.BouyomiChanVolume);
+			lines.Add("" + (this.BouyomiChanSpeedUseDef ? 1 : 0));
+			lines.Add("" + (this.BouyomiChanToneUseDef ? 1 : 0));
+			lines.Add("" + (this.BouyomiChanVolumeUseDef ? 1 : 0));
+			lines.Add("" + this.BouyomiChanVoice);
 
 			// 新しい項目、ここへ追加..
 

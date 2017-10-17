@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BgService.cs" />
+    <Compile Include="BouyomiChan.cs" />
     <Compile Include="BusyDlg.cs">
       <SubType>Form</SubType>
     </Compile>

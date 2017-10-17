@@ -32,7 +32,6 @@
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
-			this.BouyomiChanEnabled = new System.Windows.Forms.CheckBox();
 			this.BouyomiChanPort = new System.Windows.Forms.TextBox();
 			this.label6 = new System.Windows.Forms.Label();
 			this.BouyomiChanDomain = new System.Windows.Forms.TextBox();
@@ -74,6 +73,8 @@
 			this.CancelBtn = new System.Windows.Forms.Button();
 			this.OkBtn = new System.Windows.Forms.Button();
 			this.CorrectBtn = new System.Windows.Forms.Button();
+			this.tabPage4 = new System.Windows.Forms.TabPage();
+			this.BouyomiChanEnabled = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -82,6 +83,7 @@
 			this.groupBox3.SuspendLayout();
 			this.tabPage3.SuspendLayout();
 			this.groupBox4.SuspendLayout();
+			this.tabPage4.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl1
@@ -92,6 +94,7 @@
 			this.tabControl1.Controls.Add(this.tabPage1);
 			this.tabControl1.Controls.Add(this.tabPage2);
 			this.tabControl1.Controls.Add(this.tabPage3);
+			this.tabControl1.Controls.Add(this.tabPage4);
 			this.tabControl1.Location = new System.Drawing.Point(12, 12);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
@@ -116,7 +119,6 @@
 			// 
 			this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.groupBox2.Controls.Add(this.BouyomiChanEnabled);
 			this.groupBox2.Controls.Add(this.BouyomiChanPort);
 			this.groupBox2.Controls.Add(this.label6);
 			this.groupBox2.Controls.Add(this.BouyomiChanDomain);
@@ -127,17 +129,6 @@
 			this.groupBox2.TabIndex = 3;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "棒読みちゃん";
-			// 
-			// BouyomiChanEnabled
-			// 
-			this.BouyomiChanEnabled.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.BouyomiChanEnabled.AutoSize = true;
-			this.BouyomiChanEnabled.Location = new System.Drawing.Point(480, 61);
-			this.BouyomiChanEnabled.Name = "BouyomiChanEnabled";
-			this.BouyomiChanEnabled.Size = new System.Drawing.Size(54, 24);
-			this.BouyomiChanEnabled.TabIndex = 4;
-			this.BouyomiChanEnabled.Text = "有効";
-			this.BouyomiChanEnabled.UseVisualStyleBackColor = true;
 			// 
 			// BouyomiChanPort
 			// 
@@ -558,7 +549,7 @@
 			this.CancelBtn.Location = new System.Drawing.Point(462, 505);
 			this.CancelBtn.Name = "CancelBtn";
 			this.CancelBtn.Size = new System.Drawing.Size(110, 45);
-			this.CancelBtn.TabIndex = 2;
+			this.CancelBtn.TabIndex = 3;
 			this.CancelBtn.Text = "キャンセル";
 			this.CancelBtn.UseVisualStyleBackColor = true;
 			this.CancelBtn.Click += new System.EventHandler(this.CancelBtn_Click);
@@ -569,7 +560,7 @@
 			this.OkBtn.Location = new System.Drawing.Point(346, 505);
 			this.OkBtn.Name = "OkBtn";
 			this.OkBtn.Size = new System.Drawing.Size(110, 45);
-			this.OkBtn.TabIndex = 1;
+			this.OkBtn.TabIndex = 2;
 			this.OkBtn.Text = "OK";
 			this.OkBtn.UseVisualStyleBackColor = true;
 			this.OkBtn.Click += new System.EventHandler(this.OkBtn_Click);
@@ -580,10 +571,30 @@
 			this.CorrectBtn.Location = new System.Drawing.Point(12, 505);
 			this.CorrectBtn.Name = "CorrectBtn";
 			this.CorrectBtn.Size = new System.Drawing.Size(110, 45);
-			this.CorrectBtn.TabIndex = 3;
+			this.CorrectBtn.TabIndex = 1;
 			this.CorrectBtn.Text = "補正";
 			this.CorrectBtn.UseVisualStyleBackColor = true;
 			this.CorrectBtn.Click += new System.EventHandler(this.CorrectBtn_Click);
+			// 
+			// tabPage4
+			// 
+			this.tabPage4.Controls.Add(this.BouyomiChanEnabled);
+			this.tabPage4.Location = new System.Drawing.Point(4, 29);
+			this.tabPage4.Name = "tabPage4";
+			this.tabPage4.Size = new System.Drawing.Size(552, 454);
+			this.tabPage4.TabIndex = 3;
+			this.tabPage4.Text = "棒読みちゃん";
+			this.tabPage4.UseVisualStyleBackColor = true;
+			// 
+			// BouyomiChanEnabled
+			// 
+			this.BouyomiChanEnabled.AutoSize = true;
+			this.BouyomiChanEnabled.Location = new System.Drawing.Point(12, 12);
+			this.BouyomiChanEnabled.Name = "BouyomiChanEnabled";
+			this.BouyomiChanEnabled.Size = new System.Drawing.Size(262, 24);
+			this.BouyomiChanEnabled.TabIndex = 0;
+			this.BouyomiChanEnabled.Text = "棒読みちゃんにメッセージを送信する。";
+			this.BouyomiChanEnabled.UseVisualStyleBackColor = true;
 			// 
 			// SettingWin
 			// 
@@ -618,6 +629,8 @@
 			this.tabPage3.ResumeLayout(false);
 			this.groupBox4.ResumeLayout(false);
 			this.groupBox4.PerformLayout();
+			this.tabPage4.ResumeLayout(false);
+			this.tabPage4.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -642,7 +655,6 @@
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.TextBox ServerDomain;
 		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.CheckBox BouyomiChanEnabled;
 		private System.Windows.Forms.Label label9;
 		private System.Windows.Forms.TextBox RemarkFormat;
 		private System.Windows.Forms.Label label8;
@@ -669,5 +681,7 @@
 		private System.Windows.Forms.Label label14;
 		private System.Windows.Forms.CheckBox TripEnabled;
 		private System.Windows.Forms.CheckBox ShowRemarkStampDate;
+		private System.Windows.Forms.TabPage tabPage4;
+		private System.Windows.Forms.CheckBox BouyomiChanEnabled;
 	}
 }
