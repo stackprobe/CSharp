@@ -132,6 +132,12 @@
     <Compile Include="Tools\WorkingDir.cs" />
     <Compile Include="Tools\XNode.cs" />
     <Compile Include="Tools\XYPoint.cs" />
+    <Compile Include="ViewWin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ViewWin.Designer.cs">
+      <DependentUpon>ViewWin.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="BusyDlg.resx">
       <DependentUpon>BusyDlg.cs</DependentUpon>
     </EmbeddedResource>
@@ -150,6 +156,9 @@
     </Compile>
     <EmbeddedResource Include="SettingWin.resx">
       <DependentUpon>SettingWin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ViewWin.resx">
+      <DependentUpon>ViewWin.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

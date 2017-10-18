@@ -142,7 +142,7 @@ namespace Charlotte
 			Remark provRemark = new Remark()
 			{
 				Stamp = Common.GetStamp(),
-				Ident = Gnd.UserRealName + " @ 127.0.0.1",
+				Ident = Gnd.UserRealName + " @ 127.0.0.222",
 				Message = message,
 			};
 			string provText = Common.RemarkToTextBoxText(provRemark);
@@ -230,9 +230,15 @@ namespace Charlotte
 							BouyomiChan.VOLUME_DEF :
 							Gnd.setting.BouyomiChanVolume;
 						bc.Voice = Gnd.setting.BouyomiChanVoice;
-						bc.Message = remark.Message;
 
-						bc.GetSendData(); // TODO -- 送信
+						string msg = remark.Message;
+
+						if (Gnd.setting.BouyomiChanSnipLen < msg.Length)
+							msg = msg.Substring(0, Gnd.setting.BouyomiChanSnipLen) + Gnd.setting.BouyomiChanSnippedTrailer;
+
+						bc.Message = msg;
+
+						Gnd.bgService.BouyomiChanSendDataBuff.Enqueue(bc.GetSendData());
 					}
 				}
 				string rrsText = buff.ToString();
@@ -277,6 +283,29 @@ namespace Charlotte
 			}
 			this.Visible = true;
 			this.MainTimer.Enabled = true;
+		}
+
+		private void 見るだけMToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			this.MainTimer.Enabled = false;
+			this.Visible = false;
+			this.ExportSetting();
+
+			Common.WaitToBgServiceEndable();
+
+			using (ViewWin f = new ViewWin(this.RemarksText.Text))
+			{
+				f.ShowDialog();
+			}
+			this.Visible = true;
+			this.MainTimer.Enabled = true;
+		}
+
+		private void たかざわダブルじゅんすけDToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			this.MessageText.Text = "_(:3 」∠ )_(:3 」∠ )_";
+			this.MessageText.Focus();
+			this.MessageText.SelectAll();
 		}
 	}
 }

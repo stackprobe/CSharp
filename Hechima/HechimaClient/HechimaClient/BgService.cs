@@ -12,6 +12,7 @@ namespace Charlotte
 	{
 		public Queue<string> SendingMessages = new Queue<string>();
 		public Queue<Remark> RecvedRemarks = new Queue<Remark>();
+		public Queue<byte[]> BouyomiChanSendDataBuff = new Queue<byte[]>();
 		public long KnownStamp = 0L;
 
 		private bool _waked = false;
@@ -38,6 +39,19 @@ namespace Charlotte
 			if (_sockClient.IsFinished() == false)
 				return;
 
+			if (1 <= this.BouyomiChanSendDataBuff.Count)
+			{
+				_sockClient.Send(
+					Gnd.setting.BouyomiChanDomain,
+					Gnd.setting.BouyomiChanPort,
+					this.BouyomiChanSendDataBuff.Dequeue(),
+					delegate(NetworkStream ns)
+					{
+						return null;
+					}
+					);
+				return;
+			}
 			if (1 <= this.RecvedRemarks.Count) // ? 受信データがまだ処理されていない。-- this.KnownStamp の更新待ちのため。
 				return;
 

@@ -35,13 +35,20 @@
 			this.MainTimer = new System.Windows.Forms.Timer(this.components);
 			this.MainContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.設定SToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.RemarksTextContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.見るだけMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.MessageTextContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.たかざわダブルじゅんすけDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.MainContextMenu.SuspendLayout();
+			this.RemarksTextContextMenu.SuspendLayout();
+			this.MessageTextContextMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// MessageText
 			// 
 			this.MessageText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.MessageText.ContextMenuStrip = this.MessageTextContextMenu;
 			this.MessageText.Location = new System.Drawing.Point(12, 384);
 			this.MessageText.MaxLength = 500;
 			this.MessageText.Multiline = true;
@@ -58,6 +65,7 @@
 			this.RemarksText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.RemarksText.ContextMenuStrip = this.RemarksTextContextMenu;
 			this.RemarksText.Location = new System.Drawing.Point(12, 12);
 			this.RemarksText.MaxLength = 0;
 			this.RemarksText.Multiline = true;
@@ -86,6 +94,34 @@
 			this.設定SToolStripMenuItem.Text = "設定(&S)";
 			this.設定SToolStripMenuItem.Click += new System.EventHandler(this.設定SToolStripMenuItem_Click);
 			// 
+			// RemarksTextContextMenu
+			// 
+			this.RemarksTextContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.見るだけMToolStripMenuItem});
+			this.RemarksTextContextMenu.Name = "RemarksTextContextMenu";
+			this.RemarksTextContextMenu.Size = new System.Drawing.Size(145, 26);
+			// 
+			// 見るだけMToolStripMenuItem
+			// 
+			this.見るだけMToolStripMenuItem.Name = "見るだけMToolStripMenuItem";
+			this.見るだけMToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+			this.見るだけMToolStripMenuItem.Text = "見るだけ(&M)";
+			this.見るだけMToolStripMenuItem.Click += new System.EventHandler(this.見るだけMToolStripMenuItem_Click);
+			// 
+			// MessageTextContextMenu
+			// 
+			this.MessageTextContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.たかざわダブルじゅんすけDToolStripMenuItem});
+			this.MessageTextContextMenu.Name = "MessageTextContextMenu";
+			this.MessageTextContextMenu.Size = new System.Drawing.Size(240, 48);
+			// 
+			// たかざわダブルじゅんすけDToolStripMenuItem
+			// 
+			this.たかざわダブルじゅんすけDToolStripMenuItem.Name = "たかざわダブルじゅんすけDToolStripMenuItem";
+			this.たかざわダブルじゅんすけDToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+			this.たかざわダブルじゅんすけDToolStripMenuItem.Text = "たかざわダブルじゅんすけ(&D)";
+			this.たかざわダブルじゅんすけDToolStripMenuItem.Click += new System.EventHandler(this.たかざわダブルじゅんすけDToolStripMenuItem_Click);
+			// 
 			// MainWin
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -106,6 +142,8 @@
 			this.Load += new System.EventHandler(this.MainWin_Load);
 			this.Shown += new System.EventHandler(this.MainWin_Shown);
 			this.MainContextMenu.ResumeLayout(false);
+			this.RemarksTextContextMenu.ResumeLayout(false);
+			this.MessageTextContextMenu.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -118,6 +156,10 @@
 		private System.Windows.Forms.Timer MainTimer;
 		private System.Windows.Forms.ContextMenuStrip MainContextMenu;
 		private System.Windows.Forms.ToolStripMenuItem 設定SToolStripMenuItem;
+		private System.Windows.Forms.ContextMenuStrip RemarksTextContextMenu;
+		private System.Windows.Forms.ToolStripMenuItem 見るだけMToolStripMenuItem;
+		private System.Windows.Forms.ContextMenuStrip MessageTextContextMenu;
+		private System.Windows.Forms.ToolStripMenuItem たかざわダブルじゅんすけDToolStripMenuItem;
 	}
 }
 

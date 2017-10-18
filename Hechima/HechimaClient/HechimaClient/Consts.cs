@@ -10,5 +10,7 @@ namespace Charlotte
 		public const string S_DUMMY = "-";
 
 		public const string DELIM_NAME_TRIP = "◆";
+
+		public const string SYNC_VERSION = "1.00";
 	}
 }

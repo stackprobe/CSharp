@@ -64,6 +64,9 @@ namespace Charlotte
 		public bool BouyomiChanVolumeUseDef = true;
 		public int BouyomiChanVoice = BouyomiChan.VOICE_MIN;
 
+		public int BouyomiChanSnipLen = 100;
+		public string BouyomiChanSnippedTrailer = "以下略";
+
 		// ---- ロード・セーブ
 
 		private string GetProgDataDir()
@@ -138,6 +141,9 @@ namespace Charlotte
 			this.BouyomiChanVolumeUseDef = int.Parse(lines[c++]) != 0;
 			this.BouyomiChanVoice = int.Parse(lines[c++]);
 
+			this.BouyomiChanSnipLen = int.Parse(lines[c++]);
+			this.BouyomiChanSnippedTrailer = lines[c++];
+
 			// 新しい項目、ここへ追加..
 
 			// ----
@@ -189,6 +195,9 @@ namespace Charlotte
 			lines.Add("" + (this.BouyomiChanToneUseDef ? 1 : 0));
 			lines.Add("" + (this.BouyomiChanVolumeUseDef ? 1 : 0));
 			lines.Add("" + this.BouyomiChanVoice);
+
+			lines.Add("" + this.BouyomiChanSnipLen);
+			lines.Add(this.BouyomiChanSnippedTrailer);
 
 			// 新しい項目、ここへ追加..
 

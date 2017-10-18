@@ -33,7 +33,6 @@ namespace Charlotte
 			this.crypTunnelPort.Text = "" + Gnd.setting.crypTunnelPort;
 			this.Password.Text = Gnd.setting.Password;
 
-			this.BouyomiChanEnabled.Checked = Gnd.setting.BouyomiChanEnabled;
 			this.BouyomiChanDomain.Text = Gnd.setting.BouyomiChanDomain;
 			this.BouyomiChanPort.Text = "" + Gnd.setting.BouyomiChanPort;
 
@@ -53,6 +52,18 @@ namespace Charlotte
 			this.UserName.Text = Gnd.setting.UserName;
 			this.UserTrip.Text = Gnd.setting.UserTrip;
 
+			this.BouyomiChanEnabled.Checked = Gnd.setting.BouyomiChanEnabled;
+			this.BouyomiChanSpeed.Text = "" + Gnd.setting.BouyomiChanSpeed;
+			this.BouyomiChanSpeedUseDef.Checked = Gnd.setting.BouyomiChanSpeedUseDef;
+			this.BouyomiChanTone.Text = "" + Gnd.setting.BouyomiChanTone;
+			this.BouyomiChanToneUseDef.Checked = Gnd.setting.BouyomiChanToneUseDef;
+			this.BouyomiChanVolume.Text = "" + Gnd.setting.BouyomiChanVolume;
+			this.BouyomiChanVolumeUseDef.Checked = Gnd.setting.BouyomiChanVolumeUseDef;
+			this.BouyomiChanVoice.Text = "" + Gnd.setting.BouyomiChanVoice;
+
+			this.BouyomiChanSnipLen.Text = "" + Gnd.setting.BouyomiChanSnipLen;
+			this.BouyomiChanSnippedTrailer.Text = Gnd.setting.BouyomiChanSnippedTrailer;
+
 			// ----
 		}
 
@@ -65,7 +76,6 @@ namespace Charlotte
 			Gnd.setting.crypTunnelPort = int.Parse(this.crypTunnelPort.Text);
 			Gnd.setting.Password = this.Password.Text;
 
-			Gnd.setting.BouyomiChanEnabled = this.BouyomiChanEnabled.Checked;
 			Gnd.setting.BouyomiChanDomain = this.BouyomiChanDomain.Text;
 			Gnd.setting.BouyomiChanPort = int.Parse(this.BouyomiChanPort.Text);
 
@@ -84,6 +94,18 @@ namespace Charlotte
 
 			Gnd.setting.UserName = this.UserName.Text;
 			Gnd.setting.UserTrip = this.UserTrip.Text;
+
+			Gnd.setting.BouyomiChanEnabled = this.BouyomiChanEnabled.Checked;
+			Gnd.setting.BouyomiChanSpeed = int.Parse(this.BouyomiChanSpeed.Text);
+			Gnd.setting.BouyomiChanSpeedUseDef = this.BouyomiChanSpeedUseDef.Checked;
+			Gnd.setting.BouyomiChanTone = int.Parse(this.BouyomiChanTone.Text);
+			Gnd.setting.BouyomiChanToneUseDef = this.BouyomiChanToneUseDef.Checked;
+			Gnd.setting.BouyomiChanVolume = int.Parse(this.BouyomiChanVolume.Text);
+			Gnd.setting.BouyomiChanVolumeUseDef = this.BouyomiChanVolumeUseDef.Checked;
+			Gnd.setting.BouyomiChanVoice = int.Parse(this.BouyomiChanVoice.Text);
+
+			Gnd.setting.BouyomiChanSnipLen = int.Parse(this.BouyomiChanSnipLen.Text);
+			Gnd.setting.BouyomiChanSnippedTrailer = this.BouyomiChanSnippedTrailer.Text;
 
 			// ----
 		}
@@ -160,7 +182,6 @@ namespace Charlotte
 				"-@[]"
 				);
 
-			//this.BouyomiChanEnabled.Checked
 			this.BouyomiChanDomain.Text = CorrectItem(this.BouyomiChanDomain.Text, 1, 300, "localhost");
 			this.BouyomiChanPort.Text = CorrectItemInt(this.BouyomiChanPort.Text, 1, 65535, 50001);
 
@@ -191,6 +212,18 @@ namespace Charlotte
 			this.UserName.Text = CorrectItem(this.UserName.Text, 1, 20, "名無しさん" + SecurityTools.getCRandUInt());
 			this.UserName.Text = this.UserName.Text.Replace(Consts.DELIM_NAME_TRIP, Consts.S_DUMMY);
 			this.UserTrip.Text = CorrectItem(this.UserTrip.Text, 1, 100, StringTools.toHex(SecurityTools.getCRand(16)));
+
+			//this.BouyomiChanEnabled.Checked
+			this.BouyomiChanSpeed.Text = CorrectItemInt(this.BouyomiChanSpeed.Text, BouyomiChan.SPEED_MIN, BouyomiChan.SPEED_MAX, (BouyomiChan.SPEED_MIN + BouyomiChan.SPEED_MAX) / 2);
+			//this.BouyomiChanSpeedUseDef.Checked
+			this.BouyomiChanTone.Text = CorrectItemInt(this.BouyomiChanTone.Text, BouyomiChan.TONE_MIN, BouyomiChan.TONE_MAX, (BouyomiChan.TONE_MIN + BouyomiChan.TONE_MAX) / 2);
+			//this.BouyomiChanToneUseDef.Checked
+			this.BouyomiChanVolume.Text = CorrectItemInt(this.BouyomiChanVolume.Text, BouyomiChan.VOLUME_MIN, BouyomiChan.VOLUME_MAX, (BouyomiChan.VOLUME_MIN + BouyomiChan.VOLUME_MAX) / 2);
+			//this.BouyomiChanVolumeUseDef.Checked
+			this.BouyomiChanVoice.Text = CorrectItemInt(this.BouyomiChanVoice.Text, BouyomiChan.VOICE_MIN, BouyomiChan.VOICE_MAX, BouyomiChan.VOICE_MIN);
+
+			this.BouyomiChanSnipLen.Text = CorrectItemInt(this.BouyomiChanSnipLen.Text, 1, 99999, 100);
+			this.BouyomiChanSnippedTrailer.Text = CorrectItem(this.BouyomiChanSnippedTrailer.Text, 1, 1000, "以下略");
 
 			// ----
 		}
