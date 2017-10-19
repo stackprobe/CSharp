@@ -47,7 +47,7 @@ namespace Charlotte
 
 				Common.WaitToBgServiceEndable();
 
-				//Gnd.setting.Save();
+				Gnd.setting.Save(); // MainWin_LTWH のために！
 
 				GlobalProcMtx.release();
 				procMutex.ReleaseMutex();

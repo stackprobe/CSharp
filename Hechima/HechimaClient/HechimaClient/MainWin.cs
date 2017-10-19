@@ -142,7 +142,7 @@ namespace Charlotte
 			Remark provRemark = new Remark()
 			{
 				Stamp = Common.GetStamp(),
-				Ident = Gnd.UserRealName + " @ 127.0.0.222",
+				Ident = Gnd.UserRealName + " @ 127.0.0.2",
 				Message = message,
 			};
 			string provText = Common.RemarkToTextBoxText(provRemark);
@@ -209,8 +209,12 @@ namespace Charlotte
 					Gnd.bgService.KnownStamp = Math.Max(Gnd.bgService.KnownStamp, remark.Stamp);
 
 					if (
+						Gnd.setting.BouyomiChanEnabled &&
 						Gnd.bgService.RecvedRemarks.Count < 30 &&
-						Gnd.setting.BouyomiChanEnabled
+						(
+							Gnd.setting.BouyomiChanIgnoreSelfRemark == false ||
+							remark.Ident.StartsWith(Gnd.UserRealName) == false // ? 自分の発言ではない。
+						)
 						)
 					{
 						BouyomiChan bc = new BouyomiChan();

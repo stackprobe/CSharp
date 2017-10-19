@@ -14,7 +14,7 @@ namespace Charlotte
 		public string ServerDomain = "localhost";
 		public int ServerPort = 52255;
 		public int crypTunnelPort = 52525;
-		public string Password = "aa9999[x22]";
+		public string Password = "aa9999x22x";
 
 		public bool BouyomiChanEnabled = false;
 		public string BouyomiChanDomain = "localhost";
@@ -66,6 +66,7 @@ namespace Charlotte
 
 		public int BouyomiChanSnipLen = 100;
 		public string BouyomiChanSnippedTrailer = "以下略";
+		public bool BouyomiChanIgnoreSelfRemark = false;
 
 		// ---- ロード・セーブ
 
@@ -143,6 +144,7 @@ namespace Charlotte
 
 			this.BouyomiChanSnipLen = int.Parse(lines[c++]);
 			this.BouyomiChanSnippedTrailer = lines[c++];
+			this.BouyomiChanIgnoreSelfRemark = int.Parse(lines[c++]) != 0;
 
 			// 新しい項目、ここへ追加..
 
@@ -198,6 +200,7 @@ namespace Charlotte
 
 			lines.Add("" + this.BouyomiChanSnipLen);
 			lines.Add(this.BouyomiChanSnippedTrailer);
+			lines.Add("" + (this.BouyomiChanIgnoreSelfRemark ? 1 : 0));
 
 			// 新しい項目、ここへ追加..
 

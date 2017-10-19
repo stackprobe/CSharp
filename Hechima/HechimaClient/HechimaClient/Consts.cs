@@ -11,6 +11,9 @@ namespace Charlotte
 
 		public const string DELIM_NAME_TRIP = "◆";
 
-		public const string SYNC_VERSION = "1.00";
+		/// <summary>
+		/// 旧バージョンのクライアントを弾きたい時に文字列を変更するのだ！
+		/// </summary>
+		public const string PASSWORD_TRAILER = "-SERIAL=100[x22]";
 	}
 }

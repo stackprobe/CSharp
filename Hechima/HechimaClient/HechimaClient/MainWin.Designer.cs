@@ -31,17 +31,17 @@
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWin));
 			this.MessageText = new System.Windows.Forms.TextBox();
+			this.MessageTextContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.たかざわダブルじゅんすけDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.RemarksText = new System.Windows.Forms.TextBox();
+			this.RemarksTextContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.見るだけMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.MainTimer = new System.Windows.Forms.Timer(this.components);
 			this.MainContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.設定SToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.RemarksTextContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-			this.見るだけMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.MessageTextContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-			this.たかざわダブルじゅんすけDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.MainContextMenu.SuspendLayout();
-			this.RemarksTextContextMenu.SuspendLayout();
 			this.MessageTextContextMenu.SuspendLayout();
+			this.RemarksTextContextMenu.SuspendLayout();
+			this.MainContextMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// MessageText
@@ -60,6 +60,20 @@
 			this.MessageText.TextChanged += new System.EventHandler(this.MessageText_TextChanged);
 			this.MessageText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.MessageText_KeyPress);
 			// 
+			// MessageTextContextMenu
+			// 
+			this.MessageTextContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.たかざわダブルじゅんすけDToolStripMenuItem});
+			this.MessageTextContextMenu.Name = "MessageTextContextMenu";
+			this.MessageTextContextMenu.Size = new System.Drawing.Size(240, 26);
+			// 
+			// たかざわダブルじゅんすけDToolStripMenuItem
+			// 
+			this.たかざわダブルじゅんすけDToolStripMenuItem.Name = "たかざわダブルじゅんすけDToolStripMenuItem";
+			this.たかざわダブルじゅんすけDToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+			this.たかざわダブルじゅんすけDToolStripMenuItem.Text = "たかざわダブルじゅんすけ(&D)";
+			this.たかざわダブルじゅんすけDToolStripMenuItem.Click += new System.EventHandler(this.たかざわダブルじゅんすけDToolStripMenuItem_Click);
+			// 
 			// RemarksText
 			// 
 			this.RemarksText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -75,6 +89,20 @@
 			this.RemarksText.Size = new System.Drawing.Size(460, 366);
 			this.RemarksText.TabIndex = 1;
 			this.RemarksText.TextChanged += new System.EventHandler(this.RemarksText_TextChanged);
+			// 
+			// RemarksTextContextMenu
+			// 
+			this.RemarksTextContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.見るだけMToolStripMenuItem});
+			this.RemarksTextContextMenu.Name = "RemarksTextContextMenu";
+			this.RemarksTextContextMenu.Size = new System.Drawing.Size(153, 48);
+			// 
+			// 見るだけMToolStripMenuItem
+			// 
+			this.見るだけMToolStripMenuItem.Name = "見るだけMToolStripMenuItem";
+			this.見るだけMToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.見るだけMToolStripMenuItem.Text = "ビュー(&V)";
+			this.見るだけMToolStripMenuItem.Click += new System.EventHandler(this.見るだけMToolStripMenuItem_Click);
 			// 
 			// MainTimer
 			// 
@@ -93,34 +121,6 @@
 			this.設定SToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
 			this.設定SToolStripMenuItem.Text = "設定(&S)";
 			this.設定SToolStripMenuItem.Click += new System.EventHandler(this.設定SToolStripMenuItem_Click);
-			// 
-			// RemarksTextContextMenu
-			// 
-			this.RemarksTextContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.見るだけMToolStripMenuItem});
-			this.RemarksTextContextMenu.Name = "RemarksTextContextMenu";
-			this.RemarksTextContextMenu.Size = new System.Drawing.Size(145, 26);
-			// 
-			// 見るだけMToolStripMenuItem
-			// 
-			this.見るだけMToolStripMenuItem.Name = "見るだけMToolStripMenuItem";
-			this.見るだけMToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
-			this.見るだけMToolStripMenuItem.Text = "見るだけ(&M)";
-			this.見るだけMToolStripMenuItem.Click += new System.EventHandler(this.見るだけMToolStripMenuItem_Click);
-			// 
-			// MessageTextContextMenu
-			// 
-			this.MessageTextContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.たかざわダブルじゅんすけDToolStripMenuItem});
-			this.MessageTextContextMenu.Name = "MessageTextContextMenu";
-			this.MessageTextContextMenu.Size = new System.Drawing.Size(240, 48);
-			// 
-			// たかざわダブルじゅんすけDToolStripMenuItem
-			// 
-			this.たかざわダブルじゅんすけDToolStripMenuItem.Name = "たかざわダブルじゅんすけDToolStripMenuItem";
-			this.たかざわダブルじゅんすけDToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
-			this.たかざわダブルじゅんすけDToolStripMenuItem.Text = "たかざわダブルじゅんすけ(&D)";
-			this.たかざわダブルじゅんすけDToolStripMenuItem.Click += new System.EventHandler(this.たかざわダブルじゅんすけDToolStripMenuItem_Click);
 			// 
 			// MainWin
 			// 
@@ -141,9 +141,9 @@
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainWin_FormClosed);
 			this.Load += new System.EventHandler(this.MainWin_Load);
 			this.Shown += new System.EventHandler(this.MainWin_Shown);
-			this.MainContextMenu.ResumeLayout(false);
-			this.RemarksTextContextMenu.ResumeLayout(false);
 			this.MessageTextContextMenu.ResumeLayout(false);
+			this.RemarksTextContextMenu.ResumeLayout(false);
+			this.MainContextMenu.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

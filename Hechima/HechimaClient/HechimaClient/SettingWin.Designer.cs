@@ -71,30 +71,31 @@
 			this.UserName = new System.Windows.Forms.TextBox();
 			this.UpdateUserTripBtn = new System.Windows.Forms.Button();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
+			this.BouyomiChanSnippedTrailer = new System.Windows.Forms.TextBox();
+			this.label24 = new System.Windows.Forms.Label();
+			this.label23 = new System.Windows.Forms.Label();
+			this.BouyomiChanSnipLen = new System.Windows.Forms.TextBox();
+			this.groupBox5 = new System.Windows.Forms.GroupBox();
+			this.BouyomiChanVolumeUseDef = new System.Windows.Forms.CheckBox();
+			this.BouyomiChanToneUseDef = new System.Windows.Forms.CheckBox();
+			this.BouyomiChanSpeedUseDef = new System.Windows.Forms.CheckBox();
+			this.label22 = new System.Windows.Forms.Label();
+			this.label21 = new System.Windows.Forms.Label();
+			this.label20 = new System.Windows.Forms.Label();
+			this.label19 = new System.Windows.Forms.Label();
+			this.label18 = new System.Windows.Forms.Label();
+			this.label17 = new System.Windows.Forms.Label();
+			this.BouyomiChanVoice = new System.Windows.Forms.TextBox();
+			this.BouyomiChanVolume = new System.Windows.Forms.TextBox();
+			this.BouyomiChanTone = new System.Windows.Forms.TextBox();
+			this.label16 = new System.Windows.Forms.Label();
+			this.BouyomiChanSpeed = new System.Windows.Forms.TextBox();
+			this.label15 = new System.Windows.Forms.Label();
 			this.BouyomiChanEnabled = new System.Windows.Forms.CheckBox();
 			this.CancelBtn = new System.Windows.Forms.Button();
 			this.OkBtn = new System.Windows.Forms.Button();
 			this.CorrectBtn = new System.Windows.Forms.Button();
-			this.groupBox5 = new System.Windows.Forms.GroupBox();
-			this.label15 = new System.Windows.Forms.Label();
-			this.BouyomiChanSpeed = new System.Windows.Forms.TextBox();
-			this.label16 = new System.Windows.Forms.Label();
-			this.BouyomiChanTone = new System.Windows.Forms.TextBox();
-			this.BouyomiChanVolume = new System.Windows.Forms.TextBox();
-			this.BouyomiChanVoice = new System.Windows.Forms.TextBox();
-			this.label17 = new System.Windows.Forms.Label();
-			this.label18 = new System.Windows.Forms.Label();
-			this.label19 = new System.Windows.Forms.Label();
-			this.label20 = new System.Windows.Forms.Label();
-			this.label21 = new System.Windows.Forms.Label();
-			this.label22 = new System.Windows.Forms.Label();
-			this.BouyomiChanSpeedUseDef = new System.Windows.Forms.CheckBox();
-			this.BouyomiChanToneUseDef = new System.Windows.Forms.CheckBox();
-			this.BouyomiChanVolumeUseDef = new System.Windows.Forms.CheckBox();
-			this.BouyomiChanSnipLen = new System.Windows.Forms.TextBox();
-			this.label23 = new System.Windows.Forms.Label();
-			this.label24 = new System.Windows.Forms.Label();
-			this.BouyomiChanSnippedTrailer = new System.Windows.Forms.TextBox();
+			this.BouyomiChanIgnoreSelfRemark = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -208,7 +209,7 @@
 			this.Password.Name = "Password";
 			this.Password.Size = new System.Drawing.Size(418, 27);
 			this.Password.TabIndex = 2;
-			this.Password.Text = "aa9999[x22]";
+			this.Password.Text = "aa9999x22x";
 			// 
 			// groupBox1
 			// 
@@ -566,6 +567,7 @@
 			// 
 			// tabPage4
 			// 
+			this.tabPage4.Controls.Add(this.BouyomiChanIgnoreSelfRemark);
 			this.tabPage4.Controls.Add(this.BouyomiChanSnippedTrailer);
 			this.tabPage4.Controls.Add(this.label24);
 			this.tabPage4.Controls.Add(this.label23);
@@ -578,6 +580,217 @@
 			this.tabPage4.TabIndex = 3;
 			this.tabPage4.Text = "棒読みちゃん";
 			this.tabPage4.UseVisualStyleBackColor = true;
+			// 
+			// BouyomiChanSnippedTrailer
+			// 
+			this.BouyomiChanSnippedTrailer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.BouyomiChanSnippedTrailer.Location = new System.Drawing.Point(76, 251);
+			this.BouyomiChanSnippedTrailer.MaxLength = 1000;
+			this.BouyomiChanSnippedTrailer.Name = "BouyomiChanSnippedTrailer";
+			this.BouyomiChanSnippedTrailer.Size = new System.Drawing.Size(470, 27);
+			this.BouyomiChanSnippedTrailer.TabIndex = 5;
+			this.BouyomiChanSnippedTrailer.Text = "以下略";
+			// 
+			// label24
+			// 
+			this.label24.AutoSize = true;
+			this.label24.Location = new System.Drawing.Point(8, 254);
+			this.label24.Name = "label24";
+			this.label24.Size = new System.Drawing.Size(58, 20);
+			this.label24.TabIndex = 4;
+			this.label24.Text = "以下略 :";
+			// 
+			// label23
+			// 
+			this.label23.AutoSize = true;
+			this.label23.Location = new System.Drawing.Point(118, 221);
+			this.label23.Name = "label23";
+			this.label23.Size = new System.Drawing.Size(191, 20);
+			this.label23.TabIndex = 3;
+			this.label23.Text = "文字目より後は読み上げない。";
+			// 
+			// BouyomiChanSnipLen
+			// 
+			this.BouyomiChanSnipLen.Location = new System.Drawing.Point(12, 218);
+			this.BouyomiChanSnipLen.MaxLength = 5;
+			this.BouyomiChanSnipLen.Name = "BouyomiChanSnipLen";
+			this.BouyomiChanSnipLen.Size = new System.Drawing.Size(100, 27);
+			this.BouyomiChanSnipLen.TabIndex = 2;
+			this.BouyomiChanSnipLen.Text = "100";
+			this.BouyomiChanSnipLen.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// groupBox5
+			// 
+			this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox5.Controls.Add(this.BouyomiChanVolumeUseDef);
+			this.groupBox5.Controls.Add(this.BouyomiChanToneUseDef);
+			this.groupBox5.Controls.Add(this.BouyomiChanSpeedUseDef);
+			this.groupBox5.Controls.Add(this.label22);
+			this.groupBox5.Controls.Add(this.label21);
+			this.groupBox5.Controls.Add(this.label20);
+			this.groupBox5.Controls.Add(this.label19);
+			this.groupBox5.Controls.Add(this.label18);
+			this.groupBox5.Controls.Add(this.label17);
+			this.groupBox5.Controls.Add(this.BouyomiChanVoice);
+			this.groupBox5.Controls.Add(this.BouyomiChanVolume);
+			this.groupBox5.Controls.Add(this.BouyomiChanTone);
+			this.groupBox5.Controls.Add(this.label16);
+			this.groupBox5.Controls.Add(this.BouyomiChanSpeed);
+			this.groupBox5.Controls.Add(this.label15);
+			this.groupBox5.Location = new System.Drawing.Point(6, 42);
+			this.groupBox5.Name = "groupBox5";
+			this.groupBox5.Size = new System.Drawing.Size(540, 170);
+			this.groupBox5.TabIndex = 1;
+			this.groupBox5.TabStop = false;
+			this.groupBox5.Text = "パラメータ";
+			// 
+			// BouyomiChanVolumeUseDef
+			// 
+			this.BouyomiChanVolumeUseDef.AutoSize = true;
+			this.BouyomiChanVolumeUseDef.Location = new System.Drawing.Point(300, 94);
+			this.BouyomiChanVolumeUseDef.Name = "BouyomiChanVolumeUseDef";
+			this.BouyomiChanVolumeUseDef.Size = new System.Drawing.Size(93, 24);
+			this.BouyomiChanVolumeUseDef.TabIndex = 11;
+			this.BouyomiChanVolumeUseDef.Text = "デフォルト";
+			this.BouyomiChanVolumeUseDef.UseVisualStyleBackColor = true;
+			// 
+			// BouyomiChanToneUseDef
+			// 
+			this.BouyomiChanToneUseDef.AutoSize = true;
+			this.BouyomiChanToneUseDef.Location = new System.Drawing.Point(300, 61);
+			this.BouyomiChanToneUseDef.Name = "BouyomiChanToneUseDef";
+			this.BouyomiChanToneUseDef.Size = new System.Drawing.Size(93, 24);
+			this.BouyomiChanToneUseDef.TabIndex = 7;
+			this.BouyomiChanToneUseDef.Text = "デフォルト";
+			this.BouyomiChanToneUseDef.UseVisualStyleBackColor = true;
+			// 
+			// BouyomiChanSpeedUseDef
+			// 
+			this.BouyomiChanSpeedUseDef.AutoSize = true;
+			this.BouyomiChanSpeedUseDef.Location = new System.Drawing.Point(300, 28);
+			this.BouyomiChanSpeedUseDef.Name = "BouyomiChanSpeedUseDef";
+			this.BouyomiChanSpeedUseDef.Size = new System.Drawing.Size(93, 24);
+			this.BouyomiChanSpeedUseDef.TabIndex = 3;
+			this.BouyomiChanSpeedUseDef.Text = "デフォルト";
+			this.BouyomiChanSpeedUseDef.UseVisualStyleBackColor = true;
+			// 
+			// label22
+			// 
+			this.label22.AutoSize = true;
+			this.label22.ForeColor = System.Drawing.Color.Teal;
+			this.label22.Location = new System.Drawing.Point(176, 128);
+			this.label22.Name = "label22";
+			this.label22.Size = new System.Drawing.Size(46, 20);
+			this.label22.TabIndex = 14;
+			this.label22.Text = "0 ～ 8";
+			// 
+			// label21
+			// 
+			this.label21.AutoSize = true;
+			this.label21.ForeColor = System.Drawing.Color.Teal;
+			this.label21.Location = new System.Drawing.Point(176, 95);
+			this.label21.Name = "label21";
+			this.label21.Size = new System.Drawing.Size(62, 20);
+			this.label21.TabIndex = 10;
+			this.label21.Text = "0 ～ 100";
+			// 
+			// label20
+			// 
+			this.label20.AutoSize = true;
+			this.label20.ForeColor = System.Drawing.Color.Teal;
+			this.label20.Location = new System.Drawing.Point(176, 62);
+			this.label20.Name = "label20";
+			this.label20.Size = new System.Drawing.Size(70, 20);
+			this.label20.TabIndex = 6;
+			this.label20.Text = "50 ～ 200";
+			// 
+			// label19
+			// 
+			this.label19.AutoSize = true;
+			this.label19.ForeColor = System.Drawing.Color.Teal;
+			this.label19.Location = new System.Drawing.Point(176, 29);
+			this.label19.Name = "label19";
+			this.label19.Size = new System.Drawing.Size(70, 20);
+			this.label19.TabIndex = 2;
+			this.label19.Text = "50 ～ 300";
+			// 
+			// label18
+			// 
+			this.label18.AutoSize = true;
+			this.label18.Location = new System.Drawing.Point(6, 128);
+			this.label18.Name = "label18";
+			this.label18.Size = new System.Drawing.Size(45, 20);
+			this.label18.TabIndex = 12;
+			this.label18.Text = "音声 :";
+			// 
+			// label17
+			// 
+			this.label17.AutoSize = true;
+			this.label17.Location = new System.Drawing.Point(6, 95);
+			this.label17.Name = "label17";
+			this.label17.Size = new System.Drawing.Size(45, 20);
+			this.label17.TabIndex = 8;
+			this.label17.Text = "音量 :";
+			// 
+			// BouyomiChanVoice
+			// 
+			this.BouyomiChanVoice.Location = new System.Drawing.Point(70, 125);
+			this.BouyomiChanVoice.MaxLength = 1;
+			this.BouyomiChanVoice.Name = "BouyomiChanVoice";
+			this.BouyomiChanVoice.Size = new System.Drawing.Size(100, 27);
+			this.BouyomiChanVoice.TabIndex = 13;
+			this.BouyomiChanVoice.Text = "0";
+			this.BouyomiChanVoice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// BouyomiChanVolume
+			// 
+			this.BouyomiChanVolume.Location = new System.Drawing.Point(70, 92);
+			this.BouyomiChanVolume.MaxLength = 3;
+			this.BouyomiChanVolume.Name = "BouyomiChanVolume";
+			this.BouyomiChanVolume.Size = new System.Drawing.Size(100, 27);
+			this.BouyomiChanVolume.TabIndex = 9;
+			this.BouyomiChanVolume.Text = "100";
+			this.BouyomiChanVolume.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// BouyomiChanTone
+			// 
+			this.BouyomiChanTone.Location = new System.Drawing.Point(70, 59);
+			this.BouyomiChanTone.MaxLength = 3;
+			this.BouyomiChanTone.Name = "BouyomiChanTone";
+			this.BouyomiChanTone.Size = new System.Drawing.Size(100, 27);
+			this.BouyomiChanTone.TabIndex = 5;
+			this.BouyomiChanTone.Text = "200";
+			this.BouyomiChanTone.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label16
+			// 
+			this.label16.AutoSize = true;
+			this.label16.Location = new System.Drawing.Point(6, 62);
+			this.label16.Name = "label16";
+			this.label16.Size = new System.Drawing.Size(58, 20);
+			this.label16.TabIndex = 4;
+			this.label16.Text = "トーン :";
+			// 
+			// BouyomiChanSpeed
+			// 
+			this.BouyomiChanSpeed.Location = new System.Drawing.Point(70, 26);
+			this.BouyomiChanSpeed.MaxLength = 3;
+			this.BouyomiChanSpeed.Name = "BouyomiChanSpeed";
+			this.BouyomiChanSpeed.Size = new System.Drawing.Size(100, 27);
+			this.BouyomiChanSpeed.TabIndex = 1;
+			this.BouyomiChanSpeed.Text = "300";
+			this.BouyomiChanSpeed.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label15
+			// 
+			this.label15.AutoSize = true;
+			this.label15.Location = new System.Drawing.Point(6, 29);
+			this.label15.Name = "label15";
+			this.label15.Size = new System.Drawing.Size(45, 20);
+			this.label15.TabIndex = 0;
+			this.label15.Text = "速度 :";
 			// 
 			// BouyomiChanEnabled
 			// 
@@ -622,216 +835,15 @@
 			this.CorrectBtn.UseVisualStyleBackColor = true;
 			this.CorrectBtn.Click += new System.EventHandler(this.CorrectBtn_Click);
 			// 
-			// groupBox5
+			// BouyomiChanIgnoreSelfRemark
 			// 
-			this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.groupBox5.Controls.Add(this.BouyomiChanVolumeUseDef);
-			this.groupBox5.Controls.Add(this.BouyomiChanToneUseDef);
-			this.groupBox5.Controls.Add(this.BouyomiChanSpeedUseDef);
-			this.groupBox5.Controls.Add(this.label22);
-			this.groupBox5.Controls.Add(this.label21);
-			this.groupBox5.Controls.Add(this.label20);
-			this.groupBox5.Controls.Add(this.label19);
-			this.groupBox5.Controls.Add(this.label18);
-			this.groupBox5.Controls.Add(this.label17);
-			this.groupBox5.Controls.Add(this.BouyomiChanVoice);
-			this.groupBox5.Controls.Add(this.BouyomiChanVolume);
-			this.groupBox5.Controls.Add(this.BouyomiChanTone);
-			this.groupBox5.Controls.Add(this.label16);
-			this.groupBox5.Controls.Add(this.BouyomiChanSpeed);
-			this.groupBox5.Controls.Add(this.label15);
-			this.groupBox5.Location = new System.Drawing.Point(6, 42);
-			this.groupBox5.Name = "groupBox5";
-			this.groupBox5.Size = new System.Drawing.Size(540, 170);
-			this.groupBox5.TabIndex = 1;
-			this.groupBox5.TabStop = false;
-			this.groupBox5.Text = "パラメータ";
-			// 
-			// label15
-			// 
-			this.label15.AutoSize = true;
-			this.label15.Location = new System.Drawing.Point(6, 29);
-			this.label15.Name = "label15";
-			this.label15.Size = new System.Drawing.Size(45, 20);
-			this.label15.TabIndex = 0;
-			this.label15.Text = "速度 :";
-			// 
-			// BouyomiChanSpeed
-			// 
-			this.BouyomiChanSpeed.Location = new System.Drawing.Point(70, 26);
-			this.BouyomiChanSpeed.MaxLength = 3;
-			this.BouyomiChanSpeed.Name = "BouyomiChanSpeed";
-			this.BouyomiChanSpeed.Size = new System.Drawing.Size(100, 27);
-			this.BouyomiChanSpeed.TabIndex = 1;
-			this.BouyomiChanSpeed.Text = "300";
-			this.BouyomiChanSpeed.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// label16
-			// 
-			this.label16.AutoSize = true;
-			this.label16.Location = new System.Drawing.Point(6, 62);
-			this.label16.Name = "label16";
-			this.label16.Size = new System.Drawing.Size(58, 20);
-			this.label16.TabIndex = 4;
-			this.label16.Text = "トーン :";
-			// 
-			// BouyomiChanTone
-			// 
-			this.BouyomiChanTone.Location = new System.Drawing.Point(70, 59);
-			this.BouyomiChanTone.MaxLength = 3;
-			this.BouyomiChanTone.Name = "BouyomiChanTone";
-			this.BouyomiChanTone.Size = new System.Drawing.Size(100, 27);
-			this.BouyomiChanTone.TabIndex = 5;
-			this.BouyomiChanTone.Text = "200";
-			this.BouyomiChanTone.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// BouyomiChanVolume
-			// 
-			this.BouyomiChanVolume.Location = new System.Drawing.Point(70, 92);
-			this.BouyomiChanVolume.MaxLength = 3;
-			this.BouyomiChanVolume.Name = "BouyomiChanVolume";
-			this.BouyomiChanVolume.Size = new System.Drawing.Size(100, 27);
-			this.BouyomiChanVolume.TabIndex = 9;
-			this.BouyomiChanVolume.Text = "100";
-			this.BouyomiChanVolume.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// BouyomiChanVoice
-			// 
-			this.BouyomiChanVoice.Location = new System.Drawing.Point(70, 125);
-			this.BouyomiChanVoice.MaxLength = 1;
-			this.BouyomiChanVoice.Name = "BouyomiChanVoice";
-			this.BouyomiChanVoice.Size = new System.Drawing.Size(100, 27);
-			this.BouyomiChanVoice.TabIndex = 13;
-			this.BouyomiChanVoice.Text = "0";
-			this.BouyomiChanVoice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// label17
-			// 
-			this.label17.AutoSize = true;
-			this.label17.Location = new System.Drawing.Point(6, 95);
-			this.label17.Name = "label17";
-			this.label17.Size = new System.Drawing.Size(45, 20);
-			this.label17.TabIndex = 8;
-			this.label17.Text = "音量 :";
-			// 
-			// label18
-			// 
-			this.label18.AutoSize = true;
-			this.label18.Location = new System.Drawing.Point(6, 128);
-			this.label18.Name = "label18";
-			this.label18.Size = new System.Drawing.Size(45, 20);
-			this.label18.TabIndex = 12;
-			this.label18.Text = "音声 :";
-			// 
-			// label19
-			// 
-			this.label19.AutoSize = true;
-			this.label19.ForeColor = System.Drawing.Color.Teal;
-			this.label19.Location = new System.Drawing.Point(176, 29);
-			this.label19.Name = "label19";
-			this.label19.Size = new System.Drawing.Size(70, 20);
-			this.label19.TabIndex = 2;
-			this.label19.Text = "50 ～ 300";
-			// 
-			// label20
-			// 
-			this.label20.AutoSize = true;
-			this.label20.ForeColor = System.Drawing.Color.Teal;
-			this.label20.Location = new System.Drawing.Point(176, 62);
-			this.label20.Name = "label20";
-			this.label20.Size = new System.Drawing.Size(70, 20);
-			this.label20.TabIndex = 6;
-			this.label20.Text = "50 ～ 200";
-			// 
-			// label21
-			// 
-			this.label21.AutoSize = true;
-			this.label21.ForeColor = System.Drawing.Color.Teal;
-			this.label21.Location = new System.Drawing.Point(176, 95);
-			this.label21.Name = "label21";
-			this.label21.Size = new System.Drawing.Size(62, 20);
-			this.label21.TabIndex = 10;
-			this.label21.Text = "0 ～ 100";
-			// 
-			// label22
-			// 
-			this.label22.AutoSize = true;
-			this.label22.ForeColor = System.Drawing.Color.Teal;
-			this.label22.Location = new System.Drawing.Point(176, 128);
-			this.label22.Name = "label22";
-			this.label22.Size = new System.Drawing.Size(46, 20);
-			this.label22.TabIndex = 14;
-			this.label22.Text = "0 ～ 8";
-			// 
-			// BouyomiChanSpeedUseDef
-			// 
-			this.BouyomiChanSpeedUseDef.AutoSize = true;
-			this.BouyomiChanSpeedUseDef.Location = new System.Drawing.Point(300, 28);
-			this.BouyomiChanSpeedUseDef.Name = "BouyomiChanSpeedUseDef";
-			this.BouyomiChanSpeedUseDef.Size = new System.Drawing.Size(93, 24);
-			this.BouyomiChanSpeedUseDef.TabIndex = 3;
-			this.BouyomiChanSpeedUseDef.Text = "デフォルト";
-			this.BouyomiChanSpeedUseDef.UseVisualStyleBackColor = true;
-			// 
-			// BouyomiChanToneUseDef
-			// 
-			this.BouyomiChanToneUseDef.AutoSize = true;
-			this.BouyomiChanToneUseDef.Location = new System.Drawing.Point(300, 61);
-			this.BouyomiChanToneUseDef.Name = "BouyomiChanToneUseDef";
-			this.BouyomiChanToneUseDef.Size = new System.Drawing.Size(93, 24);
-			this.BouyomiChanToneUseDef.TabIndex = 7;
-			this.BouyomiChanToneUseDef.Text = "デフォルト";
-			this.BouyomiChanToneUseDef.UseVisualStyleBackColor = true;
-			// 
-			// BouyomiChanVolumeUseDef
-			// 
-			this.BouyomiChanVolumeUseDef.AutoSize = true;
-			this.BouyomiChanVolumeUseDef.Location = new System.Drawing.Point(300, 94);
-			this.BouyomiChanVolumeUseDef.Name = "BouyomiChanVolumeUseDef";
-			this.BouyomiChanVolumeUseDef.Size = new System.Drawing.Size(93, 24);
-			this.BouyomiChanVolumeUseDef.TabIndex = 11;
-			this.BouyomiChanVolumeUseDef.Text = "デフォルト";
-			this.BouyomiChanVolumeUseDef.UseVisualStyleBackColor = true;
-			// 
-			// BouyomiChanSnipLen
-			// 
-			this.BouyomiChanSnipLen.Location = new System.Drawing.Point(12, 218);
-			this.BouyomiChanSnipLen.MaxLength = 5;
-			this.BouyomiChanSnipLen.Name = "BouyomiChanSnipLen";
-			this.BouyomiChanSnipLen.Size = new System.Drawing.Size(100, 27);
-			this.BouyomiChanSnipLen.TabIndex = 2;
-			this.BouyomiChanSnipLen.Text = "100";
-			this.BouyomiChanSnipLen.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// label23
-			// 
-			this.label23.AutoSize = true;
-			this.label23.Location = new System.Drawing.Point(118, 221);
-			this.label23.Name = "label23";
-			this.label23.Size = new System.Drawing.Size(191, 20);
-			this.label23.TabIndex = 3;
-			this.label23.Text = "文字目より後は読み上げない。";
-			// 
-			// label24
-			// 
-			this.label24.AutoSize = true;
-			this.label24.Location = new System.Drawing.Point(8, 254);
-			this.label24.Name = "label24";
-			this.label24.Size = new System.Drawing.Size(58, 20);
-			this.label24.TabIndex = 4;
-			this.label24.Text = "以下略 :";
-			// 
-			// BouyomiChanSnippedTrailer
-			// 
-			this.BouyomiChanSnippedTrailer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.BouyomiChanSnippedTrailer.Location = new System.Drawing.Point(76, 251);
-			this.BouyomiChanSnippedTrailer.MaxLength = 1000;
-			this.BouyomiChanSnippedTrailer.Name = "BouyomiChanSnippedTrailer";
-			this.BouyomiChanSnippedTrailer.Size = new System.Drawing.Size(470, 27);
-			this.BouyomiChanSnippedTrailer.TabIndex = 5;
-			this.BouyomiChanSnippedTrailer.Text = "以下略";
+			this.BouyomiChanIgnoreSelfRemark.AutoSize = true;
+			this.BouyomiChanIgnoreSelfRemark.Location = new System.Drawing.Point(12, 284);
+			this.BouyomiChanIgnoreSelfRemark.Name = "BouyomiChanIgnoreSelfRemark";
+			this.BouyomiChanIgnoreSelfRemark.Size = new System.Drawing.Size(197, 24);
+			this.BouyomiChanIgnoreSelfRemark.TabIndex = 6;
+			this.BouyomiChanIgnoreSelfRemark.Text = "自分の発言は読み上げない。";
+			this.BouyomiChanIgnoreSelfRemark.UseVisualStyleBackColor = true;
 			// 
 			// SettingWin
 			// 
@@ -942,5 +954,6 @@
 		private System.Windows.Forms.TextBox BouyomiChanSnipLen;
 		private System.Windows.Forms.TextBox BouyomiChanSnippedTrailer;
 		private System.Windows.Forms.Label label24;
+		private System.Windows.Forms.CheckBox BouyomiChanIgnoreSelfRemark;
 	}
 }

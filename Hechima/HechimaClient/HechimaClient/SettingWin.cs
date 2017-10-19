@@ -63,6 +63,7 @@ namespace Charlotte
 
 			this.BouyomiChanSnipLen.Text = "" + Gnd.setting.BouyomiChanSnipLen;
 			this.BouyomiChanSnippedTrailer.Text = Gnd.setting.BouyomiChanSnippedTrailer;
+			this.BouyomiChanIgnoreSelfRemark.Checked = Gnd.setting.BouyomiChanIgnoreSelfRemark;
 
 			// ----
 		}
@@ -106,6 +107,7 @@ namespace Charlotte
 
 			Gnd.setting.BouyomiChanSnipLen = int.Parse(this.BouyomiChanSnipLen.Text);
 			Gnd.setting.BouyomiChanSnippedTrailer = this.BouyomiChanSnippedTrailer.Text;
+			Gnd.setting.BouyomiChanIgnoreSelfRemark = this.BouyomiChanIgnoreSelfRemark.Checked;
 
 			// ----
 		}
@@ -175,7 +177,7 @@ namespace Charlotte
 				);
 			this.ServerPort.Text = CorrectItemInt(this.ServerPort.Text, 1, 65535, 52255);
 			this.crypTunnelPort.Text = CorrectItemInt(this.crypTunnelPort.Text, 1, 65535, 52525);
-			this.Password.Text = CorrectItem(this.Password.Text, 1, 1000, "aa9999[x22]",
+			this.Password.Text = CorrectItem(this.Password.Text, 1, 1000, "aa9999x22x",
 				StringTools.DIGIT +
 				StringTools.ALPHA +
 				StringTools.alpha +
@@ -224,6 +226,7 @@ namespace Charlotte
 
 			this.BouyomiChanSnipLen.Text = CorrectItemInt(this.BouyomiChanSnipLen.Text, 1, 99999, 100);
 			this.BouyomiChanSnippedTrailer.Text = CorrectItem(this.BouyomiChanSnippedTrailer.Text, 1, 1000, "以下略");
+			//this.BouyomiChanIgnoreSelfRemark.Checked
 
 			// ----
 		}
