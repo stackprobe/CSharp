@@ -68,6 +68,8 @@ namespace Charlotte
 		public string BouyomiChanSnippedTrailer = "以下略";
 		public bool BouyomiChanIgnoreSelfRemark = false;
 
+		public bool IPDisabledWhenTripDisabled = false;
+
 		// ---- ロード・セーブ
 
 		private string GetProgDataDir()
@@ -146,6 +148,8 @@ namespace Charlotte
 			this.BouyomiChanSnippedTrailer = lines[c++];
 			this.BouyomiChanIgnoreSelfRemark = int.Parse(lines[c++]) != 0;
 
+			this.IPDisabledWhenTripDisabled = int.Parse(lines[c++]) != 0;
+
 			// 新しい項目、ここへ追加..
 
 			// ----
@@ -201,6 +205,8 @@ namespace Charlotte
 			lines.Add("" + this.BouyomiChanSnipLen);
 			lines.Add(this.BouyomiChanSnippedTrailer);
 			lines.Add("" + (this.BouyomiChanIgnoreSelfRemark ? 1 : 0));
+
+			lines.Add("" + (this.IPDisabledWhenTripDisabled ? 1 : 0));
 
 			// 新しい項目、ここへ追加..
 

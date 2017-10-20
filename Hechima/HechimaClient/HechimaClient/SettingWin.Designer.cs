@@ -65,12 +65,14 @@
 			this.MessageTextEnterMode = new System.Windows.Forms.ComboBox();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
+			this.TripEditable = new System.Windows.Forms.CheckBox();
 			this.label13 = new System.Windows.Forms.Label();
 			this.UserTrip = new System.Windows.Forms.TextBox();
 			this.label12 = new System.Windows.Forms.Label();
 			this.UserName = new System.Windows.Forms.TextBox();
 			this.UpdateUserTripBtn = new System.Windows.Forms.Button();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
+			this.BouyomiChanIgnoreSelfRemark = new System.Windows.Forms.CheckBox();
 			this.BouyomiChanSnippedTrailer = new System.Windows.Forms.TextBox();
 			this.label24 = new System.Windows.Forms.Label();
 			this.label23 = new System.Windows.Forms.Label();
@@ -95,7 +97,7 @@
 			this.CancelBtn = new System.Windows.Forms.Button();
 			this.OkBtn = new System.Windows.Forms.Button();
 			this.CorrectBtn = new System.Windows.Forms.Button();
-			this.BouyomiChanIgnoreSelfRemark = new System.Windows.Forms.CheckBox();
+			this.IPDisabledWhenTripDisabled = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -299,6 +301,7 @@
 			// 
 			// tabPage2
 			// 
+			this.tabPage2.Controls.Add(this.IPDisabledWhenTripDisabled);
 			this.tabPage2.Controls.Add(this.ShowRemarkStampDate);
 			this.tabPage2.Controls.Add(this.TripEnabled);
 			this.tabPage2.Controls.Add(this.label14);
@@ -502,6 +505,7 @@
 			// 
 			this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox4.Controls.Add(this.TripEditable);
 			this.groupBox4.Controls.Add(this.label13);
 			this.groupBox4.Controls.Add(this.UserTrip);
 			this.groupBox4.Controls.Add(this.label12);
@@ -513,6 +517,18 @@
 			this.groupBox4.TabIndex = 0;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "ユーザー名";
+			// 
+			// TripEditable
+			// 
+			this.TripEditable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.TripEditable.AutoSize = true;
+			this.TripEditable.Location = new System.Drawing.Point(322, 101);
+			this.TripEditable.Name = "TripEditable";
+			this.TripEditable.Size = new System.Drawing.Size(106, 24);
+			this.TripEditable.TabIndex = 4;
+			this.TripEditable.Text = "トリップ編集";
+			this.TripEditable.UseVisualStyleBackColor = true;
+			this.TripEditable.CheckedChanged += new System.EventHandler(this.TripEditable_CheckedChanged);
 			// 
 			// label13
 			// 
@@ -560,7 +576,7 @@
 			this.UpdateUserTripBtn.Location = new System.Drawing.Point(434, 92);
 			this.UpdateUserTripBtn.Name = "UpdateUserTripBtn";
 			this.UpdateUserTripBtn.Size = new System.Drawing.Size(100, 40);
-			this.UpdateUserTripBtn.TabIndex = 4;
+			this.UpdateUserTripBtn.TabIndex = 5;
 			this.UpdateUserTripBtn.Text = "トリップ更新";
 			this.UpdateUserTripBtn.UseVisualStyleBackColor = true;
 			this.UpdateUserTripBtn.Click += new System.EventHandler(this.UpdateUserTripBtn_Click);
@@ -580,6 +596,16 @@
 			this.tabPage4.TabIndex = 3;
 			this.tabPage4.Text = "棒読みちゃん";
 			this.tabPage4.UseVisualStyleBackColor = true;
+			// 
+			// BouyomiChanIgnoreSelfRemark
+			// 
+			this.BouyomiChanIgnoreSelfRemark.AutoSize = true;
+			this.BouyomiChanIgnoreSelfRemark.Location = new System.Drawing.Point(12, 284);
+			this.BouyomiChanIgnoreSelfRemark.Name = "BouyomiChanIgnoreSelfRemark";
+			this.BouyomiChanIgnoreSelfRemark.Size = new System.Drawing.Size(197, 24);
+			this.BouyomiChanIgnoreSelfRemark.TabIndex = 6;
+			this.BouyomiChanIgnoreSelfRemark.Text = "自分の発言は読み上げない。";
+			this.BouyomiChanIgnoreSelfRemark.UseVisualStyleBackColor = true;
 			// 
 			// BouyomiChanSnippedTrailer
 			// 
@@ -655,6 +681,7 @@
 			this.BouyomiChanVolumeUseDef.TabIndex = 11;
 			this.BouyomiChanVolumeUseDef.Text = "デフォルト";
 			this.BouyomiChanVolumeUseDef.UseVisualStyleBackColor = true;
+			this.BouyomiChanVolumeUseDef.CheckedChanged += new System.EventHandler(this.BouyomiChanVolumeUseDef_CheckedChanged);
 			// 
 			// BouyomiChanToneUseDef
 			// 
@@ -665,6 +692,7 @@
 			this.BouyomiChanToneUseDef.TabIndex = 7;
 			this.BouyomiChanToneUseDef.Text = "デフォルト";
 			this.BouyomiChanToneUseDef.UseVisualStyleBackColor = true;
+			this.BouyomiChanToneUseDef.CheckedChanged += new System.EventHandler(this.BouyomiChanToneUseDef_CheckedChanged);
 			// 
 			// BouyomiChanSpeedUseDef
 			// 
@@ -675,6 +703,7 @@
 			this.BouyomiChanSpeedUseDef.TabIndex = 3;
 			this.BouyomiChanSpeedUseDef.Text = "デフォルト";
 			this.BouyomiChanSpeedUseDef.UseVisualStyleBackColor = true;
+			this.BouyomiChanSpeedUseDef.CheckedChanged += new System.EventHandler(this.BouyomiChanSpeedUseDef_CheckedChanged);
 			// 
 			// label22
 			// 
@@ -835,15 +864,15 @@
 			this.CorrectBtn.UseVisualStyleBackColor = true;
 			this.CorrectBtn.Click += new System.EventHandler(this.CorrectBtn_Click);
 			// 
-			// BouyomiChanIgnoreSelfRemark
+			// IPDisabledWhenTripDisabled
 			// 
-			this.BouyomiChanIgnoreSelfRemark.AutoSize = true;
-			this.BouyomiChanIgnoreSelfRemark.Location = new System.Drawing.Point(12, 284);
-			this.BouyomiChanIgnoreSelfRemark.Name = "BouyomiChanIgnoreSelfRemark";
-			this.BouyomiChanIgnoreSelfRemark.Size = new System.Drawing.Size(197, 24);
-			this.BouyomiChanIgnoreSelfRemark.TabIndex = 6;
-			this.BouyomiChanIgnoreSelfRemark.Text = "自分の発言は読み上げない。";
-			this.BouyomiChanIgnoreSelfRemark.UseVisualStyleBackColor = true;
+			this.IPDisabledWhenTripDisabled.AutoSize = true;
+			this.IPDisabledWhenTripDisabled.Location = new System.Drawing.Point(174, 391);
+			this.IPDisabledWhenTripDisabled.Name = "IPDisabledWhenTripDisabled";
+			this.IPDisabledWhenTripDisabled.Size = new System.Drawing.Size(288, 24);
+			this.IPDisabledWhenTripDisabled.TabIndex = 12;
+			this.IPDisabledWhenTripDisabled.Text = "トリップを表示しない時はIPも表示しない。";
+			this.IPDisabledWhenTripDisabled.UseVisualStyleBackColor = true;
 			// 
 			// SettingWin
 			// 
@@ -955,5 +984,7 @@
 		private System.Windows.Forms.TextBox BouyomiChanSnippedTrailer;
 		private System.Windows.Forms.Label label24;
 		private System.Windows.Forms.CheckBox BouyomiChanIgnoreSelfRemark;
+		private System.Windows.Forms.CheckBox TripEditable;
+		private System.Windows.Forms.CheckBox IPDisabledWhenTripDisabled;
 	}
 }

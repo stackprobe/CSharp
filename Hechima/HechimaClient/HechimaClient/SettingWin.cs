@@ -22,6 +22,7 @@ namespace Charlotte
 		private void SettingWin_Load(object sender, EventArgs e)
 		{
 			this.LoadSetting();
+			this.UIRefresh();
 		}
 
 		private void LoadSetting()
@@ -47,6 +48,7 @@ namespace Charlotte
 			SetColor(this.MessageTextForeColorBtn, Gnd.setting.MessageTextForeColor);
 			SetColor(this.MessageTextBackColorBtn, Gnd.setting.MessageTextBackColor);
 			this.TripEnabled.Checked = Gnd.setting.TripEnabled;
+			this.IPDisabledWhenTripDisabled.Checked = Gnd.setting.IPDisabledWhenTripDisabled;
 			this.ShowRemarkStampDate.Checked = Gnd.setting.ShowRemarkStampDate;
 
 			this.UserName.Text = Gnd.setting.UserName;
@@ -91,6 +93,7 @@ namespace Charlotte
 			Gnd.setting.MessageTextForeColor = GetColor(this.MessageTextForeColorBtn);
 			Gnd.setting.MessageTextBackColor = GetColor(this.MessageTextBackColorBtn);
 			Gnd.setting.TripEnabled = this.TripEnabled.Checked;
+			Gnd.setting.IPDisabledWhenTripDisabled = this.IPDisabledWhenTripDisabled.Checked;
 			Gnd.setting.ShowRemarkStampDate = this.ShowRemarkStampDate.Checked;
 
 			Gnd.setting.UserName = this.UserName.Text;
@@ -209,6 +212,7 @@ namespace Charlotte
 			//this.MessageTextForeColorBtn
 			//this.MessageTextBackColorBtn
 			//this.TripEnabled.Checked
+			//this.IPDisabledWhenTripDisabled.Checked
 			//this.ShowRemarkStampDate.Checked
 
 			this.UserName.Text = CorrectItem(this.UserName.Text, 1, 20, "名無しさん" + SecurityTools.getCRandUInt());
@@ -318,6 +322,40 @@ namespace Charlotte
 		private void UpdateUserTripBtn_Click(object sender, EventArgs e)
 		{
 			this.UserTrip.Text = StringTools.toHex(SecurityTools.getCRand(16));
+		}
+
+		private void TripEditable_CheckedChanged(object sender, EventArgs e)
+		{
+			this.UIRefresh();
+		}
+
+		private void UIRefresh()
+		{
+			{
+				bool flag = this.TripEditable.Checked;
+
+				this.UserTrip.Enabled = flag;
+				this.UpdateUserTripBtn.Enabled = flag;
+			}
+
+			this.BouyomiChanSpeed.Enabled = this.BouyomiChanSpeedUseDef.Checked == false;
+			this.BouyomiChanTone.Enabled = this.BouyomiChanToneUseDef.Checked == false;
+			this.BouyomiChanVolume.Enabled = this.BouyomiChanVolumeUseDef.Checked == false;
+		}
+
+		private void BouyomiChanSpeedUseDef_CheckedChanged(object sender, EventArgs e)
+		{
+			this.UIRefresh();
+		}
+
+		private void BouyomiChanToneUseDef_CheckedChanged(object sender, EventArgs e)
+		{
+			this.UIRefresh();
+		}
+
+		private void BouyomiChanVolumeUseDef_CheckedChanged(object sender, EventArgs e)
+		{
+			this.UIRefresh();
 		}
 	}
 }

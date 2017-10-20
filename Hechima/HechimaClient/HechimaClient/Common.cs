@@ -126,16 +126,15 @@ namespace Charlotte
 			{
 				try // 2bs
 				{
-#if true
 					int delimNameTripIndex = ident.IndexOf(Consts.DELIM_NAME_TRIP);
 
 					string name = ident.Substring(0, delimNameTripIndex);
-					string trip = ident.Substring(delimNameTripIndex + 1);
+					string trip = ident.Substring(delimNameTripIndex + Consts.DELIM_NAME_TRIP.Length);
 
-					ident = name + trip.Substring(trip.IndexOf(" @ "));
-#else // old
-					ident = ident.Substring(0, ident.IndexOf(Consts.DELIM_NAME_TRIP));
-#endif
+					if (Gnd.setting.IPDisabledWhenTripDisabled)
+						ident = name;
+					else
+						ident = name + trip.Substring(trip.IndexOf(" @ "));
 				}
 				catch
 				{ }
