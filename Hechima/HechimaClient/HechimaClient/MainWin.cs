@@ -98,6 +98,20 @@ namespace Charlotte
 			this.ExportSetting();
 		}
 
+		private void RemarksText_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (e.KeyChar == 1) // ctrl + a
+			{
+				this.RemarksText.SelectAll();
+				e.Handled = true;
+			}
+			else if (e.KeyChar == 13) // enter
+			{
+				this.MessageText.Focus();
+				e.Handled = true;
+			}
+		}
+
 		private void MessageText_KeyPress(object sender, KeyPressEventArgs e)
 		{
 			if (e.KeyChar == 1) // ctrl + a

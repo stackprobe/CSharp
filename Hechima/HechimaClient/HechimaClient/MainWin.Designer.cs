@@ -89,18 +89,19 @@
 			this.RemarksText.Size = new System.Drawing.Size(460, 366);
 			this.RemarksText.TabIndex = 1;
 			this.RemarksText.TextChanged += new System.EventHandler(this.RemarksText_TextChanged);
+			this.RemarksText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RemarksText_KeyPress);
 			// 
 			// RemarksTextContextMenu
 			// 
 			this.RemarksTextContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.見るだけMToolStripMenuItem});
 			this.RemarksTextContextMenu.Name = "RemarksTextContextMenu";
-			this.RemarksTextContextMenu.Size = new System.Drawing.Size(153, 48);
+			this.RemarksTextContextMenu.Size = new System.Drawing.Size(131, 26);
 			// 
 			// 見るだけMToolStripMenuItem
 			// 
 			this.見るだけMToolStripMenuItem.Name = "見るだけMToolStripMenuItem";
-			this.見るだけMToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.見るだけMToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
 			this.見るだけMToolStripMenuItem.Text = "ビュー(&V)";
 			this.見るだけMToolStripMenuItem.Click += new System.EventHandler(this.見るだけMToolStripMenuItem_Click);
 			// 
