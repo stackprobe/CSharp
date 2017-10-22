@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using Charlotte.Tools;
 using System.Numerics;
+using System.Drawing;
 
 namespace Charlotte
 {
@@ -140,6 +141,47 @@ namespace Charlotte
 				{ }
 			}
 			return ident;
+		}
+
+		public static string ToHexString(Color color)
+		{
+			return StringTools.toHex(new byte[]
+			{
+				color.R,
+				color.G,
+				color.B,
+			});
+		}
+
+		public static Color ToColorHex(string src)
+		{
+			byte[] bSrc = StringTools.hex(src);
+
+			return Color.FromArgb(
+				(int)bSrc[0],
+				(int)bSrc[1],
+				(int)bSrc[2]
+				);
+		}
+
+		public static string ToString(Color[] colors)
+		{
+			List<string> dest = new List<string>();
+
+			foreach (Color color in colors)
+				dest.Add(ToHexString(color));
+
+			return string.Join(":", dest);
+		}
+
+		public static Color[] ToColors(string src)
+		{
+			List<Color> dest = new List<Color>();
+
+			foreach (string token in src.Split(':'))
+				dest.Add(ToColorHex(token));
+
+			return dest.ToArray();
 		}
 	}
 }

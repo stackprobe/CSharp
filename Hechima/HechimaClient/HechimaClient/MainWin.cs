@@ -173,6 +173,9 @@ namespace Charlotte
 			this.RemarksText.ScrollToCaret();
 
 			Gnd.bgService.SendingMessages.Enqueue(message);
+
+			if (Gnd.setting.ColorfulDaysEnabled)
+				this.RemarksTextForeColor_Next = Gnd.setting.RemarksTextForeColor;
 		}
 
 		private void MessageText_TextChanged(object sender, EventArgs e)
@@ -185,6 +188,9 @@ namespace Charlotte
 			// noop
 		}
 
+		private Color? RemarksTextForeColor_Next = null;
+		private int ColorfulDaysColorIndex = 0;
+
 		private long MT_Count;
 
 		private void MainTimer_Tick(object sender, EventArgs e)
@@ -196,21 +202,31 @@ namespace Charlotte
 				GC.Collect();
 				return;
 			}
-			if (MT_Count % 100 == 30)
+			if (MT_Count % 100 == 31)
 			{
 				// zantei -- このへん適当...
 				if (Gnd.conf.RemarksTextMaxLength < this.RemarksText.TextLength)
 				{
 					int clearLength = (this.RemarksText.TextLength * 100) / Gnd.conf.RemarksTextClearPct;
 
-					this.RemarksText.Text = "(これより前は削除されました)" + this.RemarksText.Text.Substring(clearLength);
+					this.RemarksText.Text = "(これより前は切り捨てました)" + this.RemarksText.Text.Substring(clearLength);
 					this.RemarksText.SelectionStart = this.RemarksText.TextLength;
 					this.RemarksText.ScrollToCaret();
 
 					return;
 				}
 			}
+			if (this.RemarksTextForeColor_Next != null)
+			{
+				Color color = this.RemarksTextForeColor_Next.Value;
 
+				this.RemarksTextForeColor_Next = null;
+
+				if (this.RemarksText.ForeColor != color)
+					this.RemarksText.ForeColor = color;
+
+				return;
+			}
 			if (Gnd.onlineDlg != null && Gnd.onlineDlg.XPressed)
 			{
 				Gnd.onlineDlg.XPressed = false;
@@ -223,6 +239,7 @@ namespace Charlotte
 			if (1 <= Gnd.bgService.RecvedRemarks.Count) // 受信データ -> RemarksText
 			{
 				StringBuilder buff = new StringBuilder();
+				bool foundOtherRemark = false;
 
 				while (1 <= Gnd.bgService.RecvedRemarks.Count)
 				{
@@ -233,12 +250,17 @@ namespace Charlotte
 
 					Gnd.bgService.KnownStamp = Math.Max(Gnd.bgService.KnownStamp, remark.Stamp);
 
+					bool myRemark = remark.Ident.StartsWith(Gnd.UserRealName); // ? 自分の発言である。
+
+					if (myRemark == false)
+						foundOtherRemark = true;
+
 					if (
 						Gnd.setting.BouyomiChanEnabled &&
 						Gnd.bgService.RecvedRemarks.Count < 30 &&
 						(
 							Gnd.setting.BouyomiChanIgnoreSelfRemark == false ||
-							remark.Ident.StartsWith(Gnd.UserRealName) == false // ? 自分の発言ではない。
+							myRemark == false
 						)
 						)
 					{
@@ -287,6 +309,12 @@ namespace Charlotte
 
 				// }
 
+				if (foundOtherRemark && Gnd.setting.ColorfulDaysEnabled)
+				{
+					this.RemarksTextForeColor_Next = Gnd.setting.ColorfulDaysColors[this.ColorfulDaysColorIndex];
+					this.ColorfulDaysColorIndex++;
+					this.ColorfulDaysColorIndex %= Gnd.setting.ColorfulDaysColors.Length;
+				}
 				return;
 			}
 		}

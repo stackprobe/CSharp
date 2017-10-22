@@ -100,13 +100,13 @@
 			this.label15 = new System.Windows.Forms.Label();
 			this.BouyomiChanEnabled = new System.Windows.Forms.CheckBox();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
+			this.label26 = new System.Windows.Forms.Label();
+			this.label25 = new System.Windows.Forms.Label();
+			this.ColorfulDaysColors = new System.Windows.Forms.TextBox();
+			this.ColorfulDaysEnabled = new System.Windows.Forms.CheckBox();
 			this.CancelBtn = new System.Windows.Forms.Button();
 			this.OkBtn = new System.Windows.Forms.Button();
 			this.CorrectBtn = new System.Windows.Forms.Button();
-			this.ColorfulDaysEnabled = new System.Windows.Forms.CheckBox();
-			this.ColorfulDaysColors = new System.Windows.Forms.TextBox();
-			this.label25 = new System.Windows.Forms.Label();
-			this.label26 = new System.Windows.Forms.Label();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -909,6 +909,50 @@
 			this.tabPage6.Text = "Colorful Days";
 			this.tabPage6.UseVisualStyleBackColor = true;
 			// 
+			// label26
+			// 
+			this.label26.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label26.AutoSize = true;
+			this.label26.ForeColor = System.Drawing.Color.Teal;
+			this.label26.Location = new System.Drawing.Point(282, 111);
+			this.label26.Name = "label26";
+			this.label26.Size = new System.Drawing.Size(267, 40);
+			this.label26.TabIndex = 3;
+			this.label26.Text = "書式 = \"rrggbb\" を \":\" 区切りで入力する。\r\n例 = ff0000:00ff00:0000ff";
+			// 
+			// label25
+			// 
+			this.label25.AutoSize = true;
+			this.label25.Location = new System.Drawing.Point(8, 45);
+			this.label25.Name = "label25";
+			this.label25.Size = new System.Drawing.Size(71, 20);
+			this.label25.TabIndex = 1;
+			this.label25.Text = "色リスト :";
+			// 
+			// ColorfulDaysColors
+			// 
+			this.ColorfulDaysColors.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.ColorfulDaysColors.Location = new System.Drawing.Point(85, 42);
+			this.ColorfulDaysColors.MaxLength = 699;
+			this.ColorfulDaysColors.Multiline = true;
+			this.ColorfulDaysColors.Name = "ColorfulDaysColors";
+			this.ColorfulDaysColors.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.ColorfulDaysColors.Size = new System.Drawing.Size(464, 66);
+			this.ColorfulDaysColors.TabIndex = 2;
+			this.ColorfulDaysColors.Text = "1行目\r\n2行目\r\n3行目";
+			this.ColorfulDaysColors.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ColorfulDaysColors_KeyPress);
+			// 
+			// ColorfulDaysEnabled
+			// 
+			this.ColorfulDaysEnabled.AutoSize = true;
+			this.ColorfulDaysEnabled.Location = new System.Drawing.Point(12, 12);
+			this.ColorfulDaysEnabled.Name = "ColorfulDaysEnabled";
+			this.ColorfulDaysEnabled.Size = new System.Drawing.Size(288, 24);
+			this.ColorfulDaysEnabled.TabIndex = 0;
+			this.ColorfulDaysEnabled.Text = "発言リストが更新される度に色を変更する。";
+			this.ColorfulDaysEnabled.UseVisualStyleBackColor = true;
+			// 
 			// CancelBtn
 			// 
 			this.CancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -941,48 +985,6 @@
 			this.CorrectBtn.Text = "補正";
 			this.CorrectBtn.UseVisualStyleBackColor = true;
 			this.CorrectBtn.Click += new System.EventHandler(this.CorrectBtn_Click);
-			// 
-			// ColorfulDaysEnabled
-			// 
-			this.ColorfulDaysEnabled.AutoSize = true;
-			this.ColorfulDaysEnabled.Location = new System.Drawing.Point(12, 12);
-			this.ColorfulDaysEnabled.Name = "ColorfulDaysEnabled";
-			this.ColorfulDaysEnabled.Size = new System.Drawing.Size(288, 24);
-			this.ColorfulDaysEnabled.TabIndex = 0;
-			this.ColorfulDaysEnabled.Text = "発言リストが更新される度に色を変更する。";
-			this.ColorfulDaysEnabled.UseVisualStyleBackColor = true;
-			// 
-			// ColorfulDaysColors
-			// 
-			this.ColorfulDaysColors.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.ColorfulDaysColors.Location = new System.Drawing.Point(85, 42);
-			this.ColorfulDaysColors.Multiline = true;
-			this.ColorfulDaysColors.Name = "ColorfulDaysColors";
-			this.ColorfulDaysColors.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.ColorfulDaysColors.Size = new System.Drawing.Size(464, 66);
-			this.ColorfulDaysColors.TabIndex = 2;
-			this.ColorfulDaysColors.Text = "1行目\r\n2行目\r\n3行目";
-			// 
-			// label25
-			// 
-			this.label25.AutoSize = true;
-			this.label25.Location = new System.Drawing.Point(8, 45);
-			this.label25.Name = "label25";
-			this.label25.Size = new System.Drawing.Size(71, 20);
-			this.label25.TabIndex = 1;
-			this.label25.Text = "色リスト :";
-			// 
-			// label26
-			// 
-			this.label26.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label26.AutoSize = true;
-			this.label26.ForeColor = System.Drawing.Color.Teal;
-			this.label26.Location = new System.Drawing.Point(282, 111);
-			this.label26.Name = "label26";
-			this.label26.Size = new System.Drawing.Size(267, 40);
-			this.label26.TabIndex = 3;
-			this.label26.Text = "書式 = \"rrggbb\" を \":\" 区切りで入力する。\r\n例 = ff0000:00ff00:0000ff";
 			// 
 			// SettingWin
 			// 

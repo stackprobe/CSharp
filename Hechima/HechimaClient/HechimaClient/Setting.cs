@@ -80,6 +80,9 @@ namespace Charlotte
 		public int OnlineDlg_H;
 		public bool OnlineDlg_Minimized = false;
 
+		public bool ColorfulDaysEnabled = false;
+		public Color[] ColorfulDaysColors = Consts.COLORFUL_DAYS_COLORS;
+
 		// ---- ロード・セーブ
 
 		private string GetProgDataDir()
@@ -170,6 +173,9 @@ namespace Charlotte
 			this.OnlineDlg_H = int.Parse(lines[c++]);
 			this.OnlineDlg_Minimized = int.Parse(lines[c++]) != 0;
 
+			this.ColorfulDaysEnabled = int.Parse(lines[c++]) != 0;
+			this.ColorfulDaysColors = Common.ToColors(lines[c++]);
+
 			// 新しい項目、ここへ追加..
 
 			// ----
@@ -237,6 +243,9 @@ namespace Charlotte
 			lines.Add("" + this.OnlineDlg_W);
 			lines.Add("" + this.OnlineDlg_H);
 			lines.Add("" + (this.OnlineDlg_Minimized ? 1 : 0));
+
+			lines.Add("" + (this.ColorfulDaysEnabled ? 1 : 0));
+			lines.Add(Common.ToString(this.ColorfulDaysColors));
 
 			// 新しい項目、ここへ追加..
 

@@ -71,6 +71,9 @@ namespace Charlotte
 			this.BouyomiChanSnippedTrailer.Text = Gnd.setting.BouyomiChanSnippedTrailer;
 			this.BouyomiChanIgnoreSelfRemark.Checked = Gnd.setting.BouyomiChanIgnoreSelfRemark;
 
+			this.ColorfulDaysEnabled.Checked = Gnd.setting.ColorfulDaysEnabled;
+			this.ColorfulDaysColors.Text = Common.ToString(Gnd.setting.ColorfulDaysColors);
+
 			// ----
 		}
 
@@ -120,38 +123,20 @@ namespace Charlotte
 			Gnd.setting.BouyomiChanSnippedTrailer = this.BouyomiChanSnippedTrailer.Text;
 			Gnd.setting.BouyomiChanIgnoreSelfRemark = this.BouyomiChanIgnoreSelfRemark.Checked;
 
+			Gnd.setting.ColorfulDaysEnabled = this.ColorfulDaysEnabled.Checked;
+			Gnd.setting.ColorfulDaysColors = Common.ToColors(this.ColorfulDaysColors.Text);
+
 			// ----
 		}
 
 		private void SetColor(Button btn, Color color)
 		{
-			btn.Text = btn.Text.Substring(0, btn.Text.Length - 6) + ToHexString(color);
+			btn.Text = btn.Text.Substring(0, btn.Text.Length - 6) + Common.ToHexString(color);
 		}
 
 		private Color GetColor(Button btn)
 		{
-			return ToColorHex(btn.Text.Substring(btn.Text.Length - 6));
-		}
-
-		private string ToHexString(Color color)
-		{
-			return StringTools.toHex(new byte[]
-			{
-				color.R,
-				color.G,
-				color.B,
-			});
-		}
-
-		private Color ToColorHex(string src)
-		{
-			byte[] bSrc = StringTools.hex(src);
-
-			return Color.FromArgb(
-				(int)bSrc[0],
-				(int)bSrc[1],
-				(int)bSrc[2]
-				);
+			return Common.ToColorHex(btn.Text.Substring(btn.Text.Length - 6));
 		}
 
 		private void CancelBtn_Click(object sender, EventArgs e)
@@ -242,6 +227,9 @@ namespace Charlotte
 			this.BouyomiChanSnippedTrailer.Text = CorrectItem(this.BouyomiChanSnippedTrailer.Text, 1, 1000, "以下略");
 			//this.BouyomiChanIgnoreSelfRemark.Checked
 
+			//this.ColorfulDaysEnabled.Checked
+			this.ColorfulDaysColors.Text = CorrectItemColors(this.ColorfulDaysColors.Text, 1, 100, Consts.COLORFUL_DAYS_COLORS);
+
 			// ----
 		}
 
@@ -269,6 +257,33 @@ namespace Charlotte
 		private string CorrectItemInt(string value, int minval, int maxval, int defval)
 		{
 			return "" + IntTools.toInt(value, minval, maxval, defval);
+		}
+
+		private string CorrectItemColors(string value, int minlen, int maxlen, Color[] defval)
+		{
+			List<string> dest = new List<string>();
+
+			foreach (string fToken in value.Split(':'))
+			{
+				string token = fToken;
+
+				token = token.Trim();
+
+				if (token != "")
+				{
+					token = token.ToLower();
+					token = CorrectItem(token, 6, 6, "99aaff", StringTools.hexadecimal);
+
+					dest.Add(token);
+				}
+			}
+			if (dest.Count < minlen)
+				return Common.ToString(defval);
+
+			if (maxlen < dest.Count)
+				dest.RemoveRange(maxlen, dest.Count - maxlen);
+
+			return string.Join(":", dest);
 		}
 
 		private void RemarksTextForeColorBtn_Click(object sender, EventArgs e)
@@ -381,6 +396,15 @@ namespace Charlotte
 		private void OnlineBackColorBtn_Click(object sender, EventArgs e)
 		{
 			EditColor(this.OnlineBackColorBtn);
+		}
+
+		private void ColorfulDaysColors_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (e.KeyChar == 1) // ctrl + a
+			{
+				this.ColorfulDaysColors.SelectAll();
+				e.Handled = true;
+			}
 		}
 	}
 }
