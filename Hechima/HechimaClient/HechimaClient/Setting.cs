@@ -70,6 +70,16 @@ namespace Charlotte
 
 		public bool IPDisabledWhenTripDisabled = false;
 
+		public bool OnlineDlgEnabled = false;
+		public Color OnlineForeColor = Color.DarkGreen;
+		public Color OnlineBackColor = Color.LightGreen;
+
+		public int OnlineDlg_L;
+		public int OnlineDlg_T;
+		public int OnlineDlg_W = -1; // -1 == OnlineDlg_LTWH 未設定
+		public int OnlineDlg_H;
+		public bool OnlineDlg_Minimized = false;
+
 		// ---- ロード・セーブ
 
 		private string GetProgDataDir()
@@ -150,6 +160,16 @@ namespace Charlotte
 
 			this.IPDisabledWhenTripDisabled = int.Parse(lines[c++]) != 0;
 
+			this.OnlineDlgEnabled = int.Parse(lines[c++]) != 0;
+			this.OnlineForeColor = Color.FromArgb(int.Parse(lines[c++]));
+			this.OnlineBackColor = Color.FromArgb(int.Parse(lines[c++]));
+
+			this.OnlineDlg_L = int.Parse(lines[c++]);
+			this.OnlineDlg_T = int.Parse(lines[c++]);
+			this.OnlineDlg_W = int.Parse(lines[c++]);
+			this.OnlineDlg_H = int.Parse(lines[c++]);
+			this.OnlineDlg_Minimized = int.Parse(lines[c++]) != 0;
+
 			// 新しい項目、ここへ追加..
 
 			// ----
@@ -207,6 +227,16 @@ namespace Charlotte
 			lines.Add("" + (this.BouyomiChanIgnoreSelfRemark ? 1 : 0));
 
 			lines.Add("" + (this.IPDisabledWhenTripDisabled ? 1 : 0));
+
+			lines.Add("" + (this.OnlineDlgEnabled ? 1 : 0));
+			lines.Add("" + this.OnlineForeColor.ToArgb());
+			lines.Add("" + this.OnlineBackColor.ToArgb());
+
+			lines.Add("" + this.OnlineDlg_L);
+			lines.Add("" + this.OnlineDlg_T);
+			lines.Add("" + this.OnlineDlg_W);
+			lines.Add("" + this.OnlineDlg_H);
+			lines.Add("" + (this.OnlineDlg_Minimized ? 1 : 0));
 
 			// 新しい項目、ここへ追加..
 

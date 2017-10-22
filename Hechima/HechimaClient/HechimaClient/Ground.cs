@@ -12,6 +12,8 @@ namespace Charlotte
 		public static Setting setting = new Setting();
 		public static BgService bgService = new BgService();
 
+		// ----
+
 		public static void ImportSetting()
 		{
 			UserRealName =
@@ -21,5 +23,28 @@ namespace Charlotte
 		}
 
 		public static string UserRealName = "名無しさん12345" + Consts.DELIM_NAME_TRIP + "Trip123";
+
+		// ----
+
+		public static OnlineDlg onlineDlg = null;
+
+		public static void OpenOnlineDlg()
+		{
+			if (Gnd.onlineDlg == null && Gnd.setting.OnlineDlgEnabled)
+			{
+				Gnd.onlineDlg = new OnlineDlg();
+				Gnd.onlineDlg.Show();
+			}
+		}
+
+		public static void CloseOnlineDlg()
+		{
+			if (Gnd.onlineDlg != null)
+			{
+				Gnd.onlineDlg.Close();
+				Gnd.onlineDlg.Dispose();
+				Gnd.onlineDlg = null;
+			}
+		}
 	}
 }

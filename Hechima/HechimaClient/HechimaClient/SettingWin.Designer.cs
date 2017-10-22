@@ -47,6 +47,7 @@
 			this.ServerDomain = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
+			this.IPDisabledWhenTripDisabled = new System.Windows.Forms.CheckBox();
 			this.ShowRemarkStampDate = new System.Windows.Forms.CheckBox();
 			this.TripEnabled = new System.Windows.Forms.CheckBox();
 			this.label14 = new System.Windows.Forms.Label();
@@ -63,6 +64,10 @@
 			this.RemarkFormat = new System.Windows.Forms.TextBox();
 			this.label8 = new System.Windows.Forms.Label();
 			this.MessageTextEnterMode = new System.Windows.Forms.ComboBox();
+			this.tabPage5 = new System.Windows.Forms.TabPage();
+			this.OnlineBackColorBtn = new System.Windows.Forms.Button();
+			this.OnlineForeColorBtn = new System.Windows.Forms.Button();
+			this.OnlineDlgEnabled = new System.Windows.Forms.CheckBox();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
 			this.TripEditable = new System.Windows.Forms.CheckBox();
@@ -94,20 +99,26 @@
 			this.BouyomiChanSpeed = new System.Windows.Forms.TextBox();
 			this.label15 = new System.Windows.Forms.Label();
 			this.BouyomiChanEnabled = new System.Windows.Forms.CheckBox();
+			this.tabPage6 = new System.Windows.Forms.TabPage();
 			this.CancelBtn = new System.Windows.Forms.Button();
 			this.OkBtn = new System.Windows.Forms.Button();
 			this.CorrectBtn = new System.Windows.Forms.Button();
-			this.IPDisabledWhenTripDisabled = new System.Windows.Forms.CheckBox();
+			this.ColorfulDaysEnabled = new System.Windows.Forms.CheckBox();
+			this.ColorfulDaysColors = new System.Windows.Forms.TextBox();
+			this.label25 = new System.Windows.Forms.Label();
+			this.label26 = new System.Windows.Forms.Label();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.groupBox1.SuspendLayout();
 			this.tabPage2.SuspendLayout();
 			this.groupBox3.SuspendLayout();
+			this.tabPage5.SuspendLayout();
 			this.tabPage3.SuspendLayout();
 			this.groupBox4.SuspendLayout();
 			this.tabPage4.SuspendLayout();
 			this.groupBox5.SuspendLayout();
+			this.tabPage6.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl1
@@ -117,8 +128,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.tabControl1.Controls.Add(this.tabPage1);
 			this.tabControl1.Controls.Add(this.tabPage2);
+			this.tabControl1.Controls.Add(this.tabPage5);
 			this.tabControl1.Controls.Add(this.tabPage3);
 			this.tabControl1.Controls.Add(this.tabPage4);
+			this.tabControl1.Controls.Add(this.tabPage6);
 			this.tabControl1.Location = new System.Drawing.Point(12, 12);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
@@ -322,6 +335,16 @@
 			this.tabPage2.Text = "画面";
 			this.tabPage2.UseVisualStyleBackColor = true;
 			// 
+			// IPDisabledWhenTripDisabled
+			// 
+			this.IPDisabledWhenTripDisabled.AutoSize = true;
+			this.IPDisabledWhenTripDisabled.Location = new System.Drawing.Point(174, 391);
+			this.IPDisabledWhenTripDisabled.Name = "IPDisabledWhenTripDisabled";
+			this.IPDisabledWhenTripDisabled.Size = new System.Drawing.Size(288, 24);
+			this.IPDisabledWhenTripDisabled.TabIndex = 12;
+			this.IPDisabledWhenTripDisabled.Text = "トリップを表示しない時はIPも表示しない。";
+			this.IPDisabledWhenTripDisabled.UseVisualStyleBackColor = true;
+			// 
 			// ShowRemarkStampDate
 			// 
 			this.ShowRemarkStampDate.AutoSize = true;
@@ -491,6 +514,48 @@
 			this.MessageTextEnterMode.Size = new System.Drawing.Size(540, 28);
 			this.MessageTextEnterMode.TabIndex = 0;
 			// 
+			// tabPage5
+			// 
+			this.tabPage5.Controls.Add(this.OnlineBackColorBtn);
+			this.tabPage5.Controls.Add(this.OnlineForeColorBtn);
+			this.tabPage5.Controls.Add(this.OnlineDlgEnabled);
+			this.tabPage5.Location = new System.Drawing.Point(4, 29);
+			this.tabPage5.Name = "tabPage5";
+			this.tabPage5.Size = new System.Drawing.Size(552, 454);
+			this.tabPage5.TabIndex = 4;
+			this.tabPage5.Text = "画面2";
+			this.tabPage5.UseVisualStyleBackColor = true;
+			// 
+			// OnlineBackColorBtn
+			// 
+			this.OnlineBackColorBtn.Location = new System.Drawing.Point(268, 42);
+			this.OnlineBackColorBtn.Name = "OnlineBackColorBtn";
+			this.OnlineBackColorBtn.Size = new System.Drawing.Size(250, 40);
+			this.OnlineBackColorBtn.TabIndex = 2;
+			this.OnlineBackColorBtn.Text = "背景色 = ffffff";
+			this.OnlineBackColorBtn.UseVisualStyleBackColor = true;
+			this.OnlineBackColorBtn.Click += new System.EventHandler(this.OnlineBackColorBtn_Click);
+			// 
+			// OnlineForeColorBtn
+			// 
+			this.OnlineForeColorBtn.Location = new System.Drawing.Point(12, 42);
+			this.OnlineForeColorBtn.Name = "OnlineForeColorBtn";
+			this.OnlineForeColorBtn.Size = new System.Drawing.Size(250, 40);
+			this.OnlineForeColorBtn.TabIndex = 1;
+			this.OnlineForeColorBtn.Text = "文字色 = 000000";
+			this.OnlineForeColorBtn.UseVisualStyleBackColor = true;
+			this.OnlineForeColorBtn.Click += new System.EventHandler(this.OnlineForeColorBtn_Click);
+			// 
+			// OnlineDlgEnabled
+			// 
+			this.OnlineDlgEnabled.AutoSize = true;
+			this.OnlineDlgEnabled.Location = new System.Drawing.Point(12, 12);
+			this.OnlineDlgEnabled.Name = "OnlineDlgEnabled";
+			this.OnlineDlgEnabled.Size = new System.Drawing.Size(223, 24);
+			this.OnlineDlgEnabled.TabIndex = 0;
+			this.OnlineDlgEnabled.Text = "オンラインメンバーを表示する。";
+			this.OnlineDlgEnabled.UseVisualStyleBackColor = true;
+			// 
 			// tabPage3
 			// 
 			this.tabPage3.Controls.Add(this.groupBox4);
@@ -639,7 +704,7 @@
 			// BouyomiChanSnipLen
 			// 
 			this.BouyomiChanSnipLen.Location = new System.Drawing.Point(12, 218);
-			this.BouyomiChanSnipLen.MaxLength = 5;
+			this.BouyomiChanSnipLen.MaxLength = 3;
 			this.BouyomiChanSnipLen.Name = "BouyomiChanSnipLen";
 			this.BouyomiChanSnipLen.Size = new System.Drawing.Size(100, 27);
 			this.BouyomiChanSnipLen.TabIndex = 2;
@@ -831,6 +896,19 @@
 			this.BouyomiChanEnabled.Text = "棒読みちゃんにメッセージを送信する。";
 			this.BouyomiChanEnabled.UseVisualStyleBackColor = true;
 			// 
+			// tabPage6
+			// 
+			this.tabPage6.Controls.Add(this.label26);
+			this.tabPage6.Controls.Add(this.label25);
+			this.tabPage6.Controls.Add(this.ColorfulDaysColors);
+			this.tabPage6.Controls.Add(this.ColorfulDaysEnabled);
+			this.tabPage6.Location = new System.Drawing.Point(4, 29);
+			this.tabPage6.Name = "tabPage6";
+			this.tabPage6.Size = new System.Drawing.Size(552, 454);
+			this.tabPage6.TabIndex = 5;
+			this.tabPage6.Text = "Colorful Days";
+			this.tabPage6.UseVisualStyleBackColor = true;
+			// 
 			// CancelBtn
 			// 
 			this.CancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -864,15 +942,47 @@
 			this.CorrectBtn.UseVisualStyleBackColor = true;
 			this.CorrectBtn.Click += new System.EventHandler(this.CorrectBtn_Click);
 			// 
-			// IPDisabledWhenTripDisabled
+			// ColorfulDaysEnabled
 			// 
-			this.IPDisabledWhenTripDisabled.AutoSize = true;
-			this.IPDisabledWhenTripDisabled.Location = new System.Drawing.Point(174, 391);
-			this.IPDisabledWhenTripDisabled.Name = "IPDisabledWhenTripDisabled";
-			this.IPDisabledWhenTripDisabled.Size = new System.Drawing.Size(288, 24);
-			this.IPDisabledWhenTripDisabled.TabIndex = 12;
-			this.IPDisabledWhenTripDisabled.Text = "トリップを表示しない時はIPも表示しない。";
-			this.IPDisabledWhenTripDisabled.UseVisualStyleBackColor = true;
+			this.ColorfulDaysEnabled.AutoSize = true;
+			this.ColorfulDaysEnabled.Location = new System.Drawing.Point(12, 12);
+			this.ColorfulDaysEnabled.Name = "ColorfulDaysEnabled";
+			this.ColorfulDaysEnabled.Size = new System.Drawing.Size(288, 24);
+			this.ColorfulDaysEnabled.TabIndex = 0;
+			this.ColorfulDaysEnabled.Text = "発言リストが更新される度に色を変更する。";
+			this.ColorfulDaysEnabled.UseVisualStyleBackColor = true;
+			// 
+			// ColorfulDaysColors
+			// 
+			this.ColorfulDaysColors.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.ColorfulDaysColors.Location = new System.Drawing.Point(85, 42);
+			this.ColorfulDaysColors.Multiline = true;
+			this.ColorfulDaysColors.Name = "ColorfulDaysColors";
+			this.ColorfulDaysColors.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.ColorfulDaysColors.Size = new System.Drawing.Size(464, 66);
+			this.ColorfulDaysColors.TabIndex = 2;
+			this.ColorfulDaysColors.Text = "1行目\r\n2行目\r\n3行目";
+			// 
+			// label25
+			// 
+			this.label25.AutoSize = true;
+			this.label25.Location = new System.Drawing.Point(8, 45);
+			this.label25.Name = "label25";
+			this.label25.Size = new System.Drawing.Size(71, 20);
+			this.label25.TabIndex = 1;
+			this.label25.Text = "色リスト :";
+			// 
+			// label26
+			// 
+			this.label26.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label26.AutoSize = true;
+			this.label26.ForeColor = System.Drawing.Color.Teal;
+			this.label26.Location = new System.Drawing.Point(282, 111);
+			this.label26.Name = "label26";
+			this.label26.Size = new System.Drawing.Size(267, 40);
+			this.label26.TabIndex = 3;
+			this.label26.Text = "書式 = \"rrggbb\" を \":\" 区切りで入力する。\r\n例 = ff0000:00ff00:0000ff";
 			// 
 			// SettingWin
 			// 
@@ -904,6 +1014,8 @@
 			this.tabPage2.PerformLayout();
 			this.groupBox3.ResumeLayout(false);
 			this.groupBox3.PerformLayout();
+			this.tabPage5.ResumeLayout(false);
+			this.tabPage5.PerformLayout();
 			this.tabPage3.ResumeLayout(false);
 			this.groupBox4.ResumeLayout(false);
 			this.groupBox4.PerformLayout();
@@ -911,6 +1023,8 @@
 			this.tabPage4.PerformLayout();
 			this.groupBox5.ResumeLayout(false);
 			this.groupBox5.PerformLayout();
+			this.tabPage6.ResumeLayout(false);
+			this.tabPage6.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -986,5 +1100,14 @@
 		private System.Windows.Forms.CheckBox BouyomiChanIgnoreSelfRemark;
 		private System.Windows.Forms.CheckBox TripEditable;
 		private System.Windows.Forms.CheckBox IPDisabledWhenTripDisabled;
+		private System.Windows.Forms.TabPage tabPage5;
+		private System.Windows.Forms.CheckBox OnlineDlgEnabled;
+		private System.Windows.Forms.TabPage tabPage6;
+		private System.Windows.Forms.Button OnlineBackColorBtn;
+		private System.Windows.Forms.Button OnlineForeColorBtn;
+		private System.Windows.Forms.Label label25;
+		private System.Windows.Forms.TextBox ColorfulDaysColors;
+		private System.Windows.Forms.CheckBox ColorfulDaysEnabled;
+		private System.Windows.Forms.Label label26;
 	}
 }

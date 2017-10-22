@@ -14,6 +14,7 @@ namespace Charlotte
 		public Queue<Remark> RecvedRemarks = new Queue<Remark>();
 		public Queue<byte[]> BouyomiChanSendDataBuff = new Queue<byte[]>();
 		public long KnownStamp = 0L;
+		public List<string> RecvedOnlineLines = null;
 
 		private bool _waked = false;
 		private SockClient _sockClient = new SockClient();
@@ -22,6 +23,8 @@ namespace Charlotte
 		private int _freezeCount = 10;
 		private int _recvFreezeCount = 30;//50;
 		private int _recvFreezeCountBgn = 30;//50;
+		private int _recvOnlineFreezeCount = 0;
+		private List<string> _recvedOnlineLines = null; // 受信スレッドからも触るので注意！
 
 		public void Perform()
 		{
@@ -52,6 +55,59 @@ namespace Charlotte
 					);
 				return;
 			}
+
+			// online >
+
+			if (_recvedOnlineLines != null)
+			{
+				this.RecvedOnlineLines = _recvedOnlineLines;
+				_recvedOnlineLines = null;
+				return;
+			}
+			if (Gnd.onlineDlg != null && --_recvOnlineFreezeCount < 0)
+			{
+				byte[] sendData = StringTools.ENCODING_SJIS.GetBytes("GET-MEMBERS\r\n");
+
+				_sockClient.Send("localhost", Gnd.setting.crypTunnelPort, sendData, delegate(NetworkStream ns)
+				{
+					List<byte> buff = new List<byte>();
+
+					for (; ; )
+					{
+						int chr = ns.ReadByte();
+
+						if (chr == -1)
+							break;
+
+						if (chr == 0x0d) // CR
+							continue;
+
+						if (chr == 0x0a) // LF
+						{
+							string line = StringTools.ENCODING_SJIS.GetString(buff.ToArray());
+
+							buff.Clear();
+
+							if (line == "") // Ender
+								break;
+
+							if (_recvedOnlineLines == null)
+								_recvedOnlineLines = new List<string>();
+
+							_recvedOnlineLines.Add(line);
+						}
+						else
+							buff.Add((byte)chr);
+					}
+					return null;
+				});
+				_freezeCount = 10;
+				_recvOnlineFreezeCount = 300;
+				return;
+			}
+
+			// < online
+
 			if (1 <= this.RecvedRemarks.Count) // ? 受信データがまだ処理されていない。-- this.KnownStamp の更新待ちのため。
 				return;
 
@@ -191,6 +247,11 @@ namespace Charlotte
 					_dest.Enqueue(remark);
 				}
 			}
+		}
+
+		public void ReqDoRecvOnline()
+		{
+			_recvOnlineFreezeCount = 0;
 		}
 
 		/// <summary>

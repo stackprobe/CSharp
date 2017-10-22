@@ -81,6 +81,8 @@ namespace Charlotte
 
 		private void MainWin_Shown(object sender, EventArgs e)
 		{
+			Gnd.OpenOnlineDlg();
+
 			this.MessageText.Focus();
 
 			this.MainTimer.Enabled = true;
@@ -96,6 +98,8 @@ namespace Charlotte
 			this.MainTimer.Enabled = false;
 
 			this.ExportSetting();
+
+			Gnd.CloseOnlineDlg();
 		}
 
 		private void RemarksText_KeyPress(object sender, KeyPressEventArgs e)
@@ -199,12 +203,19 @@ namespace Charlotte
 				{
 					int clearLength = (this.RemarksText.TextLength * 100) / Gnd.conf.RemarksTextClearPct;
 
-					this.RemarksText.Text = this.RemarksText.Text.Substring(clearLength);
+					this.RemarksText.Text = "(これより前は削除されました)" + this.RemarksText.Text.Substring(clearLength);
 					this.RemarksText.SelectionStart = this.RemarksText.TextLength;
 					this.RemarksText.ScrollToCaret();
 
 					return;
 				}
+			}
+
+			if (Gnd.onlineDlg != null && Gnd.onlineDlg.XPressed)
+			{
+				Gnd.onlineDlg.XPressed = false;
+				this.Close();
+				return;
 			}
 
 			Gnd.bgService.Perform();
@@ -286,7 +297,8 @@ namespace Charlotte
 			this.Visible = false;
 			this.ExportSetting();
 
-			Common.WaitToBgServiceEndable();
+			Gnd.CloseOnlineDlg();
+			Common.WaitToBgServiceEnded();
 
 			using (SettingWin f = new SettingWin())
 			{
@@ -299,6 +311,8 @@ namespace Charlotte
 					Gnd.setting.Save();
 				}
 			}
+			Gnd.OpenOnlineDlg();
+
 			this.Visible = true;
 			this.MainTimer.Enabled = true;
 		}
@@ -309,12 +323,15 @@ namespace Charlotte
 			this.Visible = false;
 			this.ExportSetting();
 
-			Common.WaitToBgServiceEndable();
+			Gnd.CloseOnlineDlg();
+			Common.WaitToBgServiceEnded();
 
 			using (ViewWin f = new ViewWin(this.RemarksText.Text))
 			{
 				f.ShowDialog();
 			}
+			Gnd.OpenOnlineDlg();
+
 			this.Visible = true;
 			this.MainTimer.Enabled = true;
 		}

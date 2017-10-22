@@ -51,6 +51,10 @@ namespace Charlotte
 			this.IPDisabledWhenTripDisabled.Checked = Gnd.setting.IPDisabledWhenTripDisabled;
 			this.ShowRemarkStampDate.Checked = Gnd.setting.ShowRemarkStampDate;
 
+			this.OnlineDlgEnabled.Checked = Gnd.setting.OnlineDlgEnabled;
+			SetColor(this.OnlineForeColorBtn, Gnd.setting.OnlineForeColor);
+			SetColor(this.OnlineBackColorBtn, Gnd.setting.OnlineBackColor);
+
 			this.UserName.Text = Gnd.setting.UserName;
 			this.UserTrip.Text = Gnd.setting.UserTrip;
 
@@ -95,6 +99,10 @@ namespace Charlotte
 			Gnd.setting.TripEnabled = this.TripEnabled.Checked;
 			Gnd.setting.IPDisabledWhenTripDisabled = this.IPDisabledWhenTripDisabled.Checked;
 			Gnd.setting.ShowRemarkStampDate = this.ShowRemarkStampDate.Checked;
+
+			Gnd.setting.OnlineDlgEnabled = this.OnlineDlgEnabled.Checked;
+			Gnd.setting.OnlineForeColor = GetColor(this.OnlineForeColorBtn);
+			Gnd.setting.OnlineBackColor = GetColor(this.OnlineBackColorBtn);
 
 			Gnd.setting.UserName = this.UserName.Text;
 			Gnd.setting.UserTrip = this.UserTrip.Text;
@@ -215,6 +223,8 @@ namespace Charlotte
 			//this.IPDisabledWhenTripDisabled.Checked
 			//this.ShowRemarkStampDate.Checked
 
+			//this.OnlineDlgEnabled.Checked
+
 			this.UserName.Text = CorrectItem(this.UserName.Text, 1, 20, "名無しさん" + SecurityTools.getCRandUInt());
 			this.UserName.Text = this.UserName.Text.Replace(Consts.DELIM_NAME_TRIP, Consts.S_DUMMY);
 			this.UserTrip.Text = CorrectItem(this.UserTrip.Text, 1, 100, StringTools.toHex(SecurityTools.getCRand(16)));
@@ -228,7 +238,7 @@ namespace Charlotte
 			//this.BouyomiChanVolumeUseDef.Checked
 			this.BouyomiChanVoice.Text = CorrectItemInt(this.BouyomiChanVoice.Text, BouyomiChan.VOICE_MIN, BouyomiChan.VOICE_MAX, BouyomiChan.VOICE_MIN);
 
-			this.BouyomiChanSnipLen.Text = CorrectItemInt(this.BouyomiChanSnipLen.Text, 1, 99999, 100);
+			this.BouyomiChanSnipLen.Text = CorrectItemInt(this.BouyomiChanSnipLen.Text, 1, 999, 100);
 			this.BouyomiChanSnippedTrailer.Text = CorrectItem(this.BouyomiChanSnippedTrailer.Text, 1, 1000, "以下略");
 			//this.BouyomiChanIgnoreSelfRemark.Checked
 
@@ -338,9 +348,14 @@ namespace Charlotte
 				this.UpdateUserTripBtn.Enabled = flag;
 			}
 
-			this.BouyomiChanSpeed.Enabled = this.BouyomiChanSpeedUseDef.Checked == false;
-			this.BouyomiChanTone.Enabled = this.BouyomiChanToneUseDef.Checked == false;
-			this.BouyomiChanVolume.Enabled = this.BouyomiChanVolumeUseDef.Checked == false;
+			this.UIR_SetColor(this.BouyomiChanSpeed, this.BouyomiChanSpeedUseDef.Checked);
+			this.UIR_SetColor(this.BouyomiChanTone, this.BouyomiChanToneUseDef.Checked);
+			this.UIR_SetColor(this.BouyomiChanVolume, this.BouyomiChanVolumeUseDef.Checked);
+		}
+
+		private void UIR_SetColor(TextBox tb, bool disabled)
+		{
+			tb.ForeColor = disabled ? Color.Gray : Color.Black;
 		}
 
 		private void BouyomiChanSpeedUseDef_CheckedChanged(object sender, EventArgs e)
@@ -356,6 +371,16 @@ namespace Charlotte
 		private void BouyomiChanVolumeUseDef_CheckedChanged(object sender, EventArgs e)
 		{
 			this.UIRefresh();
+		}
+
+		private void OnlineForeColorBtn_Click(object sender, EventArgs e)
+		{
+			EditColor(this.OnlineForeColorBtn);
+		}
+
+		private void OnlineBackColorBtn_Click(object sender, EventArgs e)
+		{
+			EditColor(this.OnlineBackColorBtn);
 		}
 	}
 }

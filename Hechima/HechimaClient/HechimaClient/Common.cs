@@ -10,7 +10,7 @@ namespace Charlotte
 {
 	public class Common
 	{
-		public static void WaitToBgServiceEndable()
+		public static void WaitToBgServiceEnded()
 		{
 			using (BusyDlg f = new BusyDlg(delegate()
 			{
