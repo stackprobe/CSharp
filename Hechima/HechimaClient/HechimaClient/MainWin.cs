@@ -175,7 +175,10 @@ namespace Charlotte
 			Gnd.bgService.SendingMessages.Enqueue(message);
 
 			if (Gnd.setting.ColorfulDaysEnabled)
+			{
 				this.RemarksTextForeColor_Next = Gnd.setting.RemarksTextForeColor;
+				this.RemarksTextBackColor_Next = Gnd.setting.RemarksTextBackColor;
+			}
 		}
 
 		private void MessageText_TextChanged(object sender, EventArgs e)
@@ -189,7 +192,9 @@ namespace Charlotte
 		}
 
 		private Color? RemarksTextForeColor_Next = null;
-		private int ColorfulDaysColorIndex = 0;
+		private Color? RemarksTextBackColor_Next = null;
+		private int ColorfulDaysForeColorIndex = 0;
+		private int ColorfulDaysBackColorIndex = 0;
 
 		private long MT_Count;
 
@@ -237,6 +242,17 @@ namespace Charlotte
 
 				if (this.RemarksText.ForeColor != color)
 					this.RemarksText.ForeColor = color;
+
+				return;
+			}
+			if (this.RemarksTextBackColor_Next != null)
+			{
+				Color color = this.RemarksTextBackColor_Next.Value;
+
+				this.RemarksTextBackColor_Next = null;
+
+				if (this.RemarksText.BackColor != color)
+					this.RemarksText.BackColor = color;
 
 				return;
 			}
@@ -322,11 +338,17 @@ namespace Charlotte
 
 				// }
 
+				foundOtherRemark = true; // test
+
 				if (foundOtherRemark && Gnd.setting.ColorfulDaysEnabled)
 				{
-					this.RemarksTextForeColor_Next = Gnd.setting.ColorfulDaysColors[this.ColorfulDaysColorIndex];
-					this.ColorfulDaysColorIndex++;
-					this.ColorfulDaysColorIndex %= Gnd.setting.ColorfulDaysColors.Length;
+					this.RemarksTextForeColor_Next = Gnd.setting.ColorfulDaysForeColors[this.ColorfulDaysForeColorIndex];
+					this.ColorfulDaysForeColorIndex++;
+					this.ColorfulDaysForeColorIndex %= Gnd.setting.ColorfulDaysForeColors.Length;
+
+					this.RemarksTextBackColor_Next = Gnd.setting.ColorfulDaysBackColors[this.ColorfulDaysBackColorIndex];
+					this.ColorfulDaysBackColorIndex++;
+					this.ColorfulDaysBackColorIndex %= Gnd.setting.ColorfulDaysBackColors.Length;
 				}
 				return;
 			}

@@ -72,7 +72,8 @@ namespace Charlotte
 			this.BouyomiChanIgnoreSelfRemark.Checked = Gnd.setting.BouyomiChanIgnoreSelfRemark;
 
 			this.ColorfulDaysEnabled.Checked = Gnd.setting.ColorfulDaysEnabled;
-			this.ColorfulDaysColors.Text = Common.ToString(Gnd.setting.ColorfulDaysColors);
+			this.ColorfulDaysForeColors.Text = Common.ToString(Gnd.setting.ColorfulDaysForeColors);
+			this.ColorfulDaysBackColors.Text = Common.ToString(Gnd.setting.ColorfulDaysBackColors);
 
 			// ----
 		}
@@ -124,7 +125,8 @@ namespace Charlotte
 			Gnd.setting.BouyomiChanIgnoreSelfRemark = this.BouyomiChanIgnoreSelfRemark.Checked;
 
 			Gnd.setting.ColorfulDaysEnabled = this.ColorfulDaysEnabled.Checked;
-			Gnd.setting.ColorfulDaysColors = Common.ToColors(this.ColorfulDaysColors.Text);
+			Gnd.setting.ColorfulDaysForeColors = Common.ToColors(this.ColorfulDaysForeColors.Text);
+			Gnd.setting.ColorfulDaysBackColors = Common.ToColors(this.ColorfulDaysBackColors.Text);
 
 			// ----
 		}
@@ -228,7 +230,8 @@ namespace Charlotte
 			//this.BouyomiChanIgnoreSelfRemark.Checked
 
 			//this.ColorfulDaysEnabled.Checked
-			this.ColorfulDaysColors.Text = CorrectItemColors(this.ColorfulDaysColors.Text, 1, 100, Consts.COLORFUL_DAYS_COLORS);
+			this.ColorfulDaysForeColors.Text = CorrectItemColors(this.ColorfulDaysForeColors.Text, 1, 100, Consts.COLORFUL_DAYS_FORE_COLORS);
+			this.ColorfulDaysBackColors.Text = CorrectItemColors(this.ColorfulDaysBackColors.Text, 1, 100, Consts.COLORFUL_DAYS_BACK_COLORS);
 
 			// ----
 		}
@@ -398,11 +401,20 @@ namespace Charlotte
 			EditColor(this.OnlineBackColorBtn);
 		}
 
-		private void ColorfulDaysColors_KeyPress(object sender, KeyPressEventArgs e)
+		private void ColorfulDaysForeColors_KeyPress(object sender, KeyPressEventArgs e)
 		{
 			if (e.KeyChar == 1) // ctrl + a
 			{
-				this.ColorfulDaysColors.SelectAll();
+				this.ColorfulDaysForeColors.SelectAll();
+				e.Handled = true;
+			}
+		}
+
+		private void ColorfulDaysBackColors_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (e.KeyChar == 1) // ctrl + a
+			{
+				this.ColorfulDaysBackColors.SelectAll();
 				e.Handled = true;
 			}
 		}

@@ -81,7 +81,8 @@ namespace Charlotte
 		public bool OnlineDlg_Minimized = false;
 
 		public bool ColorfulDaysEnabled = false;
-		public Color[] ColorfulDaysColors = Consts.COLORFUL_DAYS_COLORS;
+		public Color[] ColorfulDaysForeColors = Consts.COLORFUL_DAYS_FORE_COLORS;
+		public Color[] ColorfulDaysBackColors = Consts.COLORFUL_DAYS_BACK_COLORS;
 
 		// ---- ロード・セーブ
 
@@ -174,7 +175,8 @@ namespace Charlotte
 			this.OnlineDlg_Minimized = int.Parse(lines[c++]) != 0;
 
 			this.ColorfulDaysEnabled = int.Parse(lines[c++]) != 0;
-			this.ColorfulDaysColors = Common.ToColors(lines[c++]);
+			this.ColorfulDaysForeColors = Common.ToColors(lines[c++]);
+			this.ColorfulDaysBackColors = Common.ToColors(lines[c++]);
 
 			// 新しい項目、ここへ追加..
 
@@ -245,7 +247,8 @@ namespace Charlotte
 			lines.Add("" + (this.OnlineDlg_Minimized ? 1 : 0));
 
 			lines.Add("" + (this.ColorfulDaysEnabled ? 1 : 0));
-			lines.Add(Common.ToString(this.ColorfulDaysColors));
+			lines.Add(Common.ToString(this.ColorfulDaysForeColors));
+			lines.Add(Common.ToString(this.ColorfulDaysBackColors));
 
 			// 新しい項目、ここへ追加..
 
