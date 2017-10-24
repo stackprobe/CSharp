@@ -25,6 +25,7 @@ namespace Charlotte
 		private int _recvFreezeCountBgn = 30;//50;
 		private int _recvOnlineFreezeCount = 0;
 		private List<string> _recvedOnlineLines = null; // 受信スレッドからも触るので注意！
+		private bool _sentGetRemarks = false;
 
 		public void Perform()
 		{
@@ -55,6 +56,44 @@ namespace Charlotte
 					);
 				return;
 			}
+			if (1 <= this.RecvedRemarks.Count) // ? 受信データがまだ処理されていない。-- this.KnownStamp の更新待ちのため。
+				return;
+
+			{
+				byte[] recvedData = _sockClient.GetRecvData();
+
+				_sockClient.ClearRecvData();
+
+				if (_sentGetRemarks)
+				{
+					_sentGetRemarks = false;
+
+					if (recvedData == null)
+						Gnd.NetErrorLevel += 2; // 失敗
+					else
+						Gnd.NetErrorLevel--; // 成功
+
+					Gnd.NetErrorLevel = IntTools.toRange(Gnd.NetErrorLevel, 0, 10);
+				}
+
+				// zantei >
+				// 連投した自分の発言が数秒間消えたように見える問題対策
+				if (1 <= this.SendingMessages.Count)
+					recvedData = null;
+				// < zantei
+
+				if (recvedData != null && 1 <= recvedData.Length)
+				{
+					new RecvedDataToRecvedRemarks(recvedData, this.RecvedRemarks).Perform();
+
+					// this.KnownStamp は呼び出し側で更新してもらうことにした。
+
+					_recvFreezeCount = 30;// 50;
+					_recvFreezeCountBgn = 30;// 50;
+
+					return;
+				}
+			}
 
 			// online >
 
@@ -77,7 +116,7 @@ namespace Charlotte
 						int chr = ns.ReadByte();
 
 						if (chr == -1)
-							break;
+							throw null;
 
 						if (chr == 0x0d) // CR
 							continue;
@@ -107,33 +146,6 @@ namespace Charlotte
 			}
 
 			// < online
-
-			if (1 <= this.RecvedRemarks.Count) // ? 受信データがまだ処理されていない。-- this.KnownStamp の更新待ちのため。
-				return;
-
-			{
-				byte[] recvedData = _sockClient.GetRecvData();
-
-				_sockClient.ClearRecvData();
-
-				// zantei >
-				// 連投した自分の発言が数秒間消えたように見える問題対策
-				if (1 <= this.SendingMessages.Count)
-					recvedData = null;
-				// < zantei
-
-				if (recvedData != null)
-				{
-					new RecvedDataToRecvedRemarks(recvedData, this.RecvedRemarks).Perform();
-
-					// this.KnownStamp は呼び出し側で更新してもらうことにした。
-
-					_recvFreezeCount = 30;// 50;
-					_recvFreezeCountBgn = 30;// 50;
-
-					return;
-				}
-			}
 
 			if (1 <= this.SendingMessages.Count)
 			{
@@ -165,7 +177,7 @@ namespace Charlotte
 
 				_sockClient.Send("localhost", Gnd.setting.crypTunnelPort, sendData, delegate(NetworkStream ns)
 				{
-					List<byte> recvedData = null;
+					List<byte> recvedData = new List<byte>();
 					List<byte> buff = new List<byte>();
 
 					for (; ; )
@@ -173,15 +185,12 @@ namespace Charlotte
 						int chr = ns.ReadByte();
 
 						if (chr == -1)
-							break;
+							throw null;
 
 						if (chr == 0xff) // ? Ender
 						{
 							if (buff.Count == 0) // ? Ender x2
 								break;
-
-							if (recvedData == null)
-								recvedData = new List<byte>();
 
 							recvedData.AddRange(buff);
 							buff.Clear();
@@ -189,9 +198,6 @@ namespace Charlotte
 						else
 							buff.Add((byte)chr);
 					}
-					if (recvedData == null)
-						return null;
-
 					return recvedData.ToArray();
 				});
 			}
@@ -200,6 +206,8 @@ namespace Charlotte
 
 			if (_recvFreezeCountBgn < 150)
 				_recvFreezeCountBgn++;
+
+			_sentGetRemarks = true;
 		}
 
 		private class RecvedDataToRecvedRemarks

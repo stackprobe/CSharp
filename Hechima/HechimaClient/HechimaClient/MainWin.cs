@@ -202,9 +202,8 @@ namespace Charlotte
 				GC.Collect();
 				return;
 			}
-			if (MT_Count % 100 == 31)
+			if (MT_Count % 100 == 30)
 			{
-				// zantei -- このへん適当...
 				if (Gnd.conf.RemarksTextMaxLength < this.RemarksText.TextLength)
 				{
 					int clearLength = (this.RemarksText.TextLength * 100) / Gnd.conf.RemarksTextClearPct;
@@ -215,6 +214,20 @@ namespace Charlotte
 
 					return;
 				}
+
+				{
+					string title;
+
+					if (Gnd.NetErrorLevel < 4)
+						title = "へちま";
+					else
+						title = "へちま @ 通信不良 " + Gnd.NetErrorLevel;
+
+					if (this.Text != title)
+						this.Text = title;
+				}
+
+				return;
 			}
 			if (this.RemarksTextForeColor_Next != null)
 			{

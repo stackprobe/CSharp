@@ -47,5 +47,7 @@ namespace Charlotte
 				Gnd.onlineDlg = null;
 			}
 		}
+
+		public static int NetErrorLevel = 0;
 	}
 }
