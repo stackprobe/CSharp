@@ -338,7 +338,7 @@ namespace Charlotte
 
 				// }
 
-				foundOtherRemark = true; // test
+				//foundOtherRemark = true; // test
 
 				if (foundOtherRemark && Gnd.setting.ColorfulDaysEnabled)
 				{
