@@ -100,15 +100,18 @@ namespace Charlotte
 
 					long time = long.Parse(sTime);
 					time /= 60;
-					time = Math.Min(time, 9999);
-					sTime = StringTools.zPad((int)time, 4);
 
-					dest.Add(sTime + " " + ident);
+					//if (time <= 9999) // あまりにも古いのは表示しない。
+					if (time <= Gnd.conf.MemberVisibleTimeMax)
+					{
+						sTime = StringTools.zPad((int)time, 4);
+						dest.Add(sTime + " " + ident);
+					}
 				}
 				ArrayTools.sort(dest, StringTools.comp);
 				dest.Add("# 頭の数値は最終アクセスからの時間です。");
 				dest.Add("# 0001以上はログアウトしている可能性大");
-				dest.Add("# 更新=" + DateTimeToSec.Now.getDateTime());
+				dest.Add("# 更新=" + Common.DateTimeToString(DateTimeToSec.Now.getDateTime()));
 
 				this.OnlineText.Text = string.Join("\r\n", dest.ToArray());
 			}

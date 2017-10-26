@@ -6,7 +6,7 @@ using Charlotte.Tools;
 
 namespace Charlotte.Tests.Tools
 {
-	public class CsvFileTest
+	public class CsvFileReader_WriterTest
 	{
 		public void test01()
 		{
@@ -15,15 +15,18 @@ namespace Charlotte.Tests.Tools
 
 		public void test01(string rFile, string wFile)
 		{
-			List<List<string>> rows;
+			using (CsvFileReader reader = new CsvFileReader(rFile))
+			using (CsvFileWriter writer = new CsvFileWriter(wFile))
+			{
+				for (; ; )
+				{
+					string[] row = reader.nextRow();
 
-			using (CsvFile.Reader reader = new CsvFile.Reader(rFile))
-			{
-				rows = reader.readRows();
-			}
-			using (CsvFile.Writer writer = new CsvFile.Writer(wFile))
-			{
-				writer.writeRows(rows);
+					if (row == null)
+						break;
+
+					writer.writeRow(row);
+				}
 			}
 		}
 	}

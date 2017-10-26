@@ -183,5 +183,15 @@ namespace Charlotte
 
 			return dest.ToArray();
 		}
+
+		public static string DateTimeToString(long dateTime)
+		{
+			return ("" + dateTime)
+				.Insert(12, ":")
+				.Insert(10, ":")
+				.Insert(8, " ")
+				.Insert(6, "/")
+				.Insert(4, "/");
+		}
 	}
 }

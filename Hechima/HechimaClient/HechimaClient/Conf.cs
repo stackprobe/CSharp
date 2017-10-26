@@ -18,6 +18,8 @@ namespace Charlotte
 		public int RemarksTextMaxLength = 3000000;
 		public int RemarksTextClearPct = 20;
 
+		public int MemberVisibleTimeMax = 9999;
+
 		// ---- 読み込み
 
 		private string GetConfFile()
@@ -42,6 +44,8 @@ namespace Charlotte
 
 			this.RemarksTextMaxLength = int.Parse(lines[c++]);
 			this.RemarksTextClearPct = int.Parse(lines[c++]);
+
+			this.MemberVisibleTimeMax = int.Parse(lines[c++]);
 
 			// 新しい項目_ここへ追加..
 

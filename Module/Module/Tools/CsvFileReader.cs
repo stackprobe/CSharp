@@ -12,70 +12,69 @@ namespace Charlotte.Tools
 			: this(file, StringTools.ENCODING_SJIS)
 		{ }
 
-		private StreamReader Reader;
+		private StreamReader _reader;
 
 		public CsvFileReader(string file, Encoding encoding)
 		{
-			this.Reader = new StreamReader(file, encoding);
+			_reader = new StreamReader(file, encoding);
 		}
 
 		private const char DELIMITER = ',';
 		//private const char DELIMITER = '\t'; // TSL のとき
 
-		private int Chr;
+		private int _chr;
 
-		private int Read()
+		private int read()
 		{
 			do
 			{
-				this.Chr = this.Reader.Read();
+				_chr = _reader.Read();
 			}
-			while (this.Chr == '\r');
+			while (_chr == '\r');
 
-			return this.Chr;
+			return _chr;
 		}
 
-		private bool EnclosedCell;
+		private bool _enclosedCell;
 
-		private string NextCell()
+		private string nextCell()
 		{
 			StringBuilder buff = new StringBuilder();
 
-			if (this.Read() == '"')
+			if (this.read() == '"')
 			{
-				this.EnclosedCell = true;
-				this.Read();
+				this.read();
 
-				while (this.Chr != -1 && (this.Chr != '"' || this.Read() == '"'))
+				while (_chr != -1 && (_chr != '"' || this.read() == '"'))
 				{
-					buff.Append((char)this.Chr);
-					this.Read();
+					buff.Append((char)_chr);
+					this.read();
 				}
+				_enclosedCell = true;
 			}
 			else
 			{
-				this.EnclosedCell = false;
-
-				while (this.Chr != -1 && this.Chr != '\n' && this.Chr != DELIMITER)
+				while (_chr != -1 && _chr != '\n' && _chr != DELIMITER)
 				{
-					buff.Append((char)this.Chr);
-					this.Read();
+					buff.Append((char)_chr);
+					this.read();
 				}
+				_enclosedCell = false;
 			}
 			return buff.ToString();
 		}
 
-		public string[] NextRow()
+		public string[] nextRow()
 		{
 			List<string> row = new List<string>();
 
 			do
 			{
-				row.Add(this.NextCell());
+				row.Add(this.nextCell());
 			}
-			while (this.Chr != -1 && this.Chr != '\n');
+			while (_chr != -1 && _chr != '\n');
 
-			if (this.Chr == -1 && row.Count == 1 && row[0] == "" && this.EnclosedCell == false)
+			if (_chr == -1 && row.Count == 1 && row[0] == "" && _enclosedCell == false)
 				return null;
 
 			return row.ToArray();
@@ -83,8 +82,8 @@ namespace Charlotte.Tools
 
 		public void Dispose()
 		{
-			this.Reader.Dispose();
-			this.Reader = null;
+			_reader.Dispose();
+			_reader = null;
 		}
 	}
 }

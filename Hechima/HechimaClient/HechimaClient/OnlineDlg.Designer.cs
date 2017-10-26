@@ -45,6 +45,7 @@
 			this.OnlineText.ContextMenuStrip = this.MainContextMenu;
 			this.OnlineText.Font = new System.Drawing.Font("メイリオ", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
 			this.OnlineText.Location = new System.Drawing.Point(12, 12);
+			this.OnlineText.MaxLength = 0;
 			this.OnlineText.Multiline = true;
 			this.OnlineText.Name = "OnlineText";
 			this.OnlineText.ReadOnly = true;
