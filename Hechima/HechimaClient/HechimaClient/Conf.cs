@@ -18,7 +18,7 @@ namespace Charlotte
 		public int RemarksTextMaxLength = 3000000;
 		public int RemarksTextClearPct = 20;
 
-		public int MemberVisibleTimeMax = 9999;
+		public int MemberVisibleTimeMax = 9;
 
 		// ---- 読み込み
 
