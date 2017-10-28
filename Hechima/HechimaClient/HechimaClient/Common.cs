@@ -6,6 +6,7 @@ using System.Threading;
 using Charlotte.Tools;
 using System.Numerics;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace Charlotte
 {
@@ -192,6 +193,27 @@ namespace Charlotte
 				.Insert(8, " ")
 				.Insert(6, "/")
 				.Insert(4, "/");
+		}
+
+		public static void SetTextBoxBorderStyle(TextBox tb, bool flat, bool valChgScrToEnd = false)
+		{
+			BorderStyle val;
+
+			if (flat)
+				val = BorderStyle.None;
+			else
+				val = BorderStyle.Fixed3D;
+
+			if (tb.BorderStyle != val)
+			{
+				tb.BorderStyle = val;
+
+				if (valChgScrToEnd)
+				{
+					tb.SelectionStart = tb.TextLength;
+					tb.ScrollToCaret();
+				}
+			}
 		}
 	}
 }

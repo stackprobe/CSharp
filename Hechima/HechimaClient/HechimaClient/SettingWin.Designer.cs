@@ -100,6 +100,8 @@
 			this.label15 = new System.Windows.Forms.Label();
 			this.BouyomiChanEnabled = new System.Windows.Forms.CheckBox();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
+			this.CfDs_発言したら標準の色に戻す = new System.Windows.Forms.CheckBox();
+			this.CfDs_自分の発言でも色を変える = new System.Windows.Forms.CheckBox();
 			this.label28 = new System.Windows.Forms.Label();
 			this.label27 = new System.Windows.Forms.Label();
 			this.ColorfulDaysBackColors = new System.Windows.Forms.TextBox();
@@ -110,8 +112,10 @@
 			this.CancelBtn = new System.Windows.Forms.Button();
 			this.OkBtn = new System.Windows.Forms.Button();
 			this.CorrectBtn = new System.Windows.Forms.Button();
-			this.CfDs_自分の発言でも色を変える = new System.Windows.Forms.CheckBox();
-			this.CfDs_発言したら標準の色に戻す = new System.Windows.Forms.CheckBox();
+			this.groupBox6 = new System.Windows.Forms.GroupBox();
+			this.Flat_RemarksText = new System.Windows.Forms.CheckBox();
+			this.Flat_MessageText = new System.Windows.Forms.CheckBox();
+			this.Flat_OnlineText = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -124,6 +128,7 @@
 			this.tabPage4.SuspendLayout();
 			this.groupBox5.SuspendLayout();
 			this.tabPage6.SuspendLayout();
+			this.groupBox6.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl1
@@ -521,6 +526,7 @@
 			// 
 			// tabPage5
 			// 
+			this.tabPage5.Controls.Add(this.groupBox6);
 			this.tabPage5.Controls.Add(this.OnlineBackColorBtn);
 			this.tabPage5.Controls.Add(this.OnlineForeColorBtn);
 			this.tabPage5.Controls.Add(this.OnlineDlgEnabled);
@@ -919,6 +925,26 @@
 			this.tabPage6.Text = "Colorful Days";
 			this.tabPage6.UseVisualStyleBackColor = true;
 			// 
+			// CfDs_発言したら標準の色に戻す
+			// 
+			this.CfDs_発言したら標準の色に戻す.AutoSize = true;
+			this.CfDs_発言したら標準の色に戻す.Location = new System.Drawing.Point(215, 266);
+			this.CfDs_発言したら標準の色に戻す.Name = "CfDs_発言したら標準の色に戻す";
+			this.CfDs_発言したら標準の色に戻す.Size = new System.Drawing.Size(197, 24);
+			this.CfDs_発言したら標準の色に戻す.TabIndex = 8;
+			this.CfDs_発言したら標準の色に戻す.Text = "発言したら標準の色に戻す。";
+			this.CfDs_発言したら標準の色に戻す.UseVisualStyleBackColor = true;
+			// 
+			// CfDs_自分の発言でも色を変える
+			// 
+			this.CfDs_自分の発言でも色を変える.AutoSize = true;
+			this.CfDs_自分の発言でも色を変える.Location = new System.Drawing.Point(12, 266);
+			this.CfDs_自分の発言でも色を変える.Name = "CfDs_自分の発言でも色を変える";
+			this.CfDs_自分の発言でも色を変える.Size = new System.Drawing.Size(197, 24);
+			this.CfDs_自分の発言でも色を変える.TabIndex = 7;
+			this.CfDs_自分の発言でも色を変える.Text = "自分の発言でも色を変える。";
+			this.CfDs_自分の発言でも色を変える.UseVisualStyleBackColor = true;
+			// 
 			// label28
 			// 
 			this.label28.AutoSize = true;
@@ -1030,25 +1056,47 @@
 			this.CorrectBtn.UseVisualStyleBackColor = true;
 			this.CorrectBtn.Click += new System.EventHandler(this.CorrectBtn_Click);
 			// 
-			// CfDs_自分の発言でも色を変える
+			// groupBox6
 			// 
-			this.CfDs_自分の発言でも色を変える.AutoSize = true;
-			this.CfDs_自分の発言でも色を変える.Location = new System.Drawing.Point(12, 266);
-			this.CfDs_自分の発言でも色を変える.Name = "CfDs_自分の発言でも色を変える";
-			this.CfDs_自分の発言でも色を変える.Size = new System.Drawing.Size(197, 24);
-			this.CfDs_自分の発言でも色を変える.TabIndex = 7;
-			this.CfDs_自分の発言でも色を変える.Text = "自分の発言でも色を変える。";
-			this.CfDs_自分の発言でも色を変える.UseVisualStyleBackColor = true;
+			this.groupBox6.Controls.Add(this.Flat_OnlineText);
+			this.groupBox6.Controls.Add(this.Flat_MessageText);
+			this.groupBox6.Controls.Add(this.Flat_RemarksText);
+			this.groupBox6.Location = new System.Drawing.Point(6, 88);
+			this.groupBox6.Name = "groupBox6";
+			this.groupBox6.Size = new System.Drawing.Size(540, 60);
+			this.groupBox6.TabIndex = 3;
+			this.groupBox6.TabStop = false;
+			this.groupBox6.Text = "フラットな...";
 			// 
-			// CfDs_発言したら標準の色に戻す
+			// Flat_RemarksText
 			// 
-			this.CfDs_発言したら標準の色に戻す.AutoSize = true;
-			this.CfDs_発言したら標準の色に戻す.Location = new System.Drawing.Point(215, 266);
-			this.CfDs_発言したら標準の色に戻す.Name = "CfDs_発言したら標準の色に戻す";
-			this.CfDs_発言したら標準の色に戻す.Size = new System.Drawing.Size(197, 24);
-			this.CfDs_発言したら標準の色に戻す.TabIndex = 8;
-			this.CfDs_発言したら標準の色に戻す.Text = "発言したら標準の色に戻す。";
-			this.CfDs_発言したら標準の色に戻す.UseVisualStyleBackColor = true;
+			this.Flat_RemarksText.AutoSize = true;
+			this.Flat_RemarksText.Location = new System.Drawing.Point(6, 26);
+			this.Flat_RemarksText.Name = "Flat_RemarksText";
+			this.Flat_RemarksText.Size = new System.Drawing.Size(93, 24);
+			this.Flat_RemarksText.TabIndex = 0;
+			this.Flat_RemarksText.Text = "発言リスト";
+			this.Flat_RemarksText.UseVisualStyleBackColor = true;
+			// 
+			// Flat_MessageText
+			// 
+			this.Flat_MessageText.AutoSize = true;
+			this.Flat_MessageText.Location = new System.Drawing.Point(105, 26);
+			this.Flat_MessageText.Name = "Flat_MessageText";
+			this.Flat_MessageText.Size = new System.Drawing.Size(119, 24);
+			this.Flat_MessageText.TabIndex = 1;
+			this.Flat_MessageText.Text = "入力メッセージ";
+			this.Flat_MessageText.UseVisualStyleBackColor = true;
+			// 
+			// Flat_OnlineText
+			// 
+			this.Flat_OnlineText.AutoSize = true;
+			this.Flat_OnlineText.Location = new System.Drawing.Point(230, 26);
+			this.Flat_OnlineText.Name = "Flat_OnlineText";
+			this.Flat_OnlineText.Size = new System.Drawing.Size(145, 24);
+			this.Flat_OnlineText.TabIndex = 2;
+			this.Flat_OnlineText.Text = "オンラインメンバー";
+			this.Flat_OnlineText.UseVisualStyleBackColor = true;
 			// 
 			// SettingWin
 			// 
@@ -1091,6 +1139,8 @@
 			this.groupBox5.PerformLayout();
 			this.tabPage6.ResumeLayout(false);
 			this.tabPage6.PerformLayout();
+			this.groupBox6.ResumeLayout(false);
+			this.groupBox6.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -1180,5 +1230,9 @@
 		private System.Windows.Forms.TextBox ColorfulDaysBackColors;
 		private System.Windows.Forms.CheckBox CfDs_発言したら標準の色に戻す;
 		private System.Windows.Forms.CheckBox CfDs_自分の発言でも色を変える;
+		private System.Windows.Forms.GroupBox groupBox6;
+		private System.Windows.Forms.CheckBox Flat_OnlineText;
+		private System.Windows.Forms.CheckBox Flat_MessageText;
+		private System.Windows.Forms.CheckBox Flat_RemarksText;
 	}
 }

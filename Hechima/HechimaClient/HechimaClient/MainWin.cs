@@ -54,6 +54,9 @@ namespace Charlotte
 			this.MessageText.ForeColor = Gnd.setting.MessageTextForeColor;
 			this.MessageText.BackColor = Gnd.setting.MessageTextBackColor;
 
+			Common.SetTextBoxBorderStyle(this.RemarksText, Gnd.setting.Flat_RemarksText, true);
+			Common.SetTextBoxBorderStyle(this.MessageText, Gnd.setting.Flat_MessageText);
+
 			if (withoutMainWinLTWH == false && Gnd.setting.MainWin_W != -1)
 			{
 				this.Left = Gnd.setting.MainWin_L;
@@ -375,6 +378,8 @@ namespace Charlotte
 
 				if (f.OkBtnPressed)
 				{
+					this.Visible = true; // 非表示のままだと、コントロールの更新が反映されないことがある。-- tb.BorderStyle
+
 					Gnd.ImportSetting();
 					this.ImportSetting(true);
 					Gnd.setting.Save();

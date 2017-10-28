@@ -86,6 +86,10 @@ namespace Charlotte
 		public bool CfDs_自分の発言でも色を変える = false;
 		public bool CfDs_発言したら標準の色に戻す = false;
 
+		public bool Flat_RemarksText = false;
+		public bool Flat_MessageText = false;
+		public bool Flat_OnlineText = false;
+
 		// ---- ロード・セーブ
 
 		private string GetProgDataDir()
@@ -182,6 +186,10 @@ namespace Charlotte
 			this.CfDs_自分の発言でも色を変える = int.Parse(lines[c++]) != 0;
 			this.CfDs_発言したら標準の色に戻す = int.Parse(lines[c++]) != 0;
 
+			this.Flat_RemarksText = int.Parse(lines[c++]) != 0;
+			this.Flat_MessageText = int.Parse(lines[c++]) != 0;
+			this.Flat_OnlineText = int.Parse(lines[c++]) != 0;
+
 			// 新しい項目、ここへ追加..
 
 			// ----
@@ -255,6 +263,10 @@ namespace Charlotte
 			lines.Add(Common.ToString(this.ColorfulDaysBackColors));
 			lines.Add("" + (this.CfDs_自分の発言でも色を変える ? 1 : 0));
 			lines.Add("" + (this.CfDs_発言したら標準の色に戻す ? 1 : 0));
+
+			lines.Add("" + (this.Flat_RemarksText ? 1 : 0));
+			lines.Add("" + (this.Flat_MessageText ? 1 : 0));
+			lines.Add("" + (this.Flat_OnlineText ? 1 : 0));
 
 			// 新しい項目、ここへ追加..
 

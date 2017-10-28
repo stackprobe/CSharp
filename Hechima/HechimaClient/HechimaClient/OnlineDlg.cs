@@ -42,6 +42,8 @@ namespace Charlotte
 			this.OnlineText.ForeColor = Gnd.setting.OnlineForeColor;
 			this.OnlineText.BackColor = Gnd.setting.OnlineBackColor;
 
+			Common.SetTextBoxBorderStyle(this.OnlineText, Gnd.setting.Flat_OnlineText);
+
 			if (Gnd.setting.OnlineDlg_W != -1)
 			{
 				this.Left = Gnd.setting.OnlineDlg_L;
