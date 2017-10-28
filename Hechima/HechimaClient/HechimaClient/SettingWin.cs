@@ -254,13 +254,15 @@ namespace Charlotte
 
 				value = new string(buff.ToArray());
 			}
+			value = JString.toJString(value, true, false, false, false);
+
 			if (value.Length < minlen)
 				return defval;
 
 			if (maxlen < value.Length)
 				value = value.Substring(0, maxlen);
 
-			return JString.toJString(value, true, false, false, false);
+			return value;
 		}
 
 		private string CorrectItemInt(string value, int minval, int maxval, int defval)
