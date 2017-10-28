@@ -83,6 +83,8 @@ namespace Charlotte
 		public bool ColorfulDaysEnabled = false;
 		public Color[] ColorfulDaysForeColors = Consts.COLORFUL_DAYS_FORE_COLORS;
 		public Color[] ColorfulDaysBackColors = Consts.COLORFUL_DAYS_BACK_COLORS;
+		public bool CfDs_自分の発言でも色を変える = false;
+		public bool CfDs_発言したら標準の色に戻す = false;
 
 		// ---- ロード・セーブ
 
@@ -177,6 +179,8 @@ namespace Charlotte
 			this.ColorfulDaysEnabled = int.Parse(lines[c++]) != 0;
 			this.ColorfulDaysForeColors = Common.ToColors(lines[c++]);
 			this.ColorfulDaysBackColors = Common.ToColors(lines[c++]);
+			this.CfDs_自分の発言でも色を変える = int.Parse(lines[c++]) != 0;
+			this.CfDs_発言したら標準の色に戻す = int.Parse(lines[c++]) != 0;
 
 			// 新しい項目、ここへ追加..
 
@@ -249,6 +253,8 @@ namespace Charlotte
 			lines.Add("" + (this.ColorfulDaysEnabled ? 1 : 0));
 			lines.Add(Common.ToString(this.ColorfulDaysForeColors));
 			lines.Add(Common.ToString(this.ColorfulDaysBackColors));
+			lines.Add("" + (this.CfDs_自分の発言でも色を変える ? 1 : 0));
+			lines.Add("" + (this.CfDs_発言したら標準の色に戻す ? 1 : 0));
 
 			// 新しい項目、ここへ追加..
 

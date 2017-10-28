@@ -174,7 +174,7 @@ namespace Charlotte
 
 			Gnd.bgService.SendingMessages.Enqueue(message);
 
-			if (Gnd.setting.ColorfulDaysEnabled)
+			if (Gnd.setting.ColorfulDaysEnabled && Gnd.setting.CfDs_発言したら標準の色に戻す)
 			{
 				this.RemarksTextForeColor_Next = Gnd.setting.RemarksTextForeColor;
 				this.RemarksTextBackColor_Next = Gnd.setting.RemarksTextBackColor;
@@ -340,7 +340,13 @@ namespace Charlotte
 
 				//foundOtherRemark = true; // test
 
-				if (foundOtherRemark && Gnd.setting.ColorfulDaysEnabled)
+				if (
+					Gnd.setting.ColorfulDaysEnabled &&
+					(
+						foundOtherRemark ||
+						Gnd.setting.CfDs_自分の発言でも色を変える
+					)
+					)
 				{
 					this.RemarksTextForeColor_Next = Gnd.setting.ColorfulDaysForeColors[this.ColorfulDaysForeColorIndex];
 					this.ColorfulDaysForeColorIndex++;

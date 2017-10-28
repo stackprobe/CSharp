@@ -74,6 +74,8 @@ namespace Charlotte
 			this.ColorfulDaysEnabled.Checked = Gnd.setting.ColorfulDaysEnabled;
 			this.ColorfulDaysForeColors.Text = Common.ToString(Gnd.setting.ColorfulDaysForeColors);
 			this.ColorfulDaysBackColors.Text = Common.ToString(Gnd.setting.ColorfulDaysBackColors);
+			this.CfDs_自分の発言でも色を変える.Checked = Gnd.setting.CfDs_自分の発言でも色を変える;
+			this.CfDs_発言したら標準の色に戻す.Checked = Gnd.setting.CfDs_発言したら標準の色に戻す;
 
 			// ----
 		}
@@ -127,6 +129,8 @@ namespace Charlotte
 			Gnd.setting.ColorfulDaysEnabled = this.ColorfulDaysEnabled.Checked;
 			Gnd.setting.ColorfulDaysForeColors = Common.ToColors(this.ColorfulDaysForeColors.Text);
 			Gnd.setting.ColorfulDaysBackColors = Common.ToColors(this.ColorfulDaysBackColors.Text);
+			Gnd.setting.CfDs_自分の発言でも色を変える = this.CfDs_自分の発言でも色を変える.Checked;
+			Gnd.setting.CfDs_発言したら標準の色に戻す = this.CfDs_発言したら標準の色に戻す.Checked;
 
 			// ----
 		}
@@ -232,6 +236,8 @@ namespace Charlotte
 			//this.ColorfulDaysEnabled.Checked
 			this.ColorfulDaysForeColors.Text = CorrectItemColors(this.ColorfulDaysForeColors.Text, 1, 100, Consts.COLORFUL_DAYS_FORE_COLORS);
 			this.ColorfulDaysBackColors.Text = CorrectItemColors(this.ColorfulDaysBackColors.Text, 1, 100, Consts.COLORFUL_DAYS_BACK_COLORS);
+			//this.CfDs_自分の発言でも色を変える.Checked
+			//this.CfDs_発言したら標準の色に戻す.Checked
 
 			// ----
 		}

@@ -100,6 +100,9 @@
 			this.label15 = new System.Windows.Forms.Label();
 			this.BouyomiChanEnabled = new System.Windows.Forms.CheckBox();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
+			this.label28 = new System.Windows.Forms.Label();
+			this.label27 = new System.Windows.Forms.Label();
+			this.ColorfulDaysBackColors = new System.Windows.Forms.TextBox();
 			this.label26 = new System.Windows.Forms.Label();
 			this.label25 = new System.Windows.Forms.Label();
 			this.ColorfulDaysForeColors = new System.Windows.Forms.TextBox();
@@ -107,9 +110,8 @@
 			this.CancelBtn = new System.Windows.Forms.Button();
 			this.OkBtn = new System.Windows.Forms.Button();
 			this.CorrectBtn = new System.Windows.Forms.Button();
-			this.label27 = new System.Windows.Forms.Label();
-			this.ColorfulDaysBackColors = new System.Windows.Forms.TextBox();
-			this.label28 = new System.Windows.Forms.Label();
+			this.CfDs_自分の発言でも色を変える = new System.Windows.Forms.CheckBox();
+			this.CfDs_発言したら標準の色に戻す = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -901,6 +903,8 @@
 			// 
 			// tabPage6
 			// 
+			this.tabPage6.Controls.Add(this.CfDs_発言したら標準の色に戻す);
+			this.tabPage6.Controls.Add(this.CfDs_自分の発言でも色を変える);
 			this.tabPage6.Controls.Add(this.label28);
 			this.tabPage6.Controls.Add(this.label27);
 			this.tabPage6.Controls.Add(this.ColorfulDaysBackColors);
@@ -914,6 +918,40 @@
 			this.tabPage6.TabIndex = 5;
 			this.tabPage6.Text = "Colorful Days";
 			this.tabPage6.UseVisualStyleBackColor = true;
+			// 
+			// label28
+			// 
+			this.label28.AutoSize = true;
+			this.label28.Location = new System.Drawing.Point(8, 157);
+			this.label28.Name = "label28";
+			this.label28.Size = new System.Drawing.Size(97, 20);
+			this.label28.TabIndex = 4;
+			this.label28.Text = "背景色リスト :";
+			// 
+			// label27
+			// 
+			this.label27.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label27.AutoSize = true;
+			this.label27.ForeColor = System.Drawing.Color.Teal;
+			this.label27.Location = new System.Drawing.Point(282, 223);
+			this.label27.Name = "label27";
+			this.label27.Size = new System.Drawing.Size(267, 40);
+			this.label27.TabIndex = 6;
+			this.label27.Text = "書式 = \"rrggbb\" を \":\" 区切りで入力する。\r\n例 = 008080:800080:808000";
+			// 
+			// ColorfulDaysBackColors
+			// 
+			this.ColorfulDaysBackColors.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.ColorfulDaysBackColors.Location = new System.Drawing.Point(111, 154);
+			this.ColorfulDaysBackColors.MaxLength = 699;
+			this.ColorfulDaysBackColors.Multiline = true;
+			this.ColorfulDaysBackColors.Name = "ColorfulDaysBackColors";
+			this.ColorfulDaysBackColors.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.ColorfulDaysBackColors.Size = new System.Drawing.Size(438, 66);
+			this.ColorfulDaysBackColors.TabIndex = 5;
+			this.ColorfulDaysBackColors.Text = "1行目\r\n2行目\r\n3行目";
+			this.ColorfulDaysBackColors.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ColorfulDaysBackColors_KeyPress);
 			// 
 			// label26
 			// 
@@ -992,39 +1030,25 @@
 			this.CorrectBtn.UseVisualStyleBackColor = true;
 			this.CorrectBtn.Click += new System.EventHandler(this.CorrectBtn_Click);
 			// 
-			// label27
+			// CfDs_自分の発言でも色を変える
 			// 
-			this.label27.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label27.AutoSize = true;
-			this.label27.ForeColor = System.Drawing.Color.Teal;
-			this.label27.Location = new System.Drawing.Point(282, 223);
-			this.label27.Name = "label27";
-			this.label27.Size = new System.Drawing.Size(267, 40);
-			this.label27.TabIndex = 6;
-			this.label27.Text = "書式 = \"rrggbb\" を \":\" 区切りで入力する。\r\n例 = 008080:800080:808000";
+			this.CfDs_自分の発言でも色を変える.AutoSize = true;
+			this.CfDs_自分の発言でも色を変える.Location = new System.Drawing.Point(12, 266);
+			this.CfDs_自分の発言でも色を変える.Name = "CfDs_自分の発言でも色を変える";
+			this.CfDs_自分の発言でも色を変える.Size = new System.Drawing.Size(197, 24);
+			this.CfDs_自分の発言でも色を変える.TabIndex = 7;
+			this.CfDs_自分の発言でも色を変える.Text = "自分の発言でも色を変える。";
+			this.CfDs_自分の発言でも色を変える.UseVisualStyleBackColor = true;
 			// 
-			// ColorfulDaysBackColors
+			// CfDs_発言したら標準の色に戻す
 			// 
-			this.ColorfulDaysBackColors.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.ColorfulDaysBackColors.Location = new System.Drawing.Point(111, 154);
-			this.ColorfulDaysBackColors.MaxLength = 699;
-			this.ColorfulDaysBackColors.Multiline = true;
-			this.ColorfulDaysBackColors.Name = "ColorfulDaysBackColors";
-			this.ColorfulDaysBackColors.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.ColorfulDaysBackColors.Size = new System.Drawing.Size(438, 66);
-			this.ColorfulDaysBackColors.TabIndex = 5;
-			this.ColorfulDaysBackColors.Text = "1行目\r\n2行目\r\n3行目";
-			this.ColorfulDaysBackColors.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ColorfulDaysBackColors_KeyPress);
-			// 
-			// label28
-			// 
-			this.label28.AutoSize = true;
-			this.label28.Location = new System.Drawing.Point(8, 157);
-			this.label28.Name = "label28";
-			this.label28.Size = new System.Drawing.Size(97, 20);
-			this.label28.TabIndex = 4;
-			this.label28.Text = "背景色リスト :";
+			this.CfDs_発言したら標準の色に戻す.AutoSize = true;
+			this.CfDs_発言したら標準の色に戻す.Location = new System.Drawing.Point(215, 266);
+			this.CfDs_発言したら標準の色に戻す.Name = "CfDs_発言したら標準の色に戻す";
+			this.CfDs_発言したら標準の色に戻す.Size = new System.Drawing.Size(197, 24);
+			this.CfDs_発言したら標準の色に戻す.TabIndex = 8;
+			this.CfDs_発言したら標準の色に戻す.Text = "発言したら標準の色に戻す。";
+			this.CfDs_発言したら標準の色に戻す.UseVisualStyleBackColor = true;
 			// 
 			// SettingWin
 			// 
@@ -1154,5 +1178,7 @@
 		private System.Windows.Forms.Label label28;
 		private System.Windows.Forms.Label label27;
 		private System.Windows.Forms.TextBox ColorfulDaysBackColors;
+		private System.Windows.Forms.CheckBox CfDs_発言したら標準の色に戻す;
+		private System.Windows.Forms.CheckBox CfDs_自分の発言でも色を変える;
 	}
 }
