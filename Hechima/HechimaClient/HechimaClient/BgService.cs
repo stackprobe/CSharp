@@ -163,7 +163,7 @@ namespace Charlotte
 					return null;
 				});
 				_freezeCount = 10;
-				_recvFreezeCount = 30;// 50; // 連投すると GET-REMARKS は先送りされ続ける。
+				_recvFreezeCount = 1;// 30;// 50; // 連投すると GET-REMARKS は先送りされ続ける。
 				return;
 			}
 			if (0 < _recvFreezeCount)

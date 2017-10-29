@@ -57,6 +57,7 @@ namespace Charlotte
 			this.Flat_RemarksText.Checked = Gnd.setting.Flat_RemarksText;
 			this.Flat_MessageText.Checked = Gnd.setting.Flat_MessageText;
 			this.Flat_OnlineText.Checked = Gnd.setting.Flat_OnlineText;
+			this.TaskBarFlashEnabled.Checked = Gnd.setting.TaskBarFlashEnabled;
 
 			this.UserName.Text = Gnd.setting.UserName;
 			this.UserTrip.Text = Gnd.setting.UserTrip;
@@ -115,6 +116,7 @@ namespace Charlotte
 			Gnd.setting.Flat_RemarksText = this.Flat_RemarksText.Checked;
 			Gnd.setting.Flat_MessageText = this.Flat_MessageText.Checked;
 			Gnd.setting.Flat_OnlineText = this.Flat_OnlineText.Checked;
+			Gnd.setting.TaskBarFlashEnabled = this.TaskBarFlashEnabled.Checked;
 
 			Gnd.setting.UserName = this.UserName.Text;
 			Gnd.setting.UserTrip = this.UserTrip.Text;
@@ -226,6 +228,7 @@ namespace Charlotte
 			//this.Flat_RemarksText.Checked
 			//this.Flat_MessageText.Checked
 			//this.Flat_OnlineText.Checked
+			//this.TaskBarFlashEnabled.Checked
 
 			this.UserName.Text = CorrectItem(this.UserName.Text, 1, 20, "名無しさん" + SecurityTools.getCRandUInt());
 			this.UserName.Text = this.UserName.Text.Replace(Consts.DELIM_NAME_TRIP, Consts.S_DUMMY);
@@ -378,6 +381,8 @@ namespace Charlotte
 
 		private void UIRefresh()
 		{
+			this.IPDisabledWhenTripDisabled.Enabled = this.TripEnabled.Checked == false;
+
 			{
 				bool flag = this.TripEditable.Checked;
 
@@ -436,6 +441,11 @@ namespace Charlotte
 				this.ColorfulDaysBackColors.SelectAll();
 				e.Handled = true;
 			}
+		}
+
+		private void TripEnabled_CheckedChanged(object sender, EventArgs e)
+		{
+			this.UIRefresh();
 		}
 	}
 }

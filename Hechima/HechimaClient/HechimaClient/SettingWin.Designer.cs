@@ -65,6 +65,10 @@
 			this.label8 = new System.Windows.Forms.Label();
 			this.MessageTextEnterMode = new System.Windows.Forms.ComboBox();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
+			this.groupBox6 = new System.Windows.Forms.GroupBox();
+			this.Flat_OnlineText = new System.Windows.Forms.CheckBox();
+			this.Flat_MessageText = new System.Windows.Forms.CheckBox();
+			this.Flat_RemarksText = new System.Windows.Forms.CheckBox();
 			this.OnlineBackColorBtn = new System.Windows.Forms.Button();
 			this.OnlineForeColorBtn = new System.Windows.Forms.Button();
 			this.OnlineDlgEnabled = new System.Windows.Forms.CheckBox();
@@ -112,10 +116,7 @@
 			this.CancelBtn = new System.Windows.Forms.Button();
 			this.OkBtn = new System.Windows.Forms.Button();
 			this.CorrectBtn = new System.Windows.Forms.Button();
-			this.groupBox6 = new System.Windows.Forms.GroupBox();
-			this.Flat_RemarksText = new System.Windows.Forms.CheckBox();
-			this.Flat_MessageText = new System.Windows.Forms.CheckBox();
-			this.Flat_OnlineText = new System.Windows.Forms.CheckBox();
+			this.TaskBarFlashEnabled = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -123,12 +124,12 @@
 			this.tabPage2.SuspendLayout();
 			this.groupBox3.SuspendLayout();
 			this.tabPage5.SuspendLayout();
+			this.groupBox6.SuspendLayout();
 			this.tabPage3.SuspendLayout();
 			this.groupBox4.SuspendLayout();
 			this.tabPage4.SuspendLayout();
 			this.groupBox5.SuspendLayout();
 			this.tabPage6.SuspendLayout();
-			this.groupBox6.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl1
@@ -374,6 +375,7 @@
 			this.TripEnabled.TabIndex = 10;
 			this.TripEnabled.Text = "トリップを表示する。";
 			this.TripEnabled.UseVisualStyleBackColor = true;
+			this.TripEnabled.CheckedChanged += new System.EventHandler(this.TripEnabled_CheckedChanged);
 			// 
 			// label14
 			// 
@@ -526,6 +528,7 @@
 			// 
 			// tabPage5
 			// 
+			this.tabPage5.Controls.Add(this.TaskBarFlashEnabled);
 			this.tabPage5.Controls.Add(this.groupBox6);
 			this.tabPage5.Controls.Add(this.OnlineBackColorBtn);
 			this.tabPage5.Controls.Add(this.OnlineForeColorBtn);
@@ -536,6 +539,48 @@
 			this.tabPage5.TabIndex = 4;
 			this.tabPage5.Text = "画面2";
 			this.tabPage5.UseVisualStyleBackColor = true;
+			// 
+			// groupBox6
+			// 
+			this.groupBox6.Controls.Add(this.Flat_OnlineText);
+			this.groupBox6.Controls.Add(this.Flat_MessageText);
+			this.groupBox6.Controls.Add(this.Flat_RemarksText);
+			this.groupBox6.Location = new System.Drawing.Point(6, 88);
+			this.groupBox6.Name = "groupBox6";
+			this.groupBox6.Size = new System.Drawing.Size(540, 60);
+			this.groupBox6.TabIndex = 3;
+			this.groupBox6.TabStop = false;
+			this.groupBox6.Text = "フラットな...";
+			// 
+			// Flat_OnlineText
+			// 
+			this.Flat_OnlineText.AutoSize = true;
+			this.Flat_OnlineText.Location = new System.Drawing.Point(230, 26);
+			this.Flat_OnlineText.Name = "Flat_OnlineText";
+			this.Flat_OnlineText.Size = new System.Drawing.Size(145, 24);
+			this.Flat_OnlineText.TabIndex = 2;
+			this.Flat_OnlineText.Text = "オンラインメンバー";
+			this.Flat_OnlineText.UseVisualStyleBackColor = true;
+			// 
+			// Flat_MessageText
+			// 
+			this.Flat_MessageText.AutoSize = true;
+			this.Flat_MessageText.Location = new System.Drawing.Point(105, 26);
+			this.Flat_MessageText.Name = "Flat_MessageText";
+			this.Flat_MessageText.Size = new System.Drawing.Size(119, 24);
+			this.Flat_MessageText.TabIndex = 1;
+			this.Flat_MessageText.Text = "入力メッセージ";
+			this.Flat_MessageText.UseVisualStyleBackColor = true;
+			// 
+			// Flat_RemarksText
+			// 
+			this.Flat_RemarksText.AutoSize = true;
+			this.Flat_RemarksText.Location = new System.Drawing.Point(6, 26);
+			this.Flat_RemarksText.Name = "Flat_RemarksText";
+			this.Flat_RemarksText.Size = new System.Drawing.Size(93, 24);
+			this.Flat_RemarksText.TabIndex = 0;
+			this.Flat_RemarksText.Text = "発言リスト";
+			this.Flat_RemarksText.UseVisualStyleBackColor = true;
 			// 
 			// OnlineBackColorBtn
 			// 
@@ -1056,47 +1101,15 @@
 			this.CorrectBtn.UseVisualStyleBackColor = true;
 			this.CorrectBtn.Click += new System.EventHandler(this.CorrectBtn_Click);
 			// 
-			// groupBox6
+			// TaskBarFlashEnabled
 			// 
-			this.groupBox6.Controls.Add(this.Flat_OnlineText);
-			this.groupBox6.Controls.Add(this.Flat_MessageText);
-			this.groupBox6.Controls.Add(this.Flat_RemarksText);
-			this.groupBox6.Location = new System.Drawing.Point(6, 88);
-			this.groupBox6.Name = "groupBox6";
-			this.groupBox6.Size = new System.Drawing.Size(540, 60);
-			this.groupBox6.TabIndex = 3;
-			this.groupBox6.TabStop = false;
-			this.groupBox6.Text = "フラットな...";
-			// 
-			// Flat_RemarksText
-			// 
-			this.Flat_RemarksText.AutoSize = true;
-			this.Flat_RemarksText.Location = new System.Drawing.Point(6, 26);
-			this.Flat_RemarksText.Name = "Flat_RemarksText";
-			this.Flat_RemarksText.Size = new System.Drawing.Size(93, 24);
-			this.Flat_RemarksText.TabIndex = 0;
-			this.Flat_RemarksText.Text = "発言リスト";
-			this.Flat_RemarksText.UseVisualStyleBackColor = true;
-			// 
-			// Flat_MessageText
-			// 
-			this.Flat_MessageText.AutoSize = true;
-			this.Flat_MessageText.Location = new System.Drawing.Point(105, 26);
-			this.Flat_MessageText.Name = "Flat_MessageText";
-			this.Flat_MessageText.Size = new System.Drawing.Size(119, 24);
-			this.Flat_MessageText.TabIndex = 1;
-			this.Flat_MessageText.Text = "入力メッセージ";
-			this.Flat_MessageText.UseVisualStyleBackColor = true;
-			// 
-			// Flat_OnlineText
-			// 
-			this.Flat_OnlineText.AutoSize = true;
-			this.Flat_OnlineText.Location = new System.Drawing.Point(230, 26);
-			this.Flat_OnlineText.Name = "Flat_OnlineText";
-			this.Flat_OnlineText.Size = new System.Drawing.Size(145, 24);
-			this.Flat_OnlineText.TabIndex = 2;
-			this.Flat_OnlineText.Text = "オンラインメンバー";
-			this.Flat_OnlineText.UseVisualStyleBackColor = true;
+			this.TaskBarFlashEnabled.AutoSize = true;
+			this.TaskBarFlashEnabled.Location = new System.Drawing.Point(12, 154);
+			this.TaskBarFlashEnabled.Name = "TaskBarFlashEnabled";
+			this.TaskBarFlashEnabled.Size = new System.Drawing.Size(483, 24);
+			this.TaskBarFlashEnabled.TabIndex = 4;
+			this.TaskBarFlashEnabled.Text = "非アクティブ時に発言があったらタスクバーのアイコンをフラッシュさせる。";
+			this.TaskBarFlashEnabled.UseVisualStyleBackColor = true;
 			// 
 			// SettingWin
 			// 
@@ -1130,6 +1143,8 @@
 			this.groupBox3.PerformLayout();
 			this.tabPage5.ResumeLayout(false);
 			this.tabPage5.PerformLayout();
+			this.groupBox6.ResumeLayout(false);
+			this.groupBox6.PerformLayout();
 			this.tabPage3.ResumeLayout(false);
 			this.groupBox4.ResumeLayout(false);
 			this.groupBox4.PerformLayout();
@@ -1139,8 +1154,6 @@
 			this.groupBox5.PerformLayout();
 			this.tabPage6.ResumeLayout(false);
 			this.tabPage6.PerformLayout();
-			this.groupBox6.ResumeLayout(false);
-			this.groupBox6.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -1234,5 +1247,6 @@
 		private System.Windows.Forms.CheckBox Flat_OnlineText;
 		private System.Windows.Forms.CheckBox Flat_MessageText;
 		private System.Windows.Forms.CheckBox Flat_RemarksText;
+		private System.Windows.Forms.CheckBox TaskBarFlashEnabled;
 	}
 }

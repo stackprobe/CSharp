@@ -90,6 +90,8 @@ namespace Charlotte
 		public bool Flat_MessageText = false;
 		public bool Flat_OnlineText = false;
 
+		public bool TaskBarFlashEnabled = false;
+
 		// ---- ロード・セーブ
 
 		private string GetProgDataDir()
@@ -190,6 +192,8 @@ namespace Charlotte
 			this.Flat_MessageText = int.Parse(lines[c++]) != 0;
 			this.Flat_OnlineText = int.Parse(lines[c++]) != 0;
 
+			this.TaskBarFlashEnabled = int.Parse(lines[c++]) != 0;
+
 			// 新しい項目、ここへ追加..
 
 			// ----
@@ -267,6 +271,8 @@ namespace Charlotte
 			lines.Add("" + (this.Flat_RemarksText ? 1 : 0));
 			lines.Add("" + (this.Flat_MessageText ? 1 : 0));
 			lines.Add("" + (this.Flat_OnlineText ? 1 : 0));
+
+			lines.Add("" + (this.TaskBarFlashEnabled ? 1 : 0));
 
 			// 新しい項目、ここへ追加..
 

@@ -359,6 +359,10 @@ namespace Charlotte
 					this.ColorfulDaysBackColorIndex++;
 					this.ColorfulDaysBackColorIndex %= Gnd.setting.ColorfulDaysBackColors.Length;
 				}
+				if (Gnd.setting.TaskBarFlashEnabled && foundOtherRemark)
+				{
+					Common.TaskBarFlash(this);
+				}
 				return;
 			}
 		}
