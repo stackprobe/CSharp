@@ -45,6 +45,13 @@ namespace Charlotte
 
 			if (1 <= this.BouyomiChanSendDataBuff.Count)
 			{
+				// zantei -- BCPort問題
+				if (
+					Gnd.setting.BouyomiChanPort == Gnd.setting.crypTunnelPort ||
+					Gnd.setting.BouyomiChanPort == Gnd.setting.ServerPort
+					)
+					throw new Exception("BCPort問題");
+
 				_sockClient.Send(
 					Gnd.setting.BouyomiChanDomain,
 					Gnd.setting.BouyomiChanPort,
@@ -54,6 +61,7 @@ namespace Charlotte
 						return null;
 					}
 					);
+
 				return;
 			}
 			if (1 <= this.RecvedRemarks.Count) // ? 受信データがまだ処理されていない。-- this.KnownStamp の更新待ちのため。
@@ -88,8 +96,8 @@ namespace Charlotte
 
 					// this.KnownStamp は呼び出し側で更新してもらうことにした。
 
-					_recvFreezeCount = 30;// 50;
-					_recvFreezeCountBgn = 30;// 50;
+					_recvFreezeCount = 20;// 30;// 50;
+					_recvFreezeCountBgn = 20;// 30;// 50;
 
 					return;
 				}
@@ -202,6 +210,7 @@ namespace Charlotte
 				});
 			}
 
+			_freezeCount = 10;
 			_recvFreezeCount = _recvFreezeCountBgn;
 
 			if (_recvFreezeCountBgn < 150)

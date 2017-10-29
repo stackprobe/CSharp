@@ -197,6 +197,37 @@ namespace Charlotte
 			this.BouyomiChanDomain.Text = CorrectItem(this.BouyomiChanDomain.Text, 1, 300, "localhost");
 			this.BouyomiChanPort.Text = CorrectItemInt(this.BouyomiChanPort.Text, 1, 65535, 50001);
 
+			// zantei -- BCPort問題
+			{
+				int p1 = int.Parse(this.ServerPort.Text);
+				int p2 = int.Parse(this.crypTunnelPort.Text);
+				int p = int.Parse(this.BouyomiChanPort.Text);
+
+				bool mod = false;
+
+				while (
+					p == p1 ||
+					p == p2
+					)
+				{
+					if (p < 65535)
+						p++;
+					else
+						p = 50001;
+
+					mod = true;
+				}
+				this.BouyomiChanPort.Text = "" + p;
+
+				if (mod)
+					MessageBox.Show(
+						"止むに止まれぬ事情で棒読みちゃんのポート番号を変更しました。",
+						"情報",
+						MessageBoxButtons.OK,
+						MessageBoxIcon.Information
+						);
+			}
+
 			//this.MessageTextEnterMode.SelectedIndex
 
 			this.RemarkFormat.Text = CorrectItem(this.RemarkFormat.Text.ToUpper(), 1, 100, "RSBIRZMR", "RSBZIM");
