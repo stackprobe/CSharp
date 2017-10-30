@@ -40,7 +40,7 @@ namespace Charlotte
 			{
 				Proc = ProcessTools.start(
 					crypTunnelExeFile,
-					Gnd.setting.crypTunnelPort + " " + Gnd.setting.ServerDomain + " " + Gnd.setting.ServerPort + " *" + Gnd.setting.Password + Consts.PASSWORD_TRAILER
+					Gnd.setting.crypTunnelPort + " " + Gnd.setting.ServerDomain + " " + Gnd.setting.ServerPort + " /C 1 *" + Gnd.setting.Password + Consts.PASSWORD_TRAILER
 					);
 			}
 		}
