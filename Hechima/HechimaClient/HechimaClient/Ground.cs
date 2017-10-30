@@ -49,6 +49,5 @@ namespace Charlotte
 		}
 
 		public static int NetErrorLevel = 0;
-		public static string TitleBarMessage = null;
 	}
 }

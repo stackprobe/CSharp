@@ -226,12 +226,7 @@ namespace Charlotte
 				{
 					string title;
 
-					if (Gnd.TitleBarMessage != null)
-					{
-						title = Gnd.TitleBarMessage;
-						Gnd.TitleBarMessage = null;
-					}
-					else if (Gnd.NetErrorLevel < 4)
+					if (Gnd.NetErrorLevel < 4)
 						title = "へちま";
 					else
 						title = "へちま @ 通信不良 " + Gnd.NetErrorLevel;
