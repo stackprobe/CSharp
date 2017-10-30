@@ -49,5 +49,6 @@ namespace Charlotte
 		}
 
 		public static int NetErrorLevel = 0;
+		public static string CliVerifyPtn = StringTools.getUUID();
 	}
 }

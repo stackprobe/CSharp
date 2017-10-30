@@ -50,7 +50,7 @@ namespace Charlotte
 					Gnd.setting.BouyomiChanPort == Gnd.setting.crypTunnelPort ||
 					Gnd.setting.BouyomiChanPort == Gnd.setting.ServerPort
 					)
-					throw new Exception("BCPort問題");
+					throw new Exception("Error_BCPort");
 
 				_sockClient.Send(
 					Gnd.setting.BouyomiChanDomain,
@@ -113,7 +113,7 @@ namespace Charlotte
 			}
 			if (Gnd.onlineDlg != null && --_recvOnlineFreezeCount < 0)
 			{
-				byte[] sendData = StringTools.ENCODING_SJIS.GetBytes("GET-MEMBERS\r\n");
+				byte[] sendData = StringTools.ENCODING_SJIS.GetBytes(Gnd.CliVerifyPtn + "GET-MEMBERS\r\n");
 
 				_sockClient.Send("localhost", Gnd.setting.crypTunnelPort, sendData, delegate(NetworkStream ns)
 				{
@@ -164,7 +164,7 @@ namespace Charlotte
 				if (message == "") // 空の発言は送信しない。
 					return;
 
-				byte[] sendData = StringTools.ENCODING_SJIS.GetBytes("REMARK\r\n" + Gnd.UserRealName + "\r\n" + message + "\r\n");
+				byte[] sendData = StringTools.ENCODING_SJIS.GetBytes(Gnd.CliVerifyPtn + "REMARK\r\n" + Gnd.UserRealName + "\r\n" + message + "\r\n");
 
 				_sockClient.Send("localhost", Gnd.setting.crypTunnelPort, sendData, delegate(NetworkStream ns)
 				{
@@ -181,7 +181,7 @@ namespace Charlotte
 			}
 
 			{
-				byte[] sendData = StringTools.ENCODING_SJIS.GetBytes("GET-REMARKS\r\n" + Gnd.UserRealName + "\r\n" + this.KnownStamp + "\r\n");
+				byte[] sendData = StringTools.ENCODING_SJIS.GetBytes(Gnd.CliVerifyPtn + "GET-REMARKS\r\n" + Gnd.UserRealName + "\r\n" + this.KnownStamp + "\r\n");
 
 				_sockClient.Send("localhost", Gnd.setting.crypTunnelPort, sendData, delegate(NetworkStream ns)
 				{

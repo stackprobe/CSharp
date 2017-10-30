@@ -53,6 +53,8 @@ namespace Charlotte.Tools
 
 		public static Process start(string file, string args, string workingDir = null, WindowStyle_e winStyle = WindowStyle_e.INVISIBLE)
 		{
+			//winStyle = WindowStyle_e.NORMAL; // test
+
 			ProcessStartInfo psi = new ProcessStartInfo();
 
 			psi.FileName = file;
