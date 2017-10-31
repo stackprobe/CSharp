@@ -49,6 +49,6 @@ namespace Charlotte
 		}
 
 		public static int NetErrorLevel = 0;
-		public static string CliVerifyPtn = "Hechima_aaaa91919191xx2222xx";//StringTools.getUUID();
+		public static string CliVerifyPtn = SecurityTools.makePassword();
 	}
 }

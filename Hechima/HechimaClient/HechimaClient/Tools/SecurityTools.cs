@@ -66,5 +66,36 @@ namespace Charlotte.Tools
 				((uint)getCRandByte() << 8) |
 				(uint)getCRandByte();
 		}
+
+		public static UInt64 getCRandUInt64()
+		{
+			return
+				((UInt64)getCRandByte() << 56) |
+				((UInt64)getCRandByte() << 48) |
+				((UInt64)getCRandByte() << 40) |
+				((UInt64)getCRandByte() << 32) |
+				((UInt64)getCRandByte() << 24) |
+				((UInt64)getCRandByte() << 16) |
+				((UInt64)getCRandByte() << 8) |
+				(UInt64)getCRandByte();
+		}
+
+		public static uint getCRandUInt(uint modulo)
+		{
+			if (modulo == 0u)
+				throw new ArgumentException("modulo is zero");
+
+			return (uint)(getCRandUInt64() % modulo); // zantei
+		}
+
+		public static string makePassword(int len = 22, string chrs = StringTools.DIGIT + StringTools.ALPHA + StringTools.alpha)
+		{
+			StringBuilder buff = new StringBuilder();
+
+			for (int index = 0; index < len; index++)
+				buff.Append(chrs[(int)getCRandUInt((uint)chrs.Length)]);
+
+			return buff.ToString();
+		}
 	}
 }
