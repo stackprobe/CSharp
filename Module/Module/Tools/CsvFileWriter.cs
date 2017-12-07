@@ -25,8 +25,8 @@ namespace Charlotte.Tools
 		public void writeCell(string cell)
 		{
 			if (
+				cell.Contains('"') ||
 				cell.Contains('\n') ||
-				cell.Contains('\"') ||
 				cell.Contains(DELIMITER)
 				)
 			{

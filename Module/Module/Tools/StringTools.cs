@@ -340,5 +340,121 @@ namespace Charlotte.Tools
 
 			return line;
 		}
+
+		public class Enclosed
+		{
+			public string str;
+			public string opener;
+			public string closer;
+			public int openerBegin;
+			public int openerEnd;
+			public int closerBegin;
+			public int closerEnd;
+
+			public string left
+			{
+				get
+				{
+					return str.Substring(0, openerBegin);
+				}
+			}
+
+			public string inner
+			{
+				get
+				{
+					return str.Substring(openerEnd, closerBegin - openerEnd);
+				}
+			}
+
+			public string right
+			{
+				get
+				{
+					return str.Substring(closerEnd);
+				}
+			}
+		}
+
+		public static Enclosed getEnclosed(string str, string opener, string closer, int startIndex = 0, bool ignoreCase = false)
+		{
+			Enclosed ret = new Enclosed();
+
+			ret.str = str;
+			ret.opener = opener;
+			ret.closer = closer;
+
+			ret.openerBegin = indexOf(str, opener, startIndex, ignoreCase);
+
+			if (ret.openerBegin == -1)
+				return null;
+
+			ret.openerEnd = ret.openerBegin + opener.Length;
+
+			ret.closerBegin = indexOf(str, closer, ret.openerEnd, ignoreCase);
+
+			if (ret.closerBegin == -1)
+				return null;
+
+			ret.closerEnd = ret.closerBegin + closer.Length;
+
+			return ret;
+		}
+
+		public class Island
+		{
+			public string str;
+			public string ptn;
+			public int begin;
+			public int end;
+
+			public string left
+			{
+				get
+				{
+					return str.Substring(0, begin);
+				}
+			}
+
+			public string right
+			{
+				get
+				{
+					return str.Substring(end);
+				}
+			}
+		}
+
+		public static Island getIsland(string str, string ptn, int startIndex = 0, bool ignoreCase = false)
+		{
+			Island ret = new Island();
+
+			ret.str = str;
+			ret.ptn = ptn;
+
+			ret.begin = indexOf(str, ptn, startIndex, ignoreCase);
+
+			if (ret.begin == -1)
+				return null;
+
+			ret.end = ret.begin + ptn.Length;
+
+			return ret;
+		}
+
+		public static int indexOf(string str, string ptn, int startIndex = 0, bool ignoreCase = false)
+		{
+			if (ignoreCase)
+			{
+				str = str.ToLower();
+				ptn = ptn.ToLower();
+			}
+			return str.IndexOf(ptn, startIndex);
+		}
+
+		public static int indexOfIgnoreCase(string str, string ptn, int startIndex = 0)
+		{
+			return indexOf(str, ptn, startIndex, true);
+		}
 	}
 }
