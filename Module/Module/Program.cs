@@ -46,13 +46,14 @@ namespace Charlotte
 			//new DateToDayTest().test02();
 			//new DateTimeToSecTest().test01();
 			//new DateTimeToSecTest().test02();
-			new DateTimeToSecTest().test03();
+			//new DateTimeToSecTest().test03();
 			//new FailedOperationTest().test01();
 			//new FailedOperationTest().test02();
 			//new CsvFileReader_WriterTest().test01();
 			//new EnterLeaveTest().test01();
 			//new SortedListTest().test01();
 			//new FieldsSerializerTest().test01();
+			new DebugToolsTest().test01();
 		}
 	}
 }
