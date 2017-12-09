@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace Charlotte.Tools
 {
-	public class MonitorCenter
+	public class MonitorManager
 	{
 		private List<Monitor> _monitors = new List<Monitor>();
 
@@ -40,7 +40,7 @@ namespace Charlotte.Tools
 		public int r;
 		public int b;
 
-		public MonitorCenter()
+		public MonitorManager()
 		{
 			foreach (Screen s in Screen.AllScreens)
 			{

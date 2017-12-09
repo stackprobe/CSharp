@@ -31,7 +31,11 @@ namespace Charlotte.Tools
 
 				return dest;
 			}
-			if (ReflecTools.equalsOrBase(type, typeof(List<>)))
+			if (ReflecTools.equalsOrBase(type, typeof(string)))
+				return instance;
+
+			if (ReflecTools.isListByType(type))
+			//if (ReflecTools.equalsOrBase(type, typeof(List<>)))
 			{
 				ObjectList dest = new ObjectList();
 
@@ -44,8 +48,11 @@ namespace Charlotte.Tools
 			{
 				ObjectMap dest = ObjectMap.create();
 
-				foreach (FieldInfo field in ReflecTools.getFields(instance))
-					dest.add(field.Name, toListOrMap(ReflecTools.getValue(field, instance), depth - 1));
+				foreach (FieldInfo fieldInfo in ReflecTools.getFields(instance))
+					dest.add(fieldInfo.Name, toListOrMap(ReflecTools.getValue(fieldInfo, instance), depth - 1));
+
+				foreach (PropertyInfo propInfo in ReflecTools.getProperties(instance))
+					dest.add(propInfo.Name, toListOrMap(ReflecTools.getValue(propInfo, instance), depth - 1));
 
 				return dest;
 			}

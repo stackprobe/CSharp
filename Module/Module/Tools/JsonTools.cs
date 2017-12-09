@@ -43,7 +43,10 @@ namespace Charlotte.Tools
 					_buff.Append("{");
 					_buff.Append(_newLine);
 
-					foreach (string key in om.getKeys()) // XXX keyOrder
+					List<string> keys = ArrayTools.toList2(om.getKeys());
+					ArrayTools.sort<string>(keys, StringTools.comp);
+					foreach (string key in keys)
+					//foreach (string key in om.getKeys())
 					{
 						object value = om[key];
 
@@ -91,9 +94,37 @@ namespace Charlotte.Tools
 					addIndent(indent);
 					_buff.Append("]");
 				}
-				else if (src is string)
+				else if (src is Word)
 				{
-					string str = (string)src;
+					_buff.Append(src);
+				}
+				// 想定外の型 >
+				else if (src == null)
+				{
+					_buff.Append("null");
+				}
+				else if (src is bool)
+				{
+					_buff.Append((bool)src ? "true" : "false");
+				}
+				else if (
+					src is Int16 ||
+					src is Int32 ||
+					src is Int64 ||
+					src is UInt16 ||
+					src is UInt32 ||
+					src is UInt64 ||
+					src is float ||
+					src is double
+					)
+				{
+					_buff.Append("" + src);
+				}
+				// < 想定外の型
+				else // src is string
+				{
+					string str = "" + src;
+					//string str = (string)src;
 
 					_buff.Append("\"");
 
@@ -133,10 +164,6 @@ namespace Charlotte.Tools
 						}
 					}
 					_buff.Append("\"");
-				}
-				else
-				{
-					_buff.Append(src);
 				}
 			}
 

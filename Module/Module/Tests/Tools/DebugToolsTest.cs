@@ -11,9 +11,16 @@ namespace Charlotte.Tests.Tools
 	{
 		public void test01()
 		{
-			object value = DebugTools.toListOrMap(new Sample());
+			Sample sample = new Sample();
 
-			Console.WriteLine("" + value);
+			sample.SubClass = new Sample2();
+			sample.SubClass2 = new Sample2();
+
+			object value = DebugTools.toListOrMap(sample);
+
+			//Console.WriteLine("" + value);
+
+			Console.WriteLine(JsonTools.encode(value));
 		}
 	}
 }

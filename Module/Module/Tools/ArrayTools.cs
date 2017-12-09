@@ -47,12 +47,7 @@ namespace Charlotte.Tools
 
 		public static List<T> toList<T>(params T[] arr)
 		{
-			List<T> dest = new List<T>();
-
-			foreach (T element in arr)
-				dest.Add(element);
-
-			return dest;
+			return toList2(arr);
 		}
 
 		public static T[] toArray<T>(List<T> list)
@@ -63,6 +58,21 @@ namespace Charlotte.Tools
 				dest[index] = list[index];
 
 			return dest;
+		}
+
+		public static List<T> toList2<T>(IEnumerable<T> src)
+		{
+			List<T> dest = new List<T>();
+
+			foreach (T element in src)
+				dest.Add(element);
+
+			return dest;
+		}
+
+		public static T[] toArray2<T>(IEnumerable<T> src)
+		{
+			return toArray<T>(toList2<T>(src));
 		}
 	}
 }

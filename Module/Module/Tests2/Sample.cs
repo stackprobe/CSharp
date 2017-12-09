@@ -48,6 +48,14 @@ namespace Charlotte.Tests2
 			}
 		}
 
+		public string StrPropSetOnly
+		{
+			set
+			{
+				// noop
+			}
+		}
+
 		public Sample Self;
 		public Sample Self_null = null;
 
@@ -56,6 +64,20 @@ namespace Charlotte.Tests2
 
 		public List<Sample> SelfList;
 		public List<Sample> SelfList_null = null;
+
+		public class InnerClass
+		{
+			public int InnerInt = 123;
+		}
+
+		public InnerClass InnerCls = new InnerClass();
+		public InnerClass InnerCls_null = null;
+
+		public Sample SubClass;
+		public Sample SubClass_null = null;
+
+		public Sample2 SubClass2;
+		public Sample2 SubClass2_null = null;
 
 		public Sample()
 		{

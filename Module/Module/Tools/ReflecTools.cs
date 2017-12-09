@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 
-namespace Charlotte
+namespace Charlotte.Tools
 {
 	public class ReflecTools
 	{
@@ -20,23 +20,38 @@ namespace Charlotte
 			if (type == null)
 				throw new Exception("そんなタイプありません：" + typeName);
 
-			return getFields(type);
+			return getFieldsByType(type);
 		}
 
 		public static FieldInfo[] getFields(object instance)
 		{
-			return getFields(instance.GetType());
+			return getFieldsByType(instance.GetType());
 		}
 
+		public static PropertyInfo[] getProperties(object instance)
+		{
+			return getPropertiesByType(instance.GetType());
+		}
+
+		/// <summary>
+		/// 親クラスの private, private static が取ってこれないっぽいけど、名前が被ったとき面倒なので、これでいいや。
+		/// </summary>
 		private const BindingFlags _bindingFlags =
 			BindingFlags.Public |
 			BindingFlags.NonPublic |
 			BindingFlags.Static |
-			BindingFlags.Instance;
+			BindingFlags.Instance |
+			BindingFlags.FlattenHierarchy;
 
-		public static FieldInfo[] getFields(Type type)
+		public static FieldInfo[] getFieldsByType(Type type)
 		{
 			FieldInfo[] result = type.GetFields(_bindingFlags);
+			return result;
+		}
+
+		public static PropertyInfo[] getPropertiesByType(Type type)
+		{
+			PropertyInfo[] result = type.GetProperties(_bindingFlags);
 			return result;
 		}
 
@@ -48,10 +63,10 @@ namespace Charlotte
 		/// <returns></returns>
 		public static FieldInfo getField(object instance, string name)
 		{
-			return getField(instance.GetType(), name);
+			return getFieldByType(instance.GetType(), name);
 		}
 
-		public static FieldInfo getField(Type type, string name)
+		public static FieldInfo getFieldByType(Type type, string name)
 		{
 			FieldInfo result = type.GetField(name, _bindingFlags);
 			return result;
@@ -72,6 +87,12 @@ namespace Charlotte
 			return equalsOrBase(a.FieldType, b);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
+		/// <returns>a == b 又は a は b を継承している。</returns>
 		public static bool equalsOrBase(Type a, Type b)
 		{
 			do
@@ -98,6 +119,35 @@ namespace Charlotte
 		public static void setValue(FieldInfo fieldInfo, object instance, object value)
 		{
 			fieldInfo.SetValue(instance, value);
+		}
+
+		public static object getValue(PropertyInfo propInfo, object instance)
+		{
+			try
+			{
+				return propInfo.GetValue(instance, null);
+			}
+			catch
+			{
+				return null; // getter無し || 配列 || etc.
+			}
+		}
+
+		public static bool isList(object instance)
+		{
+			return isListByType(instance.GetType());
+		}
+
+		public static bool isListByType(Type type)
+		{
+			try
+			{
+				return typeof(List<>).IsAssignableFrom(type.GetGenericTypeDefinition());
+			}
+			catch
+			{
+				return false; // ジェネリック型じゃない || etc.
+			}
 		}
 	}
 }

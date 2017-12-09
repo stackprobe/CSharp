@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Tests2\Sample.cs" />
+    <Compile Include="Tests2\Sample2.cs" />
     <Compile Include="Tests\Test01.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -106,7 +107,7 @@
     <Compile Include="Tools\Logger.cs" />
     <Compile Include="Tools\LongTools.cs" />
     <Compile Include="Tools\MathTools.cs" />
-    <Compile Include="Tools\MonitorCenter.cs" />
+    <Compile Include="Tools\MonitorManager.cs" />
     <Compile Include="Tools\MutexObject.cs" />
     <Compile Include="Tools\NamedEventObject.cs" />
     <Compile Include="Tools\NamedEventPair.cs" />
