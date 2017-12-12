@@ -206,6 +206,22 @@ namespace Charlotte.Tools
 			return comp(a.ToLower(), b.ToLower());
 		};
 
+		public class IComp : IComparer<string>
+		{
+			public int Compare(string a, string b)
+			{
+				return comp(a, b);
+			}
+		}
+
+		public class ICompIgnoreCase : IComparer<string>
+		{
+			public int Compare(string a, string b)
+			{
+				return compIgnoreCase(a, b);
+			}
+		}
+
 		public class IEComp : IEqualityComparer<string>
 		{
 			public bool Equals(string a, string b)

@@ -77,6 +77,7 @@
     <Compile Include="Tests\Tools\FileToolsTest.cs" />
     <Compile Include="Tests\Tools\FieldsSerializerTest.cs" />
     <Compile Include="Tests\Tools\SortedListTest.cs" />
+    <Compile Include="Tests\Tools\StringToolsTest.cs" />
     <Compile Include="Tools\ArgsReader.cs" />
     <Compile Include="Tools\ArrayTools.cs" />
     <Compile Include="Tools\AutoTable.cs" />

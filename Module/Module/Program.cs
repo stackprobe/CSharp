@@ -53,7 +53,8 @@ namespace Charlotte
 			//new EnterLeaveTest().test01();
 			//new SortedListTest().test01();
 			//new FieldsSerializerTest().test01();
-			new DebugToolsTest().test01();
+			//new DebugToolsTest().test01();
+			new StringToolsTest().test01();
 		}
 	}
 }
