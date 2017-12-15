@@ -80,6 +80,22 @@ namespace Charlotte.Tools
 			return row.ToArray();
 		}
 
+		public string[][] readToEnd()
+		{
+			List<string[]> rows = new List<string[]>();
+
+			for (; ; )
+			{
+				string[] row = nextRow();
+
+				if (row == null)
+					break;
+
+				rows.Add(row);
+			}
+			return rows.ToArray();
+		}
+
 		public void Dispose()
 		{
 			_reader.Dispose();

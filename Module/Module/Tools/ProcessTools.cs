@@ -11,12 +11,12 @@ namespace Charlotte.Tools
 
 	public class ProcessTools
 	{
-		public static void runOnBatch(string line, string dir = null)
+		public static void runOnBatch(string line, string dir = null, WindowStyle_e winStyle = WindowStyle_e.INVISIBLE)
 		{
-			runOnBatch(new string[] { line }, dir);
+			runOnBatch(new string[] { line }, dir, winStyle);
 		}
 
-		public static void runOnBatch(string[] lines, string dir = null)
+		public static void runOnBatch(string[] lines, string dir = null, WindowStyle_e winStyle = WindowStyle_e.INVISIBLE)
 		{
 			using (WorkingDir wd = new WorkingDir())
 			{
@@ -30,6 +30,9 @@ namespace Charlotte.Tools
 					Directory.CreateDirectory(dir);
 				}
 
+#if true
+				start("cmd.exe", "/C " + batch, dir, winStyle).WaitForExit();
+#else // old
 				{
 					ProcessStartInfo psi = new ProcessStartInfo();
 
@@ -41,6 +44,7 @@ namespace Charlotte.Tools
 
 					Process.Start(psi).WaitForExit();
 				}
+#endif
 			}
 		}
 

@@ -107,7 +107,7 @@ namespace Charlotte.Tools
 			{
 				using (MutexObject.section(_mutex))
 				{
-					FileTools.deletePath(_messageDir);
+					FileTools.rm(_messageDir);
 				}
 			}
 
@@ -136,7 +136,7 @@ namespace Charlotte.Tools
 
 					if (_gmrLastNo == -1)
 					{
-						FileTools.deletePath(_messageDir);
+						FileTools.rm(_messageDir);
 						Directory.CreateDirectory(_messageDir);
 					}
 					//sw.Stop();
@@ -187,10 +187,10 @@ namespace Charlotte.Tools
 						String file = Path.Combine(_messageDir, StringTools.zPad(_gmrFirstNo, 4));
 						byte[] recvData = File.ReadAllBytes(file);
 
-						FileTools.deletePath(file);
+						FileTools.rm(file);
 
 						if (_gmrFirstNo == _gmrLastNo)
-							FileTools.deletePath(_messageDir);
+							FileTools.rm(_messageDir);
 
 						return recvData;
 					}

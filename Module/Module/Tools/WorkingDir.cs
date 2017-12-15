@@ -21,7 +21,7 @@ namespace Charlotte.Tools
 		{
 			_dir = Path.Combine(FileTools.getTMP(), lDir);
 
-			FileTools.deletePath(_dir);
+			FileTools.rm(_dir);
 			Directory.CreateDirectory(_dir);
 		}
 
@@ -40,10 +40,10 @@ namespace Charlotte.Tools
 		/// <returns></returns>
 		public string makePath()
 		{
-			return makePath(StringTools.getUUID());
+			return getPath(StringTools.getUUID());
 		}
 
-		public string makePath(string relPath)
+		public string getPath(string relPath)
 		{
 			return Path.Combine(_dir, relPath);
 		}
@@ -54,7 +54,7 @@ namespace Charlotte.Tools
 			{
 				string dir = _dir;
 				_dir = null;
-				FileTools.deletePath(dir);
+				FileTools.rm(dir);
 			}
 		}
 	}

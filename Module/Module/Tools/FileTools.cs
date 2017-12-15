@@ -10,12 +10,41 @@ namespace Charlotte.Tools
 {
 	public class FileTools
 	{
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="path"></param>
+		/// <param name="mode">'D' == ディレクトリ, 'F' == ファイル, 'X' == 作成しない(作成可能にする)</param>
+		public static void create(string path, char mode)
+		{
+			rm(path);
+			Directory.CreateDirectory(path);
+			rm(path);
+
+			switch (mode)
+			{
+				case 'D':
+					Directory.CreateDirectory(path);
+					break;
+
+				case 'F':
+					createFile(path);
+					break;
+
+				case 'X':
+					break;
+
+				default:
+					throw null;
+			}
+		}
+
 		public static void createFile(string file)
 		{
 			File.WriteAllBytes(file, new byte[0]);
 		}
 
-		public static void deletePath(string path)
+		public static void rm(string path)
 		{
 			for (int c = 0; File.Exists(path) || Directory.Exists(path); c++)
 			{
@@ -101,7 +130,7 @@ namespace Charlotte.Tools
 		{
 			if (_tmp != null)
 			{
-				deletePath(_tmp);
+				rm(_tmp);
 				_tmp = null;
 			}
 		}
