@@ -72,7 +72,7 @@
     <Compile Include="Tests\Tools\DateTimeToSecTest.cs" />
     <Compile Include="Tests\Tools\DateToDayTest.cs" />
     <Compile Include="Tests\Tools\DebugToolsTest.cs" />
-    <Compile Include="Tests\Tools\EnterLeaveTest.cs" />
+    <Compile Include="Tests\Tools\DLeaveTest.cs" />
     <Compile Include="Tests\Tools\FailedOperationTest.cs" />
     <Compile Include="Tests\Tools\FileToolsTest.cs" />
     <Compile Include="Tests\Tools\FieldsSerializerTest.cs" />
@@ -88,15 +88,15 @@
     <Compile Include="Tools\CsvFileWriter.cs" />
     <Compile Include="Tools\DebugTools.cs" />
     <Compile Include="Tools\DictionaryTools.cs" />
+    <Compile Include="Tools\DLeave.cs" />
+    <Compile Include="Tools\HTable.cs" />
     <Compile Include="Tools\HTTPClient.cs" />
     <Compile Include="Tools\JsonTools.cs" />
     <Compile Include="Tools\Completed.cs" />
-    <Compile Include="Tools\ApprovalSection.cs" />
     <Compile Include="Tools\DateTimeToSec.cs" />
     <Compile Include="Tools\DateToDay.cs" />
     <Compile Include="Tools\DoubleTools.cs" />
     <Compile Include="Tools\Ended.cs" />
-    <Compile Include="Tools\EnterLeave.cs" />
     <Compile Include="Tools\ExceptionCarrier.cs" />
     <Compile Include="Tools\ExtraTools.cs" />
     <Compile Include="Tools\FailedOperation.cs" />

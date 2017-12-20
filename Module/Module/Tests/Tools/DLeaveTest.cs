@@ -6,18 +6,19 @@ using Charlotte.Tools;
 
 namespace Charlotte.Tests.Tools
 {
-	public class EnterLeaveTest
+	public class DLeaveTest
 	{
 		public void test01()
 		{
 			try
 			{
-				using (new EnterLeave(null, delegate
+				using (new DLeave(delegate
 				{
-					Console.WriteLine("ELT_T-01_Leave"); // ちゃんと実行される。
-				}))
+					Console.WriteLine("DLeaverTest_test01"); // ちゃんと表示される。
+				}
+				))
 				{
-					throw new Exception();
+					throw null;
 				}
 			}
 			catch

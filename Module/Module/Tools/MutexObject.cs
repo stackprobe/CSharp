@@ -39,42 +39,26 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public static EnterLeave section(string name)
+		public static IDisposable section(string name)
 		{
-			MutexObject m = new MutexObject(name);
+			MutexObject mo = new MutexObject(name);
 
-			return new EnterLeave(delegate
+			mo.waitForever();
+
+			return new DLeave(delegate
 			{
-				m.waitForever();
-			},
-			delegate
-			{
-				m.release();
-				m.Dispose();
+				mo.release();
+				mo.Dispose();
 			});
 		}
 
-		public static EnterLeave section(MutexObject m)
+		public static IDisposable section(MutexObject mo)
 		{
-			return new EnterLeave(delegate
-			{
-				m.waitForever();
-			},
-			delegate
-			{
-				m.release();
-			});
-		}
+			mo.waitForever();
 
-		public static EnterLeave deadSection(MutexObject m)
-		{
-			return new EnterLeave(delegate
+			return new DLeave(delegate
 			{
-				m.release();
-			},
-			delegate
-			{
-				m.waitForever();
+				mo.release();
 			});
 		}
 	}
