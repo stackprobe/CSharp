@@ -60,6 +60,12 @@ namespace Charlotte.Tools
 			this.writeNewLine();
 		}
 
+		public void writeRows(string[][] rows)
+		{
+			foreach (string[] row in rows)
+				this.writeRow(row);
+		}
+
 		public void Dispose()
 		{
 			_writer.Dispose();

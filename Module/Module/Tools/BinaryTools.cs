@@ -12,6 +12,8 @@ namespace Charlotte.Tools
 			return (int)a - (int)b;
 		};
 
+		// byte[] の comp --> ArrayTools.arrComp<byte>(a, b, BinaryTools.comp);
+
 		public static byte[] getSubBytes(byte[] src, int startPos)
 		{
 			return getSubBytes(src, startPos, src.Length - startPos);

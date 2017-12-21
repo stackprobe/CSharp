@@ -74,5 +74,51 @@ namespace Charlotte.Tools
 		{
 			return toArray<T>(toList2<T>(src));
 		}
+
+		public static List<T> repeate<T>(T element, int count)
+		{
+			List<T> dest = new List<T>();
+
+			for (int index = 0; index < count; index++)
+				dest.Add(element);
+
+			return dest;
+		}
+
+		public class Reader<T>
+		{
+			private T[] _src;
+
+			public Reader(T[] src)
+			{
+				_src = src;
+			}
+
+			private int _index = 0;
+
+			public T next(T defval)
+			{
+				if (_index < _src.Length)
+				{
+					return _src[_index++];
+				}
+				return defval;
+			}
+
+			public T _defval; // = null | 0;
+
+			public T next()
+			{
+				return next(_defval);
+			}
+
+			public int index
+			{
+				get
+				{
+					return _index;
+				}
+			}
+		}
 	}
 }

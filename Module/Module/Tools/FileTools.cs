@@ -302,5 +302,35 @@ namespace Charlotte.Tools
 				wDir = dirq.Dequeue();
 			}
 		}
+
+		public static int compBinFile(string file1, string file2)
+		{
+#if false
+			byte[] hash1 = SecurityTools.getSHA512File(file1);
+			byte[] hash2 = SecurityTools.getSHA512File(file2);
+
+			return ArrayTools.arrComp<byte>(hash1, hash2, BinaryTools.comp);
+#else
+			const int buffSize = 50000000; // 50 MB
+
+			using (FileStream nb_reader1 = new FileStream(file1, FileMode.Open, FileAccess.Read))
+			using (FileStream nb_reader2 = new FileStream(file2, FileMode.Open, FileAccess.Read))
+			using (BufferedStream reader1 = new BufferedStream(nb_reader1, buffSize))
+			using (BufferedStream reader2 = new BufferedStream(nb_reader2, buffSize))
+			{
+				for (; ; )
+				{
+					int chr1 = reader1.ReadByte();
+					int chr2 = reader2.ReadByte();
+
+					if (chr1 != chr2)
+						return chr1 - chr2;
+
+					if (chr1 == -1)
+						return 0;
+				}
+			}
+#endif
+		}
 	}
 }

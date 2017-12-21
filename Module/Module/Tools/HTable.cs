@@ -7,33 +7,19 @@ namespace Charlotte.Tools
 {
 	public class HTable
 	{
-		private Header _header;
+		private string[] _header;
 		private string[][] _rows;
 
-		public HTable(Header header, string[][] rows)
+		public HTable(string[] header, string[][] rows)
 		{
 			_header = header;
 			_rows = rows;
 		}
 
-		public HTable(string[] header, string[][] rows)
-		{
-			_header = new Header(header);
-			_rows = rows;
-		}
-
 		public HTable(CsvFileReader reader)
 		{
-			_header = new Header(reader.nextRow());
+			_header = reader.nextRow();
 			_rows = reader.readToEnd();
-		}
-
-		public int colcnt
-		{
-			get
-			{
-				return _header.colcnt;
-			}
 		}
 
 		public int rowcnt
@@ -44,18 +30,23 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public class Header
+		public int colcnt
+		{
+			get
+			{
+				return _header.Length;
+			}
+		}
+
+		public class Row
 		{
 			private string[] _header;
-			private Dictionary<string, int> _indexes;
+			private string[] _row;
 
-			public Header(string[] header)
+			public Row(string[] header, string[] row)
 			{
 				_header = header;
-				_indexes = DictionaryTools.create<int>();
-
-				for (int colidx = 0; colidx < header.Length; colidx++)
-					_indexes.Add(header[colidx], colidx);
+				_row = row;
 			}
 
 			public int colcnt
@@ -66,73 +57,20 @@ namespace Charlotte.Tools
 				}
 			}
 
-			public int indexOf(string colTitle)
+			public int colTitleToColIndex(string colTitle)
 			{
-				return _indexes[colTitle];
-			}
-		}
+				for (int colidx = 0; colidx < _header.Length; colidx++)
+					if (colTitle == _header[colidx])
+						return colidx;
 
-		public Header header
-		{
-			get
-			{
-				return _header;
-			}
-		}
-
-		public class Row
-		{
-			private Header _header;
-			private string[] _row;
-
-			public Row(Header header, string[] row)
-			{
-				_header = header;
-				_row = row;
-			}
-
-			public Row(string[] header, string[] row)
-			{
-				_header = new Header(header);
-				_row = row;
-			}
-
-			public Header header
-			{
-				get
-				{
-					return _header;
-				}
-			}
-
-			public int colcnt
-			{
-				get
-				{
-					return _header.colcnt;
-				}
-			}
-
-			public string getCell(int colidx)
-			{
-				return _row[colidx];
-			}
-
-			public int indexOf(string colTitle)
-			{
-				return _header.indexOf(colTitle);
-			}
-
-			public string getCell(string colTitle)
-			{
-				return _row[indexOf(colTitle)];
+				return -1;
 			}
 
 			public string this[int colidx]
 			{
 				get
 				{
-					return getCell(colidx);
+					return _row[colidx];
 				}
 			}
 
@@ -140,21 +78,85 @@ namespace Charlotte.Tools
 			{
 				get
 				{
-					return getCell(colTitle);
+					return _row[this.colTitleToColIndex(colTitle)];
 				}
 			}
-		}
 
-		public Row getRow(int rowidx)
-		{
-			return new Row(_header, _rows[rowidx]);
+			public string[] header
+			{
+				get
+				{
+					return _header;
+				}
+			}
+
+			public string[] row
+			{
+				get
+				{
+					return _row;
+				}
+			}
 		}
 
 		public Row this[int rowidx]
 		{
 			get
 			{
-				return getRow(rowidx);
+				return new Row(_header, _rows[rowidx]);
+			}
+		}
+
+		public void sort(Comparison<Row> comp)
+		{
+			ArrayTools.sort<string[]>(_rows, delegate(string[] a, string[] b)
+			{
+				return comp(new Row(_header, a), new Row(_header, b));
+			});
+		}
+
+		public class Reader
+		{
+			private HTable _table;
+
+			public Reader(HTable table)
+			{
+				_table = table;
+			}
+
+			private int _rowidx = 0;
+
+			public Row nextRow()
+			{
+				if (_rowidx < _table.rowcnt)
+				{
+					return _table[_rowidx++];
+				}
+				return null;
+			}
+
+			public int nextRowIndex
+			{
+				get
+				{
+					return _rowidx;
+				}
+			}
+		}
+
+		public string[] header
+		{
+			get
+			{
+				return _header;
+			}
+		}
+
+		public string[][] rows
+		{
+			get
+			{
+				return _rows;
 			}
 		}
 	}
