@@ -77,6 +77,9 @@ namespace Charlotte.Tools
 
 				_th.Join();
 				_th = null;
+
+				_evCatnap.Dispose();
+				_evCatnap = null;
 			}
 		}
 	}

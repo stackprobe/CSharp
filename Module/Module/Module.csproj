@@ -76,6 +76,7 @@
     <Compile Include="Tests\Tools\FailedOperationTest.cs" />
     <Compile Include="Tests\Tools\FileToolsTest.cs" />
     <Compile Include="Tests\Tools\FieldsSerializerTest.cs" />
+    <Compile Include="Tests\Tools\LimitedCacheTest.cs" />
     <Compile Include="Tests\Tools\SortedListTest.cs" />
     <Compile Include="Tests\Tools\StringToolsTest.cs" />
     <Compile Include="Tools\ArgsReader.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="Tools\Fortewave.cs" />
     <Compile Include="Tools\IntTools.cs" />
     <Compile Include="Tools\JString.cs" />
+    <Compile Include="Tools\LimitedCache.cs" />
     <Compile Include="Tools\Logger.cs" />
     <Compile Include="Tools\LongTools.cs" />
     <Compile Include="Tools\MathTools.cs" />
