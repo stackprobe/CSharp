@@ -103,7 +103,6 @@
     <Compile Include="Tools\FailedOperation.cs" />
     <Compile Include="Tools\FieldsSerializer.cs" />
     <Compile Include="Tools\FileTools.cs" />
-    <Compile Include="Tools\Fortewave.cs" />
     <Compile Include="Tools\IntTools.cs" />
     <Compile Include="Tools\JString.cs" />
     <Compile Include="Tools\LimitedCache.cs" />
