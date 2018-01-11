@@ -18,30 +18,33 @@ namespace Charlotte
 		[STAThread]
 		static void Main()
 		{
-			onBoot();
-
 			Application.ThreadException += new ThreadExceptionEventHandler(applicationThreadException);
 			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(currentDomainUnhandledException);
 			SystemEvents.SessionEnding += new SessionEndingEventHandler(sessionEnding);
 
+			onBoot();
+
 			Mutex procMutex = new Mutex(false, APP_IDENT);
 
-			if (procMutex.WaitOne(0) && GlobalProcMtx.create(APP_IDENT, APP_TITLE))
+			if (procMutex.WaitOne(0))
 			{
-				checkSelfDir();
-				Directory.SetCurrentDirectory(selfDir);
-				checkAloneExe();
-				checkLogonUser();
+				if (GlobalProcMtx.create(APP_IDENT, APP_TITLE))
+				{
+					checkSelfDir();
+					Directory.SetCurrentDirectory(selfDir);
+					checkAloneExe();
+					checkLogonUser();
 
-				// orig >
+					// orig >
 
-				Application.EnableVisualStyles();
-				Application.SetCompatibleTextRenderingDefault(false);
-				Application.Run(new MainWin());
+					Application.EnableVisualStyles();
+					Application.SetCompatibleTextRenderingDefault(false);
+					Application.Run(new MainWin());
 
-				// < orig
+					// < orig
 
-				GlobalProcMtx.release();
+					GlobalProcMtx.release();
+				}
 				procMutex.ReleaseMutex();
 			}
 			procMutex.Close();

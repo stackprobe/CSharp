@@ -44,28 +44,44 @@ namespace Charlotte
 			}
 			return true;
 #else
-			try
+			for (int c = 0; ; c++)
 			{
-				_globalProcMtx = new System.Threading.Mutex(false, @"Global\Global_" + ident);
-
-				if (_globalProcMtx.WaitOne(0) == false)
+				try
 				{
+					_globalProcMtx = new System.Threading.Mutex(false, @"Global\Global_" + ident);
+
+					if (_globalProcMtx.WaitOne(0))
+						break;
+
 					_globalProcMtx.Close();
 					_globalProcMtx = null;
-
-					throw null;
 				}
-			}
-			catch
-			{
-				System.Windows.Forms.MessageBox.Show(
-					"Already started on the other logon session !",
-					title + " / Error",
-					System.Windows.Forms.MessageBoxButtons.OK,
-					System.Windows.Forms.MessageBoxIcon.Error
-					);
+				catch
+				{ }
 
-				return false;
+				if (8 < c)
+				{
+					System.Windows.Forms.MessageBox.Show(
+						"Already started on the other logon session !",
+						title + " / Error",
+						System.Windows.Forms.MessageBoxButtons.OK,
+						System.Windows.Forms.MessageBoxIcon.Error
+						);
+
+					return false;
+				}
+
+				{
+					int millis;
+
+					using (System.Security.Cryptography.RNGCryptoServiceProvider cRnd = new System.Security.Cryptography.RNGCryptoServiceProvider())
+					{
+						byte[] crByte = new byte[1];
+						cRnd.GetBytes(crByte);
+						millis = (int)crByte[0];
+					}
+					System.Threading.Thread.Sleep(millis);
+				}
 			}
 			return true;
 #endif

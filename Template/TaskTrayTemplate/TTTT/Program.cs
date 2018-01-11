@@ -18,36 +18,39 @@ namespace Charlotte
 		[STAThread]
 		static void Main()
 		{
-			onBoot();
-
 			Application.ThreadException += new ThreadExceptionEventHandler(applicationThreadException);
 			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(currentDomainUnhandledException);
 			SystemEvents.SessionEnding += new SessionEndingEventHandler(sessionEnding);
 
+			onBoot();
+
 			Mutex procMutex = new Mutex(false, APP_IDENT);
 
-			if (procMutex.WaitOne(0) && GlobalProcMtx.create(APP_IDENT, APP_TITLE))
+			if (procMutex.WaitOne(0))
 			{
-				checkSelfDir();
-				Directory.SetCurrentDirectory(selfDir);
-				checkAloneExe();
-				checkLogonUser();
+				if (GlobalProcMtx.create(APP_IDENT, APP_TITLE))
+				{
+					checkSelfDir();
+					Directory.SetCurrentDirectory(selfDir);
+					checkAloneExe();
+					checkLogonUser();
 
-				// orig >
+					// orig >
 
-				Application.EnableVisualStyles();
-				Application.SetCompatibleTextRenderingDefault(false);
-				Application.Run(new MainWin());
+					Application.EnableVisualStyles();
+					Application.SetCompatibleTextRenderingDefault(false);
+					Application.Run(new MainWin());
 
-				// < orig
+					// < orig
 
-				GlobalProcMtx.release();
+					GlobalProcMtx.release();
+				}
 				procMutex.ReleaseMutex();
 			}
 			procMutex.Close();
 		}
 
-		public const string APP_IDENT = "{30fdc31f-0583-4da2-a56f-bef0249ec712}";
+		public const string APP_IDENT = "{cb133c0e-badf-4af9-81ae-fc50bd1ffc79}";
 		public const string APP_TITLE = "TTTT";
 
 		private static void applicationThreadException(object sender, ThreadExceptionEventArgs e)

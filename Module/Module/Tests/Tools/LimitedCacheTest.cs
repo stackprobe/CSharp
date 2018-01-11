@@ -25,7 +25,7 @@ namespace Charlotte.Tests.Tools
 					},
 					delegate
 					{
-						WorkingDir wd = new WorkingDir();
+						WorkingDir wd = WorkingDir.root.create();
 
 						FileTools.createFile(wd.getPath("" + room));
 

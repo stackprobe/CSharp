@@ -8,36 +8,34 @@ namespace Charlotte.Tools
 {
 	public class WorkingDir : IDisposable
 	{
-		public WorkingDir()
-			: this(StringTools.getUUID())
-		{ }
+		public static WorkingDir root = new WorkingDir(Path.Combine(FileTools.getTMP(), Program.APP_IDENT)); // zantei
 
 		/// <summary>
 		/// ★空白を含まないはず。
 		/// </summary>
 		private string _dir;
 
-		public WorkingDir(string lDir)
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="dir">★空白を含まないこと。</param>
+		public WorkingDir(string dir)
 		{
-			_dir = Path.Combine(FileTools.getTMP(), lDir);
+			_dir = dir;
 
 			FileTools.rm(_dir);
 			Directory.CreateDirectory(_dir);
 		}
 
-		/// <summary>
-		/// ★空白を含まないパスを返す。
-		/// </summary>
-		/// <returns></returns>
-		public string getDir()
+		public WorkingDir create()
 		{
-			return _dir;
+			return new WorkingDir(this.makePath());
 		}
 
 		/// <summary>
-		/// ★空白を含まないパスを返す。
+		/// 
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>★空白を含まない。</returns>
 		public string makePath()
 		{
 			return getPath(StringTools.getUUID());
@@ -52,9 +50,8 @@ namespace Charlotte.Tools
 		{
 			if (_dir != null)
 			{
-				string dir = _dir;
+				FileTools.rm(_dir);
 				_dir = null;
-				FileTools.rm(dir);
 			}
 		}
 	}

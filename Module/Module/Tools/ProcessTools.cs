@@ -18,7 +18,7 @@ namespace Charlotte.Tools
 
 		public static void runOnBatch(string[] lines, string dir = null, WindowStyle_e winStyle = WindowStyle_e.INVISIBLE)
 		{
-			using (WorkingDir wd = new WorkingDir())
+			using (WorkingDir wd = WorkingDir.root.create())
 			{
 				string batch = wd.makePath() + ".bat";
 
