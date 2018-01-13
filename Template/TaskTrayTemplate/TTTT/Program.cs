@@ -18,22 +18,22 @@ namespace Charlotte
 		[STAThread]
 		static void Main()
 		{
-			Application.ThreadException += new ThreadExceptionEventHandler(applicationThreadException);
-			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(currentDomainUnhandledException);
-			SystemEvents.SessionEnding += new SessionEndingEventHandler(sessionEnding);
+			Application.ThreadException += new ThreadExceptionEventHandler(ApplicationThreadException);
+			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomainUnhandledException);
+			SystemEvents.SessionEnding += new SessionEndingEventHandler(SessionEnding);
 
-			onBoot();
+			OnBoot();
 
 			Mutex procMutex = new Mutex(false, APP_IDENT);
 
 			if (procMutex.WaitOne(0))
 			{
-				if (GlobalProcMtx.create(APP_IDENT, APP_TITLE))
+				if (GlobalProcMtx.Create(APP_IDENT, APP_TITLE))
 				{
-					checkSelfDir();
-					Directory.SetCurrentDirectory(selfDir);
-					checkAloneExe();
-					checkLogonUser();
+					CheckSelfDir();
+					Directory.SetCurrentDirectory(SelfDir);
+					CheckAloneExe();
+					CheckLogonUser();
 
 					// orig >
 
@@ -43,7 +43,7 @@ namespace Charlotte
 
 					// < orig
 
-					GlobalProcMtx.release();
+					GlobalProcMtx.Release();
 				}
 				procMutex.ReleaseMutex();
 			}
@@ -53,7 +53,7 @@ namespace Charlotte
 		public const string APP_IDENT = "{cb133c0e-badf-4af9-81ae-fc50bd1ffc79}";
 		public const string APP_TITLE = "TTTT";
 
-		private static void applicationThreadException(object sender, ThreadExceptionEventArgs e)
+		private static void ApplicationThreadException(object sender, ThreadExceptionEventArgs e)
 		{
 			try
 			{
@@ -70,7 +70,7 @@ namespace Charlotte
 			Environment.Exit(1);
 		}
 
-		private static void currentDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
+		private static void CurrentDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
 		{
 			try
 			{
@@ -87,23 +87,23 @@ namespace Charlotte
 			Environment.Exit(2);
 		}
 
-		private static void sessionEnding(object sender, SessionEndingEventArgs e)
+		private static void SessionEnding(object sender, SessionEndingEventArgs e)
 		{
 			Environment.Exit(3);
 		}
 
-		public static string selfFile;
-		public static string selfDir;
+		public static string SelfFile;
+		public static string SelfDir;
 
-		public static void onBoot()
+		public static void OnBoot()
 		{
-			selfFile = Assembly.GetEntryAssembly().Location;
-			selfDir = Path.GetDirectoryName(selfFile);
+			SelfFile = Assembly.GetEntryAssembly().Location;
+			SelfDir = Path.GetDirectoryName(SelfFile);
 		}
 
-		private static void checkSelfDir()
+		private static void CheckSelfDir()
 		{
-			string dir = selfDir;
+			string dir = SelfDir;
 			Encoding SJIS = Encoding.GetEncoding(932);
 
 			if (dir != SJIS.GetString(SJIS.GetBytes(dir)))
@@ -130,7 +130,7 @@ namespace Charlotte
 			}
 		}
 
-		private static void checkAloneExe()
+		private static void CheckAloneExe()
 		{
 			if (File.Exists("TTTT.sig")) // リリースに含まれるファイル
 				return;
@@ -148,7 +148,7 @@ namespace Charlotte
 			Environment.Exit(6);
 		}
 
-		private static void checkLogonUser()
+		private static void CheckLogonUser()
 		{
 			string userName = Environment.GetEnvironmentVariable("UserName");
 			Encoding SJIS = Encoding.GetEncoding(932);

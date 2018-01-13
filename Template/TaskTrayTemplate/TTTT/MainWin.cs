@@ -41,8 +41,8 @@ namespace Charlotte
 		private void MainWin_Shown(object sender, EventArgs e)
 		{
 			this.Visible = false;
-			this.taskTrayIcon.Visible = true;
-			this.mtEnabled = true;
+			this.TaskTrayIcon.Visible = true;
+			this.MTEnabled = true;
 		}
 
 		private void MainWin_FormClosing(object sender, FormClosingEventArgs e)
@@ -52,26 +52,25 @@ namespace Charlotte
 
 		private void MainWin_FormClosed(object sender, FormClosedEventArgs e)
 		{
-			this.mtEnabled = false;
-			this.taskTrayIcon.Visible = false;
+			this.MTEnabled = false;
+			this.TaskTrayIcon.Visible = false;
 		}
 
 		private void 終了XToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			this.mtEnabled = false;
 			this.Close();
 		}
 
-		private bool mtEnabled;
-		private bool mtBusy;
-		private long mtCount;
+		private bool MTEnabled;
+		private bool MTBusy;
+		private long MTCount;
 
-		private void mainTimer_Tick(object sender, EventArgs e)
+		private void MainTimer_Tick(object sender, EventArgs e)
 		{
-			if (this.mtEnabled == false || this.mtBusy)
+			if (this.MTEnabled == false || this.MTBusy)
 				return;
 
-			this.mtBusy = true;
+			this.MTBusy = true;
 
 			try
 			{
@@ -79,8 +78,8 @@ namespace Charlotte
 			}
 			finally
 			{
-				this.mtBusy = false;
-				this.mtCount++;
+				this.MTBusy = false;
+				this.MTCount++;
 			}
 		}
 	}

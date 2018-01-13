@@ -32,7 +32,7 @@ namespace Charlotte.Tools
 		public string MakePath()
 		{
 			//return this.GetPath(SecurityTools.MakePassword_9A());
-			return this.GetPath("" + this.MakePath_Count++);
+			return this.GetPath("$" + this.MakePath_Count++);
 		}
 
 		public string GetPath(string localName)

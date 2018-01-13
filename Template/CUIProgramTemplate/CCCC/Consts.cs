@@ -7,6 +7,6 @@ namespace Charlotte
 {
 	public class Consts
 	{
-		public const string dummy = "dummy";
+		public const string Dummy = "Dummy";
 	}
 }

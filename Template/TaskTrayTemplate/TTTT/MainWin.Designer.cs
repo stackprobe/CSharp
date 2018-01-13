@@ -30,38 +30,37 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWin));
-			this.taskTrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
-			this.ttiMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.TaskTrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
+			this.TTIMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.終了XToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.mainTimer = new System.Windows.Forms.Timer(this.components);
-			this.ttiMenu.SuspendLayout();
+			this.MainTimer = new System.Windows.Forms.Timer(this.components);
+			this.TTIMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
-			// taskTrayIcon
+			// TaskTrayIcon
 			// 
-			this.taskTrayIcon.ContextMenuStrip = this.ttiMenu;
-			this.taskTrayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("taskTrayIcon.Icon")));
-			this.taskTrayIcon.Text = "TTTT";
+			this.TaskTrayIcon.ContextMenuStrip = this.TTIMenu;
+			this.TaskTrayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("TaskTrayIcon.Icon")));
+			this.TaskTrayIcon.Text = "TTTT";
 			// 
-			// ttiMenu
+			// TTIMenu
 			// 
-			this.ttiMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+			this.TTIMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.終了XToolStripMenuItem});
-			this.ttiMenu.Name = "TTIMenu";
-			this.ttiMenu.Size = new System.Drawing.Size(119, 26);
+			this.TTIMenu.Name = "TTIMenu";
+			this.TTIMenu.Size = new System.Drawing.Size(114, 26);
 			// 
 			// 終了XToolStripMenuItem
 			// 
 			this.終了XToolStripMenuItem.Name = "終了XToolStripMenuItem";
-			this.終了XToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+			this.終了XToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
 			this.終了XToolStripMenuItem.Text = "終了(&X)";
 			this.終了XToolStripMenuItem.Click += new System.EventHandler(this.終了XToolStripMenuItem_Click);
 			// 
-			// mainTimer
+			// MainTimer
 			// 
-			this.mainTimer.Enabled = true;
-			this.mainTimer.Interval = 300;
-			this.mainTimer.Tick += new System.EventHandler(this.mainTimer_Tick);
+			this.MainTimer.Enabled = true;
+			this.MainTimer.Tick += new System.EventHandler(this.MainTimer_Tick);
 			// 
 			// MainWin
 			// 
@@ -80,17 +79,17 @@
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainWin_FormClosed);
 			this.Load += new System.EventHandler(this.MainWin_Load);
 			this.Shown += new System.EventHandler(this.MainWin_Shown);
-			this.ttiMenu.ResumeLayout(false);
+			this.TTIMenu.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
 
 		#endregion
 
-		private System.Windows.Forms.NotifyIcon taskTrayIcon;
-		private System.Windows.Forms.ContextMenuStrip ttiMenu;
+		private System.Windows.Forms.NotifyIcon TaskTrayIcon;
+		private System.Windows.Forms.ContextMenuStrip TTIMenu;
 		private System.Windows.Forms.ToolStripMenuItem 終了XToolStripMenuItem;
-		private System.Windows.Forms.Timer mainTimer;
+		private System.Windows.Forms.Timer MainTimer;
 	}
 }
 

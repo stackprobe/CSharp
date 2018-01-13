@@ -7,9 +7,9 @@ namespace Charlotte
 {
 	public class GlobalProcMtx
 	{
-		private static System.Threading.Mutex _globalProcMtx;
+		private static System.Threading.Mutex ProcMtx;
 
-		public static bool create(string ident, string title)
+		public static bool Create(string ident, string title)
 		{
 #if false
 			System.Security.AccessControl.MutexSecurity security = new System.Security.AccessControl.MutexSecurity();
@@ -26,9 +26,9 @@ namespace Charlotte
 				);
 
 			bool createdNew;
-			_globalProcMtx = new System.Threading.Mutex(false, @"Global\Global_" + ident, out createdNew, security);
+			ProcMtx = new System.Threading.Mutex(false, @"Global\Global_" + ident, out createdNew, security);
 
-			if (_globalProcMtx.WaitOne(0) == false)
+			if (ProcMtx.WaitOne(0) == false)
 			{
 				System.Windows.Forms.MessageBox.Show(
 					"Already started on the other logon session !",
@@ -37,8 +37,8 @@ namespace Charlotte
 					System.Windows.Forms.MessageBoxIcon.Error
 					);
 
-				_globalProcMtx.Close();
-				_globalProcMtx = null;
+				ProcMtx.Close();
+				ProcMtx = null;
 
 				return false;
 			}
@@ -48,13 +48,13 @@ namespace Charlotte
 			{
 				try
 				{
-					_globalProcMtx = new System.Threading.Mutex(false, @"Global\Global_" + ident);
+					ProcMtx = new System.Threading.Mutex(false, @"Global\Global_" + ident);
 
-					if (_globalProcMtx.WaitOne(0))
+					if (ProcMtx.WaitOne(0))
 						break;
 
-					_globalProcMtx.Close();
-					_globalProcMtx = null;
+					ProcMtx.Close();
+					ProcMtx = null;
 				}
 				catch
 				{ }
@@ -87,11 +87,11 @@ namespace Charlotte
 #endif
 		}
 
-		public static void release()
+		public static void Release()
 		{
-			_globalProcMtx.ReleaseMutex();
-			_globalProcMtx.Close();
-			_globalProcMtx = null;
+			ProcMtx.ReleaseMutex();
+			ProcMtx.Close();
+			ProcMtx = null;
 		}
 	}
 }

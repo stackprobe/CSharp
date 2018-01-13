@@ -13,15 +13,15 @@ namespace Charlotte
 		{
 			try
 			{
-				onBoot();
+				OnBoot();
 
 				if (1 <= args.Length && args[0].ToUpper() == "//R")
 				{
-					main2(File.ReadAllLines(args[1], Encoding.GetEncoding(932)));
+					Main2(File.ReadAllLines(args[1], Encoding.GetEncoding(932)));
 				}
 				else
 				{
-					main2(args);
+					Main2(args);
 				}
 			}
 			catch (Exception e)
@@ -37,16 +37,16 @@ namespace Charlotte
 		public const string APP_IDENT = "{22eda4a5-9029-4bf3-b8d8-c687a5729ec3}";
 		public const string APP_TITLE = "CCCC";
 
-		public static string selfFile;
-		public static string selfDir;
+		public static string SelfFile;
+		public static string SelfDir;
 
-		public static void onBoot()
+		public static void OnBoot()
 		{
-			selfFile = Assembly.GetEntryAssembly().Location;
-			selfDir = Path.GetDirectoryName(selfFile);
+			SelfFile = Assembly.GetEntryAssembly().Location;
+			SelfDir = Path.GetDirectoryName(SelfFile);
 		}
 
-		private static void main2(string[] args)
+		private static void Main2(string[] args)
 		{
 			System.Windows.Forms.MessageBox.Show("a");
 		}

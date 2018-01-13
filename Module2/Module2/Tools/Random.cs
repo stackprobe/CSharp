@@ -15,7 +15,7 @@ namespace Charlotte.Tools
 			this.Rng = rng;
 		}
 
-		private const int CACHE_SIZE = 1024;
+		private const int CACHE_SIZE = 4096;
 		private byte[] Cache = new byte[CACHE_SIZE];
 		private int RIndex = CACHE_SIZE;
 
@@ -52,7 +52,24 @@ namespace Charlotte.Tools
 
 		public ulong GetRandom64(ulong modulo)
 		{
-			return this.GetUInt64() % modulo; // XXX
+			if (modulo == 0UL)
+				throw new ArgumentOutOfRangeException("modulo == 0");
+
+			if (modulo == 1UL)
+				return 0UL;
+
+			ulong r_mod = (ulong.MaxValue % modulo + 1UL) % modulo;
+			ulong r;
+
+			do
+			{
+				r = this.GetUInt64();
+			}
+			while (r < r_mod);
+
+			r %= modulo;
+
+			return r;
 		}
 
 		public uint GetRandom(uint modulo)
@@ -62,7 +79,7 @@ namespace Charlotte.Tools
 
 		public long GetRange64(long minval, long maxval)
 		{
-			return (long)this.GetRandom64((ulong)(maxval + 1 - minval)) + minval;
+			return (long)this.GetRandom64((ulong)(maxval + 1L - minval)) + minval;
 		}
 
 		public int GetRange(int minval, int maxval)
