@@ -7,6 +7,7 @@ using System.Reflection;
 using System.IO;
 using Charlotte.Tests.Tools;
 using Charlotte.Tools;
+using Charlotte.Tests;
 
 namespace Charlotte
 {
@@ -43,7 +44,8 @@ namespace Charlotte
 
 		private static void Main2()
 		{
-			new WorkingDirTest().Test01();
+			//new WorkingDirTest().Test01();
+			new Test01().Main01();
 		}
 	}
 }
