@@ -13,7 +13,7 @@ namespace Charlotte
 {
 	class Program
 	{
-		public const string APP_IDENT = "{b85575ee-4b6f-4501-874f-7aeff90c4019}";
+		public const string APP_IDENT = "{2a8d45e6-b40e-49e3-ab14-1d30635e09af}";
 		public const string APP_TITLE = "Module2";
 
 		public static string SelfDir;
