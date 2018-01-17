@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.IO;
-using System.Drawing;
 
 namespace Charlotte
 {
-	public class Gnd
+	public class Consts
 	{
-		public static Icon[] Icons = new Icon[11];
+		public static readonly Encoding ENCODING_SJIS = Encoding.GetEncoding(932);
 	}
 }

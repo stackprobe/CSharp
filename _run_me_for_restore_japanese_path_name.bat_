@@ -1,0 +1,5 @@
+REN SSRunBatch\doc\[Japanese-path-name]_0002.dat [21]_生存確認_応答データ.dat
+REN SSRunBatch\doc\[Japanese-path-name]_0001.dat [20]_生存確認_要求データ.dat
+REN SSRunBatch\doc\[Japanese-path-name]_0003.txt [10]_生存確認_要求・応答データ.txt
+REN SSRunBatch\doc\[Japanese-path-name]_0002.txt [01]_応答データ.txt
+REN SSRunBatch\doc\[Japanese-path-name]_0001.txt [00]_要求データ.txt

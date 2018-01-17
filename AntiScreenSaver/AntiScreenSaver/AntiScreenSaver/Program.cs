@@ -7,7 +7,6 @@ using Microsoft.Win32;
 using System.Text;
 using System.IO;
 using System.Reflection;
-using Charlotte.Tools;
 
 namespace Charlotte
 {
@@ -23,7 +22,7 @@ namespace Charlotte
 			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomainUnhandledException);
 			SystemEvents.SessionEnding += new SessionEndingEventHandler(SessionEnding);
 
-			OnBoot();
+			//OnBoot();
 
 			Mutex procMutex = new Mutex(false, APP_IDENT);
 
@@ -31,10 +30,10 @@ namespace Charlotte
 			{
 				if (GlobalProcMtx.Create(APP_IDENT, APP_TITLE))
 				{
-					CheckSelfDir();
-					Directory.SetCurrentDirectory(SelfDir);
-					CheckAloneExe();
-					CheckLogonUser();
+					//CheckSelfDir();
+					//Directory.SetCurrentDirectory(SelfDir);
+					//CheckAloneExe();
+					//CheckLogonUser();
 
 					//Gnd.Load(Consts.SettingFile);
 
@@ -98,86 +97,6 @@ namespace Charlotte
 		private static void SessionEnding(object sender, SessionEndingEventArgs e)
 		{
 			Environment.Exit(3);
-		}
-
-		public static string SelfFile;
-		public static string SelfDir;
-
-		public static void OnBoot()
-		{
-			SelfFile = Assembly.GetEntryAssembly().Location;
-			SelfDir = Path.GetDirectoryName(SelfFile);
-		}
-
-		private static void CheckSelfDir()
-		{
-			string dir = SelfDir;
-			Encoding SJIS = Encoding.GetEncoding(932);
-
-			if (dir != SJIS.GetString(SJIS.GetBytes(dir)))
-			{
-				MessageBox.Show(
-					"Shift_JIS に変換出来ない文字を含むパスからは実行できません。",
-					APP_TITLE + " / エラー",
-					MessageBoxButtons.OK,
-					MessageBoxIcon.Error
-					);
-
-				Environment.Exit(4);
-			}
-			if (dir.Substring(1, 2) != ":\\")
-			{
-				MessageBox.Show(
-					"ネットワークパスからは実行できません。",
-					APP_TITLE + " / エラー",
-					MessageBoxButtons.OK,
-					MessageBoxIcon.Error
-					);
-
-				Environment.Exit(5);
-			}
-		}
-
-		private static void CheckAloneExe()
-		{
-			if (File.Exists("AntiScreenSaver.sig")) // リリースに含まれるファイル
-				return;
-
-			if (Directory.Exists(@"..\Debug")) // ? devenv
-				return;
-
-			MessageBox.Show(
-				"WHY AM I ALONE ?",
-				"",
-				MessageBoxButtons.OK,
-				MessageBoxIcon.Error
-				);
-
-			Environment.Exit(6);
-		}
-
-		private static void CheckLogonUser()
-		{
-			string userName = Environment.GetEnvironmentVariable("UserName");
-			Encoding SJIS = Encoding.GetEncoding(932);
-
-			if (
-				userName == null ||
-				userName == "" ||
-				userName != SJIS.GetString(SJIS.GetBytes(userName)) ||
-				userName.StartsWith(" ") ||
-				userName.EndsWith(" ")
-				)
-			{
-				MessageBox.Show(
-					"Windows ログオンユーザー名に問題があります。",
-					APP_TITLE + " / エラー",
-					MessageBoxButtons.OK,
-					MessageBoxIcon.Error
-					);
-
-				Environment.Exit(7);
-			}
 		}
 	}
 }

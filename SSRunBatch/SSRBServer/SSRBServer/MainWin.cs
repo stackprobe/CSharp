@@ -41,11 +41,6 @@ namespace Charlotte
 		private void MainWin_Shown(object sender, EventArgs e)
 		{
 			this.Visible = false;
-
-			using (new ResourceWin())
-			{ }
-
-			this.TaskTrayIcon.Icon = Gnd.Icons[0];
 			this.TaskTrayIcon.Visible = true;
 			this.MTEnabled = true;
 		}
@@ -70,14 +65,6 @@ namespace Charlotte
 		private bool MTBusy;
 		private long MTCount;
 
-		private int MouseStayMillis = 0;
-		private int LastMouse_X;
-		private int LastMouse_Y;
-
-		private int MouseShakePhase = 0;
-		private int MouseShake_X;
-		private int MouseShake_Y;
-
 		private void MainTimer_Tick(object sender, EventArgs e)
 		{
 			if (this.MTEnabled == false || this.MTBusy)
@@ -87,64 +74,31 @@ namespace Charlotte
 
 			try
 			{
-				if (1 <= this.MouseShakePhase)
+				if (
+					Gnd.BatchServer != null &&
+					Gnd.BatchServer.SockServer.IsRunning() == false
+					)
 				{
-					switch (this.MouseShakePhase)
-					{
-						case 3:
-							Cursor.Position = new Point(this.MouseShake_X, this.MouseShake_Y - 1);
-							break;
+					this.TaskTrayIcon.BalloonTipTitle = "サーバーは停止状態に移行しました";
+					this.TaskTrayIcon.BalloonTipText = "" + Gnd.BatchServer.SockServer.GetLastException();
+					this.TaskTrayIcon.BalloonTipIcon = ToolTipIcon.Warning;
+					this.TaskTrayIcon.ShowBalloonTip(30000);
 
-						case 2:
-							Cursor.Position = new Point(this.MouseShake_X, this.MouseShake_Y + 1);
-							break;
-
-						case 1:
-							Cursor.Position = new Point(this.MouseShake_X, this.MouseShake_Y);
-							break;
-					}
-					this.MouseShakePhase--;
+					Gnd.BatchServer = null;
 					return;
 				}
 
-				int mouseX = Cursor.Position.X;
-				int mouseY = Cursor.Position.Y;
-
-				if (
-					mouseX == this.LastMouse_X &&
-					mouseY == this.LastMouse_Y
-					)
+				if (this.MTCount % 20 == 0)
 				{
-					this.MouseStayMillis += this.MainTimer.Interval;
-				}
-				else
-				{
-					this.MouseStayMillis = 0;
+					string text;
 
-					this.LastMouse_X = mouseX;
-					this.LastMouse_Y = mouseY;
-				}
-
-				{
-					Icon nextIcon;
-
-					if (this.MouseStayMillis < 30000)
-					{
-						nextIcon = Gnd.Icons[this.MouseStayMillis / 3000];
-					}
+					if (Gnd.BatchServer != null)
+						text = "SSRBServer / 稼働中 (TCPポート番号：" + Gnd.PortNo + ")";
 					else
-					{
-						nextIcon = Gnd.Icons[10];
+						text = "SSRBServer / 停止中";
 
-						this.MouseShakePhase = 3;
-						this.MouseShake_X = mouseX;
-						this.MouseShake_Y = mouseY;
-
-						this.MouseStayMillis = 0;
-					}
-
-					if (this.TaskTrayIcon.Icon != nextIcon)
-						this.TaskTrayIcon.Icon = nextIcon;
+					if (this.TaskTrayIcon.Text != text)
+						this.TaskTrayIcon.Text = text;
 				}
 			}
 			finally
@@ -152,6 +106,23 @@ namespace Charlotte
 				this.MTBusy = false;
 				this.MTCount++;
 			}
+		}
+
+		private void ポート番号PToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			this.MTEnabled = false;
+			this.TaskTrayIcon.Visible = false;
+
+			Gnd.BatchServer_Stop_B();
+
+			using (SettingDlg f = new SettingDlg())
+			{
+				f.ShowDialog();
+			}
+			Gnd.BatchServer = new BatchServer();
+
+			this.TaskTrayIcon.Visible = true;
+			this.MTEnabled = true;
 		}
 	}
 }

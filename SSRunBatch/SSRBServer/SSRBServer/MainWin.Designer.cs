@@ -33,6 +33,8 @@
 			this.TaskTrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
 			this.TTIMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.終了XToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+			this.ポート番号PToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.MainTimer = new System.Windows.Forms.Timer(this.components);
 			this.TTIMenu.SuspendLayout();
 			this.SuspendLayout();
@@ -41,26 +43,39 @@
 			// 
 			this.TaskTrayIcon.ContextMenuStrip = this.TTIMenu;
 			this.TaskTrayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("TaskTrayIcon.Icon")));
-			this.TaskTrayIcon.Text = "30秒間マウスが動かなかったら、ちょっと動かす！";
+			this.TaskTrayIcon.Text = "準備しています...";
 			// 
 			// TTIMenu
 			// 
 			this.TTIMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ポート番号PToolStripMenuItem,
+            this.toolStripMenuItem1,
             this.終了XToolStripMenuItem});
 			this.TTIMenu.Name = "TTIMenu";
-			this.TTIMenu.Size = new System.Drawing.Size(114, 26);
+			this.TTIMenu.Size = new System.Drawing.Size(154, 54);
+			// 
+			// ポート番号PToolStripMenuItem
+			// 
+			this.ポート番号PToolStripMenuItem.Name = "ポート番号PToolStripMenuItem";
+			this.ポート番号PToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+			this.ポート番号PToolStripMenuItem.Text = "ポート番号(&P)";
+			this.ポート番号PToolStripMenuItem.Click += new System.EventHandler(this.ポート番号PToolStripMenuItem_Click);
+			// 
+			// toolStripMenuItem1
+			// 
+			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(150, 6);
 			// 
 			// 終了XToolStripMenuItem
 			// 
 			this.終了XToolStripMenuItem.Name = "終了XToolStripMenuItem";
-			this.終了XToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+			this.終了XToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
 			this.終了XToolStripMenuItem.Text = "終了(&X)";
 			this.終了XToolStripMenuItem.Click += new System.EventHandler(this.終了XToolStripMenuItem_Click);
 			// 
 			// MainTimer
 			// 
 			this.MainTimer.Enabled = true;
-			this.MainTimer.Interval = 200;
 			this.MainTimer.Tick += new System.EventHandler(this.MainTimer_Tick);
 			// 
 			// MainWin
@@ -75,7 +90,7 @@
 			this.Name = "MainWin";
 			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-			this.Text = "AntiScreenSaver_MainWindow";
+			this.Text = "SSRBServer_MainWindow";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWin_FormClosing);
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainWin_FormClosed);
 			this.Load += new System.EventHandler(this.MainWin_Load);
@@ -91,6 +106,8 @@
 		private System.Windows.Forms.ContextMenuStrip TTIMenu;
 		private System.Windows.Forms.ToolStripMenuItem 終了XToolStripMenuItem;
 		private System.Windows.Forms.Timer MainTimer;
+		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+		private System.Windows.Forms.ToolStripMenuItem ポート番号PToolStripMenuItem;
 	}
 }
 
