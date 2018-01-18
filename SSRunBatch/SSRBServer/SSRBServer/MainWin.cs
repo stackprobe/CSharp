@@ -65,6 +65,8 @@ namespace Charlotte
 		private bool MTBusy;
 		private long MTCount;
 
+		private long SuppressBalloon_MTCount;
+
 		private void MainTimer_Tick(object sender, EventArgs e)
 		{
 			if (this.MTEnabled == false || this.MTBusy)
@@ -74,21 +76,27 @@ namespace Charlotte
 
 			try
 			{
-				if (
-					Gnd.BatchServer != null &&
-					Gnd.BatchServer.SockServer.IsRunning() == false
-					)
+				if (Gnd.BatchServer != null)
 				{
-					this.TaskTrayIcon.BalloonTipTitle = "サーバーは停止状態に移行しました";
-					this.TaskTrayIcon.BalloonTipText = "" + Gnd.BatchServer.SockServer.GetLastException();
-					this.TaskTrayIcon.BalloonTipIcon = ToolTipIcon.Warning;
-					this.TaskTrayIcon.ShowBalloonTip(30000);
+					Exception ex = Gnd.BatchServer.SockServer.GetException();
 
-					Gnd.BatchServer = null;
-					return;
+					if (ex != null && this.SuppressBalloon_MTCount < this.MTCount)
+					{
+						this.TaskTrayIcon.BalloonTipTitle = ex.Message;
+						this.TaskTrayIcon.BalloonTipText = "" + ex;
+						this.TaskTrayIcon.BalloonTipIcon = ToolTipIcon.Warning;
+						this.TaskTrayIcon.ShowBalloonTip(10000);
+
+						this.SuppressBalloon_MTCount = this.MTCount + 50L; // + 5 sec
+						return;
+					}
+					if (Gnd.BatchServer.SockServer.IsRunning() == false)
+					{
+						Gnd.BatchServer = null;
+						return;
+					}
 				}
-
-				if (this.MTCount % 20 == 0)
+				if (this.MTCount % 20 == 0) // per 2 sec
 				{
 					string text;
 

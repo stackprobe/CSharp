@@ -21,6 +21,8 @@ namespace Charlotte
 
 		private void Perform(SockServer.Connection connection)
 		{
+			Logger.WriteLine("Start");
+
 			if (Consts.ENCODING_SJIS.GetString(connection.Recv(8)) != "SSRB/0.0")
 				throw new Exception("シグネチャ不一致");
 
@@ -66,7 +68,7 @@ namespace Charlotte
 			string callBatFile = Path.Combine(workDir, uuid + "_Call.bat");
 
 			File.WriteAllLines(batFile, commands, Consts.ENCODING_SJIS);
-			File.WriteAllLines(callBatFile, new string[] { "CALL " + Path.GetFileName(batFile) + " > " + Path.GetFileName(outFile) }, Consts.ENCODING_SJIS);
+			File.WriteAllLines(callBatFile, new string[] { "> " + Path.GetFileName(outFile) + " CALL " + Path.GetFileName(batFile) }, Consts.ENCODING_SJIS);
 
 			ProcessStartInfo psi = new ProcessStartInfo();
 
@@ -111,6 +113,8 @@ namespace Charlotte
 				catch
 				{ }
 			}
+
+			Logger.WriteLine("End");
 		}
 
 		private string RecvLine()

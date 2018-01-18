@@ -12,12 +12,13 @@ namespace Charlotte
 	{
 		public delegate void Transmit_d(Connection connection);
 
+		private readonly object SYNCROOT = new object();
 		private int PortNo;
 		private Transmit_d Transmit;
 		private int RSTimeoutMillis;
 		private Thread PerformTh;
 		private bool StopFlag = false;
-		private Exception LastEx = null;
+		private Queue<Exception> Exceptions = new Queue<Exception>();
 
 		public SockServer(int portNo, Transmit_d transmit, int recvSendTimeoutMillis = 2000)
 		{
@@ -33,9 +34,7 @@ namespace Charlotte
 				}
 				catch (Exception e)
 				{
-					this.LastEx = e;
-
-					Logger.WriteLine(e); // app 固有
+					this.AddException(e);
 				}
 			});
 
@@ -73,12 +72,28 @@ namespace Charlotte
 			}
 		}
 
-		public Exception GetLastException()
+		public Exception GetException()
 		{
-			if (this.IsRunning()) // forbidden
-				throw null;
+			lock (this.SYNCROOT)
+			{
+				if (this.Exceptions.Count == 0)
+				{
+					return null;
+				}
+				return this.Exceptions.Dequeue();
+			}
+		}
 
-			return this.LastEx;
+		private void AddException(Exception e)
+		{
+			lock (this.SYNCROOT)
+			{
+				while (30 < this.Exceptions.Count)
+				{
+					this.Exceptions.Dequeue();
+				}
+				this.Exceptions.Enqueue(e);
+			}
 		}
 
 		private void Perform()
@@ -108,21 +123,13 @@ namespace Charlotte
 					{
 						connectWaitMillis = 0;
 
-						handler.Blocking = false;
-
 						try
 						{
-							Logger.WriteLine("Start"); // app 固有
-
 							this.Transmit(new Connection(handler, this.RSTimeoutMillis));
-
-							Logger.WriteLine("OK!"); // app 固有
 						}
 						catch (Exception e)
 						{
-							this.LastEx = e;
-
-							Logger.WriteLine(e); // app 固有
+							this.AddException(e);
 						}
 
 						try
@@ -166,6 +173,8 @@ namespace Charlotte
 
 			public Connection(Socket handler, int recvSendTimeoutMillis)
 			{
+				handler.Blocking = false;
+
 				this.Handler = handler;
 				this.RSTimeoutMillis = recvSendTimeoutMillis;
 			}
