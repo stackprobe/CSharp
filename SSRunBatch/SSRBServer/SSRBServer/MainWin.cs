@@ -65,7 +65,9 @@ namespace Charlotte
 		private bool MTBusy;
 		private long MTCount;
 
-		private long SuppressBalloon_MTCount;
+		private long SuppressBalloon_MTCount = -1;
+
+		private int BatchServerStopCount;
 
 		private void MainTimer_Tick(object sender, EventArgs e)
 		{
@@ -80,14 +82,21 @@ namespace Charlotte
 				{
 					Exception ex = Gnd.BatchServer.SockServer.GetException();
 
-					if (ex != null && this.SuppressBalloon_MTCount < this.MTCount)
+					if (ex != null)
 					{
-						this.TaskTrayIcon.BalloonTipTitle = ex.Message;
-						this.TaskTrayIcon.BalloonTipText = "" + ex;
-						this.TaskTrayIcon.BalloonTipIcon = ToolTipIcon.Warning;
-						this.TaskTrayIcon.ShowBalloonTip(10000);
+						Logger.WriteLine(ex);
 
-						this.SuppressBalloon_MTCount = this.MTCount + 50L; // + 5 sec
+						if (this.SuppressBalloon_MTCount < this.MTCount)
+						{
+							Logger.WriteLine("Show Balloon Tip !");
+
+							this.TaskTrayIcon.BalloonTipTitle = ex.Message;
+							this.TaskTrayIcon.BalloonTipText = "" + ex;
+							this.TaskTrayIcon.BalloonTipIcon = ToolTipIcon.Warning;
+							this.TaskTrayIcon.ShowBalloonTip(10000);
+
+							this.SuppressBalloon_MTCount = long.MaxValue;
+						}
 						return;
 					}
 					if (Gnd.BatchServer.SockServer.IsRunning() == false)
@@ -96,6 +105,21 @@ namespace Charlotte
 						return;
 					}
 				}
+
+				if (Gnd.BatchServer == null)
+				{
+					this.BatchServerStopCount++;
+
+					if (150 < this.BatchServerStopCount) // 15 sec
+					{
+						Gnd.BatchServer = new BatchServer(); // 自動的に再起動する。
+						this.BatchServerStopCount = 0;
+						return;
+					}
+				}
+				else
+					this.BatchServerStopCount = 0;
+
 				if (this.MTCount % 20 == 0) // per 2 sec
 				{
 					string text;
@@ -114,6 +138,11 @@ namespace Charlotte
 				this.MTBusy = false;
 				this.MTCount++;
 			}
+		}
+
+		private void TaskTrayIcon_BalloonTipClosed(object sender, EventArgs e)
+		{
+			this.SuppressBalloon_MTCount = this.MTCount + 10; // + 1 sec
 		}
 
 		private void ポート番号PToolStripMenuItem_Click(object sender, EventArgs e)

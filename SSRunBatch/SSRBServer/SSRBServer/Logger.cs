@@ -10,7 +10,7 @@ namespace Charlotte
 	{
 		private static readonly object SYNCROOT = new object();
 
-		private const long LOG_FILE_SIZE_MAX = 100000L; // 100 KB
+		private const long LOG_FILE_SIZE_MAX = 10000L; // 10 KB
 
 		public static void WriteLine(object message)
 		{

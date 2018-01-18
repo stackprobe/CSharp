@@ -32,9 +32,9 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWin));
 			this.TaskTrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
 			this.TTIMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-			this.終了XToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
 			this.ポート番号PToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+			this.終了XToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.MainTimer = new System.Windows.Forms.Timer(this.components);
 			this.TTIMenu.SuspendLayout();
 			this.SuspendLayout();
@@ -44,6 +44,7 @@
 			this.TaskTrayIcon.ContextMenuStrip = this.TTIMenu;
 			this.TaskTrayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("TaskTrayIcon.Icon")));
 			this.TaskTrayIcon.Text = "準備しています...";
+			this.TaskTrayIcon.BalloonTipClosed += new System.EventHandler(this.TaskTrayIcon_BalloonTipClosed);
 			// 
 			// TTIMenu
 			// 
@@ -52,24 +53,24 @@
             this.toolStripMenuItem1,
             this.終了XToolStripMenuItem});
 			this.TTIMenu.Name = "TTIMenu";
-			this.TTIMenu.Size = new System.Drawing.Size(154, 54);
+			this.TTIMenu.Size = new System.Drawing.Size(140, 54);
 			// 
 			// ポート番号PToolStripMenuItem
 			// 
 			this.ポート番号PToolStripMenuItem.Name = "ポート番号PToolStripMenuItem";
-			this.ポート番号PToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+			this.ポート番号PToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
 			this.ポート番号PToolStripMenuItem.Text = "ポート番号(&P)";
 			this.ポート番号PToolStripMenuItem.Click += new System.EventHandler(this.ポート番号PToolStripMenuItem_Click);
 			// 
 			// toolStripMenuItem1
 			// 
 			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-			this.toolStripMenuItem1.Size = new System.Drawing.Size(150, 6);
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(136, 6);
 			// 
 			// 終了XToolStripMenuItem
 			// 
 			this.終了XToolStripMenuItem.Name = "終了XToolStripMenuItem";
-			this.終了XToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+			this.終了XToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
 			this.終了XToolStripMenuItem.Text = "終了(&X)";
 			this.終了XToolStripMenuItem.Click += new System.EventHandler(this.終了XToolStripMenuItem_Click);
 			// 

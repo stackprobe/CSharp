@@ -34,7 +34,7 @@ namespace Charlotte
 					Directory.SetCurrentDirectory(SelfDir);
 					CheckLogonUser();
 
-					Logger.WriteLine("Start Process");
+					//Logger.WriteLine("Start Process");
 
 					Gnd.SettingFile = Path.Combine(SelfDir, Path.GetFileNameWithoutExtension(SelfFile) + ".dat");
 					Gnd.Load(Gnd.SettingFile);
@@ -63,7 +63,7 @@ namespace Charlotte
 
 					Gnd.Save(Gnd.SettingFile);
 
-					Logger.WriteLine("End Process");
+					//Logger.WriteLine("End Process");
 
 					GlobalProcMtx.Release();
 				}
