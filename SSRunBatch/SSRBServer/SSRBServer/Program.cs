@@ -32,19 +32,15 @@ namespace Charlotte
 				{
 					CheckSelfDir();
 					Directory.SetCurrentDirectory(SelfDir);
-					CheckLogonUser();
+					CheckLogonUserAndTmp();
 
-					//Logger.WriteLine("Start Process");
+					Logger.WriteLine("Start Process");
 
 					Gnd.SettingFile = Path.Combine(SelfDir, Path.GetFileNameWithoutExtension(SelfFile) + ".dat");
 					Gnd.Load(Gnd.SettingFile);
 
-					Gnd.WorkRootDir = Path.Combine(Environment.GetEnvironmentVariable("TMP"), Program.APP_IDENT);
-
-					if (Directory.Exists(Gnd.WorkRootDir))
-						Directory.Delete(Gnd.WorkRootDir, true);
-
-					Directory.CreateDirectory(Gnd.WorkRootDir);
+					Gnd.RootWorkDir = Path.Combine(Environment.GetEnvironmentVariable("TMP"), Program.APP_IDENT);
+					Directory.CreateDirectory(Gnd.RootWorkDir); // 既に在ってもok
 
 					Gnd.BatchServer = new BatchServer();
 
@@ -58,12 +54,18 @@ namespace Charlotte
 
 					Gnd.BatchServer_Stop_B();
 
-					Directory.Delete(Gnd.WorkRootDir, true);
-					Gnd.WorkRootDir = null;
+					try
+					{
+						Directory.Delete(Gnd.RootWorkDir, true); // 放棄したバッチファイルがまだ掴んでいるかもしれない。
+					}
+					catch
+					{ }
+
+					Gnd.RootWorkDir = null;
 
 					Gnd.Save(Gnd.SettingFile);
 
-					//Logger.WriteLine("End Process");
+					Logger.WriteLine("End Process");
 
 					GlobalProcMtx.Release();
 				}
@@ -152,7 +154,7 @@ namespace Charlotte
 			}
 		}
 
-		private static void CheckLogonUser()
+		private static void CheckLogonUserAndTmp()
 		{
 			string userName = Environment.GetEnvironmentVariable("UserName");
 			Encoding SJIS = Encoding.GetEncoding(932);
@@ -175,7 +177,6 @@ namespace Charlotte
 				Environment.Exit(7);
 			}
 
-			// ついでに、
 			string tmp = Environment.GetEnvironmentVariable("TMP");
 
 			if (

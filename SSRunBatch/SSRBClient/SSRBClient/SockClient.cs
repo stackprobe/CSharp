@@ -2,169 +2,51 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using System.Net;
 
 namespace Charlotte
 {
-	public class SockServer
+	public class SockClient
 	{
 		public delegate void Transmit_d(Connection connection);
 
-		private readonly object SYNCROOT = new object();
-		private int PortNo;
-		private Transmit_d Transmit;
-		private int RSTimeoutMillis;
-		private Thread PerformTh;
-		private bool StopFlag = false;
-		private Queue<Exception> Exceptions = new Queue<Exception>();
-
-		public SockServer(int portNo, Transmit_d transmit, int recvSendTimeoutMillis = 2000)
+		public void Perform(string domain, int portNo, Transmit_d transmit)
 		{
-			this.PortNo = portNo;
-			this.Transmit = transmit;
-			this.RSTimeoutMillis = recvSendTimeoutMillis;
+			IPHostEntry hostEntry = Dns.GetHostEntry(domain);
+			IPAddress address = GetFairAddress(hostEntry.AddressList);
+			IPEndPoint endPoint = new IPEndPoint(address, portNo);
 
-			this.PerformTh = new Thread((ThreadStart)delegate
+			using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
 			{
+				socket.Connect(endPoint);
 				try
 				{
-					this.Perform();
+					transmit(new Connection(socket));
 				}
-				catch (Exception e)
+				finally
 				{
-					this.AddException(e);
-				}
-			});
-
-			this.PerformTh.Start();
-		}
-
-		public void Stop()
-		{
-			this.StopFlag = true;
-		}
-
-		public bool IsRunning()
-		{
-			if (this.PerformTh != null && this.PerformTh.Join(0))
-				this.PerformTh = null;
-
-			return this.PerformTh != null;
-		}
-
-		public void Stop_B()
-		{
-			this.Stop();
-
-			// 終了待ち
-			{
-				int millis = 0;
-
-				while (this.IsRunning())
-				{
-					if (millis < 2000)
-						millis++;
-
-					Thread.Sleep(millis);
-				}
-			}
-		}
-
-		public Exception GetException()
-		{
-			lock (this.SYNCROOT)
-			{
-				if (this.Exceptions.Count == 0)
-				{
-					return null;
-				}
-				return this.Exceptions.Dequeue();
-			}
-		}
-
-		private void AddException(Exception e)
-		{
-			lock (this.SYNCROOT)
-			{
-				while (30 < this.Exceptions.Count)
-				{
-					this.Exceptions.Dequeue();
-				}
-				this.Exceptions.Enqueue(e);
-			}
-		}
-
-		private void Perform()
-		{
-			using (Socket listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
-			{
-				IPEndPoint endPoint = new IPEndPoint(0L, this.PortNo);
-
-				listener.Bind(endPoint);
-				listener.Listen(30);
-				listener.Blocking = false;
-
-				int connectWaitMillis = 0;
-
-				while (this.StopFlag == false)
-				{
-					Socket handler = this.Connect(listener);
-
-					if (handler == null)
+					try
 					{
-						if (connectWaitMillis < 100)
-							connectWaitMillis++;
-
-						Thread.Sleep(connectWaitMillis);
+						socket.Disconnect(false);
 					}
-					else
-					{
-						connectWaitMillis = 0;
-
-						try
-						{
-							this.Transmit(new Connection(handler));
-						}
-						catch (Exception e)
-						{
-							this.AddException(e);
-						}
-
-						try
-						{
-							handler.Shutdown(SocketShutdown.Both);
-						}
-						catch
-						{ }
-
-						try
-						{
-							handler.Close();
-						}
-						catch
-						{ }
-					}
-					GC.Collect(); // zantei
+					catch
+					{ }
 				}
 			}
 		}
 
-		private Socket Connect(Socket listener)
+		private static IPAddress GetFairAddress(IPAddress[] addresses)
 		{
-			try
+			foreach (IPAddress address in addresses)
 			{
-				return listener.Accept();
-			}
-			catch (SocketException e)
-			{
-				if (e.ErrorCode != 10035)
+				if (address.AddressFamily == AddressFamily.InterNetwork) // ? IPv4
 				{
-					throw new Exception("接続エラー", e);
+					return address;
 				}
-				return null;
 			}
+			return addresses[0];
 		}
 
 		public class Connection

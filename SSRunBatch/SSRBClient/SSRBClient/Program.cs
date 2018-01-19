@@ -57,7 +57,7 @@ namespace Charlotte
 		}
 
 		public const string APP_IDENT = "{40d6bc7d-352a-416b-8fae-7a639e07035e}";
-		public const string APP_TITLE = "FFFF";
+		public const string APP_TITLE = "SSRBClient";
 
 		private static void ApplicationThreadException(object sender, ThreadExceptionEventArgs e)
 		{
@@ -138,7 +138,7 @@ namespace Charlotte
 
 		private static void CheckAloneExe()
 		{
-			if (File.Exists("FFFF.sig")) // リリースに含まれるファイル
+			if (File.Exists("SSRBClient.sig")) // リリースに含まれるファイル
 				return;
 
 			if (Directory.Exists(@"..\Debug")) // ? devenv

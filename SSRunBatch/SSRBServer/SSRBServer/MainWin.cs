@@ -110,7 +110,7 @@ namespace Charlotte
 				{
 					this.BatchServerStopCount++;
 
-					if (150 < this.BatchServerStopCount) // 15 sec
+					if (300 < this.BatchServerStopCount) // 30 sec <
 					{
 						Gnd.BatchServer = new BatchServer(); // 自動的に再起動する。
 						this.BatchServerStopCount = 0;
@@ -140,8 +140,17 @@ namespace Charlotte
 			}
 		}
 
+		private void TaskTrayIcon_BalloonTipClicked(object sender, EventArgs e)
+		{
+			Logger.WriteLine("Balloon Tip Clicked !");
+
+			this.SuppressBalloon_MTCount = this.MTCount + 10; // + 1 sec
+		}
+
 		private void TaskTrayIcon_BalloonTipClosed(object sender, EventArgs e)
 		{
+			Logger.WriteLine("Balloon Tip Closed !");
+
 			this.SuppressBalloon_MTCount = this.MTCount + 10; // + 1 sec
 		}
 
@@ -156,10 +165,17 @@ namespace Charlotte
 			{
 				f.ShowDialog();
 			}
+			Gnd.Save(Gnd.SettingFile);
+
 			Gnd.BatchServer = new BatchServer();
 
 			this.TaskTrayIcon.Visible = true;
 			this.MTEnabled = true;
+		}
+
+		private void Abandon_実行AToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Gnd.AbandonCurrentRunningBatchFlag = true;
 		}
 	}
 }

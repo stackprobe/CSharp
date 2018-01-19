@@ -33,7 +33,11 @@ namespace Charlotte
 					CheckSelfDir();
 					Directory.SetCurrentDirectory(SelfDir);
 					CheckAloneExe();
-					CheckLogonUser();
+					CheckLogonUserAndTmp();
+
+					Gnd.I = new Gnd();
+
+					Gnd.I.Load(Gnd.I.SettingFile);
 
 					// orig >
 
@@ -42,6 +46,8 @@ namespace Charlotte
 					Application.Run(new MainWin());
 
 					// < orig
+
+					Gnd.I.Save(Gnd.I.SettingFile);
 
 					GlobalProcMtx.Release();
 				}
@@ -148,7 +154,7 @@ namespace Charlotte
 			Environment.Exit(6);
 		}
 
-		private static void CheckLogonUser()
+		private static void CheckLogonUserAndTmp()
 		{
 			string userName = Environment.GetEnvironmentVariable("UserName");
 			Encoding SJIS = Encoding.GetEncoding(932);
@@ -162,13 +168,37 @@ namespace Charlotte
 				)
 			{
 				MessageBox.Show(
-					"Windows ログオンユーザー名に問題があります。",
+					"Windows ログオン・ユーザー名に問題があります。",
 					APP_TITLE + " / エラー",
 					MessageBoxButtons.OK,
 					MessageBoxIcon.Error
 					);
 
 				Environment.Exit(7);
+			}
+
+			string tmp = Environment.GetEnvironmentVariable("TMP");
+
+			if (
+				tmp == null ||
+				tmp == "" ||
+				tmp != SJIS.GetString(SJIS.GetBytes(tmp)) ||
+				//tmp.Length < 3 ||
+				tmp.Length < 4 || // ルートDIR禁止
+				tmp[1] != ':' ||
+				tmp[2] != '\\' ||
+				Directory.Exists(tmp) == false ||
+				tmp.Contains(' ')
+				)
+			{
+				MessageBox.Show(
+					"環境変数 TMP に問題があります。",
+					APP_TITLE + " / エラー",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error
+					);
+
+				Environment.Exit(8);
 			}
 		}
 	}

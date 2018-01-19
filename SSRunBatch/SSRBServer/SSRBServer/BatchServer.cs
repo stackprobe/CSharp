@@ -23,12 +23,16 @@ namespace Charlotte
 		{
 			Logger.WriteLine("Start");
 
+			connection.RSTimeoutMillis = 2000; // 2 sec
+
 			if (Consts.ENCODING_SJIS.GetString(connection.Recv(8)) != "SSRB/0.0")
 				throw new Exception("シグネチャ不一致");
 
+			connection.RSTimeoutMillis = 30000; // 30 sec
+
 			this.Connection = connection;
 
-			string workDir = Path.Combine(Gnd.WorkRootDir, Guid.NewGuid().ToString("B"));
+			string workDir = Path.Combine(Gnd.RootWorkDir, Guid.NewGuid().ToString("B"));
 			Directory.CreateDirectory(workDir);
 
 			int sendFileNum = (int)this.RecvUInt();
@@ -78,7 +82,21 @@ namespace Charlotte
 			psi.UseShellExecute = false;
 			psi.WorkingDirectory = workDir;
 
-			Process.Start(psi).WaitForExit();
+			{
+				Process p = Process.Start(psi);
+
+				Gnd.AbandonCurrentRunningBatchFlag = false;
+
+				while (p.WaitForExit(2000) == false)
+				{
+					if (Gnd.AbandonCurrentRunningBatchFlag)
+					{
+						Gnd.AbandonCurrentRunningBatchFlag = false;
+						throw new Exception("実行中のバッチファイルを放棄しました。");
+					}
+				}
+			}
+			//Process.Start(psi).WaitForExit();
 
 			this.SendUInt((uint)recvFileNum);
 

@@ -51,11 +51,15 @@ namespace Charlotte
 			if (this.MTEnabled == false)
 				return;
 
-			if (5 < this.MTCount && Gnd.BatchServer.SockServer.IsRunning() == false)
+			if (5 < this.MTCount && Gnd.BatchServer.SockServer.IsRunning() == false) // 0.5 sec <
 			{
 				this.MTEnabled = false;
 				this.Close();
 				return;
+			}
+			if (300 < this.MTCount) // 30 sec <
+			{
+				Gnd.AbandonCurrentRunningBatchFlag = true;
 			}
 			this.MTCount++;
 		}

@@ -5,8 +5,10 @@ using System.Text;
 
 namespace Charlotte
 {
-	public class Consts
+	public class RelayException : Exception
 	{
-		public const string Dummy = "Dummy";
+		public RelayException(Exception e)
+			: base("Relay", e)
+		{ }
 	}
 }

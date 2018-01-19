@@ -38,7 +38,7 @@ namespace Charlotte
 
 		// 設定ここまで
 
-		public static string WorkRootDir;
+		public static string RootWorkDir;
 		public static BatchServer BatchServer;
 
 		public static void BatchServer_Stop_B()
@@ -58,5 +58,7 @@ namespace Charlotte
 				Gnd.BatchServer = null;
 			}
 		}
+
+		public static bool AbandonCurrentRunningBatchFlag = false;
 	}
 }
