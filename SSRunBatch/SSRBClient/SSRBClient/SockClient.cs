@@ -94,11 +94,15 @@ namespace Charlotte
 
 				for (; ; )
 				{
-					int recvSize;
-
 					try
 					{
-						recvSize = this.Handler.Receive(data, offset, size, SocketFlags.None);
+						int recvSize = this.Handler.Receive(data, offset, size, SocketFlags.None);
+
+						if (recvSize <= 0)
+						{
+							throw new Exception("受信エラー(切断)");
+						}
+						return recvSize;
 					}
 					catch (SocketException e)
 					{
@@ -106,11 +110,6 @@ namespace Charlotte
 						{
 							throw new Exception("受信エラー", e);
 						}
-						recvSize = 0;
-					}
-					if (1 <= recvSize)
-					{
-						return recvSize;
 					}
 					if (this.RSTimeoutMillis <= millisElapsed)
 					{
@@ -148,11 +147,15 @@ namespace Charlotte
 
 				for (; ; )
 				{
-					int sentSize;
-
 					try
 					{
-						sentSize = this.Handler.Send(data, offset, size, SocketFlags.None);
+						int sentSize = this.Handler.Send(data, offset, size, SocketFlags.None);
+
+						if (sentSize <= 0)
+						{
+							throw new Exception("送信エラー(切断)");
+						}
+						return sentSize;
 					}
 					catch (SocketException e)
 					{
@@ -160,11 +163,6 @@ namespace Charlotte
 						{
 							throw new Exception("送信エラー", e);
 						}
-						sentSize = 0;
-					}
-					if (1 <= sentSize)
-					{
-						return sentSize;
 					}
 					if (this.RSTimeoutMillis <= millisElapsed)
 					{

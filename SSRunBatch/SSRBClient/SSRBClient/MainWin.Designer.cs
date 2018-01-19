@@ -64,7 +64,7 @@
             this.応答ファイルRToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
-			this.menuStrip1.Size = new System.Drawing.Size(584, 26);
+			this.menuStrip1.Size = new System.Drawing.Size(584, 24);
 			this.menuStrip1.TabIndex = 0;
 			this.menuStrip1.Text = "menuStrip1";
 			// 
@@ -73,13 +73,13 @@
 			this.アプリAToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.終了XToolStripMenuItem});
 			this.アプリAToolStripMenuItem.Name = "アプリAToolStripMenuItem";
-			this.アプリAToolStripMenuItem.Size = new System.Drawing.Size(74, 22);
+			this.アプリAToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
 			this.アプリAToolStripMenuItem.Text = "アプリ(&A)";
 			// 
 			// 終了XToolStripMenuItem
 			// 
 			this.終了XToolStripMenuItem.Name = "終了XToolStripMenuItem";
-			this.終了XToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+			this.終了XToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
 			this.終了XToolStripMenuItem.Text = "終了(&X)";
 			this.終了XToolStripMenuItem.Click += new System.EventHandler(this.終了XToolStripMenuItem_Click);
 			// 
@@ -89,20 +89,20 @@
             this.SendFile_追加AToolStripMenuItem,
             this.SendFile_削除DToolStripMenuItem});
 			this.送信ファイルSToolStripMenuItem.Name = "送信ファイルSToolStripMenuItem";
-			this.送信ファイルSToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+			this.送信ファイルSToolStripMenuItem.Size = new System.Drawing.Size(91, 20);
 			this.送信ファイルSToolStripMenuItem.Text = "送信ファイル(&S)";
 			// 
 			// SendFile_追加AToolStripMenuItem
 			// 
 			this.SendFile_追加AToolStripMenuItem.Name = "SendFile_追加AToolStripMenuItem";
-			this.SendFile_追加AToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+			this.SendFile_追加AToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
 			this.SendFile_追加AToolStripMenuItem.Text = "追加(&A)";
 			this.SendFile_追加AToolStripMenuItem.Click += new System.EventHandler(this.SendFile_追加AToolStripMenuItem_Click);
 			// 
 			// SendFile_削除DToolStripMenuItem
 			// 
 			this.SendFile_削除DToolStripMenuItem.Name = "SendFile_削除DToolStripMenuItem";
-			this.SendFile_削除DToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+			this.SendFile_削除DToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
 			this.SendFile_削除DToolStripMenuItem.Text = "削除(&D)";
 			// 
 			// 応答ファイルRToolStripMenuItem
@@ -111,20 +111,20 @@
             this.RecvFile_追加AToolStripMenuItem,
             this.RecvFile_削除DToolStripMenuItem});
 			this.応答ファイルRToolStripMenuItem.Name = "応答ファイルRToolStripMenuItem";
-			this.応答ファイルRToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+			this.応答ファイルRToolStripMenuItem.Size = new System.Drawing.Size(92, 20);
 			this.応答ファイルRToolStripMenuItem.Text = "応答ファイル(&R)";
 			// 
 			// RecvFile_追加AToolStripMenuItem
 			// 
 			this.RecvFile_追加AToolStripMenuItem.Name = "RecvFile_追加AToolStripMenuItem";
-			this.RecvFile_追加AToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+			this.RecvFile_追加AToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
 			this.RecvFile_追加AToolStripMenuItem.Text = "追加(&A)";
 			this.RecvFile_追加AToolStripMenuItem.Click += new System.EventHandler(this.RecvFile_追加AToolStripMenuItem_Click);
 			// 
 			// RecvFile_削除DToolStripMenuItem
 			// 
 			this.RecvFile_削除DToolStripMenuItem.Name = "RecvFile_削除DToolStripMenuItem";
-			this.RecvFile_削除DToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+			this.RecvFile_削除DToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
 			this.RecvFile_削除DToolStripMenuItem.Text = "削除(&D)";
 			// 
 			// groupBox1
@@ -239,16 +239,16 @@
 			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Status,
             this.EastStatus});
-			this.statusStrip1.Location = new System.Drawing.Point(0, 476);
+			this.statusStrip1.Location = new System.Drawing.Point(0, 477);
 			this.statusStrip1.Name = "statusStrip1";
-			this.statusStrip1.Size = new System.Drawing.Size(584, 23);
+			this.statusStrip1.Size = new System.Drawing.Size(584, 22);
 			this.statusStrip1.TabIndex = 7;
 			this.statusStrip1.Text = "statusStrip1";
 			// 
 			// Status
 			// 
 			this.Status.Name = "Status";
-			this.Status.Size = new System.Drawing.Size(498, 18);
+			this.Status.Size = new System.Drawing.Size(509, 17);
 			this.Status.Spring = true;
 			this.Status.Text = "Status";
 			this.Status.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -256,7 +256,7 @@
 			// EastStatus
 			// 
 			this.EastStatus.Name = "EastStatus";
-			this.EastStatus.Size = new System.Drawing.Size(71, 18);
+			this.EastStatus.Size = new System.Drawing.Size(60, 17);
 			this.EastStatus.Text = "EastStatus";
 			// 
 			// BtnRun
