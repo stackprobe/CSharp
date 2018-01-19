@@ -32,7 +32,6 @@ namespace Charlotte
 				{
 					CheckSelfDir();
 					Directory.SetCurrentDirectory(SelfDir);
-					CheckAloneExe();
 					CheckLogonUserAndTmp();
 
 					Gnd.I = new Gnd();
@@ -134,24 +133,6 @@ namespace Charlotte
 
 				Environment.Exit(5);
 			}
-		}
-
-		private static void CheckAloneExe()
-		{
-			if (File.Exists("SSRBClient.sig")) // リリースに含まれるファイル
-				return;
-
-			if (Directory.Exists(@"..\Debug")) // ? devenv
-				return;
-
-			MessageBox.Show(
-				"WHY AM I ALONE ?",
-				"",
-				MessageBoxButtons.OK,
-				MessageBoxIcon.Error
-				);
-
-			Environment.Exit(6);
 		}
 
 		private static void CheckLogonUserAndTmp()
