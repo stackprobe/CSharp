@@ -32,12 +32,12 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWin));
 			this.TaskTrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
 			this.TTIMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-			this.現在実行中のバッチファイルを放棄するAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.AbandonCurrentRunningBatchParentMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.AbandonCurrentRunningBatchMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ポート番号PToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
 			this.終了XToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.MainTimer = new System.Windows.Forms.Timer(this.components);
-			this.Abandon_実行AToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.TTIMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -52,37 +52,45 @@
 			// TTIMenu
 			// 
 			this.TTIMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.現在実行中のバッチファイルを放棄するAToolStripMenuItem,
+            this.AbandonCurrentRunningBatchParentMenuItem,
             this.ポート番号PToolStripMenuItem,
             this.toolStripMenuItem1,
             this.終了XToolStripMenuItem});
 			this.TTIMenu.Name = "TTIMenu";
-			this.TTIMenu.Size = new System.Drawing.Size(311, 98);
+			this.TTIMenu.Size = new System.Drawing.Size(198, 98);
 			// 
-			// 現在実行中のバッチファイルを放棄するAToolStripMenuItem
+			// AbandonCurrentRunningBatchParentMenuItem
 			// 
-			this.現在実行中のバッチファイルを放棄するAToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Abandon_実行AToolStripMenuItem});
-			this.現在実行中のバッチファイルを放棄するAToolStripMenuItem.Name = "現在実行中のバッチファイルを放棄するAToolStripMenuItem";
-			this.現在実行中のバッチファイルを放棄するAToolStripMenuItem.Size = new System.Drawing.Size(310, 22);
-			this.現在実行中のバッチファイルを放棄するAToolStripMenuItem.Text = "現在実行中のバッチファイルを放棄する(&A)";
+			this.AbandonCurrentRunningBatchParentMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.AbandonCurrentRunningBatchMenuItem});
+			this.AbandonCurrentRunningBatchParentMenuItem.Name = "AbandonCurrentRunningBatchParentMenuItem";
+			this.AbandonCurrentRunningBatchParentMenuItem.Size = new System.Drawing.Size(197, 22);
+			this.AbandonCurrentRunningBatchParentMenuItem.Text = "子プロセスの強制終了(&A)";
+			this.AbandonCurrentRunningBatchParentMenuItem.Click += new System.EventHandler(this.AbandonCurrentRunningBatchParentMenuItem_Click);
+			// 
+			// AbandonCurrentRunningBatchMenuItem
+			// 
+			this.AbandonCurrentRunningBatchMenuItem.Name = "AbandonCurrentRunningBatchMenuItem";
+			this.AbandonCurrentRunningBatchMenuItem.Size = new System.Drawing.Size(297, 22);
+			this.AbandonCurrentRunningBatchMenuItem.Text = "現在実行中のバッチファイルを強制終了する(&A)";
+			this.AbandonCurrentRunningBatchMenuItem.Click += new System.EventHandler(this.AbandonCurrentRunningBatchMenuItem_Click);
 			// 
 			// ポート番号PToolStripMenuItem
 			// 
 			this.ポート番号PToolStripMenuItem.Name = "ポート番号PToolStripMenuItem";
-			this.ポート番号PToolStripMenuItem.Size = new System.Drawing.Size(310, 22);
+			this.ポート番号PToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
 			this.ポート番号PToolStripMenuItem.Text = "ポート番号(&P)";
 			this.ポート番号PToolStripMenuItem.Click += new System.EventHandler(this.ポート番号PToolStripMenuItem_Click);
 			// 
 			// toolStripMenuItem1
 			// 
 			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-			this.toolStripMenuItem1.Size = new System.Drawing.Size(307, 6);
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(194, 6);
 			// 
 			// 終了XToolStripMenuItem
 			// 
 			this.終了XToolStripMenuItem.Name = "終了XToolStripMenuItem";
-			this.終了XToolStripMenuItem.Size = new System.Drawing.Size(310, 22);
+			this.終了XToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
 			this.終了XToolStripMenuItem.Text = "終了(&X)";
 			this.終了XToolStripMenuItem.Click += new System.EventHandler(this.終了XToolStripMenuItem_Click);
 			// 
@@ -90,13 +98,6 @@
 			// 
 			this.MainTimer.Enabled = true;
 			this.MainTimer.Tick += new System.EventHandler(this.MainTimer_Tick);
-			// 
-			// Abandon_実行AToolStripMenuItem
-			// 
-			this.Abandon_実行AToolStripMenuItem.Name = "Abandon_実行AToolStripMenuItem";
-			this.Abandon_実行AToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-			this.Abandon_実行AToolStripMenuItem.Text = "実行(&A)";
-			this.Abandon_実行AToolStripMenuItem.Click += new System.EventHandler(this.Abandon_実行AToolStripMenuItem_Click);
 			// 
 			// MainWin
 			// 
@@ -128,8 +129,8 @@
 		private System.Windows.Forms.Timer MainTimer;
 		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
 		private System.Windows.Forms.ToolStripMenuItem ポート番号PToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem 現在実行中のバッチファイルを放棄するAToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem Abandon_実行AToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem AbandonCurrentRunningBatchParentMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem AbandonCurrentRunningBatchMenuItem;
 	}
 }
 

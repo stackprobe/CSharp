@@ -39,9 +39,9 @@ namespace Charlotte
 			}
 			foreach (string file in this.RecvFiles) // 出力ファイルの掃除
 			{
-				File.Delete(file);
+				//File.Delete(file); // 入力ファイルを出力ファイルにしているかもしれないので、削除しない！
 			}
-			new SockClient().Perform(this.Domain, this.PortNo, delegate(SockClient.Connection connection)
+			SockClient.Perform(this.Domain, this.PortNo, delegate(SockClient.Connection connection)
 			{
 				connection.RSTimeoutMillis = 2000; // 2 sec
 

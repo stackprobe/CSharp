@@ -173,7 +173,12 @@ namespace Charlotte
 			this.MTEnabled = true;
 		}
 
-		private void Abandon_実行AToolStripMenuItem_Click(object sender, EventArgs e)
+		private void AbandonCurrentRunningBatchParentMenuItem_Click(object sender, EventArgs e)
+		{
+			// noop
+		}
+
+		private void AbandonCurrentRunningBatchMenuItem_Click(object sender, EventArgs e)
 		{
 			Gnd.AbandonCurrentRunningBatchFlag = true;
 		}

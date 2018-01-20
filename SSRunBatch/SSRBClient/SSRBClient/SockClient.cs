@@ -12,7 +12,7 @@ namespace Charlotte
 	{
 		public delegate void Transmit_d(Connection connection);
 
-		public void Perform(string domain, int portNo, Transmit_d transmit)
+		public static void Perform(string domain, int portNo, Transmit_d transmit)
 		{
 			IPHostEntry hostEntry = Dns.GetHostEntry(domain);
 			IPAddress address = GetFairAddress(hostEntry.AddressList);

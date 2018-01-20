@@ -92,7 +92,17 @@ namespace Charlotte
 					if (Gnd.AbandonCurrentRunningBatchFlag)
 					{
 						Gnd.AbandonCurrentRunningBatchFlag = false;
-						throw new Exception("実行中のバッチファイルを放棄しました。");
+
+						try
+						{
+							p.Kill();
+						}
+						catch(Exception e)
+						{
+							Logger.WriteLine(e);
+						}
+
+						throw new Exception("実行中のバッチファイルを強制終了しました。");
 					}
 				}
 			}

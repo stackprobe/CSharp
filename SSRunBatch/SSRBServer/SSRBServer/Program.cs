@@ -56,10 +56,12 @@ namespace Charlotte
 
 					try
 					{
-						Directory.Delete(Gnd.RootWorkDir, true); // 放棄したバッチファイルがまだ掴んでいるかもしれない。
+						Directory.Delete(Gnd.RootWorkDir, true); // (強制終了した)バッチファイルから起動したプロセスが掴んでいるかもしれない。
 					}
-					catch
-					{ }
+					catch (Exception e)
+					{
+						Logger.WriteLine(e);
+					}
 
 					Gnd.RootWorkDir = null;
 
