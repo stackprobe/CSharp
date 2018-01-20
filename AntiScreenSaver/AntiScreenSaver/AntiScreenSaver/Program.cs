@@ -28,7 +28,7 @@ namespace Charlotte
 
 			if (procMutex.WaitOne(0))
 			{
-				if (GlobalProcMtx.Create(APP_IDENT, APP_TITLE))
+				//if (GlobalProcMtx.Create(APP_IDENT, APP_TITLE))
 				{
 					//CheckSelfDir();
 					//Directory.SetCurrentDirectory(SelfDir);
@@ -50,7 +50,7 @@ namespace Charlotte
 					//WorkingDir.Root.Dispose();
 					//WorkingDir.Root = null;
 
-					GlobalProcMtx.Release();
+					//GlobalProcMtx.Release();
 				}
 				procMutex.ReleaseMutex();
 			}

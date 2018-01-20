@@ -40,8 +40,7 @@
 			// TaskTrayIcon
 			// 
 			this.TaskTrayIcon.ContextMenuStrip = this.TTIMenu;
-			this.TaskTrayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("TaskTrayIcon.Icon")));
-			this.TaskTrayIcon.Text = "30秒間マウスが動かなかったら、ちょっと動かす！";
+			this.TaskTrayIcon.Text = "AntiScreenSaver";
 			// 
 			// TTIMenu
 			// 
