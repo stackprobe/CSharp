@@ -8,7 +8,12 @@ namespace Charlotte.Tools
 {
 	public class WorkingDir : IDisposable
 	{
-		public static WorkingDir Root = new WorkingDir(Path.Combine(Environment.GetEnvironmentVariable("TMP"), Program.APP_IDENT));
+		public static WorkingDir Root;
+
+		public static WorkingDir CreateRoot()
+		{
+			return new WorkingDir(Path.Combine(Environment.GetEnvironmentVariable("TMP"), Program.APP_IDENT));
+		}
 
 		private string Dir;
 
@@ -31,6 +36,7 @@ namespace Charlotte.Tools
 
 		public string MakePath()
 		{
+			//return this.GetPath(Guid.NewGuid().ToString("B"));
 			//return this.GetPath(SecurityTools.MakePassword_9A());
 			return this.GetPath("$" + this.MakePath_Count++);
 		}

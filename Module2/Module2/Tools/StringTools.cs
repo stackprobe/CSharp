@@ -22,9 +22,8 @@ namespace Charlotte.Tools
 			GetString_SJISHalfCodeRange(0x3a, 0x40) +
 			GetString_SJISHalfCodeRange(0x5b, 0x60) +
 			GetString_SJISHalfCodeRange(0x7b, 0x7e);
-		public static string CONTROL = GetString_SJISHalfCodeRange(0x00, 0x1f);
 
-		public static string ASCII = DECIMAL + ALPHA + alpha + CONTROL + " " + PUNCT;
+		public static string ASCII = DECIMAL + ALPHA + alpha + PUNCT;
 		public static string KANA = GetString_SJISHalfCodeRange(0xa1, 0xdf);
 
 		public static string HALF = ASCII + KANA;
@@ -49,7 +48,7 @@ namespace Charlotte.Tools
 				if (chr <= 0x20 || chr == '$')
 				{
 					buff.Append('$');
-					buff.Append(((int)chr).ToString("x2"));
+					buff.Append(((int)chr).ToString("x4"));
 				}
 				else
 					buff.Append(chr);
@@ -67,8 +66,8 @@ namespace Charlotte.Tools
 
 				if (chr == '$')
 				{
-					chr = (char)Convert.ToUInt16(str.Substring(index + 1, 2), 16);
-					index += 2;
+					chr = (char)Convert.ToUInt16(str.Substring(index + 1, 4), 16);
+					index += 4;
 				}
 				buff.Append(chr);
 			}

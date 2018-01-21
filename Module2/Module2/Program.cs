@@ -24,6 +24,12 @@ namespace Charlotte
 			SelfFile = Assembly.GetEntryAssembly().Location;
 			SelfDir = Path.GetDirectoryName(SelfFile);
 
+			// 初期化 {
+
+			WorkingDir.Root = WorkingDir.CreateRoot();
+
+			// }
+
 			try
 			{
 				Main2();
@@ -36,10 +42,12 @@ namespace Charlotte
 			Console.WriteLine("Press ENTER to exit.");
 			Console.ReadLine();
 
-			// ----
+			// 後片付け {
 
 			WorkingDir.Root.Dispose();
 			WorkingDir.Root = null;
+
+			// }
 		}
 
 		private static void Main2()

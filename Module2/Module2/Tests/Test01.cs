@@ -23,6 +23,16 @@ namespace Charlotte.Tests
 			Console.WriteLine("");
 
 			{
+				string CONTROL = StringTools.GetString_SJISHalfCodeRange(0x00, 0x1f);
+
+				foreach (char chr in CONTROL)
+				{
+					Console.Write("[" + ((int)chr).ToString("x2") + "]");
+				}
+				Console.WriteLine("");
+			}
+
+			{
 				char c = (char)0;
 
 				Console.WriteLine("" + (int)c);
