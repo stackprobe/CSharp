@@ -53,7 +53,8 @@ namespace Charlotte
 		private static void Main2()
 		{
 			//new WorkingDirTest().Test01();
-			new Test01().Main01();
+			new DateTimeToSecTest().Test01();
+			//new Test01().Main01();
 		}
 	}
 }

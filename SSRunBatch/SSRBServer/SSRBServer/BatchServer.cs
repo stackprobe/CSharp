@@ -57,6 +57,7 @@ namespace Charlotte
 			}
 			int commandNum = (int)this.RecvUInt();
 
+			// Windows7で0バイトのバッチファイルを実行するとエラーdlgが出る。
 			if (commandNum < 1)
 				throw new Exception("コマンドがありません。");
 
@@ -93,11 +94,14 @@ namespace Charlotte
 					{
 						Gnd.AbandonCurrentRunningBatchFlag = false;
 
+						// あるポート(P)をSocket.Bindしたプロセス(A)が生成したプロセス(B)がずっと生きていると、
+						// プロセス(A)がSocketを閉じて終了した後でもプロセス(B)が終了するまでポート(P)をSocket.Bind出来なくなるっぽい。-- 何か昔そんなのあったな～的な...
+						// なので放置ではなくKillすることにした。
 						try
 						{
 							p.Kill();
 						}
-						catch(Exception e)
+						catch (Exception e)
 						{
 							Logger.WriteLine(e);
 						}

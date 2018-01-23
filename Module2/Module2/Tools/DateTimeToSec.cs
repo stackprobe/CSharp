@@ -10,55 +10,130 @@ namespace Charlotte.Tools
 		public static long ToSec(long dateTime)
 		{
 			if (dateTime < 10000101000000L || 99991231235959L < dateTime)
-				throw new ArgumentOutOfRangeException("dateTime: " + dateTime);
+				return 0L;
 
-			int date = (int)(dateTime / 1000000);
-			int h = (int)((dateTime / 10000) % 100);
-			int m = (int)((dateTime / 100) % 100);
-			int s = (int)(dateTime % 100);
+			int s = (int)(dateTime % 100L);
+			dateTime /= 100L;
+			int i = (int)(dateTime % 100L);
+			dateTime /= 100L;
+			int h = (int)(dateTime % 100L);
+			dateTime /= 100L;
+			int d = (int)(dateTime % 100L);
+			dateTime /= 100L;
+			int m = (int)(dateTime % 100L);
+			int y = (int)(dateTime / 100L);
 
 			if (
-				date < 10000101 || 99991231 < date ||
+				y < 1000 || 9999 < y ||
+				m < 1 || 12 < m ||
+				d < 1 || 31 < d ||
 				h < 0 || 23 < h ||
 				m < 0 || 59 < m ||
 				s < 0 || 59 < s
 				)
-				throw new ArgumentOutOfRangeException("dateTime: " + dateTime + ", date: " + date + ", h: " + h + ", m: " + m + ", s: " + s);
+				return 0L;
 
-			long sec = DateToDay.ToDay(date);
-			sec *= 24;
-			sec += h;
-			sec *= 60;
-			sec += m;
-			sec *= 60;
-			sec += s;
+			if (m <= 2)
+				y--;
 
-			return sec;
+			long ret = y / 400;
+			ret *= 365 * 400 + 97;
+
+			y %= 400;
+
+			ret += y * 365;
+			ret += y / 4;
+			ret -= y / 100;
+
+			if (2 < m)
+			{
+				ret -= 31 * 10 - 4;
+				m -= 3;
+				ret += (m / 5) * (31 * 5 - 2);
+				m %= 5;
+				ret += (m / 2) * (31 * 2 - 1);
+				m %= 2;
+				ret += m * 31;
+			}
+			else
+				ret += (m - 1) * 31;
+
+			ret += d - 1;
+			ret *= 24;
+			ret += h;
+			ret *= 60;
+			ret += i;
+			ret *= 60;
+			ret += s;
+
+			return ret;
 		}
 
 		public static long ToDateTime(long sec)
 		{
-			if (sec < 0)
-				throw new ArgumentOutOfRangeException("sec: " + sec);
+			if (sec < 0L)
+				return 10000101000000L;
 
-			long lDay = sec / 86400;
+			int s = (int)(sec % 60L);
+			sec /= 60L;
+			int i = (int)(sec % 60L);
+			sec /= 60L;
+			int h = (int)(sec % 24L);
+			sec /= 24L;
 
-			if (int.MaxValue < lDay)
-				throw new ArgumentOutOfRangeException("sec: " + sec + ", lDay: " + lDay);
+			if ((long)int.MaxValue < sec)
+				return 99991231235959;
 
-			int h = (int)((sec / 3600) % 24);
-			int m = (int)((sec / 60) % 60);
-			int s = (int)(sec % 60);
+			int day = (int)sec;
+			int y = (day / 146097) * 400 + 1;
+			int m = 1;
+			int d;
+			day %= 146097;
 
-			long dateTime = DateToDay.ToDate((int)lDay);
-			dateTime *= 100;
-			dateTime += h;
-			dateTime *= 100;
-			dateTime += m;
-			dateTime *= 100;
-			dateTime += s;
+			day += Math.Min((day + 306) / 36524, 3);
+			y += (day / 1461) * 4;
+			day %= 1461;
 
-			return dateTime;
+			day += Math.Min((day + 306) / 365, 3);
+			y += day / 366;
+			day %= 366;
+
+			if (60 <= day)
+			{
+				m += 2;
+				day -= 60;
+				m += (day / 153) * 5;
+				day %= 153;
+				m += (day / 61) * 2;
+				day %= 61;
+			}
+			m += day / 31;
+			day %= 31;
+			d = day + 1;
+
+			if (y < 1000)
+				return 10000101000000L;
+
+			if (9999 < y)
+				return 99991231235959L;
+
+			if (
+				//y < 1000 || 9999 < y ||
+				m < 1 || 12 < m ||
+				d < 1 || 31 < d ||
+				h < 0 || 23 < h ||
+				m < 0 || 59 < m ||
+				s < 0 || 59 < s
+				)
+				throw null; // never
+
+			return
+				y * 10000000000L +
+				m * 100000000L +
+				d * 1000000L +
+				h * 10000L +
+				i * 100L +
+				s;
 		}
 
 		public static class Now
@@ -71,7 +146,14 @@ namespace Charlotte.Tools
 			public static long GetDateTime()
 			{
 				DateTime dt = DateTime.Now;
-				return dt.Year * 10000000000L + dt.Month * 100000000L + dt.Day * 1000000L + dt.Hour * 10000L + dt.Minute * 100L + dt.Second;
+
+				return
+					10000000000L * dt.Year +
+					100000000L * dt.Month +
+					1000000L * dt.Day +
+					10000L * dt.Hour +
+					100L * dt.Minute +
+					dt.Second;
 			}
 		}
 
