@@ -14,6 +14,8 @@ namespace Charlotte
 	{
 		#region ALT_F4 抑止
 
+		private bool XPressed = false;
+
 		[SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.UnmanagedCode)]
 		protected override void WndProc(ref Message m)
 		{
@@ -21,8 +23,10 @@ namespace Charlotte
 			const long SC_CLOSE = 0xF060L;
 
 			if (m.Msg == WM_SYSCOMMAND && (m.WParam.ToInt64() & 0xFFF0L) == SC_CLOSE)
+			{
+				this.XPressed = true;
 				return;
-
+			}
 			base.WndProc(ref m);
 		}
 
@@ -31,6 +35,8 @@ namespace Charlotte
 		public SockServerWaitToStopDlg()
 		{
 			InitializeComponent();
+
+			this.XLabel.Visible = false;
 		}
 
 		private void SockServerWaitToStopDlg_Load(object sender, EventArgs e)
@@ -45,6 +51,8 @@ namespace Charlotte
 
 		private bool MTEnabled;
 		private long MTCount;
+
+		private long HideXPressedMessage_MTCount;
 
 		private void MainTimer_Tick(object sender, EventArgs e)
 		{
@@ -61,6 +69,19 @@ namespace Charlotte
 			{
 				Gnd.AbandonCurrentRunningBatchFlag = true;
 			}
+			if (this.XPressed)
+			{
+				this.XPressed = false;
+				this.HideXPressedMessage_MTCount = this.MTCount + 20;
+			}
+
+			{
+				bool flag = this.MTCount < this.HideXPressedMessage_MTCount;
+
+				if (this.XLabel.Visible != flag)
+					this.XLabel.Visible = flag;
+			}
+
 			this.MTCount++;
 		}
 	}

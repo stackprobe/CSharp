@@ -52,7 +52,7 @@ namespace Charlotte
 				{
 					f.ShowDialog();
 				}
-#else
+#else // old
 				Gnd.BatchServer.SockServer.Stop_B();
 #endif
 				Gnd.BatchServer = null;

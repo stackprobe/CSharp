@@ -32,6 +32,7 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SockServerWaitToStopDlg));
 			this.MainTimer = new System.Windows.Forms.Timer(this.components);
 			this.label1 = new System.Windows.Forms.Label();
+			this.XLabel = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// MainTimer
@@ -48,11 +49,24 @@
 			this.label1.TabIndex = 0;
 			this.label1.Text = "サーバーの応答を待っています...\r\n実行中のバッチファイルが 30 秒以内に終了しなければ強制終了します。";
 			// 
+			// XLabel
+			// 
+			this.XLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.XLabel.AutoSize = true;
+			this.XLabel.BackColor = System.Drawing.Color.Maroon;
+			this.XLabel.ForeColor = System.Drawing.Color.White;
+			this.XLabel.Location = new System.Drawing.Point(405, 9);
+			this.XLabel.Name = "XLabel";
+			this.XLabel.Size = new System.Drawing.Size(107, 20);
+			this.XLabel.TabIndex = 1;
+			this.XLabel.Text = "[x] not working";
+			// 
 			// SockServerWaitToStopDlg
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(524, 126);
+			this.Controls.Add(this.XLabel);
 			this.Controls.Add(this.label1);
 			this.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -74,5 +88,6 @@
 
 		private System.Windows.Forms.Timer MainTimer;
 		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Label XLabel;
 	}
 }

@@ -150,7 +150,7 @@ namespace Charlotte
 							this.AddException(e);
 						}
 					}
-					GC.Collect(); // zantei
+					GC.Collect();
 				}
 			}
 		}

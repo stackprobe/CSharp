@@ -28,7 +28,7 @@ namespace Charlotte.Tools
 				m < 1 || 12 < m ||
 				d < 1 || 31 < d ||
 				h < 0 || 23 < h ||
-				m < 0 || 59 < m ||
+				i < 0 || 59 < i ||
 				s < 0 || 59 < s
 				)
 				return 0L;

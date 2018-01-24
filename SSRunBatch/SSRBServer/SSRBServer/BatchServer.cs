@@ -83,6 +83,7 @@ namespace Charlotte
 			psi.UseShellExecute = false;
 			psi.WorkingDirectory = workDir;
 
+#if true
 			{
 				Process p = Process.Start(psi);
 
@@ -95,7 +96,7 @@ namespace Charlotte
 						Gnd.AbandonCurrentRunningBatchFlag = false;
 
 						// あるポート(P)をSocket.Bindしたプロセス(A)が生成したプロセス(B)がずっと生きていると、
-						// プロセス(A)がSocketを閉じて終了した後でもプロセス(B)が終了するまでポート(P)をSocket.Bind出来なくなるっぽい。-- 何か昔そんなのあったな～的な...
+						// プロセス(A)がSocketを閉じて終了した後でもプロセス(B)が終了するまでポート(P)をSocket.Bind出来なくなる。
 						// なので放置ではなくKillすることにした。
 						try
 						{
@@ -110,7 +111,9 @@ namespace Charlotte
 					}
 				}
 			}
-			//Process.Start(psi).WaitForExit();
+#else // old
+			Process.Start(psi).WaitForExit();
+#endif
 
 			this.SendUInt((uint)recvFileNum);
 
@@ -130,13 +133,13 @@ namespace Charlotte
 				this.SendLine(outLine);
 			}
 
-			try // XXX
+			try // Try delete workDir
 			{
 				Directory.Delete(workDir, true);
 			}
 			catch
 			{
-				Thread.Sleep(100); // zantei
+				Thread.Sleep(100);
 
 				try
 				{
