@@ -82,7 +82,7 @@ namespace Charlotte.Tools
 			sec /= 24L;
 
 			if ((long)int.MaxValue < sec)
-				return 99991231235959;
+				return 99991231235959L;
 
 			int day = (int)sec;
 			int y = (day / 146097) * 400 + 1;

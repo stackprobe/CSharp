@@ -30,7 +30,7 @@ namespace Charlotte
 			{
 				if (GlobalProcMtx.Create(APP_IDENT, APP_TITLE))
 				{
-					CheckSelfDir();
+					CheckSelfFile();
 					Directory.SetCurrentDirectory(SelfDir);
 					CheckAloneExe();
 					CheckLogonUserAndTmp();
@@ -107,12 +107,12 @@ namespace Charlotte
 			SelfDir = Path.GetDirectoryName(SelfFile);
 		}
 
-		private static void CheckSelfDir()
+		private static void CheckSelfFile()
 		{
-			string dir = SelfDir;
+			string file = SelfFile;
 			Encoding SJIS = Encoding.GetEncoding(932);
 
-			if (dir != SJIS.GetString(SJIS.GetBytes(dir)))
+			if (file != SJIS.GetString(SJIS.GetBytes(file)))
 			{
 				MessageBox.Show(
 					"Shift_JIS に変換出来ない文字を含むパスからは実行できません。",
@@ -123,7 +123,7 @@ namespace Charlotte
 
 				Environment.Exit(4);
 			}
-			if (dir.Substring(1, 2) != ":\\")
+			if (file.Substring(1, 2) != ":\\")
 			{
 				MessageBox.Show(
 					"ネットワークパスからは実行できません。",

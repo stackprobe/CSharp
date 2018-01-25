@@ -90,7 +90,7 @@ namespace Charlotte
 			public int TryRecv(byte[] data, int offset, int size)
 			{
 				int millis = 0;
-				int millisElapsed = 0;
+				int elapsedMillis = 0;
 
 				for (; ; )
 				{
@@ -111,13 +111,13 @@ namespace Charlotte
 							throw new Exception("受信エラー", e);
 						}
 					}
-					if (this.RSTimeoutMillis <= millisElapsed)
+					if (this.RSTimeoutMillis <= elapsedMillis)
 					{
 						throw new Exception("受信タイムアウト");
 					}
 					Thread.Sleep(millis);
 
-					millisElapsed += millis;
+					elapsedMillis += millis;
 
 					if (millis < 100)
 						millis++;
@@ -143,7 +143,7 @@ namespace Charlotte
 			private int TrySend(byte[] data, int offset, int size)
 			{
 				int millis = 0;
-				int millisElapsed = 0;
+				int elapsedMillis = 0;
 
 				for (; ; )
 				{
@@ -164,13 +164,13 @@ namespace Charlotte
 							throw new Exception("送信エラー", e);
 						}
 					}
-					if (this.RSTimeoutMillis <= millisElapsed)
+					if (this.RSTimeoutMillis <= elapsedMillis)
 					{
 						throw new Exception("送信タイムアウト");
 					}
 					Thread.Sleep(millis);
 
-					millisElapsed += millis;
+					elapsedMillis += millis;
 
 					if (millis < 100)
 						millis++;
