@@ -45,6 +45,8 @@ namespace Charlotte
 			using (new ResourceWin())
 			{ }
 
+			Gnd.LoadConf();
+
 			this.TaskTrayIcon.Icon = Gnd.Icons[0];
 			this.TaskTrayIcon.Visible = true;
 			this.MTEnabled = true;
@@ -74,7 +76,7 @@ namespace Charlotte
 		private int LastMouse_X;
 		private int LastMouse_Y;
 
-		private int MouseShakePhase = 0;
+		private int MouseShakeIndex = -1;
 		private int MouseShake_X;
 		private int MouseShake_Y;
 
@@ -87,28 +89,39 @@ namespace Charlotte
 
 			try
 			{
-				if (1 <= this.MouseShakePhase)
-				{
-					switch (this.MouseShakePhase)
-					{
-						case 3:
-							Cursor.Position = new Point(this.MouseShake_X, this.MouseShake_Y - 1);
-							break;
-
-						case 2:
-							Cursor.Position = new Point(this.MouseShake_X, this.MouseShake_Y + 1);
-							break;
-
-						case 1:
-							Cursor.Position = new Point(this.MouseShake_X, this.MouseShake_Y);
-							break;
-					}
-					this.MouseShakePhase--;
-					return;
-				}
-
 				int mouseX = Cursor.Position.X;
 				int mouseY = Cursor.Position.Y;
+
+				if (this.MouseShakeIndex != -1)
+				{
+					if (
+						mouseX == this.LastMouse_X &&
+						mouseY == this.LastMouse_Y
+						)
+					{
+						if (this.MouseShakeIndex < Gnd.MouseShakeRoute.Count)
+						{
+							Gnd.XYPoint point = Gnd.MouseShakeRoute[this.MouseShakeIndex];
+
+							Cursor.Position = new Point(
+								this.MouseShake_X + point.X,
+								this.MouseShake_Y + point.Y
+								);
+
+							this.LastMouse_X = Cursor.Position.X;
+							this.LastMouse_Y = Cursor.Position.Y;
+
+							this.MouseShakeIndex++;
+							return;
+						}
+						Cursor.Position = new Point(this.MouseShake_X, this.MouseShake_Y);
+
+						this.LastMouse_X = this.MouseShake_X;
+						this.LastMouse_Y = this.MouseShake_Y;
+					}
+					this.MouseShakeIndex = -1;
+					return;
+				}
 
 				if (
 					mouseX == this.LastMouse_X &&
@@ -136,7 +149,7 @@ namespace Charlotte
 					{
 						nextIcon = Gnd.Icons[10];
 
-						this.MouseShakePhase = 3;
+						this.MouseShakeIndex = 0;
 						this.MouseShake_X = mouseX;
 						this.MouseShake_Y = mouseY;
 
