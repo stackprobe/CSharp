@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Charlotte.Tools;
+using System.IO;
 
 namespace Charlotte.Tests
 {
@@ -39,6 +40,37 @@ namespace Charlotte.Tests
 				c--;
 				Console.WriteLine("" + (int)c);
 			}
+		}
+
+		public void Main02()
+		{
+			Console.WriteLine(Path.Combine("abc", "def"));
+			Console.WriteLine(Path.Combine("abc", ""));
+			Console.WriteLine(Path.Combine("", "def"));
+			Console.WriteLine(Path.Combine("", ""));
+
+			Console.WriteLine("---- 01");
+
+			Console.WriteLine(Path.Combine("abc", "\\"));
+			Console.WriteLine(Path.Combine("\\", "def"));
+			Console.WriteLine(Path.Combine("abc", "\\\\"));
+			Console.WriteLine(Path.Combine("\\\\", "def"));
+
+			Console.WriteLine("---- 02");
+
+			Console.WriteLine(Path.Combine("", "\\"));
+			Console.WriteLine(Path.Combine("\\", ""));
+			Console.WriteLine(Path.Combine("\\", "\\"));
+
+			Console.WriteLine("---- 03");
+
+			Console.WriteLine(Path.Combine("", "\\\\"));
+			Console.WriteLine(Path.Combine("\\\\", ""));
+			Console.WriteLine(Path.Combine("\\", "\\\\"));
+			Console.WriteLine(Path.Combine("\\\\", "\\"));
+			Console.WriteLine(Path.Combine("\\\\", "\\\\"));
+
+			Console.WriteLine("---- 04");
 		}
 	}
 }

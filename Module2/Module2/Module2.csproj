@@ -63,6 +63,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Net\FilingCase3.cs" />
+    <Compile Include="Net\FilingCase3Client.cs" />
+    <Compile Include="Net\SockClient.cs" />
+    <Compile Include="Tests\Net\FilingCase3Test.cs" />
     <Compile Include="Tests\Tools\DateTimeToSecTest.cs" />
     <Compile Include="Tools\CsvFileReader.cs" />
     <Compile Include="Program.cs" />

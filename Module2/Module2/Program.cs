@@ -8,6 +8,7 @@ using System.IO;
 using Charlotte.Tests.Tools;
 using Charlotte.Tools;
 using Charlotte.Tests;
+using Charlotte.Tests.Net;
 
 namespace Charlotte
 {
@@ -52,9 +53,11 @@ namespace Charlotte
 
 		private static void Main2()
 		{
+			//new FilingCase3Test().Test01();
 			//new WorkingDirTest().Test01();
-			new DateTimeToSecTest().Test01();
+			//new DateTimeToSecTest().Test01();
 			//new Test01().Main01();
+			new Test01().Main02();
 		}
 	}
 }
