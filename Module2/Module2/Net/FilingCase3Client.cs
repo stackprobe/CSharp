@@ -12,7 +12,7 @@ namespace Charlotte.Net
 		private SockClient Client;
 		private string BasePath;
 
-		public FilingCase3Client(string domain = "localhost", int portNo = 65123, string basePath = "")
+		public FilingCase3Client(string domain = "localhost", int portNo = 65123, string basePath = "Common")
 		{
 			this.Client = new SockClient(domain, portNo);
 			this.Client.RSTimeoutMillis = 24 * 86400 * 1000; // 24 days

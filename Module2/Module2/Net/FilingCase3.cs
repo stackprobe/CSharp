@@ -13,7 +13,7 @@ namespace Charlotte.Net
 
 		private FilingCase3Client Client;
 
-		public FilingCase3(string domain = "localhost", int portNo = 65123, string basePath = "")
+		public FilingCase3(string domain = "localhost", int portNo = 65123, string basePath = "Common")
 		{
 			this.Domain = domain;
 			this.PortNo = portNo;
