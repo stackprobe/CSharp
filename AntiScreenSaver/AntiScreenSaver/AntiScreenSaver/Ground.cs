@@ -17,6 +17,7 @@ namespace Charlotte
 			public int Y;
 		}
 
+		public static int MouseStayTimeoutMillis;
 		public static List<XYPoint> MouseShakeRoute = new List<XYPoint>();
 
 		private static string GetConfFile()
@@ -50,6 +51,8 @@ namespace Charlotte
 			string[] lines = File.ReadAllLines(GetConfFile(), Encoding.GetEncoding(932));
 			lines = RemoveCommentEmptyLine(lines);
 			int c = 0;
+
+			MouseStayTimeoutMillis = int.Parse(lines[c++]);
 
 			for (; ; )
 			{

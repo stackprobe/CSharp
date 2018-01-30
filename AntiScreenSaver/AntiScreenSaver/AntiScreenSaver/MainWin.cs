@@ -92,6 +92,16 @@ namespace Charlotte
 				int mouseX = Cursor.Position.X;
 				int mouseY = Cursor.Position.Y;
 
+				try // test
+				{
+					using (System.IO.StreamWriter writer = new System.IO.StreamWriter(@"C:\temp\AntiScreenSaver_Mouse.log", true, Encoding.ASCII))
+					{
+						writer.WriteLine("[" + DateTime.Now + "] " + mouseX + ", " + mouseY);
+					}
+				}
+				catch
+				{ }
+
 				if (this.MouseShakeIndex != -1)
 				{
 					if (
@@ -141,9 +151,9 @@ namespace Charlotte
 				{
 					Icon nextIcon;
 
-					if (this.MouseStayMillis < 30000)
+					if (this.MouseStayMillis < Gnd.MouseStayTimeoutMillis)
 					{
-						nextIcon = Gnd.Icons[this.MouseStayMillis / 3000];
+						nextIcon = Gnd.Icons[(10 * this.MouseStayMillis) / Gnd.MouseStayTimeoutMillis];
 					}
 					else
 					{
