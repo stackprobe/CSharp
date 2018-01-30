@@ -38,6 +38,10 @@ namespace Charlotte
 			}
 		}
 
+		// 設定ここから
+
 		public string FirstLineComment = "このファイルは " + Program.APP_TITLE + " のデータ・ファイルです。妄りに編集しないで下さい。";
+
+		// 設定ここまで
 	}
 }
