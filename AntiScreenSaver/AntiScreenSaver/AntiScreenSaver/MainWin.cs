@@ -92,6 +92,7 @@ namespace Charlotte
 				int mouseX = Cursor.Position.X;
 				int mouseY = Cursor.Position.Y;
 
+#if false
 				try // test
 				{
 					using (System.IO.StreamWriter writer = new System.IO.StreamWriter(@"C:\temp\AntiScreenSaver_Mouse.log", true, Encoding.ASCII))
@@ -101,6 +102,7 @@ namespace Charlotte
 				}
 				catch
 				{ }
+#endif
 
 				if (this.MouseShakeIndex != -1)
 				{
