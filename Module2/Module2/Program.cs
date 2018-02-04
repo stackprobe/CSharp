@@ -51,6 +51,11 @@ namespace Charlotte
 			// }
 		}
 
+		public static void PostMessage(object message)
+		{
+			// noop ???
+		}
+
 		private static void Main2()
 		{
 			//new FilingCase3Test().Test01();

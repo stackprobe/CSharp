@@ -56,6 +56,11 @@ namespace Charlotte
 			procMutex.Close();
 		}
 
+		public static void PostMessage(object message)
+		{
+			// noop ???
+		}
+
 		public const string APP_IDENT = "{cb133c0e-badf-4af9-81ae-fc50bd1ffc79}";
 		public const string APP_TITLE = "TTTT";
 

@@ -32,13 +32,13 @@ namespace Charlotte.Tools
 			return new WorkingDir(this.MakePath());
 		}
 
-		private long MakePath_Count = 0;
+		private long MakePathCounter = 0;
 
 		public string MakePath()
 		{
 			//return this.GetPath(Guid.NewGuid().ToString("B"));
 			//return this.GetPath(SecurityTools.MakePassword_9A());
-			return this.GetPath("$" + this.MakePath_Count++);
+			return this.GetPath("$" + this.MakePathCounter++);
 		}
 
 		public string GetPath(string localName)
@@ -48,12 +48,19 @@ namespace Charlotte.Tools
 
 		public void Dispose()
 		{
-			try
+			if (this.Dir != null)
 			{
-				Directory.Delete(this.Dir, true);
+				try
+				{
+					Directory.Delete(this.Dir, true);
+				}
+				catch (Exception e)
+				{
+					Program.PostMessage(e);
+				}
+
+				this.Dir = null;
 			}
-			catch
-			{ }
 		}
 	}
 }

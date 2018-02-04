@@ -155,21 +155,28 @@ namespace Charlotte.Net
 
 		public void Dispose()
 		{
-			try
+			if (this.Handler != null)
 			{
-				this.Handler.Disconnect(false);
-			}
-			catch
-			{ }
+				try
+				{
+					this.Handler.Disconnect(false);
+				}
+				catch (Exception e)
+				{
+					Program.PostMessage(e);
+				}
 
-			try
-			{
-				this.Handler.Dispose();
-			}
-			catch
-			{ }
+				try
+				{
+					this.Handler.Dispose();
+				}
+				catch (Exception e)
+				{
+					Program.PostMessage(e);
+				}
 
-			this.Handler = null;
+				this.Handler = null;
+			}
 		}
 	}
 }

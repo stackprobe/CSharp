@@ -34,6 +34,11 @@ namespace Charlotte
 #endif
 		}
 
+		public static void PostMessage(object message)
+		{
+			// noop ???
+		}
+
 		public const string APP_IDENT = "{22eda4a5-9029-4bf3-b8d8-c687a5729ec3}";
 		public const string APP_TITLE = "CCCC";
 
