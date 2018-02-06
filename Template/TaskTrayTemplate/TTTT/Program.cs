@@ -56,9 +56,30 @@ namespace Charlotte
 			procMutex.Close();
 		}
 
+		public static readonly object MessageList_SYNCROOT = new object();
+		public static List<object> MessageList = new List<object>();
+
 		public static void PostMessage(object message)
 		{
-			// noop ???
+			lock (MessageList_SYNCROOT)
+			{
+				if (10 <= MessageList.Count)
+				{
+					MessageList.Clear();
+					MessageList.Add(new OverflowException());
+				}
+				MessageList.Add(message);
+			}
+		}
+
+		public static object[] GetMessages()
+		{
+			lock (MessageList_SYNCROOT)
+			{
+				object[] ret = MessageList.ToArray();
+				MessageList.Clear();
+				return ret;
+			}
 		}
 
 		public const string APP_IDENT = "{cb133c0e-badf-4af9-81ae-fc50bd1ffc79}";

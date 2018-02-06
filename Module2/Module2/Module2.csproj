@@ -82,6 +82,7 @@
     <Compile Include="Tools\SecurityTools.cs" />
     <Compile Include="Tools\StringTools.cs" />
     <Compile Include="Tools\WorkingDir.cs" />
+    <Compile Include="Tools\XmlNode.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

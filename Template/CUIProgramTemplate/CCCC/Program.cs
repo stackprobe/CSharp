@@ -15,6 +15,8 @@ namespace Charlotte
 			{
 				OnBoot();
 
+				Gnd.I = new Gnd();
+
 				if (1 <= args.Length && args[0].ToUpper() == "//R")
 				{
 					Main2(File.ReadAllLines(args[1], Encoding.GetEncoding(932)));
@@ -27,16 +29,16 @@ namespace Charlotte
 			catch (Exception e)
 			{
 				Console.WriteLine(e);
-			}
 #if DEBUG
-			Console.WriteLine("Press ENTER");
-			Console.ReadLine();
+				Console.WriteLine("Press ENTER");
+				Console.ReadLine();
 #endif
+			}
 		}
 
 		public static void PostMessage(object message)
 		{
-			// noop ???
+			Console.WriteLine("[TRACE] " + message);
 		}
 
 		public const string APP_IDENT = "{22eda4a5-9029-4bf3-b8d8-c687a5729ec3}";
@@ -51,9 +53,29 @@ namespace Charlotte
 			SelfDir = Path.GetDirectoryName(SelfFile);
 		}
 
+		private static bool ArgIs(Queue<string> argq, string ptn)
+		{
+			if (1 <= argq.Count && argq.Peek().ToUpper() == ptn.ToUpper())
+			{
+				argq.Dequeue();
+				return true;
+			}
+			return false;
+		}
+
 		private static void Main2(string[] args)
 		{
-			System.Windows.Forms.MessageBox.Show("a");
+			Queue<string> argq = new Queue<string>(args);
+
+			while (1 <= argq.Count)
+			{
+				if (ArgIs(argq, "/Dummy"))
+				{
+					Gnd.I.Dummy = argq.Dequeue();
+					continue;
+				}
+				throw new Exception("不明な引数が指定されました。" + argq.Peek());
+			}
 		}
 	}
 }

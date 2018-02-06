@@ -7,6 +7,8 @@ namespace Charlotte
 {
 	public class Gnd
 	{
-		public static string Dummy = "Dummy";
+		public static Gnd I;
+
+		public string Dummy = "Dummy";
 	}
 }

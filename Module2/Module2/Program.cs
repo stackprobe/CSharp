@@ -27,7 +27,7 @@ namespace Charlotte
 
 			// 初期化 {
 
-			WorkingDir.Root = WorkingDir.CreateRoot();
+			WorkingDir.Root = WorkingDir.CreateProcessRoot();
 
 			// }
 
