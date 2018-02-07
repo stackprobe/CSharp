@@ -9,7 +9,7 @@ namespace Charlotte.Tools
 	{
 		public static long ToSec(long dateTime)
 		{
-			if (dateTime < 10000101000000L || 99991231235959L < dateTime)
+			if (dateTime < 10000101000000L || 99991231235959L < dateTime) // d4y
 				return 0L;
 
 			int s = (int)(dateTime % 100L);
@@ -24,7 +24,7 @@ namespace Charlotte.Tools
 			int y = (int)(dateTime / 100L);
 
 			if (
-				y < 1000 || 9999 < y ||
+				y < 1000 || 9999 < y || // d4y
 				m < 1 || 12 < m ||
 				d < 1 || 31 < d ||
 				h < 0 || 23 < h ||
@@ -72,7 +72,7 @@ namespace Charlotte.Tools
 		public static long ToDateTime(long sec)
 		{
 			if (sec < 0L)
-				return 10000101000000L;
+				return 10000101000000L; // d4y
 
 			int s = (int)(sec % 60L);
 			sec /= 60L;
@@ -111,14 +111,14 @@ namespace Charlotte.Tools
 			day %= 31;
 			d = day + 1;
 
-			if (y < 1000)
-				return 10000101000000L;
+			if (y < 1000) // d4y
+				return 10000101000000L; // d4y
 
 			if (9999 < y)
 				return 99991231235959L;
 
 			if (
-				//y < 1000 || 9999 < y ||
+				//y < 1000 || 9999 < y || // d4y
 				m < 1 || 12 < m ||
 				d < 1 || 31 < d ||
 				h < 0 || 23 < h ||

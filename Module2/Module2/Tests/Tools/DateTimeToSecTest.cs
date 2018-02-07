@@ -10,9 +10,9 @@ namespace Charlotte.Tests.Tools
 	{
 		public void Test01()
 		{
-			Test01_a(10000101000000L, 90001231235959L, 86400 * 7);
-			Test01_a(19000101000000L, 21001231235959L, 3600);
-			Test01_a(19990101000000L, 20011231235959L, 60);
+			Test01_a(10000101000000L, 90001231235959L, 864000L);
+			Test01_a(19000101000000L, 21001231235959L, 3600L);
+			Test01_a(19990101000000L, 20011231235959L, 60L);
 
 			{
 				long sec = DateTimeToSec.ToSec(10000101000003L);
@@ -84,12 +84,12 @@ namespace Charlotte.Tests.Tools
 			}
 		}
 
-		private void Test01_a(long minDateTime, long maxDateTime, int maxStep)
+		private void Test01_a(long minDateTime, long maxDateTime, long maxStep)
 		{
 			long dateTime = minDateTime;
 			long sec = DateTimeToSec.ToSec(dateTime);
 
-			if (AddSecToDateTime_LongSec(10101000000L, sec) != dateTime)
+			if (AddSecToDateTime(10101000000L, sec) != dateTime)
 				throw null;
 
 			do
@@ -103,7 +103,7 @@ namespace Charlotte.Tests.Tools
 				if (dateTime != rDateTime)
 					throw null;
 
-				int step = SecurityTools.CRandom.GetRange(1, maxStep);
+				long step = SecurityTools.CRandom.GetRange64(1L, maxStep);
 
 				sec += step;
 				dateTime = AddSecToDateTime(dateTime, step);
@@ -111,19 +111,22 @@ namespace Charlotte.Tests.Tools
 			while (dateTime <= maxDateTime);
 		}
 
-		private long AddSecToDateTime_LongSec(long dateTime, long sec)
+		private long AddSecToDateTime(long dateTime, long sec)
 		{
-			while (1L <= sec)
+			if (sec < (long)IntTools.IMAX)
 			{
-				int step = (int)Math.Min((long)IntTools.IMAX, sec);
-
-				dateTime = AddSecToDateTime(dateTime, step);
-				sec -= step;
+				dateTime = AddSecToDateTime_Main(dateTime, (int)sec);
+			}
+			else
+			{
+				dateTime = AddSecToDateTime(dateTime, sec / 2L);
+				dateTime = AddSecToDateTime(dateTime, sec / 2L);
+				dateTime = AddSecToDateTime(dateTime, sec % 2L);
 			}
 			return dateTime;
 		}
 
-		private long AddSecToDateTime(long dateTime, int sec)
+		private long AddSecToDateTime_Main(long dateTime, int sec)
 		{
 			int s = (int)(dateTime % 100L);
 			dateTime /= 100L;
