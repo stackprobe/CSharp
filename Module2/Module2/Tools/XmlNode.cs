@@ -131,20 +131,30 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public XmlNode Get(string name)
+		public XmlNode Get(string path)
 		{
-			return this.Collect(name)[0];
+			return this.Collect(path)[0];
 		}
 
-		public XmlNode[] Collect(string name)
+		public XmlNode[] Collect(string path)
 		{
 			List<XmlNode> dest = new List<XmlNode>();
-
-			foreach (XmlNode child in this.Children)
-				if (child.Name == name)
-					dest.Add(child);
-
+			this.Collect(path.Split('/'), 0, dest);
 			return dest.ToArray();
+		}
+
+		private void Collect(string[] ptkns, int index, List<XmlNode> dest)
+		{
+			if (index < ptkns.Length)
+			{
+				foreach (XmlNode child in this.Children)
+					if (child.Name == ptkns[index])
+						child.Collect(ptkns, index + 1, dest);
+			}
+			else
+			{
+				dest.Add(this);
+			}
 		}
 	}
 }

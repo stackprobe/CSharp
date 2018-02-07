@@ -68,6 +68,7 @@
     <Compile Include="Net\SockClient.cs" />
     <Compile Include="Tests\Net\FilingCase3Test.cs" />
     <Compile Include="Tests\Tools\DateTimeToSecTest.cs" />
+    <Compile Include="Tests\Tools\StringToolsTest.cs" />
     <Compile Include="Tools\CsvFileReader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Tools\DateTimeToSec.cs" />
     <Compile Include="Tools\FileTools.cs" />
     <Compile Include="Tools\IntTools.cs" />
+    <Compile Include="Tools\ProcessTools.cs" />
     <Compile Include="Tools\Random.cs" />
     <Compile Include="Tools\SecurityTools.cs" />
     <Compile Include="Tools\StringTools.cs" />
