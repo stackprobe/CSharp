@@ -37,5 +37,10 @@ namespace Charlotte.Tests.Tools
 				if (encl.Inner != "EnclosedByDiv_03") throw null;
 			}
 		}
+
+		public void Test02()
+		{
+			Console.WriteLine("" + StringTools.Comp("deymd", "dsymd"));
+		}
 	}
 }

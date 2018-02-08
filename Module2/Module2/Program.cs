@@ -64,6 +64,8 @@ namespace Charlotte
 			//new Test01().Main01();
 			//new Test01().Main02();
 			//new StringToolsTest().Test01();
+			//new StringToolsTest().Test02();
+			//new ArrayToolsTest().Test01();
 		}
 	}
 }
