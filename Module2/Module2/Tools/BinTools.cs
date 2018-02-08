@@ -20,16 +20,7 @@ namespace Charlotte.Tools
 
 		public static int Comp(byte[] a, byte[] b)
 		{
-			int minlen = Math.Min(a.Length, b.Length);
-
-			for (int index = 0; index < minlen; index++)
-			{
-				int ret = Comp(a[index], b[index]);
-
-				if (ret != 0)
-					return ret;
-			}
-			return IntTools.Comp(a.Length, b.Length);
+			return ArrayTools.Comp(a, b, Comp);
 		}
 	}
 }
