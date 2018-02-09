@@ -34,13 +34,18 @@ namespace Charlotte.Tests.Tools
 		{
 			string[] a = MakeRandStrings(count, cpCount);
 			string[] b = new string[count];
+			string[] c = new string[count];
 
 			Array.Copy(a, b, count);
+			Array.Copy(a, c, count);
 
 			Sort_A(a);
 			Sort_B(b);
+			Sort_C(c);
 
 			Test01_Check(a, b);
+			//Test01_Check(a, c);
+			Test01_Check(b, c);
 		}
 
 		private string[] MakeRandStrings(int count, int cpCount)
@@ -75,6 +80,45 @@ namespace Charlotte.Tests.Tools
 				lines.Length,
 				(int a, int b) => StringTools.Comp(lines[a], lines[b]),
 				(int a, int b) => ArrayTools.Swap(lines, a, b)
+				);
+		}
+
+		private void Sort_C(string[] lines)
+		{
+			string store = null;
+
+			ArrayTools.Sort_Retractable(
+				lines.Length,
+				(int a, int b) => StringTools.Comp(lines[a], lines[b]),
+				(int a, int b) =>
+				{
+					if (a == -1)
+					{
+						if (b == -1) throw null;
+						if (store == null) throw null; // 元
+						if (lines[b] != null) throw null; // 先
+
+						lines[b] = store;
+						store = null;
+					}
+					else if (b == -1)
+					{
+						//if (a == -1) throw null;
+						if (lines[a] == null) throw null; // 元
+						if (store != null) throw null; // 先
+
+						store = lines[a];
+						lines[a] = null;
+					}
+					else
+					{
+						if (lines[a] == null) throw null; // 元
+						if (lines[b] != null) throw null; // 先
+
+						lines[b] = lines[a];
+						lines[a] = null;
+					}
+				}
 				);
 		}
 

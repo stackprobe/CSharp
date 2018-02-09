@@ -57,6 +57,45 @@ namespace Charlotte.Tools
 			}
 		}
 
+		public static void Sort_Retractable(int count, Comparison<int> comp, Action<int, int> move)
+		{
+			int[] order = new int[count];
+
+			for (int index = 0; index < count; index++)
+				order[index] = index;
+
+			Array.Sort<int>(order, delegate(int a, int b)
+			{
+				if (a == b)
+					return 0;
+
+				return comp(a, b);
+			});
+
+			for (int index = 0; index < count; index++)
+			{
+				if (order[index] != -1 && order[index] != index)
+				{
+					move(index, -1);
+
+					for (; ; )
+					{
+						int prev = index;
+
+						index = order[index];
+						order[prev] = -1;
+
+						if (order[index] == -1)
+						{
+							move(-1, prev);
+							break;
+						}
+						move(index, prev);
+					}
+				}
+			}
+		}
+
 		public static int IndexOf<T>(T[] arr, T ferret, Comparison<T> comp, int defval = -1)
 		{
 			for (int index = 0; index < arr.Length; index++)

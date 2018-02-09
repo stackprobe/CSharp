@@ -25,11 +25,9 @@ namespace Charlotte
 			SelfFile = Assembly.GetEntryAssembly().Location;
 			SelfDir = Path.GetDirectoryName(SelfFile);
 
-			// 初期化 {
 
 			WorkingDir.Root = WorkingDir.CreateProcessRoot();
 
-			// }
 
 			try
 			{
@@ -43,12 +41,9 @@ namespace Charlotte
 			Console.WriteLine("Press ENTER to exit.");
 			Console.ReadLine();
 
-			// 後片付け {
 
 			WorkingDir.Root.Dispose();
 			WorkingDir.Root = null;
-
-			// }
 		}
 
 		public static void PostMessage(object message)
@@ -60,12 +55,12 @@ namespace Charlotte
 		{
 			//new FilingCase3Test().Test01();
 			//new WorkingDirTest().Test01();
-			new DateTimeToSecTest().Test01();
+			//new DateTimeToSecTest().Test01();
 			//new Test01().Main01();
 			//new Test01().Main02();
 			//new StringToolsTest().Test01();
 			//new StringToolsTest().Test02();
-			//new ArrayToolsTest().Test01();
+			new ArrayToolsTest().Test01();
 		}
 	}
 }
