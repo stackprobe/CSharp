@@ -34,18 +34,25 @@ namespace Charlotte.Tests.Tools
 		{
 			string[] a = MakeRandStrings(count, cpCount);
 			string[] b = new string[count];
+			string[] b2 = new string[count];
 			string[] c = new string[count];
 
 			Array.Copy(a, b, count);
+			Array.Copy(a, b2, count);
 			Array.Copy(a, c, count);
 
 			Sort_A(a);
 			Sort_B(b);
+			Sort_B2(b2);
 			Sort_C(c);
 
 			Test01_Check(a, b);
-			//Test01_Check(a, c);
-			Test01_Check(b, c);
+			Test01_Check(a, b2);
+			Test01_Check(a, c);
+
+			//Test01_Check(b, b2);
+			//Test01_Check(b, c);
+			//Test01_Check(b2, c);
 		}
 
 		private string[] MakeRandStrings(int count, int cpCount)
@@ -77,6 +84,15 @@ namespace Charlotte.Tests.Tools
 		private void Sort_B(string[] lines)
 		{
 			ArrayTools.Sort(
+				lines.Length,
+				(int a, int b) => StringTools.Comp(lines[a], lines[b]),
+				(int a, int b) => ArrayTools.Swap(lines, a, b)
+				);
+		}
+
+		private void Sort_B2(string[] lines)
+		{
+			ArrayTools.Annex.Sort2(
 				lines.Length,
 				(int a, int b) => StringTools.Comp(lines[a], lines[b]),
 				(int a, int b) => ArrayTools.Swap(lines, a, b)
@@ -120,6 +136,8 @@ namespace Charlotte.Tests.Tools
 					}
 				}
 				);
+
+			if (store != null) throw null;
 		}
 
 		private void Test01_Check(string[] a, string[] b)
