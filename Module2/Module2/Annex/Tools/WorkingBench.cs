@@ -8,91 +8,92 @@ using System.Threading;
 
 namespace Charlotte.Annex.Tools
 {
-	public class WorkingBench : IDisposable
+	public class WorkingBench
 	{
-		private const int W_DIR_MAX = 20;
+		private const int TIME_SECTION_HOURS = 1;
 
-		private string Dir;
-		private Mutex GlobalMtx;
+		private long TIME_SECTION_TICKS
+		{
+			get { return TIME_SECTION_HOURS * 60L * 60L * 10000000L; }
+		}
+
+		private string RootDir;
+		private string CurrDir;
+		private string NextDir;
+		private string PrevDir;
 
 		public WorkingBench(string ident)
 		{
 			ident = IdentFilter(ident);
 
-			for (int c = 0; c < W_DIR_MAX; c++)
-			{
-				try
-				{
-					using (new MSection(TryOpenGlobalMtx(ident + c)))
-					{
-						DeleteDirectory_If_Exists(GetWorkingDirectory(ident, c));
-					}
-				}
-				catch
-				{ }
-			}
-			int millis = 0;
+			this.RootDir = Path.Combine(Environment.GetEnvironmentVariable("TMP"), ident);
 
-			for (; ; )
+			long h = DateTime.Now.Ticks / TIME_SECTION_TICKS;
+
+			this.CurrDir = Path.Combine(this.RootDir, h.ToString());
+			this.NextDir = Path.Combine(this.RootDir, (h + 1).ToString());
+			this.PrevDir = Path.Combine(this.RootDir, (h - 1).ToString());
+
+			using (Mutex m = new Mutex(false, ident))
+			using (new MSection(m))
 			{
-				for (int c = 0; c < W_DIR_MAX; c++)
+				CreateDirectory_If_Not_Exists(this.RootDir);
+				CreateDirectory_If_Not_Exists(this.CurrDir);
+				CreateDirectory_If_Not_Exists(this.NextDir);
+				CreateDirectory_If_Not_Exists(this.PrevDir);
+
+				foreach (string dir in Directory.GetDirectories(this.RootDir))
 				{
 					try
 					{
-						this.GlobalMtx = TryOpenGlobalMtx(ident + c);
+						long d = long.Parse(Path.GetFileName(dir));
 
-						try
+						if (d < h - 1 || h + 1 < d)
 						{
-							this.Dir = GetWorkingDirectory(ident, c);
-
-							DeleteDirectory_If_Exists(this.Dir);
-							CreateDirectory(this.Dir);
-
-							return;
+							throw null;
 						}
-						catch
-						{ }
-
-						CloseGlobalMtx(this.GlobalMtx);
-
-						this.GlobalMtx = null;
 					}
 					catch
-					{ }
+					{
+						try { Directory.Delete(dir, true); }
+						catch { }
+					}
 				}
-				if (millis < 2000)
-					millis++;
-
-				Thread.Sleep(millis);
 			}
-		}
-
-		private static string GetWorkingDirectory(string ident, int c)
-		{
-			return Path.Combine(Environment.GetEnvironmentVariable("TMP"), ident + "_" + c);
 		}
 
 		public string MakePath()
 		{
-			return this.GetPath(Guid.NewGuid().ToString("B"));
+			return Path.Combine(this.CurrDir, Guid.NewGuid().ToString("B"));
 		}
 
 		public string GetPath(string localName)
 		{
-			return Path.Combine(this.Dir, localName);
+			CheckFairIdent(localName);
+
+			return Path.Combine(this.CurrDir, localName);
 		}
 
-		public void Dispose()
+		public string FindFileOrDirectory(string localName)
 		{
-			if (this.GlobalMtx != null)
+			CheckFairIdent(localName);
+
+			foreach (string dir in new string[]
 			{
-				try { Directory.Delete(this.Dir, true); }
-				catch { }
+				this.CurrDir,
+				this.PrevDir,
+				this.NextDir,
+			})
+			{
+				string path = Path.Combine(dir, localName);
 
-				CloseGlobalMtx(this.GlobalMtx);
-
-				this.GlobalMtx = null;
+				if (
+					File.Exists(path) ||
+					Directory.Exists(path)
+					)
+					return path;
 			}
+			return null;
 		}
 
 		private class MSection : IDisposable
@@ -102,75 +103,28 @@ namespace Charlotte.Annex.Tools
 			public MSection(Mutex m)
 			{
 				_m = m;
+				_m.WaitOne();
 			}
 
 			public void Dispose()
 			{
 				if (_m != null)
 				{
-					CloseGlobalMtx(_m);
-
+					_m.ReleaseMutex();
 					_m = null;
 				}
 			}
 		}
 
-		private static Mutex TryOpenGlobalMtx(string ident)
+		private static void CreateDirectory_If_Not_Exists(string dir)
 		{
-			Mutex m = null;
-
-			try
+			if (Directory.Exists(dir) == false)
 			{
-				m = new Mutex(false, @"Global\Global_" + ident); // 別ユーザーによって作成されている場合、権限が無くて例外を投げることがある。
-
-				if (m.WaitOne(0))
-					return m;
-			}
-			catch
-			{ }
-
-			CloseGlobalMtx(m);
-
-			throw new Exception("ミューテックスの取得に失敗しました。");
-		}
-
-		private static void CloseGlobalMtx(Mutex m)
-		{
-			try { m.ReleaseMutex(); }
-			catch { }
-
-			try { m.Close(); }
-			catch { }
-		}
-
-		public static void DeleteDirectory_If_Exists(string dir)
-		{
-			if (Directory.Exists(dir))
-			{
-				DeleteDirectory(dir);
+				CreateDirectory(dir);
 			}
 		}
 
-		public static void DeleteDirectory(string dir)
-		{
-			for (int c = 0; c < 10; c++)
-			{
-				try
-				{
-					Directory.Delete(dir, true);
-				}
-				catch
-				{ }
-
-				if (Directory.Exists(dir) == false)
-					return;
-
-				Thread.Sleep(c * 100);
-			}
-			throw new Exception("ディレクトリ \"" + dir + "\" の削除に失敗しました。");
-		}
-
-		public static void CreateDirectory(string dir)
+		private static void CreateDirectory(string dir)
 		{
 			for (int c = 0; c < 10; c++)
 			{
@@ -203,13 +157,21 @@ namespace Charlotte.Annex.Tools
 			return ident;
 		}
 
+		private static void CheckFairIdent(string ident)
+		{
+			if (IsFairIdent(ident) == false)
+			{
+				throw new Exception("128ビットのハッシュ値やUUIDなどの文字列を使用して下さい。");
+			}
+		}
+
 		private static bool IsFairIdent(string format)
 		{
-			if (format.Length < 1 || 40 < format.Length)
+			if (format.Length < 1 || 50 < format.Length)
 				return false;
 
 			foreach (char chr in
-				"{-}" +
+				"_{-}" +
 				"012345678" +
 				"ABCDEF" +
 				"abcdef"

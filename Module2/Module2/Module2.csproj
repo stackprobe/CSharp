@@ -63,12 +63,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Annex\Tools\TimedSectionalDirectories_Ring.cs" />
-    <Compile Include="Annex\Tools\TimedSectionalDirectories.cs" />
     <Compile Include="Net\FilingCase3.cs" />
     <Compile Include="Net\FilingCase3Client.cs" />
     <Compile Include="Net\SockClient.cs" />
-    <Compile Include="Tests\Annex\Tools\TimedSectionalDirectoriesTest.cs" />
     <Compile Include="Tests\Net\FilingCase3Test.cs" />
     <Compile Include="Tests\Tools\ArrayToolsTest.cs" />
     <Compile Include="Tests\Tools\DateTimeToSecTest.cs" />
