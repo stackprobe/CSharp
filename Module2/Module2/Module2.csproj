@@ -63,13 +63,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Annex\Tools\TimedSectionalDirectories_Ring.cs" />
+    <Compile Include="Annex\Tools\TimedSectionalDirectories.cs" />
     <Compile Include="Net\FilingCase3.cs" />
     <Compile Include="Net\FilingCase3Client.cs" />
     <Compile Include="Net\SockClient.cs" />
+    <Compile Include="Tests\Annex\Tools\TimedSectionalDirectoriesTest.cs" />
     <Compile Include="Tests\Net\FilingCase3Test.cs" />
     <Compile Include="Tests\Tools\ArrayToolsTest.cs" />
     <Compile Include="Tests\Tools\DateTimeToSecTest.cs" />
     <Compile Include="Tests\Tools\StringToolsTest.cs" />
+    <Compile Include="Tests\Annex\Tools\WorkingBenchTest.cs" />
     <Compile Include="Tools\ArrayTools.cs" />
     <Compile Include="Tools\CsvFileReader.cs" />
     <Compile Include="Program.cs" />
@@ -85,6 +89,7 @@
     <Compile Include="Tools\Random.cs" />
     <Compile Include="Tools\SecurityTools.cs" />
     <Compile Include="Tools\StringTools.cs" />
+    <Compile Include="Annex\Tools\WorkingBench.cs" />
     <Compile Include="Tools\WorkingDir.cs" />
     <Compile Include="Tools\XmlNode.cs" />
   </ItemGroup>

@@ -9,6 +9,7 @@ using Charlotte.Tests.Tools;
 using Charlotte.Tools;
 using Charlotte.Tests;
 using Charlotte.Tests.Net;
+using Charlotte.Tests.Annex.Tools;
 
 namespace Charlotte
 {
@@ -25,9 +26,10 @@ namespace Charlotte
 			SelfFile = Assembly.GetEntryAssembly().Location;
 			SelfDir = Path.GetDirectoryName(SelfFile);
 
-
-			WorkingDir.Root = WorkingDir.CreateProcessRoot();
-
+			// init
+			{
+				WorkingDir.Root = WorkingDir.CreateProcessRoot();
+			}
 
 			try
 			{
@@ -41,9 +43,11 @@ namespace Charlotte
 			Console.WriteLine("Press ENTER to exit.");
 			Console.ReadLine();
 
-
-			WorkingDir.Root.Dispose();
-			WorkingDir.Root = null;
+			// fnlz
+			{
+				WorkingDir.Root.Dispose();
+				WorkingDir.Root = null;
+			}
 		}
 
 		public static void PostMessage(object message)
@@ -61,6 +65,9 @@ namespace Charlotte
 			//new StringToolsTest().Test01();
 			//new StringToolsTest().Test02();
 			new ArrayToolsTest().Test01();
+			//new WorkingBenchTest().Test01();
+			//new WorkingBenchTest().Test02();
+			//new TimedSectionalDirectoriesTest().Test01();
 		}
 	}
 }
