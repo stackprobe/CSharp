@@ -72,5 +72,18 @@ namespace Charlotte.Tests
 
 			Console.WriteLine("---- 04");
 		}
+
+		public void Main03()
+		{
+			{
+				int a = 1;
+
+				if (
+					int.TryParse("2", out a) &&
+					a == 2
+					)
+					Console.WriteLine("OK");
+			}
+		}
 	}
 }

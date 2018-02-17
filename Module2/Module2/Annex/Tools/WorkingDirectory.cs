@@ -5,16 +5,19 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
+using System.Security.AccessControl;
+using System.Security.Principal;
+using System.Text.RegularExpressions;
 
 namespace Charlotte.Annex.Tools
 {
-	public class WorkingBench
+	public class WorkingDirectory : IDisposable
 	{
-		private const int TIME_SECTION_HOURS = 1;
+		private int TimeoutSec;
 
-		private long TIME_SECTION_TICKS
+		private long TimeoutTicks
 		{
-			get { return TIME_SECTION_HOURS * 60L * 60L * 10000000L; }
+			get { return this.TimeoutSec * 10000000L; }
 		}
 
 		private string RootDir;
@@ -22,20 +25,21 @@ namespace Charlotte.Annex.Tools
 		private string NextDir;
 		private string PrevDir;
 
-		public WorkingBench(string ident)
+		public WorkingDirectory(string ident, int timeoutSec = 3600 * 2)
 		{
 			ident = IdentFilter(ident);
 
+			this.TimeoutSec = Math.Max(1, timeoutSec);
+
 			this.RootDir = Path.Combine(Environment.GetEnvironmentVariable("TMP"), ident);
 
-			long h = DateTime.Now.Ticks / TIME_SECTION_TICKS;
+			long h = DateTime.Now.Ticks / this.TimeoutTicks;
 
 			this.CurrDir = Path.Combine(this.RootDir, h.ToString());
 			this.NextDir = Path.Combine(this.RootDir, (h + 1).ToString());
 			this.PrevDir = Path.Combine(this.RootDir, (h - 1).ToString());
 
-			using (Mutex m = new Mutex(false, ident))
-			using (new MSection(m))
+			using (new GlobalMtxSection(ident))
 			{
 				CreateDirectory_If_Not_Exists(this.RootDir);
 				CreateDirectory_If_Not_Exists(this.CurrDir);
@@ -44,16 +48,9 @@ namespace Charlotte.Annex.Tools
 
 				foreach (string dir in Directory.GetDirectories(this.RootDir))
 				{
-					try
-					{
-						long d = long.Parse(Path.GetFileName(dir));
+					long d;
 
-						if (d < h - 1 || h + 1 < d)
-						{
-							throw null;
-						}
-					}
-					catch
+					if (long.TryParse(Path.GetFileName(dir), out d) == false || d < h - 1 || h + 1 < d)
 					{
 						try { Directory.Delete(dir, true); }
 						catch { }
@@ -61,6 +58,9 @@ namespace Charlotte.Annex.Tools
 				}
 			}
 		}
+
+		public void Dispose()
+		{ }
 
 		public string MakePath()
 		{
@@ -96,24 +96,69 @@ namespace Charlotte.Annex.Tools
 			return null;
 		}
 
-		private class MSection : IDisposable
+		private class GlobalMtxSection : IDisposable
 		{
 			private Mutex _m;
 
-			public MSection(Mutex m)
+			public GlobalMtxSection(string ident)
 			{
-				_m = m;
-				_m.WaitOne();
+				int millis = 0;
+
+				for (; ; )
+				{
+					try
+					{
+						MutexSecurity security = new MutexSecurity();
+
+						security.AddAccessRule(
+							new MutexAccessRule(
+								new SecurityIdentifier(
+									WellKnownSidType.WorldSid,
+									null
+									),
+								MutexRights.FullControl,
+								AccessControlType.Allow
+								)
+							);
+
+						bool createdNew;
+						_m = new Mutex(false, @"Global\Global_" + ident, out createdNew, security);
+
+						if (_m.WaitOne())
+							return;
+					}
+					catch (Exception e)
+					{
+						Program.PostMessage(e);
+					}
+
+					CloseGlobalMtx(_m);
+					_m = null;
+
+					if (millis < 2000)
+						millis++;
+
+					Thread.Sleep(millis);
+				}
 			}
 
 			public void Dispose()
 			{
 				if (_m != null)
 				{
-					_m.ReleaseMutex();
+					CloseGlobalMtx(_m);
 					_m = null;
 				}
 			}
+		}
+
+		private static void CloseGlobalMtx(Mutex m)
+		{
+			try { m.ReleaseMutex(); }
+			catch { }
+
+			try { m.Close(); }
+			catch { }
 		}
 
 		private static void CreateDirectory_If_Not_Exists(string dir)
@@ -165,23 +210,24 @@ namespace Charlotte.Annex.Tools
 			}
 		}
 
-		private static bool IsFairIdent(string format)
+		private static bool IsFairIdent(string ident)
 		{
-			if (format.Length < 1 || 50 < format.Length)
+			if (ident.Length < 1 || 50 < ident.Length)
 				return false;
 
-			foreach (char chr in
+			string ALLOW_CHRS =
 				"_{-}" +
-				"012345678" +
-				"ABCDEF" +
-				"abcdef"
-				)
-				format = format.Replace(chr, '9');
+				"0123456789" +
+				//"ABCDEF" +
+				//"abcdef";
+				"ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+				"abcdefghijklmnopqrstuvwxyz";
 
-			for (int c = 0; c < 10; c++)
-				format = format.Replace("99", "9");
+			foreach (char chr in ident)
+				if (ALLOW_CHRS.Contains(chr) == false)
+					return false;
 
-			return format == "9";
+			return true;
 		}
 	}
 }
