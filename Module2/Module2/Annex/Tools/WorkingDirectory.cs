@@ -102,9 +102,7 @@ namespace Charlotte.Annex.Tools
 
 			public GlobalMtxSection(string ident)
 			{
-				int millis = 0;
-
-				for (; ; )
+				for (int c = 0; ; c++)
 				{
 					try
 					{
@@ -126,6 +124,8 @@ namespace Charlotte.Annex.Tools
 
 						if (_m.WaitOne())
 							return;
+
+						Program.PostMessage(new Exception());
 					}
 					catch (Exception e)
 					{
@@ -135,10 +135,10 @@ namespace Charlotte.Annex.Tools
 					CloseGlobalMtx(_m);
 					_m = null;
 
-					if (millis < 2000)
-						millis++;
+					if (8 < c)
+						throw new Exception("Globalミューテックスの作成に失敗しました。");
 
-					Thread.Sleep(millis);
+					//Thread.Sleep(100);
 				}
 			}
 
@@ -173,12 +173,8 @@ namespace Charlotte.Annex.Tools
 		{
 			for (int c = 0; c < 10; c++)
 			{
-				try
-				{
-					Directory.CreateDirectory(dir);
-				}
-				catch
-				{ }
+				try { Directory.CreateDirectory(dir); }
+				catch { }
 
 				if (Directory.Exists(dir))
 					return;
@@ -204,7 +200,7 @@ namespace Charlotte.Annex.Tools
 
 		private static void CheckFairIdent(string ident)
 		{
-			if (IsFairIdent(ident) == false)
+			if (ident == null || IsFairIdent(ident) == false)
 			{
 				throw new Exception("128ビットのハッシュ値やUUIDなどの文字列を使用して下さい。");
 			}

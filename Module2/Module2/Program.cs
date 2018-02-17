@@ -26,7 +26,7 @@ namespace Charlotte
 			SelfFile = Assembly.GetEntryAssembly().Location;
 			SelfDir = Path.GetDirectoryName(SelfFile);
 
-			// init
+			// 初期化
 			{
 				WorkingDir.Root = WorkingDir.CreateProcessRoot();
 			}
@@ -43,7 +43,7 @@ namespace Charlotte
 			Console.WriteLine("Press ENTER to exit.");
 			Console.ReadLine();
 
-			// fnlz
+			// 後片付け
 			{
 				WorkingDir.Root.Dispose();
 				WorkingDir.Root = null;
@@ -52,7 +52,7 @@ namespace Charlotte
 
 		public static void PostMessage(object message)
 		{
-			// noop ???
+			Console.WriteLine("[TRACE] " + message);
 		}
 
 		private static void Main2()

@@ -84,6 +84,44 @@ namespace Charlotte.Tests
 					)
 					Console.WriteLine("OK");
 			}
+
+			// ----
+
+			try
+			{
+				throw new Exception("aaa");
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
+
+			try
+			{
+				throw new Exception("aaa", null);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
+
+			try
+			{
+				throw new Exception("aaa", new Exception("bbb"));
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
+
+			try
+			{
+				throw new Exception("aaa", new Exception("bbb", null));
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
 		}
 	}
 }

@@ -15,38 +15,46 @@ namespace Charlotte.Tools
 			{
 				for (int c = 1; ; c++)
 				{
+					Exception ex = null;
+
 					try
 					{
 						File.Delete(path);
 					}
-					catch
-					{ }
+					catch (Exception e)
+					{
+						ex = e;
+					}
 
 					if (File.Exists(path) == false)
 						break;
 
 					if (10 <= c)
-						throw new Exception("ファイルを削除出来ません。" + path);
+						throw new Exception("ファイルを削除出来ません。" + path, ex);
 
 					Thread.Sleep(c * 100);
 				}
 			}
-			else
+			else if (Directory.Exists(path))
 			{
 				for (int c = 1; ; c++)
 				{
+					Exception ex = null;
+
 					try
 					{
 						Directory.Delete(path, true);
 					}
-					catch
-					{ }
+					catch (Exception e)
+					{
+						ex = e;
+					}
 
 					if (Directory.Exists(path) == false)
 						break;
 
 					if (10 <= c)
-						throw new Exception("ディレクトリを削除出来ません。" + path);
+						throw new Exception("ディレクトリを削除出来ません。" + path, ex);
 
 					Thread.Sleep(c * 100);
 				}
@@ -57,18 +65,22 @@ namespace Charlotte.Tools
 		{
 			for (int c = 1; ; c++)
 			{
+				Exception ex = null;
+
 				try
 				{
 					Directory.CreateDirectory(dir);
 				}
-				catch
-				{ }
+				catch (Exception e)
+				{
+					ex = e;
+				}
 
 				if (Directory.Exists(dir))
 					break;
 
 				if (10 <= c)
-					throw new Exception("ディレクトリを作成出来ません。" + dir);
+					throw new Exception("ディレクトリを作成出来ません。" + dir, ex);
 
 				Thread.Sleep(c * 100);
 			}
