@@ -66,8 +66,9 @@ namespace Charlotte
 			//new StringToolsTest().Test01();
 			//new StringToolsTest().Test02();
 			//new ArrayToolsTest().Test01();
-			new WorkingDirectoryTest().Test01();
-			//new WorkingDirectoryTest().Test02();
+			//new TimeLimitedTempDirTest().Test01();
+			//new TimeLimitedTempDirTest().Test02();
+			new TimeLimitedTempDirTest().Test03();
 		}
 	}
 }

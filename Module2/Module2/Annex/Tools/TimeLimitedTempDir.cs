@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 
 namespace Charlotte.Annex.Tools
 {
-	public class WorkingDirectory : IDisposable
+	public class TimeLimitedTempDir
 	{
 		private int TimeoutSec;
 
@@ -25,7 +25,7 @@ namespace Charlotte.Annex.Tools
 		private string NextDir;
 		private string PrevDir;
 
-		public WorkingDirectory(string ident, int timeoutSec = 3600 * 2)
+		public TimeLimitedTempDir(string ident, int timeoutSec = 3600 * 2)
 		{
 			ident = IdentFilter(ident);
 
@@ -39,7 +39,7 @@ namespace Charlotte.Annex.Tools
 			this.NextDir = Path.Combine(this.RootDir, (h + 1).ToString());
 			this.PrevDir = Path.Combine(this.RootDir, (h - 1).ToString());
 
-			using (new GlobalMtxSection(ident))
+			using (new AtomicSection(ident))
 			{
 				CreateDirectory_If_Not_Exists(this.RootDir);
 				CreateDirectory_If_Not_Exists(this.CurrDir);
@@ -58,9 +58,6 @@ namespace Charlotte.Annex.Tools
 				}
 			}
 		}
-
-		public void Dispose()
-		{ }
 
 		public string MakePath()
 		{
@@ -96,16 +93,17 @@ namespace Charlotte.Annex.Tools
 			return null;
 		}
 
-		private class GlobalMtxSection : IDisposable
+		private class AtomicSection : IDisposable
 		{
 			private Mutex _m;
 
-			public GlobalMtxSection(string ident)
+			public AtomicSection(string ident)
 			{
 				for (int c = 0; ; c++)
 				{
 					try
 					{
+#if true // Global
 						MutexSecurity security = new MutexSecurity();
 
 						security.AddAccessRule(
@@ -121,6 +119,9 @@ namespace Charlotte.Annex.Tools
 
 						bool createdNew;
 						_m = new Mutex(false, @"Global\Global_" + ident, out createdNew, security);
+#else // Local
+						_m = new Mutex(false, ident);
+#endif
 
 						if (_m.WaitOne())
 							return;
@@ -132,13 +133,13 @@ namespace Charlotte.Annex.Tools
 						Program.PostMessage(e);
 					}
 
-					CloseGlobalMtx(_m);
+					CloseMutex(_m);
 					_m = null;
 
 					if (8 < c)
-						throw new Exception("Globalミューテックスの作成に失敗しました。");
+						throw new Exception("ミューテックスの作成に失敗しました。");
 
-					//Thread.Sleep(100);
+					Thread.Sleep(100);
 				}
 			}
 
@@ -146,13 +147,13 @@ namespace Charlotte.Annex.Tools
 			{
 				if (_m != null)
 				{
-					CloseGlobalMtx(_m);
+					CloseMutex(_m);
 					_m = null;
 				}
 			}
 		}
 
-		private static void CloseGlobalMtx(Mutex m)
+		private static void CloseMutex(Mutex m)
 		{
 			try { m.ReleaseMutex(); }
 			catch { }
