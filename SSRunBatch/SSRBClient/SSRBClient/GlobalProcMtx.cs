@@ -53,11 +53,11 @@ namespace Charlotte
 					if (ProcMtx.WaitOne(0))
 						break;
 
-					//Program.PostMessage(new Exception());
+					Program.PostMessage(new Exception());
 				}
-				catch //(Exception e)
+				catch (Exception e)
 				{
-					//Program.PostMessage(e);
+					Program.PostMessage(e);
 				}
 
 				CloseProcMtx();

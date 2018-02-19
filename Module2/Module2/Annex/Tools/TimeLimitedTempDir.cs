@@ -126,11 +126,11 @@ namespace Charlotte.Annex.Tools
 						if (_m.WaitOne())
 							return;
 
-						Program.PostMessage(new Exception());
+						WriteLog(new Exception());
 					}
 					catch (Exception e)
 					{
-						Program.PostMessage(e);
+						WriteLog(e);
 					}
 
 					CloseMutex(_m);
@@ -139,7 +139,7 @@ namespace Charlotte.Annex.Tools
 					if (8 < c)
 						throw new Exception("ミューテックスの作成に失敗しました。");
 
-					Thread.Sleep(100);
+					Catnap();
 				}
 			}
 
@@ -151,6 +151,14 @@ namespace Charlotte.Annex.Tools
 					_m = null;
 				}
 			}
+		}
+
+		private static void WriteLog(object message)
+		{ }
+
+		private static void Catnap()
+		{
+			Thread.Sleep(100);
 		}
 
 		private static void CloseMutex(Mutex m)

@@ -55,6 +55,9 @@ namespace Charlotte
 			procMutex.Close();
 		}
 
+		public static void PostMessage(object message)
+		{ }
+
 		public const string APP_IDENT = "{40d6bc7d-352a-416b-8fae-7a639e07035e}";
 		public const string APP_TITLE = "SSRBClient";
 
