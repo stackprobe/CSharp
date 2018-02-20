@@ -122,6 +122,89 @@ namespace Charlotte.Tests
 			{
 				Console.WriteLine(ex);
 			}
+
+			// ----
+
+			Console.WriteLine("----");
+
+			using (null)
+			{
+				Console.WriteLine("a");
+			}
+
+			Console.WriteLine("----");
+
+			using (GetNullOfIDisposable())
+			{
+				Console.WriteLine("a");
+			}
+
+			Console.WriteLine("----");
+
+			try
+			{
+				Console.WriteLine("IDisposableCtorThrowException before using");
+				using (new IDisposableCtorThrowException())
+				{
+					Console.WriteLine("IDisposableCtorThrowException inside using");
+				}
+				Console.WriteLine("IDisposableCtorThrowException after using");
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+			}
+
+			Console.WriteLine("----");
+
+			try
+			{
+				Console.WriteLine("IDisposableDisposeThrowException before using");
+				using (new IDisposableDisposeThrowException())
+				{
+					Console.WriteLine("IDisposableDisposeThrowException inside using");
+				}
+				Console.WriteLine("IDisposableDisposeThrowException after using");
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+			}
+
+			Console.WriteLine("----");
+		}
+
+		private IDisposable GetNullOfIDisposable()
+		{
+			return null;
+		}
+
+		private class IDisposableCtorThrowException : IDisposable
+		{
+			public IDisposableCtorThrowException()
+			{
+				Console.WriteLine("IDisposableCtorThrowException.Ctor");
+				throw new Exception("IDisposableCtorThrowException.EXCEPTION");
+			}
+
+			public void Dispose()
+			{
+				Console.WriteLine("IDisposableCtorThrowException.Dispose");
+			}
+		}
+
+		private class IDisposableDisposeThrowException : IDisposable
+		{
+			public IDisposableDisposeThrowException()
+			{
+				Console.WriteLine("IDisposableDisposeThrowException.Ctor");
+			}
+
+			public void Dispose()
+			{
+				Console.WriteLine("IDisposableDisposeThrowException.Dispose");
+				throw new Exception("IDisposableDisposeThrowException.EXCEPTION");
+			}
 		}
 	}
 }
