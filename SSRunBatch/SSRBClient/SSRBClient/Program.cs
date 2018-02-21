@@ -58,7 +58,7 @@ namespace Charlotte
 		public static void PostMessage(object message)
 		{ }
 
-		public const string APP_IDENT = "{40d6bc7d-352a-416b-8fae-7a639e07035e}";
+		public const string APP_IDENT = "{464b32e2-76db-4c49-b080-f335b7192655}";
 		public const string APP_TITLE = "SSRBClient";
 
 		private static void ApplicationThreadException(object sender, ThreadExceptionEventArgs e)
