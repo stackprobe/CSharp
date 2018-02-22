@@ -83,7 +83,6 @@ namespace Charlotte
 			psi.UseShellExecute = false;
 			psi.WorkingDirectory = workDir;
 
-#if true
 			{
 				Process p = Process.Start(psi);
 
@@ -111,9 +110,6 @@ namespace Charlotte
 					}
 				}
 			}
-#else // old
-			Process.Start(psi).WaitForExit();
-#endif
 
 			this.SendUInt((uint)recvFileNum);
 
@@ -125,7 +121,18 @@ namespace Charlotte
 				this.SendLine(Path.GetFileName(file));
 				this.SendData(fileData);
 			}
-			string[] outLines = File.ReadAllLines(outFile, Consts.ENCODING_SJIS);
+			string[] outLines;
+
+			try // Try twice
+			{
+				outLines = File.ReadAllLines(outFile, Consts.ENCODING_SJIS);
+			}
+			catch
+			{
+				Thread.Sleep(100);
+				outLines = File.ReadAllLines(outFile, Consts.ENCODING_SJIS);
+			}
+
 			this.SendUInt((uint)outLines.Length);
 
 			foreach (string outLine in outLines)
@@ -133,20 +140,14 @@ namespace Charlotte
 				this.SendLine(outLine);
 			}
 
-			try // Try delete workDir
+			try // Try twice
 			{
 				Directory.Delete(workDir, true);
 			}
 			catch
 			{
 				Thread.Sleep(100);
-
-				try
-				{
-					Directory.Delete(workDir, true);
-				}
-				catch
-				{ }
+				Directory.Delete(workDir, true);
 			}
 
 			Logger.WriteLine("End");
