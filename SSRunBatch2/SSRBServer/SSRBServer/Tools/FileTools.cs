@@ -100,5 +100,20 @@ namespace Charlotte.Tools
 				}
 			}
 		}
+
+		public static void MoveDir(string rDir, string wDir)
+		{
+			Directory.CreateDirectory(wDir);
+
+			foreach (string file in Directory.GetFiles(rDir))
+			{
+				File.Move(file, Path.Combine(wDir, Path.GetFileName(file)));
+			}
+			foreach (string dir in Directory.GetDirectories(rDir))
+			{
+				MoveDir(dir, Path.Combine(wDir, Path.GetFileName(dir)));
+			}
+			Directory.Delete(rDir);
+		}
 	}
 }

@@ -62,20 +62,40 @@ namespace Charlotte
 
 			if (ar.ArgIs("/TSR"))
 			{
-				// TODO
-				return;
+				string callBatFile = ar.NextArg();
+				string tsrDir = Path.GetDirectoryName(callBatFile);
+
+				ProcessTools.Start(Path.GetFileName(callBatFile), "", tsrDir, ProcessTools.WindowStyle_e.NORMAL);
+
+				try // Try twice
+				{
+					Directory.Delete(tsrDir, true);
+				}
+				catch
+				{
+					Thread.Sleep(100);
+
+					try { Directory.Delete(tsrDir, true); }
+					catch { }
+				}
 			}
-			if (ar.ArgIs("/TSR-SERVER"))
+			else if (ar.ArgIs("/TSR-SERVER"))
 			{
-				// TODO
-				return;
+				MRecver.MRecv(
+					Consts.MSR_IDENT,
+					(string callBatFile) => ProcessTools.Start(
+						Path.GetFileName(SelfFile),
+						"/TSR \"" + callBatFile + "\"",
+						SelfDir
+						),
+					() => Gnd.I.StopTSRServer.WaitOne(0) == false
+					);
 			}
-			if (ar.ArgIs("/TSR-SERVER-S"))
+			else if (ar.ArgIs("/TSR-SERVER-S"))
 			{
 				Gnd.I.StopTSRServer.Set();
-				return;
 			}
-			if (ar.ArgIs("/SERVER"))
+			else if (ar.ArgIs("/SERVER"))
 			{
 				BatchServer server = new BatchServer(int.Parse(ar.NextArg()));
 
@@ -92,17 +112,14 @@ namespace Charlotte
 					}
 				}
 				server.SockServer.Stop_B();
-				return;
 			}
-			if (ar.ArgIs("/S"))
+			else if (ar.ArgIs("/S"))
 			{
 				Gnd.I.StopServer.Set();
-				return;
 			}
-			if (ar.ArgIs("/A"))
+			else if (ar.ArgIs("/A"))
 			{
 				Gnd.I.AbandonCurrentRunningBatch.Set();
-				return;
 			}
 		}
 	}

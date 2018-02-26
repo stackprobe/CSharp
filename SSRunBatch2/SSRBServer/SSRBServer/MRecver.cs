@@ -1,0 +1,86 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+
+namespace Charlotte
+{
+	public class MRecver
+	{
+		public static void MRecv(string ident, Action<string> recved, Func<bool> getAlive)
+		{
+			Mutex[] hdls = new Mutex[6];
+			try
+			{
+				for (int i = 0; i < hdls.Length; i++)
+					hdls[i] = new Mutex(false, ident + i);
+
+				hdls[3].WaitOne();
+
+				List<byte> buff = new List<byte>();
+				byte chr = 0x00;
+				int waitCount = 1;
+
+				for (int i = 0, c = 0; getAlive(); )
+				{
+					int n = (c + 1) % 3;
+
+					hdls[3 + n].WaitOne();
+					hdls[3 + c].ReleaseMutex();
+
+					bool bit = !hdls[n].WaitOne(0);
+
+					if (!bit)
+						hdls[n].ReleaseMutex();
+
+					if (waitCount <= 0)
+					{
+						if (bit)
+							chr |= (byte)(1 << i);
+
+						if (8 <= ++i)
+						{
+							if (chr == 0x00)
+							{
+								recved(Encoding.UTF8.GetString(buff.ToArray()));
+								buff.Clear();
+								waitCount = 1;
+							}
+							else
+								buff.Add(chr);
+
+							i = 0;
+							chr = 0x00;
+						}
+					}
+					else
+					{
+						if (bit)
+						{
+							if (8 <= ++i) { i = 0; waitCount = 0; }
+						}
+						else
+						{
+							i = 0;
+							Thread.Sleep(waitCount);
+							if (waitCount < 100) waitCount++;
+						}
+					}
+					c = n;
+				}
+			}
+			finally
+			{
+				foreach (Mutex hdl in hdls)
+				{
+					try { hdl.ReleaseMutex(); }
+					catch { }
+
+					try { hdl.Close(); }
+					catch { }
+				}
+			}
+		}
+	}
+}

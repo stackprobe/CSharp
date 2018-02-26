@@ -64,12 +64,6 @@ namespace Charlotte
 			{
 				commands[index] = this.RecvLine();
 			}
-
-			if (commands[0] == "REM SSRunBatch_Meta=TSR")
-			{
-				// TODO
-			}
-
 			string uuid = Guid.NewGuid().ToString("B");
 			string batFile = Path.Combine(workDir, uuid + "_Run.bat");
 			string outFile = Path.Combine(workDir, uuid + "_Run.out");
@@ -77,6 +71,26 @@ namespace Charlotte
 
 			File.WriteAllLines(batFile, commands, StringTools.ENCODING_SJIS);
 			File.WriteAllLines(callBatFile, new string[] { "> " + Path.GetFileName(outFile) + " CALL " + Path.GetFileName(batFile) }, StringTools.ENCODING_SJIS);
+
+			if (commands[0] == "REM SSRunBatch_Meta=TSR")
+			{
+				if (recvFileNum != 0)
+					throw new Exception("recvFileNum != 0");
+
+				string tsrDir = Path.Combine(Environment.GetEnvironmentVariable("TMP"), Guid.NewGuid().ToString("B"));
+				FileTools.MoveDir(workDir, tsrDir);
+				callBatFile = Path.Combine(tsrDir, Path.GetFileName(callBatFile));
+
+				MSender.MSend(Consts.MSR_IDENT, callBatFile);
+
+				this.SendUInt(0u);
+				this.SendUInt(1u);
+				this.SendLine("TSR Dummy");
+
+				Program.PostMessage("通信終了(TSR)");
+
+				return;
+			}
 
 			Gnd.I.AbandonCurrentRunningBatch.WaitOne(0);
 
