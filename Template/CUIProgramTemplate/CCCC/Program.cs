@@ -53,29 +53,9 @@ namespace Charlotte
 			SelfDir = Path.GetDirectoryName(SelfFile);
 		}
 
-		private static bool ArgIs(Queue<string> argq, string ptn)
-		{
-			if (1 <= argq.Count && argq.Peek().ToUpper() == ptn.ToUpper())
-			{
-				argq.Dequeue();
-				return true;
-			}
-			return false;
-		}
-
 		private static void Main2(string[] args)
 		{
-			Queue<string> argq = new Queue<string>(args);
-
-			while (1 <= argq.Count)
-			{
-				if (ArgIs(argq, "/Dummy"))
-				{
-					Gnd.I.Dummy = argq.Dequeue();
-					continue;
-				}
-				throw new Exception("不明な引数が指定されました。" + argq.Peek());
-			}
+			System.Windows.Forms.MessageBox.Show(APP_TITLE);
 		}
 	}
 }

@@ -62,13 +62,13 @@ namespace Charlotte
 			//new DateTimeToSecTest().Test01();
 			//new Test01().Main01();
 			//new Test01().Main02();
-			//new Test01().Main03();
+			new Test01().Main03();
 			//new StringToolsTest().Test01();
 			//new StringToolsTest().Test02();
 			//new ArrayToolsTest().Test01();
 			//new TimeLimitedTempDirTest().Test01();
 			//new TimeLimitedTempDirTest().Test02();
-			new TimeLimitedTempDirTest().Test03();
+			//new TimeLimitedTempDirTest().Test03();
 		}
 	}
 }

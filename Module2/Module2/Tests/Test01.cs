@@ -172,6 +172,16 @@ namespace Charlotte.Tests
 			}
 
 			Console.WriteLine("----");
+
+			// ----
+
+			Console.WriteLine("dw.1");
+			do
+			{
+				continue;
+			}
+			while (1 == 2);
+			Console.WriteLine("dw.2");
 		}
 
 		private IDisposable GetNullOfIDisposable()
