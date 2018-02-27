@@ -20,13 +20,20 @@ namespace Charlotte
 
 				WorkingDir.Root = WorkingDir.CreateProcessRoot();
 
-				if (1 <= args.Length && args[0].ToUpper() == "//R")
+				try
 				{
-					Main2(File.ReadAllLines(args[1], Encoding.GetEncoding(932)));
+					if (1 <= args.Length && args[0].ToUpper() == "//R")
+					{
+						Main2(File.ReadAllLines(args[1], Encoding.GetEncoding(932)));
+					}
+					else
+					{
+						Main2(args);
+					}
 				}
-				else
+				catch (Exception e)
 				{
-					Main2(args);
+					Console.WriteLine(e);
 				}
 
 				WorkingDir.Root.Dispose();

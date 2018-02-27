@@ -81,11 +81,11 @@ namespace Charlotte
 				FileTools.MoveDir(workDir, tsrDir);
 				callBatFile = Path.Combine(tsrDir, Path.GetFileName(callBatFile));
 
-				MSender.MSend(Consts.MSR_IDENT, callBatFile);
+				MSender.MSend(Consts.SERVER_2_TSR_SERVER_IDENT, MSender.Serialize(callBatFile));
 
 				this.SendUInt(0u);
 				this.SendUInt(1u);
-				this.SendLine("TSR Dummy");
+				this.SendLine("TSR OK");
 
 				Program.PostMessage("通信終了(TSR)");
 

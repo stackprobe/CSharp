@@ -6,6 +6,7 @@ using System.IO;
 using System.Reflection;
 using Charlotte.Tools;
 using System.Threading;
+using System.Diagnostics;
 
 namespace Charlotte
 {
@@ -21,13 +22,20 @@ namespace Charlotte
 
 				WorkingDir.Root = WorkingDir.CreateProcessRoot();
 
-				if (1 <= args.Length && args[0].ToUpper() == "//R")
+				try
 				{
-					Main2(File.ReadAllLines(args[1], Encoding.GetEncoding(932)));
+					if (1 <= args.Length && args[0].ToUpper() == "//R")
+					{
+						Main2(File.ReadAllLines(args[1], Encoding.GetEncoding(932)));
+					}
+					else
+					{
+						Main2(args);
+					}
 				}
-				else
+				catch (Exception e)
 				{
-					Main2(args);
+					Program.PostMessage(e);
 				}
 
 				WorkingDir.Root.Dispose();
@@ -35,13 +43,36 @@ namespace Charlotte
 			}
 			catch (Exception e)
 			{
-				Console.WriteLine(e);
+				Program.PostMessage(e);
 			}
 		}
 
 		public static void PostMessage(object message)
 		{
-			Console.WriteLine("[" + DateTime.Now + "] " + message);
+			string line = "[" + DateTime.Now + "] (PID:" + Process.GetCurrentProcess().Id + ") " + message;
+
+			Console.WriteLine(line);
+
+			using (Mutex m = new Mutex(false, "{46a0307c-0be5-40fc-b509-011bafac5329}"))
+			using (new MtxSection(m))
+			{
+				try
+				{
+					if (File.Exists(Gnd.I.LogFile) && 10000 < new FileInfo(Gnd.I.LogFile).Length) // ? 10 KB <
+					{
+						File.Delete(Gnd.I.LogFile0);
+						File.Move(Gnd.I.LogFile, Gnd.I.LogFile0);
+					}
+					using (StreamWriter writer = new StreamWriter(Gnd.I.LogFile, true, Encoding.UTF8))
+					{
+						writer.WriteLine(line);
+					}
+				}
+				catch (Exception e)
+				{
+					Console.WriteLine(e);
+				}
+			}
 		}
 
 		public const string APP_IDENT = "{ad65120b-d9a0-429a-a98e-0ccbebcfb0fd}";
@@ -65,7 +96,7 @@ namespace Charlotte
 				string callBatFile = ar.NextArg();
 				string tsrDir = Path.GetDirectoryName(callBatFile);
 
-				ProcessTools.Start(Path.GetFileName(callBatFile), "", tsrDir, ProcessTools.WindowStyle_e.NORMAL);
+				ProcessTools.Start(Path.GetFileName(callBatFile), "", tsrDir, ProcessTools.WindowStyle_e.NORMAL).WaitForExit();
 
 				try // Try twice
 				{
@@ -82,10 +113,10 @@ namespace Charlotte
 			else if (ar.ArgIs("/TSR-SERVER"))
 			{
 				MRecver.MRecv(
-					Consts.MSR_IDENT,
-					(string callBatFile) => ProcessTools.Start(
+					Consts.SERVER_2_TSR_SERVER_IDENT,
+					(byte[] bCallBatFile) => ProcessTools.Start(
 						Path.GetFileName(SelfFile),
-						"/TSR \"" + callBatFile + "\"",
+						"/TSR \"" + MRecver.Deserialize(bCallBatFile) + "\"",
 						SelfDir
 						),
 					() => Gnd.I.StopTSRServer.WaitOne(0) == false

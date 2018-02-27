@@ -7,6 +7,6 @@ namespace Charlotte
 {
 	public class Consts
 	{
-		public const string SERVER_2_TSR_SERVER_IDENT = "{cf0d2c75-d0f4-40e2-9427-8df2757be135}";
+		public static readonly Encoding ENCODING_SJIS = Encoding.GetEncoding(932);
 	}
 }

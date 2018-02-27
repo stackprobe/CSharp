@@ -1,0 +1,127 @@
+﻿namespace Charlotte
+{
+	partial class MainWin
+	{
+		/// <summary>
+		/// 必要なデザイナー変数です。
+		/// </summary>
+		private System.ComponentModel.IContainer components = null;
+
+		/// <summary>
+		/// 使用中のリソースをすべてクリーンアップします。
+		/// </summary>
+		/// <param name="disposing">マネージ リソースが破棄される場合 true、破棄されない場合は false です。</param>
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing && (components != null))
+			{
+				components.Dispose();
+			}
+			base.Dispose(disposing);
+		}
+
+		#region Windows フォーム デザイナーで生成されたコード
+
+		/// <summary>
+		/// デザイナー サポートに必要なメソッドです。このメソッドの内容を
+		/// コード エディターで変更しないでください。
+		/// </summary>
+		private void InitializeComponent()
+		{
+			this.components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWin));
+			this.TaskTrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
+			this.TTIMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.AbandonCurrentRunningBatchParentMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.AbandonCurrentRunningBatchMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.ポート番号PToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+			this.終了XToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.TTIMenu.SuspendLayout();
+			this.SuspendLayout();
+			// 
+			// TaskTrayIcon
+			// 
+			this.TaskTrayIcon.ContextMenuStrip = this.TTIMenu;
+			this.TaskTrayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("TaskTrayIcon.Icon")));
+			this.TaskTrayIcon.Text = "準備しています...";
+			// 
+			// TTIMenu
+			// 
+			this.TTIMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.AbandonCurrentRunningBatchParentMenuItem,
+            this.ポート番号PToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.終了XToolStripMenuItem});
+			this.TTIMenu.Name = "TTIMenu";
+			this.TTIMenu.Size = new System.Drawing.Size(215, 76);
+			// 
+			// AbandonCurrentRunningBatchParentMenuItem
+			// 
+			this.AbandonCurrentRunningBatchParentMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.AbandonCurrentRunningBatchMenuItem});
+			this.AbandonCurrentRunningBatchParentMenuItem.Name = "AbandonCurrentRunningBatchParentMenuItem";
+			this.AbandonCurrentRunningBatchParentMenuItem.Size = new System.Drawing.Size(214, 22);
+			this.AbandonCurrentRunningBatchParentMenuItem.Text = "子プロセスの強制終了(&A)";
+			this.AbandonCurrentRunningBatchParentMenuItem.Click += new System.EventHandler(this.AbandonCurrentRunningBatchParentMenuItem_Click);
+			// 
+			// AbandonCurrentRunningBatchMenuItem
+			// 
+			this.AbandonCurrentRunningBatchMenuItem.Name = "AbandonCurrentRunningBatchMenuItem";
+			this.AbandonCurrentRunningBatchMenuItem.Size = new System.Drawing.Size(334, 22);
+			this.AbandonCurrentRunningBatchMenuItem.Text = "現在実行中のバッチファイルを強制終了する(&A)";
+			this.AbandonCurrentRunningBatchMenuItem.Click += new System.EventHandler(this.AbandonCurrentRunningBatchMenuItem_Click);
+			// 
+			// ポート番号PToolStripMenuItem
+			// 
+			this.ポート番号PToolStripMenuItem.Name = "ポート番号PToolStripMenuItem";
+			this.ポート番号PToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+			this.ポート番号PToolStripMenuItem.Text = "ポート番号(&P)";
+			this.ポート番号PToolStripMenuItem.Click += new System.EventHandler(this.ポート番号PToolStripMenuItem_Click);
+			// 
+			// toolStripMenuItem1
+			// 
+			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(211, 6);
+			// 
+			// 終了XToolStripMenuItem
+			// 
+			this.終了XToolStripMenuItem.Name = "終了XToolStripMenuItem";
+			this.終了XToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+			this.終了XToolStripMenuItem.Text = "終了(&X)";
+			this.終了XToolStripMenuItem.Click += new System.EventHandler(this.終了XToolStripMenuItem_Click);
+			// 
+			// MainWin
+			// 
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.ClientSize = new System.Drawing.Size(284, 262);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.Location = new System.Drawing.Point(-400, -400);
+			this.MaximizeBox = false;
+			this.MinimizeBox = false;
+			this.Name = "MainWin";
+			this.ShowInTaskbar = false;
+			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+			this.Text = "WSSRBServer_MainWindow";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWin_FormClosing);
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainWin_FormClosed);
+			this.Load += new System.EventHandler(this.MainWin_Load);
+			this.Shown += new System.EventHandler(this.MainWin_Shown);
+			this.TTIMenu.ResumeLayout(false);
+			this.ResumeLayout(false);
+
+		}
+
+		#endregion
+
+		private System.Windows.Forms.NotifyIcon TaskTrayIcon;
+		private System.Windows.Forms.ContextMenuStrip TTIMenu;
+		private System.Windows.Forms.ToolStripMenuItem 終了XToolStripMenuItem;
+		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+		private System.Windows.Forms.ToolStripMenuItem ポート番号PToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem AbandonCurrentRunningBatchParentMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem AbandonCurrentRunningBatchMenuItem;
+	}
+}
+

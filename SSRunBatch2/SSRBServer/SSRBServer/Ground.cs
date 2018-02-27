@@ -11,6 +11,15 @@ namespace Charlotte
 	{
 		public static Gnd I;
 
+		public string LogFile;
+		public string LogFile0;
+
+		public Gnd()
+		{
+			this.LogFile = Path.Combine(Program.SelfDir, Path.GetFileNameWithoutExtension(Program.SelfFile) + ".log");
+			this.LogFile0 = this.LogFile + "0";
+		}
+
 		public EventWaitHandle StopServer = new EventWaitHandle(false, EventResetMode.AutoReset, "{0c9b3ba8-3e04-4c00-94f4-b0ff0510335d}");
 		public EventWaitHandle AbandonCurrentRunningBatch = new EventWaitHandle(false, EventResetMode.AutoReset, "{71c29668-24ad-4898-b607-ab19dd76c530}");
 		public EventWaitHandle StopTSRServer = new EventWaitHandle(false, EventResetMode.AutoReset, "{70ee0f1d-bf10-46eb-bd9d-4d6f85b5e656}");

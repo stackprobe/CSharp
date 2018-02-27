@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Security.Cryptography;
 
 namespace Charlotte
 {
 	public class MSender
 	{
-		public static void MSend(string ident, string message)
+		public static void MSend(string ident, byte[] message)
 		{
 			Mutex[] hdls = new Mutex[6];
 			try
@@ -21,12 +22,7 @@ namespace Charlotte
 				bool[] flgs = new bool[3];
 				int c = 0;
 
-				foreach (byte[] bMes in new byte[][]
-				{
-					new byte[] { 0xff },
-					PutCRC32(Encoding.UTF8.GetBytes(message.Replace("\0", ""))),
-					new byte[] { 0x00 },
-				})
+				foreach (byte[] bMes in new byte[][] { new byte[] { 0xff }, message, new byte[] { 0x00 } })
 				{
 					for (int i = 0; i < bMes.Length; i++)
 					{
@@ -68,9 +64,18 @@ namespace Charlotte
 			}
 		}
 
-		private static byte[] PutCRC32(byte[] bMes)
+		public static byte[] Serialize(string message)
 		{
-			return bMes; // TODO
+			byte[] b = Encoding.UTF8.GetBytes(message);
+			byte[] bh = new byte[b.Length + 16];
+
+			Array.Copy(b, bh, b.Length);
+
+			using (SHA512 ha = SHA512.Create())
+			{
+				Array.Copy(ha.ComputeHash(b), 0, bh, b.Length, 16); // += sha512_128
+			}
+			return bh;
 		}
 	}
 }

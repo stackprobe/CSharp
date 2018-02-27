@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Security.Cryptography;
+using Charlotte.Tools;
 
 namespace Charlotte
 {
 	public class MRecver
 	{
-		public static void MRecv(string ident, Action<string> recved, Func<bool> isAlive)
+		public static void MRecv(string ident, Action<byte[]> recved, Func<bool> isAlive)
 		{
 			Mutex[] hdls = new Mutex[6];
 			try
@@ -43,14 +45,9 @@ namespace Charlotte
 						{
 							if (chr == 0x00)
 							{
-								byte[] bMes = UnputCRC32(buff.ToArray());
-
-								if (bMes != null)
-								{
-									recved(Encoding.UTF8.GetString(bMes));
-									buff.Clear();
-									waitCount = 1;
-								}
+								recved(buff.ToArray());
+								buff.Clear();
+								waitCount = 1;
 							}
 							else
 								buff.Add(chr);
@@ -96,9 +93,26 @@ namespace Charlotte
 			}
 		}
 
-		private static byte[] UnputCRC32(byte[] bMes)
+		public static string Deserialize(byte[] bh)
 		{
-			return bMes; // TODO
+			byte[] b = new byte[bh.Length - 16];
+			byte[] h = new byte[16];
+
+			Array.Copy(bh, 0, b, 0, b.Length); // -= sha512_128
+			Array.Copy(bh, b.Length, h, 0, 16);
+
+			using (SHA512 ha = SHA512.Create())
+			{
+				byte[] h2 = new byte[16];
+
+				Array.Copy(ha.ComputeHash(b), h2, 16);
+
+				if (BinTools.Comp(h, h2) != 0)
+				{
+					throw new Exception("受信したメッセージは壊れています。");
+				}
+			}
+			return Encoding.UTF8.GetString(b);
 		}
 	}
 }
