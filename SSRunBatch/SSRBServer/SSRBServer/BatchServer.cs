@@ -75,15 +75,15 @@ namespace Charlotte
 			File.WriteAllLines(batFile, commands, Consts.ENCODING_SJIS);
 			File.WriteAllLines(callBatFile, new string[] { "> " + Path.GetFileName(outFile) + " CALL " + Path.GetFileName(batFile) }, Consts.ENCODING_SJIS);
 
-			ProcessStartInfo psi = new ProcessStartInfo();
-
-			psi.FileName = "cmd";
-			psi.Arguments = "/c " + Path.GetFileName(callBatFile);
-			psi.CreateNoWindow = true;
-			psi.UseShellExecute = false;
-			psi.WorkingDirectory = workDir;
-
 			{
+				ProcessStartInfo psi = new ProcessStartInfo();
+
+				psi.FileName = "cmd";
+				psi.Arguments = "/c " + Path.GetFileName(callBatFile);
+				psi.CreateNoWindow = true;
+				psi.UseShellExecute = false;
+				psi.WorkingDirectory = workDir;
+
 				Process p = Process.Start(psi);
 
 				Gnd.AbandonCurrentRunningBatchFlag = false;

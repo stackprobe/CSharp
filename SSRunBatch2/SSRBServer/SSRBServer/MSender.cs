@@ -24,31 +24,34 @@ namespace Charlotte
 				foreach (byte[] bMes in new byte[][]
 				{
 					new byte[] { 0xff },
-					Encoding.UTF8.GetBytes(message.Replace("\0", "")),
+					PutCRC32(Encoding.UTF8.GetBytes(message.Replace("\0", ""))),
 					new byte[] { 0x00 },
 				})
 				{
-					for (int i = 0; i / 8 < bMes.Length; i++)
+					for (int i = 0; i < bMes.Length; i++)
 					{
-						int n = (c + 1) % 3;
-
-						hdls[3 + n].WaitOne();
-						hdls[3 + c].ReleaseMutex();
-
-						if ((bMes[i / 8] & (1 << (i % 8))) != 0)
+						for (int bit = 0; bit < 8; bit++)
 						{
-							if (!flgs[n])
+							int n = (c + 1) % 3;
+
+							hdls[3 + n].WaitOne();
+							hdls[3 + c].ReleaseMutex();
+
+							if ((bMes[i] & (1 << (bit))) != 0)
 							{
-								hdls[n].WaitOne();
-								flgs[n] = true;
+								if (flgs[n] == false)
+								{
+									hdls[n].WaitOne();
+									flgs[n] = true;
+								}
 							}
+							else if (flgs[n])
+							{
+								hdls[n].ReleaseMutex();
+								flgs[n] = false;
+							}
+							c = n;
 						}
-						else if (flgs[n])
-						{
-							hdls[n].ReleaseMutex();
-							flgs[n] = false;
-						}
-						c = n;
 					}
 				}
 			}
@@ -63,6 +66,11 @@ namespace Charlotte
 					catch { }
 				}
 			}
+		}
+
+		private static byte[] PutCRC32(byte[] bMes)
+		{
+			return bMes; // TODO
 		}
 	}
 }

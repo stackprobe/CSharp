@@ -8,7 +8,7 @@ namespace Charlotte
 {
 	public class MRecver
 	{
-		public static void MRecv(string ident, Action<string> recved, Func<bool> getAlive)
+		public static void MRecv(string ident, Action<string> recved, Func<bool> isAlive)
 		{
 			Mutex[] hdls = new Mutex[6];
 			try
@@ -22,30 +22,35 @@ namespace Charlotte
 				byte chr = 0x00;
 				int waitCount = 1;
 
-				for (int i = 0, c = 0; getAlive(); )
+				for (int i = 0, c = 0; isAlive(); )
 				{
 					int n = (c + 1) % 3;
 
 					hdls[3 + n].WaitOne();
 					hdls[3 + c].ReleaseMutex();
 
-					bool bit = !hdls[n].WaitOne(0);
+					bool nBit = hdls[n].WaitOne(0);
 
-					if (!bit)
+					if (nBit)
 						hdls[n].ReleaseMutex();
 
 					if (waitCount <= 0)
 					{
-						if (bit)
+						if (nBit == false)
 							chr |= (byte)(1 << i);
 
-						if (8 <= ++i)
+						if (7 <= i)
 						{
 							if (chr == 0x00)
 							{
-								recved(Encoding.UTF8.GetString(buff.ToArray()));
-								buff.Clear();
-								waitCount = 1;
+								byte[] bMes = UnputCRC32(buff.ToArray());
+
+								if (bMes != null)
+								{
+									recved(Encoding.UTF8.GetString(bMes));
+									buff.Clear();
+									waitCount = 1;
+								}
 							}
 							else
 								buff.Add(chr);
@@ -53,19 +58,27 @@ namespace Charlotte
 							i = 0;
 							chr = 0x00;
 						}
+						else
+							i++;
 					}
 					else
 					{
-						if (bit)
-						{
-							if (8 <= ++i) { i = 0; waitCount = 0; }
-						}
-						else
+						if (nBit)
 						{
 							i = 0;
+
 							Thread.Sleep(waitCount);
-							if (waitCount < 100) waitCount++;
+
+							if (waitCount < 100)
+								waitCount++;
 						}
+						else if (7 <= i)
+						{
+							i = 0;
+							waitCount = 0;
+						}
+						else
+							i++;
 					}
 					c = n;
 				}
@@ -81,6 +94,11 @@ namespace Charlotte
 					catch { }
 				}
 			}
+		}
+
+		private static byte[] UnputCRC32(byte[] bMes)
+		{
+			return bMes; // TODO
 		}
 	}
 }
