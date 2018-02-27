@@ -30,14 +30,14 @@ namespace Charlotte
 			{
 				if (GlobalProcMtx.Create(APP_IDENT, APP_TITLE))
 				{
-					CheckSelfDir();
+					CheckSelfFile();
 					Directory.SetCurrentDirectory(SelfDir);
+					CheckAloneExe();
 					CheckLogonUserAndTmp();
 
-					Gnd.SettingFile = Path.Combine(SelfDir, Path.GetFileNameWithoutExtension(SelfFile) + ".dat");
-					Gnd.Load(Gnd.SettingFile);
+					Gnd.I = new Gnd();
 
-					Gnd.StartServer();
+					Gnd.I.Load(Gnd.I.SettingFile);
 
 					// orig >
 
@@ -47,9 +47,7 @@ namespace Charlotte
 
 					// < orig
 
-					Gnd.StopServer();
-
-					Gnd.Save(Gnd.SettingFile);
+					Gnd.I.Save(Gnd.I.SettingFile);
 
 					GlobalProcMtx.Release();
 				}
@@ -58,10 +56,33 @@ namespace Charlotte
 			procMutex.Close();
 		}
 
-		public static void PostMessage(object message)
-		{ }
+		public static readonly object MessageList_SYNCROOT = new object();
+		public static List<object> MessageList = new List<object>();
 
-		public const string APP_IDENT = "{f0bdb92b-c8f4-492b-b1e6-f5029744f5fd}";
+		public static void PostMessage(object message)
+		{
+			lock (MessageList_SYNCROOT)
+			{
+				if (10 <= MessageList.Count)
+				{
+					MessageList.Clear();
+					MessageList.Add(new OverflowException());
+				}
+				MessageList.Add(message);
+			}
+		}
+
+		public static object[] GetMessages()
+		{
+			lock (MessageList_SYNCROOT)
+			{
+				object[] ret = MessageList.ToArray();
+				MessageList.Clear();
+				return ret;
+			}
+		}
+
+		public const string APP_IDENT = "{40d6bc7d-352a-416b-8fae-7a639e07035e}";
 		public const string APP_TITLE = "WSSRBServer";
 
 		private static void ApplicationThreadException(object sender, ThreadExceptionEventArgs e)
@@ -112,12 +133,12 @@ namespace Charlotte
 			SelfDir = Path.GetDirectoryName(SelfFile);
 		}
 
-		private static void CheckSelfDir()
+		private static void CheckSelfFile()
 		{
-			string dir = SelfDir;
+			string file = SelfFile;
 			Encoding SJIS = Encoding.GetEncoding(932);
 
-			if (dir != SJIS.GetString(SJIS.GetBytes(dir)))
+			if (file != SJIS.GetString(SJIS.GetBytes(file)))
 			{
 				MessageBox.Show(
 					"Shift_JIS に変換出来ない文字を含むパスからは実行できません。",
@@ -128,7 +149,7 @@ namespace Charlotte
 
 				Environment.Exit(4);
 			}
-			if (dir.Substring(1, 2) != ":\\")
+			if (file.Substring(1, 2) != ":\\")
 			{
 				MessageBox.Show(
 					"ネットワークパスからは実行できません。",
@@ -139,6 +160,24 @@ namespace Charlotte
 
 				Environment.Exit(5);
 			}
+		}
+
+		private static void CheckAloneExe()
+		{
+			if (File.Exists("WSSRBServer.sig")) // リリースに含まれるファイル
+				return;
+
+			if (Directory.Exists(@"..\Debug")) // ? devenv
+				return;
+
+			MessageBox.Show(
+				"WHY AM I ALONE ?",
+				"",
+				MessageBoxButtons.OK,
+				MessageBoxIcon.Error
+				);
+
+			Environment.Exit(6);
 		}
 
 		private static void CheckLogonUserAndTmp()

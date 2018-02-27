@@ -3,57 +3,48 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
-using System.Diagnostics;
 
 namespace Charlotte
 {
 	public class Gnd
 	{
-		public static string SettingFile;
+		public static Gnd I;
 
-		public static void Load(string file)
+		public string SettingFile = Path.Combine(Program.SelfDir, Path.GetFileNameWithoutExtension(Program.SelfFile) + ".dat");
+
+		public void Load(string file)
 		{
-			if (File.Exists(file) == false)
-				return;
+			try
+			{
+				string[] lines = File.ReadAllLines(file, Encoding.UTF8);
+				int c = 0;
 
-			string[] lines = File.ReadAllLines(file, Encoding.UTF8);
-			int c = 0;
-
-			PortNo = int.Parse(lines[c++]);
-			// 新しい設定項目をここへ追加...
+				this.PortNo = int.Parse(lines[c++]);
+				this.MainWin_Minimized = int.Parse(lines[c++]) != 0;
+				// 新しい項目をここへ追加...
+			}
+			catch
+			{ }
 		}
 
-		public static void Save(string file)
+		public void Save(string file)
 		{
-			List<string> lines = new List<string>();
+			{
+				List<string> lines = new List<string>();
 
-			lines.Add("" + PortNo);
-			// 新しい設定項目をここへ追加...
+				lines.Add("" + this.PortNo);
+				lines.Add("" + (this.MainWin_Minimized ? 1 : 0));
+				// 新しい項目をここへ追加...
 
-			File.WriteAllLines(file, lines, Encoding.UTF8);
+				File.WriteAllLines(file, lines, Encoding.UTF8);
+			}
 		}
 
 		// 設定ここから
 
-		public static int PortNo = 55985;
+		public int PortNo = 55985;
+		public bool MainWin_Minimized = false;
 
 		// 設定ここまで
-
-		public static Process TSRServerProc;
-		public static Process ServerProc;
-
-		public static void StartServer()
-		{
-			TSRServerProc = SSRBServerProc.StartTSRServer();
-			ServerProc = SSRBServerProc.StartServer();
-		}
-
-		public static void StopServer()
-		{
-			using (StopServerDlg f = new StopServerDlg())
-			{
-				f.ShowDialog();
-			}
-		}
 	}
 }

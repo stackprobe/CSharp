@@ -28,100 +28,116 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWin));
-			this.TaskTrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
-			this.TTIMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-			this.AbandonCurrentRunningBatchParentMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.AbandonCurrentRunningBatchMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.ポート番号PToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+			this.MainOutput = new System.Windows.Forms.TextBox();
+			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+			this.アプリケーションAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.終了XToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.TTIMenu.SuspendLayout();
+			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+			this.Status = new System.Windows.Forms.ToolStripStatusLabel();
+			this.EastStatus = new System.Windows.Forms.ToolStripStatusLabel();
+			this.menuStrip1.SuspendLayout();
+			this.statusStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
-			// TaskTrayIcon
+			// MainOutput
 			// 
-			this.TaskTrayIcon.ContextMenuStrip = this.TTIMenu;
-			this.TaskTrayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("TaskTrayIcon.Icon")));
-			this.TaskTrayIcon.Text = "準備しています...";
+			this.MainOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.MainOutput.Location = new System.Drawing.Point(12, 27);
+			this.MainOutput.Multiline = true;
+			this.MainOutput.Name = "MainOutput";
+			this.MainOutput.Size = new System.Drawing.Size(600, 389);
+			this.MainOutput.TabIndex = 1;
+			this.MainOutput.TextChanged += new System.EventHandler(this.MainOutput_TextChanged);
 			// 
-			// TTIMenu
+			// menuStrip1
 			// 
-			this.TTIMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.AbandonCurrentRunningBatchParentMenuItem,
-            this.ポート番号PToolStripMenuItem,
-            this.toolStripMenuItem1,
+			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.アプリケーションAToolStripMenuItem});
+			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+			this.menuStrip1.Name = "menuStrip1";
+			this.menuStrip1.Size = new System.Drawing.Size(624, 24);
+			this.menuStrip1.TabIndex = 0;
+			this.menuStrip1.Text = "menuStrip1";
+			// 
+			// アプリケーションAToolStripMenuItem
+			// 
+			this.アプリケーションAToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.終了XToolStripMenuItem});
-			this.TTIMenu.Name = "TTIMenu";
-			this.TTIMenu.Size = new System.Drawing.Size(215, 76);
-			// 
-			// AbandonCurrentRunningBatchParentMenuItem
-			// 
-			this.AbandonCurrentRunningBatchParentMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.AbandonCurrentRunningBatchMenuItem});
-			this.AbandonCurrentRunningBatchParentMenuItem.Name = "AbandonCurrentRunningBatchParentMenuItem";
-			this.AbandonCurrentRunningBatchParentMenuItem.Size = new System.Drawing.Size(214, 22);
-			this.AbandonCurrentRunningBatchParentMenuItem.Text = "子プロセスの強制終了(&A)";
-			this.AbandonCurrentRunningBatchParentMenuItem.Click += new System.EventHandler(this.AbandonCurrentRunningBatchParentMenuItem_Click);
-			// 
-			// AbandonCurrentRunningBatchMenuItem
-			// 
-			this.AbandonCurrentRunningBatchMenuItem.Name = "AbandonCurrentRunningBatchMenuItem";
-			this.AbandonCurrentRunningBatchMenuItem.Size = new System.Drawing.Size(334, 22);
-			this.AbandonCurrentRunningBatchMenuItem.Text = "現在実行中のバッチファイルを強制終了する(&A)";
-			this.AbandonCurrentRunningBatchMenuItem.Click += new System.EventHandler(this.AbandonCurrentRunningBatchMenuItem_Click);
-			// 
-			// ポート番号PToolStripMenuItem
-			// 
-			this.ポート番号PToolStripMenuItem.Name = "ポート番号PToolStripMenuItem";
-			this.ポート番号PToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
-			this.ポート番号PToolStripMenuItem.Text = "ポート番号(&P)";
-			this.ポート番号PToolStripMenuItem.Click += new System.EventHandler(this.ポート番号PToolStripMenuItem_Click);
-			// 
-			// toolStripMenuItem1
-			// 
-			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-			this.toolStripMenuItem1.Size = new System.Drawing.Size(211, 6);
+			this.アプリケーションAToolStripMenuItem.Name = "アプリケーションAToolStripMenuItem";
+			this.アプリケーションAToolStripMenuItem.Size = new System.Drawing.Size(104, 20);
+			this.アプリケーションAToolStripMenuItem.Text = "アプリケーション(&A)";
 			// 
 			// 終了XToolStripMenuItem
 			// 
 			this.終了XToolStripMenuItem.Name = "終了XToolStripMenuItem";
-			this.終了XToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+			this.終了XToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.終了XToolStripMenuItem.Text = "終了(&X)";
 			this.終了XToolStripMenuItem.Click += new System.EventHandler(this.終了XToolStripMenuItem_Click);
 			// 
+			// statusStrip1
+			// 
+			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Status,
+            this.EastStatus});
+			this.statusStrip1.Location = new System.Drawing.Point(0, 419);
+			this.statusStrip1.Name = "statusStrip1";
+			this.statusStrip1.Size = new System.Drawing.Size(624, 22);
+			this.statusStrip1.TabIndex = 2;
+			this.statusStrip1.Text = "statusStrip1";
+			// 
+			// Status
+			// 
+			this.Status.Name = "Status";
+			this.Status.Size = new System.Drawing.Size(549, 17);
+			this.Status.Spring = true;
+			this.Status.Text = "Status";
+			this.Status.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// EastStatus
+			// 
+			this.EastStatus.Name = "EastStatus";
+			this.EastStatus.Size = new System.Drawing.Size(60, 17);
+			this.EastStatus.Text = "EastStatus";
+			// 
 			// MainWin
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(284, 262);
+			this.ClientSize = new System.Drawing.Size(624, 441);
+			this.Controls.Add(this.MainOutput);
+			this.Controls.Add(this.menuStrip1);
+			this.Controls.Add(this.statusStrip1);
+			this.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.Location = new System.Drawing.Point(-400, -400);
-			this.MaximizeBox = false;
-			this.MinimizeBox = false;
+			this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.Name = "MainWin";
-			this.ShowInTaskbar = false;
-			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-			this.Text = "WSSRBServer_MainWindow";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			this.Text = "SSRBServer2";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWin_FormClosing);
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainWin_FormClosed);
 			this.Load += new System.EventHandler(this.MainWin_Load);
 			this.Shown += new System.EventHandler(this.MainWin_Shown);
-			this.TTIMenu.ResumeLayout(false);
+			this.menuStrip1.ResumeLayout(false);
+			this.menuStrip1.PerformLayout();
+			this.statusStrip1.ResumeLayout(false);
+			this.statusStrip1.PerformLayout();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
 		#endregion
 
-		private System.Windows.Forms.NotifyIcon TaskTrayIcon;
-		private System.Windows.Forms.ContextMenuStrip TTIMenu;
+		private System.Windows.Forms.TextBox MainOutput;
+		private System.Windows.Forms.MenuStrip menuStrip1;
+		private System.Windows.Forms.ToolStripMenuItem アプリケーションAToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem 終了XToolStripMenuItem;
-		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
-		private System.Windows.Forms.ToolStripMenuItem ポート番号PToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem AbandonCurrentRunningBatchParentMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem AbandonCurrentRunningBatchMenuItem;
+		private System.Windows.Forms.StatusStrip statusStrip1;
+		private System.Windows.Forms.ToolStripStatusLabel Status;
+		private System.Windows.Forms.ToolStripStatusLabel EastStatus;
 	}
 }
 
