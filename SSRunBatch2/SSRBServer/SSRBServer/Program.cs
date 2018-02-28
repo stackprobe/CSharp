@@ -111,6 +111,8 @@ namespace Charlotte
 			}
 			else if (ar.ArgIs("/TSR-SERVER"))
 			{
+				Gnd.I.StopTSRServer.WaitOne(0); // reset
+
 				Program.PostMessage("/TSR-SERVER Started");
 
 				MRecver.MRecv(
@@ -131,6 +133,8 @@ namespace Charlotte
 			}
 			else if (ar.ArgIs("/SERVER"))
 			{
+				Gnd.I.StopServer.WaitOne(0); // reset
+
 				Program.PostMessage("/SERVER Starting...");
 				BatchServer server = new BatchServer(int.Parse(ar.NextArg()));
 				Program.PostMessage("/SERVER Started");

@@ -67,13 +67,18 @@ namespace Charlotte
 		public static byte[] Serialize(string message)
 		{
 			byte[] b = Encoding.UTF8.GetBytes(message);
-			byte[] bh = new byte[b.Length + 32]; // message + sha512_128
+			byte[] bh = new byte[b.Length + 4]; // message + sha512_28
 
 			Array.Copy(b, bh, b.Length);
 
 			using (SHA512 ha = SHA512.Create())
 			{
-				Array.Copy(Encoding.ASCII.GetBytes(BitConverter.ToString(ha.ComputeHash(b)).Replace("-", "").ToLower()), 0, bh, b.Length, 32); // FIXME
+				byte[] h = ha.ComputeHash(b);
+
+				bh[bh.Length - 4] = (byte)(h[0] | 0x80);
+				bh[bh.Length - 3] = (byte)(h[1] | 0x80);
+				bh[bh.Length - 2] = (byte)(h[2] | 0x80);
+				bh[bh.Length - 1] = (byte)(h[3] | 0x80);
 			}
 			return bh;
 		}

@@ -93,26 +93,21 @@ namespace Charlotte
 			}
 		}
 
-		public static string Deserialize(byte[] bh) // bh == message + sha512_128
+		public static string Deserialize(byte[] bh) // bh == message + sha512_28
 		{
-			byte[] b = new byte[bh.Length - 32];
-			byte[] h = new byte[32];
-
-			Array.Copy(bh, 0, b, 0, b.Length);
-			Array.Copy(bh, b.Length, h, 0, 32);
-
 			using (SHA512 ha = SHA512.Create())
 			{
-				byte[] h2 = new byte[32];
+				byte[] h = ha.ComputeHash(bh, 0, bh.Length - 4);
 
-				Array.Copy(Encoding.ASCII.GetBytes(BitConverter.ToString(ha.ComputeHash(b)).Replace("-", "").ToLower()), h2, 32); // FIXME
-
-				if (BinTools.Comp(h, h2) != 0)
-				{
+				if (
+					bh[bh.Length - 4] != (byte)(h[0] | 0x80) ||
+					bh[bh.Length - 3] != (byte)(h[1] | 0x80) ||
+					bh[bh.Length - 2] != (byte)(h[2] | 0x80) ||
+					bh[bh.Length - 1] != (byte)(h[3] | 0x80)
+					)
 					throw new Exception("受信したメッセージは壊れています。");
-				}
 			}
-			return Encoding.UTF8.GetString(b);
+			return Encoding.UTF8.GetString(bh, 0, bh.Length - 4);
 		}
 	}
 }

@@ -14,6 +14,8 @@ namespace Charlotte
 	{
 		#region ALT_F4 抑止
 
+		private bool XPressed = false;
+
 		[SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.UnmanagedCode)]
 		protected override void WndProc(ref Message m)
 		{
@@ -21,8 +23,10 @@ namespace Charlotte
 			const long SC_CLOSE = 0xF060L;
 
 			if (m.Msg == WM_SYSCOMMAND && (m.WParam.ToInt64() & 0xFFF0L) == SC_CLOSE)
+			{
+				this.XPressed = true;
 				return;
-
+			}
 			base.WndProc(ref m);
 		}
 
@@ -51,14 +55,31 @@ namespace Charlotte
 		}
 
 		private long MT_Count;
+		private long HideXPressedMessageMTCount;
+
+		private Utils.PeriodicPerform StopServerPP = new Utils.PeriodicPerform(150, SSRBServerProc.StopServer); // per 15 sec
+		private Utils.PeriodicPerform StopTSRServerPP = new Utils.PeriodicPerform(150, SSRBServerProc.StopTSRServer); // per 15 sec
 
 		private void MainTimer_Tick(object sender, EventArgs e)
 		{
 			try
 			{
+				if (this.XPressed)
+				{
+					this.XPressed = false;
+					this.HideXPressedMessageMTCount = this.MT_Count + 20;
+				}
+
+				{
+					bool flag = this.MT_Count < this.HideXPressedMessageMTCount;
+
+					if (this.XLabel.Visible != flag)
+						this.XLabel.Visible = flag;
+				}
+
 				if (Gnd.I.ServerProc.HasExited == false)
 				{
-					SSRBServerProc.StopServer();
+					this.StopServerPP.Kick();
 					this.SetBtnAbandonEnabled(300 < this.MT_Count); // 30 sec <
 					return;
 				}
@@ -66,7 +87,7 @@ namespace Charlotte
 
 				if (Gnd.I.TSRServerProc.HasExited == false)
 				{
-					SSRBServerProc.StopTSRServer();
+					this.StopTSRServerPP.Kick();
 					return;
 				}
 				if (5 < this.MT_Count) // 0.5 sec <

@@ -6,11 +6,32 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Security.Permissions;
 
 namespace Charlotte
 {
 	public partial class MainWin : Form
 	{
+		#region ALT_F4 抑止
+
+		private bool XPressed = false;
+
+		[SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.UnmanagedCode)]
+		protected override void WndProc(ref Message m)
+		{
+			const int WM_SYSCOMMAND = 0x112;
+			const long SC_CLOSE = 0xF060L;
+
+			if (m.Msg == WM_SYSCOMMAND && (m.WParam.ToInt64() & 0xFFF0L) == SC_CLOSE)
+			{
+				this.XPressed = true;
+				return;
+			}
+			base.WndProc(ref m);
+		}
+
+		#endregion
+
 		public MainWin()
 		{
 			InitializeComponent();
@@ -45,6 +66,8 @@ namespace Charlotte
 
 		private void 終了XToolStripMenuItem_Click(object sender, EventArgs e)
 		{
+			Gnd.I.StopServer();
+			this.MainTimer.Enabled = false;
 			this.Close();
 		}
 
@@ -68,6 +91,16 @@ namespace Charlotte
 
 		private void MainTimer_Tick(object sender, EventArgs e)
 		{
+			if (this.XPressed)
+			{
+				this.XPressed = false;
+
+				Gnd.I.StopServer();
+				this.MainTimer.Enabled = false;
+				this.Close();
+
+				return;
+			}
 			foreach (string message in Program.MessageBuffer.Dequeue())
 			{
 				this.WriteToMainOutput(message);

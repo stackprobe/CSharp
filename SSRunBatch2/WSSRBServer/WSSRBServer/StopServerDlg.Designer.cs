@@ -33,6 +33,7 @@
 			this.BtnAbandon = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
 			this.MainTimer = new System.Windows.Forms.Timer(this.components);
+			this.XLabel = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// BtnAbandon
@@ -42,7 +43,7 @@
 			this.BtnAbandon.Location = new System.Drawing.Point(162, 89);
 			this.BtnAbandon.Name = "BtnAbandon";
 			this.BtnAbandon.Size = new System.Drawing.Size(150, 40);
-			this.BtnAbandon.TabIndex = 1;
+			this.BtnAbandon.TabIndex = 2;
 			this.BtnAbandon.Text = "強制終了(&A)";
 			this.BtnAbandon.UseVisualStyleBackColor = true;
 			this.BtnAbandon.Click += new System.EventHandler(this.BtnAbandon_Click);
@@ -60,11 +61,25 @@
 			// 
 			this.MainTimer.Tick += new System.EventHandler(this.MainTimer_Tick);
 			// 
+			// XLabel
+			// 
+			this.XLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.XLabel.AutoSize = true;
+			this.XLabel.BackColor = System.Drawing.Color.Maroon;
+			this.XLabel.ForeColor = System.Drawing.Color.White;
+			this.XLabel.Location = new System.Drawing.Point(205, 9);
+			this.XLabel.Name = "XLabel";
+			this.XLabel.Size = new System.Drawing.Size(107, 20);
+			this.XLabel.TabIndex = 1;
+			this.XLabel.Text = "[x] not working";
+			this.XLabel.Visible = false;
+			// 
 			// StopServerDlg
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(324, 141);
+			this.Controls.Add(this.XLabel);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.BtnAbandon);
 			this.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
@@ -89,5 +104,6 @@
 		private System.Windows.Forms.Button BtnAbandon;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Timer MainTimer;
+		private System.Windows.Forms.Label XLabel;
 	}
 }

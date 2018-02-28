@@ -53,7 +53,7 @@ namespace Charlotte
 
 					// < orig
 
-					Gnd.I.StopServer();
+					//Gnd.I.StopServer(); // moved
 
 					aliveTh = false;
 					th.Join();
