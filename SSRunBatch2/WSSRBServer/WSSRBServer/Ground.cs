@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Threading;
+using System.Diagnostics;
 
 namespace Charlotte
 {
@@ -21,7 +23,7 @@ namespace Charlotte
 
 				this.PortNo = int.Parse(lines[c++]);
 				this.MainWin_Minimized = int.Parse(lines[c++]) != 0;
-				// 新しい項目をここへ追加...
+				// ここへ追加...
 			}
 			catch
 			{ }
@@ -34,7 +36,7 @@ namespace Charlotte
 
 				lines.Add("" + this.PortNo);
 				lines.Add("" + (this.MainWin_Minimized ? 1 : 0));
-				// 新しい項目をここへ追加...
+				// ここへ追加...
 
 				File.WriteAllLines(file, lines, Encoding.UTF8);
 			}
@@ -42,9 +44,31 @@ namespace Charlotte
 
 		// 設定ここから
 
-		public int PortNo = 55985;
+		public int PortNo = Consts.DEF_PORT_NO;
 		public bool MainWin_Minimized = false;
 
 		// 設定ここまで
+
+		public EventWaitHandle TSRServerStarted = new EventWaitHandle(false, EventResetMode.AutoReset, "{2cf63a15-b276-4b70-aa4f-e45ec21e2398}"); // shared_uuid
+
+		public Process TSRServerProc;
+		public Process ServerProc;
+
+		public void StartServer()
+		{
+			this.TSRServerProc = SSRBServerProc.StartTSRServer();
+			this.TSRServerStarted.WaitOne(30000); // 30 sec
+			this.ServerProc = SSRBServerProc.StartServer();
+		}
+
+		public void StopServer()
+		{
+			using (StopServerDlg f = new StopServerDlg())
+			{
+				f.ShowDialog();
+			}
+			this.TSRServerProc = null;
+			this.ServerProc = null;
+		}
 	}
 }

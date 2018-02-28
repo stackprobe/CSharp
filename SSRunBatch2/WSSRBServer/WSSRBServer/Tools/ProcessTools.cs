@@ -17,6 +17,8 @@ namespace Charlotte.Tools
 
 		public static Process Start(string file, string args, string workingDir = "", WindowStyle_e winStyle = WindowStyle_e.INVISIBLE)
 		{
+			Program.PostMessage("Command: " + file + " " + args); // app固有
+
 			ProcessStartInfo psi = new ProcessStartInfo();
 
 			psi.FileName = file;

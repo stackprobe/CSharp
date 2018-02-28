@@ -117,7 +117,7 @@ namespace Charlotte
 			long fileSize = new FileInfo(file).Length;
 
 			if ((long)uint.MaxValue < fileSize)
-				throw new Exception("");
+				throw new Exception("ファイルが大き過ぎます。fileSize: " + fileSize + ", max: " + uint.MaxValue + ", PCT: " + (fileSize * 100.0 / uint.MaxValue));
 
 			this.SendUInt((uint)fileSize);
 

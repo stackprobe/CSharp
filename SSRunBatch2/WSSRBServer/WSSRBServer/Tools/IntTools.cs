@@ -19,5 +19,22 @@ namespace Charlotte.Tools
 
 			return 0;
 		}
+
+		public static int ToInt(string value, int minval, int maxval, int defval)
+		{
+			try
+			{
+				int ret = int.Parse(value);
+
+				if (ret < minval || maxval < ret)
+					throw null;
+
+				return ret;
+			}
+			catch
+			{
+				return defval;
+			}
+		}
 	}
 }

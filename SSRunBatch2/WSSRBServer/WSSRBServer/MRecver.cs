@@ -20,11 +20,6 @@ namespace Charlotte
 
 				hdls[3].WaitOne();
 
-				// app固有
-				{
-					Gnd.I.TSRServerStarted.Set();
-				}
-
 				List<byte> buff = new List<byte>();
 				byte chr = 0x00;
 				int waitCount = 1;

@@ -47,32 +47,27 @@ namespace Charlotte
 			}
 		}
 
+		private static Utils.AntiRecursive PostMessage_AntiRecursive = new Utils.AntiRecursive();
+
 		public static void PostMessage(object message)
 		{
-			string line = "[" + DateTime.Now + "] (PID:" + Process.GetCurrentProcess().Id + ") " + message;
-
-			Console.WriteLine(line);
-
-			using (Mutex m = new Mutex(false, "{46a0307c-0be5-40fc-b509-011bafac5329}"))
-			using (new MtxSection(m))
+			try
 			{
-				try
+				using (PostMessage_AntiRecursive.Enter())
 				{
-					if (File.Exists(Gnd.I.LogFile) && 10000 < new FileInfo(Gnd.I.LogFile).Length) // ? 10 KB <
+					string line = "[" + DateTime.Now + "] (PID:" + Process.GetCurrentProcess().Id + ") " + message;
+
+					Console.WriteLine(line);
+
+					using (Mutex m = new Mutex(false, "{46a0307c-0be5-40fc-b509-011bafac5329}"))
+					using (new MtxSection(m))
 					{
-						File.Delete(Gnd.I.LogFile0);
-						File.Move(Gnd.I.LogFile, Gnd.I.LogFile0);
+						MSender.MSend(Consts.C2W_IDENT, MSender.Serialize(line));
 					}
-					using (StreamWriter writer = new StreamWriter(Gnd.I.LogFile, true, Encoding.UTF8))
-					{
-						writer.WriteLine(line);
-					}
-				}
-				catch (Exception e)
-				{
-					Console.WriteLine(e);
 				}
 			}
+			catch
+			{ }
 		}
 
 		public const string APP_IDENT = "{ad65120b-d9a0-429a-a98e-0ccbebcfb0fd}";
@@ -93,6 +88,8 @@ namespace Charlotte
 
 			if (ar.ArgIs("/TSR"))
 			{
+				Program.PostMessage("/TSR Started");
+
 				string callBatFile = ar.NextArg();
 				string tsrDir = Path.GetDirectoryName(callBatFile);
 
@@ -109,9 +106,13 @@ namespace Charlotte
 					try { Directory.Delete(tsrDir, true); }
 					catch { }
 				}
+
+				Program.PostMessage("/TSR Ended");
 			}
 			else if (ar.ArgIs("/TSR-SERVER"))
 			{
+				Program.PostMessage("/TSR-SERVER Started");
+
 				MRecver.MRecv(
 					Consts.SERVER_2_TSR_SERVER_IDENT,
 					(byte[] bCallBatFile) => ProcessTools.Start(
@@ -121,6 +122,8 @@ namespace Charlotte
 						),
 					() => Gnd.I.StopTSRServer.WaitOne(0) == false
 					);
+
+				Program.PostMessage("/TSR-SERVER Ended");
 			}
 			else if (ar.ArgIs("/TSR-SERVER-S"))
 			{
@@ -128,7 +131,9 @@ namespace Charlotte
 			}
 			else if (ar.ArgIs("/SERVER"))
 			{
+				Program.PostMessage("/SERVER Starting...");
 				BatchServer server = new BatchServer(int.Parse(ar.NextArg()));
+				Program.PostMessage("/SERVER Started");
 
 				while (Gnd.I.StopServer.WaitOne(2000) == false)
 				{
@@ -142,7 +147,9 @@ namespace Charlotte
 						Program.PostMessage(e);
 					}
 				}
+				Program.PostMessage("/SERVER Ending...");
 				server.SockServer.Stop_B();
+				Program.PostMessage("/SERVER Ended");
 			}
 			else if (ar.ArgIs("/S"))
 			{

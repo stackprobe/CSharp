@@ -92,7 +92,7 @@ namespace Charlotte
 				return;
 			}
 
-			Gnd.I.AbandonCurrentRunningBatch.WaitOne(0);
+			Gnd.I.AbandonCurrentRunningBatch.WaitOne(0); // reset
 
 			{
 				ProcessStartInfo psi = new ProcessStartInfo();
@@ -130,24 +130,28 @@ namespace Charlotte
 				this.SendLine(Path.GetFileName(file));
 				this.SendFile(file);
 			}
-			string[] outLines;
+			long outLineCount;
 
 			try // Try twice
 			{
-				outLines = File.ReadAllLines(outFile, StringTools.ENCODING_SJIS);
+				outLineCount = this.GetLineCount(outFile);
 			}
 			catch
 			{
 				Thread.Sleep(100);
-				outLines = File.ReadAllLines(outFile, StringTools.ENCODING_SJIS);
+				outLineCount = this.GetLineCount(outFile);
 			}
 
-			this.SendUInt((uint)outLines.Length);
 
-			foreach (string outLine in outLines)
-			{
-				this.SendLine(outLine);
-			}
+
+			if ((long)uint.MaxValue < outLineCount)
+				throw new Exception("");
+
+			this.SendUInt((uint)outLineCount);
+
+			// TODO
+
+
 
 			try // Try twice
 			{
@@ -172,9 +176,24 @@ namespace Charlotte
 			return this.Connection.Recv((int)this.RecvUInt());
 		}
 
+		private byte[] Buff = new byte[128 * 1024 * 1024];
+
 		private void RecvFile(string file)
 		{
-			// TODO
+			long fileSize = (long)this.RecvUInt();
+
+			using (FileStream writer = new FileStream(file, FileMode.Create, FileAccess.Write))
+			{
+				long offset = 0L;
+
+				while (offset < fileSize)
+				{
+					int size = (int)Math.Min((long)this.Buff.Length, fileSize - offset);
+					size = this.Connection.TryRecv(this.Buff, 0, size);
+					writer.Write(this.Buff, 0, size);
+					offset += (long)size;
+				}
+			}
 		}
 
 		private uint RecvUInt()
@@ -201,7 +220,28 @@ namespace Charlotte
 
 		private void SendFile(string file)
 		{
-			// TODO
+			long fileSize = new FileInfo(file).Length;
+
+			if ((long)uint.MaxValue < fileSize)
+				throw new Exception("ファイルが大き過ぎます。fileSize: " + fileSize + ", max: " + uint.MaxValue + ", PCT: " + (fileSize * 100.0 / uint.MaxValue));
+
+			this.SendUInt((uint)fileSize);
+
+			using (FileStream reader = new FileStream(file, FileMode.Open, FileAccess.Read))
+			{
+				long offset = 0L;
+
+				while (offset < fileSize)
+				{
+					int size = (int)Math.Min((long)this.Buff.Length, fileSize - offset);
+
+					if (reader.Read(this.Buff, 0, size) != size)
+						throw new Exception();
+
+					this.Connection.Send(this.Buff, 0, size);
+					offset += (long)size;
+				}
+			}
 		}
 
 		private void SendUInt(uint value)
@@ -213,6 +253,11 @@ namespace Charlotte
 				(byte)(value >> 8),
 				(byte)(value >> 0),
 			});
+		}
+
+		private long GetLineCount(string outFile)
+		{
+			return 0L; // TODO
 		}
 	}
 }

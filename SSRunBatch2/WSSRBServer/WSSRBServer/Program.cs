@@ -39,6 +39,12 @@ namespace Charlotte
 
 					Gnd.I.Load(Gnd.I.SettingFile);
 
+					bool aliveTh = true;
+					Thread th = new Thread(() => MRecver.MRecv(Consts.C2W_IDENT, (byte[] b) => MessageBuffer.Enqueue(MRecver.Deserialize(b)), () => aliveTh));
+					th.Start();
+
+					Gnd.I.StartServer();
+
 					// orig >
 
 					Application.EnableVisualStyles();
@@ -46,6 +52,12 @@ namespace Charlotte
 					Application.Run(new MainWin());
 
 					// < orig
+
+					Gnd.I.StopServer();
+
+					aliveTh = false;
+					th.Join();
+					th = null;
 
 					Gnd.I.Save(Gnd.I.SettingFile);
 
@@ -56,30 +68,11 @@ namespace Charlotte
 			procMutex.Close();
 		}
 
-		public static readonly object MessageList_SYNCROOT = new object();
-		public static List<object> MessageList = new List<object>();
+		public static Utils.SyncBuffer<string> MessageBuffer = new Utils.SyncBuffer<string>();
 
 		public static void PostMessage(object message)
 		{
-			lock (MessageList_SYNCROOT)
-			{
-				if (10 <= MessageList.Count)
-				{
-					MessageList.Clear();
-					MessageList.Add(new OverflowException());
-				}
-				MessageList.Add(message);
-			}
-		}
-
-		public static object[] GetMessages()
-		{
-			lock (MessageList_SYNCROOT)
-			{
-				object[] ret = MessageList.ToArray();
-				MessageList.Clear();
-				return ret;
-			}
+			MessageBuffer.Enqueue("[" + DateTime.Now + "] " + message);
 		}
 
 		public const string APP_IDENT = "{40d6bc7d-352a-416b-8fae-7a639e07035e}";
