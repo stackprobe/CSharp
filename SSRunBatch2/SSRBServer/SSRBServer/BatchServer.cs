@@ -22,7 +22,7 @@ namespace Charlotte
 
 		private void Perform(SockServer.Connection connection)
 		{
-			Program.PostMessage("通信開始");
+			Program.PostMessage("Start");
 
 			connection.RSTimeoutMillis = 2000; // 2 sec
 
@@ -87,7 +87,7 @@ namespace Charlotte
 				this.SendUInt(1u);
 				this.SendLine("TSR OK");
 
-				Program.PostMessage("通信終了(TSR)");
+				Program.PostMessage("End (TSR)");
 
 				return;
 			}
@@ -142,16 +142,23 @@ namespace Charlotte
 				outLineCount = this.GetLineCount(outFile);
 			}
 
-
-
 			if ((long)uint.MaxValue < outLineCount)
 				throw new Exception("");
 
 			this.SendUInt((uint)outLineCount);
 
-			// TODO
+			using (StreamReader reader = new StreamReader(outFile, StringTools.ENCODING_SJIS))
+			{
+				for (; ; )
+				{
+					string line = reader.ReadLine();
 
+					if (line == null)
+						break;
 
+					this.SendLine(line);
+				}
+			}
 
 			try // Try twice
 			{
@@ -163,7 +170,7 @@ namespace Charlotte
 				Directory.Delete(workDir, true);
 			}
 
-			Program.PostMessage("通信終了");
+			Program.PostMessage("End");
 		}
 
 		private string RecvLine()
@@ -257,7 +264,21 @@ namespace Charlotte
 
 		private long GetLineCount(string outFile)
 		{
-			return 0L; // TODO
+			using (StreamReader reader = new StreamReader(outFile, StringTools.ENCODING_SJIS))
+			{
+				long count = 0L;
+
+				for (; ; )
+				{
+					string line = reader.ReadLine();
+
+					if (line == null)
+						break;
+
+					count++;
+				}
+				return count;
+			}
 		}
 	}
 }

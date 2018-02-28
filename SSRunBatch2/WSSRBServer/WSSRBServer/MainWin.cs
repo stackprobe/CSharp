@@ -55,19 +55,15 @@ namespace Charlotte
 
 		private void ポート番号PToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			this.Visible = false;
-			this.MainTimer.Enabled = false;
-
 			Gnd.I.StopServer();
+			this.MainTimer.Enabled = false;
 
 			using (PortNoDlg f = new PortNoDlg())
 			{
 				f.ShowDialog();
 			}
-			Gnd.I.StartServer();
-
 			this.MainTimer.Enabled = true;
-			this.Visible = true;
+			Gnd.I.StartServer();
 		}
 
 		private void MainTimer_Tick(object sender, EventArgs e)
@@ -80,8 +76,8 @@ namespace Charlotte
 
 		private void WriteToMainOutput(string message)
 		{
-			if (10000 < this.MainOutput.Text.Length)
-				this.MainOutput.Text = "..." + this.MainOutput.Text.Substring(0, 5000);
+			if (100000 < this.MainOutput.Text.Length)
+				this.MainOutput.Text = "..." + this.MainOutput.Text.Substring(0, 50000);
 
 			this.MainOutput.AppendText(message);
 			this.MainOutput.AppendText("\r\n");
@@ -96,6 +92,11 @@ namespace Charlotte
 				this.MainOutput.SelectAll();
 				e.Handled = true;
 			}
+		}
+
+		private void 現在実行中のバッチファイルを強制終了するAToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			SSRBServerProc.AbandonCurrentRunningBatch();
 		}
 	}
 }

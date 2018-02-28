@@ -40,6 +40,8 @@
 			this.Status = new System.Windows.Forms.ToolStripStatusLabel();
 			this.EastStatus = new System.Windows.Forms.ToolStripStatusLabel();
 			this.MainTimer = new System.Windows.Forms.Timer(this.components);
+			this.子プロセスの強制終了AToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.現在実行中のバッチファイルを強制終了するAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			this.SuspendLayout();
@@ -63,10 +65,11 @@
 			// 
 			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.アプリケーションAToolStripMenuItem,
-            this.設定SToolStripMenuItem});
+            this.設定SToolStripMenuItem,
+            this.子プロセスの強制終了AToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
-			this.menuStrip1.Size = new System.Drawing.Size(734, 26);
+			this.menuStrip1.Size = new System.Drawing.Size(734, 24);
 			this.menuStrip1.TabIndex = 0;
 			this.menuStrip1.Text = "menuStrip1";
 			// 
@@ -75,13 +78,13 @@
 			this.アプリケーションAToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.終了XToolStripMenuItem});
 			this.アプリケーションAToolStripMenuItem.Name = "アプリケーションAToolStripMenuItem";
-			this.アプリケーションAToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+			this.アプリケーションAToolStripMenuItem.Size = new System.Drawing.Size(104, 20);
 			this.アプリケーションAToolStripMenuItem.Text = "アプリケーション(&A)";
 			// 
 			// 終了XToolStripMenuItem
 			// 
 			this.終了XToolStripMenuItem.Name = "終了XToolStripMenuItem";
-			this.終了XToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+			this.終了XToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.終了XToolStripMenuItem.Text = "終了(&X)";
 			this.終了XToolStripMenuItem.Click += new System.EventHandler(this.終了XToolStripMenuItem_Click);
 			// 
@@ -90,13 +93,13 @@
 			this.設定SToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ポート番号PToolStripMenuItem});
 			this.設定SToolStripMenuItem.Name = "設定SToolStripMenuItem";
-			this.設定SToolStripMenuItem.Size = new System.Drawing.Size(62, 22);
+			this.設定SToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
 			this.設定SToolStripMenuItem.Text = "設定(&S)";
 			// 
 			// ポート番号PToolStripMenuItem
 			// 
 			this.ポート番号PToolStripMenuItem.Name = "ポート番号PToolStripMenuItem";
-			this.ポート番号PToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+			this.ポート番号PToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
 			this.ポート番号PToolStripMenuItem.Text = "ポート番号(&P)";
 			this.ポート番号PToolStripMenuItem.Click += new System.EventHandler(this.ポート番号PToolStripMenuItem_Click);
 			// 
@@ -105,16 +108,16 @@
 			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Status,
             this.EastStatus});
-			this.statusStrip1.Location = new System.Drawing.Point(0, 489);
+			this.statusStrip1.Location = new System.Drawing.Point(0, 490);
 			this.statusStrip1.Name = "statusStrip1";
-			this.statusStrip1.Size = new System.Drawing.Size(734, 23);
+			this.statusStrip1.Size = new System.Drawing.Size(734, 22);
 			this.statusStrip1.TabIndex = 2;
 			this.statusStrip1.Text = "statusStrip1";
 			// 
 			// Status
 			// 
 			this.Status.Name = "Status";
-			this.Status.Size = new System.Drawing.Size(648, 18);
+			this.Status.Size = new System.Drawing.Size(659, 17);
 			this.Status.Spring = true;
 			this.Status.Text = "Status";
 			this.Status.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -122,12 +125,27 @@
 			// EastStatus
 			// 
 			this.EastStatus.Name = "EastStatus";
-			this.EastStatus.Size = new System.Drawing.Size(71, 18);
+			this.EastStatus.Size = new System.Drawing.Size(60, 17);
 			this.EastStatus.Text = "EastStatus";
 			// 
 			// MainTimer
 			// 
 			this.MainTimer.Tick += new System.EventHandler(this.MainTimer_Tick);
+			// 
+			// 子プロセスの強制終了AToolStripMenuItem
+			// 
+			this.子プロセスの強制終了AToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.現在実行中のバッチファイルを強制終了するAToolStripMenuItem});
+			this.子プロセスの強制終了AToolStripMenuItem.Name = "子プロセスの強制終了AToolStripMenuItem";
+			this.子プロセスの強制終了AToolStripMenuItem.Size = new System.Drawing.Size(142, 20);
+			this.子プロセスの強制終了AToolStripMenuItem.Text = "子プロセスの強制終了(&A)";
+			// 
+			// 現在実行中のバッチファイルを強制終了するAToolStripMenuItem
+			// 
+			this.現在実行中のバッチファイルを強制終了するAToolStripMenuItem.Name = "現在実行中のバッチファイルを強制終了するAToolStripMenuItem";
+			this.現在実行中のバッチファイルを強制終了するAToolStripMenuItem.Size = new System.Drawing.Size(297, 22);
+			this.現在実行中のバッチファイルを強制終了するAToolStripMenuItem.Text = "現在実行中のバッチファイルを強制終了する(&A)";
+			this.現在実行中のバッチファイルを強制終了するAToolStripMenuItem.Click += new System.EventHandler(this.現在実行中のバッチファイルを強制終了するAToolStripMenuItem_Click);
 			// 
 			// MainWin
 			// 
@@ -168,6 +186,8 @@
 		private System.Windows.Forms.ToolStripMenuItem 設定SToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem ポート番号PToolStripMenuItem;
 		private System.Windows.Forms.Timer MainTimer;
+		private System.Windows.Forms.ToolStripMenuItem 子プロセスの強制終了AToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem 現在実行中のバッチファイルを強制終了するAToolStripMenuItem;
 	}
 }
 

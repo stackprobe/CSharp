@@ -31,6 +31,8 @@ namespace Charlotte
 		public StopServerDlg()
 		{
 			InitializeComponent();
+
+			this.MinimumSize = this.Size;
 		}
 
 		private void StopServerDlg_Load(object sender, EventArgs e)

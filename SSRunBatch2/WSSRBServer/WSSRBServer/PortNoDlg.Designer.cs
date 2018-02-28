@@ -58,7 +58,7 @@
 			this.MinimizeBox = false;
 			this.Name = "PortNoDlg";
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "SSRBServer2 / ポート番号";
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PortNoDlg_FormClosed);
 			this.Load += new System.EventHandler(this.PortNoDlg_Load);
