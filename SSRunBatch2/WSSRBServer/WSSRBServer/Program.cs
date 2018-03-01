@@ -43,7 +43,7 @@ namespace Charlotte
 					Thread th = new Thread(() => MRecver.MRecv(Consts.C2W_IDENT, (byte[] b) => MessageBuffer.Enqueue(MRecver.Deserialize(b)), () => aliveTh));
 					th.Start();
 
-					Gnd.I.StartServer();
+					//Gnd.I.StartServer(); // moved
 
 					// orig >
 

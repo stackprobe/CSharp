@@ -36,12 +36,12 @@
 			this.終了XToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.設定SToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ポート番号PToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.子プロセスの強制終了AToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.現在実行中のバッチファイルを強制終了するAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.Status = new System.Windows.Forms.ToolStripStatusLabel();
 			this.EastStatus = new System.Windows.Forms.ToolStripStatusLabel();
 			this.MainTimer = new System.Windows.Forms.Timer(this.components);
-			this.子プロセスの強制終了AToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.現在実行中のバッチファイルを強制終了するAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			this.SuspendLayout();
@@ -56,7 +56,7 @@
 			this.MainOutput.Name = "MainOutput";
 			this.MainOutput.ReadOnly = true;
 			this.MainOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.MainOutput.Size = new System.Drawing.Size(710, 457);
+			this.MainOutput.Size = new System.Drawing.Size(710, 456);
 			this.MainOutput.TabIndex = 1;
 			this.MainOutput.TextChanged += new System.EventHandler(this.MainOutput_TextChanged);
 			this.MainOutput.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.MainOutput_KeyPress);
@@ -84,7 +84,7 @@
 			// 終了XToolStripMenuItem
 			// 
 			this.終了XToolStripMenuItem.Name = "終了XToolStripMenuItem";
-			this.終了XToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.終了XToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
 			this.終了XToolStripMenuItem.Text = "終了(&X)";
 			this.終了XToolStripMenuItem.Click += new System.EventHandler(this.終了XToolStripMenuItem_Click);
 			// 
@@ -99,16 +99,31 @@
 			// ポート番号PToolStripMenuItem
 			// 
 			this.ポート番号PToolStripMenuItem.Name = "ポート番号PToolStripMenuItem";
-			this.ポート番号PToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+			this.ポート番号PToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.ポート番号PToolStripMenuItem.Text = "ポート番号(&P)";
 			this.ポート番号PToolStripMenuItem.Click += new System.EventHandler(this.ポート番号PToolStripMenuItem_Click);
+			// 
+			// 子プロセスの強制終了AToolStripMenuItem
+			// 
+			this.子プロセスの強制終了AToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.現在実行中のバッチファイルを強制終了するAToolStripMenuItem});
+			this.子プロセスの強制終了AToolStripMenuItem.Name = "子プロセスの強制終了AToolStripMenuItem";
+			this.子プロセスの強制終了AToolStripMenuItem.Size = new System.Drawing.Size(142, 20);
+			this.子プロセスの強制終了AToolStripMenuItem.Text = "子プロセスの強制終了(&A)";
+			// 
+			// 現在実行中のバッチファイルを強制終了するAToolStripMenuItem
+			// 
+			this.現在実行中のバッチファイルを強制終了するAToolStripMenuItem.Name = "現在実行中のバッチファイルを強制終了するAToolStripMenuItem";
+			this.現在実行中のバッチファイルを強制終了するAToolStripMenuItem.Size = new System.Drawing.Size(297, 22);
+			this.現在実行中のバッチファイルを強制終了するAToolStripMenuItem.Text = "現在実行中のバッチファイルを強制終了する(&A)";
+			this.現在実行中のバッチファイルを強制終了するAToolStripMenuItem.Click += new System.EventHandler(this.現在実行中のバッチファイルを強制終了するAToolStripMenuItem_Click);
 			// 
 			// statusStrip1
 			// 
 			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Status,
             this.EastStatus});
-			this.statusStrip1.Location = new System.Drawing.Point(0, 490);
+			this.statusStrip1.Location = new System.Drawing.Point(0, 489);
 			this.statusStrip1.Name = "statusStrip1";
 			this.statusStrip1.Size = new System.Drawing.Size(734, 22);
 			this.statusStrip1.TabIndex = 2;
@@ -132,26 +147,11 @@
 			// 
 			this.MainTimer.Tick += new System.EventHandler(this.MainTimer_Tick);
 			// 
-			// 子プロセスの強制終了AToolStripMenuItem
-			// 
-			this.子プロセスの強制終了AToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.現在実行中のバッチファイルを強制終了するAToolStripMenuItem});
-			this.子プロセスの強制終了AToolStripMenuItem.Name = "子プロセスの強制終了AToolStripMenuItem";
-			this.子プロセスの強制終了AToolStripMenuItem.Size = new System.Drawing.Size(142, 20);
-			this.子プロセスの強制終了AToolStripMenuItem.Text = "子プロセスの強制終了(&A)";
-			// 
-			// 現在実行中のバッチファイルを強制終了するAToolStripMenuItem
-			// 
-			this.現在実行中のバッチファイルを強制終了するAToolStripMenuItem.Name = "現在実行中のバッチファイルを強制終了するAToolStripMenuItem";
-			this.現在実行中のバッチファイルを強制終了するAToolStripMenuItem.Size = new System.Drawing.Size(297, 22);
-			this.現在実行中のバッチファイルを強制終了するAToolStripMenuItem.Text = "現在実行中のバッチファイルを強制終了する(&A)";
-			this.現在実行中のバッチファイルを強制終了するAToolStripMenuItem.Click += new System.EventHandler(this.現在実行中のバッチファイルを強制終了するAToolStripMenuItem_Click);
-			// 
 			// MainWin
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(734, 512);
+			this.ClientSize = new System.Drawing.Size(734, 511);
 			this.Controls.Add(this.MainOutput);
 			this.Controls.Add(this.menuStrip1);
 			this.Controls.Add(this.statusStrip1);

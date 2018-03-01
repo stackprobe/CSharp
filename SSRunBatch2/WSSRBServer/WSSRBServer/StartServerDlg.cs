@@ -10,7 +10,7 @@ using System.Security.Permissions;
 
 namespace Charlotte
 {
-	public partial class StopServerDlg : Form
+	public partial class StartServerDlg : Form
 	{
 		#region ALT_F4 抑止
 
@@ -28,61 +28,50 @@ namespace Charlotte
 
 		#endregion
 
-		public StopServerDlg()
+		public StartServerDlg()
 		{
 			InitializeComponent();
 		}
 
-		private void StopServerDlg_Load(object sender, EventArgs e)
+		private void StartServerDlg_Load(object sender, EventArgs e)
 		{
 			// noop
 		}
 
-		private void StopServerDlg_Shown(object sender, EventArgs e)
+		private void StartServerDlg_Shown(object sender, EventArgs e)
 		{
 			this.MainTimer.Enabled = true;
 		}
 
-		private void StopServerDlg_FormClosed(object sender, FormClosedEventArgs e)
+		private void StartServerDlg_FormClosed(object sender, FormClosedEventArgs e)
 		{
 			this.MainTimer.Enabled = false;
 		}
 
 		private long MT_Count;
 
-		private Utils.PeriodicPerform StopServerPP = new Utils.PeriodicPerform(50, SSRBServerProc.StopServer); // per 5 sec
-		private Utils.PeriodicPerform StopTSRServerPP = new Utils.PeriodicPerform(50, SSRBServerProc.StopTSRServer); // per 5 sec
-
 		private void MainTimer_Tick(object sender, EventArgs e)
 		{
 			try
 			{
-				if (Gnd.I.ServerProc.HasExited == false)
+				if (20 <= this.MT_Count) // 2 sec <=
 				{
-					this.StopServerPP.Kick();
-					return;
-				}
-				if (Gnd.I.TSRServerProc.HasExited == false)
-				{
-					this.StopTSRServerPP.Kick();
-					return;
-				}
-				if (5 < this.MT_Count) // 0.5 sec <
-				{
+					Gnd.I.StartServer();
+
 					this.MainTimer.Enabled = false;
 					this.Close();
 					return;
+				}
+				if (this.MT_Count % 5 == 0) // per 0.5 sec
+				{
+					SSRBServerProc.StopTSRServer();
+					SSRBServerProc.StopServer();
 				}
 			}
 			finally
 			{
 				this.MT_Count++;
 			}
-		}
-
-		private void BtnAbandon_Click(object sender, EventArgs e)
-		{
-			SSRBServerProc.AbandonCurrentRunningBatch();
 		}
 	}
 }

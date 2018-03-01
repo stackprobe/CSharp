@@ -52,6 +52,11 @@ namespace Charlotte
 		private void MainWin_Shown(object sender, EventArgs e)
 		{
 			this.MainTimer.Enabled = true;
+
+			using (StartServerDlg f = new StartServerDlg())
+			{
+				f.ShowDialog();
+			}
 		}
 
 		private void MainWin_FormClosing(object sender, FormClosingEventArgs e)
