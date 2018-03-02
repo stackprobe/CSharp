@@ -20,7 +20,7 @@ namespace Charlotte
 				int c = 0;
 
 				this.FirstLineComment = lines[c++];
-				// 新しい項目をここへ追加...
+				// ここへ追加...
 			}
 			catch
 			{ }
@@ -32,7 +32,7 @@ namespace Charlotte
 				List<string> lines = new List<string>();
 
 				lines.Add(this.FirstLineComment);
-				// 新しい項目をここへ追加...
+				// ここへ追加...
 
 				File.WriteAllLines(file, lines, Encoding.UTF8);
 			}

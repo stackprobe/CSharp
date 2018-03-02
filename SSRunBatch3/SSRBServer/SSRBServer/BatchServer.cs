@@ -13,9 +13,9 @@ namespace Charlotte
 	{
 		public SockServer SockServer;
 
-		public BatchServer(int portNo)
+		public BatchServer()
 		{
-			this.SockServer = new SockServer(portNo, this.Perform);
+			this.SockServer = new SockServer(Gnd.I.PortNo, this.Perform);
 		}
 
 		private SockServer.Connection Connection;
@@ -33,14 +33,18 @@ namespace Charlotte
 
 			this.Connection = connection;
 
-			string workDir = Path.Combine(WorkingDir.Root.GetDirectory(), Guid.NewGuid().ToString("B"));
+			string workDir = WorkingDir.Root.MakePath();
 			Directory.CreateDirectory(workDir);
 
 			int sendFileNum = (int)this.RecvUInt();
 
 			for (int index = 0; index < sendFileNum; index++)
 			{
-				this.RecvFile(Path.Combine(workDir, this.RecvLine()));
+				string localName = this.RecvLine();
+				byte[] fileData = this.RecvData();
+				string file = Path.Combine(workDir, localName);
+
+				File.WriteAllBytes(file, fileData);
 			}
 			int recvFileNum = (int)this.RecvUInt();
 			string[] recvFiles = new string[recvFileNum];
@@ -72,28 +76,6 @@ namespace Charlotte
 			File.WriteAllLines(batFile, commands, StringTools.ENCODING_SJIS);
 			File.WriteAllLines(callBatFile, new string[] { "> " + Path.GetFileName(outFile) + " CALL " + Path.GetFileName(batFile) }, StringTools.ENCODING_SJIS);
 
-			if (commands[0] == "REM SSRunBatch_Meta=TSR")
-			{
-				if (recvFileNum != 0)
-					throw new Exception("recvFileNum != 0");
-
-				string tsrDir = Path.Combine(Environment.GetEnvironmentVariable("TMP"), Guid.NewGuid().ToString("B"));
-				FileTools.MoveDir(workDir, tsrDir);
-				callBatFile = Path.Combine(tsrDir, Path.GetFileName(callBatFile));
-
-				MSender.MSend(Consts.SERVER_2_TSR_SERVER_IDENT, MSender.Serialize(callBatFile));
-
-				this.SendUInt(0u);
-				this.SendUInt(1u);
-				this.SendLine("TSR OK");
-
-				Program.PostMessage("リクエスト処理終了(TSR)");
-
-				return;
-			}
-
-			Gnd.I.AbandonCurrentRunningBatch.WaitOne(0); // reset
-
 			{
 				ProcessStartInfo psi = new ProcessStartInfo();
 
@@ -105,12 +87,34 @@ namespace Charlotte
 
 				Process p = Process.Start(psi);
 
-				Program.PostMessage("バッチファイルを起動しました。");
+				if (commands[0] == "REM SSRunBatch_Meta=TSR")
+				{
+					Gnd.I.TSRInfos.Add(new Gnd.TSRInfo()
+					{
+						Proc = p,
+						WorkDir = workDir,
+					});
+
+					if (recvFileNum != 0)
+						throw new Exception("recvFileNum != 0");
+
+					this.SendUInt(0u);
+					this.SendUInt(1u);
+					this.SendLine("TSR OK");
+
+					Program.PostMessage("リクエスト処理終了(TSR)");
+
+					return;
+				}
+
+				Gnd.I.AbandonCurrentRunningBatchFlag = false;
 
 				while (p.WaitForExit(2000) == false)
 				{
-					if (Gnd.I.AbandonCurrentRunningBatch.WaitOne(0))
+					if (Gnd.I.AbandonCurrentRunningBatchFlag)
 					{
+						Gnd.I.AbandonCurrentRunningBatchFlag = false;
+
 						try
 						{
 							p.Kill();
@@ -123,45 +127,35 @@ namespace Charlotte
 						throw new Exception("実行中のバッチファイルを強制終了しました。");
 					}
 				}
-
-				Program.PostMessage("バッチファイルは終了しました。");
 			}
 
 			this.SendUInt((uint)recvFileNum);
 
-			foreach (string file in recvFiles)
+			for (int index = 0; index < recvFileNum; index++)
 			{
+				string file = recvFiles[index];
+				byte[] fileData = File.ReadAllBytes(file);
+
 				this.SendLine(Path.GetFileName(file));
-				this.SendFile(file);
+				this.SendData(fileData);
 			}
-			long outLineCount;
+			string[] outLines;
 
 			try // Try twice
 			{
-				outLineCount = this.GetLineCount(outFile);
+				outLines = File.ReadAllLines(outFile, StringTools.ENCODING_SJIS);
 			}
 			catch
 			{
 				Thread.Sleep(100);
-				outLineCount = this.GetLineCount(outFile);
+				outLines = File.ReadAllLines(outFile, StringTools.ENCODING_SJIS);
 			}
 
-			if ((long)uint.MaxValue < outLineCount)
-				throw new Exception("");
+			this.SendUInt((uint)outLines.Length);
 
-			this.SendUInt((uint)outLineCount);
-
-			using (StreamReader reader = new StreamReader(outFile, StringTools.ENCODING_SJIS))
+			foreach (string outLine in outLines)
 			{
-				for (; ; )
-				{
-					string line = reader.ReadLine();
-
-					if (line == null)
-						break;
-
-					this.SendLine(line);
-				}
+				this.SendLine(outLine);
 			}
 
 			try // Try twice
@@ -187,26 +181,6 @@ namespace Charlotte
 			return this.Connection.Recv((int)this.RecvUInt());
 		}
 
-		private byte[] Buff = new byte[128 * 1024 * 1024];
-
-		private void RecvFile(string file)
-		{
-			long fileSize = (long)this.RecvUInt();
-
-			using (FileStream writer = new FileStream(file, FileMode.Create, FileAccess.Write))
-			{
-				long offset = 0L;
-
-				while (offset < fileSize)
-				{
-					int size = (int)Math.Min((long)this.Buff.Length, fileSize - offset);
-					size = this.Connection.TryRecv(this.Buff, 0, size);
-					writer.Write(this.Buff, 0, size);
-					offset += (long)size;
-				}
-			}
-		}
-
 		private uint RecvUInt()
 		{
 			byte[] data = this.Connection.Recv(4);
@@ -229,32 +203,6 @@ namespace Charlotte
 			this.Connection.Send(data);
 		}
 
-		private void SendFile(string file)
-		{
-			long fileSize = new FileInfo(file).Length;
-
-			if ((long)uint.MaxValue < fileSize)
-				throw new Exception("ファイルが大き過ぎます。fileSize: " + fileSize + ", max: " + uint.MaxValue + ", PCT: " + (fileSize * 100.0 / uint.MaxValue));
-
-			this.SendUInt((uint)fileSize);
-
-			using (FileStream reader = new FileStream(file, FileMode.Open, FileAccess.Read))
-			{
-				long offset = 0L;
-
-				while (offset < fileSize)
-				{
-					int size = (int)Math.Min((long)this.Buff.Length, fileSize - offset);
-
-					if (reader.Read(this.Buff, 0, size) != size)
-						throw new Exception();
-
-					this.Connection.Send(this.Buff, 0, size);
-					offset += (long)size;
-				}
-			}
-		}
-
 		private void SendUInt(uint value)
 		{
 			this.Connection.Send(new byte[]
@@ -264,25 +212,6 @@ namespace Charlotte
 				(byte)(value >> 8),
 				(byte)(value >> 0),
 			});
-		}
-
-		private long GetLineCount(string outFile)
-		{
-			using (StreamReader reader = new StreamReader(outFile, StringTools.ENCODING_SJIS))
-			{
-				long count = 0L;
-
-				for (; ; )
-				{
-					string line = reader.ReadLine();
-
-					if (line == null)
-						break;
-
-					count++;
-				}
-				return count;
-			}
 		}
 	}
 }

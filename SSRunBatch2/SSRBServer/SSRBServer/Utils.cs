@@ -9,26 +9,15 @@ namespace Charlotte
 	{
 		public class AntiRecursive
 		{
-			private object SYNCROOT = new object();
 			private bool Entered = false;
 
 			public Leaveable Enter()
 			{
-				lock (this.SYNCROOT)
-				{
-					if (this.Entered)
-						throw new InvalidOperationException();
+				if (this.Entered)
+					throw new InvalidOperationException();
 
-					this.Entered = true;
-
-					return new Leaveable(() =>
-					{
-						lock (this.SYNCROOT)
-						{
-							this.Entered = false;
-						}
-					});
-				}
+				this.Entered = true;
+				return new Leaveable(() => this.Entered = false);
 			}
 		}
 

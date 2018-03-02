@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Charlotte.Tools;
 using System.IO;
+using System.Threading;
 
 namespace Charlotte.Tests
 {
@@ -182,6 +183,35 @@ namespace Charlotte.Tests
 			}
 			while (1 == 2);
 			Console.WriteLine("dw.2");
+
+			// ----
+
+			Console.WriteLine("M3_Test01.1");
+			M3_Test01(2);
+			Console.WriteLine("M3_Test01.2");
+		}
+
+		public void Main03b()
+		{
+			{
+				Thread[] ths = new Thread[3];
+
+				for (int thi = 0; thi < ths.Length; thi++)
+				{
+					ths[thi] = new Thread(() =>
+					{
+						for (int c = 0; c < 3; c++)
+						{
+							M3_Test01(3);
+						}
+					});
+				}
+				foreach (Thread th in ths)
+					th.Start();
+
+				foreach (Thread th in ths)
+					th.Join();
+			}
 		}
 
 		private IDisposable GetNullOfIDisposable()
@@ -214,6 +244,21 @@ namespace Charlotte.Tests
 			{
 				Console.WriteLine("IDisposableDisposeThrowException.Dispose");
 				throw new Exception("IDisposableDisposeThrowException.EXCEPTION");
+			}
+		}
+
+		private object M3_Test01_SYNCROOT = new object();
+
+		private void M3_Test01(int nest)
+		{
+			lock (M3_Test01_SYNCROOT)
+			{
+				Console.WriteLine("1.nest=" + nest);
+
+				if (1 < nest)
+					M3_Test01(nest - 1);
+
+				Console.WriteLine("2.nest=" + nest);
 			}
 		}
 	}

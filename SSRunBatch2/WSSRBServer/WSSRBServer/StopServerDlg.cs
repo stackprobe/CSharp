@@ -53,18 +53,25 @@ namespace Charlotte
 		private Utils.PeriodicPerform StopServerPP = new Utils.PeriodicPerform(50, SSRBServerProc.StopServer); // per 5 sec
 		private Utils.PeriodicPerform StopTSRServerPP = new Utils.PeriodicPerform(50, SSRBServerProc.StopTSRServer); // per 5 sec
 
+		public static int BeforeCloseWaitCounter = 0;
+
 		private void MainTimer_Tick(object sender, EventArgs e)
 		{
 			try
 			{
 				if (Gnd.I.ServerProc.HasExited == false)
 				{
-					this.StopServerPP.Kick();
+					this.StopServerPP.Perform();
 					return;
 				}
 				if (Gnd.I.TSRServerProc.HasExited == false)
 				{
-					this.StopTSRServerPP.Kick();
+					this.StopTSRServerPP.Perform();
+					return;
+				}
+				if (0 < BeforeCloseWaitCounter)
+				{
+					BeforeCloseWaitCounter--;
 					return;
 				}
 				if (5 < this.MT_Count) // 0.5 sec <

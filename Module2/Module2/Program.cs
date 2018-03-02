@@ -26,10 +26,9 @@ namespace Charlotte
 			SelfFile = Assembly.GetEntryAssembly().Location;
 			SelfDir = Path.GetDirectoryName(SelfFile);
 
-			// 初期化
-			{
-				WorkingDir.Root = WorkingDir.CreateProcessRoot();
-			}
+
+			WorkingDir.Root = WorkingDir.CreateProcessRoot();
+
 
 			try
 			{
@@ -43,11 +42,9 @@ namespace Charlotte
 			Console.WriteLine("Press ENTER to exit.");
 			Console.ReadLine();
 
-			// 後片付け
-			{
-				WorkingDir.Root.Dispose();
-				WorkingDir.Root = null;
-			}
+
+			WorkingDir.Root.Dispose();
+			WorkingDir.Root = null;
 		}
 
 		public static void PostMessage(object message)
@@ -62,7 +59,8 @@ namespace Charlotte
 			//new DateTimeToSecTest().Test01();
 			//new Test01().Main01();
 			//new Test01().Main02();
-			new Test01().Main03();
+			//new Test01().Main03();
+			new Test01().Main03b();
 			//new StringToolsTest().Test01();
 			//new StringToolsTest().Test02();
 			//new ArrayToolsTest().Test01();

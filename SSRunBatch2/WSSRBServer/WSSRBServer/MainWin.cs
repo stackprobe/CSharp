@@ -71,9 +71,7 @@ namespace Charlotte
 
 		private void 終了XToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			Gnd.I.StopServer();
-			this.MainTimer.Enabled = false;
-			this.Close();
+			this.XPressed = true;
 		}
 
 		private void MainOutput_TextChanged(object sender, EventArgs e)
@@ -94,19 +92,22 @@ namespace Charlotte
 			Gnd.I.StartServer();
 		}
 
+		private bool XPressedTreated;
+
 		private void MainTimer_Tick(object sender, EventArgs e)
 		{
-			if (this.XPressed)
+			if (this.XPressed && this.XPressedTreated == false)
 			{
-				this.XPressed = false;
+				this.XPressedTreated = true;
 
+				StopServerDlg.BeforeCloseWaitCounter = 10; // 1 sec
 				Gnd.I.StopServer();
+
 				this.MainTimer.Enabled = false;
 				this.Close();
-
 				return;
 			}
-			foreach (string message in Program.MessageBuffer.Dequeue())
+			foreach (string message in Program.StringMessages.DequeueAll())
 			{
 				this.WriteToMainOutput(message);
 			}

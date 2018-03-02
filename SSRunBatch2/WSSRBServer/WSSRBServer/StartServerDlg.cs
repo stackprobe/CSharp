@@ -64,8 +64,12 @@ namespace Charlotte
 				}
 				if (this.MT_Count % 5 == 0) // per 0.5 sec
 				{
-					SSRBServerProc.StopTSRServer();
-					SSRBServerProc.StopServer();
+					// stop zombies
+					{
+						SSRBServerProc.StopTSRServer();
+						SSRBServerProc.StopServer();
+						SSRBServerProc.AbandonCurrentRunningBatch();
+					}
 				}
 			}
 			finally

@@ -40,10 +40,10 @@ namespace Charlotte
 					Gnd.I.Load(Gnd.I.SettingFile);
 
 					bool aliveTh = true;
-					Thread th = new Thread(() => MRecver.MRecv(Consts.C2W_IDENT, (byte[] b) => MessageBuffer.Enqueue(MRecver.Deserialize(b)), () => aliveTh));
+					Thread th = new Thread(() => MRecver.MRecv(Consts.C2W_IDENT, (byte[] b) => StringMessages.Enqueue(MRecver.Deserialize(b)), () => aliveTh));
 					th.Start();
 
-					//Gnd.I.StartServer(); // moved
+					//Gnd.I.StartServer(); // moved -> MainWin.cs MainWin_Shown()
 
 					// orig >
 
@@ -53,7 +53,7 @@ namespace Charlotte
 
 					// < orig
 
-					//Gnd.I.StopServer(); // moved
+					//Gnd.I.StopServer(); // moved -> MainWin.cs MainTimer_Tick()
 
 					aliveTh = false;
 					th.Join();
@@ -68,14 +68,14 @@ namespace Charlotte
 			procMutex.Close();
 		}
 
-		public static Utils.SyncBuffer<string> MessageBuffer = new Utils.SyncBuffer<string>();
+		public static Utils.SyncLimitedQueue<string> StringMessages = new Utils.SyncLimitedQueue<string>();
 
 		public static void PostMessage(object message)
 		{
-			MessageBuffer.Enqueue("[" + DateTime.Now + "] " + message);
+			StringMessages.Enqueue("[" + DateTime.Now + "] " + message);
 		}
 
-		public const string APP_IDENT = "{40d6bc7d-352a-416b-8fae-7a639e07035e}";
+		public const string APP_IDENT = "{454933e9-7d06-492e-a71c-c04e215d3a0e}";
 		public const string APP_TITLE = "WSSRBServer";
 
 		private static void ApplicationThreadException(object sender, ThreadExceptionEventArgs e)
@@ -157,7 +157,7 @@ namespace Charlotte
 
 		private static void CheckAloneExe()
 		{
-			if (File.Exists("WSSRBServer.sig")) // リリースに含まれるファイル
+			if (File.Exists("SSRBServer.exe")) // リリースに含まれるファイル
 				return;
 
 			if (Directory.Exists(@"..\Debug")) // ? devenv

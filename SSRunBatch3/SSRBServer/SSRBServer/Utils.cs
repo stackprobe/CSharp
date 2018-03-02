@@ -44,24 +44,5 @@ namespace Charlotte
 				return dest.ToArray();
 			}
 		}
-
-		public class PeriodicPerform
-		{
-			private long Count;
-			private int Period;
-			private Action Action;
-
-			public PeriodicPerform(int period, Action action)
-			{
-				this.Period = period;
-				this.Action = action;
-			}
-
-			public void Perform()
-			{
-				if (this.Count++ % this.Period == 0)
-					this.Action();
-			}
-		}
 	}
 }

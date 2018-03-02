@@ -50,7 +50,7 @@ namespace Charlotte
 			Console.WriteLine("[TRACE] " + message);
 		}
 
-		public const string APP_IDENT = "{22eda4a5-9029-4bf3-b8d8-c687a5729ec3}";
+		public const string APP_IDENT = "{4240335b-267a-4dad-aa92-7d81bfd1369a}";
 		public const string APP_TITLE = "SSRBClient";
 
 		public static string SelfFile;

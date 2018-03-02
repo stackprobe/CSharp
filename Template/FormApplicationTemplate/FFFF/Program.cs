@@ -56,30 +56,11 @@ namespace Charlotte
 			procMutex.Close();
 		}
 
-		public static readonly object MessageList_SYNCROOT = new object();
-		public static List<object> MessageList = new List<object>();
+		public static Utils.SyncLimitedQueue<string> StringMessages = new Utils.SyncLimitedQueue<string>();
 
 		public static void PostMessage(object message)
 		{
-			lock (MessageList_SYNCROOT)
-			{
-				if (10 <= MessageList.Count)
-				{
-					MessageList.Clear();
-					MessageList.Add(new OverflowException());
-				}
-				MessageList.Add(message);
-			}
-		}
-
-		public static object[] GetMessages()
-		{
-			lock (MessageList_SYNCROOT)
-			{
-				object[] ret = MessageList.ToArray();
-				MessageList.Clear();
-				return ret;
-			}
+			StringMessages.Enqueue("[" + DateTime.Now + "] " + message);
 		}
 
 		public const string APP_IDENT = "{40d6bc7d-352a-416b-8fae-7a639e07035e}";

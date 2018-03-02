@@ -47,11 +47,12 @@ namespace Charlotte
 			}
 		}
 
+		private static object PostMessage_SYNCROOT = new object();
 		private static Utils.AntiRecursive PostMessage_AntiRecursive = new Utils.AntiRecursive();
 
 		public static void PostMessage(object message)
 		{
-			try
+			lock (PostMessage_SYNCROOT)
 			{
 				using (PostMessage_AntiRecursive.Enter())
 				{
@@ -66,8 +67,6 @@ namespace Charlotte
 					}
 				}
 			}
-			catch
-			{ }
 		}
 
 		public const string APP_IDENT = "{ad65120b-d9a0-429a-a98e-0ccbebcfb0fd}";
@@ -88,7 +87,7 @@ namespace Charlotte
 
 			if (ar.ArgIs("/TSR"))
 			{
-				Program.PostMessage("/TSR Started");
+				Program.PostMessage("バッチファイルを起動しました。(TSR)");
 
 				string callBatFile = ar.NextArg();
 				string tsrDir = Path.GetDirectoryName(callBatFile);
@@ -107,7 +106,7 @@ namespace Charlotte
 					catch { }
 				}
 
-				Program.PostMessage("/TSR Ended");
+				Program.PostMessage("バッチファイルは終了しました。(TSR)");
 			}
 			else if (ar.ArgIs("/TSR-SERVER"))
 			{

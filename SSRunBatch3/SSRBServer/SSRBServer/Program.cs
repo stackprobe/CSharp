@@ -7,6 +7,7 @@ using Microsoft.Win32;
 using System.Text;
 using System.IO;
 using System.Reflection;
+using Charlotte.Tools;
 
 namespace Charlotte
 {
@@ -32,8 +33,10 @@ namespace Charlotte
 				{
 					CheckSelfFile();
 					Directory.SetCurrentDirectory(SelfDir);
-					CheckAloneExe();
+					//CheckAloneExe();
 					CheckLogonUserAndTmp();
+
+					WorkingDir.Root = WorkingDir.CreateRoot();
 
 					Gnd.I = new Gnd();
 
@@ -47,7 +50,10 @@ namespace Charlotte
 
 					// < orig
 
-					Gnd.I.Save(Gnd.I.SettingFile);
+					//Gnd.I.Save(Gnd.I.SettingFile); // moved -> MainWin.cs MainWin_FormClosing()
+
+					WorkingDir.Root.Dispose();
+					WorkingDir.Root = null;
 
 					GlobalProcMtx.Release();
 				}
@@ -63,8 +69,8 @@ namespace Charlotte
 			StringMessages.Enqueue("[" + DateTime.Now + "] " + message);
 		}
 
-		public const string APP_IDENT = "{cb133c0e-badf-4af9-81ae-fc50bd1ffc79}";
-		public const string APP_TITLE = "TTTT";
+		public const string APP_IDENT = "{c17eda37-19fe-4da0-968a-aacfb2a26352}";
+		public const string APP_TITLE = "SSRBServer";
 
 		private static void ApplicationThreadException(object sender, ThreadExceptionEventArgs e)
 		{
@@ -143,9 +149,10 @@ namespace Charlotte
 			}
 		}
 
+#if false
 		private static void CheckAloneExe()
 		{
-			if (File.Exists("TTTT.sig")) // リリースに含まれるファイル
+			if (File.Exists("SSRBServer.sig")) // リリースに含まれるファイル
 				return;
 
 			if (Directory.Exists(@"..\Debug")) // ? devenv
@@ -160,6 +167,7 @@ namespace Charlotte
 
 			Environment.Exit(6);
 		}
+#endif
 
 		private static void CheckLogonUserAndTmp()
 		{
