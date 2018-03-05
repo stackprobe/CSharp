@@ -28,11 +28,18 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWin));
+			this.MainTimer = new System.Windows.Forms.Timer(this.components);
 			this.SuspendLayout();
-			//
+			// 
+			// MainTimer
+			// 
+			this.MainTimer.Enabled = true;
+			this.MainTimer.Tick += new System.EventHandler(this.MainTimer_Tick);
+			// 
 			// MainWin
-			//
+			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(284, 262);
@@ -50,6 +57,8 @@
 		}
 
 		#endregion
+
+		private System.Windows.Forms.Timer MainTimer;
 	}
 }
 

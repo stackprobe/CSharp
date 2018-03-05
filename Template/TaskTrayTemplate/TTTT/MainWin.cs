@@ -56,8 +56,22 @@ namespace Charlotte
 			this.TaskTrayIcon.Visible = false;
 		}
 
-		private void 終了XToolStripMenuItem_Click(object sender, EventArgs e)
+		private void BeforeDialog()
 		{
+			this.MTEnabled = false;
+			this.TaskTrayIcon.Visible = false;
+		}
+
+		private void AfterDialog()
+		{
+			this.TaskTrayIcon.Visible = true;
+			this.MTEnabled = true;
+		}
+
+		private void CloseWindow()
+		{
+			this.MTEnabled = false;
+			this.TaskTrayIcon.Visible = false;
 			this.Close();
 		}
 
@@ -74,13 +88,26 @@ namespace Charlotte
 
 			try
 			{
-				// TODO
+				if (this.MTCount == 30) // 3 sec
+				{
+					this.CloseWindow();
+					return;
+				}
+			}
+			catch (Exception ex)
+			{
+				Program.PostMessage(ex);
 			}
 			finally
 			{
 				this.MTBusy = false;
 				this.MTCount++;
 			}
+		}
+
+		private void 終了XToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			this.Close();
 		}
 	}
 }

@@ -23,7 +23,7 @@ namespace Charlotte
 
 		private void MainWin_Shown(object sender, EventArgs e)
 		{
-			// noop
+			this.MTEnabled = true;
 		}
 
 		private void MainWin_FormClosing(object sender, FormClosingEventArgs e)
@@ -33,7 +33,53 @@ namespace Charlotte
 
 		private void MainWin_FormClosed(object sender, FormClosedEventArgs e)
 		{
-			// noop
+			this.MTEnabled = false;
+		}
+
+		private void BeforeDialog()
+		{
+			this.MTEnabled = false;
+		}
+
+		private void AfterDialog()
+		{
+			this.MTEnabled = true;
+		}
+
+		private void CloseWindow()
+		{
+			this.MTEnabled = false;
+			this.Close();
+		}
+
+		private bool MTEnabled;
+		private bool MTBusy;
+		private long MTCount;
+
+		private void MainTimer_Tick(object sender, EventArgs e)
+		{
+			if (this.MTEnabled == false || this.MTBusy)
+				return;
+
+			this.MTBusy = true;
+
+			try
+			{
+				if (this.MTCount == 30) // 3 sec
+				{
+					this.CloseWindow();
+					return;
+				}
+			}
+			catch (Exception ex)
+			{
+				Program.PostMessage(ex);
+			}
+			finally
+			{
+				this.MTBusy = false;
+				this.MTCount++;
+			}
 		}
 	}
 }
