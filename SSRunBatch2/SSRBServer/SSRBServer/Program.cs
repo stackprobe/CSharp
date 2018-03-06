@@ -92,7 +92,7 @@ namespace Charlotte
 				string callBatFile = ar.NextArg();
 				string tsrDir = Path.GetDirectoryName(callBatFile);
 
-				ProcessTools.Start(Path.GetFileName(callBatFile), "", tsrDir, ProcessTools.WindowStyle_e.NORMAL).WaitForExit();
+				ProcessTools.Start(Path.GetFileName(callBatFile), "", tsrDir, ProcessTools.WindowStyle_e.MINIMIZED).WaitForExit();
 
 				try // Try twice
 				{

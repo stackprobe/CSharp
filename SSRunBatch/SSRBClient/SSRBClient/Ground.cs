@@ -19,7 +19,6 @@ namespace Charlotte
 				string[] lines = File.ReadAllLines(file, Encoding.UTF8);
 				int c = 0;
 
-				this.FirstLineComment = lines[c++];
 				this.ServerDomain = lines[c++];
 				this.ServerPortNo = int.Parse(lines[c++]);
 				// 新しい項目をここへ追加...
@@ -33,7 +32,6 @@ namespace Charlotte
 			{
 				List<string> lines = new List<string>();
 
-				lines.Add(this.FirstLineComment);
 				lines.Add(this.ServerDomain);
 				lines.Add("" + this.ServerPortNo);
 				// 新しい項目をここへ追加...
@@ -43,8 +41,6 @@ namespace Charlotte
 		}
 
 		// 設定ここから
-
-		public string FirstLineComment = "このファイルは " + Program.APP_TITLE + " のデータ・ファイルです。妄りに編集しないで下さい。";
 
 		public string ServerDomain = "localhost";
 		public int ServerPortNo = 55985;
