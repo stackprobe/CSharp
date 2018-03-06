@@ -67,6 +67,7 @@ namespace Charlotte
 					f.ShowDialog();
 				}
 			}
+			this.StopTSR();
 		}
 
 		public bool AbandonCurrentRunningBatchFlag = false;
@@ -75,6 +76,8 @@ namespace Charlotte
 		{
 			public Process Proc;
 			public string WorkDir;
+
+			// ここまで引数
 
 			public bool IsEnded()
 			{
@@ -107,7 +110,7 @@ namespace Charlotte
 
 			public void Stop()
 			{
-				//Program.PostMessage("実行中の TSR バッチファイルを強制終了します。L=" + Path.GetFileName(this.WorkDir));
+				Program.PostMessage("実行中の TSR バッチファイルを強制終了します。L=" + Path.GetFileName(this.WorkDir));
 
 				try
 				{
@@ -145,7 +148,7 @@ namespace Charlotte
 			}
 		}
 
-		public void StopTSR()
+		private void StopTSR()
 		{
 			if (1 <= this.TSRInfos.Count)
 			{

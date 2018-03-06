@@ -53,7 +53,7 @@ namespace Charlotte
 					// < orig
 
 					Gnd.I.StopServer();
-					Gnd.I.StopTSR();
+					//Gnd.I.StopTSR();
 
 					Gnd.I.Save(Gnd.I.SettingFile);
 
