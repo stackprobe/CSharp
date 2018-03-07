@@ -7,6 +7,6 @@ namespace Charlotte
 {
 	public class Consts
 	{
-		public const string Dummy = "Dummy";
+		public const int DEF_PORT_NO = 55985;
 	}
 }

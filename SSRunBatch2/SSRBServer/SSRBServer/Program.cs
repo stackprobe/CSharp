@@ -91,8 +91,15 @@ namespace Charlotte
 
 				string callBatFile = ar.NextArg();
 				string tsrDir = Path.GetDirectoryName(callBatFile);
+				ProcessTools.WindowStyle_e winStyle = (ProcessTools.WindowStyle_e)int.Parse(ar.NextArg());
 
-				ProcessTools.Start(Path.GetFileName(callBatFile), "", tsrDir, ProcessTools.WindowStyle_e.MINIMIZED).WaitForExit();
+				Program.PostMessage("TSR_callBatFile: " + callBatFile);
+				Program.PostMessage("TSR_winStyle: " + winStyle);
+
+				ProcessTools.Start("cmd", "/c " + Path.GetFileName(callBatFile), tsrDir, winStyle).WaitForExit();
+				//ProcessTools.Start(Path.GetFileName(callBatFile), "", tsrDir, winStyle).WaitForExit(); // INVISIBLE のとき例外を投げる。
+
+				Program.PostMessage("TSR_Ended");
 
 				try // Try twice
 				{
@@ -110,15 +117,17 @@ namespace Charlotte
 			}
 			else if (ar.ArgIs("/TSR-SERVER"))
 			{
-				Gnd.I.StopTSRServer.WaitOne(0); // reset
-
 				Program.PostMessage("/TSR-SERVER Started");
+
+				int winStyle = int.Parse(ar.NextArg());
+
+				Gnd.I.StopTSRServer.WaitOne(0); // reset
 
 				MRecver.MRecv(
 					Consts.SERVER_2_TSR_SERVER_IDENT,
 					(byte[] bCallBatFile) => ProcessTools.Start(
 						Path.GetFileName(SelfFile),
-						"/TSR \"" + MRecver.Deserialize(bCallBatFile) + "\"",
+						"/TSR \"" + MRecver.Deserialize(bCallBatFile) + "\" " + winStyle,
 						SelfDir
 						),
 					() => Gnd.I.StopTSRServer.WaitOne(0) == false

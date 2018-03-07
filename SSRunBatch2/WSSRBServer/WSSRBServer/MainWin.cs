@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Security.Permissions;
+using Charlotte.Tools;
 
 namespace Charlotte
 {
@@ -57,6 +58,14 @@ namespace Charlotte
 			{
 				f.ShowDialog();
 			}
+			this.UIRefresh();
+		}
+
+		private void UIRefresh()
+		{
+			this.TSRWinStyleMenuItem_Invisible.Checked = Gnd.I.TSR_WinStyle == ProcessTools.WindowStyle_e.INVISIBLE;
+			this.TSRWinStyleMenuItem_Minimized.Checked = Gnd.I.TSR_WinStyle == ProcessTools.WindowStyle_e.MINIMIZED;
+			this.TSRWinStyleMenuItem_Normal.Checked = Gnd.I.TSR_WinStyle == ProcessTools.WindowStyle_e.NORMAL;
 		}
 
 		private void MainWin_FormClosing(object sender, FormClosingEventArgs e)
@@ -136,6 +145,33 @@ namespace Charlotte
 		private void 現在実行中のバッチファイルを強制終了するAToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			SSRBServerProc.AbandonCurrentRunningBatch();
+		}
+
+		private void TSRWinStyleMenuItem_Invisible_Click(object sender, EventArgs e)
+		{
+			Gnd.I.StopServer();
+			Gnd.I.TSR_WinStyle = ProcessTools.WindowStyle_e.INVISIBLE;
+			Gnd.I.StartServer();
+
+			this.UIRefresh();
+		}
+
+		private void TSRWinStyleMenuItem_Minimized_Click(object sender, EventArgs e)
+		{
+			Gnd.I.StopServer();
+			Gnd.I.TSR_WinStyle = ProcessTools.WindowStyle_e.MINIMIZED;
+			Gnd.I.StartServer();
+
+			this.UIRefresh();
+		}
+
+		private void TSRWinStyleMenuItem_Normal_Click(object sender, EventArgs e)
+		{
+			Gnd.I.StopServer();
+			Gnd.I.TSR_WinStyle = ProcessTools.WindowStyle_e.NORMAL;
+			Gnd.I.StartServer();
+
+			this.UIRefresh();
 		}
 	}
 }

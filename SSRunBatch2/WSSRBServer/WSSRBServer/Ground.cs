@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.Threading;
 using System.Diagnostics;
+using Charlotte.Tools;
 
 namespace Charlotte
 {
@@ -23,6 +24,7 @@ namespace Charlotte
 
 				this.PortNo = int.Parse(lines[c++]);
 				this.MainWin_Minimized = int.Parse(lines[c++]) != 0;
+				this.TSR_WinStyle = (ProcessTools.WindowStyle_e)int.Parse(lines[c++]);
 				// ここへ追加...
 			}
 			catch
@@ -36,6 +38,7 @@ namespace Charlotte
 
 				lines.Add("" + this.PortNo);
 				lines.Add("" + (this.MainWin_Minimized ? 1 : 0));
+				lines.Add("" + (int)this.TSR_WinStyle);
 				// ここへ追加...
 
 				File.WriteAllLines(file, lines, Encoding.UTF8);
@@ -46,6 +49,7 @@ namespace Charlotte
 
 		public int PortNo = Consts.DEF_PORT_NO;
 		public bool MainWin_Minimized = false;
+		public ProcessTools.WindowStyle_e TSR_WinStyle = ProcessTools.WindowStyle_e.MINIMIZED;
 
 		// 設定ここまで
 

@@ -36,6 +36,11 @@
 			this.終了XToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.設定SToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ポート番号PToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+			this.tSRバッチファイルのウィンドウスタイルWToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.TSRWinStyleMenuItem_Invisible = new System.Windows.Forms.ToolStripMenuItem();
+			this.TSRWinStyleMenuItem_Minimized = new System.Windows.Forms.ToolStripMenuItem();
+			this.TSRWinStyleMenuItem_Normal = new System.Windows.Forms.ToolStripMenuItem();
 			this.子プロセスの強制終了AToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.現在実行中のバッチファイルを強制終了するAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -91,7 +96,9 @@
 			// 設定SToolStripMenuItem
 			// 
 			this.設定SToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ポート番号PToolStripMenuItem});
+            this.ポート番号PToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.tSRバッチファイルのウィンドウスタイルWToolStripMenuItem});
 			this.設定SToolStripMenuItem.Name = "設定SToolStripMenuItem";
 			this.設定SToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
 			this.設定SToolStripMenuItem.Text = "設定(&S)";
@@ -99,9 +106,45 @@
 			// ポート番号PToolStripMenuItem
 			// 
 			this.ポート番号PToolStripMenuItem.Name = "ポート番号PToolStripMenuItem";
-			this.ポート番号PToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.ポート番号PToolStripMenuItem.Size = new System.Drawing.Size(265, 22);
 			this.ポート番号PToolStripMenuItem.Text = "ポート番号(&P)";
 			this.ポート番号PToolStripMenuItem.Click += new System.EventHandler(this.ポート番号PToolStripMenuItem_Click);
+			// 
+			// toolStripMenuItem1
+			// 
+			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(262, 6);
+			// 
+			// tSRバッチファイルのウィンドウスタイルWToolStripMenuItem
+			// 
+			this.tSRバッチファイルのウィンドウスタイルWToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TSRWinStyleMenuItem_Invisible,
+            this.TSRWinStyleMenuItem_Minimized,
+            this.TSRWinStyleMenuItem_Normal});
+			this.tSRバッチファイルのウィンドウスタイルWToolStripMenuItem.Name = "tSRバッチファイルのウィンドウスタイルWToolStripMenuItem";
+			this.tSRバッチファイルのウィンドウスタイルWToolStripMenuItem.Size = new System.Drawing.Size(265, 22);
+			this.tSRバッチファイルのウィンドウスタイルWToolStripMenuItem.Text = "TSR バッチファイルのウィンドウスタイル(&W)";
+			// 
+			// TSRWinStyleMenuItem_Invisible
+			// 
+			this.TSRWinStyleMenuItem_Invisible.Name = "TSRWinStyleMenuItem_Invisible";
+			this.TSRWinStyleMenuItem_Invisible.Size = new System.Drawing.Size(152, 22);
+			this.TSRWinStyleMenuItem_Invisible.Text = "非表示(&H)";
+			this.TSRWinStyleMenuItem_Invisible.Click += new System.EventHandler(this.TSRWinStyleMenuItem_Invisible_Click);
+			// 
+			// TSRWinStyleMenuItem_Minimized
+			// 
+			this.TSRWinStyleMenuItem_Minimized.Name = "TSRWinStyleMenuItem_Minimized";
+			this.TSRWinStyleMenuItem_Minimized.Size = new System.Drawing.Size(152, 22);
+			this.TSRWinStyleMenuItem_Minimized.Text = "最小化(&M)";
+			this.TSRWinStyleMenuItem_Minimized.Click += new System.EventHandler(this.TSRWinStyleMenuItem_Minimized_Click);
+			// 
+			// TSRWinStyleMenuItem_Normal
+			// 
+			this.TSRWinStyleMenuItem_Normal.Name = "TSRWinStyleMenuItem_Normal";
+			this.TSRWinStyleMenuItem_Normal.Size = new System.Drawing.Size(152, 22);
+			this.TSRWinStyleMenuItem_Normal.Text = "ノーマル(&N)";
+			this.TSRWinStyleMenuItem_Normal.Click += new System.EventHandler(this.TSRWinStyleMenuItem_Normal_Click);
 			// 
 			// 子プロセスの強制終了AToolStripMenuItem
 			// 
@@ -188,6 +231,11 @@
 		private System.Windows.Forms.Timer MainTimer;
 		private System.Windows.Forms.ToolStripMenuItem 子プロセスの強制終了AToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem 現在実行中のバッチファイルを強制終了するAToolStripMenuItem;
+		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+		private System.Windows.Forms.ToolStripMenuItem tSRバッチファイルのウィンドウスタイルWToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem TSRWinStyleMenuItem_Invisible;
+		private System.Windows.Forms.ToolStripMenuItem TSRWinStyleMenuItem_Minimized;
+		private System.Windows.Forms.ToolStripMenuItem TSRWinStyleMenuItem_Normal;
 	}
 }
 

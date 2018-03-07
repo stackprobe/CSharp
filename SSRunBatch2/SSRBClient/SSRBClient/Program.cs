@@ -79,7 +79,7 @@ namespace Charlotte
 				BatchClient client = new BatchClient()
 				{
 					Domain = ar.GetArg(0),
-					PortNo = int.Parse(ar.GetArg(1)),
+					PortNo = ar.HasArgs(2) ? int.Parse(ar.GetArg(1)) : Consts.DEF_PORT_NO,
 					SendFiles = Gnd.I.SendFiles.ToArray(),
 					RecvFiles = Gnd.I.RecvFiles.ToArray(),
 					Commands = Gnd.I.Commands.ToArray(),

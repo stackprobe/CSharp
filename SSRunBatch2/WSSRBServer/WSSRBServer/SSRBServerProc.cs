@@ -25,7 +25,7 @@ namespace Charlotte
 
 		public static Process StartTSRServer()
 		{
-			return ProcessTools.Start(ExeFile, "/TSR-SERVER");
+			return ProcessTools.Start(ExeFile, "/TSR-SERVER " + (int)Gnd.I.TSR_WinStyle);
 		}
 
 		public static Process StartServer()
