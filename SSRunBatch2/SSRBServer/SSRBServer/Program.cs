@@ -97,7 +97,7 @@ namespace Charlotte
 				Program.PostMessage("TSR_winStyle: " + winStyle);
 
 				ProcessTools.Start("cmd", "/c " + Path.GetFileName(callBatFile), tsrDir, winStyle).WaitForExit();
-				//ProcessTools.Start(Path.GetFileName(callBatFile), "", tsrDir, winStyle).WaitForExit(); // INVISIBLE のとき例外を投げる。
+				//ProcessTools.Start(Path.GetFileName(callBatFile), "", tsrDir, winStyle).WaitForExit(); // winStyle == INVISIBLE のとき例外を投げる。
 
 				Program.PostMessage("TSR_Ended");
 

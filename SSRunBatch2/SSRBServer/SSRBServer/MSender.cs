@@ -22,7 +22,7 @@ namespace Charlotte
 				bool[] flgs = new bool[3];
 				int c = 0;
 
-				foreach (byte[] bMes in new byte[][] { new byte[] { 0xff }, message, new byte[] { 0x00 } })
+				foreach (byte[] bMes in new byte[][] { new byte[] { /*0x00,*/ 0xff }, message, new byte[] { 0x00 } })
 				{
 					for (int i = 0; i < bMes.Length; i++)
 					{
