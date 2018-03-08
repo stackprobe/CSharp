@@ -62,7 +62,7 @@ namespace Charlotte
 		{
 			this.TSRServerStarted.WaitOne(0); // reset
 			this.TSRServerProc = SSRBServerProc.StartTSRServer();
-			this.TSRServerStarted.WaitOne(30000); // 30 sec
+			this.TSRServerStarted.WaitOne();
 			this.ServerProc = SSRBServerProc.StartServer();
 		}
 

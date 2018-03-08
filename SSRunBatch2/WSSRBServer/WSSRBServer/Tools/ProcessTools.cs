@@ -8,6 +8,10 @@ namespace Charlotte.Tools
 {
 	public class ProcessTools
 	{
+		/// <summary>
+		/// この値をSSRBServerに渡す。
+		/// SSRBServerと同じ定義であること。
+		/// </summary>
 		public enum WindowStyle_e
 		{
 			INVISIBLE = 1,

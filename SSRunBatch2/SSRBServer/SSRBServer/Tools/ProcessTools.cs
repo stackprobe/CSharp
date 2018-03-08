@@ -8,6 +8,10 @@ namespace Charlotte.Tools
 {
 	public class ProcessTools
 	{
+		/// <summary>
+		/// この値をWSSRBServerから受け取る。
+		/// WSSRBServerと同じ定義であること。
+		/// </summary>
 		public enum WindowStyle_e
 		{
 			INVISIBLE = 1,

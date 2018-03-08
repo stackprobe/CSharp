@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Security.Cryptography;
-using Charlotte.Tools;
 
 namespace Charlotte
 {
@@ -105,7 +104,8 @@ namespace Charlotte
 					bh[bh.Length - 2] != (byte)(h[2] | 0x80) ||
 					bh[bh.Length - 1] != (byte)(h[3] | 0x80)
 					)
-					throw new Exception("受信したメッセージは壊れています。");
+					//throw new Exception("受信したメッセージは壊れています。");
+					return "受信したメッセージは壊れています。";
 			}
 			return Encoding.UTF8.GetString(bh, 0, bh.Length - 4);
 		}

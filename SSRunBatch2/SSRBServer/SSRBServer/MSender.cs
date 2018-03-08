@@ -22,7 +22,7 @@ namespace Charlotte
 				bool[] flgs = new bool[3];
 				int c = 0;
 
-				foreach (byte[] bMes in new byte[][] { new byte[] { /*0x00,*/ 0xff }, message, new byte[] { 0x00 } })
+				foreach (byte[] bMes in new byte[][] { new byte[] { 0x00, 0xff }, message, new byte[] { 0x00 } })
 				{
 					for (int i = 0; i < bMes.Length; i++)
 					{
@@ -66,6 +66,8 @@ namespace Charlotte
 
 		public static byte[] Serialize(string message)
 		{
+			//if (message.IndexOf('\0') != -1) throw new ArgumentException();
+
 			byte[] b = Encoding.UTF8.GetBytes(message);
 			byte[] bh = new byte[b.Length + 4]; // message + sha512_28
 
