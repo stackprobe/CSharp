@@ -105,7 +105,7 @@ namespace Charlotte
 					bh[bh.Length - 1] != (byte)(h[3] | 0x80)
 					)
 					//throw new Exception("受信したメッセージは壊れています。");
-					return "受信したメッセージは壊れています。";
+					Program.PostMessage("受信したメッセージは壊れています。"); // app固有 -- ハンドルしていないプロセスから何か受信して意図しないメッセージを受け取るかもしれない。
 			}
 			return Encoding.UTF8.GetString(bh, 0, bh.Length - 4);
 		}
