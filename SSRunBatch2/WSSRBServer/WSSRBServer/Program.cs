@@ -40,7 +40,18 @@ namespace Charlotte
 					Gnd.I.Load(Gnd.I.SettingFile);
 
 					bool aliveTh = true;
-					Thread th = new Thread(() => MRecver.MRecv(Consts.C2W_IDENT, (byte[] b) => StringMessages.Enqueue(MRecver.Deserialize(b)), () => aliveTh));
+					Thread th = new Thread(() => MRecver.MRecv(Consts.C2W_IDENT, (byte[] b) =>
+					{
+						try
+						{
+							StringMessages.Enqueue(MRecver.Deserialize(b));
+						}
+						catch (Exception e)
+						{
+							PostMessage(e);
+						}
+					},
+					() => aliveTh));
 					th.Start();
 
 					//Gnd.I.StartServer(); // moved -> MainWin.cs MainWin_Shown()
