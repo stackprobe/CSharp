@@ -45,7 +45,7 @@ namespace Charlotte.Tools
 
 			foreach (char chr in str)
 			{
-				if (chr <= 0x20 || chr == '$')
+				if (chr <= 0x20 || chr == '$' || chr == ':')
 				{
 					buff.Append('$');
 					buff.Append(((int)chr).ToString("x4"));
@@ -74,7 +74,7 @@ namespace Charlotte.Tools
 			return buff.ToString();
 		}
 
-		public static string ToString(string[] strs)
+		public static string EncodeStrings(string[] strs)
 		{
 			List<string> dest = new List<string>();
 
@@ -82,14 +82,14 @@ namespace Charlotte.Tools
 			{
 				dest.Add(EncodeString(str));
 			}
-			return string.Join("\r\n", dest);
+			return string.Join(":", dest);
 		}
 
-		public static string[] ToStrings(string str)
+		public static string[] DecodeStrings(string str)
 		{
 			List<string> dest = new List<string>();
 
-			foreach (string s in str.Replace("\r", "").Split('\n'))
+			foreach (string s in str.Split(':'))
 			{
 				dest.Add(DecodeString(s));
 			}
@@ -109,6 +109,16 @@ namespace Charlotte.Tools
 		public static bool EqualsIgnoreCase(string a, string b)
 		{
 			return a.ToLower() == b.ToLower();
+		}
+
+		public static bool StartsWithIgnoreCase(string str, string ptn)
+		{
+			return str.ToLower().StartsWith(ptn.ToLower());
+		}
+
+		public static bool EndsWithIgnoreCase(string str, string ptn)
+		{
+			return str.ToLower().EndsWith(ptn.ToLower());
 		}
 
 		public static int IndexOfIgnoreCase(string str, string ptn)
@@ -250,6 +260,38 @@ namespace Charlotte.Tools
 
 			if (ret != null)
 				ret.Str = str;
+
+			return ret;
+		}
+
+		public static Enclosed[] GetAllEnclosed(string str, string startPtn, string endPtn, int startIndex = 0)
+		{
+			List<Enclosed> dest = new List<Enclosed>();
+
+			for (; ; )
+			{
+				Enclosed encl = GetEnclosed(str, startPtn, endPtn, startIndex);
+
+				if (encl == null)
+					break;
+
+				dest.Add(encl);
+				startIndex = encl.EndPtn.End;
+			}
+			return dest.ToArray();
+		}
+
+		public static Enclosed[] GetAllEnclosedIgnoreCase(string str, string startPtn, string endPtn, int startIndex = 0)
+		{
+			Enclosed[] ret = GetAllEnclosed(
+				str.ToLower(),
+				startPtn.ToLower(),
+				endPtn.ToLower(),
+				startIndex
+				);
+
+			foreach (Enclosed encl in ret)
+				encl.Str = str;
 
 			return ret;
 		}

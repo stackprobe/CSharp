@@ -36,6 +36,15 @@ namespace Charlotte.Tests.Tools
 
 				if (encl.Inner != "EnclosedByDiv_03") throw null;
 			}
+
+			{
+				StringTools.Enclosed[] encls = StringTools.GetAllEnclosed("<<<a>>><<<b>>><<<c>>>", "<<<", ">>>");
+
+				if (encls.Length != 3) throw null;
+				if (encls[0].Inner != "a") throw null;
+				if (encls[1].Inner != "b") throw null;
+				if (encls[2].Inner != "c") throw null;
+			}
 		}
 
 		public void Test02()
