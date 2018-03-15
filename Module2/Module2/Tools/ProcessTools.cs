@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Diagnostics;
+using System.IO;
 
 namespace Charlotte.Tools
 {
@@ -44,6 +45,23 @@ namespace Charlotte.Tools
 			}
 
 			return Process.Start(psi);
+		}
+
+		public static string[] Batch(string[] commands, string workingDir = "", WindowStyle_e winStyle = WindowStyle_e.INVISIBLE)
+		{
+			using (WorkingDir wd = WorkingDir.Root.Create())
+			{
+				string batFile = wd.MakePath() + ".bat";
+				string outFile = wd.MakePath() + ".out";
+				string callBatFile = wd.MakePath() + ".bat";
+
+				File.WriteAllLines(batFile, commands, StringTools.ENCODING_SJIS);
+				File.WriteAllText(callBatFile, "> " + outFile + " CALL " + batFile, StringTools.ENCODING_SJIS);
+
+				Start("cmd", "/c " + callBatFile, workingDir, winStyle).WaitForExit();
+
+				return File.ReadAllLines(outFile, StringTools.ENCODING_SJIS);
+			}
 		}
 	}
 }

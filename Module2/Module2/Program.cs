@@ -26,9 +26,7 @@ namespace Charlotte
 			SelfFile = Assembly.GetEntryAssembly().Location;
 			SelfDir = Path.GetDirectoryName(SelfFile);
 
-
 			WorkingDir.Root = WorkingDir.CreateProcessRoot();
-
 
 			try
 			{
@@ -41,7 +39,6 @@ namespace Charlotte
 			}
 			Console.WriteLine("Press ENTER to exit.");
 			Console.ReadLine();
-
 
 			WorkingDir.Root.Dispose();
 			WorkingDir.Root = null;
@@ -61,12 +58,13 @@ namespace Charlotte
 			//new Test01().Main02();
 			//new Test01().Main03();
 			//new Test01().Main03b();
-			new StringToolsTest().Test01();
+			//new StringToolsTest().Test01();
 			//new StringToolsTest().Test02();
 			//new ArrayToolsTest().Test01();
 			//new TimeLimitedTempDirTest().Test01();
 			//new TimeLimitedTempDirTest().Test02();
 			//new TimeLimitedTempDirTest().Test03();
+			new FileToolsTest().Test01();
 		}
 	}
 }

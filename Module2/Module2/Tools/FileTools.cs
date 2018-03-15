@@ -37,17 +37,18 @@ namespace Charlotte.Tools
 			}
 			else if (Directory.Exists(path))
 			{
+				Exception ex = null;
+
 				for (int c = 1; ; c++)
 				{
-					Exception ex = null;
-
 					try
 					{
 						Directory.Delete(path, true);
 					}
 					catch (Exception e)
 					{
-						ex = e;
+						if (e != null)
+							ex = e;
 					}
 
 					if (Directory.Exists(path) == false)
@@ -63,17 +64,18 @@ namespace Charlotte.Tools
 
 		public static void CreateDir(string dir)
 		{
+			Exception ex = null;
+
 			for (int c = 1; ; c++)
 			{
-				Exception ex = null;
-
 				try
 				{
-					Directory.CreateDirectory(dir);
+					Directory.CreateDirectory(dir); // dirが存在するときは何もしない。
 				}
 				catch (Exception e)
 				{
-					ex = e;
+					if (e != null)
+						ex = e;
 				}
 
 				if (Directory.Exists(dir))

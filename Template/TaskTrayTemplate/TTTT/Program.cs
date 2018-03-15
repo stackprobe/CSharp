@@ -35,6 +35,8 @@ namespace Charlotte
 					CheckAloneExe();
 					CheckLogonUserAndTmp();
 
+					//WorkingDir.Root = WorkingDir.CreateRoot();
+
 					Gnd.I = new Gnd();
 
 					Gnd.I.Load(Gnd.I.SettingFile);
@@ -48,6 +50,9 @@ namespace Charlotte
 					// < orig
 
 					Gnd.I.Save(Gnd.I.SettingFile);
+
+					//WorkingDir.Root.Dispose();
+					//WorkingDir.Root = null;
 
 					GlobalProcMtx.Release();
 				}

@@ -69,6 +69,7 @@
     <Compile Include="Tests\Net\FilingCase3Test.cs" />
     <Compile Include="Tests\Tools\ArrayToolsTest.cs" />
     <Compile Include="Tests\Tools\DateTimeToSecTest.cs" />
+    <Compile Include="Tests\Tools\FileToolsTest.cs" />
     <Compile Include="Tests\Tools\StringToolsTest.cs" />
     <Compile Include="Tests\Annex\Tools\TimeLimitedTempDirTest.cs" />
     <Compile Include="Tools\ArgsReader.cs" />

@@ -11,10 +11,12 @@ namespace Charlotte
 	{
 		static void Main(string[] args)
 		{
+			OnBoot();
+
+			//WorkingDir.Root = WorkingDir.CreateProcessRoot();
+
 			try
 			{
-				OnBoot();
-
 				Gnd.I = new Gnd();
 
 				if (1 <= args.Length && args[0].ToUpper() == "//R")
@@ -29,11 +31,12 @@ namespace Charlotte
 			catch (Exception e)
 			{
 				Console.WriteLine(e);
-#if DEBUG
-				Console.WriteLine("Press ENTER");
-				Console.ReadLine();
-#endif
 			}
+
+			//WorkingDir.Root.Dispose();
+			//WorkingDir.Root = null;
+
+			Environment.Exit(0);
 		}
 
 		public static void PostMessage(object message)

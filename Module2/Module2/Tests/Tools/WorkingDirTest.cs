@@ -12,7 +12,9 @@ namespace Charlotte.Tests.Tools
 	{
 		public void Test01()
 		{
-			using(WorkingDir wd = WorkingDir.Root.Create())
+			MessageBox.Show("0");
+
+			using (WorkingDir wd = WorkingDir.Root.Create())
 			{
 				MessageBox.Show("1");
 			}

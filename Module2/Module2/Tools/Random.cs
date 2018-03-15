@@ -29,6 +29,17 @@ namespace Charlotte.Tools
 			return this.Cache[this.RIndex++];
 		}
 
+		public byte[] GetBytes(int length)
+		{
+			byte[] dest = new byte[length];
+
+			for (int index = 0; index < length; index++)
+			{
+				dest[index] = this.GetByte();
+			}
+			return dest;
+		}
+
 		public uint GetUInt16()
 		{
 			return

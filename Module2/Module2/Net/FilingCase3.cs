@@ -47,9 +47,7 @@ namespace Charlotte.Net
 			return this.Twice(() => this.Client.Delete(path));
 		}
 
-		private delegate T Once<T>();
-
-		private T Twice<T>(Once<T> once)
+		private T Twice<T>(Func<T> once)
 		{
 			try
 			{
