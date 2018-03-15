@@ -59,6 +59,8 @@ namespace Charlotte
 				procMutex.ReleaseMutex();
 			}
 			procMutex.Close();
+
+			Environment.Exit(0);
 		}
 
 		public static Utils.SyncLimitedQueue<string> StringMessages = new Utils.SyncLimitedQueue<string>();
