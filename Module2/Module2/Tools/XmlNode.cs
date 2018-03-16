@@ -97,7 +97,7 @@ namespace Charlotte.Tools
 
 		private const string INDENT = "\t";
 
-		public string[] GetLines()
+		private string[] GetLines()
 		{
 			List<string> dest = new List<string>();
 			dest.Add("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
@@ -131,6 +131,16 @@ namespace Charlotte.Tools
 			}
 		}
 
+		public XmlNode Ref(string path)
+		{
+			XmlNode[] dest = this.Collect(path);
+
+			if (dest.Length == 0)
+				return this.Add(path);
+
+			return dest[0];
+		}
+
 		public XmlNode Get(string path)
 		{
 			return this.Collect(path)[0];
@@ -143,18 +153,72 @@ namespace Charlotte.Tools
 			return dest.ToArray();
 		}
 
-		private void Collect(string[] ptkns, int index, List<XmlNode> dest)
+		private void Collect(string[] pTkns, int pTknIndex, List<XmlNode> dest)
 		{
-			if (index < ptkns.Length)
+			if (pTknIndex < pTkns.Length)
 			{
 				foreach (XmlNode child in this.Children)
-					if (child.Name == ptkns[index])
-						child.Collect(ptkns, index + 1, dest);
+					if (child.Name == pTkns[pTknIndex])
+						child.Collect(pTkns, pTknIndex + 1, dest);
 			}
 			else
 			{
 				dest.Add(this);
 			}
+		}
+
+		public void Delete(string path)
+		{
+			this.Delete(path.Split('/'), 0);
+		}
+
+		private void Delete(string[] pTkns, int pTknIndex)
+		{
+			if (pTknIndex + 1 < pTkns.Length)
+			{
+				foreach (XmlNode child in this.Children)
+					if (child.Name == pTkns[pTknIndex])
+						child.Delete(pTkns, pTknIndex + 1);
+			}
+			else
+			{
+				for (int index = this.Children.Count - 1; 0 <= index; index++)
+					if (this.Children[index].Name == pTkns[pTknIndex])
+						this.Children.RemoveAt(index);
+			}
+		}
+
+		public XmlNode Add(string path)
+		{
+			return this.Add(path.Split('/'), 0);
+		}
+
+		private XmlNode Add(string[] pTkns, int pTknIndex)
+		{
+			if (pTknIndex < pTkns.Length)
+			{
+				XmlNode child = Find(this.Children, pTkns[pTknIndex]);
+
+				if (child == null)
+				{
+					child = new XmlNode(pTkns[pTknIndex]);
+					this.Children.Add(child);
+				}
+				return child.Add(pTkns, pTknIndex + 1);
+			}
+			else
+			{
+				return this;
+			}
+		}
+
+		private static XmlNode Find(List<XmlNode> children, string name)
+		{
+			foreach (XmlNode child in children)
+				if (child.Name == name)
+					return child;
+
+			return null;
 		}
 	}
 }
