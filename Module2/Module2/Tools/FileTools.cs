@@ -13,10 +13,10 @@ namespace Charlotte.Tools
 		{
 			if (File.Exists(path))
 			{
+				Exception ex = null;
+
 				for (int c = 1; ; c++)
 				{
-					Exception ex = null;
-
 					try
 					{
 						File.Delete(path);
@@ -47,8 +47,7 @@ namespace Charlotte.Tools
 					}
 					catch (Exception e)
 					{
-						if (e != null)
-							ex = e;
+						ex = e;
 					}
 
 					if (Directory.Exists(path) == false)
@@ -74,8 +73,7 @@ namespace Charlotte.Tools
 				}
 				catch (Exception e)
 				{
-					if (e != null)
-						ex = e;
+					ex = e;
 				}
 
 				if (Directory.Exists(dir))
