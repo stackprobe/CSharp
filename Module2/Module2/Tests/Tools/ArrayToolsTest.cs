@@ -103,7 +103,7 @@ namespace Charlotte.Tests.Tools
 		{
 			string store = null;
 
-			ArrayTools.Sort_Retractable(
+			ArrayTools.Annex.Sort_Retractable(
 				lines.Length,
 				(int a, int b) => StringTools.Comp(lines[a], lines[b]),
 				(int a, int b) =>

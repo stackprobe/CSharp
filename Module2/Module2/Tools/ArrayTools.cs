@@ -57,39 +57,6 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public static void Sort_Retractable(int count, Comparison<int> comp, Action<int, int> move)
-		{
-			int[] order = new int[count];
-
-			for (int index = 0; index < count; index++)
-				order[index] = index;
-
-			Array.Sort<int>(order, comp);
-
-			for (int index = 0; index < count; index++)
-			{
-				if (order[index] != -1 && order[index] != index)
-				{
-					move(index, -1);
-
-					for (; ; )
-					{
-						int prev = index;
-
-						index = order[index];
-						order[prev] = -1;
-
-						if (order[index] == -1)
-						{
-							move(-1, prev);
-							break;
-						}
-						move(index, prev);
-					}
-				}
-			}
-		}
-
 		public static int IndexOf<T>(T[] arr, T ferret, Comparison<T> comp, int defval = -1)
 		{
 			for (int index = 0; index < arr.Length; index++)
@@ -101,6 +68,39 @@ namespace Charlotte.Tools
 
 		public class Annex
 		{
+			public static void Sort_Retractable(int count, Comparison<int> comp, Action<int, int> move)
+			{
+				int[] order = new int[count];
+
+				for (int index = 0; index < count; index++)
+					order[index] = index;
+
+				Array.Sort<int>(order, comp);
+
+				for (int index = 0; index < count; index++)
+				{
+					if (order[index] != -1 && order[index] != index)
+					{
+						move(index, -1);
+
+						for (; ; )
+						{
+							int prev = index;
+
+							index = order[index];
+							order[prev] = -1;
+
+							if (order[index] == -1)
+							{
+								move(-1, prev);
+								break;
+							}
+							move(index, prev);
+						}
+					}
+				}
+			}
+
 			public static void Sort2(int count, Comparison<int> comp, Action<int, int> swap)
 			{
 				int[] order = new int[count];
@@ -114,9 +114,6 @@ namespace Charlotte.Tools
 					positionToElement[index] = index;
 				}
 
-#if true
-				Array.Sort<int>(order, comp);
-#else
 				Array.Sort<int>(order, (int a, int b) =>
 				{
 					if (a == b)
@@ -124,7 +121,6 @@ namespace Charlotte.Tools
 
 					return comp(a, b);
 				});
-#endif
 
 				for (int index = 0; index + 1 < count; index++)
 				{

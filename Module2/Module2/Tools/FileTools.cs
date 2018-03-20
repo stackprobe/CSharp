@@ -13,8 +13,6 @@ namespace Charlotte.Tools
 		{
 			if (File.Exists(path))
 			{
-				Exception ex = null;
-
 				for (int c = 1; ; c++)
 				{
 					try
@@ -23,22 +21,20 @@ namespace Charlotte.Tools
 					}
 					catch (Exception e)
 					{
-						ex = e;
+						Program.PostMessage(e);
 					}
-
 					if (File.Exists(path) == false)
 						break;
 
-					if (10 <= c)
-						throw new Exception("ファイルを削除出来ません。" + path, ex);
+					if (10 < c)
+						throw new Exception("ファイルの削除に失敗しました。" + path);
 
 					Thread.Sleep(c * 100);
+					Program.PostMessage("ファイルの削除をリトライします。" + path);
 				}
 			}
 			else if (Directory.Exists(path))
 			{
-				Exception ex = null;
-
 				for (int c = 1; ; c++)
 				{
 					try
@@ -47,24 +43,22 @@ namespace Charlotte.Tools
 					}
 					catch (Exception e)
 					{
-						ex = e;
+						Program.PostMessage(e);
 					}
-
 					if (Directory.Exists(path) == false)
 						break;
 
-					if (10 <= c)
-						throw new Exception("ディレクトリを削除出来ません。" + path, ex);
+					if (10 < c)
+						throw new Exception("ディレクトリの削除に失敗しました。" + path);
 
 					Thread.Sleep(c * 100);
+					Program.PostMessage("ディレクトリの削除をリトライします。" + path);
 				}
 			}
 		}
 
 		public static void CreateDir(string dir)
 		{
-			Exception ex = null;
-
 			for (int c = 1; ; c++)
 			{
 				try
@@ -73,16 +67,16 @@ namespace Charlotte.Tools
 				}
 				catch (Exception e)
 				{
-					ex = e;
+					Program.PostMessage(e);
 				}
-
 				if (Directory.Exists(dir))
 					break;
 
-				if (10 <= c)
-					throw new Exception("ディレクトリを作成出来ません。" + dir, ex);
+				if (10 < c)
+					throw new Exception("ディレクトリを作成出来ません。" + dir);
 
 				Thread.Sleep(c * 100);
+				Program.PostMessage("ディレクトリの作成をリトライします。" + dir);
 			}
 		}
 
