@@ -45,7 +45,7 @@ namespace Charlotte
 
 				// < orig
 
-				Common.WaitToBgServiceEnded();
+				Common.WaitToBgServiceEnded(true);
 
 				Gnd.setting.Save(); // MainWin_LTWH のために！
 

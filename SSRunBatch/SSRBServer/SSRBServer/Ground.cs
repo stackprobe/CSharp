@@ -41,20 +41,23 @@ namespace Charlotte
 		public static string RootWorkDir;
 		public static BatchServer BatchServer;
 
-		public static void BatchServer_Stop_B()
+		public static void BatchServer_Stop_B(bool noDlg = false)
 		{
 			if (Gnd.BatchServer != null)
 			{
-#if true
-				Gnd.BatchServer.SockServer.Stop();
-
-				using (SockServerWaitToStopDlg f = new SockServerWaitToStopDlg())
+				if (noDlg)
 				{
-					f.ShowDialog();
+					Gnd.BatchServer.SockServer.Stop_B();
 				}
-#else // old
-				Gnd.BatchServer.SockServer.Stop_B();
-#endif
+				else
+				{
+					Gnd.BatchServer.SockServer.Stop();
+
+					using (SockServerWaitToStopDlg f = new SockServerWaitToStopDlg())
+					{
+						f.ShowDialog();
+					}
+				}
 				Gnd.BatchServer = null;
 			}
 		}

@@ -13,18 +13,28 @@ namespace Charlotte
 {
 	public class Common
 	{
-		public static void WaitToBgServiceEnded()
+		public static void WaitToBgServiceEnded(bool noDlg = false)
 		{
-			using (BusyDlg f = new BusyDlg(delegate()
+			if (noDlg)
 			{
 				while (Gnd.bgService.End() == false)
 				{
 					Thread.Sleep(100);
 				}
 			}
-			))
+			else
 			{
-				f.ShowDialog();
+				using (BusyDlg f = new BusyDlg(delegate()
+				{
+					while (Gnd.bgService.End() == false)
+					{
+						Thread.Sleep(100);
+					}
+				}
+				))
+				{
+					f.ShowDialog();
+				}
 			}
 		}
 

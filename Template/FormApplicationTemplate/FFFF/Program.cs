@@ -59,8 +59,6 @@ namespace Charlotte
 				procMutex.ReleaseMutex();
 			}
 			procMutex.Close();
-
-			Environment.Exit(0);
 		}
 
 		public const string APP_IDENT = "{40d6bc7d-352a-416b-8fae-7a639e07035e}";

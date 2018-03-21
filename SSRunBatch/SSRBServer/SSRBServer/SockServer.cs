@@ -60,14 +60,13 @@ namespace Charlotte
 
 			// 終了待ち
 			{
-				int millis = 0;
-
-				while (this.IsRunning())
+				for (int c = 0; this.IsRunning(); c++)
 				{
-					if (millis < 2000)
-						millis++;
-
-					Thread.Sleep(millis);
+					if (50 < c) // 5 sec <
+					{
+						Gnd.AbandonCurrentRunningBatchFlag = true;
+					}
+					Thread.Sleep(100);
 				}
 			}
 		}

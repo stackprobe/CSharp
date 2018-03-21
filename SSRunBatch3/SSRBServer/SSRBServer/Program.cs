@@ -52,8 +52,7 @@ namespace Charlotte
 
 					// < orig
 
-					Gnd.I.StopServer();
-					//Gnd.I.StopTSR();
+					// ここではフォームを開けない -> MainWin.cs CloseWindow()
 
 					Gnd.I.Save(Gnd.I.SettingFile);
 

@@ -52,7 +52,7 @@ namespace Charlotte
 
 					// < orig
 
-					Gnd.BatchServer_Stop_B();
+					Gnd.BatchServer_Stop_B(true);
 
 					try
 					{
