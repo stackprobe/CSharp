@@ -1,0 +1,2 @@
+WinAfterMainWin は、MainWin を最小化してタスクバー・右クリック・閉じるで閉じると AfterWin が表示されないことがある。
+修正案として、WinAfterMainWin_Kai
