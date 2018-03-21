@@ -43,16 +43,12 @@ namespace Charlotte.Tools
 			return new WorkingDir(this.MakePath());
 		}
 
-		private readonly object MakePath_SYNCROOT = new object(); // app固有
+		//private readonly object MakePath_SYNCROOT = new object();
 		private long MakePathCounter = 0;
 
-		/// <summary>
-		/// thread safe
-		/// </summary>
-		/// <returns></returns>
 		public string MakePath()
 		{
-			lock (this.MakePath_SYNCROOT) // app固有
+			//lock (this.MakePath_SYNCROOT)
 			{
 				//return this.GetPath(Guid.NewGuid().ToString("B"));
 				//return this.GetPath(SecurityTools.MakePassword_9A());
@@ -69,19 +65,7 @@ namespace Charlotte.Tools
 		{
 			if (this.Dir != null)
 			{
-#if true
-				FileTools.Delete(this.Dir); // app固有
-#else
-				try
-				{
-					Directory.Delete(this.Dir, true);
-				}
-				catch (Exception e)
-				{
-					Utils.PostMessage(e);
-				}
-#endif
-
+				FileTools.Delete(this.Dir);
 				this.Dir = null;
 			}
 		}
