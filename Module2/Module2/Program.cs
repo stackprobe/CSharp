@@ -44,11 +44,6 @@ namespace Charlotte
 			WorkingDir.Root = null;
 		}
 
-		public static void PostMessage(object message)
-		{
-			Console.WriteLine("[TRACE] " + message);
-		}
-
 		private static void Main2()
 		{
 			//new FilingCase3Test().Test01();

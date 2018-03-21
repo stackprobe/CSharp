@@ -67,13 +67,6 @@ namespace Charlotte
 			procMutex.Close();
 		}
 
-		public static Utils.SyncLimitedQueue<string> StringMessages = new Utils.SyncLimitedQueue<string>();
-
-		public static void PostMessage(object message)
-		{
-			StringMessages.Enqueue("[" + DateTime.Now + "] " + message);
-		}
-
 		public const string APP_IDENT = "{d8c43ac2-7acd-4a02-ba21-100560eb4e39}";
 		public const string APP_TITLE = "SSRBServer";
 

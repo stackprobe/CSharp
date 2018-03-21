@@ -91,6 +91,7 @@
     <Compile Include="Annex\Tools\TimeLimitedTempDir.cs" />
     <Compile Include="Tools\WorkingDir.cs" />
     <Compile Include="Tools\XmlNode.cs" />
+    <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

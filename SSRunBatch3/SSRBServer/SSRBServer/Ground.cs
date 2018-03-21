@@ -91,7 +91,7 @@ namespace Charlotte
 
 			private void Ended()
 			{
-				Program.PostMessage("TSR バッチファイルは終了しました。L=" + Path.GetFileName(this.WorkDir));
+				Utils.PostMessage("TSR バッチファイルは終了しました。L=" + Path.GetFileName(this.WorkDir));
 
 #if true
 				FileTools.Delete(this.WorkDir);
@@ -110,7 +110,7 @@ namespace Charlotte
 
 			public void Stop()
 			{
-				Program.PostMessage("実行中の TSR バッチファイルを強制終了します。L=" + Path.GetFileName(this.WorkDir));
+				Utils.PostMessage("実行中の TSR バッチファイルを強制終了します。L=" + Path.GetFileName(this.WorkDir));
 
 				try
 				{
@@ -118,7 +118,7 @@ namespace Charlotte
 				}
 				catch (Exception e)
 				{
-					Program.PostMessage(e);
+					Utils.PostMessage(e);
 				}
 			}
 		}

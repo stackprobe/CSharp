@@ -75,7 +75,7 @@ namespace Charlotte.Tools
 		{
 			if (this.HasArgs() && this.GetArg().ToUpper() == spell.ToUpper())
 			{
-				Program.PostMessage("Option: " + spell); // app固有
+				Utils.PostMessage("Option: " + spell); // app固有
 
 				this.ArgIndex++;
 				return true;

@@ -22,7 +22,7 @@ namespace Charlotte
 
 		private void Perform(SockServer.Connection connection)
 		{
-			Program.PostMessage("リクエスト処理開始");
+			Utils.PostMessage("リクエスト処理開始");
 
 			connection.RSTimeoutMillis = 2000; // 2 sec
 
@@ -102,7 +102,7 @@ namespace Charlotte
 					this.SendUInt(1u);
 					this.SendLine("TSR OK");
 
-					Program.PostMessage("リクエスト処理終了(TSR) L=" + Path.GetFileName(workDir));
+					Utils.PostMessage("リクエスト処理終了(TSR) L=" + Path.GetFileName(workDir));
 
 					return;
 				}
@@ -121,7 +121,7 @@ namespace Charlotte
 						}
 						catch (Exception e)
 						{
-							Program.PostMessage(e);
+							Utils.PostMessage(e);
 						}
 
 						throw new Exception("実行中のバッチファイルを強制終了しました。");
@@ -172,7 +172,7 @@ namespace Charlotte
 			}
 #endif
 
-			Program.PostMessage("リクエスト処理終了");
+			Utils.PostMessage("リクエスト処理終了");
 		}
 
 		private string RecvLine()

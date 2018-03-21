@@ -38,7 +38,7 @@ namespace Charlotte
 							}
 							catch (Exception e)
 							{
-								Program.PostMessage(e);
+								Utils.PostMessage(e);
 							}
 						}
 					}
@@ -50,7 +50,7 @@ namespace Charlotte
 					{
 						throw new Exception("通信エラー", e);
 					}
-					Program.PostMessage(e);
+					Utils.PostMessage(e);
 				}
 				Thread.Sleep(100); // catnap
 			}

@@ -163,7 +163,7 @@ namespace Charlotte.Net
 				}
 				catch (Exception e)
 				{
-					Program.PostMessage(e);
+					Utils.PostMessage(e);
 				}
 
 				try
@@ -172,7 +172,7 @@ namespace Charlotte.Net
 				}
 				catch (Exception e)
 				{
-					Program.PostMessage(e);
+					Utils.PostMessage(e);
 				}
 
 				this.Handler = null;

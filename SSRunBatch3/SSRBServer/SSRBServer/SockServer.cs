@@ -34,7 +34,7 @@ namespace Charlotte
 				}
 				catch (Exception e)
 				{
-					Program.PostMessage(e);
+					Utils.PostMessage(e);
 				}
 			});
 
@@ -74,7 +74,7 @@ namespace Charlotte
 
 		private void Perform()
 		{
-			Program.PostMessage("サーバー待ち受け開始 Port=" + this.PortNo); // app固有
+			Utils.PostMessage("サーバー待ち受け開始 Port=" + this.PortNo); // app固有
 
 			using (Socket listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
 			{
@@ -107,7 +107,7 @@ namespace Charlotte
 						}
 						catch (Exception e)
 						{
-							Program.PostMessage(e);
+							Utils.PostMessage(e);
 						}
 
 						try
@@ -116,7 +116,7 @@ namespace Charlotte
 						}
 						catch (Exception e)
 						{
-							Program.PostMessage(e);
+							Utils.PostMessage(e);
 						}
 
 						try
@@ -125,14 +125,14 @@ namespace Charlotte
 						}
 						catch (Exception e)
 						{
-							Program.PostMessage(e);
+							Utils.PostMessage(e);
 						}
 					}
 					GC.Collect();
 				}
 			}
 
-			Program.PostMessage("サーバー待ち受け終了"); // app固有
+			Utils.PostMessage("サーバー待ち受け終了"); // app固有
 		}
 
 		private Socket Connect(Socket listener)

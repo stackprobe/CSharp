@@ -100,7 +100,7 @@ namespace Charlotte
 						this.EastStatus.Text = text;
 				}
 
-				foreach (string message in Program.StringMessages.DequeueAll())
+				foreach (string message in Utils.StringMessages.DequeueAll())
 				{
 					this.MainOutput.AppendText(message + "\r\n");
 

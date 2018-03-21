@@ -55,13 +55,9 @@ namespace Charlotte
 
 					ProcMtx.Close();
 					ProcMtx = null;
-
-					Program.PostMessage(new Exception());
 				}
-				catch (Exception e)
-				{
-					Program.PostMessage(e);
-				}
+				catch
+				{ }
 
 				CloseProcMtx();
 

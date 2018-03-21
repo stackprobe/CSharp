@@ -45,11 +45,6 @@ namespace Charlotte
 			}
 		}
 
-		public static void PostMessage(object message)
-		{
-			Console.WriteLine("[TRACE] " + message);
-		}
-
 		public const string APP_IDENT = "{4240335b-267a-4dad-aa92-7d81bfd1369a}";
 		public const string APP_TITLE = "SSRBClient";
 

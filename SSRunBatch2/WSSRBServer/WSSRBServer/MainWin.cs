@@ -116,7 +116,7 @@ namespace Charlotte
 				this.Close();
 				return;
 			}
-			foreach (string message in Program.StringMessages.DequeueAll())
+			foreach (string message in Utils.StringMessages.DequeueAll())
 			{
 				this.WriteToMainOutput(message);
 			}

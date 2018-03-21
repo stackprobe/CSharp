@@ -44,11 +44,11 @@ namespace Charlotte
 					{
 						try
 						{
-							StringMessages.Enqueue(MRecver.Deserialize(b));
+							Utils.StringMessages.Enqueue(MRecver.Deserialize(b));
 						}
 						catch (Exception e)
 						{
-							PostMessage(e);
+							Utils.PostMessage(e);
 						}
 					},
 					() => aliveTh));
@@ -77,13 +77,6 @@ namespace Charlotte
 				procMutex.ReleaseMutex();
 			}
 			procMutex.Close();
-		}
-
-		public static Utils.SyncLimitedQueue<string> StringMessages = new Utils.SyncLimitedQueue<string>();
-
-		public static void PostMessage(object message)
-		{
-			StringMessages.Enqueue("[" + DateTime.Now + "] " + message);
 		}
 
 		public const string APP_IDENT = "{454933e9-7d06-492e-a71c-c04e215d3a0e}";

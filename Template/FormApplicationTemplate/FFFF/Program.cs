@@ -63,13 +63,6 @@ namespace Charlotte
 			Environment.Exit(0);
 		}
 
-		public static Utils.SyncLimitedQueue<string> StringMessages = new Utils.SyncLimitedQueue<string>();
-
-		public static void PostMessage(object message)
-		{
-			StringMessages.Enqueue("[" + DateTime.Now + "] " + message);
-		}
-
 		public const string APP_IDENT = "{40d6bc7d-352a-416b-8fae-7a639e07035e}";
 		public const string APP_TITLE = "FFFF";
 

@@ -72,7 +72,7 @@ namespace Charlotte.Tools
 				}
 				catch (Exception e)
 				{
-					Program.PostMessage(e);
+					Utils.PostMessage(e);
 				}
 
 				this.Dir = null;

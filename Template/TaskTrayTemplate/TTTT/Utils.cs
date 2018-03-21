@@ -7,6 +7,13 @@ namespace Charlotte
 {
 	public class Utils
 	{
+		public static void PostMessage(object message)
+		{
+			StringMessages.Enqueue("[" + DateTime.Now + "] " + message);
+		}
+
+		public static Utils.SyncLimitedQueue<string> StringMessages = new Utils.SyncLimitedQueue<string>();
+
 		public class SyncLimitedQueue<T>
 		{
 			private readonly object SYNCROOT = new object();

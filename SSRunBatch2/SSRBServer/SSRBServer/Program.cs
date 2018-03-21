@@ -35,7 +35,7 @@ namespace Charlotte
 				}
 				catch (Exception e)
 				{
-					Program.PostMessage(e);
+					Utils.PostMessage(e);
 				}
 
 				WorkingDir.Root.Dispose();
@@ -43,29 +43,7 @@ namespace Charlotte
 			}
 			catch (Exception e)
 			{
-				Program.PostMessage(e);
-			}
-		}
-
-		private static object PostMessage_SYNCROOT = new object();
-		private static Utils.AntiRecursive PostMessage_AntiRecursive = new Utils.AntiRecursive();
-
-		public static void PostMessage(object message)
-		{
-			lock (PostMessage_SYNCROOT)
-			{
-				using (PostMessage_AntiRecursive.Enter())
-				{
-					string line = "[" + DateTime.Now + "] (PID:" + Process.GetCurrentProcess().Id + ") " + message;
-
-					Console.WriteLine(line);
-
-					using (Mutex m = new Mutex(false, "{46a0307c-0be5-40fc-b509-011bafac5329}"))
-					using (new MtxSection(m))
-					{
-						MSender.MSend(Consts.C2W_IDENT, MSender.Serialize(line));
-					}
-				}
+				Utils.PostMessage(e);
 			}
 		}
 
@@ -87,19 +65,19 @@ namespace Charlotte
 
 			if (ar.ArgIs("/TSR"))
 			{
-				Program.PostMessage("バッチファイルを起動しました。(TSR)");
+				Utils.PostMessage("バッチファイルを起動しました。(TSR)");
 
 				string callBatFile = ar.NextArg();
 				string tsrDir = Path.GetDirectoryName(callBatFile);
 				ProcessTools.WindowStyle_e winStyle = (ProcessTools.WindowStyle_e)int.Parse(ar.NextArg());
 
-				Program.PostMessage("TSR_callBatFile: " + callBatFile);
-				Program.PostMessage("TSR_winStyle: " + winStyle);
+				Utils.PostMessage("TSR_callBatFile: " + callBatFile);
+				Utils.PostMessage("TSR_winStyle: " + winStyle);
 
 				ProcessTools.Start("cmd", "/c " + Path.GetFileName(callBatFile), tsrDir, winStyle).WaitForExit();
 				//ProcessTools.Start(Path.GetFileName(callBatFile), "", tsrDir, winStyle).WaitForExit(); // winStyle == INVISIBLE のとき例外を投げる。
 
-				Program.PostMessage("TSR_Ended");
+				Utils.PostMessage("TSR_Ended");
 
 				try // Try twice
 				{
@@ -113,11 +91,11 @@ namespace Charlotte
 					catch { }
 				}
 
-				Program.PostMessage("バッチファイルは終了しました。(TSR)");
+				Utils.PostMessage("バッチファイルは終了しました。(TSR)");
 			}
 			else if (ar.ArgIs("/TSR-SERVER"))
 			{
-				Program.PostMessage("/TSR-SERVER Started");
+				Utils.PostMessage("/TSR-SERVER Started");
 
 				int winStyle = int.Parse(ar.NextArg());
 
@@ -133,7 +111,7 @@ namespace Charlotte
 					() => Gnd.I.StopTSRServer.WaitOne(0) == false
 					);
 
-				Program.PostMessage("/TSR-SERVER Ended");
+				Utils.PostMessage("/TSR-SERVER Ended");
 			}
 			else if (ar.ArgIs("/TSR-SERVER-S"))
 			{
@@ -143,9 +121,9 @@ namespace Charlotte
 			{
 				Gnd.I.StopServer.WaitOne(0); // reset
 
-				Program.PostMessage("/SERVER Starting...");
+				Utils.PostMessage("/SERVER Starting...");
 				BatchServer server = new BatchServer(int.Parse(ar.NextArg()));
-				Program.PostMessage("/SERVER Started");
+				Utils.PostMessage("/SERVER Started");
 
 				while (Gnd.I.StopServer.WaitOne(2000) == false)
 				{
@@ -156,12 +134,12 @@ namespace Charlotte
 						if (e == null)
 							break;
 
-						Program.PostMessage(e);
+						Utils.PostMessage(e);
 					}
 				}
-				Program.PostMessage("/SERVER Ending...");
+				Utils.PostMessage("/SERVER Ending...");
 				server.SockServer.Stop_B();
-				Program.PostMessage("/SERVER Ended");
+				Utils.PostMessage("/SERVER Ended");
 			}
 			else if (ar.ArgIs("/S"))
 			{
