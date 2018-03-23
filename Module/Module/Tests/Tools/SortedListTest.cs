@@ -24,17 +24,17 @@ namespace Charlotte.Tests.Tools
 			test01(new int[] { 3, 3, 3 }, 2, 0, -1);
 		}
 
-		private void test01(int[] arr, int ferret, int expectedLeftIndex, int expectedRightIndex)
+		private void test01(int[] arr, int target, int expectedLeftIndex, int expectedRightIndex)
 		{
 			SortedList<int> list = new SortedList<int>(IntTools.comp);
 
 			foreach (int element in arr)
 				list.add(element);
 
-			if (list.leftIndexOf(ferret) != expectedLeftIndex)
+			if (list.leftIndexOf(target) != expectedLeftIndex)
 				throw null;
 
-			if (list.rightIndexOf(ferret) != expectedRightIndex)
+			if (list.rightIndexOf(target) != expectedRightIndex)
 				throw null;
 		}
 	}

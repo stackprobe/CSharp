@@ -90,10 +90,10 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public static int IndexOf<T>(T[] arr, T ferret, Comparison<T> comp, int defval = -1)
+		public static int IndexOf<T>(T[] arr, T target, Comparison<T> comp, int defval = -1)
 		{
 			for (int index = 0; index < arr.Length; index++)
-				if (comp(arr[index], ferret) == 0)
+				if (comp(arr[index], target) == 0)
 					return index;
 
 			return defval;
