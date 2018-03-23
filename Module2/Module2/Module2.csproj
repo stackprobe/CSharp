@@ -70,6 +70,7 @@
     <Compile Include="Tests\Tools\ArrayToolsTest.cs" />
     <Compile Include="Tests\Tools\DateTimeToSecTest.cs" />
     <Compile Include="Tests\Tools\FileToolsTest.cs" />
+    <Compile Include="Tests\Tools\SortedListTest.cs" />
     <Compile Include="Tests\Tools\StringToolsTest.cs" />
     <Compile Include="Tests\Annex\Tools\TimeLimitedTempDirTest.cs" />
     <Compile Include="Tools\ArgsReader.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Tools\ProcessTools.cs" />
     <Compile Include="Tools\Random.cs" />
     <Compile Include="Tools\SecurityTools.cs" />
+    <Compile Include="Tools\SortedList.cs" />
     <Compile Include="Tools\StringTools.cs" />
     <Compile Include="Annex\Tools\TimeLimitedTempDir.cs" />
     <Compile Include="Tools\WorkingDir.cs" />

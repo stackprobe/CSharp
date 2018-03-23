@@ -49,7 +49,7 @@ namespace Charlotte
 			//new FilingCase3Test().Test01();
 			//new WorkingDirTest().Test01();
 			//new DateTimeToSecTest().Test01();
-			new Test01().Main01();
+			//new Test01().Main01();
 			//new Test01().Main02();
 			//new Test01().Main03();
 			//new Test01().Main03b();
@@ -60,6 +60,7 @@ namespace Charlotte
 			//new TimeLimitedTempDirTest().Test02();
 			//new TimeLimitedTempDirTest().Test03();
 			//new FileToolsTest().Test01();
+			new SortedListTest().Test01();
 		}
 	}
 }
