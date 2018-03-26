@@ -83,6 +83,7 @@
     <Compile Include="Tools\BinTools.cs" />
     <Compile Include="Tools\CsvFileWriter.cs" />
     <Compile Include="Tools\DateTimeToSec.cs" />
+    <Compile Include="Tools\DateToDay.cs" />
     <Compile Include="Tools\FileTools.cs" />
     <Compile Include="Tools\IntTools.cs" />
     <Compile Include="Tools\ProcessTools.cs" />
