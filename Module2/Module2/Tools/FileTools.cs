@@ -97,5 +97,29 @@ namespace Charlotte.Tools
 				}
 			}
 		}
+
+		public static void CopyDir(string rDir, string wDir)
+		{
+			FileTools.CreateDir(wDir);
+
+			foreach (string dir in Directory.GetDirectories(rDir))
+				CopyDir(dir, Path.Combine(wDir, Path.GetFileName(dir)));
+
+			foreach (string file in Directory.GetFiles(rDir))
+				File.Copy(file, Path.Combine(wDir, Path.GetFileName(file)));
+		}
+
+		public static void MoveDir(string rDir, string wDir)
+		{
+			FileTools.CreateDir(wDir);
+
+			foreach (string dir in Directory.GetDirectories(rDir))
+				MoveDir(dir, Path.Combine(wDir, Path.GetFileName(dir)));
+
+			foreach (string file in Directory.GetFiles(rDir))
+				File.Move(file, Path.Combine(wDir, Path.GetFileName(file)));
+
+			FileTools.Delete(rDir);
+		}
 	}
 }

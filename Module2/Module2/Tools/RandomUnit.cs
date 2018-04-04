@@ -6,24 +6,29 @@ using System.Security.Cryptography;
 
 namespace Charlotte.Tools
 {
-	public class Random
+	public class RandomUnit
 	{
-		private RandomNumberGenerator Rng;
+		public interface IRandomNumberGenerator
+		{
+			byte[] GetBlock();
+		}
 
-		public Random(RandomNumberGenerator rng)
+		private IRandomNumberGenerator Rng;
+
+		public RandomUnit(IRandomNumberGenerator rng)
 		{
 			this.Rng = rng;
 		}
 
-		private const int CACHE_SIZE = 4096;
-		private byte[] Cache = new byte[CACHE_SIZE];
-		private int RIndex = CACHE_SIZE;
+		private static byte[] EMPTY_BYTES = new byte[0];
+		private byte[] Cache = EMPTY_BYTES;
+		private int RIndex = 0;
 
 		public byte GetByte()
 		{
-			if (CACHE_SIZE <= this.RIndex)
+			if (this.Cache.Length <= this.RIndex)
 			{
-				this.Rng.GetBytes(this.Cache);
+				this.Cache = this.Rng.GetBlock();
 				this.RIndex = 0;
 			}
 			return this.Cache[this.RIndex++];
@@ -34,9 +39,8 @@ namespace Charlotte.Tools
 			byte[] dest = new byte[length];
 
 			for (int index = 0; index < length; index++)
-			{
 				dest[index] = this.GetByte();
-			}
+
 			return dest;
 		}
 
@@ -96,6 +100,16 @@ namespace Charlotte.Tools
 		public int GetRange(int minval, int maxval)
 		{
 			return (int)this.GetRandom((uint)(maxval + 1 - minval)) + minval;
+		}
+
+		public long GetInt64(long modulo)
+		{
+			return (long)this.GetRandom64((ulong)modulo);
+		}
+
+		public int GetInt(int modulo)
+		{
+			return (int)this.GetRandom((uint)modulo);
 		}
 	}
 }
