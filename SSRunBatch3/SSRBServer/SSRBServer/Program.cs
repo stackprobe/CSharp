@@ -66,7 +66,7 @@ namespace Charlotte
 			procMutex.Close();
 		}
 
-		public const string APP_IDENT = "{d8c43ac2-7acd-4a02-ba21-100560eb4e39}";
+		public const string APP_IDENT = "{0fca4aea-2217-4885-a62e-9428ee099691}";
 		public const string APP_TITLE = "SSRBServer";
 
 		private static void ApplicationThreadException(object sender, ThreadExceptionEventArgs e)
