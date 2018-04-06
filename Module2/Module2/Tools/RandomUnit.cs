@@ -6,9 +6,9 @@ using System.Security.Cryptography;
 
 namespace Charlotte.Tools
 {
-	public class RandomUnit
+	public class RandomUnit : IDisposable
 	{
-		public interface IRandomNumberGenerator
+		public interface IRandomNumberGenerator : IDisposable
 		{
 			byte[] GetBlock();
 		}
@@ -18,6 +18,15 @@ namespace Charlotte.Tools
 		public RandomUnit(IRandomNumberGenerator rng)
 		{
 			this.Rng = rng;
+		}
+
+		public void Dispose()
+		{
+			if (this.Rng != null)
+			{
+				this.Rng.Dispose();
+				this.Rng = null;
+			}
 		}
 
 		private static byte[] EMPTY_BYTES = new byte[0];

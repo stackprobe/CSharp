@@ -60,10 +60,10 @@ namespace Charlotte
 			//new TimeLimitedTempDirTest().Test02();
 			//new TimeLimitedTempDirTest().Test03();
 			//new FileToolsTest().Test01();
-			new FileToolsTest().Test02();
+			//new FileToolsTest().Test02();
 			//new SortedListTest().Test01();
 			//new SecurityToolsTest.AESTest().Test01();
-			//new SecurityToolsTest().Test01();
+			new SecurityToolsTest().Test01();
 		}
 	}
 }

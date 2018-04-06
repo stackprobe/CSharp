@@ -152,6 +152,15 @@ namespace Charlotte.Tools
 				}
 				return this.Block;
 			}
+
+			public void Dispose()
+			{
+				if (this.Aes != null)
+				{
+					this.Aes.Dispose();
+					this.Aes = null;
+				}
+			}
 		}
 
 		public class RNGRandomNumberGenerator : RandomUnit.IRandomNumberGenerator
@@ -163,6 +172,15 @@ namespace Charlotte.Tools
 			{
 				this.Rng.GetBytes(this.Cache);
 				return this.Cache;
+			}
+
+			public void Dispose()
+			{
+				if (this.Rng != null)
+				{
+					this.Rng.Dispose();
+					this.Rng = null;
+				}
 			}
 		}
 	}
