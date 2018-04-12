@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace Test01
 {
@@ -12,7 +13,8 @@ namespace Test01
 			try
 			{
 				//Test01();
-				Test02();
+				//Test02();
+				Test03();
 			}
 			catch (Exception e)
 			{
@@ -157,6 +159,25 @@ Test02_a_a: { X = 3 }
 		{
 			Console.WriteLine("Test02_a_a: " + a);
 			return ("" + a) != "{ X = 2 }";
+		}
+
+		private static void Test03()
+		{
+			//Console.WriteLine(Path.GetDirectoryName("")); // 例外
+			Console.WriteLine(Path.GetDirectoryName("aaa")); // -> ""
+			Console.WriteLine(Path.GetDirectoryName("aaa\\bbb"));
+			Console.WriteLine(Path.GetDirectoryName("aaa\\bbb\\ccc"));
+
+			Console.WriteLine(Path.GetDirectoryName("\\aaa")); // -> "\\"
+			Console.WriteLine(Path.GetDirectoryName("\\aaa\\bbb"));
+			Console.WriteLine(Path.GetDirectoryName("\\aaa\\bbb\\ccc"));
+
+			Console.WriteLine(Path.GetDirectoryName("\\\\aaa")); // -> ""
+			Console.WriteLine(Path.GetDirectoryName("\\\\aaa\\bbb")); // -> ""
+			Console.WriteLine(Path.GetDirectoryName("\\\\aaa\\bbb\\ccc")); // -> "\\\\aaa\\bbb"
+
+			Console.WriteLine(Directory.Exists("")); // -> false
+			Console.WriteLine(File.Exists("")); // -> false
 		}
 	}
 }

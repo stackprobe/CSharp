@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Security.Cryptography;
 
 namespace SyncDir
 {
@@ -29,6 +30,8 @@ namespace SyncDir
 			this.CleanupDir(backupDir);
 			this.Main2(rRootDir, wRootDir, backupDir);
 			this.CleanupDir(backupDir);
+
+			Logger.WriteLine("同期しました。");
 		}
 
 		private void Main2(string rRootDir, string wRootDir, string backupDir)
@@ -117,36 +120,30 @@ namespace SyncDir
 
 		private void Fire()
 		{
-			int taskIndex = -1;
-
-			try
+			for (int index = 0; index < this.Tasks.Count; index++)
 			{
-				for (taskIndex = 0; taskIndex < this.Tasks.Count; taskIndex++)
-				{
-					Task task = this.Tasks[taskIndex];
-
-					this.Advance(task);
-				}
-			}
-			catch (Exception e)
-			{
-				Logger.WriteLine(e);
-
 				try
 				{
-					while (0 <= --taskIndex)
-					{
-						Task task = this.Tasks[taskIndex];
+					this.Advance(this.Tasks[index]);
+				}
+				catch (Exception e)
+				{
+					Logger.WriteLine("処理に失敗したためロールバックを開始します。" + e);
 
-						this.Retreat(task);
+					try
+					{
+						this.RetreatFailedTask(this.Tasks[index]);
+
+						while (0 <= --index)
+						{
+							this.Retreat(this.Tasks[index]);
+						}
+					}
+					catch (Exception ex)
+					{
+						throw new Exception("ロールバックに失敗しました。", ex);
 					}
 					throw new Exception("ロールバックしました。", e);
-				}
-				catch (Exception ex)
-				{
-					Logger.WriteLine(ex);
-
-					throw new Exception("ロールバックに失敗しました。", ex);
 				}
 			}
 		}
@@ -178,11 +175,11 @@ namespace SyncDir
 			switch (task.Command)
 			{
 				case Task.Command_e.DELETE_DIR:
-					Directory.Delete(task.Path);
+					this.DeleteDir(task.Path);
 					break;
 
 				case Task.Command_e.DELETE_FILE:
-					File.Delete(task.Path);
+					this.DeleteFile(task.Path);
 					break;
 
 				case Task.Command_e.UPDATE_FILE:
@@ -190,11 +187,53 @@ namespace SyncDir
 					break;
 
 				case Task.Command_e.CREATE_DIR:
-					Directory.CreateDirectory(task.Path);
+					this.CreateDir(task.Path);
 					break;
 
 				case Task.Command_e.CREATE_FILE:
 					this.CopyFile(task.SrcFile, task.Path);
+					break;
+
+				default:
+					throw null; // never
+			}
+		}
+
+		private void RetreatFailedTask(Task task)
+		{
+			switch (task.Command)
+			{
+				case Task.Command_e.DELETE_DIR:
+					if (Directory.Exists(task.Path) == false)
+					{
+						this.CreateDir(task.Path);
+					}
+					break;
+
+				case Task.Command_e.DELETE_FILE:
+				case Task.Command_e.UPDATE_FILE:
+					if (File.Exists(task.Path) == false)
+					{
+						this.CopyFile(task.BackupFile, task.Path);
+					}
+					else if (this.IsFileChanged(task.BackupFile, task.Path))
+					{
+						this.CopyFile(task.BackupFile, task.Path, true);
+					}
+					break;
+
+				case Task.Command_e.CREATE_DIR:
+					if (Directory.Exists(task.Path))
+					{
+						this.DeleteDir(task.Path);
+					}
+					break;
+
+				case Task.Command_e.CREATE_FILE:
+					if (File.Exists(task.Path))
+					{
+						this.DeleteFile(task.Path);
+					}
 					break;
 
 				default:
@@ -207,7 +246,7 @@ namespace SyncDir
 			switch (task.Command)
 			{
 				case Task.Command_e.DELETE_DIR:
-					Directory.CreateDirectory(task.Path);
+					this.CreateDir(task.Path);
 					break;
 
 				case Task.Command_e.DELETE_FILE:
@@ -219,11 +258,11 @@ namespace SyncDir
 					break;
 
 				case Task.Command_e.CREATE_DIR:
-					Directory.Delete(task.Path);
+					this.DeleteDir(task.Path);
 					break;
 
 				case Task.Command_e.CREATE_FILE:
-					File.Delete(task.Path);
+					this.DeleteFile(task.Path);
 					break;
 
 				default:
@@ -233,21 +272,39 @@ namespace SyncDir
 
 		private void CopyFile(string rFile, string wFile, bool overwrite = false)
 		{
+			Logger.WriteLine("ファイル \"" + rFile + "\" を \"" + wFile + "\" にコピーします。上書き=" + overwrite);
+
 			File.Copy(rFile, wFile, overwrite);
 
 			{
 				FileInfo rInfo = new FileInfo(rFile);
 				FileInfo wInfo = new FileInfo(wFile);
+				FileAttributes attr = wInfo.Attributes;
+
+				wInfo.Attributes &= ~FileAttributes.ReadOnly;
 
 				wInfo.CreationTime = rInfo.CreationTime;
 				wInfo.LastWriteTime = rInfo.LastWriteTime;
 				wInfo.LastAccessTime = rInfo.LastAccessTime;
+
+				wInfo.Attributes = attr;
 			}
+
+			Logger.WriteLine("ファイルをコピーしました。");
 		}
 
 		private bool IsFileChanged(string rFile, string wFile)
 		{
-			return new FileInfo(wFile).LastWriteTime < new FileInfo(rFile).LastWriteTime;
+			return this.GetFileHash(rFile) != this.GetFileHash(wFile);
+		}
+
+		private string GetFileHash(string file)
+		{
+			using (MD5 md5 = MD5.Create())
+			using (FileStream reader = new FileStream(file, FileMode.Open, FileAccess.Read))
+			{
+				return BitConverter.ToString(md5.ComputeHash(reader)).Replace("-", "").ToLower();
+			}
 		}
 
 		private class Task
@@ -286,19 +343,106 @@ namespace SyncDir
 			public string RRootDir;
 			public string WRootDir;
 
-			// memo: queue ???
-
 			public List<PathInfo> ROPaths = new List<PathInfo>(); // コピー元にのみ存在するパスリスト
 			public List<PathInfo> BEPaths = new List<PathInfo>(); // 両方に存在するパスリスト
 			public List<PathInfo> WOPaths = new List<PathInfo>(); // コピー先にのみ存在するパスリスト
 
+			private const string DIRECTORY_SEPARATOR = "\\";
+
 			public void Main()
 			{
-				// TODO
+				this.Merge(this.GetPathInfos(this.RRootDir, ""), this.GetPathInfos(this.WRootDir, ""));
+
+				for (int index = 0; index < this.BEPaths.Count; index++)
+				{
+					PathInfo info = this.BEPaths[index];
+
+					// 固有の処理 ----->
+
+					// 両方に存在する data というディレクトリは無視する。(同期しない)
+					if (info.Kind == PathInfo.Kind_e.DIR && Path.GetFileName(info.Path).ToLower() == "data")
+					{
+						this.BEPaths[index] = null;
+						continue;
+					}
+
+					// <----- 固有の処理
+
+					if (info.Kind == PathInfo.Kind_e.DIR)
+					{
+						this.Merge(
+							this.GetPathInfos(Path.Combine(this.RRootDir, info.Path), info.Path + DIRECTORY_SEPARATOR),
+							this.GetPathInfos(Path.Combine(this.WRootDir, info.Path), info.Path + DIRECTORY_SEPARATOR)
+							);
+					}
+				}
+				for (int index = 0; index < this.ROPaths.Count; index++)
+				{
+					PathInfo info = this.ROPaths[index];
+
+					// 固有の処理 ----->
+
+					// コピー元にのみ存在する data というディレクトリは無視する。(コピーしない)
+					if (info.Kind == PathInfo.Kind_e.DIR && Path.GetFileName(info.Path).ToLower() == "data")
+					{
+						this.ROPaths[index] = null;
+						continue;
+					}
+
+					// <----- 固有の処理
+
+					if (info.Kind == PathInfo.Kind_e.DIR)
+						this.ROPaths.AddRange(this.GetPathInfos(Path.Combine(this.RRootDir, info.Path), info.Path + DIRECTORY_SEPARATOR));
+				}
+				for (int index = 0; index < this.WOPaths.Count; index++)
+				{
+					PathInfo info = this.WOPaths[index];
+
+					// 固有の処理 ----->
+
+					// コピー先にのみ存在する data というディレクトリは無視する。(削除しない)
+					if (info.Kind == PathInfo.Kind_e.DIR && Path.GetFileName(info.Path).ToLower() == "data")
+					{
+						this.WOPaths[index] = null;
+						this.AllParent_SetNull(this.WOPaths, index, info.Path);
+						continue;
+					}
+
+					// <----- 固有の処理
+
+					if (info.Kind == PathInfo.Kind_e.DIR)
+						this.WOPaths.AddRange(this.GetPathInfos(Path.Combine(this.WRootDir, info.Path), info.Path + DIRECTORY_SEPARATOR));
+				}
+
+				this.ROPaths.RemoveAll(info => info == null);
+				this.BEPaths.RemoveAll(info => info == null);
+				this.WOPaths.RemoveAll(info => info == null);
 			}
 
-			private void CollectPathInfos(string rootDir, string relation, List<PathInfo> dest)
+			private void AllParent_SetNull(List<PathInfo> infos, int index, string path)
 			{
+				while ((path = Path.GetDirectoryName(path)) != "")
+				{
+					for (; ; )
+					{
+						if (index <= 0)
+							return;
+
+						index--;
+
+						if (infos[index] != null && infos[index].Kind == PathInfo.Kind_e.DIR && this.Path_Comp(infos[index].Path, path) == 0)
+						{
+							infos[index] = null;
+							break;
+						}
+					}
+				}
+			}
+
+			private List<PathInfo> GetPathInfos(string rootDir, string relation)
+			{
+				List<PathInfo> dest = new List<PathInfo>();
+
 				foreach (string dir in Directory.EnumerateDirectories(rootDir))
 				{
 					dest.Add(new PathInfo()
@@ -315,6 +459,8 @@ namespace SyncDir
 						Path = relation + Path.GetFileName(file),
 					});
 				}
+				dest.Sort(this.Comp);
+				return dest;
 			}
 
 			private void Merge(List<PathInfo> rPaths, List<PathInfo> wPaths)
@@ -361,12 +507,17 @@ namespace SyncDir
 
 			private int Comp(PathInfo a, PathInfo b)
 			{
-				int ret = this.CompIgnoreCase(a.Path, b.Path);
+				int ret = this.Path_Comp(a.Path, b.Path);
 
 				if (ret != 0)
 					return ret;
 
 				return (int)a.Kind - (int)b.Kind;
+			}
+
+			private int Path_Comp(string a, string b)
+			{
+				return this.CompIgnoreCase(a, b);
 			}
 
 			private int CompIgnoreCase(string a, string b)
@@ -394,10 +545,47 @@ namespace SyncDir
 		private void CleanupDir(string rootDir)
 		{
 			foreach (string dir in Directory.EnumerateDirectories(rootDir))
-				Directory.Delete(dir, true);
-
+			{
+				this.CleanupDir(dir);
+				this.DeleteDir(dir);
+			}
 			foreach (string file in Directory.EnumerateFiles(rootDir))
-				File.Delete(file);
+			{
+				this.DeleteFile(file);
+			}
+		}
+
+		private void DeleteFile(string file)
+		{
+			Logger.WriteLine("ファイル \"" + file + "\" を削除します。");
+
+			{
+				FileInfo info = new FileInfo(file);
+
+				info.Attributes &= ~FileAttributes.ReadOnly;
+			}
+
+			File.Delete(file);
+
+			Logger.WriteLine("ファイルを削除しました。");
+		}
+
+		private void CreateDir(string dir)
+		{
+			Logger.WriteLine("ディレクトリ \"" + dir + "\" を作成します。");
+
+			Directory.CreateDirectory(dir);
+
+			Logger.WriteLine("ディレクトリを作成しました。");
+		}
+
+		private void DeleteDir(string dir)
+		{
+			Logger.WriteLine("ディレクトリ \"" + dir + "\" を削除します。");
+
+			Directory.Delete(dir);
+
+			Logger.WriteLine("ディレクトリを削除しました。");
 		}
 	}
 }

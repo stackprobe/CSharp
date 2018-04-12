@@ -29,6 +29,8 @@ namespace SyncDir
 			this.CleanupDir(backupDir);
 			this.Main2(rRootDir, wRootDir, backupDir);
 			this.CleanupDir(backupDir);
+
+			Logger.WriteLine("同期しました。");
 		}
 
 		private void Main2(string rRootDir, string wRootDir, string backupDir)
@@ -117,36 +119,30 @@ namespace SyncDir
 
 		private void Fire()
 		{
-			int taskIndex = -1;
-
-			try
+			for (int index = 0; index < this.Tasks.Count; index++)
 			{
-				for (taskIndex = 0; taskIndex < this.Tasks.Count; taskIndex++)
-				{
-					Task task = this.Tasks[taskIndex];
-
-					this.Advance(task);
-				}
-			}
-			catch (Exception e)
-			{
-				Logger.WriteLine(e);
-
 				try
 				{
-					while (0 <= --taskIndex)
-					{
-						Task task = this.Tasks[taskIndex];
+					this.Advance(this.Tasks[index]);
+				}
+				catch (Exception e)
+				{
+					Logger.WriteLine("処理に失敗したためロールバックを開始します。" + e);
 
-						this.Retreat(task);
+					try
+					{
+						this.RetreatFailedTask(this.Tasks[index]);
+
+						while (0 <= --index)
+						{
+							this.Retreat(this.Tasks[index]);
+						}
+					}
+					catch (Exception ex)
+					{
+						throw new Exception("ロールバックに失敗しました。", ex);
 					}
 					throw new Exception("ロールバックしました。", e);
-				}
-				catch (Exception ex)
-				{
-					Logger.WriteLine(ex);
-
-					throw new Exception("ロールバックに失敗しました。", ex);
 				}
 			}
 		}
@@ -178,11 +174,11 @@ namespace SyncDir
 			switch (task.Command)
 			{
 				case Task.Command_e.DELETE_DIR:
-					Directory.Delete(task.Path);
+					this.DeleteDir(task.Path);
 					break;
 
 				case Task.Command_e.DELETE_FILE:
-					File.Delete(task.Path);
+					this.DeleteFile(task.Path);
 					break;
 
 				case Task.Command_e.UPDATE_FILE:
@@ -190,11 +186,53 @@ namespace SyncDir
 					break;
 
 				case Task.Command_e.CREATE_DIR:
-					Directory.CreateDirectory(task.Path);
+					this.CreateDir(task.Path);
 					break;
 
 				case Task.Command_e.CREATE_FILE:
 					this.CopyFile(task.SrcFile, task.Path);
+					break;
+
+				default:
+					throw null; // never
+			}
+		}
+
+		private void RetreatFailedTask(Task task)
+		{
+			switch (task.Command)
+			{
+				case Task.Command_e.DELETE_DIR:
+					if (Directory.Exists(task.Path) == false)
+					{
+						this.CreateDir(task.Path);
+					}
+					break;
+
+				case Task.Command_e.DELETE_FILE:
+				case Task.Command_e.UPDATE_FILE:
+					if (File.Exists(task.Path) == false)
+					{
+						this.CopyFile(task.BackupFile, task.Path);
+					}
+					else if (this.File_Comp(task.BackupFile, task.Path) != 0)
+					{
+						this.CopyFile(task.BackupFile, task.Path, true);
+					}
+					break;
+
+				case Task.Command_e.CREATE_DIR:
+					if (Directory.Exists(task.Path))
+					{
+						this.DeleteDir(task.Path);
+					}
+					break;
+
+				case Task.Command_e.CREATE_FILE:
+					if (File.Exists(task.Path))
+					{
+						this.DeleteFile(task.Path);
+					}
 					break;
 
 				default:
@@ -207,7 +245,7 @@ namespace SyncDir
 			switch (task.Command)
 			{
 				case Task.Command_e.DELETE_DIR:
-					Directory.CreateDirectory(task.Path);
+					this.CreateDir(task.Path);
 					break;
 
 				case Task.Command_e.DELETE_FILE:
@@ -219,11 +257,11 @@ namespace SyncDir
 					break;
 
 				case Task.Command_e.CREATE_DIR:
-					Directory.Delete(task.Path);
+					this.DeleteDir(task.Path);
 					break;
 
 				case Task.Command_e.CREATE_FILE:
-					File.Delete(task.Path);
+					this.DeleteFile(task.Path);
 					break;
 
 				default:
@@ -233,21 +271,49 @@ namespace SyncDir
 
 		private void CopyFile(string rFile, string wFile, bool overwrite = false)
 		{
+			Logger.WriteLine("ファイル \"" + rFile + "\" を \"" + wFile + "\" にコピーします。上書き=" + overwrite);
+
 			File.Copy(rFile, wFile, overwrite);
 
 			{
 				FileInfo rInfo = new FileInfo(rFile);
 				FileInfo wInfo = new FileInfo(wFile);
+				FileAttributes attr = wInfo.Attributes;
+
+				wInfo.Attributes &= ~FileAttributes.ReadOnly;
 
 				wInfo.CreationTime = rInfo.CreationTime;
 				wInfo.LastWriteTime = rInfo.LastWriteTime;
 				wInfo.LastAccessTime = rInfo.LastAccessTime;
+
+				wInfo.Attributes = attr;
 			}
+
+			Logger.WriteLine("ファイルをコピーしました。");
 		}
 
 		private bool IsFileChanged(string rFile, string wFile)
 		{
 			return new FileInfo(wFile).LastWriteTime < new FileInfo(rFile).LastWriteTime;
+		}
+
+		private int File_Comp(string file1, string file2)
+		{
+			using (FileStream reader1 = new FileStream(file1, FileMode.Open, FileAccess.Read))
+			using (FileStream reader2 = new FileStream(file2, FileMode.Open, FileAccess.Read))
+			{
+				for (; ; )
+				{
+					int chr1 = reader1.ReadByte();
+					int chr2 = reader2.ReadByte();
+
+					if (chr1 != chr2)
+						return (int)chr1 - (int)chr2;
+
+					if (chr1 == -1)
+						return 0;
+				}
+			}
 		}
 
 		private class Task
@@ -334,6 +400,8 @@ namespace SyncDir
 			return dest;
 		}
 
+		private const string DIRECTORY_SEPARATOR = "\\";
+
 		private void CollectPathInfos(string rootDir, string relation, List<PathInfo> dest)
 		{
 			foreach (string dir in Directory.EnumerateDirectories(rootDir))
@@ -344,7 +412,7 @@ namespace SyncDir
 					Path = relation + Path.GetFileName(dir),
 				});
 
-				this.CollectPathInfos(dir, relation + Path.GetFileName(dir) + "\\", dest);
+				this.CollectPathInfos(dir, relation + Path.GetFileName(dir) + DIRECTORY_SEPARATOR, dest);
 			}
 			foreach (string file in Directory.EnumerateFiles(rootDir))
 			{
@@ -358,12 +426,17 @@ namespace SyncDir
 
 		private int Comp(PathInfo a, PathInfo b)
 		{
-			int ret = this.CompIgnoreCase(a.Path, b.Path);
+			int ret = this.Path_Comp(a.Path, b.Path);
 
 			if (ret != 0)
 				return ret;
 
 			return (int)a.Kind - (int)b.Kind;
+		}
+
+		private int Path_Comp(string a, string b)
+		{
+			return this.CompIgnoreCase(a, b);
 		}
 
 		private int CompIgnoreCase(string a, string b)
@@ -390,10 +463,47 @@ namespace SyncDir
 		private void CleanupDir(string rootDir)
 		{
 			foreach (string dir in Directory.EnumerateDirectories(rootDir))
-				Directory.Delete(dir, true);
-
+			{
+				this.CleanupDir(dir);
+				this.DeleteDir(dir);
+			}
 			foreach (string file in Directory.EnumerateFiles(rootDir))
-				File.Delete(file);
+			{
+				this.DeleteFile(file);
+			}
+		}
+
+		private void DeleteFile(string file)
+		{
+			Logger.WriteLine("ファイル \"" + file + "\" を削除します。");
+
+			{
+				FileInfo info = new FileInfo(file);
+
+				info.Attributes &= ~FileAttributes.ReadOnly;
+			}
+
+			File.Delete(file);
+
+			Logger.WriteLine("ファイルを削除しました。");
+		}
+
+		private void CreateDir(string dir)
+		{
+			Logger.WriteLine("ディレクトリ \"" + dir + "\" を作成します。");
+
+			Directory.CreateDirectory(dir);
+
+			Logger.WriteLine("ディレクトリを作成しました。");
+		}
+
+		private void DeleteDir(string dir)
+		{
+			Logger.WriteLine("ディレクトリ \"" + dir + "\" を削除します。");
+
+			Directory.Delete(dir);
+
+			Logger.WriteLine("ディレクトリを削除しました。");
 		}
 	}
 }
