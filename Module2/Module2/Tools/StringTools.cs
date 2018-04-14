@@ -23,7 +23,7 @@ namespace Charlotte.Tools
 			GetString_SJISHalfCodeRange(0x5b, 0x60) +
 			GetString_SJISHalfCodeRange(0x7b, 0x7e);
 
-		public static string ASCII = DECIMAL + ALPHA + alpha + PUNCT;
+		public static string ASCII = DECIMAL + ALPHA + alpha + PUNCT; // == { 0x21 ～ 0x7e }
 		public static string KANA = GetString_SJISHalfCodeRange(0xa1, 0xdf);
 
 		public static string HALF = ASCII + KANA;
