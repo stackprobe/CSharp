@@ -77,17 +77,7 @@ namespace Charlotte
 					return false;
 				}
 
-				{
-					int millis;
-
-					using (System.Security.Cryptography.RNGCryptoServiceProvider cRnd = new System.Security.Cryptography.RNGCryptoServiceProvider())
-					{
-						byte[] crByte = new byte[1];
-						cRnd.GetBytes(crByte);
-						millis = (int)crByte[0];
-					}
-					System.Threading.Thread.Sleep(millis);
-				}
+				System.Threading.Thread.Sleep(100);
 			}
 			return true;
 #endif

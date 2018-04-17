@@ -24,36 +24,7 @@ namespace Charlotte
 
 			OnBoot();
 
-			Mutex procMutex = null;
-
-#if false
-			{
-				System.Security.AccessControl.MutexSecurity security = new System.Security.AccessControl.MutexSecurity();
-
-				security.AddAccessRule(
-					new System.Security.AccessControl.MutexAccessRule(
-						new System.Security.Principal.SecurityIdentifier(
-							System.Security.Principal.WellKnownSidType.WorldSid,
-							null
-							),
-						System.Security.AccessControl.MutexRights.FullControl,
-						System.Security.AccessControl.AccessControlType.Allow
-						)
-					);
-
-				bool createdNew;
-				procMutex = new Mutex(false, APP_IDENT, out createdNew, security);
-			}
-#else
-			try
-			{
-				procMutex = new Mutex(false, APP_IDENT);
-			}
-			catch
-			{
-				Environment.Exit(9);
-			}
-#endif
+			Mutex procMutex = new Mutex(false, APP_IDENT);
 
 			if (procMutex.WaitOne(0))
 			{
