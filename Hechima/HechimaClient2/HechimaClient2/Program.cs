@@ -56,7 +56,7 @@ namespace Charlotte
 		}
 
 		public const string APP_IDENT = "{7c371795-b860-4a77-bdae-4b7fe182af8c}";
-		public const string APP_TITLE = "HechimaClient";
+		public const string APP_TITLE = "HechimaClient2";
 
 		private static void applicationThreadException(object sender, ThreadExceptionEventArgs e)
 		{
@@ -137,7 +137,7 @@ namespace Charlotte
 
 		private static void checkAloneExe()
 		{
-			if (File.Exists("HechimaClient.conf")) // リリースに含まれるファイル
+			if (File.Exists("HechimaClient2.conf")) // リリースに含まれるファイル
 				return;
 
 			if (Directory.Exists(@"..\Debug")) // ? devenv

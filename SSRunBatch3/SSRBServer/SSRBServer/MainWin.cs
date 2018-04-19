@@ -85,7 +85,6 @@ namespace Charlotte
 			// プロセス終了時にすること
 			{
 				Gnd.I.StopServer();
-				//Gnd.I.StopTSR();
 			}
 
 			this.Close();

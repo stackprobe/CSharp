@@ -1,2 +1,8 @@
+----
+
+MainWin_FormClosed イベント中に AfterWin を表示しても良いっぽい。-> t0001
+
+----
+
 WinAfterMainWin は、MainWin を最小化してタスクバー・右クリック・閉じるで閉じると AfterWin が表示されないことがある。
 修正案として、WinAfterMainWin_Kai
