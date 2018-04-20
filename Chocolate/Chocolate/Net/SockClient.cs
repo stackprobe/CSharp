@@ -5,6 +5,7 @@ using System.Text;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using Charlotte.Tools;
 
 namespace Charlotte.Net
 {
@@ -163,7 +164,7 @@ namespace Charlotte.Net
 				}
 				catch (Exception e)
 				{
-					Utils.PostMessage(e);
+					Common.WriteLog(e);
 				}
 
 				try
@@ -172,7 +173,7 @@ namespace Charlotte.Net
 				}
 				catch (Exception e)
 				{
-					Utils.PostMessage(e);
+					Common.WriteLog(e);
 				}
 
 				this.Handler = null;

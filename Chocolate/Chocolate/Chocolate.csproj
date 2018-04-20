@@ -43,6 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Annex\Tools\TimeLimitedTempDir.cs" />
+    <Compile Include="Net\FilingCase3.cs" />
+    <Compile Include="Net\FilingCase3Client.cs" />
+    <Compile Include="Net\SockClient.cs" />
     <Compile Include="Tools\Common.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\ArgsReader.cs" />

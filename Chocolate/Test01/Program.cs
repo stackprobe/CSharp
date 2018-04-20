@@ -37,7 +37,24 @@ namespace Charlotte
 
 		private void Main2()
 		{
-			new FileToolsTest().Test01();
+			//new FilingCase3Test().Test01();
+			//new WorkingDirTest().Test01();
+			//new DateTimeToSecTest().Test01();
+			//new Test01().Main01();
+			//new Test01().Main02();
+			//new Test01().Main03();
+			//new Test01().Main03b();
+			//new StringToolsTest().Test01();
+			//new StringToolsTest().Test02();
+			//new ArrayToolsTest().Test01();
+			//new TimeLimitedTempDirTest().Test01();
+			//new TimeLimitedTempDirTest().Test02();
+			//new TimeLimitedTempDirTest().Test03();
+			//new FileToolsTest().Test01();
+			//new FileToolsTest().Test02();
+			//new SortedListTest().Test01();
+			//new SecurityToolsTest.AESTest().Test01();
+			new SecurityToolsTest().Test01();
 		}
 	}
 }

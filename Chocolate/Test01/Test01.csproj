@@ -46,7 +46,16 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\Annex\Tools\TimeLimitedTempDirTest.cs" />
+    <Compile Include="Tests\Net\FilingCase3Test.cs" />
+    <Compile Include="Tests\Test01.cs" />
+    <Compile Include="Tests\Tools\ArrayToolsTest.cs" />
+    <Compile Include="Tests\Tools\DateTimeToSecTest.cs" />
     <Compile Include="Tests\Tools\FileToolsTest.cs" />
+    <Compile Include="Tests\Tools\SecurityToolsTest.cs" />
+    <Compile Include="Tests\Tools\SortedListTest.cs" />
+    <Compile Include="Tests\Tools\StringToolsTest.cs" />
+    <Compile Include="Tests\Tools\WorkingDirTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
