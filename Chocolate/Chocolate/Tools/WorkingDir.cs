@@ -18,7 +18,7 @@ namespace Charlotte.Tools
 
 		public static WorkingDir CreateProcessRoot()
 		{
-			return new WorkingDir(Path.Combine(Environment.GetEnvironmentVariable("TMP"), Common.APP_IDENT + "_" + Process.GetCurrentProcess().Id));
+			return new WorkingDir(Path.Combine(Environment.GetEnvironmentVariable("TMP"), "{41266ce2-7655-413e-b8bb-780aaf640f4d}_" + Process.GetCurrentProcess().Id));
 		}
 
 		private string Dir;

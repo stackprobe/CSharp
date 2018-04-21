@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Charlotte.Tools;
 using Charlotte.Tests.Tools;
+using Charlotte.Tests.Tools.Annex;
 
 namespace Charlotte
 {
@@ -47,14 +48,14 @@ namespace Charlotte
 			//new StringToolsTest().Test01();
 			//new StringToolsTest().Test02();
 			//new ArrayToolsTest().Test01();
-			//new TimeLimitedTempDirTest().Test01();
+			new TimeLimitedTempDirTest().Test01();
 			//new TimeLimitedTempDirTest().Test02();
 			//new TimeLimitedTempDirTest().Test03();
 			//new FileToolsTest().Test01();
 			//new FileToolsTest().Test02();
 			//new SortedListTest().Test01();
 			//new SecurityToolsTest.AESTest().Test01();
-			new SecurityToolsTest().Test01();
+			//new SecurityToolsTest().Test01();
 		}
 	}
 }
