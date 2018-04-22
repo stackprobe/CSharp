@@ -48,8 +48,8 @@ namespace Charlotte
 			//new StringToolsTest().Test01();
 			//new StringToolsTest().Test02();
 			//new ArrayToolsTest().Test01();
-			new TimeLimitedTempDirTest().Test01();
-			//new TimeLimitedTempDirTest().Test02();
+			//new TimeLimitedTempDirTest().Test01();
+			new TimeLimitedTempDirTest().Test02();
 			//new TimeLimitedTempDirTest().Test03();
 			//new FileToolsTest().Test01();
 			//new FileToolsTest().Test02();

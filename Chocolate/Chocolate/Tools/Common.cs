@@ -7,6 +7,8 @@ using System.Threading;
 using System.Reflection;
 using System.Windows.Forms;
 using Microsoft.Win32;
+using System.Security.AccessControl;
+using System.Security.Principal;
 
 namespace Charlotte.Tools
 {
@@ -52,6 +54,8 @@ namespace Charlotte.Tools
 			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomainUnhandledException);
 			SystemEvents.SessionEnding += new SessionEndingEventHandler(SessionEnding);
 
+			WriteLog = message => Log.Enqueue("[" + DateTime.Now + "] " + message);
+
 			APP_IDENT = appIdent;
 			APP_TITLE = appTitle;
 
@@ -68,6 +72,8 @@ namespace Charlotte.Tools
 					CheckLogonUserAndTmp();
 
 					WorkingDir.Root = WorkingDir.CreateRoot();
+
+					ArgsReader = GetArgsReader();
 
 					// core >
 
@@ -228,42 +234,47 @@ namespace Charlotte.Tools
 
 			public static bool Create(string ident, string title)
 			{
-				for (int c = 0; ; c++)
+				try
 				{
-					try
-					{
-						ProcMtx = new Mutex(false, @"Global\Global_" + Common.APP_IDENT);
+					MutexSecurity security = new MutexSecurity();
 
-						if (ProcMtx.WaitOne(0))
-							break;
+					security.AddAccessRule(
+						new MutexAccessRule(
+							new SecurityIdentifier(
+								WellKnownSidType.WorldSid,
+								null
+								),
+							MutexRights.FullControl,
+							AccessControlType.Allow
+							)
+						);
 
-						ProcMtx.Close();
-						ProcMtx = null;
+					bool createdNew;
+					ProcMtx = new Mutex(false, @"Global\Global_" + ident, out createdNew, security);
 
-						Common.WriteLog(new Exception());
-					}
-					catch (Exception e)
-					{
-						Common.WriteLog(e);
-					}
+					if (ProcMtx.WaitOne(0))
+						return true;
 
-					CloseProcMtx();
+					ProcMtx.Close();
+					ProcMtx = null;
 
-					if (8 < c)
-					{
-						System.Windows.Forms.MessageBox.Show(
-							"Already started on the other logon session !",
-							title + " / Error",
-							System.Windows.Forms.MessageBoxButtons.OK,
-							System.Windows.Forms.MessageBoxIcon.Error
-							);
-
-						return false;
-					}
-
-					System.Threading.Thread.Sleep(100);
+					Common.WriteLog(new Exception());
 				}
-				return true;
+				catch (Exception e)
+				{
+					Common.WriteLog(e);
+				}
+
+				CloseProcMtx();
+
+				MessageBox.Show(
+					"Already started on the other logon session !",
+					title + " / Error",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error
+					);
+
+				return false;
 			}
 
 			public static void Release()
@@ -280,6 +291,46 @@ namespace Charlotte.Tools
 				catch { }
 
 				ProcMtx = null;
+			}
+		}
+
+		public static SyncLimitedQueue<string> Log = new SyncLimitedQueue<string>();
+
+		public class SyncLimitedQueue<T>
+		{
+			private readonly object SYNCROOT = new object();
+			private Queue<T> Buff = new Queue<T>();
+			private int MaxSize;
+
+			public SyncLimitedQueue(int maxSize = 100)
+			{
+				if (maxSize < 1)
+					throw new ArgumentException();
+
+				this.MaxSize = maxSize;
+			}
+
+			public void Enqueue(T value)
+			{
+				lock (SYNCROOT)
+				{
+					if (this.MaxSize <= this.Buff.Count)
+						this.Buff.Dequeue();
+
+					this.Buff.Enqueue(value);
+				}
+			}
+
+			public T[] DequeueAll()
+			{
+				List<T> dest = new List<T>();
+
+				lock (SYNCROOT)
+				{
+					while (1 <= this.Buff.Count)
+						dest.Add(this.Buff.Dequeue());
+				}
+				return dest.ToArray();
 			}
 		}
 	}
