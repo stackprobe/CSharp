@@ -72,5 +72,10 @@ namespace TextBoxChiratsukiBoushi
 			this.textBox1.SelectionStart = this.textBox1.TextLength;
 			this.textBox1.ScrollToCaret();
 		}
+
+		private void MainWin_Load(object sender, EventArgs e)
+		{
+			// noop
+		}
 	}
 }

@@ -161,12 +161,6 @@ namespace Charlotte
 			this.AddToRemarksRTB(new List<Remark>(new Remark[] { provRemark }));
 
 			Gnd.bgService.SendingMessages.Enqueue(message);
-
-			if (Gnd.setting.ColorfulDaysEnabled && Gnd.setting.CfDs_発言したら標準の色に戻す)
-			{
-				this.RemarksTextForeColor_Next = Gnd.setting.RemarksTextForeColor;
-				this.RemarksTextBackColor_Next = Gnd.setting.RemarksTextBackColor;
-			}
 		}
 
 		private void MessageText_TextChanged(object sender, EventArgs e)
@@ -178,11 +172,6 @@ namespace Charlotte
 		{
 			// noop
 		}
-
-		private Color? RemarksTextForeColor_Next = null;
-		private Color? RemarksTextBackColor_Next = null;
-		private int ColorfulDaysForeColorIndex = 0;
-		private int ColorfulDaysBackColorIndex = 0;
 
 		private long MT_Count;
 
