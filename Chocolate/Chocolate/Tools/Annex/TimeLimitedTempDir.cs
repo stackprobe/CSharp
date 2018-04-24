@@ -117,6 +117,7 @@ namespace Charlotte.Tools.Annex
 #else // Local
 				_m = new Mutex(false, ident);
 #endif
+				_m.WaitOne();
 			}
 
 			public void Dispose()
