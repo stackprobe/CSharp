@@ -162,5 +162,15 @@ namespace RTBChiratsukiBoushi
 			else
 				this.I.LanguageOption = RichTextBoxLanguageOptions.AutoFont | RichTextBoxLanguageOptions.DualFont; // デフォルト
 		}
+
+		public void Cut(int cutLen)
+		{
+			RichTextBox rtb = this.I;
+
+			rtb.SelectionStart = 0;
+			rtb.SelectionLength = cutLen;
+			rtb.SelectionProtected = false;
+			rtb.SelectedText = "";
+		}
 	}
 }

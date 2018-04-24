@@ -54,17 +54,18 @@
 			this.MessageTextBackColorBtn = new System.Windows.Forms.Button();
 			this.MessageTextForeColorBtn = new System.Windows.Forms.Button();
 			this.RemarksTextBackColorBtn = new System.Windows.Forms.Button();
-			this.RemarksTextForeColorBtn = new System.Windows.Forms.Button();
+			this.RemarksTextDefaultForeColorBtn = new System.Windows.Forms.Button();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
-			this.RemarksTextFontSize = new System.Windows.Forms.TextBox();
+			this.RemarksTextDefaultFontSize = new System.Windows.Forms.TextBox();
 			this.label10 = new System.Windows.Forms.Label();
-			this.RemarksTextFontFamily = new System.Windows.Forms.TextBox();
+			this.RemarksTextDefaultFontFamily = new System.Windows.Forms.TextBox();
 			this.label11 = new System.Windows.Forms.Label();
 			this.label9 = new System.Windows.Forms.Label();
 			this.RemarkFormat = new System.Windows.Forms.TextBox();
 			this.label8 = new System.Windows.Forms.Label();
 			this.MessageTextEnterMode = new System.Windows.Forms.ComboBox();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
+			this.TaskBarFlashEnabled = new System.Windows.Forms.CheckBox();
 			this.groupBox6 = new System.Windows.Forms.GroupBox();
 			this.Flat_OnlineText = new System.Windows.Forms.CheckBox();
 			this.Flat_MessageText = new System.Windows.Forms.CheckBox();
@@ -104,19 +105,9 @@
 			this.label15 = new System.Windows.Forms.Label();
 			this.BouyomiChanEnabled = new System.Windows.Forms.CheckBox();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
-			this.CfDs_発言したら標準の色に戻す = new System.Windows.Forms.CheckBox();
-			this.CfDs_自分の発言でも色を変える = new System.Windows.Forms.CheckBox();
-			this.label28 = new System.Windows.Forms.Label();
-			this.label27 = new System.Windows.Forms.Label();
-			this.ColorfulDaysBackColors = new System.Windows.Forms.TextBox();
-			this.label26 = new System.Windows.Forms.Label();
-			this.label25 = new System.Windows.Forms.Label();
-			this.ColorfulDaysForeColors = new System.Windows.Forms.TextBox();
-			this.ColorfulDaysEnabled = new System.Windows.Forms.CheckBox();
 			this.CancelBtn = new System.Windows.Forms.Button();
 			this.OkBtn = new System.Windows.Forms.Button();
 			this.CorrectBtn = new System.Windows.Forms.Button();
-			this.TaskBarFlashEnabled = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -129,7 +120,6 @@
 			this.groupBox4.SuspendLayout();
 			this.tabPage4.SuspendLayout();
 			this.groupBox5.SuspendLayout();
-			this.tabPage6.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl1
@@ -329,10 +319,10 @@
 			this.tabPage2.Controls.Add(this.ShowRemarkStampDate);
 			this.tabPage2.Controls.Add(this.TripEnabled);
 			this.tabPage2.Controls.Add(this.label14);
+			this.tabPage2.Controls.Add(this.RemarksTextDefaultForeColorBtn);
 			this.tabPage2.Controls.Add(this.MessageTextBackColorBtn);
 			this.tabPage2.Controls.Add(this.MessageTextForeColorBtn);
 			this.tabPage2.Controls.Add(this.RemarksTextBackColorBtn);
-			this.tabPage2.Controls.Add(this.RemarksTextForeColorBtn);
 			this.tabPage2.Controls.Add(this.groupBox3);
 			this.tabPage2.Controls.Add(this.label9);
 			this.tabPage2.Controls.Add(this.RemarkFormat);
@@ -410,48 +400,48 @@
 			// 
 			// RemarksTextBackColorBtn
 			// 
-			this.RemarksTextBackColorBtn.Location = new System.Drawing.Point(262, 299);
+			this.RemarksTextBackColorBtn.Location = new System.Drawing.Point(330, 299);
 			this.RemarksTextBackColorBtn.Name = "RemarksTextBackColorBtn";
-			this.RemarksTextBackColorBtn.Size = new System.Drawing.Size(250, 40);
+			this.RemarksTextBackColorBtn.Size = new System.Drawing.Size(216, 40);
 			this.RemarksTextBackColorBtn.TabIndex = 7;
 			this.RemarksTextBackColorBtn.Text = "発言リスト背景色 = ffffff";
 			this.RemarksTextBackColorBtn.UseVisualStyleBackColor = true;
 			this.RemarksTextBackColorBtn.Click += new System.EventHandler(this.RemarksTextBackColorBtn_Click);
 			// 
-			// RemarksTextForeColorBtn
+			// RemarksTextDefaultForeColorBtn
 			// 
-			this.RemarksTextForeColorBtn.Location = new System.Drawing.Point(6, 299);
-			this.RemarksTextForeColorBtn.Name = "RemarksTextForeColorBtn";
-			this.RemarksTextForeColorBtn.Size = new System.Drawing.Size(250, 40);
-			this.RemarksTextForeColorBtn.TabIndex = 6;
-			this.RemarksTextForeColorBtn.Text = "発言リスト文字色 = 000000";
-			this.RemarksTextForeColorBtn.UseVisualStyleBackColor = true;
-			this.RemarksTextForeColorBtn.Click += new System.EventHandler(this.RemarksTextForeColorBtn_Click);
+			this.RemarksTextDefaultForeColorBtn.Location = new System.Drawing.Point(6, 299);
+			this.RemarksTextDefaultForeColorBtn.Name = "RemarksTextDefaultForeColorBtn";
+			this.RemarksTextDefaultForeColorBtn.Size = new System.Drawing.Size(318, 40);
+			this.RemarksTextDefaultForeColorBtn.TabIndex = 6;
+			this.RemarksTextDefaultForeColorBtn.Text = "発言リストのデフォルト文字色 = 000000";
+			this.RemarksTextDefaultForeColorBtn.UseVisualStyleBackColor = true;
+			this.RemarksTextDefaultForeColorBtn.Click += new System.EventHandler(this.RemarksTextForeColorBtn_Click);
 			// 
 			// groupBox3
 			// 
 			this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.groupBox3.Controls.Add(this.RemarksTextFontSize);
+			this.groupBox3.Controls.Add(this.RemarksTextDefaultFontSize);
 			this.groupBox3.Controls.Add(this.label10);
-			this.groupBox3.Controls.Add(this.RemarksTextFontFamily);
+			this.groupBox3.Controls.Add(this.RemarksTextDefaultFontFamily);
 			this.groupBox3.Controls.Add(this.label11);
 			this.groupBox3.Location = new System.Drawing.Point(6, 193);
 			this.groupBox3.Name = "groupBox3";
 			this.groupBox3.Size = new System.Drawing.Size(540, 100);
 			this.groupBox3.TabIndex = 5;
 			this.groupBox3.TabStop = false;
-			this.groupBox3.Text = "発言リストのフォント";
+			this.groupBox3.Text = "発言リストのデフォルトフォント";
 			// 
-			// RemarksTextFontSize
+			// RemarksTextDefaultFontSize
 			// 
-			this.RemarksTextFontSize.Location = new System.Drawing.Point(96, 59);
-			this.RemarksTextFontSize.MaxLength = 2;
-			this.RemarksTextFontSize.Name = "RemarksTextFontSize";
-			this.RemarksTextFontSize.Size = new System.Drawing.Size(50, 27);
-			this.RemarksTextFontSize.TabIndex = 3;
-			this.RemarksTextFontSize.Text = "10";
-			this.RemarksTextFontSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.RemarksTextDefaultFontSize.Location = new System.Drawing.Point(96, 59);
+			this.RemarksTextDefaultFontSize.MaxLength = 2;
+			this.RemarksTextDefaultFontSize.Name = "RemarksTextDefaultFontSize";
+			this.RemarksTextDefaultFontSize.Size = new System.Drawing.Size(50, 27);
+			this.RemarksTextDefaultFontSize.TabIndex = 3;
+			this.RemarksTextDefaultFontSize.Text = "10";
+			this.RemarksTextDefaultFontSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// label10
 			// 
@@ -462,16 +452,16 @@
 			this.label10.TabIndex = 2;
 			this.label10.Text = "サイズ :";
 			// 
-			// RemarksTextFontFamily
+			// RemarksTextDefaultFontFamily
 			// 
-			this.RemarksTextFontFamily.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.RemarksTextDefaultFontFamily.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.RemarksTextFontFamily.Location = new System.Drawing.Point(96, 26);
-			this.RemarksTextFontFamily.MaxLength = 300;
-			this.RemarksTextFontFamily.Name = "RemarksTextFontFamily";
-			this.RemarksTextFontFamily.Size = new System.Drawing.Size(438, 27);
-			this.RemarksTextFontFamily.TabIndex = 1;
-			this.RemarksTextFontFamily.Text = "メイリオ";
+			this.RemarksTextDefaultFontFamily.Location = new System.Drawing.Point(96, 26);
+			this.RemarksTextDefaultFontFamily.MaxLength = 300;
+			this.RemarksTextDefaultFontFamily.Name = "RemarksTextDefaultFontFamily";
+			this.RemarksTextDefaultFontFamily.Size = new System.Drawing.Size(438, 27);
+			this.RemarksTextDefaultFontFamily.TabIndex = 1;
+			this.RemarksTextDefaultFontFamily.Text = "メイリオ";
 			// 
 			// label11
 			// 
@@ -539,6 +529,16 @@
 			this.tabPage5.TabIndex = 4;
 			this.tabPage5.Text = "画面2";
 			this.tabPage5.UseVisualStyleBackColor = true;
+			// 
+			// TaskBarFlashEnabled
+			// 
+			this.TaskBarFlashEnabled.AutoSize = true;
+			this.TaskBarFlashEnabled.Location = new System.Drawing.Point(12, 154);
+			this.TaskBarFlashEnabled.Name = "TaskBarFlashEnabled";
+			this.TaskBarFlashEnabled.Size = new System.Drawing.Size(483, 24);
+			this.TaskBarFlashEnabled.TabIndex = 4;
+			this.TaskBarFlashEnabled.Text = "非アクティブ時に発言があったらタスクバーのアイコンをフラッシュさせる。";
+			this.TaskBarFlashEnabled.UseVisualStyleBackColor = true;
 			// 
 			// groupBox6
 			// 
@@ -954,119 +954,12 @@
 			// 
 			// tabPage6
 			// 
-			this.tabPage6.Controls.Add(this.CfDs_発言したら標準の色に戻す);
-			this.tabPage6.Controls.Add(this.CfDs_自分の発言でも色を変える);
-			this.tabPage6.Controls.Add(this.label28);
-			this.tabPage6.Controls.Add(this.label27);
-			this.tabPage6.Controls.Add(this.ColorfulDaysBackColors);
-			this.tabPage6.Controls.Add(this.label26);
-			this.tabPage6.Controls.Add(this.label25);
-			this.tabPage6.Controls.Add(this.ColorfulDaysForeColors);
-			this.tabPage6.Controls.Add(this.ColorfulDaysEnabled);
 			this.tabPage6.Location = new System.Drawing.Point(4, 29);
 			this.tabPage6.Name = "tabPage6";
 			this.tabPage6.Size = new System.Drawing.Size(552, 454);
 			this.tabPage6.TabIndex = 5;
 			this.tabPage6.Text = "Colorful Days";
 			this.tabPage6.UseVisualStyleBackColor = true;
-			// 
-			// CfDs_発言したら標準の色に戻す
-			// 
-			this.CfDs_発言したら標準の色に戻す.AutoSize = true;
-			this.CfDs_発言したら標準の色に戻す.Location = new System.Drawing.Point(215, 266);
-			this.CfDs_発言したら標準の色に戻す.Name = "CfDs_発言したら標準の色に戻す";
-			this.CfDs_発言したら標準の色に戻す.Size = new System.Drawing.Size(197, 24);
-			this.CfDs_発言したら標準の色に戻す.TabIndex = 8;
-			this.CfDs_発言したら標準の色に戻す.Text = "発言したら標準の色に戻す。";
-			this.CfDs_発言したら標準の色に戻す.UseVisualStyleBackColor = true;
-			// 
-			// CfDs_自分の発言でも色を変える
-			// 
-			this.CfDs_自分の発言でも色を変える.AutoSize = true;
-			this.CfDs_自分の発言でも色を変える.Location = new System.Drawing.Point(12, 266);
-			this.CfDs_自分の発言でも色を変える.Name = "CfDs_自分の発言でも色を変える";
-			this.CfDs_自分の発言でも色を変える.Size = new System.Drawing.Size(197, 24);
-			this.CfDs_自分の発言でも色を変える.TabIndex = 7;
-			this.CfDs_自分の発言でも色を変える.Text = "自分の発言でも色を変える。";
-			this.CfDs_自分の発言でも色を変える.UseVisualStyleBackColor = true;
-			// 
-			// label28
-			// 
-			this.label28.AutoSize = true;
-			this.label28.Location = new System.Drawing.Point(8, 157);
-			this.label28.Name = "label28";
-			this.label28.Size = new System.Drawing.Size(97, 20);
-			this.label28.TabIndex = 4;
-			this.label28.Text = "背景色リスト :";
-			// 
-			// label27
-			// 
-			this.label27.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label27.AutoSize = true;
-			this.label27.ForeColor = System.Drawing.Color.Teal;
-			this.label27.Location = new System.Drawing.Point(282, 223);
-			this.label27.Name = "label27";
-			this.label27.Size = new System.Drawing.Size(267, 40);
-			this.label27.TabIndex = 6;
-			this.label27.Text = "書式 = \"rrggbb\" を \":\" 区切りで入力する。\r\n例 = 008080:800080:808000";
-			// 
-			// ColorfulDaysBackColors
-			// 
-			this.ColorfulDaysBackColors.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.ColorfulDaysBackColors.Location = new System.Drawing.Point(111, 154);
-			this.ColorfulDaysBackColors.MaxLength = 699;
-			this.ColorfulDaysBackColors.Multiline = true;
-			this.ColorfulDaysBackColors.Name = "ColorfulDaysBackColors";
-			this.ColorfulDaysBackColors.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.ColorfulDaysBackColors.Size = new System.Drawing.Size(438, 66);
-			this.ColorfulDaysBackColors.TabIndex = 5;
-			this.ColorfulDaysBackColors.Text = "1行目\r\n2行目\r\n3行目";
-			this.ColorfulDaysBackColors.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ColorfulDaysBackColors_KeyPress);
-			// 
-			// label26
-			// 
-			this.label26.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label26.AutoSize = true;
-			this.label26.ForeColor = System.Drawing.Color.Teal;
-			this.label26.Location = new System.Drawing.Point(282, 111);
-			this.label26.Name = "label26";
-			this.label26.Size = new System.Drawing.Size(267, 40);
-			this.label26.TabIndex = 3;
-			this.label26.Text = "書式 = \"rrggbb\" を \":\" 区切りで入力する。\r\n例 = ff0000:00ff00:0000ff";
-			// 
-			// label25
-			// 
-			this.label25.AutoSize = true;
-			this.label25.Location = new System.Drawing.Point(8, 45);
-			this.label25.Name = "label25";
-			this.label25.Size = new System.Drawing.Size(97, 20);
-			this.label25.TabIndex = 1;
-			this.label25.Text = "文字色リスト :";
-			// 
-			// ColorfulDaysForeColors
-			// 
-			this.ColorfulDaysForeColors.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.ColorfulDaysForeColors.Location = new System.Drawing.Point(111, 42);
-			this.ColorfulDaysForeColors.MaxLength = 699;
-			this.ColorfulDaysForeColors.Multiline = true;
-			this.ColorfulDaysForeColors.Name = "ColorfulDaysForeColors";
-			this.ColorfulDaysForeColors.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.ColorfulDaysForeColors.Size = new System.Drawing.Size(438, 66);
-			this.ColorfulDaysForeColors.TabIndex = 2;
-			this.ColorfulDaysForeColors.Text = "1行目\r\n2行目\r\n3行目";
-			this.ColorfulDaysForeColors.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ColorfulDaysForeColors_KeyPress);
-			// 
-			// ColorfulDaysEnabled
-			// 
-			this.ColorfulDaysEnabled.AutoSize = true;
-			this.ColorfulDaysEnabled.Location = new System.Drawing.Point(12, 12);
-			this.ColorfulDaysEnabled.Name = "ColorfulDaysEnabled";
-			this.ColorfulDaysEnabled.Size = new System.Drawing.Size(288, 24);
-			this.ColorfulDaysEnabled.TabIndex = 0;
-			this.ColorfulDaysEnabled.Text = "発言リストが更新される度に色を変更する。";
-			this.ColorfulDaysEnabled.UseVisualStyleBackColor = true;
 			// 
 			// CancelBtn
 			// 
@@ -1100,16 +993,6 @@
 			this.CorrectBtn.Text = "補正";
 			this.CorrectBtn.UseVisualStyleBackColor = true;
 			this.CorrectBtn.Click += new System.EventHandler(this.CorrectBtn_Click);
-			// 
-			// TaskBarFlashEnabled
-			// 
-			this.TaskBarFlashEnabled.AutoSize = true;
-			this.TaskBarFlashEnabled.Location = new System.Drawing.Point(12, 154);
-			this.TaskBarFlashEnabled.Name = "TaskBarFlashEnabled";
-			this.TaskBarFlashEnabled.Size = new System.Drawing.Size(483, 24);
-			this.TaskBarFlashEnabled.TabIndex = 4;
-			this.TaskBarFlashEnabled.Text = "非アクティブ時に発言があったらタスクバーのアイコンをフラッシュさせる。";
-			this.TaskBarFlashEnabled.UseVisualStyleBackColor = true;
 			// 
 			// SettingWin
 			// 
@@ -1152,8 +1035,6 @@
 			this.tabPage4.PerformLayout();
 			this.groupBox5.ResumeLayout(false);
 			this.groupBox5.PerformLayout();
-			this.tabPage6.ResumeLayout(false);
-			this.tabPage6.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -1187,11 +1068,11 @@
 		private System.Windows.Forms.Button MessageTextBackColorBtn;
 		private System.Windows.Forms.Button MessageTextForeColorBtn;
 		private System.Windows.Forms.Button RemarksTextBackColorBtn;
-		private System.Windows.Forms.Button RemarksTextForeColorBtn;
+		private System.Windows.Forms.Button RemarksTextDefaultForeColorBtn;
 		private System.Windows.Forms.GroupBox groupBox3;
-		private System.Windows.Forms.TextBox RemarksTextFontSize;
+		private System.Windows.Forms.TextBox RemarksTextDefaultFontSize;
 		private System.Windows.Forms.Label label10;
-		private System.Windows.Forms.TextBox RemarksTextFontFamily;
+		private System.Windows.Forms.TextBox RemarksTextDefaultFontFamily;
 		private System.Windows.Forms.Label label11;
 		private System.Windows.Forms.TabPage tabPage3;
 		private System.Windows.Forms.GroupBox groupBox4;
@@ -1234,15 +1115,6 @@
 		private System.Windows.Forms.TabPage tabPage6;
 		private System.Windows.Forms.Button OnlineBackColorBtn;
 		private System.Windows.Forms.Button OnlineForeColorBtn;
-		private System.Windows.Forms.Label label25;
-		private System.Windows.Forms.TextBox ColorfulDaysForeColors;
-		private System.Windows.Forms.CheckBox ColorfulDaysEnabled;
-		private System.Windows.Forms.Label label26;
-		private System.Windows.Forms.Label label28;
-		private System.Windows.Forms.Label label27;
-		private System.Windows.Forms.TextBox ColorfulDaysBackColors;
-		private System.Windows.Forms.CheckBox CfDs_発言したら標準の色に戻す;
-		private System.Windows.Forms.CheckBox CfDs_自分の発言でも色を変える;
 		private System.Windows.Forms.GroupBox groupBox6;
 		private System.Windows.Forms.CheckBox Flat_OnlineText;
 		private System.Windows.Forms.CheckBox Flat_MessageText;

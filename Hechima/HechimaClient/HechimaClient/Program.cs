@@ -55,7 +55,7 @@ namespace Charlotte
 			procMutex.Close();
 		}
 
-		public const string APP_IDENT = "{7c371795-b860-4a77-bdae-4b7fe182af8c}";
+		public const string APP_IDENT = "{7c371795-b860-4a77-bdae-4b7fe182af8c}"; // shared_uuid ---> other HechimaClients
 		public const string APP_TITLE = "HechimaClient";
 
 		private static void applicationThreadException(object sender, ThreadExceptionEventArgs e)

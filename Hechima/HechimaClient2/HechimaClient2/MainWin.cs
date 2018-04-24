@@ -346,7 +346,8 @@ namespace Charlotte
 			//this.RemarksText.Font = new Font(Gnd.setting.RemarksTextFontFamily, Gnd.setting.RemarksTextFontSize);
 			//this.RemarksText.ForeColor = Gnd.setting.RemarksTextForeColor;
 			//this.RemarksText.BackColor = Gnd.setting.RemarksTextBackColor;
-			//Common.SetTextBoxBorderStyle(this.RemarksText, Gnd.setting.Flat_RemarksText, true);
+
+			this.RemarksRTB.BorderStyle = Gnd.setting.Flat_RemarksText ? BorderStyle.None : BorderStyle.Fixed3D;
 		}
 
 		private void AddToRemarksRTB(List<Remark> remarks)

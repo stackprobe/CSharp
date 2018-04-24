@@ -100,5 +100,22 @@ namespace RTBChiratsukiBoushi
 			this.RtbMan.Add(dest);
 			this.RtbMan.ScrollToBottom();
 		}
+
+		private void button5_Click(object sender, EventArgs e)
+		{
+			this.RtbMan.Cut(this.MainRTB.TextLength / 2);
+		}
+
+		private void button6_Click(object sender, EventArgs e)
+		{
+			// 上にスクロール
+			{
+				this.MainRTB.SelectionStart = 0;
+				this.MainRTB.SelectionLength = 0;
+				this.MainRTB.ScrollToCaret();
+			}
+
+			this.RtbMan.ScrollToBottom();
+		}
 	}
 }
