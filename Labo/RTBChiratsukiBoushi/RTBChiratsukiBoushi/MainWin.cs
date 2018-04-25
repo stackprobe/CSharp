@@ -21,12 +21,15 @@ namespace RTBChiratsukiBoushi
 		private void MainWin_Load(object sender, EventArgs e)
 		{
 			this.RtbMan = new RtbMan(this.MainRTB, this.button1);
+			this.RtbMan.Clear();
 		}
 
 		private void button1_Click(object sender, EventArgs e)
 		{
 			this.RtbMan.Clear();
 		}
+
+		private Random Random = new Random();
 
 		private List<RtbMan.Token> GetRemark()
 		{
@@ -40,7 +43,7 @@ namespace RTBChiratsukiBoushi
 			dest.Add(new RtbMan.Token(
 				new Font("Consolas", 10f),
 				Color.Black,
-				"[2018/04/22 23:57:30]"
+				"[" + DateTime.Now + "]"
 				));
 			dest.Add(new RtbMan.Token(
 				new Font("メイリオ", 10f),
@@ -50,7 +53,7 @@ namespace RTBChiratsukiBoushi
 			dest.Add(new RtbMan.Token(
 				new Font("メイリオ", 20f),
 				Color.DarkOrange,
-				"ほげいん"
+				"ほげいん" + this.Random.Next(100) + "." + this.Random.Next(100)
 				));
 			dest.Add(new RtbMan.Token(
 				new Font("メイリオ", 10f),
@@ -59,7 +62,12 @@ namespace RTBChiratsukiBoushi
 				));
 			dest.Add(new RtbMan.Token(
 				new Font("メイリオ", 10f),
-				Color.DarkGreen,
+				new Color[] {
+					Color.DarkRed, Color.DarkGreen, Color.DarkBlue,
+					Color.DarkOrange, Color.DarkGoldenrod, Color.DarkGray,
+					Color.DarkCyan, Color.IndianRed, Color.Navy,
+				}
+				[this.Random.Next(9)],
 				"ほげいん\nほげいんほげいん\nほげいんほげいんほげいん"
 				));
 
@@ -81,8 +89,6 @@ namespace RTBChiratsukiBoushi
 		private void button3_Click(object sender, EventArgs e)
 		{
 			List<RtbMan.Token> dest = this.GetRemark();
-
-			dest.AddRange(this.GetRemark());
 			dest.AddRange(this.GetRemark());
 			dest.AddRange(this.GetRemark());
 
@@ -94,7 +100,7 @@ namespace RTBChiratsukiBoushi
 		{
 			List<RtbMan.Token> dest = this.GetRemark();
 
-			for (int c = 0; c < 300; c++)
+			for (int c = 1; c < 300; c++)
 				dest.AddRange(this.GetRemark());
 
 			this.RtbMan.Add(dest);
@@ -104,17 +110,39 @@ namespace RTBChiratsukiBoushi
 		private void button5_Click(object sender, EventArgs e)
 		{
 			this.RtbMan.Cut(this.MainRTB.TextLength / 2);
+
+			// 行数が増えない場合は、上にスクロールが必要。
+			// -- テキストの終端までスクロールした状態｜それよりも下にスクロールした状態で ScrollToBottom すると変な位置にスクロールしてしまう。
+
+			this.RtbMan.ScrollToTop();
+			this.RtbMan.ScrollToBottom();
 		}
 
 		private void button6_Click(object sender, EventArgs e)
 		{
-			// 上にスクロール
-			{
-				this.MainRTB.SelectionStart = 0;
-				this.MainRTB.SelectionLength = 0;
-				this.MainRTB.ScrollToCaret();
-			}
+			this.RtbMan.ScrollToTop();
+			this.RtbMan.ScrollToBottom();
+		}
 
+		private string SavedRtf = null;
+
+		private void button7_Click(object sender, EventArgs e)
+		{
+			this.SavedRtf = this.MainRTB.Rtf;
+		}
+
+		private void button8_Click(object sender, EventArgs e)
+		{
+			if (this.SavedRtf == null)
+				return;
+
+			// Saveした時よりも増えるはずなので ScrollToTop は不要。なはず...
+
+			List<RtbMan.Token> dest = this.GetRemark();
+			dest.AddRange(this.GetRemark());
+			dest.AddRange(this.GetRemark());
+
+			this.RtbMan.Join(this.SavedRtf, dest);
 			this.RtbMan.ScrollToBottom();
 		}
 	}

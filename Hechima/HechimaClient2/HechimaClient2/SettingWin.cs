@@ -41,9 +41,9 @@ namespace Charlotte
 
 			this.RemarkFormat.Text = Gnd.setting.RemarkFormat;
 
-			this.RemarksTextDefaultFontFamily.Text = Gnd.setting.RemarksTextDefaultFontFamily;
-			this.RemarksTextDefaultFontSize.Text = "" + Gnd.setting.RemarksTextDefaultFontSize;
-			SetColor(this.RemarksTextDefaultForeColorBtn, Gnd.setting.RemarksTextDefaultForeColor);
+			this.RemarksTextFontFamily.Text = Gnd.setting.RemarksTextFontFamily;
+			this.RemarksTextFontSize.Text = "" + Gnd.setting.RemarksTextFontSize;
+			SetColor(this.RemarksTextForeColorBtn, Gnd.setting.RemarksTextForeColor);
 			SetColor(this.RemarksTextBackColorBtn, Gnd.setting.RemarksTextBackColor);
 			SetColor(this.MessageTextForeColorBtn, Gnd.setting.MessageTextForeColor);
 			SetColor(this.MessageTextBackColorBtn, Gnd.setting.MessageTextBackColor);
@@ -75,6 +75,12 @@ namespace Charlotte
 			this.BouyomiChanSnippedTrailer.Text = Gnd.setting.BouyomiChanSnippedTrailer;
 			this.BouyomiChanIgnoreSelfRemark.Checked = Gnd.setting.BouyomiChanIgnoreSelfRemark;
 
+			this.ColorfulDaysEnabled.Checked = Gnd.setting.ColorfulDaysEnabled;
+			this.ColorfulDaysForeColors.Text = Common.ToString(Gnd.setting.ColorfulDaysForeColors);
+			this.ColorfulDaysBackColors.Text = Common.ToString(Gnd.setting.ColorfulDaysBackColors);
+			this.CfDs_自分の発言でも色を変える.Checked = Gnd.setting.CfDs_自分の発言でも色を変える;
+			this.CfDs_発言したら標準の色に戻す.Checked = Gnd.setting.CfDs_発言したら標準の色に戻す;
+
 			// ----
 		}
 
@@ -94,9 +100,9 @@ namespace Charlotte
 
 			Gnd.setting.RemarkFormat = this.RemarkFormat.Text;
 
-			Gnd.setting.RemarksTextDefaultFontFamily = this.RemarksTextDefaultFontFamily.Text;
-			Gnd.setting.RemarksTextDefaultFontSize = int.Parse(this.RemarksTextDefaultFontSize.Text);
-			Gnd.setting.RemarksTextDefaultForeColor = GetColor(this.RemarksTextDefaultForeColorBtn);
+			Gnd.setting.RemarksTextFontFamily = this.RemarksTextFontFamily.Text;
+			Gnd.setting.RemarksTextFontSize = int.Parse(this.RemarksTextFontSize.Text);
+			Gnd.setting.RemarksTextForeColor = GetColor(this.RemarksTextForeColorBtn);
 			Gnd.setting.RemarksTextBackColor = GetColor(this.RemarksTextBackColorBtn);
 			Gnd.setting.MessageTextForeColor = GetColor(this.MessageTextForeColorBtn);
 			Gnd.setting.MessageTextBackColor = GetColor(this.MessageTextBackColorBtn);
@@ -127,6 +133,12 @@ namespace Charlotte
 			Gnd.setting.BouyomiChanSnipLen = int.Parse(this.BouyomiChanSnipLen.Text);
 			Gnd.setting.BouyomiChanSnippedTrailer = this.BouyomiChanSnippedTrailer.Text;
 			Gnd.setting.BouyomiChanIgnoreSelfRemark = this.BouyomiChanIgnoreSelfRemark.Checked;
+
+			Gnd.setting.ColorfulDaysEnabled = this.ColorfulDaysEnabled.Checked;
+			Gnd.setting.ColorfulDaysForeColors = Common.ToColors(this.ColorfulDaysForeColors.Text);
+			Gnd.setting.ColorfulDaysBackColors = Common.ToColors(this.ColorfulDaysBackColors.Text);
+			Gnd.setting.CfDs_自分の発言でも色を変える = this.CfDs_自分の発言でも色を変える.Checked;
+			Gnd.setting.CfDs_発言したら標準の色に戻す = this.CfDs_発言したら標準の色に戻す.Checked;
 
 			// ----
 		}
@@ -220,17 +232,17 @@ namespace Charlotte
 
 			this.RemarkFormat.Text = CorrectItem(this.RemarkFormat.Text.ToUpper(), 1, 100, "RSBIRZMR", "RSBZIM");
 
-			this.RemarksTextDefaultFontFamily.Text = CorrectItem(this.RemarksTextDefaultFontFamily.Text, 1, 300, "メイリオ");
-			this.RemarksTextDefaultFontSize.Text = CorrectItemInt(this.RemarksTextDefaultFontSize.Text, 1, 99, 10);
+			this.RemarksTextFontFamily.Text = CorrectItem(this.RemarksTextFontFamily.Text, 1, 300, "メイリオ");
+			this.RemarksTextFontSize.Text = CorrectItemInt(this.RemarksTextFontSize.Text, 1, 99, 10);
 
 			try
 			{
-				new Font(this.RemarksTextDefaultFontFamily.Text, int.Parse(this.RemarksTextDefaultFontSize.Text));
+				new Font(this.RemarksTextFontFamily.Text, int.Parse(this.RemarksTextFontSize.Text));
 			}
 			catch
 			{
-				this.RemarksTextDefaultFontFamily.Text = "ゴシゴシゴシック";//"メイリオ";
-				this.RemarksTextDefaultFontSize.Text = "" + 10;
+				this.RemarksTextFontFamily.Text = "ゴシゴシゴシック";//"メイリオ";
+				this.RemarksTextFontSize.Text = "" + 10;
 			}
 
 			//this.RemarksTextForeColorBtn
@@ -265,6 +277,12 @@ namespace Charlotte
 			this.BouyomiChanSnipLen.Text = CorrectItemInt(this.BouyomiChanSnipLen.Text, 1, 999, 100);
 			this.BouyomiChanSnippedTrailer.Text = CorrectItem(this.BouyomiChanSnippedTrailer.Text, 1, 1000, "以下略");
 			//this.BouyomiChanIgnoreSelfRemark.Checked
+
+			//this.ColorfulDaysEnabled.Checked
+			this.ColorfulDaysForeColors.Text = CorrectItemColors(this.ColorfulDaysForeColors.Text, 1, 100, Consts.COLORFUL_DAYS_FORE_COLORS);
+			this.ColorfulDaysBackColors.Text = CorrectItemColors(this.ColorfulDaysBackColors.Text, 1, 100, Consts.COLORFUL_DAYS_BACK_COLORS);
+			//this.CfDs_自分の発言でも色を変える.Checked
+			//this.CfDs_発言したら標準の色に戻す.Checked
 
 			// ----
 		}
@@ -326,7 +344,7 @@ namespace Charlotte
 
 		private void RemarksTextForeColorBtn_Click(object sender, EventArgs e)
 		{
-			EditColor(this.RemarksTextDefaultForeColorBtn);
+			EditColor(this.RemarksTextForeColorBtn);
 		}
 
 		private void RemarksTextBackColorBtn_Click(object sender, EventArgs e)
@@ -436,6 +454,24 @@ namespace Charlotte
 		private void OnlineBackColorBtn_Click(object sender, EventArgs e)
 		{
 			EditColor(this.OnlineBackColorBtn);
+		}
+
+		private void ColorfulDaysForeColors_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (e.KeyChar == 1) // ctrl + a
+			{
+				this.ColorfulDaysForeColors.SelectAll();
+				e.Handled = true;
+			}
+		}
+
+		private void ColorfulDaysBackColors_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (e.KeyChar == 1) // ctrl + a
+			{
+				this.ColorfulDaysBackColors.SelectAll();
+				e.Handled = true;
+			}
 		}
 
 		private void TripEnabled_CheckedChanged(object sender, EventArgs e)

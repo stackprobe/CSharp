@@ -83,6 +83,13 @@ namespace Charlotte
 
 					Gnd.NetErrorLevel = IntTools.toRange(Gnd.NetErrorLevel, 0, 10);
 				}
+
+				// zantei >
+				// 連投した自分の発言が数秒間消えたように見える問題対策
+				if (1 <= this.SendingMessages.Count)
+					recvedData = null;
+				// < zantei
+
 				if (recvedData != null && 1 <= recvedData.Length)
 				{
 					new RecvedDataToRecvedRemarks(recvedData, this.RecvedRemarks).Perform();

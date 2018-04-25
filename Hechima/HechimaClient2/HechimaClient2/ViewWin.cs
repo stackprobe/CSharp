@@ -11,19 +11,19 @@ namespace Charlotte
 {
 	public partial class ViewWin : Form
 	{
-		private string _viewRtf;
+		private string _viewText;
 
-		public ViewWin(string viewRtf)
+		public ViewWin(string viewText)
 		{
-			_viewRtf = viewRtf;
+			_viewText = viewText;
 
 			InitializeComponent();
 
 			this.MinimumSize = new Size(300, 300);
 
-
-			// TODO -- init RemarksRTB
-
+			this.RemarksText.Font = new Font(Gnd.setting.RemarksTextFontFamily, Gnd.setting.RemarksTextFontSize);
+			this.RemarksText.ForeColor = Gnd.setting.RemarksTextForeColor;
+			this.RemarksText.BackColor = Gnd.setting.RemarksTextBackColor;
 
 			if (Gnd.setting.MainWin_W != -1)
 			{
@@ -41,17 +41,28 @@ namespace Charlotte
 
 		private void WiewWin_Shown(object sender, EventArgs e)
 		{
-			this.RemarksRTB.Rtf = _viewRtf;
+			this.RemarksText.Text = _viewText;
+			this.RemarksText.SelectionStart = this.RemarksText.TextLength;
+			this.RemarksText.ScrollToCaret();
+		}
+
+		private void RemarksText_TextChanged(object sender, EventArgs e)
+		{
+			// noop
+		}
+
+		private void RemarksText_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (e.KeyChar == 1) // ctrl + a
+			{
+				this.RemarksText.SelectAll();
+				e.Handled = true;
+			}
 		}
 
 		private void 閉じるCToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			this.Close();
-		}
-
-		private void RemarksRTB_TextChanged(object sender, EventArgs e)
-		{
-			// noop
 		}
 	}
 }

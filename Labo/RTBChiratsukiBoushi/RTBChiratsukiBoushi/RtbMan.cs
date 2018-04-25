@@ -138,8 +138,22 @@ namespace RTBChiratsukiBoushi
 			rtb.SelectionColor = color;
 		}
 
+		public void ScrollToTop()
+		{
+			try
+			{
+				this.I.SelectionStart = 0;
+				this.I.SelectionLength = 0;
+				this.I.ScrollToCaret();
+			}
+			catch (Exception e)
+			{
+				MessageBox.Show("" + e);
+			}
+		}
+
 		/// <summary>
-		/// TODO うまく下まで行かない。
+		/// うまく下まで行かないことがある。
 		/// </summary>
 		public void ScrollToBottom()
 		{
