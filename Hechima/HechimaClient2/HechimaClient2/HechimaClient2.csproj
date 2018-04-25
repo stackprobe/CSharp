@@ -81,6 +81,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Remark.cs" />
+    <Compile Include="RemarksRTBManager.cs" />
     <Compile Include="Setting.cs" />
     <Compile Include="SettingWin.cs">
       <SubType>Form</SubType>
@@ -131,6 +132,7 @@
     <Compile Include="Tools\Rect.cs" />
     <Compile Include="Tools\RectTable.cs" />
     <Compile Include="Tools\ReflecTools.cs" />
+    <Compile Include="Tools\RTBManager.cs" />
     <Compile Include="Tools\SecurityTools.cs" />
     <Compile Include="Tools\SortedList.cs" />
     <Compile Include="Tools\StringTools.cs" />

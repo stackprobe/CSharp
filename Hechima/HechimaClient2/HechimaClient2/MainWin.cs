@@ -7,18 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
+using Charlotte.Tools;
 
 namespace Charlotte
 {
 	public partial class MainWin : Form
 	{
+		private RemarksRTBManager RemarksRTBMgr;
+
 		public MainWin()
 		{
 			InitializeComponent();
 
-			this.RemarksText.ForeColor = new TextBox().ForeColor;
-			this.RemarksText.BackColor = new TextBox().BackColor;
-			this.RemarksText.Text = "";
+			this.RemarksRTBMgr = new RemarksRTBManager(new RTBManager(this.RemarksRTB, this.MessageText));
 
 			this.MessageText.Text = "";
 			//this.MessageText.Focus(); // ここじゃ効かない。
@@ -39,7 +40,7 @@ namespace Charlotte
 			{
 				int ha = Gnd.conf.MessageText_H - this.MessageText.Height;
 
-				this.RemarksText.Height -= ha;
+				this.RemarksRTB.Height -= ha;
 				this.MessageText.Top -= ha;
 				this.MessageText.Height += ha;
 			}
@@ -47,14 +48,14 @@ namespace Charlotte
 
 		private void ImportSetting(bool withoutMainWinLTWH = false)
 		{
-			this.RemarksText.Font = new Font(Gnd.setting.RemarksTextFontFamily, Gnd.setting.RemarksTextFontSize);
-			this.RemarksText.ForeColor = Gnd.setting.RemarksTextForeColor;
-			this.RemarksText.BackColor = Gnd.setting.RemarksTextBackColor;
+			//this.RemarksRTB.Font = new Font(Gnd.setting.RemarksTextFontFamily, Gnd.setting.RemarksTextFontSize);
+			//this.RemarksRTB.ForeColor = Gnd.setting.RemarksTextForeColor;
+			this.RemarksRTB.BackColor = Gnd.setting.RemarksTextBackColor;
 
 			this.MessageText.ForeColor = Gnd.setting.MessageTextForeColor;
 			this.MessageText.BackColor = Gnd.setting.MessageTextBackColor;
 
-			Common.SetTextBoxBorderStyle(this.RemarksText, Gnd.setting.Flat_RemarksText, true);
+			this.RemarksRTBMgr.RTBMgr.SetBorderStyle(Gnd.setting.Flat_RemarksText);
 			Common.SetTextBoxBorderStyle(this.MessageText, Gnd.setting.Flat_MessageText);
 
 			if (withoutMainWinLTWH == false && Gnd.setting.MainWin_W != -1)
@@ -110,12 +111,7 @@ namespace Charlotte
 
 		private void RemarksText_KeyPress(object sender, KeyPressEventArgs e)
 		{
-			if (e.KeyChar == 1) // ctrl + a
-			{
-				this.RemarksText.SelectAll();
-				e.Handled = true;
-			}
-			else if (e.KeyChar == 13) // enter
+			if (e.KeyChar == 13) // enter
 			{
 				this.MessageText.Focus();
 				e.Handled = true;
@@ -147,7 +143,7 @@ namespace Charlotte
 			}
 		}
 
-		private string TrueRemarksText = null;
+		private List<Remark> DoRemark_OneRemarkBuff = new List<Remark>(new Remark[] { null });
 
 		private void DoRemark()
 		{
@@ -169,22 +165,15 @@ namespace Charlotte
 				Ident = Gnd.UserRealName + " @ 127.0.0.2",
 				Message = message,
 			};
-			string provText = Common.RemarkToTextBoxText(provRemark);
 
-			if (this.TrueRemarksText == null)
-				this.TrueRemarksText = this.RemarksText.Text;
+			if (this.RemarksRTBMgr.IsSaved() == false)
+				this.RemarksRTBMgr.Save();
 
-			this.RemarksText.AppendText(provText);
-			this.RemarksText.SelectionStart = this.RemarksText.TextLength;
-			this.RemarksText.ScrollToCaret();
+			this.DoRemark_OneRemarkBuff[0] = provRemark;
+			this.RemarksRTBMgr.Add(this.DoRemark_OneRemarkBuff);
+			this.RemarksRTBMgr.RTBMgr.ScrollToBottom();
 
 			Gnd.bgService.SendingMessages.Enqueue(message);
-
-			if (Gnd.setting.ColorfulDaysEnabled && Gnd.setting.CfDs_発言したら標準の色に戻す)
-			{
-				this.RemarksTextForeColor_Next = Gnd.setting.RemarksTextForeColor;
-				this.RemarksTextBackColor_Next = Gnd.setting.RemarksTextBackColor;
-			}
 		}
 
 		private void MessageText_TextChanged(object sender, EventArgs e)
@@ -196,11 +185,6 @@ namespace Charlotte
 		{
 			// noop
 		}
-
-		private Color? RemarksTextForeColor_Next = null;
-		private Color? RemarksTextBackColor_Next = null;
-		private int ColorfulDaysForeColorIndex = 0;
-		private int ColorfulDaysBackColorIndex = 0;
 
 		private long MT_Count;
 
@@ -215,13 +199,13 @@ namespace Charlotte
 			}
 			if (MT_Count % 100 == 30)
 			{
-				if (Gnd.conf.RemarksTextMaxLength < this.RemarksText.TextLength)
+				if (Gnd.conf.RemarksTextMaxLength < this.RemarksRTB.TextLength)
 				{
-					int clearLength = (this.RemarksText.TextLength * 100) / Gnd.conf.RemarksTextClearPct;
+					int cutLen = (this.RemarksRTB.TextLength * 100) / Gnd.conf.RemarksTextClearPct;
 
-					this.RemarksText.Text = "(これより前は切り捨てました)" + this.RemarksText.Text.Substring(clearLength);
-					this.RemarksText.SelectionStart = this.RemarksText.TextLength;
-					this.RemarksText.ScrollToCaret();
+					this.RemarksRTBMgr.RTBMgr.CutTop(cutLen);
+					this.RemarksRTBMgr.RTBMgr.ScrollToTop();
+					this.RemarksRTBMgr.RTBMgr.ScrollToBottom();
 
 					return;
 				}
@@ -240,28 +224,6 @@ namespace Charlotte
 
 				return;
 			}
-			if (this.RemarksTextForeColor_Next != null)
-			{
-				Color color = this.RemarksTextForeColor_Next.Value;
-
-				this.RemarksTextForeColor_Next = null;
-
-				if (this.RemarksText.ForeColor != color)
-					this.RemarksText.ForeColor = color;
-
-				return;
-			}
-			if (this.RemarksTextBackColor_Next != null)
-			{
-				Color color = this.RemarksTextBackColor_Next.Value;
-
-				this.RemarksTextBackColor_Next = null;
-
-				if (this.RemarksText.BackColor != color)
-					this.RemarksText.BackColor = color;
-
-				return;
-			}
 			if (Gnd.onlineDlg != null && Gnd.onlineDlg.XPressed)
 			{
 				Gnd.onlineDlg.XPressed = false;
@@ -273,15 +235,14 @@ namespace Charlotte
 
 			if (1 <= Gnd.bgService.RecvedRemarks.Count) // 受信データ -> RemarksText
 			{
-				StringBuilder buff = new StringBuilder();
+				List<Remark> rrsBuff = new List<Remark>();
 				bool foundOtherRemark = false;
 
 				while (1 <= Gnd.bgService.RecvedRemarks.Count)
 				{
 					Remark remark = Gnd.bgService.RecvedRemarks.Dequeue();
-					string text = Common.RemarkToTextBoxText(remark);
 
-					buff.Append(text);
+					rrsBuff.Add(remark);
 
 					Gnd.bgService.KnownStamp = Math.Max(Gnd.bgService.KnownStamp, remark.Stamp);
 
@@ -327,41 +288,20 @@ namespace Charlotte
 						Gnd.bgService.BouyomiChanSendDataBuff.Enqueue(bc.GetSendData());
 					}
 				}
-				string rrsText = buff.ToString();
 
 				// RemarksText 更新 {
 
-				if (this.TrueRemarksText != null)
-				{
-					this.RemarksText.Text = this.TrueRemarksText + rrsText;
-					this.TrueRemarksText = null;
-				}
-				else
-					this.RemarksText.AppendText(rrsText);
+				this.RemarksRTBMgr.Add(rrsBuff, true);
 
-				this.RemarksText.SelectionStart = this.RemarksText.TextLength;
-				this.RemarksText.ScrollToCaret();
+				// 他の人の発言が有る -> RemarksRTB のテキストが今より長くなる -> スクロールOK -> スクロールする。
+				// 他の人の発言が無い -> RemarksRTB のテキストが今と同じ長さになる -> スクロールに問題 -> スクロールしない。
+				if (foundOtherRemark)
+					this.RemarksRTBMgr.RTBMgr.ScrollToBottom();
 
 				// }
 
 				//foundOtherRemark = true; // test
 
-				if (
-					Gnd.setting.ColorfulDaysEnabled &&
-					(
-						foundOtherRemark ||
-						Gnd.setting.CfDs_自分の発言でも色を変える
-					)
-					)
-				{
-					this.RemarksTextForeColor_Next = Gnd.setting.ColorfulDaysForeColors[this.ColorfulDaysForeColorIndex];
-					this.ColorfulDaysForeColorIndex++;
-					this.ColorfulDaysForeColorIndex %= Gnd.setting.ColorfulDaysForeColors.Length;
-
-					this.RemarksTextBackColor_Next = Gnd.setting.ColorfulDaysBackColors[this.ColorfulDaysBackColorIndex];
-					this.ColorfulDaysBackColorIndex++;
-					this.ColorfulDaysBackColorIndex %= Gnd.setting.ColorfulDaysBackColors.Length;
-				}
 				if (Gnd.setting.TaskBarFlashEnabled && foundOtherRemark)
 				{
 					Common.TaskBarFlash(this);
@@ -407,7 +347,7 @@ namespace Charlotte
 			Gnd.CloseOnlineDlg();
 			Common.WaitToBgServiceEnded();
 
-			using (ViewWin f = new ViewWin(this.RemarksText.Text))
+			using (ViewWin f = new ViewWin(this.RemarksRTB.Text))
 			{
 				f.ShowDialog();
 			}

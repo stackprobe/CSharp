@@ -44,7 +44,7 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public void writeLine(string line)
+		public void writeLine(object message)
 		{
 			lock (SYNCROOT)
 			{
@@ -70,7 +70,7 @@ namespace Charlotte.Tools
 					{
 						using (StreamWriter writer = new StreamWriter(_file, true, Encoding.UTF8))
 						{
-							writeLine(writer, line);
+							writeLine(writer, message);
 						}
 						break;
 					}
@@ -80,9 +80,9 @@ namespace Charlotte.Tools
 			}
 		}
 
-		private void writeLine(StreamWriter writer, string line)
+		private void writeLine(StreamWriter writer, object message)
 		{
-			writer.WriteLine("[" + DateTime.Now + "] " + line);
+			writer.WriteLine("[" + DateTime.Now + "] " + message);
 		}
 	}
 }

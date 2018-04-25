@@ -38,9 +38,9 @@ namespace Charlotte
 		/// </summary>
 		public string RemarkFormat = "RSBIRZMR";
 
-		public string RemarksTextFontFamily = "メイリオ";
-		public int RemarksTextFontSize = 8;//10;
-		public Color RemarksTextForeColor = Color.FromArgb(0, 48, 0);
+		public string RemarksTextDefaultFontFamily = "メイリオ";
+		public int RemarksTextDefaultFontSize = 8;//10;
+		public Color RemarksTextDefaultFontColor = Color.FromArgb(0, 48, 0);
 		public Color RemarksTextBackColor = Color.White;
 		public Color MessageTextForeColor = Color.Black;
 		public Color MessageTextBackColor = Color.White;
@@ -79,12 +79,6 @@ namespace Charlotte
 		public int OnlineDlg_W = -1; // -1 == OnlineDlg_LTWH 未設定
 		public int OnlineDlg_H;
 		public bool OnlineDlg_Minimized = false;
-
-		public bool ColorfulDaysEnabled = false;
-		public Color[] ColorfulDaysForeColors = Consts.COLORFUL_DAYS_FORE_COLORS;
-		public Color[] ColorfulDaysBackColors = Consts.COLORFUL_DAYS_BACK_COLORS;
-		public bool CfDs_自分の発言でも色を変える = false;
-		public bool CfDs_発言したら標準の色に戻す = false;
 
 		public bool Flat_RemarksText = false;
 		public bool Flat_MessageText = false;
@@ -140,9 +134,9 @@ namespace Charlotte
 
 			this.RemarkFormat = lines[c++];
 
-			this.RemarksTextFontFamily = lines[c++];
-			this.RemarksTextFontSize = int.Parse(lines[c++]);
-			this.RemarksTextForeColor = Color.FromArgb(int.Parse(lines[c++]));
+			this.RemarksTextDefaultFontFamily = lines[c++];
+			this.RemarksTextDefaultFontSize = int.Parse(lines[c++]);
+			this.RemarksTextDefaultFontColor = Color.FromArgb(int.Parse(lines[c++]));
 			this.RemarksTextBackColor = Color.FromArgb(int.Parse(lines[c++]));
 			this.MessageTextForeColor = Color.FromArgb(int.Parse(lines[c++]));
 			this.MessageTextBackColor = Color.FromArgb(int.Parse(lines[c++]));
@@ -182,12 +176,6 @@ namespace Charlotte
 			this.OnlineDlg_H = int.Parse(lines[c++]);
 			this.OnlineDlg_Minimized = int.Parse(lines[c++]) != 0;
 
-			this.ColorfulDaysEnabled = int.Parse(lines[c++]) != 0;
-			this.ColorfulDaysForeColors = Common.ToColors(lines[c++]);
-			this.ColorfulDaysBackColors = Common.ToColors(lines[c++]);
-			this.CfDs_自分の発言でも色を変える = int.Parse(lines[c++]) != 0;
-			this.CfDs_発言したら標準の色に戻す = int.Parse(lines[c++]) != 0;
-
 			this.Flat_RemarksText = int.Parse(lines[c++]) != 0;
 			this.Flat_MessageText = int.Parse(lines[c++]) != 0;
 			this.Flat_OnlineText = int.Parse(lines[c++]) != 0;
@@ -220,9 +208,9 @@ namespace Charlotte
 
 			lines.Add(this.RemarkFormat);
 
-			lines.Add(this.RemarksTextFontFamily);
-			lines.Add("" + this.RemarksTextFontSize);
-			lines.Add("" + this.RemarksTextForeColor.ToArgb());
+			lines.Add(this.RemarksTextDefaultFontFamily);
+			lines.Add("" + this.RemarksTextDefaultFontSize);
+			lines.Add("" + this.RemarksTextDefaultFontColor.ToArgb());
 			lines.Add("" + this.RemarksTextBackColor.ToArgb());
 			lines.Add("" + this.MessageTextForeColor.ToArgb());
 			lines.Add("" + this.MessageTextBackColor.ToArgb());
@@ -261,12 +249,6 @@ namespace Charlotte
 			lines.Add("" + this.OnlineDlg_W);
 			lines.Add("" + this.OnlineDlg_H);
 			lines.Add("" + (this.OnlineDlg_Minimized ? 1 : 0));
-
-			lines.Add("" + (this.ColorfulDaysEnabled ? 1 : 0));
-			lines.Add(Common.ToString(this.ColorfulDaysForeColors));
-			lines.Add(Common.ToString(this.ColorfulDaysBackColors));
-			lines.Add("" + (this.CfDs_自分の発言でも色を変える ? 1 : 0));
-			lines.Add("" + (this.CfDs_発言したら標準の色に戻す ? 1 : 0));
 
 			lines.Add("" + (this.Flat_RemarksText ? 1 : 0));
 			lines.Add("" + (this.Flat_MessageText ? 1 : 0));

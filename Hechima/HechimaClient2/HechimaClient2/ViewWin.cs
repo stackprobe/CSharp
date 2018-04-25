@@ -21,8 +21,8 @@ namespace Charlotte
 
 			this.MinimumSize = new Size(300, 300);
 
-			this.RemarksText.Font = new Font(Gnd.setting.RemarksTextFontFamily, Gnd.setting.RemarksTextFontSize);
-			this.RemarksText.ForeColor = Gnd.setting.RemarksTextForeColor;
+			this.RemarksText.Font = new Font(Gnd.setting.RemarksTextDefaultFontFamily, Gnd.setting.RemarksTextDefaultFontSize);
+			this.RemarksText.ForeColor = Gnd.setting.RemarksTextDefaultFontColor;
 			this.RemarksText.BackColor = Gnd.setting.RemarksTextBackColor;
 
 			if (Gnd.setting.MainWin_W != -1)

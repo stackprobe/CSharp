@@ -7,6 +7,7 @@ using Microsoft.Win32;
 using System.Text;
 using System.IO;
 using System.Reflection;
+using Charlotte.Tools;
 
 namespace Charlotte
 {
@@ -33,6 +34,9 @@ namespace Charlotte
 				checkAloneExe();
 				checkLogonUser();
 
+				Gnd.Logger = new Logger();
+				Gnd.Logger.writeLine("Started");
+
 				Gnd.conf.Load();
 				Gnd.setting.Load();
 				Gnd.ImportSetting();
@@ -48,6 +52,8 @@ namespace Charlotte
 				//Common.WaitToBgServiceEnded(true); // moved -> MainWin_FormClosed()
 
 				Gnd.setting.Save(); // MainWin_LTWH のために！
+
+				Gnd.Logger.writeLine("Ended");
 
 				GlobalProcMtx.Release();
 				procMutex.ReleaseMutex();
