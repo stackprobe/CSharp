@@ -111,7 +111,7 @@ namespace Charlotte.Tools
 			return buff.ToString();
 		}
 
-		private void addTo(StringBuilder buff, String indent)
+		private void addTo(StringBuilder buff, string indent)
 		{
 			string name = this.name;
 

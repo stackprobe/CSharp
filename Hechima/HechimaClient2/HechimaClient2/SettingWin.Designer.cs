@@ -108,6 +108,12 @@
 			this.CancelBtn = new System.Windows.Forms.Button();
 			this.OkBtn = new System.Windows.Forms.Button();
 			this.CorrectBtn = new System.Windows.Forms.Button();
+			this.MemberFontList = new System.Windows.Forms.ListBox();
+			this.MemberFontDeleteBtn = new System.Windows.Forms.Button();
+			this.MemberFontAddBtn = new System.Windows.Forms.Button();
+			this.MemberFontEditBtn = new System.Windows.Forms.Button();
+			this.MemberFontUpBtn = new System.Windows.Forms.Button();
+			this.MemberFontDownBtn = new System.Windows.Forms.Button();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -120,6 +126,7 @@
 			this.groupBox4.SuspendLayout();
 			this.tabPage4.SuspendLayout();
 			this.groupBox5.SuspendLayout();
+			this.tabPage6.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl1
@@ -479,11 +486,11 @@
 			// 
 			this.label9.AutoSize = true;
 			this.label9.ForeColor = System.Drawing.Color.Teal;
-			this.label9.Location = new System.Drawing.Point(215, 70);
+			this.label9.Location = new System.Drawing.Point(117, 70);
 			this.label9.Name = "label9";
-			this.label9.Size = new System.Drawing.Size(133, 120);
+			this.label9.Size = new System.Drawing.Size(231, 120);
 			this.label9.TabIndex = 3;
-			this.label9.Text = "R == 改行 (終端NG)\r\nS == 日時\r\nB == ブランク\r\nZ == 全角スペース\r\nI == ident\r\nM == メッセージ";
+			this.label9.Text = "R == 改行 (終端には配置出来ません)\r\nS == 日時\r\nB == ブランク\r\nZ == 全角スペース\r\nI == ident\r\nM == メッセージ";
 			// 
 			// RemarkFormat
 			// 
@@ -957,6 +964,12 @@
 			// 
 			// tabPage6
 			// 
+			this.tabPage6.Controls.Add(this.MemberFontDownBtn);
+			this.tabPage6.Controls.Add(this.MemberFontUpBtn);
+			this.tabPage6.Controls.Add(this.MemberFontEditBtn);
+			this.tabPage6.Controls.Add(this.MemberFontAddBtn);
+			this.tabPage6.Controls.Add(this.MemberFontDeleteBtn);
+			this.tabPage6.Controls.Add(this.MemberFontList);
 			this.tabPage6.Location = new System.Drawing.Point(4, 29);
 			this.tabPage6.Name = "tabPage6";
 			this.tabPage6.Size = new System.Drawing.Size(552, 454);
@@ -996,6 +1009,68 @@
 			this.CorrectBtn.Text = "補正";
 			this.CorrectBtn.UseVisualStyleBackColor = true;
 			this.CorrectBtn.Click += new System.EventHandler(this.CorrectBtn_Click);
+			// 
+			// MemberFontList
+			// 
+			this.MemberFontList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.MemberFontList.FormattingEnabled = true;
+			this.MemberFontList.ItemHeight = 20;
+			this.MemberFontList.Location = new System.Drawing.Point(5, 5);
+			this.MemberFontList.Name = "MemberFontList";
+			this.MemberFontList.Size = new System.Drawing.Size(437, 444);
+			this.MemberFontList.TabIndex = 0;
+			// 
+			// MemberFontDeleteBtn
+			// 
+			this.MemberFontDeleteBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.MemberFontDeleteBtn.Location = new System.Drawing.Point(449, 187);
+			this.MemberFontDeleteBtn.Name = "MemberFontDeleteBtn";
+			this.MemberFontDeleteBtn.Size = new System.Drawing.Size(100, 40);
+			this.MemberFontDeleteBtn.TabIndex = 3;
+			this.MemberFontDeleteBtn.Text = "削除";
+			this.MemberFontDeleteBtn.UseVisualStyleBackColor = true;
+			// 
+			// MemberFontAddBtn
+			// 
+			this.MemberFontAddBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.MemberFontAddBtn.Location = new System.Drawing.Point(449, 49);
+			this.MemberFontAddBtn.Name = "MemberFontAddBtn";
+			this.MemberFontAddBtn.Size = new System.Drawing.Size(100, 40);
+			this.MemberFontAddBtn.TabIndex = 1;
+			this.MemberFontAddBtn.Text = "追加";
+			this.MemberFontAddBtn.UseVisualStyleBackColor = true;
+			// 
+			// MemberFontEditBtn
+			// 
+			this.MemberFontEditBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.MemberFontEditBtn.Location = new System.Drawing.Point(449, 95);
+			this.MemberFontEditBtn.Name = "MemberFontEditBtn";
+			this.MemberFontEditBtn.Size = new System.Drawing.Size(100, 40);
+			this.MemberFontEditBtn.TabIndex = 2;
+			this.MemberFontEditBtn.Text = "編集";
+			this.MemberFontEditBtn.UseVisualStyleBackColor = true;
+			// 
+			// MemberFontUpBtn
+			// 
+			this.MemberFontUpBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.MemberFontUpBtn.Location = new System.Drawing.Point(449, 319);
+			this.MemberFontUpBtn.Name = "MemberFontUpBtn";
+			this.MemberFontUpBtn.Size = new System.Drawing.Size(100, 40);
+			this.MemberFontUpBtn.TabIndex = 4;
+			this.MemberFontUpBtn.Text = "上へ";
+			this.MemberFontUpBtn.UseVisualStyleBackColor = true;
+			// 
+			// MemberFontDownBtn
+			// 
+			this.MemberFontDownBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.MemberFontDownBtn.Location = new System.Drawing.Point(449, 365);
+			this.MemberFontDownBtn.Name = "MemberFontDownBtn";
+			this.MemberFontDownBtn.Size = new System.Drawing.Size(100, 40);
+			this.MemberFontDownBtn.TabIndex = 5;
+			this.MemberFontDownBtn.Text = "下へ";
+			this.MemberFontDownBtn.UseVisualStyleBackColor = true;
 			// 
 			// SettingWin
 			// 
@@ -1038,6 +1113,7 @@
 			this.tabPage4.PerformLayout();
 			this.groupBox5.ResumeLayout(false);
 			this.groupBox5.PerformLayout();
+			this.tabPage6.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -1123,5 +1199,11 @@
 		private System.Windows.Forms.CheckBox Flat_MessageText;
 		private System.Windows.Forms.CheckBox Flat_RemarksText;
 		private System.Windows.Forms.CheckBox TaskBarFlashEnabled;
+		private System.Windows.Forms.Button MemberFontDownBtn;
+		private System.Windows.Forms.Button MemberFontUpBtn;
+		private System.Windows.Forms.Button MemberFontEditBtn;
+		private System.Windows.Forms.Button MemberFontAddBtn;
+		private System.Windows.Forms.Button MemberFontDeleteBtn;
+		private System.Windows.Forms.ListBox MemberFontList;
 	}
 }

@@ -95,7 +95,7 @@ namespace Charlotte.Tools
 			private NamedEventObject _messagePostEvent;
 			private string _messageDir;
 
-			public PostOfficeBox(String ident)
+			public PostOfficeBox(string ident)
 			{
 				_ident = IDENT_PREFIX + StringTools.toHex(SecurityTools.getSHA512(StringTools.ENCODING_SJIS.GetBytes(ident))).Substring(0, 32);
 				_mutex = new MutexObject(_ident + "_m");
@@ -184,7 +184,7 @@ namespace Charlotte.Tools
 
 					if (_gmrFirstNo != -1)
 					{
-						String file = Path.Combine(_messageDir, StringTools.zPad(_gmrFirstNo, 4));
+						string file = Path.Combine(_messageDir, StringTools.zPad(_gmrFirstNo, 4));
 						byte[] recvData = File.ReadAllBytes(file);
 
 						FileTools.deletePath(file);

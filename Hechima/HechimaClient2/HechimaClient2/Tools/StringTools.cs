@@ -340,5 +340,14 @@ namespace Charlotte.Tools
 
 			return line;
 		}
+
+		public static bool hasSameChar(string chrs)
+		{
+			for (int index = 0; index + 1 < chrs.Length; index++)
+				if (chrs.IndexOf(chrs[index], index + 1) != -1)
+					return true;
+
+			return false;
+		}
 	}
 }

@@ -8,6 +8,7 @@ using System.Numerics;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Drawing.Text;
 
 namespace Charlotte
 {
@@ -150,6 +151,28 @@ namespace Charlotte
 					tb.ScrollToCaret();
 				}
 			}
+		}
+
+		public static string[] GetAllFontFamily()
+		{
+			List<string> dest = new List<string>();
+
+			try
+			{
+				foreach (FontFamily family in new InstalledFontCollection().Families)
+				{
+					dest.Add(family.Name);
+				}
+			}
+			catch (Exception e)
+			{
+				Gnd.Logger.writeLine(e);
+			}
+
+			if (dest.Count == 0)
+				dest.Add("メイリオ");
+
+			return dest.ToArray();
 		}
 
 		#region TaskBarFlash

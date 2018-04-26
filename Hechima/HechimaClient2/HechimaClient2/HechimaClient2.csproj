@@ -64,6 +64,12 @@
     <Compile Include="Conf.cs" />
     <Compile Include="Consts.cs" />
     <Compile Include="CrypTunnelProc.cs" />
+    <Compile Include="FontInfoDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FontInfoDlg.Designer.cs">
+      <DependentUpon>FontInfoDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="GlobalProcMtx.cs" />
     <Compile Include="Ground.cs" />
     <Compile Include="MainWin.cs">
@@ -72,6 +78,7 @@
     <Compile Include="MainWin.Designer.cs">
       <DependentUpon>MainWin.cs</DependentUpon>
     </Compile>
+    <Compile Include="MemberFont.cs" />
     <Compile Include="OnlineDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,9 +97,11 @@
       <DependentUpon>SettingWin.cs</DependentUpon>
     </Compile>
     <Compile Include="SockClient.cs" />
+    <Compile Include="FontInfo.cs" />
     <Compile Include="Tools\ApprovalSection.cs" />
     <Compile Include="Tools\ArgsReader.cs" />
     <Compile Include="Tools\ArrayTools.cs" />
+    <Compile Include="Tools\AttachString.cs" />
     <Compile Include="Tools\AutoTable.cs" />
     <Compile Include="Tools\BinaryTools.cs" />
     <Compile Include="Tools\Bmp.cs" />
@@ -105,6 +114,7 @@
     <Compile Include="Tools\DoubleTools.cs" />
     <Compile Include="Tools\Ended.cs" />
     <Compile Include="Tools\EnterLeave.cs" />
+    <Compile Include="Tools\EscapeString.cs" />
     <Compile Include="Tools\ExceptionCarrier.cs" />
     <Compile Include="Tools\ExtraTools.cs" />
     <Compile Include="Tools\FailedOperation.cs" />
@@ -148,6 +158,9 @@
     </Compile>
     <EmbeddedResource Include="BusyDlg.resx">
       <DependentUpon>BusyDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FontInfoDlg.resx">
+      <DependentUpon>FontInfoDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWin.resx">
       <DependentUpon>MainWin.cs</DependentUpon>
