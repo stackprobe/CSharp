@@ -105,15 +105,15 @@
 			this.label15 = new System.Windows.Forms.Label();
 			this.BouyomiChanEnabled = new System.Windows.Forms.CheckBox();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
+			this.MemberFontDownBtn = new System.Windows.Forms.Button();
+			this.MemberFontUpBtn = new System.Windows.Forms.Button();
+			this.MemberFontEditBtn = new System.Windows.Forms.Button();
+			this.MemberFontAddBtn = new System.Windows.Forms.Button();
+			this.MemberFontDeleteBtn = new System.Windows.Forms.Button();
+			this.MemberFontList = new System.Windows.Forms.ListBox();
 			this.CancelBtn = new System.Windows.Forms.Button();
 			this.OkBtn = new System.Windows.Forms.Button();
 			this.CorrectBtn = new System.Windows.Forms.Button();
-			this.MemberFontList = new System.Windows.Forms.ListBox();
-			this.MemberFontDeleteBtn = new System.Windows.Forms.Button();
-			this.MemberFontAddBtn = new System.Windows.Forms.Button();
-			this.MemberFontEditBtn = new System.Windows.Forms.Button();
-			this.MemberFontUpBtn = new System.Windows.Forms.Button();
-			this.MemberFontDownBtn = new System.Windows.Forms.Button();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -977,6 +977,75 @@
 			this.tabPage6.Text = "Colorful Days";
 			this.tabPage6.UseVisualStyleBackColor = true;
 			// 
+			// MemberFontDownBtn
+			// 
+			this.MemberFontDownBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.MemberFontDownBtn.Location = new System.Drawing.Point(449, 365);
+			this.MemberFontDownBtn.Name = "MemberFontDownBtn";
+			this.MemberFontDownBtn.Size = new System.Drawing.Size(100, 40);
+			this.MemberFontDownBtn.TabIndex = 5;
+			this.MemberFontDownBtn.Text = "下へ";
+			this.MemberFontDownBtn.UseVisualStyleBackColor = true;
+			this.MemberFontDownBtn.Click += new System.EventHandler(this.MemberFontDownBtn_Click);
+			// 
+			// MemberFontUpBtn
+			// 
+			this.MemberFontUpBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.MemberFontUpBtn.Location = new System.Drawing.Point(449, 319);
+			this.MemberFontUpBtn.Name = "MemberFontUpBtn";
+			this.MemberFontUpBtn.Size = new System.Drawing.Size(100, 40);
+			this.MemberFontUpBtn.TabIndex = 4;
+			this.MemberFontUpBtn.Text = "上へ";
+			this.MemberFontUpBtn.UseVisualStyleBackColor = true;
+			this.MemberFontUpBtn.Click += new System.EventHandler(this.MemberFontUpBtn_Click);
+			// 
+			// MemberFontEditBtn
+			// 
+			this.MemberFontEditBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.MemberFontEditBtn.Location = new System.Drawing.Point(449, 95);
+			this.MemberFontEditBtn.Name = "MemberFontEditBtn";
+			this.MemberFontEditBtn.Size = new System.Drawing.Size(100, 40);
+			this.MemberFontEditBtn.TabIndex = 2;
+			this.MemberFontEditBtn.Text = "編集";
+			this.MemberFontEditBtn.UseVisualStyleBackColor = true;
+			this.MemberFontEditBtn.Click += new System.EventHandler(this.MemberFontEditBtn_Click);
+			// 
+			// MemberFontAddBtn
+			// 
+			this.MemberFontAddBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.MemberFontAddBtn.Location = new System.Drawing.Point(449, 49);
+			this.MemberFontAddBtn.Name = "MemberFontAddBtn";
+			this.MemberFontAddBtn.Size = new System.Drawing.Size(100, 40);
+			this.MemberFontAddBtn.TabIndex = 1;
+			this.MemberFontAddBtn.Text = "追加";
+			this.MemberFontAddBtn.UseVisualStyleBackColor = true;
+			this.MemberFontAddBtn.Click += new System.EventHandler(this.MemberFontAddBtn_Click);
+			// 
+			// MemberFontDeleteBtn
+			// 
+			this.MemberFontDeleteBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.MemberFontDeleteBtn.Location = new System.Drawing.Point(449, 187);
+			this.MemberFontDeleteBtn.Name = "MemberFontDeleteBtn";
+			this.MemberFontDeleteBtn.Size = new System.Drawing.Size(100, 40);
+			this.MemberFontDeleteBtn.TabIndex = 3;
+			this.MemberFontDeleteBtn.Text = "削除";
+			this.MemberFontDeleteBtn.UseVisualStyleBackColor = true;
+			this.MemberFontDeleteBtn.Click += new System.EventHandler(this.MemberFontDeleteBtn_Click);
+			// 
+			// MemberFontList
+			// 
+			this.MemberFontList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.MemberFontList.FormattingEnabled = true;
+			this.MemberFontList.HorizontalScrollbar = true;
+			this.MemberFontList.ItemHeight = 20;
+			this.MemberFontList.Location = new System.Drawing.Point(5, 5);
+			this.MemberFontList.Name = "MemberFontList";
+			this.MemberFontList.ScrollAlwaysVisible = true;
+			this.MemberFontList.Size = new System.Drawing.Size(437, 444);
+			this.MemberFontList.TabIndex = 0;
+			// 
 			// CancelBtn
 			// 
 			this.CancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -1009,68 +1078,6 @@
 			this.CorrectBtn.Text = "補正";
 			this.CorrectBtn.UseVisualStyleBackColor = true;
 			this.CorrectBtn.Click += new System.EventHandler(this.CorrectBtn_Click);
-			// 
-			// MemberFontList
-			// 
-			this.MemberFontList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.MemberFontList.FormattingEnabled = true;
-			this.MemberFontList.ItemHeight = 20;
-			this.MemberFontList.Location = new System.Drawing.Point(5, 5);
-			this.MemberFontList.Name = "MemberFontList";
-			this.MemberFontList.Size = new System.Drawing.Size(437, 444);
-			this.MemberFontList.TabIndex = 0;
-			// 
-			// MemberFontDeleteBtn
-			// 
-			this.MemberFontDeleteBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.MemberFontDeleteBtn.Location = new System.Drawing.Point(449, 187);
-			this.MemberFontDeleteBtn.Name = "MemberFontDeleteBtn";
-			this.MemberFontDeleteBtn.Size = new System.Drawing.Size(100, 40);
-			this.MemberFontDeleteBtn.TabIndex = 3;
-			this.MemberFontDeleteBtn.Text = "削除";
-			this.MemberFontDeleteBtn.UseVisualStyleBackColor = true;
-			// 
-			// MemberFontAddBtn
-			// 
-			this.MemberFontAddBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.MemberFontAddBtn.Location = new System.Drawing.Point(449, 49);
-			this.MemberFontAddBtn.Name = "MemberFontAddBtn";
-			this.MemberFontAddBtn.Size = new System.Drawing.Size(100, 40);
-			this.MemberFontAddBtn.TabIndex = 1;
-			this.MemberFontAddBtn.Text = "追加";
-			this.MemberFontAddBtn.UseVisualStyleBackColor = true;
-			// 
-			// MemberFontEditBtn
-			// 
-			this.MemberFontEditBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.MemberFontEditBtn.Location = new System.Drawing.Point(449, 95);
-			this.MemberFontEditBtn.Name = "MemberFontEditBtn";
-			this.MemberFontEditBtn.Size = new System.Drawing.Size(100, 40);
-			this.MemberFontEditBtn.TabIndex = 2;
-			this.MemberFontEditBtn.Text = "編集";
-			this.MemberFontEditBtn.UseVisualStyleBackColor = true;
-			// 
-			// MemberFontUpBtn
-			// 
-			this.MemberFontUpBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.MemberFontUpBtn.Location = new System.Drawing.Point(449, 319);
-			this.MemberFontUpBtn.Name = "MemberFontUpBtn";
-			this.MemberFontUpBtn.Size = new System.Drawing.Size(100, 40);
-			this.MemberFontUpBtn.TabIndex = 4;
-			this.MemberFontUpBtn.Text = "上へ";
-			this.MemberFontUpBtn.UseVisualStyleBackColor = true;
-			// 
-			// MemberFontDownBtn
-			// 
-			this.MemberFontDownBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.MemberFontDownBtn.Location = new System.Drawing.Point(449, 365);
-			this.MemberFontDownBtn.Name = "MemberFontDownBtn";
-			this.MemberFontDownBtn.Size = new System.Drawing.Size(100, 40);
-			this.MemberFontDownBtn.TabIndex = 5;
-			this.MemberFontDownBtn.Text = "下へ";
-			this.MemberFontDownBtn.UseVisualStyleBackColor = true;
 			// 
 			// SettingWin
 			// 

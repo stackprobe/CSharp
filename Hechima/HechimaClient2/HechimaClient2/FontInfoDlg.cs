@@ -41,6 +41,7 @@ namespace Charlotte
 		private void FontInfoDlg_Shown(object sender, EventArgs e)
 		{
 			this.LoadData();
+			this.CB背景を暗く.Checked = Common.IsBrightColor(this.FontInfo.Color);
 			this.UIRefresh();
 		}
 
@@ -66,7 +67,7 @@ namespace Charlotte
 			this.CB取り消し線.Checked = (this.FontInfo.Style | FontStyle.Strikeout) != 0;
 			this.CB下線.Checked = (this.FontInfo.Style | FontStyle.Underline) != 0;
 
-			this.L文字色.Text = "" + Common.ToHexString(this.FontInfo.Color);
+			this.L文字色.Text = Common.ToHexString(this.FontInfo.Color);
 		}
 
 		private int GetFamilyIndex(string family)
@@ -118,26 +119,40 @@ namespace Charlotte
 			this.UIRefresh();
 		}
 
+		private void CB背景を暗く_CheckedChanged(object sender, EventArgs e)
+		{
+			this.UIRefresh();
+		}
+
 		private void UIRefresh()
 		{
-			this.LErrorMessage.Text = "";
-
 			try
 			{
 				this.SampleTxt.Font = this.GetFont();
+
+				this.LErrorMessage.Text = "";
+				this.OKBtn.Enabled = true;
 			}
 			catch (Exception e)
 			{
 				Gnd.Logger.writeLine(e);
 
 				this.LErrorMessage.Text = e.Message;
+				this.OKBtn.Enabled = false;
+			}
+
+			{
+				Color bc = this.CB背景を暗く.Checked ? Color.Black : Color.White;
+
+				if (this.SampleTxt.BackColor != bc)
+					this.SampleTxt.BackColor = bc;
 			}
 		}
 
 		private Font GetFont()
 		{
 			string family = this.Families.Text;
-			int size = IntTools.toInt(this.SizeTxt.Text, 1, 99);
+			int size = this.GetFontSize();
 			FontStyle style =
 				(this.CB太字.Checked ? FontStyle.Bold : 0) |
 				(this.CB斜体.Checked ? FontStyle.Italic : 0) |
@@ -147,9 +162,37 @@ namespace Charlotte
 			return new Font(family, (float)size, style);
 		}
 
+		private int GetFontSize()
+		{
+			return IntTools.toInt(this.SizeTxt.Text, 1, 99);
+		}
+
 		private void 文字色Btn_Click(object sender, EventArgs e)
 		{
-			// TODO
+			Color color = Common.ToColorHex(this.L文字色.Text);
+
+			//ColorDialogクラスのインスタンスを作成
+			using (ColorDialog cd = new ColorDialog())
+			{
+				//はじめに選択されている色を設定
+				cd.Color = color;
+				//色の作成部分を表示可能にする
+				//デフォルトがTrueのため必要はない
+				cd.AllowFullOpen = true;
+				//純色だけに制限しない
+				//デフォルトがFalseのため必要はない
+				cd.SolidColorOnly = false;
+				//[作成した色]に指定した色（RGB値）を表示する
+				cd.CustomColors = Common.MakeCustomColors();
+
+				//ダイアログを表示する
+				if (cd.ShowDialog() == DialogResult.OK)
+				{
+					//選択された色の取得
+					color = cd.Color;
+					this.L文字色.Text = Common.ToHexString(color);
+				}
+			}
 		}
 
 		private void OKBtn_Click(object sender, EventArgs e)
@@ -162,10 +205,10 @@ namespace Charlotte
 		{
 			try
 			{
-				Font font = this.GetFont(); // フォント作成テスト
+				Font font = this.GetFont(); // フォント作成テストを兼ねる。
 
 				this.FontInfo.Family = this.Families.Text;
-				this.FontInfo.Size = int.Parse(this.SizeTxt.Text);
+				this.FontInfo.Size = this.GetFontSize();
 				this.FontInfo.Style = font.Style;
 				this.FontInfo.Color = Common.ToColorHex(this.L文字色.Text);
 			}

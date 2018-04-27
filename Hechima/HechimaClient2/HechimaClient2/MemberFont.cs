@@ -42,6 +42,6 @@ namespace Charlotte
 			}
 		}
 
-		private static AttachString AttSt = new AttachString('/', '$', 'S');
+		private static AttachString AttSt = new AttachString(';', '$', 'S');
 	}
 }

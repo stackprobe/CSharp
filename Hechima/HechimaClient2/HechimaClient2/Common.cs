@@ -175,6 +175,51 @@ namespace Charlotte
 			return dest.ToArray();
 		}
 
+		public static bool IsBrightColor(Color color)
+		{
+			return 0xc0 * 3 < color.R + color.G + color.B;
+		}
+
+		/// <summary>
+		/// ColorDialog.CustomColors 用
+		/// </summary>
+		/// <returns></returns>
+		public static int[] MakeCustomColors()
+		{
+			List<int> buff = new List<int>();
+
+			for (int c = 0; c < 16; c++)
+				buff.Add((int)(SecurityTools.getCRandUInt() & 0xffffff));
+
+			return buff.ToArray();
+		}
+
+		public static List<MemberFont> ToMemberFonts(string src)
+		{
+			List<MemberFont> dest = new List<MemberFont>();
+
+			foreach (string token in MemberFont_AttSt.tokenize(src))
+			{
+				MemberFont mf = new MemberFont();
+				mf.SetString(token);
+				dest.Add(mf);
+			}
+			return dest;
+		}
+
+		public static string ToString(List<MemberFont> src)
+		{
+			List<string> dest = new List<string>();
+
+			foreach (MemberFont mf in src)
+			{
+				dest.Add(mf.GetString());
+			}
+			return MemberFont_AttSt.untokenize(dest.ToArray());
+		}
+
+		private static AttachString MemberFont_AttSt = new AttachString('/', '$', 'S');
+
 		#region TaskBarFlash
 
 		[DllImport("user32.dll")]

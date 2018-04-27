@@ -41,6 +41,7 @@
 			this.CancelBtn = new System.Windows.Forms.Button();
 			this.OKBtn = new System.Windows.Forms.Button();
 			this.LErrorMessage = new System.Windows.Forms.Label();
+			this.CB背景を暗く = new System.Windows.Forms.CheckBox();
 			this.SuspendLayout();
 			// 
 			// Families
@@ -135,11 +136,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.SampleTxt.Location = new System.Drawing.Point(12, 155);
+			this.SampleTxt.MaxLength = 1000;
 			this.SampleTxt.Multiline = true;
 			this.SampleTxt.Name = "SampleTxt";
-			this.SampleTxt.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+			this.SampleTxt.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
 			this.SampleTxt.Size = new System.Drawing.Size(460, 228);
-			this.SampleTxt.TabIndex = 8;
+			this.SampleTxt.TabIndex = 9;
+			this.SampleTxt.Text = "いろはにほへと\r\nチリヌルヲ\r\n大三元\r\nドラ40\r\nABCDEFGHIJKLMNOPQRSTUVWXYZ\r\nabcdefghijklmnopqrstuvwxyz" +
+    "\r\n0123456789\r\nほげインの森\r\nForest of hoge-in";
 			// 
 			// CancelBtn
 			// 
@@ -147,7 +151,7 @@
 			this.CancelBtn.Location = new System.Drawing.Point(358, 409);
 			this.CancelBtn.Name = "CancelBtn";
 			this.CancelBtn.Size = new System.Drawing.Size(114, 40);
-			this.CancelBtn.TabIndex = 11;
+			this.CancelBtn.TabIndex = 12;
 			this.CancelBtn.Text = "キャンセル";
 			this.CancelBtn.UseVisualStyleBackColor = true;
 			this.CancelBtn.Click += new System.EventHandler(this.CancelBtn_Click);
@@ -158,7 +162,7 @@
 			this.OKBtn.Location = new System.Drawing.Point(238, 409);
 			this.OKBtn.Name = "OKBtn";
 			this.OKBtn.Size = new System.Drawing.Size(114, 40);
-			this.OKBtn.TabIndex = 10;
+			this.OKBtn.TabIndex = 11;
 			this.OKBtn.Text = "OK";
 			this.OKBtn.UseVisualStyleBackColor = true;
 			this.OKBtn.Click += new System.EventHandler(this.OKBtn_Click);
@@ -171,15 +175,28 @@
 			this.LErrorMessage.ForeColor = System.Drawing.Color.Red;
 			this.LErrorMessage.Location = new System.Drawing.Point(12, 386);
 			this.LErrorMessage.Name = "LErrorMessage";
-			this.LErrorMessage.Size = new System.Drawing.Size(347, 20);
-			this.LErrorMessage.TabIndex = 9;
-			this.LErrorMessage.Text = "エラーメッセージ・エラーメッセージ・エラーメッセージ";
+			this.LErrorMessage.Size = new System.Drawing.Size(438, 20);
+			this.LErrorMessage.TabIndex = 10;
+			this.LErrorMessage.Text = "ここにエラーメッセージを表示します。あああああいいいいいううううう";
+			// 
+			// CB背景を暗く
+			// 
+			this.CB背景を暗く.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.CB背景を暗く.AutoSize = true;
+			this.CB背景を暗く.Location = new System.Drawing.Point(379, 125);
+			this.CB背景を暗く.Name = "CB背景を暗く";
+			this.CB背景を暗く.Size = new System.Drawing.Size(93, 24);
+			this.CB背景を暗く.TabIndex = 8;
+			this.CB背景を暗く.Text = "背景を暗く";
+			this.CB背景を暗く.UseVisualStyleBackColor = true;
+			this.CB背景を暗く.CheckedChanged += new System.EventHandler(this.CB背景を暗く_CheckedChanged);
 			// 
 			// FontInfoDlg
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(484, 461);
+			this.Controls.Add(this.CB背景を暗く);
 			this.Controls.Add(this.LErrorMessage);
 			this.Controls.Add(this.OKBtn);
 			this.Controls.Add(this.CancelBtn);
@@ -224,5 +241,6 @@
 		private System.Windows.Forms.Button CancelBtn;
 		private System.Windows.Forms.Button OKBtn;
 		private System.Windows.Forms.Label LErrorMessage;
+		private System.Windows.Forms.CheckBox CB背景を暗く;
 	}
 }

@@ -75,6 +75,16 @@ namespace Charlotte
 			this.BouyomiChanSnippedTrailer.Text = Gnd.setting.BouyomiChanSnippedTrailer;
 			this.BouyomiChanIgnoreSelfRemark.Checked = Gnd.setting.BouyomiChanIgnoreSelfRemark;
 
+			// MemberFontList
+			{
+				this.MemberFontList.Items.Clear();
+
+				foreach (MemberFont mf in Gnd.setting.MemberFonts)
+				{
+					this.MemberFontList.Items.Add(mf.GetString());
+				}
+			}
+
 			// ----
 		}
 
@@ -127,6 +137,20 @@ namespace Charlotte
 			Gnd.setting.BouyomiChanSnipLen = int.Parse(this.BouyomiChanSnipLen.Text);
 			Gnd.setting.BouyomiChanSnippedTrailer = this.BouyomiChanSnippedTrailer.Text;
 			Gnd.setting.BouyomiChanIgnoreSelfRemark = this.BouyomiChanIgnoreSelfRemark.Checked;
+
+			// MemberFontList
+			{
+				Gnd.setting.MemberFonts.Clear();
+
+				for (int index = 0; index < this.MemberFontList.Items.Count; index++)
+				{
+					MemberFont mf = new MemberFont();
+					string src = (string)this.MemberFontList.Items[index];
+					mf.SetString(src);
+
+					Gnd.setting.MemberFonts.Add(mf);
+				}
+			}
 
 			// ----
 		}
@@ -363,7 +387,7 @@ namespace Charlotte
 				//デフォルトがFalseのため必要はない
 				cd.SolidColorOnly = false;
 				//[作成した色]に指定した色（RGB値）を表示する
-				cd.CustomColors = MakeCustomColors();
+				cd.CustomColors = Common.MakeCustomColors();
 
 				//ダイアログを表示する
 				if (cd.ShowDialog() == DialogResult.OK)
@@ -373,16 +397,6 @@ namespace Charlotte
 					SetColor(btn, color);
 				}
 			}
-		}
-
-		private int[] MakeCustomColors()
-		{
-			List<int> buff = new List<int>();
-
-			for (int c = 0; c < 16; c++)
-				buff.Add((int)(SecurityTools.getCRandUInt() & 0xffffff));
-
-			return buff.ToArray();
 		}
 
 		private void UpdateUserTripBtn_Click(object sender, EventArgs e)
@@ -444,6 +458,81 @@ namespace Charlotte
 		private void TripEnabled_CheckedChanged(object sender, EventArgs e)
 		{
 			this.UIRefresh();
+		}
+
+		private void MemberFontAddBtn_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				// TODO 個数上限？
+
+				this.MemberFontList.Items.Add(new MemberFont().GetString());
+				this.MemberFontList.SelectedIndex = this.MemberFontList.Items.Count - 1;
+			}
+			catch (Exception ex)
+			{
+				Gnd.Logger.writeLine(ex);
+			}
+		}
+
+		private void MemberFontEditBtn_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				int index = this.MemberFontList.SelectedIndex;
+
+				if (index == -1)
+					return;
+
+				// TODO MemberFontDlg
+			}
+			catch (Exception ex)
+			{
+				Gnd.Logger.writeLine(ex);
+			}
+		}
+
+		private void MemberFontDeleteBtn_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				int index = this.MemberFontList.SelectedIndex;
+
+				if (index == -1)
+					return;
+
+				this.MemberFontList.Items.RemoveAt(index);
+				index = Math.Min(index, this.MemberFontList.Items.Count - 1);
+				this.MemberFontList.SelectedIndex = index;
+			}
+			catch (Exception ex)
+			{
+				Gnd.Logger.writeLine(ex);
+			}
+		}
+
+		private void MemberFontUpBtn_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				// TODO
+			}
+			catch (Exception ex)
+			{
+				Gnd.Logger.writeLine(ex);
+			}
+		}
+
+		private void MemberFontDownBtn_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				// TODO
+			}
+			catch (Exception ex)
+			{
+				Gnd.Logger.writeLine(ex);
+			}
 		}
 	}
 }

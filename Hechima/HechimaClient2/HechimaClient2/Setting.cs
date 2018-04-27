@@ -86,6 +86,8 @@ namespace Charlotte
 
 		public bool TaskBarFlashEnabled = false;
 
+		public List<MemberFont> MemberFonts = new List<MemberFont>();
+
 		// ---- ロード・セーブ
 
 		private string GetProgDataDir()
@@ -182,6 +184,8 @@ namespace Charlotte
 
 			this.TaskBarFlashEnabled = int.Parse(lines[c++]) != 0;
 
+			this.MemberFonts = Common.ToMemberFonts(lines[c++]);
+
 			// 新しい項目、ここへ追加..
 
 			// ----
@@ -255,6 +259,8 @@ namespace Charlotte
 			lines.Add("" + (this.Flat_OnlineText ? 1 : 0));
 
 			lines.Add("" + (this.TaskBarFlashEnabled ? 1 : 0));
+
+			lines.Add(Common.ToString(this.MemberFonts));
 
 			// 新しい項目、ここへ追加..
 
