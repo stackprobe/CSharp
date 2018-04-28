@@ -21,16 +21,6 @@ namespace Charlotte
 			InitializeComponent();
 
 			this.MinimumSize = this.Size;
-
-			// load
-			{
-				this.IdentMidPtn.Text = this.MemberFont.IdentMidPtn;
-				this.LStamp.Text = this.MemberFont.Stamp.GetString();
-				this.LIdent.Text = this.MemberFont.Ident.GetString();
-				this.LMessage.Text = this.MemberFont.Message.GetString();
-			}
-
-			this.T最近のIdents.Text = string.Join("\r\n", Gnd.RecentlyIdents);
 		}
 
 		private void MemberFontDlg_Load(object sender, EventArgs e)
@@ -40,7 +30,15 @@ namespace Charlotte
 
 		private void MemberFontDlg_Shown(object sender, EventArgs e)
 		{
-			// noop
+			// load
+			{
+				this.IdentMidPtn.Text = this.MemberFont.IdentMidPtn;
+				this.LStamp.Text = this.MemberFont.Stamp.GetString();
+				this.LIdent.Text = this.MemberFont.Ident.GetString();
+				this.LMessage.Text = this.MemberFont.Message.GetString();
+			}
+
+			this.T最近のIdents.Text = string.Join("\r\n", Gnd.RecentlyIdents);
 		}
 
 		private void MemberFontDlg_FormClosing(object sender, FormClosingEventArgs e)

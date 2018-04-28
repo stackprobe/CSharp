@@ -75,11 +75,18 @@ namespace Charlotte.Tools
 		{
 			if (JOIN_NUM_MAX < tokens.Count)
 			{
-				for (int index = 0; index < tokens.Count; index += JOIN_NUM_MAX)
+				for (int index = 0; index < tokens.Count; )
 				{
-					int count = Math.Min(JOIN_NUM_MAX, tokens.Count - index);
-					List<Token> range = tokens.GetRange(index, count);
+					int rngCnt = Math.Min(JOIN_NUM_MAX, tokens.Count - index);
+
+					// range の最後のトークンの token.Text の最後の文字が改行であってはならない。
+					// その調整を行う。
+					while (2 <= rngCnt && tokens[index + rngCnt - 1].Text.EndsWith("\n"))
+						rngCnt--;
+
+					List<Token> range = tokens.GetRange(index, rngCnt);
 					this.Join_Main(index == 0 ? rtf : this.RTB.Rtf, range);
+					index += rngCnt;
 				}
 			}
 			else

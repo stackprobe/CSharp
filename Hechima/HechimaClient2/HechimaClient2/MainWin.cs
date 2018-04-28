@@ -48,8 +48,8 @@ namespace Charlotte
 
 		private void ImportSetting(bool withoutMainWinLTWH = false)
 		{
-			//this.RemarksRTB.Font = new Font(Gnd.setting.RemarksTextFontFamily, Gnd.setting.RemarksTextFontSize);
-			//this.RemarksRTB.ForeColor = Gnd.setting.RemarksTextForeColor;
+			//this.RemarksRTB.Font = new Font(Gnd.setting.RemarksTextFontFamily, Gnd.setting.RemarksTextFontSize); // old
+			//this.RemarksRTB.ForeColor = Gnd.setting.RemarksTextForeColor; // old
 			this.RemarksRTB.BackColor = Gnd.setting.RemarksTextBackColor;
 
 			this.MessageText.ForeColor = Gnd.setting.MessageTextForeColor;
@@ -291,11 +291,15 @@ namespace Charlotte
 
 				// RemarksText 更新 {
 
+				int rrLen1 = this.RemarksRTB.TextLength;
 				this.RemarksRTBMgr.Add(rrsBuff, true);
+				int rrLen2 = this.RemarksRTB.TextLength;
 
-				// 他の人の発言が有る -> RemarksRTB のテキストが今より長くなる -> スクロールOK -> スクロールする。
-				// 他の人の発言が無い -> RemarksRTB のテキストが今と同じ長さになる -> スクロールに問題 -> スクロールしない。
-				if (foundOtherRemark)
+				// RemarksRTB のテキストが今より長くなる -> スクロールOK -> スクロールする。
+				// RemarksRTB のテキストが今と同じ長さになる -> スクロールに問題 -> スクロールしない。
+				// 改行の入り方で問題があるかもしれないけど、まあいいや。
+				// foundOtherRemark による判定は、投稿が失敗したとき漏れがあるので止め。
+				if (rrLen1 < rrLen2)
 					this.RemarksRTBMgr.RTBMgr.ScrollToBottom();
 
 				// }

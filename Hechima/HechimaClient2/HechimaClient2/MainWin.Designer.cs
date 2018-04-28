@@ -111,6 +111,7 @@
 			this.RemarksRTB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.RemarksRTB.ContextMenuStrip = this.RemarksTextContextMenu;
 			this.RemarksRTB.Location = new System.Drawing.Point(12, 12);
 			this.RemarksRTB.Name = "RemarksRTB";
 			this.RemarksRTB.Size = new System.Drawing.Size(460, 366);

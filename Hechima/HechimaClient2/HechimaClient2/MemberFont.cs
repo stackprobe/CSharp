@@ -9,7 +9,10 @@ namespace Charlotte
 	public class MemberFont
 	{
 		public string IdentMidPtn = "名無しさん"; // この文字列を含む Ident のメンバーの発言に、このインスタンスの設定を反映する。
-		public FontInfo Stamp = new FontInfo();
+		public FontInfo Stamp = new FontInfo()
+		{
+			Size = 8,
+		};
 		public FontInfo Ident = new FontInfo();
 		public FontInfo Message = new FontInfo();
 

@@ -10,9 +10,9 @@ namespace Charlotte
 	public class FontInfo
 	{
 		public string Family = "メイリオ";
-		public int Size = 8;
+		public int Size = 10;
 		public FontStyle Style = FontStyle.Regular;
-		public Color Color = Color.Black;
+		public Color Color = Color.DodgerBlue;
 
 		public string GetString()
 		{

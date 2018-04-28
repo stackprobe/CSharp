@@ -39,7 +39,7 @@ namespace Charlotte
 		public string RemarkFormat = "RSBIRZMR";
 
 		public string RemarksTextDefaultFontFamily = "メイリオ";
-		public int RemarksTextDefaultFontSize = 8;//10;
+		public int RemarksTextDefaultFontSize = 10;
 		public Color RemarksTextDefaultFontColor = Color.FromArgb(0, 48, 0);
 		public Color RemarksTextBackColor = Color.White;
 		public Color MessageTextForeColor = Color.Black;

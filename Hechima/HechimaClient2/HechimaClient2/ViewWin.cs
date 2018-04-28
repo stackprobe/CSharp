@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Charlotte.Tools;
 
 namespace Charlotte
 {
@@ -16,6 +17,8 @@ namespace Charlotte
 		public ViewWin(string viewText)
 		{
 			_viewText = viewText;
+			_viewText = StringTools.toCRLF(_viewText);
+			_viewText = _viewText.Trim();
 
 			InitializeComponent();
 

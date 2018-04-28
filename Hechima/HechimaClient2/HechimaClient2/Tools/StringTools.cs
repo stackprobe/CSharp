@@ -349,5 +349,12 @@ namespace Charlotte.Tools
 
 			return false;
 		}
+
+		public static string toCRLF(string text)
+		{
+			text = text.Replace("\r", "");
+			text = text.Replace("\n", "\r\n");
+			return text;
+		}
 	}
 }
