@@ -64,6 +64,7 @@ namespace Charlotte
 
 		private void AddTo(List<RTBManager.Token> dest, Remark remark)
 		{
+			MemberFont mf = this.GetMemberFont(remark);
 			string rf = Gnd.setting.RemarkFormat;
 
 			rf = StringTools.replaceLoop(rf, "RR", "r", 10);
@@ -75,7 +76,10 @@ namespace Charlotte
 					case 'r':
 						{
 							dest.Add(new RTBManager.Token(
-								new Font(Gnd.setting.RemarksTextDefaultFontFamily, Gnd.setting.RemarksTextDefaultFontSize),
+								new Font(
+									Gnd.setting.RemarksTextDefaultFontFamily,
+									Gnd.setting.RemarksTextDefaultFontSize
+									),
 								Gnd.setting.RemarksTextDefaultFontColor,
 								"\n\n"
 								));
@@ -85,7 +89,10 @@ namespace Charlotte
 					case 'R':
 						{
 							dest.Add(new RTBManager.Token(
-								new Font(Gnd.setting.RemarksTextDefaultFontFamily, Gnd.setting.RemarksTextDefaultFontSize),
+								new Font(
+									Gnd.setting.RemarksTextDefaultFontFamily,
+									Gnd.setting.RemarksTextDefaultFontSize
+									),
 								Gnd.setting.RemarksTextDefaultFontColor,
 								"\n"
 								));
@@ -95,8 +102,11 @@ namespace Charlotte
 					case 'S':
 						{
 							dest.Add(new RTBManager.Token(
-								new Font("メイリオ", 10f),
-								Color.Black,
+								new Font(
+									mf != null ? mf.Stamp.Family : Gnd.setting.RemarksTextDefaultFontFamily,
+									mf != null ? mf.Stamp.Size : Gnd.setting.RemarksTextDefaultFontSize
+									),
+								mf != null ? mf.Stamp.Color : Gnd.setting.RemarksTextDefaultFontColor,
 								StampToTextBoxText(remark.Stamp)
 								));
 						}
@@ -105,7 +115,10 @@ namespace Charlotte
 					case 'B':
 						{
 							dest.Add(new RTBManager.Token(
-								new Font(Gnd.setting.RemarksTextDefaultFontFamily, Gnd.setting.RemarksTextDefaultFontSize),
+								new Font(
+									Gnd.setting.RemarksTextDefaultFontFamily,
+									Gnd.setting.RemarksTextDefaultFontSize
+									),
 								Gnd.setting.RemarksTextDefaultFontColor,
 								" " // 半角空白
 								));
@@ -115,7 +128,10 @@ namespace Charlotte
 					case 'Z':
 						{
 							dest.Add(new RTBManager.Token(
-								new Font(Gnd.setting.RemarksTextDefaultFontFamily, Gnd.setting.RemarksTextDefaultFontSize),
+								new Font(
+									Gnd.setting.RemarksTextDefaultFontFamily,
+									Gnd.setting.RemarksTextDefaultFontSize
+									),
 								Gnd.setting.RemarksTextDefaultFontColor,
 								"　" // 全角空白
 								));
@@ -125,8 +141,11 @@ namespace Charlotte
 					case 'I':
 						{
 							dest.Add(new RTBManager.Token(
-								new Font("メイリオ", 10f),
-								Color.Black,
+								new Font(
+									mf != null ? mf.Ident.Family : Gnd.setting.RemarksTextDefaultFontFamily,
+									mf != null ? mf.Ident.Size : Gnd.setting.RemarksTextDefaultFontSize
+									),
+								mf != null ? mf.Ident.Color : Gnd.setting.RemarksTextDefaultFontColor,
 								IdentToTextBoxText(remark.Ident)
 								));
 						}
@@ -135,8 +154,11 @@ namespace Charlotte
 					case 'M':
 						{
 							dest.Add(new RTBManager.Token(
-								new Font("メイリオ", 10f),
-								Color.Black,
+								new Font(
+									mf != null ? mf.Message.Family : Gnd.setting.RemarksTextDefaultFontFamily,
+									mf != null ? mf.Message.Size : Gnd.setting.RemarksTextDefaultFontSize
+									),
+								mf != null ? mf.Message.Color : Gnd.setting.RemarksTextDefaultFontColor,
 								remark.Message
 								));
 						}
@@ -146,6 +168,15 @@ namespace Charlotte
 						throw null;
 				}
 			}
+		}
+
+		private MemberFont GetMemberFont(Remark remark)
+		{
+			foreach (MemberFont mf in Gnd.setting.MemberFonts)
+				if (remark.Ident.Contains(mf.IdentMidPtn))
+					return mf;
+
+			return null;
 		}
 
 		private static string StampToTextBoxText(long stamp)

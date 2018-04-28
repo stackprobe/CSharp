@@ -143,7 +143,7 @@
 			this.SampleTxt.Size = new System.Drawing.Size(460, 228);
 			this.SampleTxt.TabIndex = 9;
 			this.SampleTxt.Text = "いろはにほへと\r\nチリヌルヲ\r\n大三元\r\nドラ40\r\nABCDEFGHIJKLMNOPQRSTUVWXYZ\r\nabcdefghijklmnopqrstuvwxyz" +
-    "\r\n0123456789\r\nほげインの森\r\nForest of hoge-in";
+    "\r\n0123456789\r\nほげインの森\r\nForest of hoge-in\r\n_(:3 」∠ )_(:3 」∠ )_";
 			// 
 			// CancelBtn
 			// 
@@ -218,6 +218,7 @@
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "へちま改のフォント設定";
+			this.TopMost = true;
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FontInfoDlg_FormClosing);
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FontInfoDlg_FormClosed);
 			this.Load += new System.EventHandler(this.FontInfoDlg_Load);

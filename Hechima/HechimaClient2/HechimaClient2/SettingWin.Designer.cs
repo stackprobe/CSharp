@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingWin));
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -114,6 +115,8 @@
 			this.CancelBtn = new System.Windows.Forms.Button();
 			this.OkBtn = new System.Windows.Forms.Button();
 			this.CorrectBtn = new System.Windows.Forms.Button();
+			this.MemberFontListMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.選択解除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -127,6 +130,7 @@
 			this.tabPage4.SuspendLayout();
 			this.groupBox5.SuspendLayout();
 			this.tabPage6.SuspendLayout();
+			this.MemberFontListMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl1
@@ -1037,6 +1041,7 @@
 			this.MemberFontList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.MemberFontList.ContextMenuStrip = this.MemberFontListMenu;
 			this.MemberFontList.FormattingEnabled = true;
 			this.MemberFontList.HorizontalScrollbar = true;
 			this.MemberFontList.ItemHeight = 20;
@@ -1078,6 +1083,20 @@
 			this.CorrectBtn.Text = "補正";
 			this.CorrectBtn.UseVisualStyleBackColor = true;
 			this.CorrectBtn.Click += new System.EventHandler(this.CorrectBtn_Click);
+			// 
+			// MemberFontListMenu
+			// 
+			this.MemberFontListMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.選択解除ToolStripMenuItem});
+			this.MemberFontListMenu.Name = "MemberFontListMenu";
+			this.MemberFontListMenu.Size = new System.Drawing.Size(123, 26);
+			// 
+			// 選択解除ToolStripMenuItem
+			// 
+			this.選択解除ToolStripMenuItem.Name = "選択解除ToolStripMenuItem";
+			this.選択解除ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+			this.選択解除ToolStripMenuItem.Text = "選択解除";
+			this.選択解除ToolStripMenuItem.Click += new System.EventHandler(this.選択解除ToolStripMenuItem_Click);
 			// 
 			// SettingWin
 			// 
@@ -1121,6 +1140,7 @@
 			this.groupBox5.ResumeLayout(false);
 			this.groupBox5.PerformLayout();
 			this.tabPage6.ResumeLayout(false);
+			this.MemberFontListMenu.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -1212,5 +1232,7 @@
 		private System.Windows.Forms.Button MemberFontAddBtn;
 		private System.Windows.Forms.Button MemberFontDeleteBtn;
 		private System.Windows.Forms.ListBox MemberFontList;
+		private System.Windows.Forms.ContextMenuStrip MemberFontListMenu;
+		private System.Windows.Forms.ToolStripMenuItem 選択解除ToolStripMenuItem;
 	}
 }

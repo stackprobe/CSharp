@@ -52,5 +52,7 @@ namespace Charlotte
 		public static string CliVerifyPtn = SecurityTools.makePassword();
 
 		public static Logger Logger = null;
+
+		public static List<string> RecentlyIdents = new List<string>();
 	}
 }

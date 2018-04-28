@@ -22,7 +22,7 @@ namespace Charlotte
 			Common.GUIMain(() => new MainWin(), APP_IDENT, APP_TITLE);
 		}
 
-		public const string APP_IDENT = "{cb133c0e-badf-4af9-81ae-fc50bd1ffc79}";
+		public const string APP_IDENT = "{8aa765d3-30df-48ca-9ab4-9e81bd35f807}";
 		public const string APP_TITLE = "TTTTTMPL";
 	}
 }

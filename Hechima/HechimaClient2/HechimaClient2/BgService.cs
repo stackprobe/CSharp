@@ -109,6 +109,25 @@ namespace Charlotte
 			{
 				this.RecvedOnlineLines = _recvedOnlineLines;
 				_recvedOnlineLines = null;
+
+				try // update Gnd.RecentlyIdents
+				{
+					while (30 < Gnd.RecentlyIdents.Count) // anti overflow
+						Gnd.RecentlyIdents.RemoveAt(Gnd.RecentlyIdents.Count - 1);
+
+					foreach (string line in this.RecvedOnlineLines)
+					{
+						string ident = line.Substring(line.IndexOf(' ') + 1);
+
+						if (Gnd.RecentlyIdents.Contains(ident) == false)
+							Gnd.RecentlyIdents.Insert(0, ident);
+					}
+				}
+				catch (Exception e)
+				{
+					Gnd.Logger.writeLine(e);
+				}
+
 				return;
 			}
 			if (Gnd.onlineDlg != null && --_recvOnlineFreezeCount < 0)

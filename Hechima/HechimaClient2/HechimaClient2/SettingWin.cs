@@ -290,6 +290,8 @@ namespace Charlotte
 			this.BouyomiChanSnippedTrailer.Text = CorrectItem(this.BouyomiChanSnippedTrailer.Text, 1, 1000, "以下略");
 			//this.BouyomiChanIgnoreSelfRemark.Checked
 
+			//this.MemberFontList
+
 			// ----
 		}
 
@@ -464,8 +466,17 @@ namespace Charlotte
 		{
 			try
 			{
-				// TODO 個数上限？
+				if (Gnd.conf.MemberFontMax <= this.MemberFontList.Items.Count)
+				{
+					MessageBox.Show(
+						"大杉",
+						"情報",
+						MessageBoxButtons.OK,
+						MessageBoxIcon.Warning
+						);
 
+					return;
+				}
 				this.MemberFontList.Items.Add(new MemberFont().GetString());
 				this.MemberFontList.SelectedIndex = this.MemberFontList.Items.Count - 1;
 			}
@@ -484,12 +495,28 @@ namespace Charlotte
 				if (index == -1)
 					return;
 
-				// TODO MemberFontDlg
+				this.MemberFontList.Items[index] = this.EditMemberFontStr((string)this.MemberFontList.Items[index]);
 			}
 			catch (Exception ex)
 			{
 				Gnd.Logger.writeLine(ex);
 			}
+		}
+
+		private string EditMemberFontStr(string str)
+		{
+			MemberFont mf = new MemberFont();
+			mf.SetString(str);
+
+			this.Visible = false;
+
+			using (MemberFontDlg f = new MemberFontDlg() { MemberFont = mf })
+			{
+				f.ShowDialog();
+			}
+			this.Visible = true;
+
+			return mf.GetString();
 		}
 
 		private void MemberFontDeleteBtn_Click(object sender, EventArgs e)
@@ -515,7 +542,15 @@ namespace Charlotte
 		{
 			try
 			{
-				// TODO
+				int index = this.MemberFontList.SelectedIndex;
+
+				if (index < 1)
+					return;
+
+				string tmp = (string)this.MemberFontList.Items[index];
+				this.MemberFontList.Items[index] = this.MemberFontList.Items[index - 1];
+				this.MemberFontList.Items[index - 1] = tmp;
+				this.MemberFontList.SelectedIndex = index - 1;
 			}
 			catch (Exception ex)
 			{
@@ -527,12 +562,28 @@ namespace Charlotte
 		{
 			try
 			{
-				// TODO
+				int index = this.MemberFontList.SelectedIndex;
+
+				if (index == -1)
+					return;
+
+				if (this.MemberFontList.Items.Count - 1 <= index)
+					return;
+
+				string tmp = (string)this.MemberFontList.Items[index];
+				this.MemberFontList.Items[index] = this.MemberFontList.Items[index + 1];
+				this.MemberFontList.Items[index + 1] = tmp;
+				this.MemberFontList.SelectedIndex = index + 1;
 			}
 			catch (Exception ex)
 			{
 				Gnd.Logger.writeLine(ex);
 			}
+		}
+
+		private void 選択解除ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			this.MemberFontList.ClearSelected();
 		}
 	}
 }

@@ -79,6 +79,12 @@
       <DependentUpon>MainWin.cs</DependentUpon>
     </Compile>
     <Compile Include="MemberFont.cs" />
+    <Compile Include="MemberFontDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MemberFontDlg.Designer.cs">
+      <DependentUpon>MemberFontDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="OnlineDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -164,6 +170,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainWin.resx">
       <DependentUpon>MainWin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MemberFontDlg.resx">
+      <DependentUpon>MemberFontDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OnlineDlg.resx">
       <DependentUpon>OnlineDlg.cs</DependentUpon>

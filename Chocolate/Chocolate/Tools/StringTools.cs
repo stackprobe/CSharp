@@ -295,5 +295,30 @@ namespace Charlotte.Tools
 
 			return ret;
 		}
+
+		public static string[] Tokenize(string str, string delimiters, bool meaningFlag = false, bool ignoreEmpty = false)
+		{
+			StringBuilder buff = new StringBuilder();
+			List<string> tokens = new List<string>();
+
+			foreach (char chr in str)
+			{
+				if (delimiters.Contains(chr) == meaningFlag)
+				{
+					buff.Append(chr);
+				}
+				else
+				{
+					if (ignoreEmpty == false || buff.Length != 0)
+						tokens.Add(buff.ToString());
+
+					buff = new StringBuilder();
+				}
+			}
+			if (ignoreEmpty == false || buff.Length != 0)
+				tokens.Add(buff.ToString());
+
+			return tokens.ToArray();
+		}
 	}
 }

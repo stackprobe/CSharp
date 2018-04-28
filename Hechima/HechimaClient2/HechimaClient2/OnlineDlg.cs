@@ -103,18 +103,20 @@ namespace Charlotte
 					long time = long.Parse(sTime);
 					time /= 60;
 
-					//if (time <= 9) // 十分に古いものは表示しない。
 					if (time <= Gnd.conf.MemberVisibleTimeMax)
 					{
-						//sTime = StringTools.zPad((int)time, 4);
-						sTime = "" + time;
-						dest.Add("[" + sTime + "] " + ident);
+						if (time == 0)
+						{
+							sTime = "[+] ";
+						}
+						else
+						{
+							sTime = "[-] ";
+						}
+						dest.Add(sTime + ident);
 					}
 				}
 				ArrayTools.sort(dest, StringTools.comp);
-				dest.Add("# 頭の数値は最終アクセスからの時間です。");
-				dest.Add("# 1以上はへちま改を閉じている可能性大");
-				dest.Add("# 更新=" + Common.DateTimeToString(DateTimeToSec.Now.getDateTime()));
 
 				this.OnlineText.Text = string.Join("\r\n", dest.ToArray());
 			}

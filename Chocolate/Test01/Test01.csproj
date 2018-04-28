@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\Tools\Annex\DateSpanListTest.cs" />
     <Compile Include="Tests\Tools\Annex\TimeLimitedTempDirTest.cs" />
     <Compile Include="Tests\Tools\Net\FilingCase3Test.cs" />
     <Compile Include="Tests\Test01.cs" />

@@ -54,7 +54,7 @@ namespace Charlotte
 				if (index == -1)
 					index = this.GetFamilyIndex("メイリオ");
 
-				if (index != -1)
+				if (index == -1)
 					index = 0;
 
 				this.Families.SelectedIndex = index;
@@ -62,10 +62,10 @@ namespace Charlotte
 
 			this.SizeTxt.Text = "" + this.FontInfo.Size;
 
-			this.CB太字.Checked = (this.FontInfo.Style | FontStyle.Bold) != 0;
-			this.CB斜体.Checked = (this.FontInfo.Style | FontStyle.Italic) != 0;
-			this.CB取り消し線.Checked = (this.FontInfo.Style | FontStyle.Strikeout) != 0;
-			this.CB下線.Checked = (this.FontInfo.Style | FontStyle.Underline) != 0;
+			this.CB太字.Checked = (this.FontInfo.Style & FontStyle.Bold) != 0;
+			this.CB斜体.Checked = (this.FontInfo.Style & FontStyle.Italic) != 0;
+			this.CB取り消し線.Checked = (this.FontInfo.Style & FontStyle.Strikeout) != 0;
+			this.CB下線.Checked = (this.FontInfo.Style & FontStyle.Underline) != 0;
 
 			this.L文字色.Text = Common.ToHexString(this.FontInfo.Color);
 		}
@@ -129,6 +129,7 @@ namespace Charlotte
 			try
 			{
 				this.SampleTxt.Font = this.GetFont();
+				this.SampleTxt.ForeColor = Common.ToColorHex(this.L文字色.Text);
 
 				this.LErrorMessage.Text = "";
 				this.OKBtn.Enabled = true;
@@ -190,7 +191,9 @@ namespace Charlotte
 				{
 					//選択された色の取得
 					color = cd.Color;
+
 					this.L文字色.Text = Common.ToHexString(color);
+					this.UIRefresh();
 				}
 			}
 		}

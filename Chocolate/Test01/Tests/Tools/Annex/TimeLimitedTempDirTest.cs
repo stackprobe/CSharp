@@ -194,7 +194,7 @@ namespace Charlotte.Tests.Tools.Annex
 			DateTime sttm = DateTime.Now;
 
 			for (int c = 0; c < 10000; c++)
-				new TimeLimitedTempDir("{614155e1-f0cf-46cf-afea-f37021ff912c}");
+				new TimeLimitedTempDir("TimeLimitedTempDirTest_Test03_tmp");
 
 			DateTime edtm = DateTime.Now;
 			Console.WriteLine((edtm - sttm).TotalMilliseconds + " millis");
