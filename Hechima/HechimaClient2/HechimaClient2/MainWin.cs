@@ -162,7 +162,7 @@ namespace Charlotte
 			Remark provRemark = new Remark()
 			{
 				Stamp = Common.GetStamp(),
-				Ident = Gnd.UserRealName + " @ 127.0.0.2",
+				Ident = Gnd.UserRealName + " @ 127.0.10.10",
 				Message = message,
 			};
 

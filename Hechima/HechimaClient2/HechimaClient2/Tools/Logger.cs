@@ -12,7 +12,7 @@ namespace Charlotte.Tools
 	/// </summary>
 	public class Logger
 	{
-		private const long LOG_FILE_SIZE_MAX = 1000000; // 1 MB
+		private const long LOG_FILE_SIZE_MAX = 100000; // 100 KB
 
 		private string _file;
 		private string _file2;

@@ -35,7 +35,7 @@ namespace Charlotte
 				checkLogonUser();
 
 				Gnd.Logger = new Logger();
-				Gnd.Logger.writeLine("Started");
+				//Gnd.Logger.writeLine("Started");
 
 				Gnd.conf.Load();
 				Gnd.setting.Load();
@@ -53,7 +53,7 @@ namespace Charlotte
 
 				Gnd.setting.Save(); // MainWin_LTWH のために！
 
-				Gnd.Logger.writeLine("Ended");
+				//Gnd.Logger.writeLine("Ended");
 
 				GlobalProcMtx.Release();
 				procMutex.ReleaseMutex();

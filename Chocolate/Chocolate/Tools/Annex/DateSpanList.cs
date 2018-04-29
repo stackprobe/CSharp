@@ -112,24 +112,32 @@ namespace Charlotte.Tools.Annex
 			});
 		}
 
-		/// <summary>
-		/// Sort()してから呼ぶこと。
-		/// </summary>
 		public void Distinct()
 		{
-			for (int index = 1; index < this.DateSpans.Count; index++)
+			for (int index = 1; index + 1 < this.DateSpans.Count; index++)
 			{
-				DateSpan a = this.DateSpans[index - 1];
-				DateSpan b = this.DateSpans[index];
+				DateSpan a = this.DateSpans[index];
 
-				if (b.Max.Day <= a.Max.Day)
+				for (int n = index + 1; n < this.DateSpans.Count; n++)
 				{
-					this.DateSpans.RemoveAt(index);
-					index--;
-				}
-				else if (b.Min.Day <= a.Max.Day)
-				{
-					b.Min.Day = a.Max.Day + 1;
+					DateSpan b = this.DateSpans[n];
+
+					if (b.Min.Day < a.Min.Day)
+					{
+						b.Max.Day = Math.Min(b.Max.Day, a.Min.Day - 1);
+					}
+					else // ? a.Min.Day <= b.Min.Day
+					{
+						if (a.Max.Day < b.Max.Day)
+						{
+							b.Min.Day = Math.Max(b.Min.Day, a.Max.Day + 1);
+						}
+						else
+						{
+							this.DateSpans.RemoveAt(n);
+							n--;
+						}
+					}
 				}
 			}
 		}
