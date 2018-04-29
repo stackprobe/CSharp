@@ -101,7 +101,37 @@ namespace Charlotte.Tools.Annex
 
 		public void Sort()
 		{
-			this.DateSpans.Sort((a, b) => a.Min.Day - b.Min.Day);
+			this.DateSpans.Sort((a, b) =>
+			{
+				int ret = a.Min.Day - b.Min.Day;
+
+				if (ret != 0)
+					return ret;
+
+				return a.Max.Day - b.Max.Day;
+			});
+		}
+
+		/// <summary>
+		/// Sort()してから呼ぶこと。
+		/// </summary>
+		public void Distinct()
+		{
+			for (int index = 1; index < this.DateSpans.Count; index++)
+			{
+				DateSpan a = this.DateSpans[index - 1];
+				DateSpan b = this.DateSpans[index];
+
+				if (b.Max.Day <= a.Max.Day)
+				{
+					this.DateSpans.RemoveAt(index);
+					index--;
+				}
+				else if (b.Min.Day <= a.Max.Day)
+				{
+					b.Min.Day = a.Max.Day + 1;
+				}
+			}
 		}
 
 		public void Join()
@@ -120,24 +150,6 @@ namespace Charlotte.Tools.Annex
 			}
 		}
 
-		public void Unjoin()
-		{
-			List<DateSpan> dateSpansNew = new List<DateSpan>();
-
-			foreach (DateSpan dateSpan in this.DateSpans)
-			{
-				for (int day = dateSpan.Min.Day; day <= dateSpan.Max.Day; day++)
-				{
-					dateSpansNew.Add(new DateSpan()
-					{
-						Min = new DateInfo() { Day = day },
-						Max = new DateInfo() { Day = day },
-					});
-				}
-			}
-			this.DateSpans = dateSpansNew;
-		}
-
 		public string GetString()
 		{
 			List<string> spans = new List<string>();
@@ -147,6 +159,22 @@ namespace Charlotte.Tools.Annex
 				spans.Add(dateSpan.GetString());
 			}
 			return string.Join("" + DELIMITER, spans);
+		}
+
+		public IEnumerable<int> GetDates()
+		{
+			foreach (DateSpan dateSpan in this.DateSpans)
+			{
+				for (int day = dateSpan.Min.Day; day <= dateSpan.Max.Day; day++)
+				{
+					yield return DateToDay.ToDate(day);
+				}
+			}
+		}
+
+		public string GetStringDates()
+		{
+			return string.Join("" + DELIMITER, this.GetDates().Select(date => "" + date));
 		}
 	}
 }

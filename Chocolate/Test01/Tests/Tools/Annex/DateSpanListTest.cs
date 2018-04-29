@@ -38,8 +38,16 @@ namespace Charlotte.Tests.Tools.Annex
 				DateSpanList dsl = new DateSpanList();
 				dsl.Add(str);
 				dsl.Sort();
-				dsl.Unjoin();
+				dsl.Distinct();
+				dsl.Join();
 				Console.WriteLine("> " + dsl.GetString());
+			}
+
+			{
+				DateSpanList dsl = new DateSpanList();
+				dsl.Add(str);
+				dsl.Sort();
+				Console.WriteLine("> " + dsl.GetStringDates());
 			}
 		}
 	}

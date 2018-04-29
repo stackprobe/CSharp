@@ -36,7 +36,7 @@ namespace Charlotte
 		/// I == ident
 		/// M == メッセージ
 		/// </summary>
-		public string RemarkFormat = "RSBIRZMR";
+		public string RemarkFormat = "RRSBIRZM";
 
 		public string RemarksTextDefaultFontFamily = "メイリオ";
 		public int RemarksTextDefaultFontSize = 10;
