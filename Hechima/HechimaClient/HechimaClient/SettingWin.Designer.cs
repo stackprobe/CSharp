@@ -65,6 +65,7 @@
 			this.label8 = new System.Windows.Forms.Label();
 			this.MessageTextEnterMode = new System.Windows.Forms.ComboBox();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
+			this.TaskBarFlashEnabled = new System.Windows.Forms.CheckBox();
 			this.groupBox6 = new System.Windows.Forms.GroupBox();
 			this.Flat_OnlineText = new System.Windows.Forms.CheckBox();
 			this.Flat_MessageText = new System.Windows.Forms.CheckBox();
@@ -116,7 +117,6 @@
 			this.CancelBtn = new System.Windows.Forms.Button();
 			this.OkBtn = new System.Windows.Forms.Button();
 			this.CorrectBtn = new System.Windows.Forms.Button();
-			this.TaskBarFlashEnabled = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -490,7 +490,7 @@
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(123, 120);
 			this.label9.TabIndex = 3;
-			this.label9.Text = "R == 改行\r\nS == 日時\r\nB == ブランク\r\nZ == 全角スペース\r\nI == ident\r\nM == メッセージ";
+			this.label9.Text = "R == 改行 (必須)\r\nS == 日時\r\nB == ブランク\r\nZ == 全角スペース\r\nI == ident\r\nM == メッセージ";
 			// 
 			// RemarkFormat
 			// 
@@ -539,6 +539,16 @@
 			this.tabPage5.TabIndex = 4;
 			this.tabPage5.Text = "画面2";
 			this.tabPage5.UseVisualStyleBackColor = true;
+			// 
+			// TaskBarFlashEnabled
+			// 
+			this.TaskBarFlashEnabled.AutoSize = true;
+			this.TaskBarFlashEnabled.Location = new System.Drawing.Point(12, 154);
+			this.TaskBarFlashEnabled.Name = "TaskBarFlashEnabled";
+			this.TaskBarFlashEnabled.Size = new System.Drawing.Size(483, 24);
+			this.TaskBarFlashEnabled.TabIndex = 4;
+			this.TaskBarFlashEnabled.Text = "非アクティブ時に発言があったらタスクバーのアイコンをフラッシュさせる。";
+			this.TaskBarFlashEnabled.UseVisualStyleBackColor = true;
 			// 
 			// groupBox6
 			// 
@@ -1100,16 +1110,6 @@
 			this.CorrectBtn.Text = "補正";
 			this.CorrectBtn.UseVisualStyleBackColor = true;
 			this.CorrectBtn.Click += new System.EventHandler(this.CorrectBtn_Click);
-			// 
-			// TaskBarFlashEnabled
-			// 
-			this.TaskBarFlashEnabled.AutoSize = true;
-			this.TaskBarFlashEnabled.Location = new System.Drawing.Point(12, 154);
-			this.TaskBarFlashEnabled.Name = "TaskBarFlashEnabled";
-			this.TaskBarFlashEnabled.Size = new System.Drawing.Size(483, 24);
-			this.TaskBarFlashEnabled.TabIndex = 4;
-			this.TaskBarFlashEnabled.Text = "非アクティブ時に発言があったらタスクバーのアイコンをフラッシュさせる。";
-			this.TaskBarFlashEnabled.UseVisualStyleBackColor = true;
 			// 
 			// SettingWin
 			// 

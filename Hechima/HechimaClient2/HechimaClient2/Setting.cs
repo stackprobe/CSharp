@@ -88,6 +88,18 @@ namespace Charlotte
 
 		public List<MemberFont> MemberFonts = new List<MemberFont>();
 
+		public enum RemarksScrollMode_e
+		{
+			DEFAULT,
+			SAFETY,
+			MORE_SAFETY,
+		}
+
+		public RemarksScrollMode_e RemarksScrollMode = RemarksScrollMode_e.DEFAULT;
+
+		public bool Remarks行間を詰める = true;
+		public bool Remarksリンクをクリックしたら開く = false;
+
 		// ---- ロード・セーブ
 
 		private string GetProgDataDir()
@@ -186,6 +198,11 @@ namespace Charlotte
 
 			this.MemberFonts = Common.ToMemberFonts(lines[c++]);
 
+			this.RemarksScrollMode = (RemarksScrollMode_e)int.Parse(lines[c++]);
+
+			this.Remarks行間を詰める = int.Parse(lines[c++]) != 0;
+			this.Remarksリンクをクリックしたら開く = int.Parse(lines[c++]) != 0;
+
 			// 新しい項目、ここへ追加..
 
 			// ----
@@ -261,6 +278,11 @@ namespace Charlotte
 			lines.Add("" + (this.TaskBarFlashEnabled ? 1 : 0));
 
 			lines.Add(Common.ToString(this.MemberFonts));
+
+			lines.Add("" + (int)this.RemarksScrollMode);
+
+			lines.Add("" + (this.Remarks行間を詰める ? 1 : 0));
+			lines.Add("" + (this.Remarksリンクをクリックしたら開く ? 1 : 0));
 
 			// 新しい項目、ここへ追加..
 

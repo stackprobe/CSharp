@@ -85,6 +85,11 @@ namespace Charlotte
 				}
 			}
 
+			this.RemarksScrollMode.SelectedIndex = (int)Gnd.setting.RemarksScrollMode;
+
+			this.Remarks行間を詰める.Checked = Gnd.setting.Remarks行間を詰める;
+			this.Remarksリンクをクリックしたら開く.Checked = Gnd.setting.Remarksリンクをクリックしたら開く;
+
 			// ----
 		}
 
@@ -151,6 +156,11 @@ namespace Charlotte
 					Gnd.setting.MemberFonts.Add(mf);
 				}
 			}
+
+			Gnd.setting.RemarksScrollMode = (Setting.RemarksScrollMode_e)this.RemarksScrollMode.SelectedIndex;
+
+			Gnd.setting.Remarks行間を詰める = this.Remarks行間を詰める.Checked;
+			Gnd.setting.Remarksリンクをクリックしたら開く = this.Remarksリンクをクリックしたら開く.Checked;
 
 			// ----
 		}
@@ -242,7 +252,7 @@ namespace Charlotte
 
 			//this.MessageTextEnterMode.SelectedIndex
 
-			this.RemarkFormat.Text = CorrectItem(this.RemarkFormat.Text.ToUpper(), 1, 100, "RRSBIRZM", "RSBZIM", value => value.EndsWith("R") == false);
+			this.RemarkFormat.Text = CorrectItem(this.RemarkFormat.Text.ToUpper(), 1, 100, "RRSBIRZM", "RSBZIM", value => value.Contains('R') && value.EndsWith("R") == false);
 
 			this.RemarksTextDefaultFontFamily.Text = CorrectItem(this.RemarksTextDefaultFontFamily.Text, 1, 300, "メイリオ");
 			this.RemarksTextDefaultFontSize.Text = CorrectItemInt(this.RemarksTextDefaultFontSize.Text, 1, 99, 10);

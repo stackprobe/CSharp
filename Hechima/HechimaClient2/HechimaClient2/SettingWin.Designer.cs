@@ -66,6 +66,8 @@
 			this.label8 = new System.Windows.Forms.Label();
 			this.MessageTextEnterMode = new System.Windows.Forms.ComboBox();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
+			this.groupBox7 = new System.Windows.Forms.GroupBox();
+			this.RemarksScrollMode = new System.Windows.Forms.ComboBox();
 			this.TaskBarFlashEnabled = new System.Windows.Forms.CheckBox();
 			this.groupBox6 = new System.Windows.Forms.GroupBox();
 			this.Flat_OnlineText = new System.Windows.Forms.CheckBox();
@@ -112,11 +114,13 @@
 			this.MemberFontAddBtn = new System.Windows.Forms.Button();
 			this.MemberFontDeleteBtn = new System.Windows.Forms.Button();
 			this.MemberFontList = new System.Windows.Forms.ListBox();
+			this.MemberFontListMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.選択解除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.CancelBtn = new System.Windows.Forms.Button();
 			this.OkBtn = new System.Windows.Forms.Button();
 			this.CorrectBtn = new System.Windows.Forms.Button();
-			this.MemberFontListMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-			this.選択解除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.Remarks行間を詰める = new System.Windows.Forms.CheckBox();
+			this.Remarksリンクをクリックしたら開く = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -124,6 +128,7 @@
 			this.tabPage2.SuspendLayout();
 			this.groupBox3.SuspendLayout();
 			this.tabPage5.SuspendLayout();
+			this.groupBox7.SuspendLayout();
 			this.groupBox6.SuspendLayout();
 			this.tabPage3.SuspendLayout();
 			this.groupBox4.SuspendLayout();
@@ -490,11 +495,12 @@
 			// 
 			this.label9.AutoSize = true;
 			this.label9.ForeColor = System.Drawing.Color.Teal;
-			this.label9.Location = new System.Drawing.Point(117, 70);
+			this.label9.Location = new System.Drawing.Point(81, 70);
 			this.label9.Name = "label9";
-			this.label9.Size = new System.Drawing.Size(231, 120);
+			this.label9.Size = new System.Drawing.Size(267, 120);
 			this.label9.TabIndex = 3;
-			this.label9.Text = "R == 改行 (終端には配置出来ません)\r\nS == 日時\r\nB == ブランク\r\nZ == 全角スペース\r\nI == ident\r\nM == メッセージ";
+			this.label9.Text = "R == 改行 (必須+終端には配置出来ません)\r\nS == 日時\r\nB == ブランク\r\nZ == 全角スペース\r\nI == ident\r\nM == メッセージ" +
+    "";
 			// 
 			// RemarkFormat
 			// 
@@ -532,6 +538,9 @@
 			// 
 			// tabPage5
 			// 
+			this.tabPage5.Controls.Add(this.Remarksリンクをクリックしたら開く);
+			this.tabPage5.Controls.Add(this.Remarks行間を詰める);
+			this.tabPage5.Controls.Add(this.groupBox7);
 			this.tabPage5.Controls.Add(this.TaskBarFlashEnabled);
 			this.tabPage5.Controls.Add(this.groupBox6);
 			this.tabPage5.Controls.Add(this.OnlineBackColorBtn);
@@ -543,6 +552,33 @@
 			this.tabPage5.TabIndex = 4;
 			this.tabPage5.Text = "画面2";
 			this.tabPage5.UseVisualStyleBackColor = true;
+			// 
+			// groupBox7
+			// 
+			this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox7.Controls.Add(this.RemarksScrollMode);
+			this.groupBox7.Location = new System.Drawing.Point(6, 184);
+			this.groupBox7.Name = "groupBox7";
+			this.groupBox7.Size = new System.Drawing.Size(540, 70);
+			this.groupBox7.TabIndex = 5;
+			this.groupBox7.TabStop = false;
+			this.groupBox7.Text = "特殊な設定";
+			// 
+			// RemarksScrollMode
+			// 
+			this.RemarksScrollMode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.RemarksScrollMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.RemarksScrollMode.FormattingEnabled = true;
+			this.RemarksScrollMode.Items.AddRange(new object[] {
+            "0 (通常はこれを選択して下さい)",
+            "1 (発言リストのスクロールに問題がある場合、これを選択して下さい)",
+            "2 (1でも改善しない場合、これを選択して下さい)"});
+			this.RemarksScrollMode.Location = new System.Drawing.Point(6, 26);
+			this.RemarksScrollMode.Name = "RemarksScrollMode";
+			this.RemarksScrollMode.Size = new System.Drawing.Size(528, 28);
+			this.RemarksScrollMode.TabIndex = 0;
 			// 
 			// TaskBarFlashEnabled
 			// 
@@ -1051,6 +1087,20 @@
 			this.MemberFontList.Size = new System.Drawing.Size(437, 444);
 			this.MemberFontList.TabIndex = 0;
 			// 
+			// MemberFontListMenu
+			// 
+			this.MemberFontListMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.選択解除ToolStripMenuItem});
+			this.MemberFontListMenu.Name = "MemberFontListMenu";
+			this.MemberFontListMenu.Size = new System.Drawing.Size(123, 26);
+			// 
+			// 選択解除ToolStripMenuItem
+			// 
+			this.選択解除ToolStripMenuItem.Name = "選択解除ToolStripMenuItem";
+			this.選択解除ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+			this.選択解除ToolStripMenuItem.Text = "選択解除";
+			this.選択解除ToolStripMenuItem.Click += new System.EventHandler(this.選択解除ToolStripMenuItem_Click);
+			// 
 			// CancelBtn
 			// 
 			this.CancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -1084,19 +1134,25 @@
 			this.CorrectBtn.UseVisualStyleBackColor = true;
 			this.CorrectBtn.Click += new System.EventHandler(this.CorrectBtn_Click);
 			// 
-			// MemberFontListMenu
+			// Remarks行間を詰める
 			// 
-			this.MemberFontListMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.選択解除ToolStripMenuItem});
-			this.MemberFontListMenu.Name = "MemberFontListMenu";
-			this.MemberFontListMenu.Size = new System.Drawing.Size(123, 26);
+			this.Remarks行間を詰める.AutoSize = true;
+			this.Remarks行間を詰める.Location = new System.Drawing.Point(12, 260);
+			this.Remarks行間を詰める.Name = "Remarks行間を詰める";
+			this.Remarks行間を詰める.Size = new System.Drawing.Size(119, 24);
+			this.Remarks行間を詰める.TabIndex = 6;
+			this.Remarks行間を詰める.Text = "行間を詰める。";
+			this.Remarks行間を詰める.UseVisualStyleBackColor = true;
 			// 
-			// 選択解除ToolStripMenuItem
+			// Remarksリンクをクリックしたら開く
 			// 
-			this.選択解除ToolStripMenuItem.Name = "選択解除ToolStripMenuItem";
-			this.選択解除ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
-			this.選択解除ToolStripMenuItem.Text = "選択解除";
-			this.選択解除ToolStripMenuItem.Click += new System.EventHandler(this.選択解除ToolStripMenuItem_Click);
+			this.Remarksリンクをクリックしたら開く.AutoSize = true;
+			this.Remarksリンクをクリックしたら開く.Location = new System.Drawing.Point(137, 260);
+			this.Remarksリンクをクリックしたら開く.Name = "Remarksリンクをクリックしたら開く";
+			this.Remarksリンクをクリックしたら開く.Size = new System.Drawing.Size(262, 24);
+			this.Remarksリンクをクリックしたら開く.TabIndex = 7;
+			this.Remarksリンクをクリックしたら開く.Text = "ハイパーリンクをクリックしたら開く。";
+			this.Remarksリンクをクリックしたら開く.UseVisualStyleBackColor = true;
 			// 
 			// SettingWin
 			// 
@@ -1130,6 +1186,7 @@
 			this.groupBox3.PerformLayout();
 			this.tabPage5.ResumeLayout(false);
 			this.tabPage5.PerformLayout();
+			this.groupBox7.ResumeLayout(false);
 			this.groupBox6.ResumeLayout(false);
 			this.groupBox6.PerformLayout();
 			this.tabPage3.ResumeLayout(false);
@@ -1234,5 +1291,9 @@
 		private System.Windows.Forms.ListBox MemberFontList;
 		private System.Windows.Forms.ContextMenuStrip MemberFontListMenu;
 		private System.Windows.Forms.ToolStripMenuItem 選択解除ToolStripMenuItem;
+		private System.Windows.Forms.GroupBox groupBox7;
+		private System.Windows.Forms.ComboBox RemarksScrollMode;
+		private System.Windows.Forms.CheckBox Remarksリンクをクリックしたら開く;
+		private System.Windows.Forms.CheckBox Remarks行間を詰める;
 	}
 }

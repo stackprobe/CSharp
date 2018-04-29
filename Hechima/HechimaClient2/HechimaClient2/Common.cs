@@ -9,6 +9,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Drawing.Text;
+using System.Diagnostics;
 
 namespace Charlotte
 {
@@ -267,5 +268,25 @@ namespace Charlotte
 		}
 
 		#endregion
+
+		public static void BrowseUrl(string url)
+		{
+			Gnd.Logger.writeLine("BrowsUrl.1");
+			Gnd.Logger.writeLine("url: " + url);
+
+			try
+			{
+				ProcessStartInfo psi = new ProcessStartInfo();
+
+				psi.FileName = url;
+
+				Process.Start(psi);
+			}
+			catch (Exception e)
+			{
+				Gnd.Logger.writeLine(e);
+			}
+			Gnd.Logger.writeLine("BrowsUrl.2");
+		}
 	}
 }

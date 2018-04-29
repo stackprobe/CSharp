@@ -27,7 +27,7 @@ namespace Charlotte
 			this.MinimumSize = new Size(300, 300);
 
 			this.ImportConf();
-			this.ImportSetting();
+			this.ImportSetting(true);
 		}
 
 		private void ImportConf()
@@ -46,7 +46,7 @@ namespace Charlotte
 			}
 		}
 
-		private void ImportSetting(bool withoutMainWinLTWH = false)
+		private void ImportSetting(bool calledOnStartup = false)
 		{
 			//this.RemarksRTB.Font = new Font(Gnd.setting.RemarksTextFontFamily, Gnd.setting.RemarksTextFontSize); // old
 			//this.RemarksRTB.ForeColor = Gnd.setting.RemarksTextForeColor; // old
@@ -58,12 +58,21 @@ namespace Charlotte
 			this.RemarksRTBMgr.RTBMgr.SetBorderStyle(Gnd.setting.Flat_RemarksText);
 			Common.SetTextBoxBorderStyle(this.MessageText, Gnd.setting.Flat_MessageText);
 
-			if (withoutMainWinLTWH == false && Gnd.setting.MainWin_W != -1)
+			this.RemarksRTBMgr.RTBMgr.Set行間を詰める(Gnd.setting.Remarks行間を詰める);
+
+			if (calledOnStartup)
 			{
-				this.Left = Gnd.setting.MainWin_L;
-				this.Top = Gnd.setting.MainWin_T;
-				this.Width = Gnd.setting.MainWin_W;
-				this.Height = Gnd.setting.MainWin_H;
+				if (Gnd.setting.MainWin_W != -1)
+				{
+					this.Left = Gnd.setting.MainWin_L;
+					this.Top = Gnd.setting.MainWin_T;
+					this.Width = Gnd.setting.MainWin_W;
+					this.Height = Gnd.setting.MainWin_H;
+				}
+			}
+			else
+			{
+				this.RemarksRTBMgr.Add(new List<Remark>()); // 行間を詰めるの反映
 			}
 		}
 
@@ -109,6 +118,11 @@ namespace Charlotte
 			Common.WaitToBgServiceEnded(false);
 		}
 
+		private void RemarksRTB_TextChanged(object sender, EventArgs e)
+		{
+			// noop
+		}
+
 		private void RemarksText_KeyPress(object sender, KeyPressEventArgs e)
 		{
 			if (e.KeyChar == 13) // enter
@@ -116,6 +130,11 @@ namespace Charlotte
 				this.MessageText.Focus();
 				e.Handled = true;
 			}
+		}
+
+		private void MessageText_TextChanged(object sender, EventArgs e)
+		{
+			// noop
 		}
 
 		private void MessageText_KeyPress(object sender, KeyPressEventArgs e)
@@ -174,16 +193,6 @@ namespace Charlotte
 			this.RemarksRTBMgr.RTBMgr.ScrollToBottom();
 
 			Gnd.bgService.SendingMessages.Enqueue(message);
-		}
-
-		private void MessageText_TextChanged(object sender, EventArgs e)
-		{
-			// noop
-		}
-
-		private void RemarksText_TextChanged(object sender, EventArgs e)
-		{
-			// noop
 		}
 
 		private long MT_Count;
@@ -291,16 +300,54 @@ namespace Charlotte
 
 				// RemarksText 更新 {
 
-				int rrLen1 = this.RemarksRTB.TextLength;
-				this.RemarksRTBMgr.Add(rrsBuff, true);
-				int rrLen2 = this.RemarksRTB.TextLength;
+				switch (Gnd.setting.RemarksScrollMode)
+				{
+					case Setting.RemarksScrollMode_e.DEFAULT:
+						{
+							int rrLen1 = this.RemarksRTB.TextLength;
+							this.RemarksRTBMgr.Add(rrsBuff, true);
+							int rrLen2 = this.RemarksRTB.TextLength;
 
-				// RemarksRTB のテキストが今より長くなる -> スクロールOK -> スクロールする。
-				// RemarksRTB のテキストが今と同じ長さになる -> スクロールに問題 -> スクロールしない。
-				// 改行の入り方で問題があるかもしれないけど、まあいいや。
-				// foundOtherRemark による判定は、投稿が失敗したとき漏れがあるので止め。
-				if (rrLen1 < rrLen2)
-					this.RemarksRTBMgr.RTBMgr.ScrollToBottom();
+							// RemarksRTB のテキストが今より長くなる -> スクロールOK -> スクロールする。
+							// RemarksRTB のテキストが今と同じ長さになる -> スクロールに問題 -> スクロールしない。
+							// RemarksRTB のテキストが今より短くなる -> スクロールに問題 -> 一旦上端までスクロールしてから下までスクロールする。
+							// 改行の入り方で問題があるかもしれないけど、まあいいや。
+							// foundOtherRemark による判定は、投稿が失敗したとき漏れがあるので止め。
+							if (rrLen1 != rrLen2)
+							{
+								if (rrLen2 < rrLen1)
+									this.RemarksRTBMgr.RTBMgr.ScrollToTop();
+
+								this.RemarksRTBMgr.RTBMgr.ScrollToBottom();
+							}
+						}
+						break;
+
+					case Setting.RemarksScrollMode_e.SAFETY:
+						{
+							bool saved = this.RemarksRTBMgr.IsSaved();
+
+							this.RemarksRTBMgr.Add(rrsBuff, true);
+
+							if (saved)
+								this.RemarksRTBMgr.RTBMgr.ScrollToTop();
+
+							this.RemarksRTBMgr.RTBMgr.ScrollToBottom();
+						}
+						break;
+
+					case Setting.RemarksScrollMode_e.MORE_SAFETY:
+						{
+							this.RemarksRTBMgr.Add(rrsBuff, true);
+
+							this.RemarksRTBMgr.RTBMgr.ScrollToTop();
+							this.RemarksRTBMgr.RTBMgr.ScrollToBottom();
+						}
+						break;
+
+					default:
+						throw null; // never
+				}
 
 				// }
 
@@ -332,7 +379,7 @@ namespace Charlotte
 					this.Visible = true; // 非表示のままだと、コントロールの更新が反映されないことがある。-- tb.BorderStyle
 
 					Gnd.ImportSetting();
-					this.ImportSetting(true);
+					this.ImportSetting();
 					Gnd.setting.Save();
 				}
 			}
@@ -366,6 +413,20 @@ namespace Charlotte
 			this.MessageText.Text = "_(:3 」∠ )_(:3 」∠ )_";
 			this.MessageText.Focus();
 			this.MessageText.SelectAll();
+		}
+
+		private void 一番下までスクロールするToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			this.RemarksRTBMgr.RTBMgr.ScrollToTop();
+			this.RemarksRTBMgr.RTBMgr.ScrollToBottom();
+		}
+
+		private void RemarksRTB_LinkClicked(object sender, LinkClickedEventArgs e)
+		{
+			if (Gnd.setting.Remarksリンクをクリックしたら開く)
+			{
+				Common.BrowseUrl(e.LinkText);
+			}
 		}
 	}
 }

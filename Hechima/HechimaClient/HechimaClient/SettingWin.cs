@@ -230,7 +230,7 @@ namespace Charlotte
 
 			//this.MessageTextEnterMode.SelectedIndex
 
-			this.RemarkFormat.Text = CorrectItem(this.RemarkFormat.Text.ToUpper(), 1, 100, "RSBIRZMR", "RSBZIM");
+			this.RemarkFormat.Text = CorrectItem(this.RemarkFormat.Text.ToUpper(), 1, 100, "RSBIRZMR", "RSBZIM", value => value.Contains('R'));
 
 			this.RemarksTextFontFamily.Text = CorrectItem(this.RemarksTextFontFamily.Text, 1, 300, "メイリオ");
 			this.RemarksTextFontSize.Text = CorrectItemInt(this.RemarksTextFontSize.Text, 1, 99, 10);
@@ -287,7 +287,7 @@ namespace Charlotte
 			// ----
 		}
 
-		private string CorrectItem(string value, int minlen, int maxlen, string defval, string availableChrs = null)
+		private string CorrectItem(string value, int minlen, int maxlen, string defval, string availableChrs = null, Func<string, bool> extraCheck = null)
 		{
 			if (availableChrs != null)
 			{
@@ -306,6 +306,9 @@ namespace Charlotte
 
 			if (maxlen < value.Length)
 				value = value.Substring(0, maxlen);
+
+			if (extraCheck != null && extraCheck(value) == false)
+				return defval;
 
 			return value;
 		}

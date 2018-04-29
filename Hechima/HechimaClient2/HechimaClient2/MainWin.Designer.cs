@@ -39,6 +39,8 @@
 			this.MainContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.設定SToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.RemarksRTB = new System.Windows.Forms.RichTextBox();
+			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+			this.一番下までスクロールするToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.MessageTextContextMenu.SuspendLayout();
 			this.RemarksTextContextMenu.SuspendLayout();
 			this.MainContextMenu.SuspendLayout();
@@ -77,15 +79,17 @@
 			// RemarksTextContextMenu
 			// 
 			this.RemarksTextContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.見るだけMToolStripMenuItem});
+            this.見るだけMToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.一番下までスクロールするToolStripMenuItem});
 			this.RemarksTextContextMenu.Name = "RemarksTextContextMenu";
-			this.RemarksTextContextMenu.Size = new System.Drawing.Size(114, 26);
+			this.RemarksTextContextMenu.Size = new System.Drawing.Size(194, 54);
 			// 
 			// 見るだけMToolStripMenuItem
 			// 
 			this.見るだけMToolStripMenuItem.Name = "見るだけMToolStripMenuItem";
-			this.見るだけMToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
-			this.見るだけMToolStripMenuItem.Text = "ビュー(&V)";
+			this.見るだけMToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+			this.見るだけMToolStripMenuItem.Text = "ビュー";
 			this.見るだけMToolStripMenuItem.Click += new System.EventHandler(this.見るだけMToolStripMenuItem_Click);
 			// 
 			// MainTimer
@@ -117,6 +121,21 @@
 			this.RemarksRTB.Size = new System.Drawing.Size(460, 366);
 			this.RemarksRTB.TabIndex = 3;
 			this.RemarksRTB.Text = "";
+			this.RemarksRTB.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.RemarksRTB_LinkClicked);
+			this.RemarksRTB.TextChanged += new System.EventHandler(this.RemarksRTB_TextChanged);
+			this.RemarksRTB.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RemarksText_KeyPress);
+			// 
+			// toolStripMenuItem1
+			// 
+			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(190, 6);
+			// 
+			// 一番下までスクロールするToolStripMenuItem
+			// 
+			this.一番下までスクロールするToolStripMenuItem.Name = "一番下までスクロールするToolStripMenuItem";
+			this.一番下までスクロールするToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+			this.一番下までスクロールするToolStripMenuItem.Text = "一番下までスクロールする";
+			this.一番下までスクロールするToolStripMenuItem.Click += new System.EventHandler(this.一番下までスクロールするToolStripMenuItem_Click);
 			// 
 			// MainWin
 			// 
@@ -156,6 +175,8 @@
 		private System.Windows.Forms.ContextMenuStrip MessageTextContextMenu;
 		private System.Windows.Forms.ToolStripMenuItem たかざわダブルじゅんすけDToolStripMenuItem;
 		private System.Windows.Forms.RichTextBox RemarksRTB;
+		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+		private System.Windows.Forms.ToolStripMenuItem 一番下までスクロールするToolStripMenuItem;
 	}
 }
 

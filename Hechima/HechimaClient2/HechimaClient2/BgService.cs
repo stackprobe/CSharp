@@ -119,6 +119,14 @@ namespace Charlotte
 					{
 						string ident = line.Substring(line.IndexOf(' ') + 1);
 
+						// IP除去
+						{
+							int i = ident.IndexOf(" @ ");
+
+							if (i != -1)
+								ident = ident.Substring(0, i);
+						}
+
 						if (Gnd.RecentlyIdents.Contains(ident) == false)
 							Gnd.RecentlyIdents.Insert(0, ident);
 					}
