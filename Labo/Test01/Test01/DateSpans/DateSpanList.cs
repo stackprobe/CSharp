@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Test01.DateSpans.Tools;
 
-namespace Charlotte.Tools.Annex
+namespace Test01.DateSpans
 {
 	public class DateSpanList
 	{

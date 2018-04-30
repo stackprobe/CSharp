@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using Test01.DateSpans.Tests;
 
 namespace Test01
 {
@@ -14,12 +15,15 @@ namespace Test01
 			{
 				//Test01();
 				//Test02();
-				Test03();
+				//Test03();
+				//new DateSpanListTest().Test01();
+				new NamesToGroupDateSpansTest().Test01();
 			}
 			catch (Exception e)
 			{
 				Console.WriteLine(e);
 			}
+			Console.WriteLine("Press ENTER");
 			Console.ReadLine();
 		}
 

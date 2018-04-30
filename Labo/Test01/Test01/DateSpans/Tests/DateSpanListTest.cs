@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Charlotte.Tools.Annex;
 
-namespace Charlotte.Tests.Tools.Annex
+namespace Test01.DateSpans.Tests
 {
 	public class DateSpanListTest
 	{

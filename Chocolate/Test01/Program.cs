@@ -55,8 +55,7 @@ namespace Charlotte
 			//new FileToolsTest().Test02();
 			//new SortedListTest().Test01();
 			//new SecurityToolsTest.AESTest().Test01();
-			//new SecurityToolsTest().Test01();
-			new DateSpanListTest().Test01();
+			new SecurityToolsTest().Test01();
 		}
 	}
 }

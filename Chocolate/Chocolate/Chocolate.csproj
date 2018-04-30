@@ -43,7 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Tools\Annex\DateSpanList.cs" />
     <Compile Include="Tools\Annex\TimeLimitedTempDir.cs" />
     <Compile Include="Tools\MSection.cs" />
     <Compile Include="Tools\Net\FilingCase3.cs" />

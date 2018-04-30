@@ -17,27 +17,41 @@ namespace Charlotte
 	{
 		public static void WaitToBgServiceEnded(bool noDlg = false)
 		{
+			Gnd.Logger.writeLine("WaitToBgServiceEnded.1"); // test
+
 			if (noDlg)
 			{
+				Gnd.Logger.writeLine("WaitToBgServiceEnded.2"); // test
+
 				while (Gnd.bgService.End() == false)
 				{
 					Thread.Sleep(100);
 				}
+				Gnd.Logger.writeLine("WaitToBgServiceEnded.2.1"); // test
 			}
 			else
 			{
+				Gnd.Logger.writeLine("WaitToBgServiceEnded.3"); // test
+
 				using (BusyDlg f = new BusyDlg(delegate()
 				{
+					Gnd.Logger.writeLine("WaitToBgServiceEnded.3.1"); // test
+
 					while (Gnd.bgService.End() == false)
 					{
 						Thread.Sleep(100);
 					}
+					Gnd.Logger.writeLine("WaitToBgServiceEnded.3.2"); // test
 				}
 				))
 				{
+					Gnd.Logger.writeLine("WaitToBgServiceEnded.3.3"); // test
 					f.ShowDialog();
+					Gnd.Logger.writeLine("WaitToBgServiceEnded.3.4"); // test
 				}
+				Gnd.Logger.writeLine("WaitToBgServiceEnded.3.5"); // test
 			}
+			Gnd.Logger.writeLine("WaitToBgServiceEnded.4"); // test
 		}
 
 		private static readonly string TRIP_CHRS = StringTools.DIGIT + StringTools.ALPHA + StringTools.alpha;

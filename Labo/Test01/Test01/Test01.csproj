@@ -43,6 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DateSpans\DateSpanList.cs" />
+    <Compile Include="DateSpans\Tests\DateSpanListTest.cs" />
+    <Compile Include="DateSpans\Tests\NamesToGroupDateSpansTest.cs" />
+    <Compile Include="DateSpans\Tools\DateTimeToSec.cs" />
+    <Compile Include="DateSpans\Tools\DateToDay.cs" />
+    <Compile Include="DateSpans\NamesToGroupDateSpans.cs" />
+    <Compile Include="DateSpans\Tools\StringTools.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

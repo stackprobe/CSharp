@@ -40,12 +40,17 @@ namespace Charlotte
 
 		public static void CloseOnlineDlg()
 		{
+			Gnd.Logger.writeLine("CloseOnlineDlg.1"); // test
+
 			if (Gnd.onlineDlg != null)
 			{
+				Gnd.Logger.writeLine("CloseOnlineDlg.2"); // test
+
 				Gnd.onlineDlg.Close();
 				Gnd.onlineDlg.Dispose();
 				Gnd.onlineDlg = null;
 			}
+			Gnd.Logger.writeLine("CloseOnlineDlg.3"); // test
 		}
 
 		public static int NetErrorLevel = 0;

@@ -78,13 +78,18 @@ namespace Charlotte
 
 		private void ExportSetting()
 		{
+			Gnd.Logger.writeLine("ExportSetting.1"); // test
+
 			if (this.WindowState == FormWindowState.Normal)
 			{
+				Gnd.Logger.writeLine("ExportSetting.2"); // test
+
 				Gnd.setting.MainWin_L = this.Left;
 				Gnd.setting.MainWin_T = this.Top;
 				Gnd.setting.MainWin_W = this.Width;
 				Gnd.setting.MainWin_H = this.Height;
 			}
+			Gnd.Logger.writeLine("ExportSetting.3"); // test
 		}
 
 		private void MainWin_Load(object sender, EventArgs e)
@@ -363,16 +368,24 @@ namespace Charlotte
 
 		private void 設定SToolStripMenuItem_Click(object sender, EventArgs e)
 		{
+			Gnd.Logger.writeLine("設定.1"); // test
 			this.MainTimer.Enabled = false;
+			Gnd.Logger.writeLine("設定.2"); // test
 			this.Visible = false;
+			Gnd.Logger.writeLine("設定.3"); // test
 			this.ExportSetting();
+			Gnd.Logger.writeLine("設定.4"); // test
 
 			Gnd.CloseOnlineDlg();
+			Gnd.Logger.writeLine("設定.5"); // test
 			Common.WaitToBgServiceEnded();
+			Gnd.Logger.writeLine("設定.6"); // test
 
 			using (SettingWin f = new SettingWin())
 			{
+				Gnd.Logger.writeLine("設定.7"); // test
 				f.ShowDialog();
+				Gnd.Logger.writeLine("設定.8"); // test
 
 				if (f.OkBtnPressed)
 				{
