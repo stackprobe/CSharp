@@ -30,5 +30,35 @@ namespace Test01.DateSpans.Tests
 			ntgds.Add(names);
 			Console.WriteLine(ntgds.GetString());
 		}
+
+		public void Test02()
+		{
+			string[] names = new string[]
+			{
+				"20171221",
+				"20171222",
+				"20171223",
+				"20171224",
+				"20171225",
+				"20180101.dat",
+				"20180101.dat",
+				"20180101.dat",
+				"_20180111",
+				"_20180112",
+				"_20180113",
+				"_20180114",
+				"_20180112",
+				"_20180113",
+				"_20180114",
+				"_20180112",
+				"_20180113",
+				"_20180114",
+				"_20180115",
+			};
+
+			NamesToGroupDateSpans ntgds = new NamesToGroupDateSpans();
+			ntgds.Add(names);
+			Console.WriteLine(ntgds.GetString());
+		}
 	}
 }

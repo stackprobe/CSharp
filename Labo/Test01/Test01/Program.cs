@@ -17,7 +17,8 @@ namespace Test01
 				//Test02();
 				//Test03();
 				//new DateSpanListTest().Test01();
-				new NamesToGroupDateSpansTest().Test01();
+				//new NamesToGroupDateSpansTest().Test01();
+				new NamesToGroupDateSpansTest().Test02();
 			}
 			catch (Exception e)
 			{

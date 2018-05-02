@@ -41,8 +41,8 @@ namespace Test01.DateSpans
 
 		private class DateSpan
 		{
-			public DateInfo Min;
-			public DateInfo Max;
+			public DateInfo First;
+			public DateInfo End;
 
 			public static DateSpan Create(string str)
 			{
@@ -59,20 +59,20 @@ namespace Test01.DateSpans
 
 				return new DateSpan()
 				{
-					Min = a,
-					Max = b,
+					First = a,
+					End = b,
 				};
 			}
 
 			public string GetString()
 			{
-				if (this.Min.Day == this.Max.Day)
+				if (this.First.Day == this.End.Day)
 				{
-					return "" + this.Min.Date;
+					return "" + this.First.Date;
 				}
 				else
 				{
-					return this.Min.Date + ("" + JOINT) + this.Max.Date;
+					return this.First.Date + ("" + JOINT) + this.End.Date;
 				}
 			}
 		}
@@ -104,12 +104,12 @@ namespace Test01.DateSpans
 		{
 			this.DateSpans.Sort((a, b) =>
 			{
-				int ret = a.Min.Day - b.Min.Day;
+				int ret = a.First.Day - b.First.Day;
 
 				if (ret != 0)
 					return ret;
 
-				return a.Max.Day - b.Max.Day;
+				return a.End.Day - b.End.Day;
 			});
 		}
 
@@ -123,15 +123,15 @@ namespace Test01.DateSpans
 				{
 					DateSpan b = this.DateSpans[n];
 
-					if (b.Min.Day < a.Min.Day)
+					if (b.First.Day < a.First.Day)
 					{
-						b.Max.Day = Math.Min(b.Max.Day, a.Min.Day - 1);
+						b.End.Day = Math.Min(b.End.Day, a.First.Day - 1);
 					}
-					else // ? a.Min.Day <= b.Min.Day
+					else // ? a.First.Day <= b.First.Day
 					{
-						if (a.Max.Day < b.Max.Day)
+						if (a.End.Day < b.End.Day)
 						{
-							b.Min.Day = Math.Max(b.Min.Day, a.Max.Day + 1);
+							b.First.Day = Math.Max(b.First.Day, a.End.Day + 1);
 						}
 						else
 						{
@@ -150,9 +150,9 @@ namespace Test01.DateSpans
 				DateSpan a = this.DateSpans[index - 1];
 				DateSpan b = this.DateSpans[index];
 
-				if (a.Max.Day + 1 == b.Min.Day)
+				if (a.End.Day + 1 == b.First.Day)
 				{
-					a.Max.Day = b.Max.Day;
+					a.End.Day = b.End.Day;
 					this.DateSpans.RemoveAt(index);
 					index--;
 				}
@@ -174,7 +174,7 @@ namespace Test01.DateSpans
 		{
 			foreach (DateSpan dateSpan in this.DateSpans)
 			{
-				for (int day = dateSpan.Min.Day; day <= dateSpan.Max.Day; day++)
+				for (int day = dateSpan.First.Day; day <= dateSpan.End.Day; day++)
 				{
 					yield return DateToDay.ToDate(day);
 				}
