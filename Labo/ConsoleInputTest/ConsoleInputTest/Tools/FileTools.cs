@@ -1,0 +1,336 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.IO;
+using System.Threading;
+using System.Collections;
+
+namespace Charlotte.Tools
+{
+	public class FileTools
+	{
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="path"></param>
+		/// <param name="mode">'D' == ディレクトリ, 'F' == ファイル, 'X' == 作成しない(作成可能にする)</param>
+		public static void create(string path, char mode)
+		{
+			rm(path);
+			Directory.CreateDirectory(path);
+			rm(path);
+
+			switch (mode)
+			{
+				case 'D':
+					Directory.CreateDirectory(path);
+					break;
+
+				case 'F':
+					createFile(path);
+					break;
+
+				case 'X':
+					break;
+
+				default:
+					throw null;
+			}
+		}
+
+		public static void createFile(string file)
+		{
+			File.WriteAllBytes(file, new byte[0]);
+		}
+
+		public static void rm(string path)
+		{
+			for (int c = 0; File.Exists(path) || Directory.Exists(path); c++)
+			{
+				if (8 < c)
+					throw new Exception("[" + path + "] の削除に失敗しました。");
+
+				if (0 < c)
+					Thread.Sleep(2000);
+
+				try
+				{
+					File.Delete(path);
+				}
+				catch
+				{ }
+
+				try
+				{
+					Directory.Delete(path, true);
+				}
+				catch
+				{ }
+			}
+		}
+
+		private static string _tmp = null;
+
+		/// <summary>
+		/// ★空白を含まないパスを返す。
+		/// </summary>
+		/// <returns></returns>
+		public static string getTMP()
+		{
+			if (_tmp == null)
+			{
+				string tmp = getTMP_envName("TMP");
+
+				if (tmp == null)
+				{
+					tmp = getTMP_envName("TEMP");
+
+					if (tmp == null)
+					{
+						tmp = getTMP_envName("ProgramData");
+
+						if (tmp == null)
+							throw null;
+
+						// 書き込みテスト -- ProgramDataってゲストでも書けるっぽい。
+						{
+							string dir = Path.Combine(tmp, StringTools.getUUID() + "_test");
+
+							Directory.CreateDirectory(dir);
+							Directory.Delete(dir);
+						}
+					}
+				}
+				tmp = Path.Combine(tmp, Program.APP_IDENT) + ".tmp";
+				Directory.CreateDirectory(tmp);
+				_tmp = tmp;
+			}
+			return _tmp;
+		}
+
+		private static string getTMP_envName(string envName)
+		{
+			string tmp = Environment.GetEnvironmentVariable(envName);
+
+			if (
+				tmp == null ||
+				tmp.Length < 3 ||
+				tmp.Substring(1, 2) != ":\\" ||
+				Directory.Exists(tmp) == false ||
+				tmp != Encoding.ASCII.GetString(Encoding.ASCII.GetBytes(tmp)) ||
+				tmp.Contains(' ')
+				)
+				return null;
+
+			return tmp;
+		}
+
+		public static void clearTMP()
+		{
+			if (_tmp != null)
+			{
+				rm(_tmp);
+				_tmp = null;
+			}
+		}
+
+		public static string getProgramData()
+		{
+			string dir = getTMP_envName("ProgramData");
+
+			if (dir == null)
+				throw null;
+
+			return dir;
+		}
+
+		// ls* -- 相対パスの場合、戻り値のリストも相対パスになる。
+		// -- 存在しないディレクトリの場合、例外を投げる。
+
+		public static string[] lsFiles(string dir)
+		{
+			return Directory.GetFiles(dir);
+		}
+
+		public static string[] lsDirs(string dir)
+		{
+			return Directory.GetDirectories(dir);
+		}
+
+		public static string[] lssFiles(string dir)
+		{
+			return Directory.GetFiles(dir, "*", SearchOption.AllDirectories);
+		}
+
+		public static string[] lssDirs(string dir)
+		{
+			return Directory.GetDirectories(dir, "*", SearchOption.AllDirectories);
+		}
+
+		public static string changeRoot(string path, string oldRoot, string rootNew)
+		{
+			oldRoot = putYen(oldRoot);
+			rootNew = putYen(rootNew);
+
+			if (StringTools.startsWithIgnoreCase(path, oldRoot) == false)
+				throw null;
+
+			return rootNew + path.Substring(oldRoot.Length);
+		}
+
+		public static string putYen(string path)
+		{
+			if (path.EndsWith("\\") == false)
+				path += "\\";
+
+			return path;
+		}
+
+		public static string makeFullPath(string path)
+		{
+			if (path == null)
+				throw new Exception("パスが定義されていません。(null)");
+
+			if (path == "")
+				throw new Exception("パスが定義されていません。(空文字列)");
+
+			path = Path.GetFullPath(path);
+
+			if (path.Contains('/'))
+				throw null;
+
+			if (path.StartsWith("\\\\"))
+				throw new Exception("ネットワークパスまたはデバイス名は使用出来ません。");
+
+			if (path.Substring(1, 2) != ":\\")
+				throw null;
+
+			path = putYen(path) + ".";
+			path = Path.GetFullPath(path);
+
+			return path;
+		}
+
+		public static string toFullPath(string path)
+		{
+			path = Path.GetFullPath(path);
+			path = putYen(path) + ".";
+			path = Path.GetFullPath(path);
+
+			return path;
+		}
+
+		public static IEnumerable<string> readAllLines(string file, Encoding encoding)
+		{
+			return new TextFileReader(file, encoding);
+		}
+
+		private class TextFileReader : IEnumerable<string>, IEnumerator<string>
+		{
+			private StreamReader _rfs;
+			private string _line = null;
+
+			public TextFileReader(string file, Encoding encoding)
+			{
+				_rfs = new StreamReader(file, encoding);
+			}
+
+			public IEnumerator<string> GetEnumerator()
+			{
+				return this;
+			}
+
+			IEnumerator IEnumerable.GetEnumerator()
+			{
+				return this.GetEnumerator();
+			}
+
+			public string Current
+			{
+				get { return _line; }
+			}
+
+			object IEnumerator.Current
+			{
+				get { return this.Current; }
+			}
+
+			public bool MoveNext()
+			{
+				_line = _rfs.ReadLine();
+				return _line != null;
+			}
+
+			public void Reset()
+			{
+				throw null;
+			}
+
+			public void Dispose()
+			{
+				if (_rfs != null)
+				{
+					_rfs.Dispose();
+					_rfs = null;
+				}
+			}
+		}
+
+		public static void copyDir(string rDir, string wDir)
+		{
+			Queue<string> dirq = new Queue<string>();
+
+			for (; ; )
+			{
+				Directory.CreateDirectory(wDir);
+
+				foreach (string dir in FileTools.lsDirs(rDir))
+				{
+					dirq.Enqueue(dir);
+					dirq.Enqueue(Path.Combine(wDir, Path.GetFileName(dir)));
+				}
+				foreach (string file in FileTools.lsFiles(rDir))
+				{
+					File.Copy(file, Path.Combine(wDir, Path.GetFileName(file)));
+				}
+				if (dirq.Count == 0)
+				{
+					break;
+				}
+				rDir = dirq.Dequeue();
+				wDir = dirq.Dequeue();
+			}
+		}
+
+		public static int compBinFile(string file1, string file2)
+		{
+#if false
+			byte[] hash1 = SecurityTools.getSHA512File(file1);
+			byte[] hash2 = SecurityTools.getSHA512File(file2);
+
+			return ArrayTools.arrComp<byte>(hash1, hash2, BinaryTools.comp);
+#else
+			const int buffSize = 50000000; // 50 MB
+
+			using (FileStream nb_reader1 = new FileStream(file1, FileMode.Open, FileAccess.Read))
+			using (FileStream nb_reader2 = new FileStream(file2, FileMode.Open, FileAccess.Read))
+			using (BufferedStream reader1 = new BufferedStream(nb_reader1, buffSize))
+			using (BufferedStream reader2 = new BufferedStream(nb_reader2, buffSize))
+			{
+				for (; ; )
+				{
+					int chr1 = reader1.ReadByte();
+					int chr2 = reader2.ReadByte();
+
+					if (chr1 != chr2)
+						return chr1 - chr2;
+
+					if (chr1 == -1)
+						return 0;
+				}
+			}
+#endif
+		}
+	}
+}
