@@ -130,5 +130,88 @@ namespace Charlotte.Tools
 
 			Delete(rDir);
 		}
+
+		public static string ChangeRoot(string path, string oldRoot, string rootNew)
+		{
+			oldRoot = PutYen(oldRoot);
+			rootNew = PutYen(rootNew);
+
+			if (StringTools.StartsWithIgnoreCase(path, oldRoot) == false)
+				throw new Exception("パス " + path + " は " + oldRoot + " の配下ではありません。");
+
+			return rootNew + path.Substring(oldRoot.Length);
+		}
+
+		public static string PutYen(string path)
+		{
+			if (path.EndsWith("\\") == false)
+				path += "\\";
+
+			return path;
+		}
+
+		public static string MakeFullPath(string path)
+		{
+			if (path == null)
+				throw new Exception("パスが定義されていません。(null)");
+
+			if (path == "")
+				throw new Exception("パスが定義されていません。(空文字列)");
+
+			path = Path.GetFullPath(path);
+
+			if (path.Contains('/'))
+				throw null;
+
+			if (path.StartsWith("\\\\"))
+				throw new Exception("ネットワークパスまたはデバイス名は使用出来ません。" + path);
+
+			if (path.Substring(1, 2) != ":\\")
+				throw null;
+
+			path = PutYen(path) + ".";
+			path = Path.GetFullPath(path);
+
+			return path;
+		}
+
+		public static string ToFullPath(string path)
+		{
+			path = Path.GetFullPath(path);
+			path = PutYen(path) + ".";
+			path = Path.GetFullPath(path);
+
+			return path;
+		}
+
+		public static int CompBinFile(string file1, string file2)
+		{
+#if false
+			byte[] hash1 = SecurityTools.GetSHA512File(file1);
+			byte[] hash2 = SecurityTools.GetSHA512File(file2);
+
+			return BinTools.Comp(hash1, hash2);
+#else
+			const int buffSize = 50000000; // 50 MB
+
+			using (FileStream nb_reader1 = new FileStream(file1, FileMode.Open, FileAccess.Read))
+			using (FileStream nb_reader2 = new FileStream(file2, FileMode.Open, FileAccess.Read))
+			using (BufferedStream reader1 = new BufferedStream(nb_reader1, buffSize))
+			using (BufferedStream reader2 = new BufferedStream(nb_reader2, buffSize))
+			{
+				for (; ; )
+				{
+					int chr1 = reader1.ReadByte();
+					int chr2 = reader2.ReadByte();
+
+					if (chr1 != chr2)
+						return chr1 - chr2;
+
+					if (chr1 == -1)
+						return 0;
+				}
+			}
+#endif
+		}
 	}
 }

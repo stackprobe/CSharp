@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Security.Cryptography;
 
 namespace Charlotte.Tools
@@ -181,6 +182,40 @@ namespace Charlotte.Tools
 					this.Rng.Dispose();
 					this.Rng = null;
 				}
+			}
+		}
+
+		public static byte[] GetSHA512(byte[] src)
+		{
+			using (SHA512 sha512 = SHA512.Create())
+			{
+				return sha512.ComputeHash(src);
+			}
+		}
+
+		public static byte[] GetSHA512File(string file)
+		{
+			using (SHA512 sha512 = SHA512.Create())
+			using (FileStream reader = new FileStream(file, FileMode.Open, FileAccess.Read))
+			{
+				return sha512.ComputeHash(reader);
+			}
+		}
+
+		public static byte[] GetMD5(byte[] src)
+		{
+			using (MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider())
+			{
+				return md5.ComputeHash(src);
+			}
+		}
+
+		public static byte[] GetMD5File(string file)
+		{
+			using (MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider())
+			using (FileStream reader = new FileStream(file, FileMode.Open, FileAccess.Read))
+			{
+				return md5.ComputeHash(reader);
 			}
 		}
 	}

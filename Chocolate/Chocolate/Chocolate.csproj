@@ -46,6 +46,7 @@
     <Compile Include="Tools\Annex\TimeLimitedTempDir.cs" />
     <Compile Include="Tools\DebugTools.cs" />
     <Compile Include="Tools\DictionaryTools.cs" />
+    <Compile Include="Tools\DoubleTools.cs" />
     <Compile Include="Tools\HTTPClient.cs" />
     <Compile Include="Tools\JsonTools.cs" />
     <Compile Include="Tools\MSection.cs" />
@@ -71,6 +72,8 @@
     <Compile Include="Tools\SecurityTools.cs" />
     <Compile Include="Tools\SortedList.cs" />
     <Compile Include="Tools\StringTools.cs" />
+    <Compile Include="Tools\SyncBox.cs" />
+    <Compile Include="Tools\SyncQueue.cs" />
     <Compile Include="Tools\WorkingDir.cs" />
     <Compile Include="Tools\XmlNode.cs" />
   </ItemGroup>

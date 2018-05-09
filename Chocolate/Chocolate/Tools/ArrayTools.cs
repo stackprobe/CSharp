@@ -151,12 +151,42 @@ namespace Charlotte.Tools
 			return defval;
 		}
 
-		public static List<T> ToList<T>(ICollection<T> list)
+		public static bool Contains<T>(T[] arr, T target, Comparison<T> comp)
+		{
+			return IndexOf<T>(arr, target, comp) != -1;
+		}
+
+		public static bool Contains<T>(T[] arr, Func<T, bool> predicate)
+		{
+			return IndexOf<T>(arr, predicate) != -1;
+		}
+
+		public static List<T> ToList<T>(ICollection<T> src)
 		{
 			List<T> dest = new List<T>();
 
-			foreach (T element in list)
+			foreach (T element in src)
 				dest.Add(element);
+
+			return dest;
+		}
+
+		public static T[] ToArray<T>(List<T> src)
+		{
+			T[] dest = new T[src.Count];
+
+			for (int index = 0; index < src.Count; index++)
+				dest[index] = src[index];
+
+			return dest;
+		}
+
+		public static T[] Repeat<T>(T element, int count)
+		{
+			T[] dest = new T[count];
+
+			for (int index = 0; index < count; index++)
+				dest[index] = element;
 
 			return dest;
 		}
