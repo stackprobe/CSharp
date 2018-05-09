@@ -56,7 +56,8 @@ namespace Charlotte
 			//new SortedListTest().Test01();
 			//new SecurityToolsTest.AESTest().Test01();
 			//new SecurityToolsTest().Test01();
-			new DebugToolsTest().Test01();
+			//new DebugToolsTest().Test01();
+			new HTTPClientTest().Test01();
 		}
 	}
 }
