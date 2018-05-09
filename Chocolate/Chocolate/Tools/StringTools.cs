@@ -39,63 +39,6 @@ namespace Charlotte.Tools
 			return ENCODING_SJIS.GetString(buff.ToArray());
 		}
 
-		public static string EncodeString(string str)
-		{
-			StringBuilder buff = new StringBuilder();
-
-			foreach (char chr in str)
-			{
-				if (chr <= 0x20 || chr == '$' || chr == ':')
-				{
-					buff.Append('$');
-					buff.Append(((int)chr).ToString("x4"));
-				}
-				else
-					buff.Append(chr);
-			}
-			return buff.ToString();
-		}
-
-		public static string DecodeString(string str)
-		{
-			StringBuilder buff = new StringBuilder();
-
-			for (int index = 0; index < str.Length; index++)
-			{
-				char chr = str[index];
-
-				if (chr == '$')
-				{
-					chr = (char)Convert.ToUInt16(str.Substring(index + 1, 4), 16);
-					index += 4;
-				}
-				buff.Append(chr);
-			}
-			return buff.ToString();
-		}
-
-		public static string EncodeStrings(string[] strs)
-		{
-			List<string> dest = new List<string>();
-
-			foreach (string str in strs)
-			{
-				dest.Add(EncodeString(str));
-			}
-			return string.Join(":", dest);
-		}
-
-		public static string[] DecodeStrings(string str)
-		{
-			List<string> dest = new List<string>();
-
-			foreach (string s in str.Split(':'))
-			{
-				dest.Add(DecodeString(s));
-			}
-			return dest.ToArray();
-		}
-
 		public static int Comp(string a, string b)
 		{
 			return BinTools.Comp(Encoding.UTF8.GetBytes(a), Encoding.UTF8.GetBytes(b));
@@ -104,6 +47,32 @@ namespace Charlotte.Tools
 		public static int CompIgnoreCase(string a, string b)
 		{
 			return Comp(a.ToLower(), b.ToLower());
+		}
+
+		public class IEComp : IEqualityComparer<string>
+		{
+			public bool Equals(string a, string b)
+			{
+				return a == b;
+			}
+
+			public int GetHashCode(string a)
+			{
+				return a.GetHashCode();
+			}
+		}
+
+		public class IECompIgnoreCase : IEqualityComparer<string>
+		{
+			public bool Equals(string a, string b)
+			{
+				return a.ToLower() == b.ToLower();
+			}
+
+			public int GetHashCode(string a)
+			{
+				return a.ToLower().GetHashCode();
+			}
 		}
 
 		public static bool EqualsIgnoreCase(string a, string b)

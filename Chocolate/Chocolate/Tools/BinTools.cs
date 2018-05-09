@@ -67,5 +67,17 @@ namespace Charlotte.Tools
 				return ret;
 			}
 		}
+
+		public static byte[] GetSubBytes(byte[] src, int offset)
+		{
+			return GetSubBytes(src, offset, src.Length - offset);
+		}
+
+		public static byte[] GetSubBytes(byte[] src, int offset, int size)
+		{
+			byte[] dest = new byte[size];
+			Array.Copy(src, offset, dest, 0, size);
+			return dest;
+		}
 	}
 }

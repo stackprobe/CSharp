@@ -150,5 +150,15 @@ namespace Charlotte.Tools
 
 			return defval;
 		}
+
+		public static List<T> ToList<T>(ICollection<T> list)
+		{
+			List<T> dest = new List<T>();
+
+			foreach (T element in list)
+				dest.Add(element);
+
+			return dest;
+		}
 	}
 }

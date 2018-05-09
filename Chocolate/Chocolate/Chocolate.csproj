@@ -44,6 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Tools\Annex\TimeLimitedTempDir.cs" />
+    <Compile Include="Tools\DebugTools.cs" />
+    <Compile Include="Tools\JsonTools.cs" />
     <Compile Include="Tools\MSection.cs" />
     <Compile Include="Tools\Net\FilingCase3.cs" />
     <Compile Include="Tools\Net\FilingCase3Client.cs" />
@@ -59,8 +61,11 @@
     <Compile Include="Tools\DateToDay.cs" />
     <Compile Include="Tools\FileTools.cs" />
     <Compile Include="Tools\IntTools.cs" />
+    <Compile Include="Tools\ObjectList.cs" />
+    <Compile Include="Tools\ObjectMap.cs" />
     <Compile Include="Tools\ProcessTools.cs" />
     <Compile Include="Tools\RandomUnit.cs" />
+    <Compile Include="Tools\ReflecTools.cs" />
     <Compile Include="Tools\SecurityTools.cs" />
     <Compile Include="Tools\SortedList.cs" />
     <Compile Include="Tools\StringTools.cs" />
