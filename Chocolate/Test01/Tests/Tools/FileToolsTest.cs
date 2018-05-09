@@ -11,7 +11,7 @@ namespace Charlotte.Tests.Tools
 	{
 		public void Test01()
 		{
-			using (WorkingDir wd = WorkingDir.Root.Create())
+			using (WorkingDir wd = new WorkingDir())
 			{
 				string dir = wd.MakePath();
 
@@ -57,7 +57,7 @@ namespace Charlotte.Tests.Tools
 
 		public void Test02()
 		{
-			using (WorkingDir wd = WorkingDir.Root.Create())
+			using (WorkingDir wd = new WorkingDir())
 			{
 				string dir = wd.MakePath();
 
@@ -75,7 +75,7 @@ namespace Charlotte.Tests.Tools
 				if (tree2.Length != 2)
 					throw null;
 			}
-			using (WorkingDir wd = WorkingDir.Root.Create())
+			using (WorkingDir wd = new WorkingDir())
 			{
 				string dir1 = wd.MakePath();
 				string dir2 = wd.MakePath();
@@ -99,7 +99,7 @@ namespace Charlotte.Tests.Tools
 				if (tree1_2.Length != 0)
 					throw null;
 			}
-			using (WorkingDir wd = WorkingDir.Root.Create())
+			using (WorkingDir wd = new WorkingDir())
 			{
 				string dir1 = wd.MakePath();
 				string dir2 = wd.MakePath();

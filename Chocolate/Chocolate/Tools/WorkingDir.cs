@@ -9,40 +9,71 @@ namespace Charlotte.Tools
 {
 	public class WorkingDir : IDisposable
 	{
-		public static WorkingDir Root;
+		public static DirWrapper Root;
 
-		public static WorkingDir CreateRoot()
+		public class DirWrapper : IDisposable
 		{
-			return new WorkingDir(Path.Combine(Environment.GetEnvironmentVariable("TMP"), Common.APP_IDENT));
+			private string Dir;
+			private bool Created = false;
+
+			public DirWrapper(string dir)
+			{
+				this.Dir = dir;
+			}
+
+			public string GetDir()
+			{
+				if (this.Created == false)
+				{
+					FileTools.Delete(this.Dir);
+					FileTools.CreateDir(this.Dir);
+
+					this.Created = true;
+				}
+				return this.Dir;
+			}
+
+			public void Dispose()
+			{
+				if (this.Created)
+				{
+					FileTools.Delete(this.Dir);
+
+					this.Created = false;
+				}
+			}
 		}
 
-		public static WorkingDir CreateProcessRoot()
+		public static DirWrapper CreateRoot()
 		{
-			return new WorkingDir(Path.Combine(Environment.GetEnvironmentVariable("TMP"), "{41266ce2-7655-413e-b8bb-780aaf640f4d}_" + Process.GetCurrentProcess().Id));
+			return new DirWrapper(Path.Combine(Environment.GetEnvironmentVariable("TMP"), Common.APP_IDENT));
 		}
+
+		public static DirWrapper CreateProcessRoot()
+		{
+			return new DirWrapper(Path.Combine(Environment.GetEnvironmentVariable("TMP"), "{41266ce2-7655-413e-b8bb-780aaf640f4d}_" + Process.GetCurrentProcess().Id));
+		}
+
+		private static long CtorCounter = 0L;
 
 		private string Dir;
 
-		public WorkingDir(string dir)
+		public WorkingDir()
 		{
-			FileTools.Delete(dir);
-			FileTools.CreateDir(dir);
+			//this.Dir = Path.Combine(Root.GetDir(), Guid.NewGuid().ToString("B"));
+			//this.Dir = Path.Combine(Root.GetDir(), SecurityTools.MakePassword_9A());
+			this.Dir = Path.Combine(Root.GetDir(), "$" + CtorCounter++);
 
-			this.Dir = dir;
+			FileTools.CreateDir(this.Dir);
 		}
 
-		public WorkingDir Create()
-		{
-			return new WorkingDir(this.MakePath());
-		}
-
-		private long MakePathCounter = 0;
+		private long PathCounter = 0L;
 
 		public string MakePath()
 		{
 			//return this.GetPath(Guid.NewGuid().ToString("B"));
 			//return this.GetPath(SecurityTools.MakePassword_9A());
-			return this.GetPath("$" + this.MakePathCounter++);
+			return this.GetPath("$" + this.PathCounter++);
 		}
 
 		public string GetPath(string localName)
@@ -62,7 +93,6 @@ namespace Charlotte.Tools
 				{
 					Common.WriteLog(e);
 				}
-
 				this.Dir = null;
 			}
 		}

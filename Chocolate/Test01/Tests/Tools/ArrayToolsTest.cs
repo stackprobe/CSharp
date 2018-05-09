@@ -92,7 +92,7 @@ namespace Charlotte.Tests.Tools
 
 		private void Sort_B2(string[] lines)
 		{
-			ArrayTools.Annex.Sort2(
+			ArrayTools.Sort2(
 				lines.Length,
 				(int a, int b) => StringTools.Comp(lines[a], lines[b]),
 				(int a, int b) => ArrayTools.Swap(lines, a, b)
@@ -103,7 +103,7 @@ namespace Charlotte.Tests.Tools
 		{
 			string store = null;
 
-			ArrayTools.Annex.Sort_Retractable(
+			ArrayTools.Sort_Retractable(
 				lines.Length,
 				(int a, int b) => StringTools.Comp(lines[a], lines[b]),
 				(int a, int b) =>

@@ -49,7 +49,7 @@ namespace Charlotte.Tools
 
 		public static string[] Batch(string[] commands, string workingDir = "", WindowStyle_e winStyle = WindowStyle_e.INVISIBLE)
 		{
-			using (WorkingDir wd = WorkingDir.Root.Create())
+			using (WorkingDir wd = new WorkingDir())
 			{
 				string batFile = wd.MakePath() + ".bat";
 				string outFile = wd.MakePath() + ".out";

@@ -19,7 +19,7 @@ namespace Charlotte
 
 			Common.OnBoot();
 
-			WorkingDir.Root = WorkingDir.CreateRoot();
+			WorkingDir.Root = new WorkingDir.DirWrapper(@"C:\temp\Chocolate_Test01");
 
 			try
 			{
@@ -47,7 +47,7 @@ namespace Charlotte
 			//new Test01().Main03b();
 			//new StringToolsTest().Test01();
 			//new StringToolsTest().Test02();
-			//new ArrayToolsTest().Test01();
+			new ArrayToolsTest().Test01();
 			//new TimeLimitedTempDirTest().Test01();
 			//new TimeLimitedTempDirTest().Test02();
 			//new TimeLimitedTempDirTest().Test03();
@@ -55,7 +55,7 @@ namespace Charlotte
 			//new FileToolsTest().Test02();
 			//new SortedListTest().Test01();
 			//new SecurityToolsTest.AESTest().Test01();
-			new SecurityToolsTest().Test01();
+			//new SecurityToolsTest().Test01();
 		}
 	}
 }

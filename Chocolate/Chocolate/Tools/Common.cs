@@ -294,30 +294,18 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public static SyncLimitedQueue<string> Log = new SyncLimitedQueue<string>();
+		public static SyncQueue<string> Log = new SyncQueue<string>();
 
-		public class SyncLimitedQueue<T>
+		public class SyncQueue<T>
 		{
 			private readonly object SYNCROOT = new object();
-			private Queue<T> Buff = new Queue<T>();
-			private int MaxSize;
-
-			public SyncLimitedQueue(int maxSize = 100)
-			{
-				if (maxSize < 1)
-					throw new ArgumentException();
-
-				this.MaxSize = maxSize;
-			}
+			private Queue<T> Inner = new Queue<T>();
 
 			public void Enqueue(T value)
 			{
 				lock (SYNCROOT)
 				{
-					if (this.MaxSize <= this.Buff.Count)
-						this.Buff.Dequeue();
-
-					this.Buff.Enqueue(value);
+					this.Inner.Enqueue(value);
 				}
 			}
 
@@ -327,8 +315,8 @@ namespace Charlotte.Tools
 
 				lock (SYNCROOT)
 				{
-					while (1 <= this.Buff.Count)
-						dest.Add(this.Buff.Dequeue());
+					while (1 <= this.Inner.Count)
+						dest.Add(this.Inner.Dequeue());
 				}
 				return dest.ToArray();
 			}

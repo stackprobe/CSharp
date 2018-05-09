@@ -11,6 +11,9 @@ namespace Charlotte.Tools
 	{
 		public static void Delete(string path)
 		{
+			if (string.IsNullOrEmpty(path))
+				throw new Exception("削除しようとしたパスは null 又は空文字列です。");
+
 			if (File.Exists(path))
 			{
 				for (int c = 1; ; c++)
@@ -61,6 +64,9 @@ namespace Charlotte.Tools
 
 		public static void CreateDir(string dir)
 		{
+			if (string.IsNullOrEmpty(dir))
+				throw new Exception("作成しようとしたディレクトリは null 又は空文字列です。");
+
 			for (int c = 1; ; c++)
 			{
 				try
@@ -85,6 +91,9 @@ namespace Charlotte.Tools
 
 		public static void CleanupDir(string dir)
 		{
+			if (string.IsNullOrEmpty(dir))
+				throw new Exception("配下を削除しようとしたディレクトリは null 又は空文字列です。");
+
 			foreach (Func<IEnumerable<string>> getPaths in new Func<IEnumerable<string>>[]
 			{
 				() => Directory.EnumerateFiles(dir),
@@ -100,7 +109,7 @@ namespace Charlotte.Tools
 
 		public static void CopyDir(string rDir, string wDir)
 		{
-			FileTools.CreateDir(wDir);
+			CreateDir(wDir);
 
 			foreach (string dir in Directory.GetDirectories(rDir))
 				CopyDir(dir, Path.Combine(wDir, Path.GetFileName(dir)));
@@ -111,7 +120,7 @@ namespace Charlotte.Tools
 
 		public static void MoveDir(string rDir, string wDir)
 		{
-			FileTools.CreateDir(wDir);
+			CreateDir(wDir);
 
 			foreach (string dir in Directory.GetDirectories(rDir))
 				MoveDir(dir, Path.Combine(wDir, Path.GetFileName(dir)));
@@ -119,7 +128,7 @@ namespace Charlotte.Tools
 			foreach (string file in Directory.GetFiles(rDir))
 				File.Move(file, Path.Combine(wDir, Path.GetFileName(file)));
 
-			FileTools.Delete(rDir);
+			Delete(rDir);
 		}
 	}
 }

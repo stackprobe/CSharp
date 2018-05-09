@@ -14,7 +14,7 @@ namespace Charlotte.Tests.Tools
 		{
 			MessageBox.Show("0");
 
-			using (WorkingDir wd = WorkingDir.Root.Create())
+			using (WorkingDir wd = new WorkingDir())
 			{
 				MessageBox.Show("1");
 			}

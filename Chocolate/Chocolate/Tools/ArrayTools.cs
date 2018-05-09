@@ -57,6 +57,82 @@ namespace Charlotte.Tools
 			}
 		}
 
+		public static void Sort2(int count, Comparison<int> comp, Action<int, int> swap)
+		{
+			int[] order = new int[count];
+			int[] elementToPosition = new int[count];
+			int[] positionToElement = new int[count];
+
+			for (int index = 0; index < count; index++)
+			{
+				order[index] = index;
+				elementToPosition[index] = index;
+				positionToElement[index] = index;
+			}
+
+			Array.Sort<int>(order, (int a, int b) =>
+			{
+				if (a == b)
+					return 0;
+
+				return comp(a, b);
+			});
+
+			for (int index = 0; index + 1 < count; index++)
+			{
+				if (order[index] != positionToElement[index])
+				{
+					int far = elementToPosition[order[index]];
+
+					swap(index, far);
+
+					{
+						int e1 = positionToElement[index];
+						//int e2 = positionToElement[far];
+
+						//positionToElement[index] = e2;
+						positionToElement[far] = e1;
+
+						elementToPosition[e1] = far;
+						//elementToPosition[e2] = index;
+					}
+				}
+			}
+		}
+
+		public static void Sort_Retractable(int count, Comparison<int> comp, Action<int, int> move)
+		{
+			int[] order = new int[count];
+
+			for (int index = 0; index < count; index++)
+				order[index] = index;
+
+			Array.Sort<int>(order, comp);
+
+			for (int index = 0; index < count; index++)
+			{
+				if (order[index] != -1 && order[index] != index)
+				{
+					move(index, -1);
+
+					for (; ; )
+					{
+						int prev = index;
+
+						index = order[index];
+						order[prev] = -1;
+
+						if (order[index] == -1)
+						{
+							move(-1, prev);
+							break;
+						}
+						move(index, prev);
+					}
+				}
+			}
+		}
+
 		public static int IndexOf<T>(T[] arr, T target, Comparison<T> comp, int defval = -1)
 		{
 			for (int index = 0; index < arr.Length; index++)
@@ -66,83 +142,13 @@ namespace Charlotte.Tools
 			return defval;
 		}
 
-		public class Annex
+		public static int IndexOf<T>(T[] arr, Func<T, bool> predicate, int defval = -1)
 		{
-			public static void Sort_Retractable(int count, Comparison<int> comp, Action<int, int> move)
-			{
-				int[] order = new int[count];
+			for (int index = 0; index < arr.Length; index++)
+				if (predicate(arr[index]))
+					return index;
 
-				for (int index = 0; index < count; index++)
-					order[index] = index;
-
-				Array.Sort<int>(order, comp);
-
-				for (int index = 0; index < count; index++)
-				{
-					if (order[index] != -1 && order[index] != index)
-					{
-						move(index, -1);
-
-						for (; ; )
-						{
-							int prev = index;
-
-							index = order[index];
-							order[prev] = -1;
-
-							if (order[index] == -1)
-							{
-								move(-1, prev);
-								break;
-							}
-							move(index, prev);
-						}
-					}
-				}
-			}
-
-			public static void Sort2(int count, Comparison<int> comp, Action<int, int> swap)
-			{
-				int[] order = new int[count];
-				int[] elementToPosition = new int[count];
-				int[] positionToElement = new int[count];
-
-				for (int index = 0; index < count; index++)
-				{
-					order[index] = index;
-					elementToPosition[index] = index;
-					positionToElement[index] = index;
-				}
-
-				Array.Sort<int>(order, (int a, int b) =>
-				{
-					if (a == b)
-						return 0;
-
-					return comp(a, b);
-				});
-
-				for (int index = 0; index + 1 < count; index++)
-				{
-					if (order[index] != positionToElement[index])
-					{
-						int far = elementToPosition[order[index]];
-
-						swap(index, far);
-
-						{
-							int e1 = positionToElement[index];
-							//int e2 = positionToElement[far];
-
-							//positionToElement[index] = e2;
-							positionToElement[far] = e1;
-
-							elementToPosition[e1] = far;
-							//elementToPosition[e2] = index;
-						}
-					}
-				}
-			}
+			return defval;
 		}
 	}
 }
