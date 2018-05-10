@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Threading;
-using Charlotte.Tools.Annex;
 
-namespace Charlotte.Tests.Tools.Annex
+namespace Test01.Modules.Tests
 {
 	public class TimeLimitedTempDirTest
 	{

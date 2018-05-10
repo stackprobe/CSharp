@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using Test01.DateSpans.Tests;
+using Test01.Modules.Tests;
 
 namespace Test01
 {
@@ -15,10 +16,13 @@ namespace Test01
 			{
 				//Test01();
 				//Test02();
-				//Test03();
+				Test03();
 				//new DateSpanListTest().Test01();
 				//new NamesToGroupDateSpansTest().Test01();
-				new NamesToGroupDateSpansTest().Test02();
+				//new NamesToGroupDateSpansTest().Test02();
+				//new TimeLimitedTempDirTest().Test01();
+				//new TimeLimitedTempDirTest().Test02();
+				//new TimeLimitedTempDirTest().Test03();
 			}
 			catch (Exception e)
 			{

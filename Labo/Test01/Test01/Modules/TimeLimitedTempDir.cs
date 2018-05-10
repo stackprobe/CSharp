@@ -10,7 +10,7 @@ using System.Security.Principal;
 using System.Text.RegularExpressions;
 using System.Runtime.InteropServices;
 
-namespace Charlotte.Tools.Annex
+namespace Test01.Modules
 {
 	public class TimeLimitedTempDir
 	{

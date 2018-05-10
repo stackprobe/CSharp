@@ -295,31 +295,5 @@ namespace Charlotte.Tools
 		}
 
 		public static SyncQueue<string> Log = new SyncQueue<string>();
-
-		public class SyncQueue<T>
-		{
-			private readonly object SYNCROOT = new object();
-			private Queue<T> Inner = new Queue<T>();
-
-			public void Enqueue(T value)
-			{
-				lock (SYNCROOT)
-				{
-					this.Inner.Enqueue(value);
-				}
-			}
-
-			public T[] DequeueAll()
-			{
-				List<T> dest = new List<T>();
-
-				lock (SYNCROOT)
-				{
-					while (1 <= this.Inner.Count)
-						dest.Add(this.Inner.Dequeue());
-				}
-				return dest.ToArray();
-			}
-		}
 	}
 }
