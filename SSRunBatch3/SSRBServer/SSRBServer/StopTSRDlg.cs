@@ -72,8 +72,7 @@ namespace Charlotte
 			{
 				if (1 <= Gnd.I.TSRInfos.Count)
 				{
-					if (Gnd.I.TSRInfos[Gnd.I.TSRInfos.Count - 1].IsEnded())
-						Gnd.I.TSRInfos.RemoveAt(Gnd.I.TSRInfos.Count - 1);
+					Gnd.I.TSRInfos.Rotate(info => info.IsEnded() == false);
 				}
 				else
 				{
@@ -102,11 +101,14 @@ namespace Charlotte
 
 		private void BtnAbandon_Click(object sender, EventArgs e)
 		{
-			foreach (Gnd.TSRInfo info in Gnd.I.TSRInfos)
-			{
-				info.Stop();
-			}
-			//Gnd.I.TSRInfos.Clear();
+			Gnd.I.TSRInfos.Rotate(
+				info =>
+				{
+					info.Stop();
+					return true;
+				},
+				int.MaxValue
+				);
 		}
 	}
 }

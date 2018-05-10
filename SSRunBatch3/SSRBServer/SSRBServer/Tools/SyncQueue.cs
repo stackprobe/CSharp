@@ -40,5 +40,16 @@ namespace Charlotte.Tools
 				}
 			}
 		}
+
+		public void Rotate(Func<T, bool> peeker, int count = 1)
+		{
+			foreach (T element in this.Dequeue(count))
+			{
+				if (peeker(element))
+				{
+					this.Enqueue(element);
+				}
+			}
+		}
 	}
 }

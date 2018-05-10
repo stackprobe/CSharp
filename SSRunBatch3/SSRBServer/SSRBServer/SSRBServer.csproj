@@ -94,6 +94,7 @@
     <Compile Include="Tools\Random.cs" />
     <Compile Include="Tools\SecurityTools.cs" />
     <Compile Include="Tools\StringTools.cs" />
+    <Compile Include="Tools\SyncQueue.cs" />
     <Compile Include="Tools\WorkingDir.cs" />
     <Compile Include="Tools\XmlNode.cs" />
     <Compile Include="Utils.cs" />

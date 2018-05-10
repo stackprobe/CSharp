@@ -203,11 +203,14 @@ namespace Charlotte
 
 		private void 現在実行中のTSRバッチファイルを全て強制終了するAToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			foreach (Gnd.TSRInfo info in Gnd.I.TSRInfos)
-			{
-				info.Stop();
-			}
-			Gnd.I.TSRInfos.Clear();
+			Gnd.I.TSRInfos.Rotate(
+				info =>
+				{
+					info.Stop();
+					return false;
+				},
+				int.MaxValue
+				);
 		}
 
 		private void MainOutput_TextChanged(object sender, EventArgs e)

@@ -89,7 +89,7 @@ namespace Charlotte
 
 				if (commands[0] == "REM SSRunBatch_Meta=TSR")
 				{
-					Gnd.I.TSRInfos.Add(new Gnd.TSRInfo()
+					Gnd.I.TSRInfos.Enqueue(new Gnd.TSRInfo()
 					{
 						Proc = p,
 						WorkDir = workDir,

@@ -7,7 +7,7 @@ namespace Charlotte.Tools
 {
 	public class SyncBox<T>
 	{
-		private object SYNCROOT = new object();
+		private object SyncRoot = new object();
 		private T Value;
 
 		public SyncBox()
@@ -20,7 +20,7 @@ namespace Charlotte.Tools
 
 		public T Get()
 		{
-			lock (SYNCROOT)
+			lock (this.SyncRoot)
 			{
 				return this.Value;
 			}
@@ -28,7 +28,7 @@ namespace Charlotte.Tools
 
 		public void Post(T value)
 		{
-			lock (SYNCROOT)
+			lock (this.SyncRoot)
 			{
 				this.Value = value;
 			}
@@ -36,7 +36,7 @@ namespace Charlotte.Tools
 
 		public T GetPost(T value)
 		{
-			lock (SYNCROOT)
+			lock (this.SyncRoot)
 			{
 				T ret = this.Value;
 				this.Value = value;

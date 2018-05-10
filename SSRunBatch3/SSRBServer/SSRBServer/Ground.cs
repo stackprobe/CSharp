@@ -123,29 +123,11 @@ namespace Charlotte
 			}
 		}
 
-		public List<TSRInfo> TSRInfos = new List<TSRInfo>();
-
-		private int TSRInfoIndex;
+		public SyncQueue<TSRInfo> TSRInfos = new SyncQueue<TSRInfo>();
 
 		public void MonitorTSR()
 		{
-			if (1 <= this.TSRInfos.Count)
-			{
-#if true
-				this.TSRInfoIndex++;
-				this.TSRInfoIndex %= this.TSRInfos.Count;
-
-				int index = this.TSRInfoIndex;
-#else
-				int index = (int)SecurityTools.CRandom.GetRandom((uint)this.TSRInfos.Count);
-#endif
-
-				if (this.TSRInfos[index].IsEnded())
-				{
-					this.TSRInfos[index] = this.TSRInfos[this.TSRInfos.Count - 1];
-					this.TSRInfos.RemoveAt(this.TSRInfos.Count - 1);
-				}
-			}
+			this.TSRInfos.Rotate(info => info.IsEnded() == false);
 		}
 
 		private void StopTSR()
