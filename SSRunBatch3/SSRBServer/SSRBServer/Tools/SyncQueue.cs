@@ -24,7 +24,7 @@ namespace Charlotte.Tools
 
 			lock (this.SyncRoot)
 			{
-				for (int index = 0; index < count && 1 <= this.Inner.Count; index++)
+				while (dest.Count < count && 1 <= this.Inner.Count)
 					dest.Add(this.Inner.Dequeue());
 			}
 			return dest.ToArray();

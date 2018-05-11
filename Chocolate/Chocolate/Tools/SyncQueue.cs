@@ -24,7 +24,7 @@ namespace Charlotte.Tools
 
 			lock (this.SyncRoot)
 			{
-				for (int index = 0; index < count && 1 <= this.Inner.Count; index++)
+				while (dest.Count < count && 1 <= this.Inner.Count)
 					dest.Add(this.Inner.Dequeue());
 			}
 			return dest.ToArray();
@@ -37,6 +37,17 @@ namespace Charlotte.Tools
 				lock (this.SyncRoot)
 				{
 					return this.Inner.Count;
+				}
+			}
+		}
+
+		public void Rotate(Func<T, bool> peeker, int count = 1)
+		{
+			foreach (T element in this.Dequeue(count))
+			{
+				if (peeker(element))
+				{
+					this.Enqueue(element);
 				}
 			}
 		}
