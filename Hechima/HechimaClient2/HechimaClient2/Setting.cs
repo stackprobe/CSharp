@@ -99,6 +99,10 @@ namespace Charlotte
 
 		public bool Remarks行間を詰める = true;
 		public bool Remarksリンクをクリックしたら開く = false;
+		public bool RemarksWordWrap = true;
+
+		public bool MainWinMostTop = false;
+		public bool OnlineDlgMostTop = false;
 
 		// ---- ロード・セーブ
 
@@ -202,6 +206,10 @@ namespace Charlotte
 
 			this.Remarks行間を詰める = int.Parse(lines[c++]) != 0;
 			this.Remarksリンクをクリックしたら開く = int.Parse(lines[c++]) != 0;
+			this.RemarksWordWrap = int.Parse(lines[c++]) != 0;
+
+			this.MainWinMostTop = int.Parse(lines[c++]) != 0;
+			this.OnlineDlgMostTop = int.Parse(lines[c++]) != 0;
 
 			// 新しい項目、ここへ追加..
 
@@ -283,6 +291,10 @@ namespace Charlotte
 
 			lines.Add("" + (this.Remarks行間を詰める ? 1 : 0));
 			lines.Add("" + (this.Remarksリンクをクリックしたら開く ? 1 : 0));
+			lines.Add("" + (this.RemarksWordWrap ? 1 : 0));
+
+			lines.Add("" + (this.MainWinMostTop ? 1 : 0));
+			lines.Add("" + (this.OnlineDlgMostTop ? 1 : 0));
 
 			// 新しい項目、ここへ追加..
 

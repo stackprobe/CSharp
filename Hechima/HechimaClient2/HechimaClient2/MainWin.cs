@@ -59,6 +59,7 @@ namespace Charlotte
 			Common.SetTextBoxBorderStyle(this.MessageText, Gnd.setting.Flat_MessageText);
 
 			this.RemarksRTBMgr.RTBMgr.Set行間を詰める(Gnd.setting.Remarks行間を詰める);
+			this.RemarksRTB.WordWrap = Gnd.setting.RemarksWordWrap;
 
 			if (calledOnStartup)
 			{
@@ -72,8 +73,10 @@ namespace Charlotte
 			}
 			else
 			{
-				this.RemarksRTBMgr.Add(new List<Remark>()); // 行間を詰めるの反映
+				this.RemarksRTBMgr.Add(new List<Remark>()); // RemarksRTBの設定変更を画面に反映させるため。
 			}
+
+			this.TopMost = Gnd.setting.MainWinMostTop;
 		}
 
 		private void ExportSetting()

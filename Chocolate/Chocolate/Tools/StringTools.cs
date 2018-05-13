@@ -289,5 +289,15 @@ namespace Charlotte.Tools
 
 			return tokens.ToArray();
 		}
+
+		public static bool HasSameChar(string str)
+		{
+			for (int r = 1; r < str.Length; r++)
+				for (int l = 0; l < r; l++)
+					if (str[l] == str[r])
+						return true;
+
+			return false;
+		}
 	}
 }

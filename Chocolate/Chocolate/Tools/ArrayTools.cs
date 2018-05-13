@@ -190,5 +190,61 @@ namespace Charlotte.Tools
 
 			return dest;
 		}
+
+		public static void Merge<T>(T[] arr1, T[] arr2, List<T> destOnly1, List<T> destBoth1, List<T> destBoth2, List<T> destOnly2, Comparison<T> comp)
+		{
+			Array.Sort(arr1, comp);
+			Array.Sort(arr2, comp);
+
+			int index1 = 0;
+			int index2 = 0;
+
+			for (; ; )
+			{
+				int ret;
+
+				if (arr1.Length <= index1)
+				{
+					if (arr2.Length <= index2)
+						break;
+
+					ret = 1;
+				}
+				else if (arr2.Length <= index2)
+				{
+					ret = -1;
+				}
+				else
+				{
+					ret = comp(arr1[index1], arr2[index2]);
+				}
+
+				if (ret < 0)
+				{
+					if (destOnly1 != null)
+						destOnly1.Add(arr1[index1]);
+
+					index1++;
+				}
+				else if (0 < ret)
+				{
+					if (destOnly2 != null)
+						destOnly2.Add(arr2[index2]);
+
+					index2++;
+				}
+				else
+				{
+					if (destBoth1 != null)
+						destBoth1.Add(arr1[index1]);
+
+					if (destBoth2 != null)
+						destBoth2.Add(arr2[index2]);
+
+					index1++;
+					index2++;
+				}
+			}
+		}
 	}
 }

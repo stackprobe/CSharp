@@ -137,7 +137,7 @@ namespace Charlotte.Tools
 			rootNew = PutYen(rootNew);
 
 			if (StringTools.StartsWithIgnoreCase(path, oldRoot) == false)
-				throw new Exception("パス " + path + " は " + oldRoot + " の配下ではありません。");
+				throw new Exception("パス \"" + path + "\" は \"" + oldRoot + "\" の配下ではありません。");
 
 			return rootNew + path.Substring(oldRoot.Length);
 		}
@@ -164,7 +164,7 @@ namespace Charlotte.Tools
 				throw null;
 
 			if (path.StartsWith("\\\\"))
-				throw new Exception("ネットワークパスまたはデバイス名は使用出来ません。" + path);
+				throw new Exception("ネットワークパスまたはデバイス名は使用出来ません。");
 
 			if (path.Substring(1, 2) != ":\\")
 				throw null;

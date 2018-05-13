@@ -99,7 +99,7 @@ namespace Charlotte.Tools
 		{
 			try
 			{
-				this.OtherCtrl.Focus();
+				this.OtherCtrl.Focus(); // 必要か？
 
 				RichTextBox rtb = new RichTextBox();
 
@@ -136,7 +136,7 @@ namespace Charlotte.Tools
 
 				this.RTB.Rtf = rtb.SelectedRtf;
 
-				this.OtherCtrl.Focus();
+				//this.OtherCtrl.Focus(); // 必要か？
 			}
 			catch (Exception e)
 			{
@@ -156,6 +156,8 @@ namespace Charlotte.Tools
 		{
 			try
 			{
+				this.OtherCtrl.Focus(); // 必要か？
+
 				this.RTB.SelectionStart = 0;
 				this.RTB.SelectionLength = 0;
 				this.RTB.ScrollToCaret();
@@ -174,6 +176,8 @@ namespace Charlotte.Tools
 		{
 			try
 			{
+				this.OtherCtrl.Focus(); // これをしないと上手くスクロールしないことがある。
+
 				this.RTB.SelectionStart = this.RTB.Text.Length;
 				this.RTB.SelectionLength = 0;
 				this.RTB.ScrollToCaret();

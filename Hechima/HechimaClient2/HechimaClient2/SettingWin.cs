@@ -89,6 +89,10 @@ namespace Charlotte
 
 			this.Remarks行間を詰める.Checked = Gnd.setting.Remarks行間を詰める;
 			this.Remarksリンクをクリックしたら開く.Checked = Gnd.setting.Remarksリンクをクリックしたら開く;
+			this.RemarksWordWrap.Checked = Gnd.setting.RemarksWordWrap;
+
+			this.MainWinMostTop.Checked = Gnd.setting.MainWinMostTop;
+			this.OnlineDlgMostTop.Checked = Gnd.setting.OnlineDlgMostTop;
 
 			// ----
 		}
@@ -161,6 +165,10 @@ namespace Charlotte
 
 			Gnd.setting.Remarks行間を詰める = this.Remarks行間を詰める.Checked;
 			Gnd.setting.Remarksリンクをクリックしたら開く = this.Remarksリンクをクリックしたら開く.Checked;
+			Gnd.setting.RemarksWordWrap = this.RemarksWordWrap.Checked;
+
+			Gnd.setting.MainWinMostTop = this.MainWinMostTop.Checked;
+			Gnd.setting.OnlineDlgMostTop = this.OnlineDlgMostTop.Checked;
 
 			// ----
 		}

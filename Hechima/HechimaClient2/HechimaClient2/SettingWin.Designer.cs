@@ -66,6 +66,9 @@
 			this.label8 = new System.Windows.Forms.Label();
 			this.MessageTextEnterMode = new System.Windows.Forms.ComboBox();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
+			this.RemarksWordWrap = new System.Windows.Forms.CheckBox();
+			this.Remarksリンクをクリックしたら開く = new System.Windows.Forms.CheckBox();
+			this.Remarks行間を詰める = new System.Windows.Forms.CheckBox();
 			this.groupBox7 = new System.Windows.Forms.GroupBox();
 			this.RemarksScrollMode = new System.Windows.Forms.ComboBox();
 			this.TaskBarFlashEnabled = new System.Windows.Forms.CheckBox();
@@ -119,8 +122,8 @@
 			this.CancelBtn = new System.Windows.Forms.Button();
 			this.OkBtn = new System.Windows.Forms.Button();
 			this.CorrectBtn = new System.Windows.Forms.Button();
-			this.Remarks行間を詰める = new System.Windows.Forms.CheckBox();
-			this.Remarksリンクをクリックしたら開く = new System.Windows.Forms.CheckBox();
+			this.MainWinMostTop = new System.Windows.Forms.CheckBox();
+			this.OnlineDlgMostTop = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -538,6 +541,9 @@
 			// 
 			// tabPage5
 			// 
+			this.tabPage5.Controls.Add(this.OnlineDlgMostTop);
+			this.tabPage5.Controls.Add(this.MainWinMostTop);
+			this.tabPage5.Controls.Add(this.RemarksWordWrap);
 			this.tabPage5.Controls.Add(this.Remarksリンクをクリックしたら開く);
 			this.tabPage5.Controls.Add(this.Remarks行間を詰める);
 			this.tabPage5.Controls.Add(this.groupBox7);
@@ -552,6 +558,36 @@
 			this.tabPage5.TabIndex = 4;
 			this.tabPage5.Text = "画面2";
 			this.tabPage5.UseVisualStyleBackColor = true;
+			// 
+			// RemarksWordWrap
+			// 
+			this.RemarksWordWrap.AutoSize = true;
+			this.RemarksWordWrap.Location = new System.Drawing.Point(405, 260);
+			this.RemarksWordWrap.Name = "RemarksWordWrap";
+			this.RemarksWordWrap.Size = new System.Drawing.Size(106, 24);
+			this.RemarksWordWrap.TabIndex = 8;
+			this.RemarksWordWrap.Text = "ワードラップ";
+			this.RemarksWordWrap.UseVisualStyleBackColor = true;
+			// 
+			// Remarksリンクをクリックしたら開く
+			// 
+			this.Remarksリンクをクリックしたら開く.AutoSize = true;
+			this.Remarksリンクをクリックしたら開く.Location = new System.Drawing.Point(137, 260);
+			this.Remarksリンクをクリックしたら開く.Name = "Remarksリンクをクリックしたら開く";
+			this.Remarksリンクをクリックしたら開く.Size = new System.Drawing.Size(262, 24);
+			this.Remarksリンクをクリックしたら開く.TabIndex = 7;
+			this.Remarksリンクをクリックしたら開く.Text = "ハイパーリンクをクリックしたら開く。";
+			this.Remarksリンクをクリックしたら開く.UseVisualStyleBackColor = true;
+			// 
+			// Remarks行間を詰める
+			// 
+			this.Remarks行間を詰める.AutoSize = true;
+			this.Remarks行間を詰める.Location = new System.Drawing.Point(12, 260);
+			this.Remarks行間を詰める.Name = "Remarks行間を詰める";
+			this.Remarks行間を詰める.Size = new System.Drawing.Size(119, 24);
+			this.Remarks行間を詰める.TabIndex = 6;
+			this.Remarks行間を詰める.Text = "行間を詰める。";
+			this.Remarks行間を詰める.UseVisualStyleBackColor = true;
 			// 
 			// groupBox7
 			// 
@@ -1134,25 +1170,25 @@
 			this.CorrectBtn.UseVisualStyleBackColor = true;
 			this.CorrectBtn.Click += new System.EventHandler(this.CorrectBtn_Click);
 			// 
-			// Remarks行間を詰める
+			// MainWinMostTop
 			// 
-			this.Remarks行間を詰める.AutoSize = true;
-			this.Remarks行間を詰める.Location = new System.Drawing.Point(12, 260);
-			this.Remarks行間を詰める.Name = "Remarks行間を詰める";
-			this.Remarks行間を詰める.Size = new System.Drawing.Size(119, 24);
-			this.Remarks行間を詰める.TabIndex = 6;
-			this.Remarks行間を詰める.Text = "行間を詰める。";
-			this.Remarks行間を詰める.UseVisualStyleBackColor = true;
+			this.MainWinMostTop.AutoSize = true;
+			this.MainWinMostTop.Location = new System.Drawing.Point(12, 290);
+			this.MainWinMostTop.Name = "MainWinMostTop";
+			this.MainWinMostTop.Size = new System.Drawing.Size(236, 24);
+			this.MainWinMostTop.TabIndex = 9;
+			this.MainWinMostTop.Text = "メインウィンドウを常に手前に表示";
+			this.MainWinMostTop.UseVisualStyleBackColor = true;
 			// 
-			// Remarksリンクをクリックしたら開く
+			// OnlineDlgMostTop
 			// 
-			this.Remarksリンクをクリックしたら開く.AutoSize = true;
-			this.Remarksリンクをクリックしたら開く.Location = new System.Drawing.Point(137, 260);
-			this.Remarksリンクをクリックしたら開く.Name = "Remarksリンクをクリックしたら開く";
-			this.Remarksリンクをクリックしたら開く.Size = new System.Drawing.Size(262, 24);
-			this.Remarksリンクをクリックしたら開く.TabIndex = 7;
-			this.Remarksリンクをクリックしたら開く.Text = "ハイパーリンクをクリックしたら開く。";
-			this.Remarksリンクをクリックしたら開く.UseVisualStyleBackColor = true;
+			this.OnlineDlgMostTop.AutoSize = true;
+			this.OnlineDlgMostTop.Location = new System.Drawing.Point(254, 290);
+			this.OnlineDlgMostTop.Name = "OnlineDlgMostTop";
+			this.OnlineDlgMostTop.Size = new System.Drawing.Size(249, 24);
+			this.OnlineDlgMostTop.TabIndex = 10;
+			this.OnlineDlgMostTop.Text = "オンラインメンバーを常に手前に表示";
+			this.OnlineDlgMostTop.UseVisualStyleBackColor = true;
 			// 
 			// SettingWin
 			// 
@@ -1295,5 +1331,8 @@
 		private System.Windows.Forms.ComboBox RemarksScrollMode;
 		private System.Windows.Forms.CheckBox Remarksリンクをクリックしたら開く;
 		private System.Windows.Forms.CheckBox Remarks行間を詰める;
+		private System.Windows.Forms.CheckBox RemarksWordWrap;
+		private System.Windows.Forms.CheckBox OnlineDlgMostTop;
+		private System.Windows.Forms.CheckBox MainWinMostTop;
 	}
 }

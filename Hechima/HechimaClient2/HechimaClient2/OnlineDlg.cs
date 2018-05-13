@@ -53,6 +53,8 @@ namespace Charlotte
 			}
 			if (Gnd.setting.OnlineDlg_Minimized)
 				this.WindowState = FormWindowState.Minimized;
+
+			this.TopMost = Gnd.setting.OnlineDlgMostTop;
 		}
 
 		private void OnlineDlg_Load(object sender, EventArgs e)
