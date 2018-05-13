@@ -51,9 +51,10 @@ namespace Charlotte.Tools
 		{
 			using (WorkingDir wd = new WorkingDir())
 			{
-				string batFile = wd.MakePath() + ".bat";
-				string outFile = wd.MakePath() + ".out";
-				string callBatFile = wd.MakePath() + ".bat";
+				string fileBase = wd.MakePath();
+				string batFile = fileBase + "_Run.bat";
+				string outFile = fileBase + "_Run.out";
+				string callBatFile = fileBase + "_Call.bat";
 
 				File.WriteAllLines(batFile, commands, StringTools.ENCODING_SJIS);
 				File.WriteAllText(callBatFile, "> " + outFile + " CALL " + batFile, StringTools.ENCODING_SJIS);
