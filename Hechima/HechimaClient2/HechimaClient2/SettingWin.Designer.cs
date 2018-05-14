@@ -66,6 +66,8 @@
 			this.label8 = new System.Windows.Forms.Label();
 			this.MessageTextEnterMode = new System.Windows.Forms.ComboBox();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
+			this.OnlineDlgMostTop = new System.Windows.Forms.CheckBox();
+			this.MainWinMostTop = new System.Windows.Forms.CheckBox();
 			this.RemarksWordWrap = new System.Windows.Forms.CheckBox();
 			this.Remarksリンクをクリックしたら開く = new System.Windows.Forms.CheckBox();
 			this.Remarks行間を詰める = new System.Windows.Forms.CheckBox();
@@ -122,8 +124,6 @@
 			this.CancelBtn = new System.Windows.Forms.Button();
 			this.OkBtn = new System.Windows.Forms.Button();
 			this.CorrectBtn = new System.Windows.Forms.Button();
-			this.MainWinMostTop = new System.Windows.Forms.CheckBox();
-			this.OnlineDlgMostTop = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -155,7 +155,7 @@
 			this.tabControl1.Location = new System.Drawing.Point(12, 12);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(560, 487);
+			this.tabControl1.Size = new System.Drawing.Size(560, 486);
 			this.tabControl1.TabIndex = 0;
 			// 
 			// tabPage1
@@ -558,6 +558,26 @@
 			this.tabPage5.TabIndex = 4;
 			this.tabPage5.Text = "画面2";
 			this.tabPage5.UseVisualStyleBackColor = true;
+			// 
+			// OnlineDlgMostTop
+			// 
+			this.OnlineDlgMostTop.AutoSize = true;
+			this.OnlineDlgMostTop.Location = new System.Drawing.Point(254, 290);
+			this.OnlineDlgMostTop.Name = "OnlineDlgMostTop";
+			this.OnlineDlgMostTop.Size = new System.Drawing.Size(249, 24);
+			this.OnlineDlgMostTop.TabIndex = 10;
+			this.OnlineDlgMostTop.Text = "オンラインメンバーを常に手前に表示";
+			this.OnlineDlgMostTop.UseVisualStyleBackColor = true;
+			// 
+			// MainWinMostTop
+			// 
+			this.MainWinMostTop.AutoSize = true;
+			this.MainWinMostTop.Location = new System.Drawing.Point(12, 290);
+			this.MainWinMostTop.Name = "MainWinMostTop";
+			this.MainWinMostTop.Size = new System.Drawing.Size(236, 24);
+			this.MainWinMostTop.TabIndex = 9;
+			this.MainWinMostTop.Text = "メインウィンドウを常に手前に表示";
+			this.MainWinMostTop.UseVisualStyleBackColor = true;
 			// 
 			// RemarksWordWrap
 			// 
@@ -1048,7 +1068,7 @@
 			this.tabPage6.Controls.Add(this.MemberFontList);
 			this.tabPage6.Location = new System.Drawing.Point(4, 29);
 			this.tabPage6.Name = "tabPage6";
-			this.tabPage6.Size = new System.Drawing.Size(552, 454);
+			this.tabPage6.Size = new System.Drawing.Size(552, 453);
 			this.tabPage6.TabIndex = 5;
 			this.tabPage6.Text = "Colorful Days";
 			this.tabPage6.UseVisualStyleBackColor = true;
@@ -1120,7 +1140,7 @@
 			this.MemberFontList.Location = new System.Drawing.Point(5, 5);
 			this.MemberFontList.Name = "MemberFontList";
 			this.MemberFontList.ScrollAlwaysVisible = true;
-			this.MemberFontList.Size = new System.Drawing.Size(437, 444);
+			this.MemberFontList.Size = new System.Drawing.Size(437, 424);
 			this.MemberFontList.TabIndex = 0;
 			// 
 			// MemberFontListMenu
@@ -1140,7 +1160,7 @@
 			// CancelBtn
 			// 
 			this.CancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.CancelBtn.Location = new System.Drawing.Point(462, 505);
+			this.CancelBtn.Location = new System.Drawing.Point(462, 504);
 			this.CancelBtn.Name = "CancelBtn";
 			this.CancelBtn.Size = new System.Drawing.Size(110, 45);
 			this.CancelBtn.TabIndex = 3;
@@ -1151,7 +1171,7 @@
 			// OkBtn
 			// 
 			this.OkBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.OkBtn.Location = new System.Drawing.Point(346, 505);
+			this.OkBtn.Location = new System.Drawing.Point(346, 504);
 			this.OkBtn.Name = "OkBtn";
 			this.OkBtn.Size = new System.Drawing.Size(110, 45);
 			this.OkBtn.TabIndex = 2;
@@ -1162,39 +1182,19 @@
 			// CorrectBtn
 			// 
 			this.CorrectBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.CorrectBtn.Location = new System.Drawing.Point(12, 505);
+			this.CorrectBtn.Location = new System.Drawing.Point(12, 504);
 			this.CorrectBtn.Name = "CorrectBtn";
-			this.CorrectBtn.Size = new System.Drawing.Size(110, 45);
+			this.CorrectBtn.Size = new System.Drawing.Size(173, 45);
 			this.CorrectBtn.TabIndex = 1;
-			this.CorrectBtn.Text = "補正";
+			this.CorrectBtn.Text = "入力チェック + 補正";
 			this.CorrectBtn.UseVisualStyleBackColor = true;
 			this.CorrectBtn.Click += new System.EventHandler(this.CorrectBtn_Click);
-			// 
-			// MainWinMostTop
-			// 
-			this.MainWinMostTop.AutoSize = true;
-			this.MainWinMostTop.Location = new System.Drawing.Point(12, 290);
-			this.MainWinMostTop.Name = "MainWinMostTop";
-			this.MainWinMostTop.Size = new System.Drawing.Size(236, 24);
-			this.MainWinMostTop.TabIndex = 9;
-			this.MainWinMostTop.Text = "メインウィンドウを常に手前に表示";
-			this.MainWinMostTop.UseVisualStyleBackColor = true;
-			// 
-			// OnlineDlgMostTop
-			// 
-			this.OnlineDlgMostTop.AutoSize = true;
-			this.OnlineDlgMostTop.Location = new System.Drawing.Point(254, 290);
-			this.OnlineDlgMostTop.Name = "OnlineDlgMostTop";
-			this.OnlineDlgMostTop.Size = new System.Drawing.Size(249, 24);
-			this.OnlineDlgMostTop.TabIndex = 10;
-			this.OnlineDlgMostTop.Text = "オンラインメンバーを常に手前に表示";
-			this.OnlineDlgMostTop.UseVisualStyleBackColor = true;
 			// 
 			// SettingWin
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(584, 562);
+			this.ClientSize = new System.Drawing.Size(584, 561);
 			this.Controls.Add(this.CorrectBtn);
 			this.Controls.Add(this.OkBtn);
 			this.Controls.Add(this.CancelBtn);

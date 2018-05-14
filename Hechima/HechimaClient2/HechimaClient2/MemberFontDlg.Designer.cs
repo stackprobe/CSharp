@@ -176,9 +176,9 @@
 			this.CorrectBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.CorrectBtn.Location = new System.Drawing.Point(12, 409);
 			this.CorrectBtn.Name = "CorrectBtn";
-			this.CorrectBtn.Size = new System.Drawing.Size(114, 40);
+			this.CorrectBtn.Size = new System.Drawing.Size(173, 40);
 			this.CorrectBtn.TabIndex = 10;
-			this.CorrectBtn.Text = "補正";
+			this.CorrectBtn.Text = "入力チェック + 補正";
 			this.CorrectBtn.UseVisualStyleBackColor = true;
 			this.CorrectBtn.Click += new System.EventHandler(this.CorrectBtn_Click);
 			// 
@@ -207,7 +207,7 @@
 			this.MinimizeBox = false;
 			this.Name = "MemberFontDlg";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "MemberFontDlg";
+			this.Text = "へちま改フォント設定リスト";
 			this.TopMost = true;
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MemberFontDlg_FormClosing);
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MemberFontDlg_FormClosed);
