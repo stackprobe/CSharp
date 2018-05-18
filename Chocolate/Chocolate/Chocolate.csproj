@@ -53,6 +53,7 @@
     <Compile Include="Tools\JString.cs" />
     <Compile Include="Tools\LongTools.cs" />
     <Compile Include="Tools\MSection.cs" />
+    <Compile Include="Tools\MutexTools.cs" />
     <Compile Include="Tools\Net\FilingCase3.cs" />
     <Compile Include="Tools\Net\FilingCase3Client.cs" />
     <Compile Include="Tools\Net\SockClient.cs" />
