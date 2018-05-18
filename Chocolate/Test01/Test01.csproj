@@ -48,6 +48,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests2\Sample.cs" />
     <Compile Include="Tests2\Sample2.cs" />
+    <Compile Include="Tests2\Sample3.cs" />
+    <Compile Include="Tests2\Sample4.cs" />
     <Compile Include="Tests\Tools\DebugToolsTest.cs" />
     <Compile Include="Tests\Tools\HTTPClientTest.cs" />
     <Compile Include="Tests\Tools\Net\FilingCase3Test.cs" />
@@ -55,6 +57,7 @@
     <Compile Include="Tests\Tools\ArrayToolsTest.cs" />
     <Compile Include="Tests\Tools\DateTimeToSecTest.cs" />
     <Compile Include="Tests\Tools\FileToolsTest.cs" />
+    <Compile Include="Tests\Tools\ReflecToolsTest.cs" />
     <Compile Include="Tests\Tools\SecurityToolsTest.cs" />
     <Compile Include="Tests\Tools\SortedListTest.cs" />
     <Compile Include="Tests\Tools\StringToolsTest.cs" />

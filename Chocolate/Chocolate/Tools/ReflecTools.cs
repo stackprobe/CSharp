@@ -28,12 +28,42 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public static FieldBox[] GetFields(string typeName)
+		public class MethodBox
+		{
+			public MethodBase Value; // MethodInfo | ConstructorInfo
+
+			public MethodBox(MethodBase value)
+			{
+				this.Value = value;
+			}
+
+			public ParameterBox[] GetParameters()
+			{
+				return this.Value.GetParameters().Select<ParameterInfo, ParameterBox>(prm => new ParameterBox(prm)).ToArray();
+			}
+
+			public object Construct(object[] prms)
+			{
+				return ((ConstructorInfo)this.Value).Invoke(prms);
+			}
+		}
+
+		public class ParameterBox
+		{
+			public ParameterInfo Value;
+
+			public ParameterBox(ParameterInfo value)
+			{
+				this.Value = value;
+			}
+		}
+
+		public static FieldBox[] GetFieldsByTypeName(string typeName)
 		{
 			Type type = Type.GetType(typeName);
 
 			if (type == null)
-				throw new Exception("そんなタイプありません：" + typeName);
+				throw new Exception("指定されたタイプが見つかりません。" + typeName);
 
 			return GetFieldsByType(type);
 		}
@@ -160,6 +190,26 @@ namespace Charlotte.Tools
 			{
 				return false; // ジェネリック型じゃない || etc.
 			}
+		}
+
+		public static MethodBox[] GetMethods(object instance)
+		{
+			return GetMethodsByType(instance.GetType());
+		}
+
+		public static MethodBox[] GetMethodsByType(Type type)
+		{
+			return type.GetMethods(_bindingFlags).Select<MethodInfo, MethodBox>(method => new MethodBox(method)).ToArray();
+		}
+
+		public static MethodBox[] GetConstructors(object instance)
+		{
+			return GetConstructorsByType(instance.GetType());
+		}
+
+		public static MethodBox[] GetConstructorsByType(Type type)
+		{
+			return type.GetConstructors(_bindingFlags).Select<ConstructorInfo, MethodBox>(constructor => new MethodBox(constructor)).ToArray();
 		}
 	}
 }

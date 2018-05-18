@@ -53,7 +53,12 @@ namespace Charlotte
 			//new SecurityToolsTest.AESTest().Test01();
 			//new SecurityToolsTest().Test01();
 			//new DebugToolsTest().Test01();
-			new HTTPClientTest().Test01();
+			//new HTTPClientTest().Test01();
+			//new ReflecToolsTest().Test01();
+			//new ReflecToolsTest().Test02();
+			//new ReflecToolsTest().Test02b();
+			//new ReflecToolsTest().Test03();
+			new ReflecToolsTest().Test03b();
 		}
 	}
 }
