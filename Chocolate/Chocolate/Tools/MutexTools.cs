@@ -10,9 +10,9 @@ namespace Charlotte.Tools
 {
 	public class MutexTools
 	{
-		public static Mutex Create(string ident)
+		public static Mutex Create(string name)
 		{
-			return new Mutex(false, ident);
+			return new Mutex(false, name);
 		}
 
 		public static Mutex CreateGlobal(string ident)

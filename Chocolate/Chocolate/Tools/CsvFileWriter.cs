@@ -14,9 +14,9 @@ namespace Charlotte.Tools
 		private StreamWriter Writer;
 		private bool RowHead;
 
-		public CsvFileWriter(string file)
+		public CsvFileWriter(string file, bool append = false)
 		{
-			this.Writer = new StreamWriter(file, false, StringTools.ENCODING_SJIS);
+			this.Writer = new StreamWriter(file, append, StringTools.ENCODING_SJIS);
 			this.RowHead = true;
 		}
 

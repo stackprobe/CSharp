@@ -42,6 +42,32 @@ namespace Charlotte.Tools
 				return this.Value.GetParameters().Select<ParameterInfo, ParameterBox>(prm => new ParameterBox(prm)).ToArray();
 			}
 
+			/// <summary>
+			/// invoke static method
+			/// </summary>
+			/// <param name="prms"></param>
+			/// <returns></returns>
+			public object Invoke(object[] prms)
+			{
+				return this.Value.Invoke(null, prms);
+			}
+
+			/// <summary>
+			/// invoke instance method
+			/// </summary>
+			/// <param name="instance"></param>
+			/// <param name="prms"></param>
+			/// <returns></returns>
+			public object Invoke(object instance, object[] prms)
+			{
+				return this.Value.Invoke(instance, prms);
+			}
+
+			/// <summary>
+			/// invoke constructor
+			/// </summary>
+			/// <param name="prms"></param>
+			/// <returns></returns>
 			public object Construct(object[] prms)
 			{
 				return ((ConstructorInfo)this.Value).Invoke(prms);
@@ -63,19 +89,19 @@ namespace Charlotte.Tools
 			Type type = Type.GetType(typeName);
 
 			if (type == null)
-				throw new Exception("指定されたタイプが見つかりません。" + typeName);
+				throw new Exception("そんなタイプ有りません。" + typeName);
 
-			return GetFieldsByType(type);
+			return GetFields(type);
 		}
 
-		public static FieldBox[] GetFields(object instance)
+		public static FieldBox[] GetFieldsByInstance(object instance)
 		{
-			return GetFieldsByType(instance.GetType());
+			return GetFields(instance.GetType());
 		}
 
-		public static PropertyBox[] GetProperties(object instance)
+		public static PropertyBox[] GetPropertiesByInstance(object instance)
 		{
-			return GetPropertiesByType(instance.GetType());
+			return GetProperties(instance.GetType());
 		}
 
 		/// <summary>
@@ -88,12 +114,12 @@ namespace Charlotte.Tools
 			BindingFlags.Instance |
 			BindingFlags.FlattenHierarchy;
 
-		public static FieldBox[] GetFieldsByType(Type type)
+		public static FieldBox[] GetFields(Type type)
 		{
 			return type.GetFields(_bindingFlags).Select<FieldInfo, FieldBox>(field => new FieldBox(field)).ToArray();
 		}
 
-		public static PropertyBox[] GetPropertiesByType(Type type)
+		public static PropertyBox[] GetProperties(Type type)
 		{
 			return type.GetProperties(_bindingFlags).Select<PropertyInfo, PropertyBox>(prop => new PropertyBox(prop)).ToArray();
 		}
@@ -101,15 +127,10 @@ namespace Charlotte.Tools
 		/// <summary>
 		/// name が見つからない場合 null を返す。
 		/// </summary>
-		/// <param name="instance"></param>
+		/// <param name="type"></param>
 		/// <param name="name"></param>
 		/// <returns></returns>
-		public static FieldBox GetField(object instance, string name)
-		{
-			return GetFieldByType(instance.GetType(), name);
-		}
-
-		public static FieldBox GetFieldByType(Type type, string name)
+		public static FieldBox GetField(Type type, string name)
 		{
 			return new FieldBox(type.GetField(name, _bindingFlags));
 		}
@@ -175,12 +196,12 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public static bool IsList(object instance)
+		public static bool IsListByInstance(object instance)
 		{
-			return IsListByType(instance.GetType());
+			return IsList(instance.GetType());
 		}
 
-		public static bool IsListByType(Type type)
+		public static bool IsList(Type type)
 		{
 			try
 			{
@@ -192,22 +213,22 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public static MethodBox[] GetMethods(object instance)
+		public static MethodBox[] GetMethodsByInstance(object instance)
 		{
-			return GetMethodsByType(instance.GetType());
+			return GetMethods(instance.GetType());
 		}
 
-		public static MethodBox[] GetMethodsByType(Type type)
+		public static MethodBox[] GetMethods(Type type)
 		{
 			return type.GetMethods(_bindingFlags).Select<MethodInfo, MethodBox>(method => new MethodBox(method)).ToArray();
 		}
 
-		public static MethodBox[] GetConstructors(object instance)
+		public static MethodBox[] GetConstructorsByInstance(object instance)
 		{
-			return GetConstructorsByType(instance.GetType());
+			return GetConstructors(instance.GetType());
 		}
 
-		public static MethodBox[] GetConstructorsByType(Type type)
+		public static MethodBox[] GetConstructors(Type type)
 		{
 			return type.GetConstructors(_bindingFlags).Select<ConstructorInfo, MethodBox>(constructor => new MethodBox(constructor)).ToArray();
 		}

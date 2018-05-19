@@ -33,7 +33,7 @@ namespace Charlotte.Tools
 			if (ReflecTools.EqualsOrBase(type, typeof(string)))
 				return instance;
 
-			if (ReflecTools.IsListByType(type))
+			if (ReflecTools.IsList(type))
 			{
 				ObjectList dest = new ObjectList();
 
@@ -46,10 +46,10 @@ namespace Charlotte.Tools
 			{
 				ObjectMap dest = ObjectMap.Create();
 
-				foreach (ReflecTools.FieldBox field in ReflecTools.GetFields(instance))
+				foreach (ReflecTools.FieldBox field in ReflecTools.GetFieldsByInstance(instance))
 					dest.Add(field.Value.Name, ToListOrMap(ReflecTools.GetValue(field, instance), depth - 1));
 
-				foreach (ReflecTools.PropertyBox prop in ReflecTools.GetProperties(instance))
+				foreach (ReflecTools.PropertyBox prop in ReflecTools.GetPropertiesByInstance(instance))
 					dest.Add(prop.Value.Name, ToListOrMap(ReflecTools.GetValue(prop, instance), depth - 1));
 
 				return dest;

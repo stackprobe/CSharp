@@ -12,7 +12,7 @@ namespace Charlotte.Tests.Tools
 	{
 		public void Test01()
 		{
-			foreach (ReflecTools.MethodBox method in ReflecTools.GetMethods(new Sample3()))
+			foreach (ReflecTools.MethodBox method in ReflecTools.GetMethodsByInstance(new Sample3()))
 			{
 				//Console.WriteLine(JsonTools.Encode(DebugTools.ToListOrMap(method.Value, 1)));
 				Console.WriteLine(method.Value.Name);
@@ -28,7 +28,7 @@ namespace Charlotte.Tests.Tools
 
 		public void Test02()
 		{
-			foreach (ReflecTools.MethodBox constructor in ReflecTools.GetConstructors(new Sample3()))
+			foreach (ReflecTools.MethodBox constructor in ReflecTools.GetConstructorsByInstance(new Sample3()))
 			{
 				//Console.WriteLine(JsonTools.Encode(DebugTools.ToListOrMap(constructor.Value, 1)));
 
@@ -42,7 +42,7 @@ namespace Charlotte.Tests.Tools
 
 		public void Test02b()
 		{
-			foreach (ReflecTools.MethodBox constructor in ReflecTools.GetConstructors(new Sample4(0.0))) // Sample3のコンストラクタは見えない。
+			foreach (ReflecTools.MethodBox constructor in ReflecTools.GetConstructorsByInstance(new Sample4(0.0))) // Sample3のコンストラクタは見えない。
 			{
 				//Console.WriteLine(JsonTools.Encode(DebugTools.ToListOrMap(constructor.Value, 1)));
 
@@ -56,7 +56,7 @@ namespace Charlotte.Tests.Tools
 
 		public void Test03()
 		{
-			ReflecTools.MethodBox ctor = ReflecTools.GetConstructorsByType(Type.GetType("Charlotte.Tests2.Sample4"))[0];
+			ReflecTools.MethodBox ctor = ReflecTools.GetConstructors(Type.GetType("Charlotte.Tests2.Sample4"))[0];
 			Sample4 s;
 
 			//s = (Sample4)ctor.Value.Invoke(null, new object[] { 0.0 }); // 例外
@@ -67,7 +67,7 @@ namespace Charlotte.Tests.Tools
 
 		public void Test03b()
 		{
-			ReflecTools.MethodBox ctor = ReflecTools.GetConstructorsByType(Type.GetType("Charlotte.Tests2.Sample4"))[0];
+			ReflecTools.MethodBox ctor = ReflecTools.GetConstructors(Type.GetType("Charlotte.Tests2.Sample4"))[0];
 			Sample4 s;
 
 			s = (Sample4)ctor.Construct(new object[] { -1.0 });
@@ -77,14 +77,14 @@ namespace Charlotte.Tests.Tools
 			// ----
 
 			{
-				ReflecTools.MethodBox method = ReflecTools.GetMethodsByType(s.GetType()).Where(m => m.Value.Name == "PrintOK").ToArray()[0];
+				ReflecTools.MethodBox method = ReflecTools.GetMethods(s.GetType()).Where(m => m.Value.Name == "PrintOK").ToArray()[0];
 
-				method.Value.Invoke(s, new object[] { }); // == s.PrintOK();
+				method.Invoke(s, new object[] { }); // == s.PrintOK();
 			}
 
 			// ----
 
-			foreach (ReflecTools.MethodBox method in ReflecTools.GetMethodsByType(s.GetType()))
+			foreach (ReflecTools.MethodBox method in ReflecTools.GetMethods(s.GetType()))
 			{
 				Console.WriteLine("\t" + method.Value.Name);
 			}
@@ -92,9 +92,9 @@ namespace Charlotte.Tests.Tools
 			// ----
 
 			{
-				ReflecTools.MethodBox method = ReflecTools.GetMethodsByType(s.GetType()).Where(m => m.Value.Name == "SPrintString").ToArray()[0];
+				ReflecTools.MethodBox method = ReflecTools.GetMethods(s.GetType()).Where(m => m.Value.Name == "SPrintString").ToArray()[0];
 
-				method.Value.Invoke(null, new object[] { "ABC" }); // == Sample3.SPrintString("ABC");
+				method.Invoke(new object[] { "ABC" }); // == Sample3.SPrintString("ABC");
 			}
 		}
 	}
