@@ -49,6 +49,7 @@
     <Compile Include="Tools\DoubleTools.cs" />
     <Compile Include="Tools\EscapeString.cs" />
     <Compile Include="Tools\HTTPClient.cs" />
+    <Compile Include="Tools\Hub.cs" />
     <Compile Include="Tools\JsonTools.cs" />
     <Compile Include="Tools\JString.cs" />
     <Compile Include="Tools\LongTools.cs" />

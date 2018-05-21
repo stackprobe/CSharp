@@ -106,6 +106,28 @@ namespace Charlotte.Tests.Tools
 			Console.WriteLine(Type.GetType("Charlotte.Tests2.Sample4+InnerClass1"));
 
 			ReflecTools.GetMethods(Type.GetType("Charlotte.Tests2.Sample4+InnerClass1")).Where(m => m.Value.Name == "Test01").ToArray()[0].Invoke(new object[0]);
+
+			// ----
+
+			Console.WriteLine(Type.GetType("Charlotte.Tools.XmlNode")); // <-- 見つからない。
+			Console.WriteLine(Type.GetType("Charlotte.Tools.XmlNode,Chocolate")); // <-- 見つかる！
+
+			// ----
+
+			{
+				Hub hub = new Hub(typeName => Type.GetType(typeName));
+
+				// "Charlotte." は省略できる。
+				hub.Perform(new ArgsReader("Tests2.Sample4+InnerClass1 Test01".Split(' ')));
+
+				{
+					string sArgs = @"
+a = new Tools.XmlNode,Chocolate a b
+";
+
+					hub.Perform(new ArgsReader(StringTools.Tokenize(sArgs, "\r\n ", false, true)));
+				}
+			}
 		}
 	}
 }
