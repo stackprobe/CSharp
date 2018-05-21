@@ -23,7 +23,7 @@ namespace Charlotte.Tests2
 		{
 			public static void Test01()
 			{
-				Console.WriteLine("Sample4.SubClass.Test01_OK");
+				Console.WriteLine("Sample4.InnerClass1.Test01_OK");
 			}
 		}
 	}

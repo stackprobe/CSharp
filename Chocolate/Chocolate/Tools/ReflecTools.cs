@@ -84,33 +84,9 @@ namespace Charlotte.Tools
 			}
 		}
 
-		private static Type GetTypeByTypeName(string typeName)
-		{
-			Type type = Type.GetType(typeName);
-
-			if (type == null)
-			{
-				type = Type.GetType("Charlotte." + typeName);
-
-				if (type == null)
-					throw new Exception("指定されたタイプは見つかりません。" + typeName);
-			}
-			return type;
-		}
-
-		public static FieldBox[] GetFieldsByTypeName(string typeName)
-		{
-			return GetFields(GetTypeByTypeName(typeName));
-		}
-
 		public static FieldBox[] GetFieldsByInstance(object instance)
 		{
 			return GetFields(instance.GetType());
-		}
-
-		public static PropertyBox[] GetPropertiesByTypeName(string typeName)
-		{
-			return GetProperties(GetTypeByTypeName(typeName));
 		}
 
 		public static PropertyBox[] GetPropertiesByInstance(object instance)
@@ -118,19 +94,9 @@ namespace Charlotte.Tools
 			return GetProperties(instance.GetType());
 		}
 
-		public static FieldBox GetFieldByTypeName(string typeName, string name)
-		{
-			return GetField(GetTypeByTypeName(typeName), name);
-		}
-
 		public static FieldBox GetFieldByInstance(object instance, string name)
 		{
 			return GetField(instance.GetType(), name);
-		}
-
-		public static PropertyBox GetPropertyByTypeName(string typeName, string name)
-		{
-			return GetProperty(GetTypeByTypeName(typeName), name);
 		}
 
 		public static PropertyBox GetPropertyByInstance(object instance, string name)
@@ -257,11 +223,6 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public static MethodBox[] GetMethodsByTypeName(string typeName)
-		{
-			return GetMethods(GetTypeByTypeName(typeName));
-		}
-
 		public static MethodBox[] GetMethodsByInstance(object instance)
 		{
 			return GetMethods(instance.GetType());
@@ -270,11 +231,6 @@ namespace Charlotte.Tools
 		public static MethodBox[] GetMethods(Type type)
 		{
 			return type.GetMethods(_bindingFlags).Select<MethodInfo, MethodBox>(method => new MethodBox(method)).ToArray();
-		}
-
-		public static MethodBox[] GetConstructorsByTypeName(string typeName)
-		{
-			return GetConstructors(GetTypeByTypeName(typeName));
 		}
 
 		public static MethodBox[] GetConstructorsByInstance(object instance)
