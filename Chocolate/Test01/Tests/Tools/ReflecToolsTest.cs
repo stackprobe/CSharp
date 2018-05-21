@@ -135,7 +135,12 @@ a . WriteToFile C:\temp\1.xml
 a = new Tests2.Sample4+InnerClass1 ;
 a . Test02 ;
 b = a . GetSelf ;
-b . Test02
+b . Test02 ;
+b = b . ToString ;
+Tests2.Sample3 SPrintString b ;
+Tests2.Sample3 SPrintString *b ;
+Tests2.Sample3 SPrintString **b ;
+Tests2.Sample3 SPrintString **; ;
 ";
 					hub.Perform(new ArgsReader(StringTools.Tokenize(sArgs, "\r\n ", false, true)));
 				}

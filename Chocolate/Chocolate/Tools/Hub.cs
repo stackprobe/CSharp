@@ -7,21 +7,6 @@ namespace Charlotte.Tools
 {
 	public class Hub
 	{
-		public static Type GetType(string typeName)
-		{
-			foreach (string prefix in new string[] { "", "Charlotte." })
-			{
-				foreach (string suffix in new string[] { "," + System.Reflection.Assembly.GetEntryAssembly().GetName().Name, "" })
-				{
-					Type type = Type.GetType(prefix + typeName + suffix);
-
-					if (type != null)
-						return type;
-				}
-			}
-			throw new Exception("指定されたタイプは見つかりません。" + typeName);
-		}
-
 		private ObjectMap Vars = ObjectMap.CreateIgnoreCase();
 
 		public void Perform(ArgsReader ar)
@@ -39,7 +24,9 @@ namespace Charlotte.Tools
 						string typeName = ar.NextArg();
 						object[] prms = this.ReadParams(ar);
 
-						this.Vars[destVarName] = ReflecTools.GetConstructors(GetType(typeName)).Where(ctor => IsMatchParams(ctor, prms)).ToArray()[0].Construct(prms);
+						this.Vars[destVarName] = ReflecTools.GetConstructorsByTypeName(typeName).Where(ctor =>
+							IsMatchParams(ctor, prms)
+							).ToArray()[0].Construct(prms);
 					}
 					else
 					{
@@ -65,7 +52,7 @@ namespace Charlotte.Tools
 							string methodName = ar.NextArg();
 							object[] prms = this.ReadParams(ar);
 
-							this.Vars[destVarName] = ReflecTools.GetMethods(GetType(typeName)).Where(method =>
+							this.Vars[destVarName] = ReflecTools.GetMethodsByTypeName(typeName).Where(method =>
 								method.Value.Name == methodName &&
 								method.Value.IsStatic &&
 								IsMatchParams(method, prms)
@@ -93,7 +80,7 @@ namespace Charlotte.Tools
 					string methodName = ar.NextArg();
 					object[] prms = this.ReadParams(ar);
 
-					ReflecTools.GetMethods(GetType(typeName)).Where(method =>
+					ReflecTools.GetMethodsByTypeName(typeName).Where(method =>
 						method.Value.Name == methodName &&
 						method.Value.IsStatic &&
 						IsMatchParams(method, prms)
@@ -111,11 +98,10 @@ namespace Charlotte.Tools
 			{
 				string prm = ar.NextArg();
 
-				if (prm.StartsWith(";"))
-					prm = prm.Substring(1);
-
-				if (this.Vars.ContainsKey(prm))
-					prms.Add(this.Vars[prm]);
+				if (prm.StartsWith("**"))
+					prms.Add(prm.Substring(2));
+				else if (prm.StartsWith("*"))
+					prms.Add(this.Vars[prm.Substring(1)]);
 				else
 					prms.Add(prm);
 			}
