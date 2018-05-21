@@ -115,15 +115,27 @@ namespace Charlotte.Tests.Tools
 			// ----
 
 			{
-				Hub hub = new Hub(typeName => Type.GetType(typeName));
+				Hub hub = new Hub();
 
 				// "Charlotte." は省略できる。
 				hub.Perform(new ArgsReader("Tests2.Sample4+InnerClass1 Test01".Split(' ')));
 
 				{
 					string sArgs = @"
-a = new Tools.XmlNode,Chocolate Root RootValue ;
+a = new Tools.XmlNode Root RootValue ;
 a . WriteToFile C:\temp\1.xml
+";
+					// ！！！ファイルを作成する。パスに注意！！！
+
+					hub.Perform(new ArgsReader(StringTools.Tokenize(sArgs, "\r\n ", false, true)));
+				}
+
+				{
+					string sArgs = @"
+a = new Tests2.Sample4+InnerClass1 ;
+a . Test02 ;
+b = a . GetSelf ;
+b . Test02
 ";
 					hub.Perform(new ArgsReader(StringTools.Tokenize(sArgs, "\r\n ", false, true)));
 				}

@@ -7,41 +7,19 @@ namespace Charlotte.Tools
 {
 	public class Hub
 	{
-		private Func<string, Type> TypeGetter;
-
-		/// <summary>
-		/// Hub hub = new Hub(typeName => Type.GetType(typeName));
-		/// </summary>
-		/// <param name="typeGetter"></param>
-		public Hub(Func<string, Type> typeGetter)
+		public static Type GetType(string typeName)
 		{
-#if true
-			this.TypeGetter = typeName =>
+			foreach (string prefix in new string[] { "", "Charlotte." })
 			{
-				Type type = typeGetter(typeName);
-
-				if (type == null)
+				foreach (string suffix in new string[] { "," + System.Reflection.Assembly.GetEntryAssembly().GetName().Name, "" })
 				{
-					type = typeGetter("Charlotte." + typeName);
+					Type type = Type.GetType(prefix + typeName + suffix);
 
-					if (type == null)
-						throw new Exception("指定されたタイプが見つかりません。" + typeName);
+					if (type != null)
+						return type;
 				}
-				return type;
-			};
-#elif true
-			this.TypeGetter = typeName =>
-			{
-				Type type = typeGetter(typeName);
-
-				if (type == null)
-					throw new Exception("指定されたタイプが見つかりません。" + typeName);
-
-				return type;
-			};
-#else
-			this.TypeGetter = typeGetter;
-#endif
+			}
+			throw new Exception("指定されたタイプは見つかりません。" + typeName);
 		}
 
 		private ObjectMap Vars = ObjectMap.CreateIgnoreCase();
@@ -61,7 +39,7 @@ namespace Charlotte.Tools
 						string typeName = ar.NextArg();
 						object[] prms = this.ReadParams(ar);
 
-						this.Vars[destVarName] = ReflecTools.GetConstructors(this.TypeGetter(typeName)).Where(ctor => IsMatchParams(ctor, prms)).ToArray()[0].Construct(prms);
+						this.Vars[destVarName] = ReflecTools.GetConstructors(GetType(typeName)).Where(ctor => IsMatchParams(ctor, prms)).ToArray()[0].Construct(prms);
 					}
 					else
 					{
@@ -75,7 +53,11 @@ namespace Charlotte.Tools
 
 							object instance = this.Vars[varName];
 
-							this.Vars[destVarName] = ReflecTools.GetMethodsByInstance(instance).Where(method => method.Value.IsStatic == false && IsMatchParams(method, prms)).ToArray()[0].Invoke(instance, prms);
+							this.Vars[destVarName] = ReflecTools.GetMethodsByInstance(instance).Where(method =>
+								method.Value.Name == methodName &&
+								method.Value.IsStatic == false &&
+								IsMatchParams(method, prms)
+								).ToArray()[0].Invoke(instance, prms);
 						}
 						else // <変数> = <タイプ> <staticメソッド> <引数>... ;
 						{
@@ -83,7 +65,11 @@ namespace Charlotte.Tools
 							string methodName = ar.NextArg();
 							object[] prms = this.ReadParams(ar);
 
-							this.Vars[destVarName] = ReflecTools.GetMethods(this.TypeGetter(typeName)).Where(method => method.Value.IsStatic && IsMatchParams(method, prms)).ToArray()[0].Invoke(prms);
+							this.Vars[destVarName] = ReflecTools.GetMethods(GetType(typeName)).Where(method =>
+								method.Value.Name == methodName &&
+								method.Value.IsStatic &&
+								IsMatchParams(method, prms)
+								).ToArray()[0].Invoke(prms);
 						}
 					}
 				}
@@ -95,7 +81,11 @@ namespace Charlotte.Tools
 
 					object instance = this.Vars[varName];
 
-					ReflecTools.GetMethodsByInstance(instance).Where(method => method.Value.IsStatic == false && IsMatchParams(method, prms)).ToArray()[0].Invoke(instance, prms);
+					ReflecTools.GetMethodsByInstance(instance).Where(method =>
+						method.Value.Name == methodName &&
+						method.Value.IsStatic == false &&
+						IsMatchParams(method, prms)
+						).ToArray()[0].Invoke(instance, prms);
 				}
 				else // <タイプ> <staticメソッド> <引数>... ;
 				{
@@ -103,7 +93,11 @@ namespace Charlotte.Tools
 					string methodName = ar.NextArg();
 					object[] prms = this.ReadParams(ar);
 
-					ReflecTools.GetMethods(this.TypeGetter(typeName)).Where(method => method.Value.IsStatic && IsMatchParams(method, prms)).ToArray()[0].Invoke(prms);
+					ReflecTools.GetMethods(GetType(typeName)).Where(method =>
+						method.Value.Name == methodName &&
+						method.Value.IsStatic &&
+						IsMatchParams(method, prms)
+						).ToArray()[0].Invoke(prms);
 				}
 			}
 			while (ar.HasArgs());
