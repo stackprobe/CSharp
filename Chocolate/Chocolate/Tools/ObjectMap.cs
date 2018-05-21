@@ -56,5 +56,10 @@ namespace Charlotte.Tools
 		{
 			return this.Inner.Keys;
 		}
+
+		public bool ContainsKey(string key)
+		{
+			return this.Inner.ContainsKey(key);
+		}
 	}
 }

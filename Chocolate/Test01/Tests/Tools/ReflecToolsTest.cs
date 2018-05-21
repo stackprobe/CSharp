@@ -122,9 +122,9 @@ namespace Charlotte.Tests.Tools
 
 				{
 					string sArgs = @"
-a = new Tools.XmlNode,Chocolate a b
+a = new Tools.XmlNode,Chocolate Root RootValue ;
+a . WriteToFile C:\temp\1.xml
 ";
-
 					hub.Perform(new ArgsReader(StringTools.Tokenize(sArgs, "\r\n ", false, true)));
 				}
 			}

@@ -15,10 +15,6 @@ namespace Charlotte.Tools
 		/// <param name="typeGetter"></param>
 		public Hub(Func<string, Type> typeGetter)
 		{
-			// test
-			//Console.WriteLine(Type.GetType("Charlotte.Tests2.Sample4")); // 見えない。
-			//Console.WriteLine(Type.GetType("Charlotte.Tests2.Sample4,Test01")); // 見えるじゃん... orz
-
 #if true
 			this.TypeGetter = typeName =>
 			{
@@ -63,7 +59,7 @@ namespace Charlotte.Tools
 					if (ar.ArgIs("new")) // <変数> = new <タイプ> <引数>... ;
 					{
 						string typeName = ar.NextArg();
-						object[] prms = ReadParams(ar);
+						object[] prms = this.ReadParams(ar);
 
 						this.Vars[destVarName] = ReflecTools.GetConstructors(this.TypeGetter(typeName)).Where(ctor => IsMatchParams(ctor, prms)).ToArray()[0].Construct(prms);
 					}
@@ -75,7 +71,7 @@ namespace Charlotte.Tools
 						{
 							string varName = option2;
 							string methodName = ar.NextArg();
-							object[] prms = ReadParams(ar);
+							object[] prms = this.ReadParams(ar);
 
 							object instance = this.Vars[varName];
 
@@ -85,7 +81,7 @@ namespace Charlotte.Tools
 						{
 							string typeName = option2;
 							string methodName = ar.NextArg();
-							object[] prms = ReadParams(ar);
+							object[] prms = this.ReadParams(ar);
 
 							this.Vars[destVarName] = ReflecTools.GetMethods(this.TypeGetter(typeName)).Where(method => method.Value.IsStatic && IsMatchParams(method, prms)).ToArray()[0].Invoke(prms);
 						}
@@ -95,7 +91,7 @@ namespace Charlotte.Tools
 				{
 					string varName = option1;
 					string methodName = ar.NextArg();
-					object[] prms = ReadParams(ar);
+					object[] prms = this.ReadParams(ar);
 
 					object instance = this.Vars[varName];
 
@@ -105,7 +101,7 @@ namespace Charlotte.Tools
 				{
 					string typeName = option1;
 					string methodName = ar.NextArg();
-					object[] prms = ReadParams(ar);
+					object[] prms = this.ReadParams(ar);
 
 					ReflecTools.GetMethods(this.TypeGetter(typeName)).Where(method => method.Value.IsStatic && IsMatchParams(method, prms)).ToArray()[0].Invoke(prms);
 				}
@@ -113,7 +109,7 @@ namespace Charlotte.Tools
 			while (ar.HasArgs());
 		}
 
-		private static object[] ReadParams(ArgsReader ar)
+		private object[] ReadParams(ArgsReader ar)
 		{
 			List<object> prms = new List<object>();
 
@@ -124,7 +120,10 @@ namespace Charlotte.Tools
 				if (prm.StartsWith(";"))
 					prm = prm.Substring(1);
 
-				prms.Add(prm);
+				if (this.Vars.ContainsKey(prm))
+					prms.Add(this.Vars[prm]);
+				else
+					prms.Add(prm);
 			}
 			return prms.ToArray();
 		}
