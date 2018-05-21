@@ -18,5 +18,13 @@ namespace Charlotte.Tests2
 		{
 			Console.WriteLine("Sample4_OK " + this.Value);
 		}
+
+		public class InnerClass1
+		{
+			public static void Test01()
+			{
+				Console.WriteLine("Sample4.SubClass.Test01_OK");
+			}
+		}
 	}
 }

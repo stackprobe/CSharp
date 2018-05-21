@@ -49,6 +49,7 @@ namespace Charlotte.Tools
 		public object this[string key]
 		{
 			get { return this.Inner[key]; }
+			set { this.Inner[key] = value; }
 		}
 
 		public ICollection<string> GetKeys()

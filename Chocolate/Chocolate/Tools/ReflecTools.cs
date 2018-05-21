@@ -84,14 +84,23 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public static FieldBox[] GetFieldsByTypeName(string typeName)
+		private static Type GetTypeByTypeName(string typeName)
 		{
 			Type type = Type.GetType(typeName);
 
 			if (type == null)
-				throw new Exception("そんなタイプ有りません。" + typeName);
+			{
+				type = Type.GetType("Charlotte." + typeName);
 
-			return GetFields(type);
+				if (type == null)
+					throw new Exception("指定されたタイプは見つかりません。" + typeName);
+			}
+			return type;
+		}
+
+		public static FieldBox[] GetFieldsByTypeName(string typeName)
+		{
+			return GetFields(GetTypeByTypeName(typeName));
 		}
 
 		public static FieldBox[] GetFieldsByInstance(object instance)
@@ -99,9 +108,34 @@ namespace Charlotte.Tools
 			return GetFields(instance.GetType());
 		}
 
+		public static PropertyBox[] GetPropertiesByTypeName(string typeName)
+		{
+			return GetProperties(GetTypeByTypeName(typeName));
+		}
+
 		public static PropertyBox[] GetPropertiesByInstance(object instance)
 		{
 			return GetProperties(instance.GetType());
+		}
+
+		public static FieldBox GetFieldByTypeName(string typeName, string name)
+		{
+			return GetField(GetTypeByTypeName(typeName), name);
+		}
+
+		public static FieldBox GetFieldByInstance(object instance, string name)
+		{
+			return GetField(instance.GetType(), name);
+		}
+
+		public static PropertyBox GetPropertyByTypeName(string typeName, string name)
+		{
+			return GetProperty(GetTypeByTypeName(typeName), name);
+		}
+
+		public static PropertyBox GetPropertyByInstance(object instance, string name)
+		{
+			return GetProperty(instance.GetType(), name);
 		}
 
 		/// <summary>
@@ -132,7 +166,22 @@ namespace Charlotte.Tools
 		/// <returns></returns>
 		public static FieldBox GetField(Type type, string name)
 		{
-			return new FieldBox(type.GetField(name, _bindingFlags));
+			FieldInfo field = type.GetField(name, _bindingFlags);
+
+			if (field == null)
+				return null;
+
+			return new FieldBox(field);
+		}
+
+		public static PropertyBox GetProperty(Type type, string name)
+		{
+			PropertyInfo prop = type.GetProperty(name, _bindingFlags);
+
+			if (prop == null)
+				return null;
+
+			return new PropertyBox(prop);
 		}
 
 		public static bool Equals(FieldBox a, Type b)
@@ -196,11 +245,6 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public static bool IsListByInstance(object instance)
-		{
-			return IsList(instance.GetType());
-		}
-
 		public static bool IsList(Type type)
 		{
 			try
@@ -213,6 +257,11 @@ namespace Charlotte.Tools
 			}
 		}
 
+		public static MethodBox[] GetMethodsByTypeName(string typeName)
+		{
+			return GetMethods(GetTypeByTypeName(typeName));
+		}
+
 		public static MethodBox[] GetMethodsByInstance(object instance)
 		{
 			return GetMethods(instance.GetType());
@@ -221,6 +270,11 @@ namespace Charlotte.Tools
 		public static MethodBox[] GetMethods(Type type)
 		{
 			return type.GetMethods(_bindingFlags).Select<MethodInfo, MethodBox>(method => new MethodBox(method)).ToArray();
+		}
+
+		public static MethodBox[] GetConstructorsByTypeName(string typeName)
+		{
+			return GetConstructors(GetTypeByTypeName(typeName));
 		}
 
 		public static MethodBox[] GetConstructorsByInstance(object instance)

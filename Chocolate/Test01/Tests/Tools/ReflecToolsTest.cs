@@ -96,6 +96,22 @@ namespace Charlotte.Tests.Tools
 
 				method.Invoke(new object[] { "ABC" }); // == Sample3.SPrintString("ABC");
 			}
+
+			// ----
+
+			Console.WriteLine("" + typeof(Sample4));
+			Console.WriteLine("" + typeof(Sample4.InnerClass1));
+
+			Console.WriteLine(Type.GetType("Charlotte.Tests2.Sample4"));
+			Console.WriteLine(Type.GetType("Charlotte.Tests2.Sample4+InnerClass1"));
+
+			// "Charlotte." は省略できる。
+			ReflecTools.GetMethodsByTypeName("Tests2.Sample4+InnerClass1").Where(m => m.Value.Name == "Test01").ToArray()[0].Invoke(new object[0]);
+
+
+			// Chocolate.dll から Test2 見える訳ないじゃん... orz
+
+
 		}
 	}
 }
