@@ -35,6 +35,24 @@ namespace Charlotte.Tests2
 			{
 				return this;
 			}
+
+			public InnerClass2 CreateInner2()
+			{
+				return new InnerClass2();
+			}
+		}
+
+		public class InnerClass2
+		{
+			public void Test02()
+			{
+				Console.WriteLine("Sample4.InnerClass2.Test02_OK");
+			}
+
+			public override string ToString()
+			{
+				return "Sample4.InnerClass2.ToString_OK";
+			}
 		}
 	}
 }

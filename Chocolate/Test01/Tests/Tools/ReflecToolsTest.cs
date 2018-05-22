@@ -112,6 +112,10 @@ namespace Charlotte.Tests.Tools
 			Console.WriteLine(Type.GetType("Charlotte.Tools.XmlNode")); // <-- 見つからない。
 			Console.WriteLine(Type.GetType("Charlotte.Tools.XmlNode,Chocolate")); // <-- 見つかる！
 
+			// Chocolate.dll ...
+			//Console.WriteLine(Type.GetType("Charlotte.Tests.Tools.ReflecToolsTest")); // <-- 見つからない。
+			//Console.WriteLine(Type.GetType("Charlotte.Tests.Tools.ReflecToolsTest,Test01")); // <-- 見つかる！
+
 			// ----
 
 			{
@@ -120,15 +124,17 @@ namespace Charlotte.Tests.Tools
 				// "Charlotte." は省略できる。
 				hub.Perform(new ArgsReader("Tests2.Sample4+InnerClass1 Test01".Split(' ')));
 
+#if false
 				{
 					string sArgs = @"
 a = new Tools.XmlNode Root RootValue ;
-a . WriteToFile C:\temp\1.xml
+a . WriteToFile C:\temp\ReflecToolsTest_Test03b_0001.xml
 ";
-					// ！！！ファイルを作成する。パスに注意！！！
+					// ファイル作成注意！！！
 
 					hub.Perform(new ArgsReader(StringTools.Tokenize(sArgs, "\r\n ", false, true)));
 				}
+#endif
 
 				{
 					string sArgs = @"
@@ -136,15 +142,57 @@ a = new Tests2.Sample4+InnerClass1 ;
 a . Test02 ;
 b = a . GetSelf ;
 b . Test02 ;
+b = a . CreateInner2 ;
+b . Test02 ;
 b = b . ToString ;
 Tests2.Sample3 SPrintString b ;
 Tests2.Sample3 SPrintString *b ;
 Tests2.Sample3 SPrintString **b ;
 Tests2.Sample3 SPrintString **; ;
+Tests2.Sample3 SPrintString *** ;
 ";
 					hub.Perform(new ArgsReader(StringTools.Tokenize(sArgs, "\r\n ", false, true)));
 				}
 			}
 		}
+
+		public void Test04()
+		{
+			{
+				ReflecTools.MethodBox method = ReflecTools.GetMethods(this.GetType()).Where(m => m.Value.Name == "Test04_Func01").ToArray()[0];
+
+				foreach (ReflecTools.ParameterBox prm in method.GetParameters())
+				{
+					Console.WriteLine("" + prm.Value);
+				}
+			}
+
+			{
+				ReflecTools.MethodBox method = ReflecTools.GetMethods(this.GetType()).Where(m => m.Value.Name == "Test04_Func01b").ToArray()[0];
+
+				foreach (ReflecTools.ParameterBox prm in method.GetParameters())
+				{
+					Console.WriteLine("" + prm.Value);
+				}
+			}
+
+			{
+				ReflecTools.MethodBox method = ReflecTools.GetMethods(this.GetType()).Where(m => m.Value.Name == "Test04_Func02").ToArray()[0];
+
+				foreach (ReflecTools.ParameterBox prm in method.GetParameters())
+				{
+					Console.WriteLine("" + prm.Value);
+				}
+			}
+		}
+
+		public void Test04_Func01(string[] prms)
+		{ }
+
+		public void Test04_Func01b(params string[] prms)
+		{ }
+
+		public void Test04_Func02(string str, char chr, int i, long l, float f, double d)
+		{ }
 	}
 }

@@ -58,7 +58,8 @@ namespace Charlotte
 			//new ReflecToolsTest().Test02();
 			//new ReflecToolsTest().Test02b();
 			//new ReflecToolsTest().Test03();
-			new ReflecToolsTest().Test03b();
+			//new ReflecToolsTest().Test03b();
+			new ReflecToolsTest().Test04();
 		}
 	}
 }

@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Charlotte.Tools
 {
+	/// <summary>
+	/// 使用例：Common.CUIMain(ar => new Hub().Perform(ar), APP_IDENT, APP_TITLE);
+	/// </summary>
 	public class Hub
 	{
 		private ObjectMap Vars = ObjectMap.CreateIgnoreCase();

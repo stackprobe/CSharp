@@ -37,7 +37,7 @@ namespace Charlotte.Tools
 
 				ArgsReader = GetArgsReader();
 
-				mainFunc(Common.ArgsReader);
+				mainFunc(ArgsReader);
 
 				WorkingDir.Root.Dispose();
 				WorkingDir.Root = null;
