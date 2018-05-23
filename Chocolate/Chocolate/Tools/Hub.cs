@@ -2,14 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Reflection;
 
 namespace Charlotte.Tools
 {
 	/// <summary>
-	/// 使用例：Common.CUIMain(ar => new Hub().Perform(ar), APP_IDENT, APP_TITLE);
+	/// e.g. Common.CUIMain(ar => new Hub().Perform(ar), APP_IDENT, APP_TITLE);
 	/// </summary>
 	public class Hub
 	{
+		public static Type GetType(string typeName)
+		{
+			foreach (string prefix in new string[] { "", "Charlotte." }) // zantei
+			{
+				foreach (string suffix in new string[] { "," + Assembly.GetEntryAssembly().GetName().Name, "" }) // zantei
+				{
+					Type type = Type.GetType(prefix + typeName + suffix);
+
+					if (type != null)
+						return type;
+				}
+			}
+			throw new Exception("指定されたタイプは見つかりません。" + typeName);
+		}
+
 		private ObjectMap Vars = ObjectMap.CreateIgnoreCase();
 
 		public void Perform(ArgsReader ar)
@@ -27,7 +43,7 @@ namespace Charlotte.Tools
 						string typeName = ar.NextArg();
 						object[] prms = this.ReadParams(ar);
 
-						this.Vars[destVarName] = ReflecTools.GetConstructorsByTypeName(typeName).Where(ctor =>
+						this.Vars[destVarName] = ReflecTools.GetConstructors(GetType(typeName)).Where(ctor =>
 							IsMatchParams(ctor, prms)
 							).ToArray()[0].Construct(prms);
 					}
@@ -55,7 +71,7 @@ namespace Charlotte.Tools
 							string methodName = ar.NextArg();
 							object[] prms = this.ReadParams(ar);
 
-							this.Vars[destVarName] = ReflecTools.GetMethodsByTypeName(typeName).Where(method =>
+							this.Vars[destVarName] = ReflecTools.GetMethods(GetType(typeName)).Where(method =>
 								method.Value.Name == methodName &&
 								method.Value.IsStatic &&
 								IsMatchParams(method, prms)
@@ -83,7 +99,7 @@ namespace Charlotte.Tools
 					string methodName = ar.NextArg();
 					object[] prms = this.ReadParams(ar);
 
-					ReflecTools.GetMethodsByTypeName(typeName).Where(method =>
+					ReflecTools.GetMethods(GetType(typeName)).Where(method =>
 						method.Value.Name == methodName &&
 						method.Value.IsStatic &&
 						IsMatchParams(method, prms)

@@ -70,6 +70,9 @@ namespace Charlotte.Tools
 				positionToElement[index] = index;
 			}
 
+#if true
+			Array.Sort<int>(order, comp);
+#else
 			Array.Sort<int>(order, (int a, int b) =>
 			{
 				if (a == b)
@@ -77,6 +80,7 @@ namespace Charlotte.Tools
 
 				return comp(a, b);
 			});
+#endif
 
 			for (int index = 0; index + 1 < count; index++)
 			{
@@ -245,6 +249,52 @@ namespace Charlotte.Tools
 					index2++;
 				}
 			}
+		}
+
+		public T[][] GetMergedPairs<T>(T[] arr1, T[] arr2, T defval, Comparison<T> comp)
+		{
+			Array.Sort(arr1, comp);
+			Array.Sort(arr2, comp);
+
+			int index1 = 0;
+			int index2 = 0;
+
+			List<T[]> dest = new List<T[]>();
+
+			for (; ; )
+			{
+				int ret;
+
+				if (arr1.Length <= index1)
+				{
+					if (arr2.Length <= index2)
+						break;
+
+					ret = 1;
+				}
+				else if (arr2.Length <= index2)
+				{
+					ret = -1;
+				}
+				else
+				{
+					ret = comp(arr1[index1], arr2[index2]);
+				}
+
+				if (ret < 0)
+				{
+					dest.Add(new T[] { arr1[index1++], defval });
+				}
+				else if (0 < ret)
+				{
+					dest.Add(new T[] { defval, arr2[index2++] });
+				}
+				else
+				{
+					dest.Add(new T[] { arr1[index1++], arr2[index2++] });
+				}
+			}
+			return dest.ToArray();
 		}
 	}
 }
