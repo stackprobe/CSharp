@@ -18,6 +18,8 @@ namespace Charlotte
 			this.SockServer = new SockServer(Gnd.I.PortNo, this.Perform);
 		}
 
+		public bool RejectNewProcess = false;
+
 		private SockServer.Connection Connection;
 
 		private void Perform(SockServer.Connection connection)
@@ -75,6 +77,9 @@ namespace Charlotte
 
 			File.WriteAllLines(batFile, commands, StringTools.ENCODING_SJIS);
 			File.WriteAllLines(callBatFile, new string[] { "> " + Path.GetFileName(outFile) + " CALL " + Path.GetFileName(batFile) }, StringTools.ENCODING_SJIS);
+
+			if (this.RejectNewProcess)
+				throw new Exception("新しいプロセスの開始は拒否されました。");
 
 			{
 				ProcessStartInfo psi = new ProcessStartInfo();

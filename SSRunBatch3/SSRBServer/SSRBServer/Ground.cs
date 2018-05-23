@@ -13,6 +13,28 @@ namespace Charlotte
 	{
 		public static Gnd I;
 
+		public string ConfFile = Path.Combine(Program.SelfDir, Path.GetFileNameWithoutExtension(Program.SelfFile) + ".conf");
+
+		public void LoadConf(string file)
+		{
+			try
+			{
+				string[] lines = File.ReadAllLines(file, StringTools.ENCODING_SJIS).Where(line => line != "" && line[0] != ';').ToArray();
+				int c = 0;
+
+				this.UnableToStopServerWhenTSRRunning = int.Parse(lines[c++]) != 0;
+				// ここへ追加...
+			}
+			catch
+			{ }
+		}
+
+		// .conf設定ここから
+
+		public bool UnableToStopServerWhenTSRRunning = true;
+
+		// .conf設定ここまで
+
 		public string SettingFile = Path.Combine(Program.SelfDir, Path.GetFileNameWithoutExtension(Program.SelfFile) + ".dat");
 
 		public void Load(string file)
@@ -62,12 +84,14 @@ namespace Charlotte
 		{
 			if (this.BatchServer != null)
 			{
+				this.StopTSR();
+
 				using (StopServerDlg f = new StopServerDlg())
 				{
 					f.ShowDialog();
 				}
+				this.StopTSR();
 			}
-			this.StopTSR();
 		}
 
 		public bool AbandonCurrentRunningBatchFlag = false;
@@ -132,7 +156,7 @@ namespace Charlotte
 
 		private void StopTSR()
 		{
-			if (1 <= this.TSRInfos.Count)
+			while (1 <= this.TSRInfos.Count)
 			{
 				using (StopTSRDlg f = new StopTSRDlg())
 				{

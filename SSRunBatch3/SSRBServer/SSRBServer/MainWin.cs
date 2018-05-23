@@ -142,6 +142,12 @@ namespace Charlotte
 				if (this.XPressed)
 				{
 					this.XPressed = false;
+
+					if (Gnd.I.UnableToStopServerWhenTSRRunning && 1 <= Gnd.I.TSRInfos.Count)
+					{
+						Utils.PostMessage("実行中の TSR バッチファイルがあるため終了出来ません！");
+						return;
+					}
 					this.CloseWindow();
 					return;
 				}
@@ -173,6 +179,11 @@ namespace Charlotte
 		{
 			if (Gnd.I.BatchServer != null)
 			{
+				if (Gnd.I.UnableToStopServerWhenTSRRunning && 1 <= Gnd.I.TSRInfos.Count)
+				{
+					Utils.PostMessage("実行中の TSR バッチファイルがあるため停止出来ません！");
+					return;
+				}
 				this.BeforeDialog();
 				Gnd.I.StopServer();
 				this.AfterDialog();
@@ -181,6 +192,11 @@ namespace Charlotte
 
 		private void ポート番号PToolStripMenuItem_Click(object sender, EventArgs e)
 		{
+			if (Gnd.I.UnableToStopServerWhenTSRRunning && 1 <= Gnd.I.TSRInfos.Count)
+			{
+				Utils.PostMessage("実行中の TSR バッチファイルがあるため設定を開けません！");
+				return;
+			}
 			bool serverRunning = Gnd.I.BatchServer != null;
 
 			this.BeforeDialog();

@@ -57,7 +57,7 @@
 			this.MinimizeBox = false;
 			this.Name = "PortNoDlg";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "PortNoDlg";
+			this.Text = "SSRBServer3 / ポート番号";
 			this.TopMost = true;
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PortNoDlg_FormClosed);
 			this.Load += new System.EventHandler(this.PortNoDlg_Load);

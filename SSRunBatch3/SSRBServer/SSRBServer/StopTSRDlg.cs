@@ -70,9 +70,11 @@ namespace Charlotte
 
 			try
 			{
+				Gnd.I.TSRInfos.Rotate(info => info.IsEnded() == false);
+
 				if (1 <= Gnd.I.TSRInfos.Count)
 				{
-					Gnd.I.TSRInfos.Rotate(info => info.IsEnded() == false);
+					this.TSRZeroCount = 0;
 				}
 				else
 				{
@@ -84,6 +86,18 @@ namespace Charlotte
 					}
 					this.TSRZeroCount++;
 				}
+
+				// memo @ 2018.5.23
+				// TSR を non-TSR によって停止する運用を想定する。
+				//   --> TSR=0 を待つには BatchServer を動かしておく必要がある。--> BatchServer 停止前に StopTSR を呼ばなければならない。*1
+				// このdlgを閉じてから BatchServer を停止するまでの間に、新しいTSRが開始されないようにしたい。これはその対策
+				// RejectNewProcess == true になってから 0.5 秒間 TSR=0 であればほぼ確実だろう。
+				//   -- new ProcessStartInfo() から TSRInfos.Enqueue まで 0.5 秒も掛からないだろうということ。
+				// 時間による担保は確実ではない。--> 同期を取って担保を取るのが望ましい。fixme
+				// 確実ではないので BatchServer 停止後にも StopTSR を呼ぶ。*2 --> このときは TSR を強制終了するしかない。
+				//   *1,*2 -- StopServer で StopTSR > StopServer > StopTSR している理由
+				if (Gnd.I.BatchServer != null)
+					Gnd.I.BatchServer.RejectNewProcess = 1 <= this.TSRZeroCount;
 
 				{
 					string text = "TSR = " + Gnd.I.TSRInfos.Count;
