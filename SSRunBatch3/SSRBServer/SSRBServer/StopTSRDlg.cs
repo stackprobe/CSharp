@@ -33,6 +33,9 @@ namespace Charlotte
 			InitializeComponent();
 
 			this.Status.Text = "";
+
+			if (Gnd.I.BatchServer == null)
+				this.LMessage.Text += " (S停止!)";
 		}
 
 		private void StopTSRDlg_Load(object sender, EventArgs e)

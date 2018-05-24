@@ -145,7 +145,7 @@ namespace Charlotte
 
 					if (Gnd.I.UnableToStopServerWhenTSRRunning && 1 <= Gnd.I.TSRInfos.Count)
 					{
-						Utils.PostMessage("実行中の TSR バッチファイルがあるため終了出来ません！");
+						Utils.PostMessage("実行中の TSR バッチファイルがあるため終了出来ません！[X]");
 						return;
 					}
 					this.CloseWindow();
@@ -161,6 +161,11 @@ namespace Charlotte
 
 		private void 終了XToolStripMenuItem_Click(object sender, EventArgs e)
 		{
+			if (Gnd.I.UnableToStopServerWhenTSRRunning && 1 <= Gnd.I.TSRInfos.Count)
+			{
+				Utils.PostMessage("実行中の TSR バッチファイルがあるため終了出来ません！");
+				return;
+			}
 			this.CloseWindow();
 		}
 

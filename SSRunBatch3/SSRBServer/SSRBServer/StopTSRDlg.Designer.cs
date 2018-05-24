@@ -30,21 +30,21 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StopTSRDlg));
-			this.label1 = new System.Windows.Forms.Label();
+			this.LMessage = new System.Windows.Forms.Label();
 			this.BtnAbandon = new System.Windows.Forms.Button();
 			this.MainTimer = new System.Windows.Forms.Timer(this.components);
 			this.Status = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
-			// label1
+			// LMessage
 			// 
-			this.label1.AutoSize = true;
-			this.label1.ForeColor = System.Drawing.Color.White;
-			this.label1.Location = new System.Drawing.Point(12, 9);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(274, 20);
-			this.label1.TabIndex = 0;
-			this.label1.Text = "TSR バッチファイルの終了を待っています...";
+			this.LMessage.AutoSize = true;
+			this.LMessage.ForeColor = System.Drawing.Color.White;
+			this.LMessage.Location = new System.Drawing.Point(12, 9);
+			this.LMessage.Name = "LMessage";
+			this.LMessage.Size = new System.Drawing.Size(274, 20);
+			this.LMessage.TabIndex = 0;
+			this.LMessage.Text = "TSR バッチファイルの終了を待っています...";
 			// 
 			// BtnAbandon
 			// 
@@ -81,7 +81,7 @@
 			this.ClientSize = new System.Drawing.Size(540, 100);
 			this.Controls.Add(this.Status);
 			this.Controls.Add(this.BtnAbandon);
-			this.Controls.Add(this.label1);
+			this.Controls.Add(this.LMessage);
 			this.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -102,7 +102,7 @@
 
 		#endregion
 
-		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Label LMessage;
 		private System.Windows.Forms.Button BtnAbandon;
 		private System.Windows.Forms.Timer MainTimer;
 		private System.Windows.Forms.Label Status;
