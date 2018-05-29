@@ -36,7 +36,7 @@ namespace Charlotte.Tools
 			this.ES = es;
 		}
 
-		public string untokenize(List<string> tokens)
+		public string Untokenize(List<string> tokens)
 		{
 			List<string> dest = new List<string>();
 
@@ -47,7 +47,7 @@ namespace Charlotte.Tools
 			return string.Join("" + this.Delimiter, dest);
 		}
 
-		public List<string> tokenize(string str)
+		public List<string> Tokenize(string str)
 		{
 			List<string> dest = new List<string>();
 
