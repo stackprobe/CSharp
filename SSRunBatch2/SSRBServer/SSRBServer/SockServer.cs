@@ -96,14 +96,18 @@ namespace Charlotte
 			}
 		}
 
+		public static int Backlog = 30;
+
 		private void Perform()
 		{
+			Utils.PostMessage("PortNo: " + this.PortNo + ", Backlog: " + Backlog);
+
 			using (Socket listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
 			{
 				IPEndPoint endPoint = new IPEndPoint(0L, this.PortNo);
 
 				listener.Bind(endPoint);
-				listener.Listen(30);
+				listener.Listen(Backlog);
 				listener.Blocking = false;
 
 				int connectWaitMillis = 0;

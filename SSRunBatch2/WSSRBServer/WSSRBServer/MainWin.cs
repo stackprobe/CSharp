@@ -101,6 +101,19 @@ namespace Charlotte
 			Gnd.I.StartServer();
 		}
 
+		private void backlogBToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Gnd.I.StopServer();
+			this.MainTimer.Enabled = false;
+
+			using (BacklogDlg f = new BacklogDlg())
+			{
+				f.ShowDialog();
+			}
+			this.MainTimer.Enabled = true;
+			Gnd.I.StartServer();
+		}
+
 		private bool XPressedTreated;
 
 		private void MainTimer_Tick(object sender, EventArgs e)

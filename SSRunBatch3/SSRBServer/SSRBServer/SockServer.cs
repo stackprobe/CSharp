@@ -81,7 +81,8 @@ namespace Charlotte
 				IPEndPoint endPoint = new IPEndPoint(0L, this.PortNo);
 
 				listener.Bind(endPoint);
-				listener.Listen(30);
+				listener.Listen(Gnd.I.Backlog);
+				//listener.Listen(30); // old
 				listener.Blocking = false;
 
 				int connectWaitMillis = 0;

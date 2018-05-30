@@ -30,7 +30,7 @@ namespace Charlotte
 
 		public static Process StartServer()
 		{
-			return ProcessTools.Start(ExeFile, "/SERVER " + Gnd.I.PortNo);
+			return ProcessTools.Start(ExeFile, "/SERVER " + Gnd.I.Backlog + " " + Gnd.I.PortNo);
 		}
 
 		public static void StopTSRServer()

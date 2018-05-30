@@ -23,6 +23,7 @@ namespace Charlotte
 				int c = 0;
 
 				this.PortNo = int.Parse(lines[c++]);
+				this.Backlog = int.Parse(lines[c++]);
 				this.MainWin_Minimized = int.Parse(lines[c++]) != 0;
 				this.TSR_WinStyle = (ProcessTools.WindowStyle_e)int.Parse(lines[c++]);
 				// ここへ追加...
@@ -37,6 +38,7 @@ namespace Charlotte
 				List<string> lines = new List<string>();
 
 				lines.Add("" + this.PortNo);
+				lines.Add("" + this.Backlog);
 				lines.Add("" + (this.MainWin_Minimized ? 1 : 0));
 				lines.Add("" + (int)this.TSR_WinStyle);
 				// ここへ追加...
@@ -48,6 +50,7 @@ namespace Charlotte
 		// 設定ここから
 
 		public int PortNo = Consts.DEF_PORT_NO;
+		public int Backlog = Consts.DEF_BACKLOG;
 		public bool MainWin_Minimized = false;
 		public ProcessTools.WindowStyle_e TSR_WinStyle = ProcessTools.WindowStyle_e.MINIMIZED;
 

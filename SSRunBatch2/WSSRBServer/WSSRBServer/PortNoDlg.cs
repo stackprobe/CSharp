@@ -31,6 +31,11 @@ namespace Charlotte
 			Gnd.I.PortNo = IntTools.ToInt(this.PortNo.Text, 1, 65535, Consts.DEF_PORT_NO);
 		}
 
+		private void PortNo_TextChanged(object sender, EventArgs e)
+		{
+			// noop
+		}
+
 		private void PortNo_KeyPress(object sender, KeyPressEventArgs e)
 		{
 			if (e.KeyChar == (char)13) // enter

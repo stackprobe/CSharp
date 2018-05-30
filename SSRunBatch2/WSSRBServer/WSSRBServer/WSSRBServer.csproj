@@ -51,6 +51,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BacklogDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BacklogDlg.Designer.cs">
+      <DependentUpon>BacklogDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="Consts.cs" />
     <Compile Include="GlobalProcMtx.cs" />
     <Compile Include="Ground.cs" />
@@ -97,6 +103,9 @@
     <Compile Include="Tools\WorkingDir.cs" />
     <Compile Include="Tools\XmlNode.cs" />
     <Compile Include="Utils.cs" />
+    <EmbeddedResource Include="BacklogDlg.resx">
+      <DependentUpon>BacklogDlg.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainWin.resx">
       <DependentUpon>MainWin.cs</DependentUpon>
     </EmbeddedResource>

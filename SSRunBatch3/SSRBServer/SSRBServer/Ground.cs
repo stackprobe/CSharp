@@ -23,6 +23,7 @@ namespace Charlotte
 				int c = 0;
 
 				this.UnableToStopServerWhenTSRRunning = int.Parse(lines[c++]) != 0;
+				this.Backlog = int.Parse(lines[c++]);
 				// ここへ追加...
 			}
 			catch
@@ -32,6 +33,7 @@ namespace Charlotte
 		// .conf設定ここから
 
 		public bool UnableToStopServerWhenTSRRunning = true;
+		public int Backlog = 30;
 
 		// .conf設定ここまで
 

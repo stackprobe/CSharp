@@ -121,6 +121,8 @@ namespace Charlotte
 			{
 				Gnd.I.StopServer.WaitOne(0); // reset
 
+				SockServer.Backlog = int.Parse(ar.NextArg());
+
 				Utils.PostMessage("/SERVER Starting...");
 				BatchServer server = new BatchServer(int.Parse(ar.NextArg()));
 				Utils.PostMessage("/SERVER Started");

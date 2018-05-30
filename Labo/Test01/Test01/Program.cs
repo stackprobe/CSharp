@@ -16,7 +16,8 @@ namespace Test01
 			{
 				//Test01();
 				//Test02();
-				Test03();
+				//Test03();
+				Test04();
 				//new DateSpanListTest().Test01();
 				//new NamesToGroupDateSpansTest().Test01();
 				//new NamesToGroupDateSpansTest().Test02();
@@ -187,6 +188,32 @@ Test02_a_a: { X = 3 }
 
 			Console.WriteLine(Directory.Exists("")); // -> false
 			Console.WriteLine(File.Exists("")); // -> false
+		}
+
+		private static void Test04()
+		{
+			Console.WriteLine("Test04_a");
+
+			FileStream fs = null;
+
+			try
+			{
+				if (File.Exists(@"C:\temp\1.txt"))
+					throw new Exception("aaa");
+
+				fs = new FileStream(@"C:\temp\1.txt", FileMode.Create, FileAccess.Write);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+			}
+			finally
+			{
+				fs.Close();
+				fs = null;
+			}
+
+			Console.WriteLine("Test04_z");
 		}
 	}
 }
