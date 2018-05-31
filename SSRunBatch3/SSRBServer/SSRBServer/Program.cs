@@ -43,6 +43,8 @@ namespace Charlotte
 					Gnd.I.LoadConf(Gnd.I.ConfFile);
 					Gnd.I.Load(Gnd.I.SettingFile);
 
+					Utils.PostMessage("u=" + Gnd.I.UnableToStopServerWhenTSRRunning + ", Backlog=" + Gnd.I.Backlog);
+
 					Gnd.I.StartServer();
 
 					// orig >
