@@ -46,7 +46,7 @@ namespace Charlotte.Tools
 
 		public static DirWrapper CreateRoot()
 		{
-			return new DirWrapper(Path.Combine(Environment.GetEnvironmentVariable("TMP"), Common.APP_IDENT));
+			return new DirWrapper(Path.Combine(Environment.GetEnvironmentVariable("TMP"), ProcMain.APP_IDENT));
 		}
 
 		public static DirWrapper CreateProcessRoot()
@@ -91,7 +91,7 @@ namespace Charlotte.Tools
 				}
 				catch (Exception e)
 				{
-					Common.WriteLog(e);
+					ProcMain.WriteLog(e);
 				}
 				this.Dir = null;
 			}

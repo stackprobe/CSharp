@@ -84,7 +84,7 @@ namespace Charlotte
 			}
 			catch (Exception ex)
 			{
-				Common.WriteLog(ex);
+				ProcMain.WriteLog(ex);
 			}
 			finally
 			{

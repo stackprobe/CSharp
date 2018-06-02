@@ -11,12 +11,12 @@ namespace Charlotte
 	{
 		static void Main(string[] args)
 		{
-			Common.WriteLog = message => Console.WriteLine("[TRACE] " + message);
+			ProcMain.WriteLog = message => Console.WriteLine("[TRACE] " + message);
 
-			Common.APP_IDENT = "{993e47b9-4f3f-46dc-8449-b2427ee426de}";
-			Common.APP_TITLE = "Test01";
+			ProcMain.APP_IDENT = "{993e47b9-4f3f-46dc-8449-b2427ee426de}";
+			ProcMain.APP_TITLE = "Test01";
 
-			Common.OnBoot();
+			ProcMain.OnBoot();
 
 			WorkingDir.Root = new WorkingDir.DirWrapper(@"C:\temp\Chocolate_Test01");
 

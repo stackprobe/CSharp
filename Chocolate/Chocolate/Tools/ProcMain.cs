@@ -12,7 +12,7 @@ using System.Security.Principal;
 
 namespace Charlotte.Tools
 {
-	public class Common
+	public class ProcMain
 	{
 		public static string APP_IDENT;
 		public static string APP_TITLE;
@@ -75,14 +75,16 @@ namespace Charlotte.Tools
 
 					ArgsReader = GetArgsReader();
 
-					// core >
+					if (BeforeMainForm(ArgsReader))
+					{
+						// core >
 
-					Application.EnableVisualStyles();
-					Application.SetCompatibleTextRenderingDefault(false);
-					Application.Run(getMainForm());
+						Application.EnableVisualStyles();
+						Application.SetCompatibleTextRenderingDefault(false);
+						Application.Run(getMainForm());
 
-					// < core
-
+						// < core
+					}
 					WorkingDir.Root.Dispose();
 					WorkingDir.Root = null;
 
@@ -92,6 +94,9 @@ namespace Charlotte.Tools
 			}
 			procMutex.Close();
 		}
+
+		public static Action<object> WriteLog = message => { };
+		public static Func<ArgsReader, bool> BeforeMainForm = ar => true;
 
 		private static ArgsReader GetArgsReader()
 		{
@@ -103,8 +108,6 @@ namespace Charlotte.Tools
 			}
 			return ar;
 		}
-
-		public static Action<object> WriteLog = message => { };
 
 		private static void ApplicationThreadException(object sender, ThreadExceptionEventArgs e)
 		{
@@ -258,11 +261,11 @@ namespace Charlotte.Tools
 					ProcMtx.Close();
 					ProcMtx = null;
 
-					Common.WriteLog(new Exception());
+					ProcMain.WriteLog(new Exception());
 				}
 				catch (Exception e)
 				{
-					Common.WriteLog(e);
+					ProcMain.WriteLog(e);
 				}
 
 				CloseProcMtx();

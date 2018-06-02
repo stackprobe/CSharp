@@ -11,7 +11,7 @@ namespace Charlotte
 	{
 		public static Gnd I;
 
-		public string SettingFile = Path.Combine(Common.SelfDir, Path.GetFileNameWithoutExtension(Common.SelfFile) + ".dat");
+		public string SettingFile = Path.Combine(ProcMain.SelfDir, Path.GetFileNameWithoutExtension(ProcMain.SelfFile) + ".dat");
 
 		public void Load(string file)
 		{

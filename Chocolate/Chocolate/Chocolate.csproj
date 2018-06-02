@@ -58,7 +58,7 @@
     <Compile Include="Tools\Net\FilingCase3.cs" />
     <Compile Include="Tools\Net\FilingCase3Client.cs" />
     <Compile Include="Tools\Net\SockClient.cs" />
-    <Compile Include="Tools\Common.cs" />
+    <Compile Include="Tools\ProcMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\ArgsReader.cs" />
     <Compile Include="Tools\ArrayTools.cs" />

@@ -164,7 +164,7 @@ namespace Charlotte.Tools.Net
 				}
 				catch (Exception e)
 				{
-					Common.WriteLog(e);
+					ProcMain.WriteLog(e);
 				}
 
 				try
@@ -173,7 +173,7 @@ namespace Charlotte.Tools.Net
 				}
 				catch (Exception e)
 				{
-					Common.WriteLog(e);
+					ProcMain.WriteLog(e);
 				}
 
 				this.Handler = null;

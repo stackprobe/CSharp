@@ -16,7 +16,7 @@ namespace Charlotte
 
 		static void Main(string[] args)
 		{
-			Common.CUIMain(new Program().Main2, APP_IDENT, APP_TITLE);
+			ProcMain.CUIMain(new Program().Main2, APP_IDENT, APP_TITLE);
 		}
 
 		private void Main2(ArgsReader ar)

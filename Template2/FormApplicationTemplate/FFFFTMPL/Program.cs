@@ -19,7 +19,7 @@ namespace Charlotte
 		[STAThread]
 		static void Main()
 		{
-			Common.GUIMain(() => new MainWin(), APP_IDENT, APP_TITLE);
+			ProcMain.GUIMain(() => new MainWin(), APP_IDENT, APP_TITLE);
 		}
 
 		public const string APP_IDENT = "{eb179c71-4646-4dc7-bd2d-6298d5027c73}";

@@ -24,7 +24,7 @@ namespace Charlotte.Tools
 					}
 					catch (Exception e)
 					{
-						Common.WriteLog(e);
+						ProcMain.WriteLog(e);
 					}
 					if (File.Exists(path) == false)
 						break;
@@ -32,7 +32,7 @@ namespace Charlotte.Tools
 					if (10 < c)
 						throw new Exception("ファイルの削除に失敗しました。" + path);
 
-					Common.WriteLog("ファイルの削除をリトライします。" + path);
+					ProcMain.WriteLog("ファイルの削除をリトライします。" + path);
 
 					Thread.Sleep(c * 100);
 				}
@@ -47,7 +47,7 @@ namespace Charlotte.Tools
 					}
 					catch (Exception e)
 					{
-						Common.WriteLog(e);
+						ProcMain.WriteLog(e);
 					}
 					if (Directory.Exists(path) == false)
 						break;
@@ -55,7 +55,7 @@ namespace Charlotte.Tools
 					if (10 < c)
 						throw new Exception("ディレクトリの削除に失敗しました。" + path);
 
-					Common.WriteLog("ディレクトリの削除をリトライします。" + path);
+					ProcMain.WriteLog("ディレクトリの削除をリトライします。" + path);
 
 					Thread.Sleep(c * 100);
 				}
@@ -75,7 +75,7 @@ namespace Charlotte.Tools
 				}
 				catch (Exception e)
 				{
-					Common.WriteLog(e);
+					ProcMain.WriteLog(e);
 				}
 				if (Directory.Exists(dir))
 					break;
@@ -83,7 +83,7 @@ namespace Charlotte.Tools
 				if (10 < c)
 					throw new Exception("ディレクトリを作成出来ません。" + dir);
 
-				Common.WriteLog("ディレクトリの作成をリトライします。" + dir);
+				ProcMain.WriteLog("ディレクトリの作成をリトライします。" + dir);
 
 				Thread.Sleep(c * 100);
 			}
