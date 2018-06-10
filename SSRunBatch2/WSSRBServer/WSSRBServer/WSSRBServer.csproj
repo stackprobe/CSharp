@@ -88,20 +88,8 @@
     <Compile Include="StopServerDlg.Designer.cs">
       <DependentUpon>StopServerDlg.cs</DependentUpon>
     </Compile>
-    <Compile Include="Tools\ArgsReader.cs" />
-    <Compile Include="Tools\ArrayTools.cs" />
-    <Compile Include="Tools\BinTools.cs" />
-    <Compile Include="Tools\CsvFileReader.cs" />
-    <Compile Include="Tools\CsvFileWriter.cs" />
-    <Compile Include="Tools\DateTimeToSec.cs" />
-    <Compile Include="Tools\FileTools.cs" />
     <Compile Include="Tools\IntTools.cs" />
     <Compile Include="Tools\ProcessTools.cs" />
-    <Compile Include="Tools\Random.cs" />
-    <Compile Include="Tools\SecurityTools.cs" />
-    <Compile Include="Tools\StringTools.cs" />
-    <Compile Include="Tools\WorkingDir.cs" />
-    <Compile Include="Tools\XmlNode.cs" />
     <Compile Include="Utils.cs" />
     <EmbeddedResource Include="BacklogDlg.resx">
       <DependentUpon>BacklogDlg.cs</DependentUpon>
