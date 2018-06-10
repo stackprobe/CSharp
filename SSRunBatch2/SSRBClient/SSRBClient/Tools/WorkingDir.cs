@@ -25,15 +25,8 @@ namespace Charlotte.Tools
 
 		public WorkingDir(string dir)
 		{
-#if true
 			FileTools.Delete(dir);
 			FileTools.CreateDir(dir);
-#else
-			if (Directory.Exists(dir))
-				Directory.Delete(dir, true);
-
-			Directory.CreateDirectory(dir);
-#endif
 
 			this.Dir = dir;
 		}
@@ -47,8 +40,6 @@ namespace Charlotte.Tools
 
 		public string MakePath()
 		{
-			//return this.GetPath(Guid.NewGuid().ToString("B"));
-			//return this.GetPath(SecurityTools.MakePassword_9A());
 			return this.GetPath("$" + this.MakePathCounter++);
 		}
 

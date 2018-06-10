@@ -9,22 +9,6 @@ namespace Charlotte.Tools
 	{
 		public const int IMAX = 1000000000;
 
-		public static int Comp(int a, int b)
-		{
-			if (a < b)
-				return -1;
-
-			if (a > b)
-				return 1;
-
-			return 0;
-		}
-
-		public static int Range(int value, int minval, int maxval)
-		{
-			return Math.Max(minval, Math.Min(maxval, value));
-		}
-
 		public static int ToInt(string str, int minval, int maxval, int defval)
 		{
 			try

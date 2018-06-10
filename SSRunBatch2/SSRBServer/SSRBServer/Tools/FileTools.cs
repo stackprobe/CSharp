@@ -86,21 +86,6 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public static void CleanupDir(string dir)
-		{
-			foreach (Func<IEnumerable<string>> getPaths in new Func<IEnumerable<string>>[]
-			{
-				() => Directory.EnumerateFiles(dir),
-				() => Directory.EnumerateDirectories(dir),
-			})
-			{
-				foreach (string path in getPaths())
-				{
-					Delete(path);
-				}
-			}
-		}
-
 		public static void MoveDir(string rDir, string wDir)
 		{
 			Directory.CreateDirectory(wDir);

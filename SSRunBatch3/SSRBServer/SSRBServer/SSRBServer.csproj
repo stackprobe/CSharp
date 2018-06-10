@@ -82,8 +82,6 @@
     <Compile Include="StopTSRDlg.Designer.cs">
       <DependentUpon>StopTSRDlg.cs</DependentUpon>
     </Compile>
-    <Compile Include="Tools\ArrayTools.cs" />
-    <Compile Include="Tools\BinTools.cs" />
     <Compile Include="Tools\FileTools.cs" />
     <Compile Include="Tools\IntTools.cs" />
     <Compile Include="Tools\StringTools.cs" />
