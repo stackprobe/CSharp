@@ -39,6 +39,7 @@ namespace Charlotte
 
 					Gnd.I = new Gnd();
 
+					Gnd.I.LoadConf(Gnd.I.ConfFile);
 					Gnd.I.Load(Gnd.I.SettingFile);
 
 					// orig >

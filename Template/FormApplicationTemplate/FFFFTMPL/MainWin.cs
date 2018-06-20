@@ -23,6 +23,10 @@ namespace Charlotte
 
 		private void MainWin_Shown(object sender, EventArgs e)
 		{
+			// -- 0001
+
+			// ----
+
 			this.MTEnabled = true;
 		}
 
@@ -34,6 +38,10 @@ namespace Charlotte
 		private void MainWin_FormClosed(object sender, FormClosedEventArgs e)
 		{
 			this.MTEnabled = false;
+
+			// ----
+
+			// -- 9999
 		}
 
 		private void BeforeDialog()
@@ -49,6 +57,13 @@ namespace Charlotte
 		private void CloseWindow()
 		{
 			this.MTEnabled = false;
+
+			// ----
+
+			// -- 9000
+
+			// ----
+
 			this.Close();
 		}
 
@@ -65,6 +80,8 @@ namespace Charlotte
 
 			try
 			{
+				// -- 3001
+
 				if (this.MTCount == 30) // 3 sec
 				{
 					this.CloseWindow();

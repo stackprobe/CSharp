@@ -10,6 +10,28 @@ namespace Charlotte
 	{
 		public static Gnd I;
 
+		public string ConfFile = Path.Combine(Program.SelfDir, Path.GetFileNameWithoutExtension(Program.SelfFile) + ".conf");
+
+		public void LoadConf(string file)
+		{
+			try
+			{
+				string[] lines = File.ReadAllLines(file, Encoding.UTF8).Where(line => line != "" && line.StartsWith(";") == false).ToArray();
+				int c = 0;
+
+				this.DummyConf = lines[c++];
+				// ここへ追加...
+			}
+			catch
+			{ }
+		}
+
+		// Conf設定ここから
+
+		public string DummyConf = "＠＠";
+
+		// Conf設定ここまで
+
 		public string SettingFile = Path.Combine(Program.SelfDir, Path.GetFileNameWithoutExtension(Program.SelfFile) + ".dat");
 
 		public void Load(string file)
@@ -19,8 +41,8 @@ namespace Charlotte
 				string[] lines = File.ReadAllLines(file, Encoding.UTF8);
 				int c = 0;
 
-				this.FirstLineComment = lines[c++];
-				// 新しい項目をここへ追加...
+				this.Dummy = lines[c++];
+				// ここへ追加...
 			}
 			catch
 			{ }
@@ -31,8 +53,8 @@ namespace Charlotte
 			{
 				List<string> lines = new List<string>();
 
-				lines.Add(this.FirstLineComment);
-				// 新しい項目をここへ追加...
+				lines.Add(this.Dummy);
+				// ここへ追加...
 
 				File.WriteAllLines(file, lines, Encoding.UTF8);
 			}
@@ -40,7 +62,7 @@ namespace Charlotte
 
 		// 設定ここから
 
-		public string FirstLineComment = "＠～";
+		public string Dummy = "＠～";
 
 		// 設定ここまで
 	}

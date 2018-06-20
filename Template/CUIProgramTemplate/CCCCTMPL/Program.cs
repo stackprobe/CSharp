@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Reflection;
+using System.Windows.Forms;
 
 namespace Charlotte
 {
@@ -17,8 +18,6 @@ namespace Charlotte
 
 			try
 			{
-				Gnd.I = new Gnd();
-
 				if (1 <= args.Length && args[0].ToUpper() == "//R")
 				{
 					Main2(File.ReadAllLines(args[1], Encoding.GetEncoding(932)));
@@ -51,7 +50,7 @@ namespace Charlotte
 
 		private static void Main2(string[] args)
 		{
-			System.Windows.Forms.MessageBox.Show(APP_TITLE);
+			MessageBox.Show(APP_TITLE);
 		}
 	}
 }

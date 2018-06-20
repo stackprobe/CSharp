@@ -81,6 +81,8 @@ namespace Charlotte
 
 			try
 			{
+				// -- 3001
+
 				if (this.MTCount == 30) // 3 sec
 				{
 					this.CloseWindow();

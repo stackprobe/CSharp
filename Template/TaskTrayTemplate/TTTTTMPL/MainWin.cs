@@ -40,6 +40,10 @@ namespace Charlotte
 
 		private void MainWin_Shown(object sender, EventArgs e)
 		{
+			// -- 0001
+
+			// ----
+
 			this.Visible = false;
 			this.TaskTrayIcon.Visible = true;
 			this.MTEnabled = true;
@@ -54,6 +58,10 @@ namespace Charlotte
 		{
 			this.MTEnabled = false;
 			this.TaskTrayIcon.Visible = false;
+
+			// ----
+
+			// -- 9999
 		}
 
 		private void BeforeDialog()
@@ -72,6 +80,13 @@ namespace Charlotte
 		{
 			this.MTEnabled = false;
 			this.TaskTrayIcon.Visible = false;
+
+			// ----
+
+			// -- 9000
+
+			// ----
+
 			this.Close();
 		}
 
@@ -88,6 +103,8 @@ namespace Charlotte
 
 			try
 			{
+				// -- 3001
+
 				if (this.MTCount == 30) // 3 sec
 				{
 					this.CloseWindow();
@@ -107,7 +124,7 @@ namespace Charlotte
 
 		private void 終了XToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			this.Close();
+			this.CloseWindow();
 		}
 	}
 }
