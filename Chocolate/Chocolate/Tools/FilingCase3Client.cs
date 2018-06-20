@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Charlotte.Tools;
 using System.IO;
 
-namespace Charlotte.Tools.Net
+namespace Charlotte.Tools
 {
 	public class FilingCase3Client : IDisposable
 	{

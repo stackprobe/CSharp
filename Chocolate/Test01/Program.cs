@@ -37,7 +37,7 @@ namespace Charlotte
 
 		private void Main2()
 		{
-			//new FilingCase3Test().Test01();
+			new FilingCase3Test().Test01();
 			//new WorkingDirTest().Test01();
 			//new DateTimeToSecTest().Test01();
 			//new Test01().Main01();
@@ -59,7 +59,7 @@ namespace Charlotte
 			//new ReflecToolsTest().Test02b();
 			//new ReflecToolsTest().Test03();
 			//new ReflecToolsTest().Test03b();
-			new ReflecToolsTest().Test04();
+			//new ReflecToolsTest().Test04();
 		}
 	}
 }

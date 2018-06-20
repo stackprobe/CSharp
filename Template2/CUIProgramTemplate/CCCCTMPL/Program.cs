@@ -17,17 +17,16 @@ namespace Charlotte
 		static void Main(string[] args)
 		{
 			ProcMain.CUIMain(new Program().Main2, APP_IDENT, APP_TITLE);
+
+#if DEBUG
+			Console.WriteLine("Press ENTER.");
+			Console.ReadLine();
+#endif
 		}
 
 		private void Main2(ArgsReader ar)
 		{
-			Gnd.I = new Gnd();
-
-			Gnd.I.Load(Gnd.I.SettingFile);
-
 			MessageBox.Show(APP_TITLE);
-
-			Gnd.I.Save(Gnd.I.SettingFile);
 		}
 	}
 }

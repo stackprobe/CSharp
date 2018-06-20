@@ -55,9 +55,9 @@
     <Compile Include="Tools\LongTools.cs" />
     <Compile Include="Tools\MSection.cs" />
     <Compile Include="Tools\MutexTools.cs" />
-    <Compile Include="Tools\Net\FilingCase3.cs" />
-    <Compile Include="Tools\Net\FilingCase3Client.cs" />
-    <Compile Include="Tools\Net\SockClient.cs" />
+    <Compile Include="Tools\FilingCase3.cs" />
+    <Compile Include="Tools\FilingCase3Client.cs" />
+    <Compile Include="Tools\SockClient.cs" />
     <Compile Include="Tools\ProcMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\ArgsReader.cs" />

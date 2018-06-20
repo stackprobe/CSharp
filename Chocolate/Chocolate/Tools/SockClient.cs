@@ -5,9 +5,8 @@ using System.Text;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using Charlotte.Tools;
 
-namespace Charlotte.Tools.Net
+namespace Charlotte.Tools
 {
 	public class SockClient : IDisposable
 	{

@@ -41,9 +41,7 @@ namespace Charlotte
 
 		private void MainWin_Shown(object sender, EventArgs e)
 		{
-			Gnd.I = new Gnd();
-
-			Gnd.I.Load(Gnd.I.SettingFile);
+			// -- 0001
 
 			// ----
 
@@ -64,7 +62,7 @@ namespace Charlotte
 
 			// ----
 
-			Gnd.I.Save(Gnd.I.SettingFile);
+			// -- 9999
 		}
 
 		private void BeforeDialog()
@@ -83,6 +81,13 @@ namespace Charlotte
 		{
 			this.MTEnabled = false;
 			this.TaskTrayIcon.Visible = false;
+
+			// ----
+
+			// -- 9000
+
+			// ----
+
 			this.Close();
 		}
 
@@ -118,7 +123,7 @@ namespace Charlotte
 
 		private void 終了XToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			this.Close();
+			this.CloseWindow();
 		}
 	}
 }
