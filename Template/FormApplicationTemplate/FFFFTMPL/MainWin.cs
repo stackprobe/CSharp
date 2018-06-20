@@ -90,7 +90,7 @@ namespace Charlotte
 			}
 			catch (Exception ex)
 			{
-				Utils.PostMessage(ex);
+				Program.WriteLog(ex);
 			}
 			finally
 			{

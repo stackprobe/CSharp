@@ -56,11 +56,11 @@ namespace Charlotte
 					ProcMtx.Close();
 					ProcMtx = null;
 
-					Utils.PostMessage(new Exception());
+					Program.WriteLog(new Exception());
 				}
 				catch (Exception e)
 				{
-					Utils.PostMessage(e);
+					Program.WriteLog(e);
 				}
 
 				CloseProcMtx();

@@ -5,6 +5,8 @@ using System.Text;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using Charlotte.Tools;
+using Charlotte.Tests.Tools;
 
 namespace Charlotte
 {
@@ -14,7 +16,7 @@ namespace Charlotte
 		{
 			OnBoot();
 
-			//WorkingDir.Root = WorkingDir.CreateProcessRoot();
+			WorkingDir.Root = WorkingDir.CreateRoot();
 
 			try
 			{
@@ -36,8 +38,8 @@ namespace Charlotte
 			Console.ReadLine();
 #endif
 
-			//WorkingDir.Root.Dispose();
-			//WorkingDir.Root = null;
+			WorkingDir.Root.Dispose();
+			WorkingDir.Root = null;
 		}
 
 		public static void WriteLog(object message)
@@ -45,8 +47,8 @@ namespace Charlotte
 			Console.WriteLine("[TRACE] " + message);
 		}
 
-		public const string APP_IDENT = "{22eda4a5-9029-4bf3-b8d8-c687a5729ec3}";
-		public const string APP_TITLE = "CCCCTMPL";
+		public const string APP_IDENT = "{4add233b-a05e-4985-82ed-8dd01d8d6892}";
+		public const string APP_TITLE = "Module2";
 
 		public static string SelfFile;
 		public static string SelfDir;
@@ -59,7 +61,9 @@ namespace Charlotte
 
 		private static void Main2(string[] args)
 		{
-			MessageBox.Show(APP_TITLE);
+			//new LogQueueTest().Test01();
+			//new LogQueueTest().Test01();
+			new LogQueueTest().Test01();
 		}
 	}
 }
