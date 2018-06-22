@@ -251,7 +251,7 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public T[][] GetMergedPairs<T>(T[] arr1, T[] arr2, T defval, Comparison<T> comp)
+		public static T[][] GetMergedPairs<T>(T[] arr1, T[] arr2, T defval, Comparison<T> comp)
 		{
 			Array.Sort(arr1, comp);
 			Array.Sort(arr2, comp);
@@ -295,6 +295,19 @@ namespace Charlotte.Tools
 				}
 			}
 			return dest.ToArray();
+		}
+
+		public static void Transfer<T>(Action<T[], long, int> reader, long index, long size, int buffSize = 65536)
+		{
+			T[] buff = new T[buffSize];
+
+			for (long offset = 0L; offset < size; )
+			{
+				int readSize = (int)Math.Min((long)buffSize, size - offset);
+
+				reader(buff, index + offset, readSize);
+				offset += (long)readSize;
+			}
 		}
 	}
 }

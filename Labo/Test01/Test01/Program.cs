@@ -21,9 +21,10 @@ namespace Test01
 				//new DateSpanListTest().Test01();
 				//new NamesToGroupDateSpansTest().Test01();
 				//new NamesToGroupDateSpansTest().Test02();
-				new TimeLimitedTempDirTest().Test01();
+				//new TimeLimitedTempDirTest().Test01();
 				//new TimeLimitedTempDirTest().Test02();
 				//new TimeLimitedTempDirTest().Test03();
+				new RandDataFileHelperTest().Test01();
 			}
 			catch (Exception e)
 			{

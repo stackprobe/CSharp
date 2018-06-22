@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Charlotte.Tools;
+using System.IO;
 
 namespace Charlotte.Tests.Tools
 {
@@ -145,6 +146,45 @@ namespace Charlotte.Tests.Tools
 			if (ArrayTools.Comp(a, b, StringTools.Comp) != 0)
 			{
 				throw null;
+			}
+		}
+
+		public void Test02()
+		{
+			{
+				byte[] src = SecurityTools.CRandom.GetBytes(123000000);
+				byte[] dest = new byte[123000000];
+
+				ArrayTools.Transfer<byte>((buff, index, readSize) => Array.Copy(src, (int)index, dest, (int)index, readSize), 0L, 123000000L);
+
+				if (BinTools.Comp(src, dest) != 0)
+					throw null;
+			}
+
+			using (WorkingDir wd = new WorkingDir())
+			{
+				string file1 = wd.MakePath();
+				string file2 = wd.MakePath();
+
+				File.WriteAllBytes(file1, SecurityTools.CRandom.GetBytes(159000000));
+
+				using (FileStream reader = new FileStream(file1, FileMode.Open, FileAccess.Read))
+				using (FileStream writer = new FileStream(file2, FileMode.Create, FileAccess.Write))
+				{
+					ArrayTools.Transfer<byte>((buff, index, readSize) =>
+					{
+						if (reader.Read(buff, 0, readSize) != readSize)
+							throw null;
+
+						writer.Write(buff, 0, readSize);
+					},
+					0L,
+					159000000L
+					);
+				}
+
+				if (FileTools.CompBinFile(file1, file2) != 0)
+					throw null;
 			}
 		}
 	}

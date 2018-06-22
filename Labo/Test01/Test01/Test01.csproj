@@ -43,7 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Modules\RandomDataFileTools.cs" />
+    <Compile Include="Modules\RandDataFileHelper.cs" />
+    <Compile Include="Modules\Tests\RandDataFileHelperTest.cs" />
     <Compile Include="Modules\Tests\TimeLimitedTempDirTest.cs" />
     <Compile Include="Modules\TimeLimitedTempDir.cs" />
     <Compile Include="DateSpans\DateSpanList.cs" />

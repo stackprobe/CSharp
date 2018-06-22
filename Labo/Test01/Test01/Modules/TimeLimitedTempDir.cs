@@ -41,28 +41,6 @@ namespace Test01.Modules
 				this.PrevDir = Path.Combine(this.RootDir, (h - 1).ToString());
 
 				CreateDirectory_If_Not_Exists(this.RootDir);
-
-#if false // del
-				{
-					string lastTickCountFile = Path.Combine(this.RootDir, "LastTickCount.txt");
-
-					if (File.Exists(lastTickCountFile))
-					{
-						long lastTickCount;
-
-						if (long.TryParse(File.ReadAllText(lastTickCountFile, Encoding.ASCII), out lastTickCount) == false || tickCount < lastTickCount)
-						{
-							foreach (string dir in Directory.GetDirectories(this.RootDir))
-							{
-								try { Directory.Delete(dir, true); }
-								catch { }
-							}
-						}
-					}
-					File.WriteAllText(lastTickCountFile, tickCount.ToString(), Encoding.ASCII);
-				}
-#endif
-
 				CreateDirectory_If_Not_Exists(this.CurrDir);
 				CreateDirectory_If_Not_Exists(this.NextDir);
 				CreateDirectory_If_Not_Exists(this.PrevDir);
