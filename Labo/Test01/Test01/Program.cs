@@ -17,11 +17,11 @@ namespace Test01
 				//Test01();
 				//Test02();
 				//Test03();
-				Test04();
+				//Test04();
 				//new DateSpanListTest().Test01();
 				//new NamesToGroupDateSpansTest().Test01();
 				//new NamesToGroupDateSpansTest().Test02();
-				//new TimeLimitedTempDirTest().Test01();
+				new TimeLimitedTempDirTest().Test01();
 				//new TimeLimitedTempDirTest().Test02();
 				//new TimeLimitedTempDirTest().Test03();
 			}
