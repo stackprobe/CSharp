@@ -24,7 +24,8 @@ namespace Test01
 				//new TimeLimitedTempDirTest().Test01();
 				//new TimeLimitedTempDirTest().Test02();
 				//new TimeLimitedTempDirTest().Test03();
-				new RandDataFileHelperTest().Test01();
+				//new RandDataFileHelperTest().Test01();
+				new MultiThreadTaskPoolTest().Test01();
 			}
 			catch (Exception e)
 			{

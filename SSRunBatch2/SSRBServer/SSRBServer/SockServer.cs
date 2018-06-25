@@ -259,7 +259,7 @@ namespace Charlotte
 			{
 				while (1 <= size)
 				{
-					int sentSize = this.TrySend(data, offset, size);
+					int sentSize = this.TrySend(data, offset, Math.Min(4 * 1024 * 1024, size));
 
 					size -= sentSize;
 					offset += sentSize;
