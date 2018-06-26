@@ -21,6 +21,8 @@ namespace Test01.Modules
 		private Exception Ex = null;
 		private int ThreadCount = 0;
 
+		// 各メソッドthread safeでない事に注意！
+
 		public void Add(Action task)
 		{
 			bool thAdd = false;
@@ -38,7 +40,9 @@ namespace Test01.Modules
 
 			if (thAdd)
 			{
+				//Console.WriteLine("*1 " + this.Ths.Count); // test
 				this.Ths = new List<Thread>(this.Ths.Where(t => t.Join(0) == false));
+				//Console.WriteLine("*2 " + this.Ths.Count); // test
 
 				Thread th = new Thread(() =>
 				{
@@ -63,9 +67,8 @@ namespace Test01.Modules
 						{
 							lock (SYNCROOT)
 							{
-								this.Ex = e;
-								this.ThreadCount--;
-								break;
+								if (this.Ex == null) // 最初の例外を優先する。
+									this.Ex = e;
 							}
 						}
 					}
@@ -92,6 +95,12 @@ namespace Test01.Modules
 				th.Join();
 
 			this.Ths.Clear();
+
+			if (this.Tasks.Count != 0) // 2bs
+				throw null; // never
+
+			if (this.ThreadCount != 0) // 2bs
+				throw null; // never
 		}
 
 		public void Dispose()

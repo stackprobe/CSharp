@@ -34,5 +34,31 @@ namespace Test01.Modules.Tests
 			}
 			Console.WriteLine(DateTime.Now + " 8");
 		}
+
+		public void Test02()
+		{
+			try
+			{
+				using (MultiThreadTaskPool mttp = new MultiThreadTaskPool())
+				{
+					for (int index = 0; index < 100; index++)
+					{
+						int tmp = index;
+
+						mttp.Add(() =>
+						{
+							throw new Exception("i=" + tmp);
+						});
+					}
+
+					mttp.WaitToEnd();
+					mttp.RelayThrow();
+				}
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e); // ここへ到達する。最初の例外は i=0,1,2 あたりか...
+			}
+		}
 	}
 }

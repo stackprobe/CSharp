@@ -26,6 +26,7 @@ namespace Test01
 				//new TimeLimitedTempDirTest().Test03();
 				//new RandDataFileHelperTest().Test01();
 				new MultiThreadTaskPoolTest().Test01();
+				//new MultiThreadTaskPoolTest().Test02();
 			}
 			catch (Exception e)
 			{
