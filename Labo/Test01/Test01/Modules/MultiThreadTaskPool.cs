@@ -40,9 +40,7 @@ namespace Test01.Modules
 
 			if (thAdd)
 			{
-				//Console.WriteLine("*1 " + this.Ths.Count); // test
 				this.Ths = new List<Thread>(this.Ths.Where(t => t.Join(0) == false));
-				//Console.WriteLine("*2 " + this.Ths.Count); // test
 
 				Thread th = new Thread(() =>
 				{
