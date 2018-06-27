@@ -43,8 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Modules\AsyncFileWriter.cs" />
+    <Compile Include="Modules\BlockSection.cs" />
     <Compile Include="Modules\MultiThreadTaskPool.cs" />
     <Compile Include="Modules\RandDataFileHelper.cs" />
+    <Compile Include="Modules\Tests\AsyncFileWriterTest.cs" />
+    <Compile Include="Modules\Tests\BlockSectionTest.cs" />
     <Compile Include="Modules\Tests\MultiThreadTaskPoolTest.cs" />
     <Compile Include="Modules\Tests\RandDataFileHelperTest.cs" />
     <Compile Include="Modules\Tests\TimeLimitedTempDirTest.cs" />

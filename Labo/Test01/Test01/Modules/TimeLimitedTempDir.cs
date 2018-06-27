@@ -31,7 +31,7 @@ namespace Test01.Modules
 
 			this.RootDir = Path.Combine(Environment.GetEnvironmentVariable("TMP"), ident);
 
-			using (new AtomicSection(ident))
+			BlockSection.Invoke(() =>
 			{
 				long tickCount = (long)GetTickCount64();
 				long h = tickCount / timeoutMillis;
@@ -55,7 +55,7 @@ namespace Test01.Modules
 						catch { }
 					}
 				}
-			}
+			});
 		}
 
 		public string MakePath()
@@ -75,11 +75,11 @@ namespace Test01.Modules
 			CheckFairIdent(localName);
 
 			foreach (string dir in new string[]
-			{
-				this.CurrDir,
-				this.PrevDir,
-				this.NextDir,
-			})
+            {
+                this.CurrDir,
+                this.PrevDir,
+                this.NextDir,
+            })
 			{
 				string path = Path.Combine(dir, localName);
 
@@ -90,56 +90,6 @@ namespace Test01.Modules
 					return path;
 			}
 			return null;
-		}
-
-		public class AtomicSection : IDisposable
-		{
-			private Mutex _m;
-
-			public AtomicSection(string ident)
-			{
-#if true // Global
-				MutexSecurity security = new MutexSecurity();
-
-				security.AddAccessRule(
-					new MutexAccessRule(
-						new SecurityIdentifier(
-							WellKnownSidType.WorldSid,
-							null
-							),
-						MutexRights.FullControl,
-						AccessControlType.Allow
-						)
-					);
-
-				bool createdNew;
-				_m = new Mutex(false, @"Global\Global_" + ident, out createdNew, security);
-#else // Local
-				_m = new Mutex(false, ident);
-#endif
-				_m.WaitOne();
-			}
-
-			public void Dispose()
-			{
-				if (_m != null)
-				{
-					CloseMutex(_m);
-					_m = null;
-				}
-			}
-		}
-
-		private static void WriteLog(object message)
-		{ }
-
-		private static void CloseMutex(Mutex m)
-		{
-			try { m.ReleaseMutex(); }
-			catch { }
-
-			try { m.Close(); }
-			catch { }
 		}
 
 		private static void CreateDirectory_If_Not_Exists(string dir)
