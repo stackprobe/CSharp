@@ -26,10 +26,10 @@ namespace Test01
 				//new TimeLimitedTempDirTest().Test03();
 				//new RandDataFileHelperTest().Test01();
 				//new MultiThreadTaskPoolTest().Test01();
-				//new MultiThreadTaskPoolTest().Test02();
+				new MultiThreadTaskPoolTest().Test02();
 				//new AsyncFileWriterTest().Test01();
 				//new BlockSectionTest().Test01();
-				new BlockSectionTest().Test02();
+				//new BlockSectionTest().Test02();
 			}
 			catch (Exception e)
 			{

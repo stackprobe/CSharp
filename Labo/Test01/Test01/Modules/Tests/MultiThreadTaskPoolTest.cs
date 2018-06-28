@@ -27,7 +27,6 @@ namespace Test01.Modules.Tests
 					});
 					Console.WriteLine(DateTime.Now + " 6");
 
-					//mttp.WaitToEnd();
 					//mttp.RelayThrow();
 				}
 				Console.WriteLine(DateTime.Now + " 7");
@@ -51,7 +50,6 @@ namespace Test01.Modules.Tests
 						});
 					}
 
-					mttp.WaitToEnd();
 					mttp.RelayThrow();
 				}
 			}

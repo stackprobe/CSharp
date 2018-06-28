@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Tools\AttachString.cs" />
+    <Compile Include="Tools\BatchClient.cs" />
     <Compile Include="Tools\DebugTools.cs" />
     <Compile Include="Tools\DictionaryTools.cs" />
     <Compile Include="Tools\DoubleTools.cs" />

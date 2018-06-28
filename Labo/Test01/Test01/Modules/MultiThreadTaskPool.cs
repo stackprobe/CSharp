@@ -65,7 +65,7 @@ namespace Test01.Modules
 						{
 							lock (SYNCROOT)
 							{
-								if (this.Ex == null) // 最初の例外を優先する。
+								if (this.Ex == null) // 最初の例外を保持
 									this.Ex = e;
 							}
 						}
@@ -78,15 +78,6 @@ namespace Test01.Modules
 			}
 		}
 
-		public void RelayThrow()
-		{
-			lock (SYNCROOT)
-			{
-				if (this.Ex != null)
-					throw new Exception("Relay", this.Ex);
-			}
-		}
-
 		public void WaitToEnd()
 		{
 			foreach (Thread th in this.Ths)
@@ -94,11 +85,16 @@ namespace Test01.Modules
 
 			this.Ths.Clear();
 
-			if (this.Tasks.Count != 0) // 2bs
-				throw null; // never
+			if (this.Tasks.Count != 0) throw null; // never
+			if (this.ThreadCount != 0) throw null; // never
+		}
 
-			if (this.ThreadCount != 0) // 2bs
-				throw null; // never
+		public void RelayThrow()
+		{
+			this.WaitToEnd();
+
+			if (this.Ex != null)
+				throw new Exception("Relay", this.Ex);
 		}
 
 		public void Dispose()

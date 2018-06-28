@@ -9,7 +9,7 @@ namespace Test01.Modules
 {
 	public class AsyncFileWriter : IDisposable
 	{
-		private FileStream Writer;
+		private FileStream Writer = null;
 
 		public void OpenFile(string file)
 		{
@@ -53,7 +53,8 @@ namespace Test01.Modules
 				}
 				catch (Exception e)
 				{
-					this.Ex = e;
+					if (this.Ex == null) // 最初の例外を保持
+						this.Ex = e;
 				}
 			});
 
