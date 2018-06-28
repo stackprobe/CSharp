@@ -47,7 +47,7 @@ namespace Test01.Modules
 				{
 					hash = sha512.ComputeHash(reader);
 				}
-				hash = ToSpecHash(hash);
+				hash = ToSpecialHash(hash);
 
 				using (FileStream writer = new FileStream(file, FileMode.Append, FileAccess.Write))
 				{
@@ -73,7 +73,7 @@ namespace Test01.Modules
 
 				sha512.TransformFinalBlock(new byte[0], 0, 0);
 				byte[] hash = sha512.Hash;
-				hash = ToSpecHash(hash);
+				hash = ToSpecialHash(hash);
 
 				for (int index = 0; index < 16; index++)
 					if (reader.ReadByte() != (int)hash[index])
@@ -97,7 +97,7 @@ namespace Test01.Modules
 			}
 		}
 
-		private static byte[] ToSpecHash(byte[] hash)
+		private static byte[] ToSpecialHash(byte[] hash)
 		{
 			using (SHA512 sha512 = SHA512.Create())
 			{

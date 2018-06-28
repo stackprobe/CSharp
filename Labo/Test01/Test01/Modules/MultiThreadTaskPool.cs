@@ -40,8 +40,6 @@ namespace Test01.Modules
 
 			if (thAdd)
 			{
-				this.Ths = new List<Thread>(this.Ths.Where(t => t.Join(0) == false));
-
 				Thread th = new Thread(() =>
 				{
 					for (; ; )
@@ -74,6 +72,7 @@ namespace Test01.Modules
 
 				th.Start();
 
+				this.Ths = new List<Thread>(this.Ths.Where(t => t.Join(0) == false));
 				this.Ths.Add(th);
 			}
 		}
