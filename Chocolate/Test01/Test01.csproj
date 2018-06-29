@@ -50,6 +50,7 @@
     <Compile Include="Tests2\Sample2.cs" />
     <Compile Include="Tests2\Sample3.cs" />
     <Compile Include="Tests2\Sample4.cs" />
+    <Compile Include="Tests\Tools\BatchClientTest.cs" />
     <Compile Include="Tests\Tools\DebugToolsTest.cs" />
     <Compile Include="Tests\Tools\HTTPClientTest.cs" />
     <Compile Include="Tests\Tools\FilingCase3Test.cs" />

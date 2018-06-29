@@ -18,7 +18,7 @@ namespace Charlotte
 			IPAddress address = GetFairAddress(hostEntry.AddressList);
 			IPEndPoint endPoint = new IPEndPoint(address, portNo);
 
-			for (int c = 3; ; c--)
+			for (int c = 30; ; c--)
 			{
 				try
 				{
@@ -52,7 +52,7 @@ namespace Charlotte
 					}
 					Utils.PostMessage(e);
 				}
-				Thread.Sleep(100); // catnap
+				Thread.Sleep(300 + c); // catnap
 			}
 		}
 
