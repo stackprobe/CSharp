@@ -299,5 +299,23 @@ namespace Charlotte.Tools
 
 			return false;
 		}
+
+		public static string ReplaceChars(string str, string rChrs, char wChr)
+		{
+			foreach (char rChr in rChrs)
+				str = str.Replace(rChr, wChr);
+
+			return str;
+		}
+
+		public static string ReplaceLoop(string str, string rPtn, string wPtn, int count = 30)
+		{
+			while (1 <= count)
+			{
+				str = str.Replace(rPtn, wPtn);
+				count--;
+			}
+			return str;
+		}
 	}
 }
