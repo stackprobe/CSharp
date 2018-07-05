@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Charlotte.Tools;
 using System.IO;
+using Charlotte.Tools;
 
-namespace Charlotte.Tests.Tools
+namespace Charlotte.Tests
 {
-	public class ArrayToolsTest
+	public class Sort0001Test
 	{
 		public void Test01()
 		{
@@ -84,7 +84,7 @@ namespace Charlotte.Tests.Tools
 
 		private void Sort_B(string[] lines)
 		{
-			ArrayTools.Sort(
+			Sort0001.Sort(
 				lines.Length,
 				(int a, int b) => StringTools.Comp(lines[a], lines[b]),
 				(int a, int b) => ArrayTools.Swap(lines, a, b)
@@ -93,7 +93,7 @@ namespace Charlotte.Tests.Tools
 
 		private void Sort_B2(string[] lines)
 		{
-			ArrayTools.Sort2(
+			Sort0001.Sort2(
 				lines.Length,
 				(int a, int b) => StringTools.Comp(lines[a], lines[b]),
 				(int a, int b) => ArrayTools.Swap(lines, a, b)
@@ -104,7 +104,7 @@ namespace Charlotte.Tests.Tools
 		{
 			string store = null;
 
-			ArrayTools.Sort_Retractable(
+			Sort0001.SortRetractable(
 				lines.Length,
 				(int a, int b) => StringTools.Comp(lines[a], lines[b]),
 				(int a, int b) =>

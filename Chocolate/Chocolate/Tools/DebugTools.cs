@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Collections;
+using System.IO;
 
 namespace Charlotte.Tools
 {
@@ -53,6 +54,17 @@ namespace Charlotte.Tools
 					dest.Add(prop.Value.Name, ToListOrMap(ReflecTools.GetValue(prop, instance), depth - 1));
 
 				return dest;
+			}
+		}
+
+		public static void GoToHomeSig()
+		{
+			while (File.Exists("home.sig") == false)
+			{
+				if (Directory.GetCurrentDirectory().Length <= 3)
+					throw new Exception("no home.sig");
+
+				Directory.SetCurrentDirectory("..");
 			}
 		}
 	}
