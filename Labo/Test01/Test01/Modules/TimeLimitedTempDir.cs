@@ -22,6 +22,10 @@ namespace Test01.Modules
 		private string NextDir;
 		private string PrevDir;
 
+		// 同じidentについては同じtimeoutSecを指定すること。
+
+		// PC起動してから同じタイミングでのみ実行されるとゴミが溜まり続ける。-- GetTickCountなので
+
 		public TimeLimitedTempDir(string ident, int timeoutSec = 3600 * 2)
 		{
 			ident = IdentFilter(ident);
