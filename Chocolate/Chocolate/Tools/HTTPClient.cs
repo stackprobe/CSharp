@@ -149,7 +149,7 @@ namespace Charlotte.Tools
 			}
 			using (WebResponse res = this.Inner.GetResponse())
 			{
-				ResHeaders = DictionaryTools.createIgnoreCase<string>();
+				ResHeaders = DictionaryTools.CreateIgnoreCase<string>();
 
 				// header
 				{

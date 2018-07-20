@@ -8,30 +8,30 @@ namespace Charlotte.Tools
 {
 	public class MSection : IDisposable
 	{
-		private Mutex Mtx;
+		private Mutex Handle;
 		private bool Binding;
 
 		public MSection(string ident)
 			: this(new Mutex(false, ident), true)
 		{ }
 
-		public MSection(Mutex mtx, bool binding = false)
+		public MSection(Mutex handle, bool binding = false)
 		{
-			this.Mtx = mtx;
-			this.Mtx.WaitOne();
+			this.Handle = handle;
+			this.Handle.WaitOne();
 			this.Binding = binding;
 		}
 
 		public void Dispose()
 		{
-			if (this.Mtx != null)
+			if (this.Handle != null)
 			{
-				this.Mtx.ReleaseMutex();
+				this.Handle.ReleaseMutex();
 
 				if (this.Binding)
-					this.Mtx.Dispose();
+					this.Handle.Dispose();
 
-				this.Mtx = null;
+				this.Handle = null;
 			}
 		}
 	}

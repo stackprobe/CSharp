@@ -58,6 +58,7 @@
     <Compile Include="Tools\MutexTools.cs" />
     <Compile Include="Tools\FilingCase3.cs" />
     <Compile Include="Tools\FilingCase3Client.cs" />
+    <Compile Include="Tools\NamedEventUnit.cs" />
     <Compile Include="Tools\SockClient.cs" />
     <Compile Include="Tools\ProcMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

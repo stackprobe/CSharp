@@ -48,7 +48,7 @@ namespace Charlotte
 			//new StringToolsTest().Test02();
 			//new FileToolsTest().Test01();
 			//new FileToolsTest().Test02();
-			//new SortedListTest().Test01();
+			new SortedListTest().Test01();
 			//new SecurityToolsTest.AESTest().Test01();
 			//new SecurityToolsTest().Test01();
 			//new DebugToolsTest().Test01();
@@ -59,7 +59,7 @@ namespace Charlotte
 			//new ReflecToolsTest().Test03();
 			//new ReflecToolsTest().Test03b();
 			//new ReflecToolsTest().Test04();
-			new BatchClientTest().Test01();
+			//new BatchClientTest().Test01();
 		}
 	}
 }
