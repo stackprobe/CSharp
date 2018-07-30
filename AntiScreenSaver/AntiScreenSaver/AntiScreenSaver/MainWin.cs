@@ -47,6 +47,9 @@ namespace Charlotte
 
 			Gnd.LoadConf();
 
+			if (Gnd.MonitorKeyboard)
+				this.KeysMon = new KeysMon();
+
 			this.TaskTrayIcon.Icon = Gnd.Icons[0];
 			this.TaskTrayIcon.Visible = true;
 			this.MTEnabled = true;
@@ -67,6 +70,8 @@ namespace Charlotte
 		{
 			this.Close();
 		}
+
+		private KeysMon KeysMon;
 
 		private bool MTEnabled;
 		private bool MTBusy;
@@ -89,6 +94,9 @@ namespace Charlotte
 
 			try
 			{
+				if (Gnd.MonitorKeyboard)
+					this.KeysMon.DoCheck();
+
 				int mouseX = Cursor.Position.X;
 				int mouseY = Cursor.Position.Y;
 
@@ -149,6 +157,9 @@ namespace Charlotte
 					this.LastMouse_X = mouseX;
 					this.LastMouse_Y = mouseY;
 				}
+
+				if (Gnd.MonitorKeyboard && this.KeysMon.IsTouched())
+					this.MouseStayMillis = 0;
 
 				{
 					Icon nextIcon;

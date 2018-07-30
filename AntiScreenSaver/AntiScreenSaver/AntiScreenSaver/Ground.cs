@@ -19,6 +19,7 @@ namespace Charlotte
 
 		public static int MouseStayTimeoutMillis;
 		public static List<XYPoint> MouseShakeRoute = new List<XYPoint>();
+		public static bool MonitorKeyboard;
 
 		private static string GetConfFile()
 		{
@@ -69,6 +70,11 @@ namespace Charlotte
 					Y = int.Parse(tokens[1]),
 				});
 			}
+
+			MonitorKeyboard = int.Parse(lines[c++]) != 0;
+
+			if (lines[c++] != "\\e")
+				throw new Exception("no \\e");
 		}
 	}
 }

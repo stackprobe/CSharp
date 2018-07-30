@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Consts.cs" />
     <Compile Include="Ground.cs" />
+    <Compile Include="KeysMon.cs" />
     <Compile Include="MainWin.cs">
       <SubType>Form</SubType>
     </Compile>
