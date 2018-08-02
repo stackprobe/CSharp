@@ -3,28 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
-using System.Diagnostics;
 
 namespace Charlotte.Tools
 {
 	public class WorkingDir : IDisposable
 	{
-		public static WorkingDir Root;
-
-		public static WorkingDir CreateRoot()
-		{
-			return new WorkingDir(Path.Combine(Environment.GetEnvironmentVariable("TMP"), Program.APP_IDENT));
-		}
-
-		public static WorkingDir CreateProcessRoot()
-		{
-			return new WorkingDir(Path.Combine(Environment.GetEnvironmentVariable("TMP"), Program.APP_IDENT + "_" + Process.GetCurrentProcess().Id));
-		}
-
 		private string Dir;
 
 		public WorkingDir()
-			: this(Root.MakePath())
+			: this(Path.Combine(Environment.GetEnvironmentVariable("TMP"), Guid.NewGuid().ToString("B")))
 		{ }
 
 		public WorkingDir(string dir)

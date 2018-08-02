@@ -61,9 +61,7 @@ namespace Charlotte
 
 		private static void Main2(string[] args)
 		{
-			//new LogQueueTest().Test01();
-			//new LogQueueTest().Test01();
-			new LogQueueTest().Test01();
+			new WorkingDirTest().Test01();
 		}
 	}
 }
