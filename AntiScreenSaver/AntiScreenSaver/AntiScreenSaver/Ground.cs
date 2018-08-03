@@ -59,7 +59,7 @@ namespace Charlotte
 			{
 				string line = lines[c++];
 
-				if (line == "-")
+				if (line == "\\d")
 					break;
 
 				string[] tokens = line.Split(',');
