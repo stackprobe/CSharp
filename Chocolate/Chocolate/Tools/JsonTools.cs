@@ -9,27 +9,24 @@ namespace Charlotte.Tools
 	{
 		public static string Encode(object src, bool noBlank = false)
 		{
-			Encoder e = new Encoder(
-				noBlank ? "" : " ",
-				noBlank ? "" : "\t",
-				noBlank ? "" : "\r\n"
-				);
+			Encoder e = new Encoder();
+
+			if (noBlank)
+			{
+				e.Blank = "";
+				e.Indent = "";
+				e.NewLine = "";
+			}
 			e.Add(src, 0);
+
 			return e.GetString();
 		}
 
 		private class Encoder
 		{
-			private string Blank;
-			private string Indent;
-			private string NewLine;
-
-			public Encoder(string blank, string indent, string newLine)
-			{
-				this.Blank = blank;
-				this.Indent = indent;
-				this.NewLine = newLine;
-			}
+			public string Blank = " ";
+			public string Indent = "\t";
+			public string NewLine = "\r\n";
 
 			private StringBuilder Buff = new StringBuilder();
 
@@ -44,7 +41,9 @@ namespace Charlotte.Tools
 					this.Buff.Append(this.NewLine);
 
 					List<string> keys = ArrayTools.ToList(om.GetKeys());
+
 					keys.Sort(StringTools.Comp);
+
 					foreach (string key in keys)
 					{
 						object value = om[key];
@@ -95,32 +94,9 @@ namespace Charlotte.Tools
 				}
 				else if (src is Word)
 				{
-					this.Buff.Append(src);
+					this.Buff.Append("" + ((Word)src).Value);
 				}
-				// 想定外の型 >
-				else if (src == null)
-				{
-					this.Buff.Append("null");
-				}
-				else if (src is bool)
-				{
-					this.Buff.Append((bool)src ? "true" : "false");
-				}
-				else if (
-					src is Int16 ||
-					src is Int32 ||
-					src is Int64 ||
-					src is UInt16 ||
-					src is UInt32 ||
-					src is UInt64 ||
-					src is float ||
-					src is double
-					)
-				{
-					this.Buff.Append("" + src);
-				}
-				// < 想定外の型
-				else // src is string
+				else //if (src is string)
 				{
 					string str = "" + src;
 					//string str = (string)src;
@@ -183,7 +159,7 @@ namespace Charlotte.Tools
 
 		public static object Decode(byte[] src)
 		{
-			return Decode(GetEncoding(src).GetString(src));
+			return Decode(GetEncoding(src).GetString(src)); // src に BOM が付いている場合、encoding.GetString(src) にも BOM が付く！
 		}
 
 		private static Encoding GetEncoding(byte[] src)
@@ -211,18 +187,14 @@ namespace Charlotte.Tools
 
 		public static object Decode(string src)
 		{
-			return new Decoder(src).GetObject();
+			return new Decoder() { Src = src }.GetObject();
 		}
 
 		private class Decoder
 		{
-			private string Src;
-			private int RPos;
+			public string Src;
 
-			public Decoder(string src)
-			{
-				this.Src = src;
-			}
+			private int RPos = 0;
 
 			private char Next()
 			{
@@ -237,7 +209,7 @@ namespace Charlotte.Tools
 				{
 					chr = this.Next();
 				}
-				while (chr <= ' ');
+				while (chr <= ' ' || chr == 0xfeff); // ? 空白系文字 || BOM
 
 				return chr;
 			}
@@ -257,11 +229,14 @@ namespace Charlotte.Tools
 						do
 						{
 							object key = this.GetObject();
+
 							this.NextNS(); // ':'
+
 							object value = this.GetObject();
+
 							om.Add(key, value);
 						}
-						while (this.NextNS() != '}');
+						while (this.NextNS() != '}'); // ',' or '}'
 					}
 					return om;
 				}
@@ -277,7 +252,7 @@ namespace Charlotte.Tools
 						{
 							ol.Add(this.GetObject());
 						}
-						while (this.NextNS() != ']');
+						while (this.NextNS() != ']'); // ',' or '}'
 					}
 					return ol;
 				}
@@ -353,9 +328,7 @@ namespace Charlotte.Tools
 						}
 						buff.Append(chr);
 					}
-					string str = buff.ToString();
-					str = str.Trim();
-					return new Word(str);
+					return new Word() { Value = buff.ToString().Trim() };
 				}
 			}
 		}
@@ -363,11 +336,6 @@ namespace Charlotte.Tools
 		public class Word
 		{
 			public string Value;
-
-			public Word(string value)
-			{
-				this.Value = value;
-			}
 		}
 	}
 }

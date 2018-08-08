@@ -261,5 +261,42 @@ namespace Charlotte.Tests
 				Console.WriteLine("2.nest=" + nest);
 			}
 		}
+
+		public void Main04()
+		{
+			// ----
+			// BOM 付きの byte[] を encoding.GetString() すると BOM 付きの string になる！
+
+			// byte[] { BOM + "ABC" } ---> string { BOM + "ABC" } ( 0xfeff, 0x0041, 0x0042, 0x0043 )
+
+			M4_Test01("fffe0000" + "41000000" + "42000000" + "43000000", Encoding.UTF32);
+			M4_Test01("0000feff" + "00000041" + "00000042" + "00000043", Encoding.GetEncoding(12001)); // UTF-32 BE
+			M4_Test01("fffe" + "4100" + "4200" + "4300", Encoding.Unicode);
+			M4_Test01("feff" + "0041" + "0042" + "0043", Encoding.BigEndianUnicode);
+			M4_Test01("efbbbf" + "41" + "42" + "43", Encoding.UTF8);
+
+			// byte[] { "ABC" } ---> string { "ABC" } ( 0x0041, 0x0042, 0x0043 )
+
+			M4_Test01("41000000" + "42000000" + "43000000", Encoding.UTF32);
+			M4_Test01("00000041" + "00000042" + "00000043", Encoding.GetEncoding(12001)); // UTF-32 BE
+			M4_Test01("4100" + "4200" + "4300", Encoding.Unicode);
+			M4_Test01("0041" + "0042" + "0043", Encoding.BigEndianUnicode);
+			M4_Test01("41" + "42" + "43", Encoding.UTF8);
+
+			// ----
+		}
+
+		private void M4_Test01(string src, Encoding encoding)
+		{
+			byte[] bSrc = BinTools.Hex.ToBytes(src);
+			string dest = encoding.GetString(bSrc);
+
+			Console.Write("{ ");
+
+			foreach (char chr in dest)
+				Console.Write("0x" + ((UInt16)chr).ToString("x4") + ", ");
+
+			Console.WriteLine("}");
+		}
 	}
 }

@@ -58,6 +58,7 @@
     <Compile Include="Tests\Tools\DateTimeToSecTest.cs" />
     <Compile Include="Tests\Tools\FileToolsTest.cs" />
     <Compile Include="Tests\Tools\HubTest.cs" />
+    <Compile Include="Tests\Tools\JsonToolsTest.cs" />
     <Compile Include="Tests\Tools\ReflecToolsTest.cs" />
     <Compile Include="Tests\Tools\SecurityToolsTest.cs" />
     <Compile Include="Tests\Tools\SortedListTest.cs" />

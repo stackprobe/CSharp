@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Charlotte.Tools;
+using Charlotte.Tests;
 using Charlotte.Tests.Tools;
 
 namespace Charlotte
@@ -44,11 +45,12 @@ namespace Charlotte
 			//new Test01().Main02();
 			//new Test01().Main03();
 			//new Test01().Main03b();
+			new Test01().Main04();
 			//new StringToolsTest().Test01();
 			//new StringToolsTest().Test02();
 			//new FileToolsTest().Test01();
 			//new FileToolsTest().Test02();
-			new SortedListTest().Test01();
+			//new SortedListTest().Test01();
 			//new SecurityToolsTest.AESTest().Test01();
 			//new SecurityToolsTest().Test01();
 			//new DebugToolsTest().Test01();
@@ -60,6 +62,7 @@ namespace Charlotte
 			//new ReflecToolsTest().Test03b();
 			//new ReflecToolsTest().Test04();
 			//new BatchClientTest().Test01();
+			//new JsonToolsTest().Test01();
 		}
 	}
 }
