@@ -41,15 +41,13 @@ namespace Charlotte.Tools
 			{
 				//File.Delete(file); // 入力ファイルを出力ファイルにしているかもしれないので、削除しない！
 			}
-			using (SockClient connection = new SockClient(this.Domain, this.PortNo))
+			using (this.Connection = new SockClient(this.Domain, this.PortNo))
 			{
-				connection.RSTimeoutMillis = 2000; // 2 sec
+				this.Connection.RSTimeoutMillis = 2000; // 2 sec
 
-				connection.Send(Encoding.ASCII.GetBytes("SSRB/0.0"));
+				this.Connection.Send(Encoding.ASCII.GetBytes("SSRB/0.0"));
 
-				connection.RSTimeoutMillis = 30000; // 30 sec
-
-				this.Connection = connection;
+				this.Connection.RSTimeoutMillis = 30000; // 30 sec
 
 				this.SendUInt((uint)this.SendFiles.Length);
 
