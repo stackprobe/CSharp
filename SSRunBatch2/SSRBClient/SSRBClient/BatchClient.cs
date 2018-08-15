@@ -24,16 +24,16 @@ namespace Charlotte
 		{
 			foreach (string file in this.SendFiles) // 入力ファイルの読み込みテスト
 			{
+#if true
 				using (FileStream reader = new FileStream(file, FileMode.Open, FileAccess.Read))
 				{
-#if true
 					reader.ReadByte();
 					reader.ReadByte();
 					reader.ReadByte();
-#else
-					File.ReadAllBytes(file);
-#endif
 				}
+#else
+				File.ReadAllBytes(file);
+#endif
 			}
 			foreach (string file in this.RecvFiles) // 出力ファイルの掃除
 			{

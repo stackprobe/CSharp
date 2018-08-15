@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace Charlotte
+namespace Charlotte.Tools
 {
-	public class BatchClient
+	public class SSRBClient
 	{
-		public string Domain;
-		public int PortNo;
-		public string[] SendFiles;
-		public string[] RecvFiles;
-		public string[] Commands;
+		public string Domain = "localhost";
+		public int PortNo = 55985;
+		public string[] SendFiles = new string[0];
+		public string[] RecvFiles = new string[0];
+		public string[] Commands = new string[] { "DIR" };
 
 		// 引数ここまで
 
@@ -20,7 +20,7 @@ namespace Charlotte
 
 		// 応答ここまで
 
-		private SockClient.Connection Connection;
+		private SockClient Connection;
 
 		public void Perform()
 		{
@@ -41,7 +41,7 @@ namespace Charlotte
 			{
 				//File.Delete(file); // 入力ファイルを出力ファイルにしているかもしれないので、削除しない！
 			}
-			SockClient.Perform(this.Domain, this.PortNo, delegate(SockClient.Connection connection)
+			using (SockClient connection = new SockClient(this.Domain, this.PortNo))
 			{
 				connection.RSTimeoutMillis = 2000; // 2 sec
 
@@ -88,12 +88,12 @@ namespace Charlotte
 				{
 					this.OutLines[index] = this.RecvLine();
 				}
-			});
+			}
 		}
 
 		private void SendLine(string line)
 		{
-			this.SendData(Consts.ENCODING_SJIS.GetBytes(line));
+			this.SendData(StringTools.ENCODING_SJIS.GetBytes(line));
 		}
 
 		private void SendData(byte[] data)
@@ -115,7 +115,7 @@ namespace Charlotte
 
 		private string RecvLine()
 		{
-			return Consts.ENCODING_SJIS.GetString(this.RecvData());
+			return StringTools.ENCODING_SJIS.GetString(this.RecvData());
 		}
 
 		private byte[] RecvData()

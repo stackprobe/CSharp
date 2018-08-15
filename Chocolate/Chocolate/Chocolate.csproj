@@ -78,6 +78,7 @@
     <Compile Include="Tools\ReflecTools.cs" />
     <Compile Include="Tools\SecurityTools.cs" />
     <Compile Include="Tools\SortedList.cs" />
+    <Compile Include="Tools\SSRBClient.cs" />
     <Compile Include="Tools\StringTools.cs" />
     <Compile Include="Tools\SyncBox.cs" />
     <Compile Include="Tools\SyncQueue.cs" />
