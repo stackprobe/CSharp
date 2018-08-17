@@ -24,7 +24,7 @@ namespace Charlotte
 		public static extern bool SetCursorPos(int x, int y);
 
 		[FlagsAttribute]
-		public enum ExecutionState : uint // unsigned long @ winnt.h
+		public enum ExecutionState : uint // DWORD -> unsigned long @ WinNT.h -> WinDef.h
 		{
 			ES_SYSTEM_REQUIRED = 1,
 			ES_DISPLAY_REQUIRED = 2,

@@ -102,7 +102,7 @@ namespace Charlotte
 
 				if (this.MouseShakeIndex != -1)
 				{
-#if true
+#if !true
 					switch (this.MouseShakeIndex)
 					{
 						case 0:
@@ -132,19 +132,19 @@ namespace Charlotte
 						{
 							Gnd.XYPoint point = Gnd.MouseShakeRoute[this.MouseShakeIndex];
 
-#if true // CUI -> Win32API
+#if true // CUI -> Win32
 							CTools.Perform(string.Format("/P {0} {1}",
 								this.MouseShake_X + point.X,
 								this.MouseShake_Y + point.Y
 								));
-#elif true // Win32API
-							//Win32.ClipCursor(null);
+#elif true // Win32
+							Win32.ClipCursor(null);
 
 							Win32.SetCursorPos(
 								this.MouseShake_X + point.X,
 								this.MouseShake_Y + point.Y
 								);
-#else // .NET F/W
+#else // .NET
 							Cursor.Position = new Point(
 								this.MouseShake_X + point.X,
 								this.MouseShake_Y + point.Y
