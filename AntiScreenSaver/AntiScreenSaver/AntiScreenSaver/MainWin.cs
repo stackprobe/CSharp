@@ -100,18 +100,6 @@ namespace Charlotte
 				int mouseX = Cursor.Position.X;
 				int mouseY = Cursor.Position.Y;
 
-#if false
-				try // test
-				{
-					using (System.IO.StreamWriter writer = new System.IO.StreamWriter(@"C:\temp\AntiScreenSaver_Mouse.log", true, Encoding.ASCII))
-					{
-						writer.WriteLine("[" + DateTime.Now + "] " + mouseX + ", " + mouseY);
-					}
-				}
-				catch
-				{ }
-#endif
-
 				if (this.MouseShakeIndex != -1)
 				{
 					if (
@@ -123,10 +111,24 @@ namespace Charlotte
 						{
 							Gnd.XYPoint point = Gnd.MouseShakeRoute[this.MouseShakeIndex];
 
+#if true // CUI -> Win32API
+							CTools.Perform(string.Format("/P {0} {1}",
+								this.MouseShake_X + point.X,
+								this.MouseShake_Y + point.Y
+								));
+#elif true // Win32API
+							//Win32.ClipCursor(null);
+
+							Win32.SetCursorPos(
+								this.MouseShake_X + point.X,
+								this.MouseShake_Y + point.Y
+								);
+#else // .NET F/W
 							Cursor.Position = new Point(
 								this.MouseShake_X + point.X,
 								this.MouseShake_Y + point.Y
 								);
+#endif
 
 							this.LastMouse_X = Cursor.Position.X;
 							this.LastMouse_Y = Cursor.Position.Y;

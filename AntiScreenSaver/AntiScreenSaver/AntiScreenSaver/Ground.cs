@@ -26,7 +26,7 @@ namespace Charlotte
 			string file = "AntiScreenSaver.conf";
 
 			if (File.Exists(file) == false)
-				file = @"..\..\..\..\doc\AntiScreenSaver.conf";
+				file = @"..\..\..\..\res\AntiScreenSaver_Test.conf";
 
 			return file;
 		}

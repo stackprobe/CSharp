@@ -51,7 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Win32.cs" />
     <Compile Include="Consts.cs" />
+    <Compile Include="CTools.cs" />
     <Compile Include="Ground.cs" />
     <Compile Include="KeysMon.cs" />
     <Compile Include="MainWin.cs">
