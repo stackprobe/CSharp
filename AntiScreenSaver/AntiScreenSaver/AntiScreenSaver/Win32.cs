@@ -22,5 +22,18 @@ namespace Charlotte
 
 		[DllImport("user32.dll")]
 		public static extern bool SetCursorPos(int x, int y);
+
+		[FlagsAttribute]
+		public enum ExecutionState : uint // unsigned long @ winnt.h
+		{
+			ES_SYSTEM_REQUIRED = 1,
+			ES_DISPLAY_REQUIRED = 2,
+			ES_USER_PRESENT = 4,
+			ES_AWAYMODE_REQUIRED = 0x40,
+			ES_CONTINUOUS = 0x80000000,
+		}
+
+		[DllImport("kernel32.dll")]
+		public static extern ExecutionState SetThreadExecutionState(ExecutionState esFlags);
 	}
 }

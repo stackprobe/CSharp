@@ -102,6 +102,27 @@ namespace Charlotte
 
 				if (this.MouseShakeIndex != -1)
 				{
+#if true
+					switch (this.MouseShakeIndex)
+					{
+						case 0:
+							Win32.SetThreadExecutionState(Win32.ExecutionState.ES_SYSTEM_REQUIRED);
+							break;
+
+						case 1:
+							Win32.SetThreadExecutionState(Win32.ExecutionState.ES_DISPLAY_REQUIRED);
+							break;
+
+						case 2:
+							this.MouseShakeIndex = -1;
+							return;
+
+						default:
+							throw null; // never
+					}
+					this.MouseShakeIndex++;
+					return;
+#else
 					if (
 						mouseX == this.LastMouse_X &&
 						mouseY == this.LastMouse_Y
@@ -143,6 +164,7 @@ namespace Charlotte
 					}
 					this.MouseShakeIndex = -1;
 					return;
+#endif
 				}
 
 				if (
