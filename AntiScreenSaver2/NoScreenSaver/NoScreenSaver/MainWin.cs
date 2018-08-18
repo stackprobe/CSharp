@@ -65,49 +65,27 @@ namespace Charlotte
 		}
 
 		private bool MTEnabled;
-		private bool MTBusy;
-		//private long MTCount;
-
-		private int Counter = 0;
+		private Queue<Action> MTActions = new Queue<Action>();
+		private int ElapsedMillis = 0;
 
 		private void MainTimer_Tick(object sender, EventArgs e)
 		{
-			if (this.MTEnabled == false || this.MTBusy)
+			if (this.MTEnabled == false)
 				return;
 
-			this.MTBusy = true;
-
-			try
+			if (1 <= this.MTActions.Count)
 			{
-				if (this.Counter < 0)
-				{
-					switch (this.Counter)
-					{
-						case -2:
-							Win32.SetThreadExecutionState(Win32.ExecutionState.ES_SYSTEM_REQUIRED);
-							break;
-
-						case -1:
-							Win32.SetThreadExecutionState(Win32.ExecutionState.ES_DISPLAY_REQUIRED);
-							break;
-
-						default:
-							throw null; // never
-					}
-					this.Counter++;
-					return;
-				}
-				this.Counter += this.MainTimer.Interval;
-
-				if (Gnd.WakeupPeriodMillis <= this.Counter)
-				{
-					this.Counter = -2;
-				}
+				this.MTActions.Dequeue()();
+				return;
 			}
-			finally
+			this.ElapsedMillis += this.MainTimer.Interval;
+
+			if (Gnd.WakeupPeriodMillis <= this.ElapsedMillis)
 			{
-				this.MTBusy = false;
-				//this.MTCount++;
+				this.ElapsedMillis = 0;
+
+				this.MTActions.Enqueue(() => Win32.SetThreadExecutionState(Win32.ExecutionState.ES_SYSTEM_REQUIRED));
+				this.MTActions.Enqueue(() => Win32.SetThreadExecutionState(Win32.ExecutionState.ES_DISPLAY_REQUIRED));
 			}
 		}
 	}
