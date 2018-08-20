@@ -13,7 +13,8 @@ namespace Charlotte
 	{
 		static void Main(string[] args)
 		{
-			new WorkingDirTest().Test01();
+			//new WorkingDirTest().Test01();
+			new HandleSectionTest().Test01();
 
 #if DEBUG
 			Console.WriteLine("Press ENTER");
