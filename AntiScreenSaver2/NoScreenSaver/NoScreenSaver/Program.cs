@@ -26,8 +26,10 @@ namespace Charlotte
 
 			Mutex procMutex = new Mutex(false, APP_IDENT);
 
-			if (procMutex.WaitOne(0))
+			if (HandleProcMutex(procMutex))
 			{
+				StopRunEv.WaitOne(0); // reset
+
 				//if (GlobalProcMtx.Create(APP_IDENT, APP_TITLE))
 				{
 					//CheckSelfDir();
@@ -55,6 +57,33 @@ namespace Charlotte
 				procMutex.ReleaseMutex();
 			}
 			procMutex.Close();
+		}
+
+		public static EventWaitHandle StopRunEv = new EventWaitHandle(false, EventResetMode.AutoReset, APP_IDENT + "_Stop");
+
+		private static bool HandleProcMutex(Mutex procMutex)
+		{
+			bool ret = procMutex.WaitOne(0);
+
+			if (ret == false)
+			{
+				using (Mutex m = new Mutex(false, APP_IDENT + "_Boot"))
+				{
+					if (m.WaitOne(0))
+					{
+						for (int c = 0; c < 3; c++)
+						{
+							StopRunEv.Set();
+							ret = procMutex.WaitOne(2000);
+
+							if (ret)
+								break;
+						}
+						m.ReleaseMutex();
+					}
+				}
+			}
+			return ret;
 		}
 
 		public const string APP_IDENT = "{9e4a67f8-5a4b-4b1d-94e0-ed412e771568}";

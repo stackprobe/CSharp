@@ -59,9 +59,15 @@ namespace Charlotte
 			this.TaskTrayIcon.Visible = false;
 		}
 
+		private void CloseWindow()
+		{
+			this.MTEnabled = false;
+			this.Close();
+		}
+
 		private void 終了XToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			this.Close();
+			this.CloseWindow();
 		}
 
 		private bool MTEnabled;
@@ -73,6 +79,11 @@ namespace Charlotte
 			if (this.MTEnabled == false)
 				return;
 
+			if (Program.StopRunEv.WaitOne(0))
+			{
+				this.CloseWindow();
+				return;
+			}
 			if (1 <= this.MTActions.Count)
 			{
 				this.MTActions.Dequeue()();
