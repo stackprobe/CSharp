@@ -71,7 +71,7 @@ namespace Charlotte
 				{
 					if (m.WaitOne(0))
 					{
-						for (int c = 0; c < 3; c++)
+						for (int c = 0; c < 15; c++)
 						{
 							StopRunEv.Set();
 							ret = procMutex.WaitOne(2000);

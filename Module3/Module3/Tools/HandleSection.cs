@@ -7,18 +7,13 @@ namespace Charlotte.Tools
 {
 	public class HandleSection<T> : IDisposable
 	{
-		private T Handle;
+		public T Handle;
 		private Action<T> Leave;
 
 		public HandleSection(Func<T> enter, Action<T> leave)
 		{
 			this.Handle = enter();
 			this.Leave = leave;
-		}
-
-		public T GetHandle()
-		{
-			return this.Handle;
 		}
 
 		public void Dispose()

@@ -66,9 +66,15 @@ namespace Charlotte
 			this.TaskTrayIcon.Visible = false;
 		}
 
+		private void CloseWindow()
+		{
+			this.MTEnabled = false;
+			this.Close();
+		}
+
 		private void 終了XToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			this.Close();
+			this.CloseWindow();
 		}
 
 		private KeysMon KeysMon;
@@ -94,6 +100,11 @@ namespace Charlotte
 
 			try
 			{
+				if (Program.StopRunEv.WaitOne(0))
+				{
+					this.CloseWindow();
+					return;
+				}
 				if (Gnd.MonitorKeyboard)
 					this.KeysMon.DoCheck();
 
