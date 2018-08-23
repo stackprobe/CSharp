@@ -49,9 +49,12 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\Tools\DisposerDamTest.cs" />
     <Compile Include="Tests\Tools\HandleSectionToolsTest.cs" />
     <Compile Include="Tests\Tools\HandleSectionTest.cs" />
     <Compile Include="Tests\Tools\WorkingDirTest.cs" />
+    <Compile Include="Tools\DisposerDam.cs" />
+    <Compile Include="Tools\ExceptionDam.cs" />
     <Compile Include="Tools\HandleSection.cs" />
     <Compile Include="Tools\FileTools.cs" />
     <Compile Include="Tools\HandleSectionTools.cs" />

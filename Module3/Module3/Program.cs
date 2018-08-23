@@ -15,7 +15,8 @@ namespace Charlotte
 		{
 			//new WorkingDirTest().Test01();
 			//new HandleSectionTest().Test01();
-			new HandleSectionToolsTest().Test01();
+			//new HandleSectionToolsTest().Test01();
+			new DisposerDamTest().Test01();
 
 #if DEBUG
 			Console.WriteLine("Press ENTER");
