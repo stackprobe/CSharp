@@ -27,10 +27,7 @@ namespace Charlotte
 
 		private void MainWin_Shown(object sender, EventArgs e)
 		{
-			_th = new Thread((ThreadStart)delegate
-			{
-				_mr.MRecv("M-Test", this.Recved);
-			});
+			_th = new Thread(() => _mr.MRecv("M-Test", this.Recved));
 			_th.Start();
 		}
 

@@ -10,9 +10,8 @@ namespace Charlotte
 	{
 		// ---- ここから
 
-		public delegate void MRecved_d(string message);
 		public bool MRecvEnd;
-		public void MRecv(string ident, MRecved_d recved)
+		public void MRecv(string ident, Action<string> recved)
 		{
 			Mutex[] hdls = new Mutex[6];
 			try

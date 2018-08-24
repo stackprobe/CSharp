@@ -10,8 +10,7 @@ namespace Charlotte
 	{
 		// ---- ここから
 
-		public delegate void NRecved_d(string message);
-		public void NRecv(string ident, NRecved_d recved)
+		public void NRecv(string ident, Action<string> recved)
 		{
 			using (var s = new EventWaitHandle(
 				false, EventResetMode.AutoReset, ident + "S"))
