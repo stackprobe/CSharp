@@ -10,32 +10,12 @@ namespace Charlotte.Tools
 {
 	public class NamedEventUnit : IDisposable
 	{
-		public static NamedEventUnit Create(string ident)
-		{
-			return new NamedEventUnit(new EventWaitHandle(false, EventResetMode.AutoReset, ident), true);
-		}
-
-		public static NamedEventUnit CreateGlobal(string ident)
-		{
-			EventWaitHandleSecurity security = new EventWaitHandleSecurity();
-
-			security.AddAccessRule(
-				new EventWaitHandleAccessRule(
-					new SecurityIdentifier(
-						WellKnownSidType.WorldSid,
-						null
-						),
-					EventWaitHandleRights.FullControl,
-					AccessControlType.Allow
-					)
-				);
-
-			bool createdNew;
-			return new NamedEventUnit(new EventWaitHandle(false, EventResetMode.AutoReset, @"Global\Global_" + ident, out createdNew, security), true);
-		}
-
 		private EventWaitHandle Handle;
 		private bool Binding;
+
+		public NamedEventUnit(string ident)
+			: this(NamedEventTools.Create(ident), true)
+		{ }
 
 		public NamedEventUnit(EventWaitHandle handle, bool binding = false)
 		{
