@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Net;
 using System.IO;
+using System.Security.Cryptography.X509Certificates;
+using System.Net.Security;
 
 namespace Charlotte.Tools
 {
@@ -13,9 +15,27 @@ namespace Charlotte.Tools
 
 		public HTTPClient(string url)
 		{
+			if (InitOnceDone == false)
+			{
+				InitOnce();
+				InitOnceDone = true;
+			}
+
 			this.Inner = (HttpWebRequest)HttpWebRequest.Create(url);
 			this.ConnectionTimeoutMillis = 20000;
 			this.SetProxyNone();
+		}
+
+		private static bool InitOnceDone;
+
+		private static void InitOnce()
+		{
+			// どんな証明書も許可する。
+			ServicePointManager.ServerCertificateValidationCallback =
+				(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) => true;
+
+			// TLS 1.2
+			ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
 		}
 
 		/// <summary>

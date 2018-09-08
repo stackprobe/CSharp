@@ -45,7 +45,7 @@ namespace Charlotte
 			//new Test01().Main02();
 			//new Test01().Main03();
 			//new Test01().Main03b();
-			new Test01().Main04();
+			//new Test01().Main04();
 			//new StringToolsTest().Test01();
 			//new StringToolsTest().Test02();
 			//new FileToolsTest().Test01();
@@ -55,6 +55,7 @@ namespace Charlotte
 			//new SecurityToolsTest().Test01();
 			//new DebugToolsTest().Test01();
 			//new HTTPClientTest().Test01();
+			new HTTPClientTest().Test02();
 			//new ReflecToolsTest().Test01();
 			//new ReflecToolsTest().Test02();
 			//new ReflecToolsTest().Test02b();
