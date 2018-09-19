@@ -56,7 +56,7 @@ namespace Charlotte.Tools
 			return IndexOf<T>(arr, predicate) != -1;
 		}
 
-		public static List<T> ToList<T>(ICollection<T> src)
+		public static List<T> ToList<T>(IEnumerable<T> src)
 		{
 			List<T> dest = new List<T>();
 
@@ -198,6 +198,30 @@ namespace Charlotte.Tools
 
 				reader(buff, index + offset, readSize);
 				offset += (long)readSize;
+			}
+		}
+
+		public static IEnumerable<T> Distinct<T>(IEnumerable<T> src, Comparison<T> comp)
+		{
+			IEnumerator<T> reader = src.GetEnumerator();
+
+			if (reader.MoveNext())
+			{
+				T lastElement = reader.Current;
+
+				yield return lastElement;
+
+				while (reader.MoveNext())
+				{
+					T element = reader.Current;
+
+					if (comp(element, lastElement) != 0)
+					{
+						yield return element;
+
+						lastElement = element;
+					}
+				}
 			}
 		}
 	}
