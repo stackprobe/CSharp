@@ -18,6 +18,7 @@ namespace Test01
 				//Test02();
 				//Test03();
 				//Test04();
+				Test05();
 				//new DateSpanListTest().Test01();
 				//new NamesToGroupDateSpansTest().Test01();
 				//new NamesToGroupDateSpansTest().Test02();
@@ -26,7 +27,7 @@ namespace Test01
 				//new TimeLimitedTempDirTest().Test03();
 				//new RandDataFileHelperTest().Test01();
 				//new MultiThreadTaskPoolTest().Test01();
-				new MultiThreadTaskPoolTest().Test02();
+				//new MultiThreadTaskPoolTest().Test02();
 				//new AsyncFileWriterTest().Test01();
 				//new BlockSectionTest().Test01();
 				//new BlockSectionTest().Test02();
@@ -220,6 +221,15 @@ Test02_a_a: { X = 3 }
 			}
 
 			Console.WriteLine("Test04_z");
+		}
+
+		private static void Test05()
+		{
+			string s = "勤怠";
+			byte[] b = Encoding.GetEncoding(932).GetBytes(s);
+			string s2 = Encoding.GetEncoding(932).GetString(b);
+
+			Console.WriteLine(s2);
 		}
 	}
 }
