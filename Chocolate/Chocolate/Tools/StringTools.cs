@@ -95,6 +95,11 @@ namespace Charlotte.Tools
 			return str.ToLower().IndexOf(ptn.ToLower());
 		}
 
+		public static bool ContainsIgnoreCase(string str, string ptn)
+		{
+			return str.ToLower().Contains(ptn.ToLower());
+		}
+
 		public class Island
 		{
 			public string Str;

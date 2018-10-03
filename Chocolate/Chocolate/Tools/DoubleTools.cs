@@ -31,5 +31,13 @@ namespace Charlotte.Tools
 			else
 				return (int)(value + 0.5);
 		}
+
+		public static long ToLong(double value)
+		{
+			if (value < 0.0)
+				return (long)(value - 0.5);
+			else
+				return (long)(value + 0.5);
+		}
 	}
 }
