@@ -15,6 +15,14 @@ namespace Charlotte.Tools
 
 			this.FirstLine = this.RecvLine();
 
+			{
+				string[] tokens = this.FirstLine.Split(' ');
+
+				this.Method = tokens[0];
+				this.Path = tokens[1];
+				this.HTTPVersion = tokens[2];
+			}
+
 			this.Channel.RSTimeoutMillis = 180000; // 3 min
 
 			this.RecvHeader();
@@ -29,6 +37,10 @@ namespace Charlotte.Tools
 		}
 
 		public string FirstLine;
+		public string Method;
+		public string Path;
+		public string HTTPVersion;
+		public string Schema;
 		public List<string[]> HeaderPairs = new List<string[]>();
 		public byte[] Body;
 

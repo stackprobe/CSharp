@@ -14,7 +14,17 @@ namespace Charlotte.Tools
 		public HTTPServer()
 		{
 			PortNo = 80;
-			Connected = (channel) => HTTPConnected(new HTTPServerChannel() { Channel = channel });
+			Connected = (channel) =>
+			{
+				HTTPServerChannel hsChannel = new HTTPServerChannel();
+
+				hsChannel.Channel = channel;
+				hsChannel.RecvRequest();
+
+				HTTPConnected(hsChannel);
+
+				hsChannel.SendResponse();
+			};
 		}
 	}
 }

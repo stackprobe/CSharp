@@ -230,6 +230,15 @@ Test02_a_a: { X = 3 }
 			string s2 = Encoding.GetEncoding(932).GetString(b);
 
 			Console.WriteLine(s2);
+
+			// ----
+
+			Console.WriteLine(string.Format("{0:X}", 0xffff)); // FFFF
+			Console.WriteLine(string.Format("{0:x}", 0xffff)); // ffff
+			Console.WriteLine(string.Format("{0:X8}", 0xffff)); // 0000FFFF
+			Console.WriteLine(string.Format("{0:x8}", 0xffff)); // 0000ffff
+
+			Console.WriteLine(string.Format("{0:x}", -0xffff)); // ffff0001
 		}
 	}
 }

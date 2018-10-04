@@ -14,12 +14,8 @@ namespace Charlotte.Tests.Tools
 
 			hs.HTTPConnected = (channel) =>
 			{
-				channel.RecvRequest();
-
 				channel.ResContentType = "text/html; charset=ASCII";
 				channel.ResBody = Encoding.ASCII.GetBytes("<html><body><h1>200</h1></body></html>");
-
-				channel.SendResponse();
 			};
 
 			hs.Start();
