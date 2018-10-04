@@ -49,7 +49,9 @@
     <Compile Include="Tools\DictionaryTools.cs" />
     <Compile Include="Tools\DoubleTools.cs" />
     <Compile Include="Tools\EscapeString.cs" />
+    <Compile Include="Tools\HTTPServerChannel.cs" />
     <Compile Include="Tools\HTTPClient.cs" />
+    <Compile Include="Tools\HTTPServer.cs" />
     <Compile Include="Tools\Hub.cs" />
     <Compile Include="Tools\JsonTools.cs" />
     <Compile Include="Tools\JString.cs" />
@@ -61,6 +63,7 @@
     <Compile Include="Tools\NamedEventPair.cs" />
     <Compile Include="Tools\NamedEventTools.cs" />
     <Compile Include="Tools\NamedEventUnit.cs" />
+    <Compile Include="Tools\SockChannel.cs" />
     <Compile Include="Tools\SockClient.cs" />
     <Compile Include="Tools\ProcMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -79,6 +82,7 @@
     <Compile Include="Tools\RandomUnit.cs" />
     <Compile Include="Tools\ReflecTools.cs" />
     <Compile Include="Tools\SecurityTools.cs" />
+    <Compile Include="Tools\SockServer.cs" />
     <Compile Include="Tools\SortedList.cs" />
     <Compile Include="Tools\SSRBClient.cs" />
     <Compile Include="Tools\StringTools.cs" />
