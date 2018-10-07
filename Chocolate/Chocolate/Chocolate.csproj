@@ -63,6 +63,7 @@
     <Compile Include="Tools\NamedEventPair.cs" />
     <Compile Include="Tools\NamedEventTools.cs" />
     <Compile Include="Tools\NamedEventUnit.cs" />
+    <Compile Include="Tools\SharedQueue.cs" />
     <Compile Include="Tools\SockChannel.cs" />
     <Compile Include="Tools\SockClient.cs" />
     <Compile Include="Tools\ProcMain.cs" />

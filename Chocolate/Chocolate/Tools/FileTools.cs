@@ -213,5 +213,10 @@ namespace Charlotte.Tools
 			}
 #endif
 		}
+
+		public static void Write(FileStream writer, byte[] data, int offset = 0)
+		{
+			writer.Write(data, offset, data.Length - offset);
+		}
 	}
 }

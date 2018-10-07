@@ -79,5 +79,29 @@ namespace Charlotte.Tools
 			Array.Copy(src, offset, dest, 0, size);
 			return dest;
 		}
+
+		public static byte[] ToBytes(int value)
+		{
+			byte[] dest = new byte[4];
+			ToBytes(value, dest);
+			return dest;
+		}
+
+		public static void ToBytes(int value, byte[] dest, int index = 0)
+		{
+			dest[index + 0] = (byte)((value >> 0) & 0xff);
+			dest[index + 1] = (byte)((value >> 8) & 0xff);
+			dest[index + 2] = (byte)((value >> 16) & 0xff);
+			dest[index + 3] = (byte)((value >> 24) & 0xff);
+		}
+
+		public static int ToInt(byte[] src, int index = 0)
+		{
+			return
+				((int)src[index + 0] << 0) |
+				((int)src[index + 1] << 8) |
+				((int)src[index + 2] << 16) |
+				((int)src[index + 3] << 24);
+		}
 	}
 }

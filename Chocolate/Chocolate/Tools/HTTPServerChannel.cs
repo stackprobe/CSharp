@@ -126,7 +126,7 @@ namespace Charlotte.Tools
 			}
 		}
 
-		private const int BODY_SIZE_MAX = 300000000; // 300 MB
+		public static int BodySizeMax = 300000000; // 300 MB
 
 		private void RecvBody()
 		{
@@ -151,8 +151,11 @@ namespace Charlotte.Tools
 					if (size == 0)
 						break;
 
-					if (size < 0 || BODY_SIZE_MAX - buff.Count < size)
+					if (size < 0)
 						throw new Exception("不正なチャンクサイズです。" + size);
+
+					if (BodySizeMax - buff.Count < size)
+						throw new Exception("ボディサイズが大きすぎます。" + buff.Count + " + " + size);
 
 					buff.AddRange(this.Channel.Recv(size));
 					this.Channel.Recv(2); // CR-LF
@@ -161,8 +164,11 @@ namespace Charlotte.Tools
 			}
 			else
 			{
-				if (this.ContentLength < 0 || BODY_SIZE_MAX < this.ContentLength)
+				if (this.ContentLength < 0)
 					throw new Exception("不正なボディサイズです。" + this.ContentLength);
+
+				if (BodySizeMax < this.ContentLength)
+					throw new Exception("ボディサイズが大きすぎます。" + this.ContentLength);
 
 				this.Body = this.Channel.Recv(this.ContentLength);
 			}

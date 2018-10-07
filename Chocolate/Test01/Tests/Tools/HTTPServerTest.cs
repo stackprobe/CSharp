@@ -20,7 +20,7 @@ namespace Charlotte.Tests.Tools
 
 			hs.Start();
 
-			Console.WriteLine("Press ENTER to stop http-server");
+			Console.WriteLine("Press ENTER to Stop");
 			Console.ReadLine();
 
 			hs.Stop_B();
