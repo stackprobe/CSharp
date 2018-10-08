@@ -57,6 +57,7 @@
     <Compile Include="Tools\JString.cs" />
     <Compile Include="Tools\LongTools.cs" />
     <Compile Include="Tools\MSection.cs" />
+    <Compile Include="Tools\MultiThreadEx.cs" />
     <Compile Include="Tools\MutexTools.cs" />
     <Compile Include="Tools\FilingCase3.cs" />
     <Compile Include="Tools\FilingCase3Client.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Tools\StringTools.cs" />
     <Compile Include="Tools\SyncBox.cs" />
     <Compile Include="Tools\SyncQueue.cs" />
+    <Compile Include="Tools\ThreadEx.cs" />
     <Compile Include="Tools\WorkingDir.cs" />
     <Compile Include="Tools\XmlNode.cs" />
   </ItemGroup>

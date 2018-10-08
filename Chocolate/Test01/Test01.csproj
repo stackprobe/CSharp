@@ -62,10 +62,13 @@
     <Compile Include="Tests\Tools\HTTPServerTest.cs" />
     <Compile Include="Tests\Tools\HubTest.cs" />
     <Compile Include="Tests\Tools\JsonToolsTest.cs" />
+    <Compile Include="Tests\Tools\MultiThreadExTest.cs" />
     <Compile Include="Tests\Tools\ReflecToolsTest.cs" />
     <Compile Include="Tests\Tools\SecurityToolsTest.cs" />
+    <Compile Include="Tests\Tools\SharedQueueTest.cs" />
     <Compile Include="Tests\Tools\SortedListTest.cs" />
     <Compile Include="Tests\Tools\StringToolsTest.cs" />
+    <Compile Include="Tests\Tools\ThreadExTest.cs" />
     <Compile Include="Tests\Tools\WorkingDirTest.cs" />
   </ItemGroup>
   <ItemGroup>

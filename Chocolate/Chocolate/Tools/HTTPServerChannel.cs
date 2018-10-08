@@ -132,7 +132,7 @@ namespace Charlotte.Tools
 		{
 			if (this.Chunked)
 			{
-				List<byte> buff = new List<byte>();
+				List<byte[]> buff = new List<byte[]>();
 
 				for (; ; )
 				{
@@ -157,10 +157,10 @@ namespace Charlotte.Tools
 					if (BodySizeMax - buff.Count < size)
 						throw new Exception("ボディサイズが大きすぎます。" + buff.Count + " + " + size);
 
-					buff.AddRange(this.Channel.Recv(size));
+					buff.Add(this.Channel.Recv(size));
 					this.Channel.Recv(2); // CR-LF
 				}
-				this.Body = buff.ToArray();
+				this.Body = BinTools.Join(buff.ToArray());
 			}
 			else
 			{

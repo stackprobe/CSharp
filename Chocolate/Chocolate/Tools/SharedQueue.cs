@@ -17,7 +17,7 @@ namespace Charlotte.Tools
 		{
 			this.QueueFile = Path.Combine(Environment.GetEnvironmentVariable("TMP"), ident + ".tmp");
 			this.MtxHdl = MutexTools.CreateGlobal(ident + "_M");
-			this.EnqueueEv = new NamedEventUnit(ident + "_E");
+			this.EnqueueEv = new NamedEventUnit(NamedEventTools.CreateGlobal(ident + "_E"), true);
 		}
 
 		public void Clear()
@@ -28,7 +28,12 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public void Enqueue(params byte[][] src)
+		public void Enqueue(byte[] src)
+		{
+			Enqueue(new byte[][] { src });
+		}
+
+		public void Enqueue(IEnumerable<byte[]> src)
 		{
 			using (new MSection(this.MtxHdl))
 			{
@@ -73,9 +78,9 @@ namespace Charlotte.Tools
 			{
 				if (File.Exists(this.QueueFile))
 				{
-					using (FileStream reader = new FileStream(this.QueueFile, FileMode.Open, FileAccess.Read))
+					try
 					{
-						try
+						using (FileStream reader = new FileStream(this.QueueFile, FileMode.Open, FileAccess.Read))
 						{
 							for (; ; )
 							{
@@ -103,10 +108,10 @@ namespace Charlotte.Tools
 								count++;
 							}
 						}
-						finally
-						{
-							FileTools.Delete(this.QueueFile); // エラーでも全部読み込めた時も削除する。
-						}
+					}
+					finally
+					{
+						FileTools.Delete(this.QueueFile); // エラーでも全部読み込めた時も削除する。
 					}
 				}
 			}

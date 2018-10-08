@@ -31,5 +31,28 @@ namespace Charlotte.Tests.Tools
 			if (ret != value)
 				throw null;
 		}
+
+		public void Test02()
+		{
+			Test02a(new string[] { "ABC" });
+			Test02a(new string[] { "abcdef", "123456" });
+			Test02a(new string[] { "いろは", "にほへと", "ちりぬるを" });
+		}
+
+		private void Test02a(string[] strs)
+		{
+			byte[][] src = new byte[strs.Length][];
+
+			for (int index = 0; index < strs.Length; index++)
+				src[index] = Encoding.UTF8.GetBytes(strs[index]);
+
+			byte[] mid = BinTools.Join(src);
+			byte[][] dest = BinTools.Split(mid);
+
+			for (int index = 0; index < dest.Length; index++)
+				Console.WriteLine(Encoding.UTF8.GetString(dest[index]));
+
+			Console.WriteLine("----");
+		}
 	}
 }

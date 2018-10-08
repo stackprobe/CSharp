@@ -103,5 +103,39 @@ namespace Charlotte.Tools
 				((int)src[index + 2] << 16) |
 				((int)src[index + 3] << 24);
 		}
+
+		public static byte[] Join(params byte[][] src)
+		{
+			int offset = 0;
+
+			foreach (byte[] block in src)
+				offset += 4 + block.Length;
+
+			byte[] dest = new byte[offset];
+			offset = 0;
+
+			foreach (byte[] block in src)
+			{
+				Array.Copy(ToBytes(block.Length), 0, dest, offset, 4);
+				offset += 4;
+				Array.Copy(block, 0, dest, offset, block.Length);
+				offset += block.Length;
+			}
+			return dest;
+		}
+
+		public static byte[][] Split(byte[] src)
+		{
+			List<byte[]> dest = new List<byte[]>();
+
+			for (int offset = 0; offset < src.Length; )
+			{
+				int size = ToInt(src, offset);
+				offset += 4;
+				dest.Add(GetSubBytes(src, offset, size));
+				offset += size;
+			}
+			return dest.ToArray();
+		}
 	}
 }
