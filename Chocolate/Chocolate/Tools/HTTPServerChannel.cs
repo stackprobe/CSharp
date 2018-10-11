@@ -19,7 +19,7 @@ namespace Charlotte.Tools
 				string[] tokens = this.FirstLine.Split(' ');
 
 				this.Method = tokens[0];
-				this.Path = tokens[1];
+				this.Path = DecodeURL(tokens[1]);
 				this.HTTPVersion = tokens[2];
 			}
 
@@ -34,6 +34,26 @@ namespace Charlotte.Tools
 				this.SendLine("");
 			}
 			this.RecvBody();
+		}
+
+		private string DecodeURL(string path)
+		{
+			byte[] src = Encoding.ASCII.GetBytes(path);
+			List<byte> dest = new List<byte>();
+
+			for (int index = 0; index < src.Length; index++)
+			{
+				if (src[index] == 0x25) // ? '%'
+				{
+					dest.Add((byte)Convert.ToInt32(Encoding.ASCII.GetString(BinTools.GetSubBytes(src, index + 1, 2)), 16));
+					index += 2;
+				}
+				else
+				{
+					dest.Add(src[index]);
+				}
+			}
+			return Encoding.UTF8.GetString(dest.ToArray());
 		}
 
 		public string FirstLine;
@@ -178,7 +198,7 @@ namespace Charlotte.Tools
 		public string ResServer = null;
 		public string ResContentType = null;
 		public List<string[]> ResHeaderPairs = new List<string[]>();
-		public byte[] ResBody = new byte[0];
+		public byte[] ResBody = null;
 
 		public void SendResponse()
 		{
@@ -193,7 +213,7 @@ namespace Charlotte.Tools
 			foreach (string[] pair in this.ResHeaderPairs)
 				this.SendLine(pair[0] + ": " + pair[1]);
 
-			if (this.ResBody.Length != 0)
+			if (this.ResBody != null)
 				this.SendLine("Content-Length: " + this.ResBody.Length);
 
 			this.SendLine("Connection: close");
