@@ -322,5 +322,15 @@ namespace Charlotte.Tools
 			}
 			return str;
 		}
+
+		public static bool IsLine(string line)
+		{
+			return line == AsLine(line);
+		}
+
+		public static string AsLine(string line)
+		{
+			return JString.ToJString(line, true, false, true, true);
+		}
 	}
 }

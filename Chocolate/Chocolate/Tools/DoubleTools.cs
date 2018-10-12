@@ -7,6 +7,17 @@ namespace Charlotte.Tools
 {
 	public class DoubleTools
 	{
+		public static int Comp(double a, double b)
+		{
+			if (a < b)
+				return -1;
+
+			if (a > b)
+				return 1;
+
+			return 0;
+		}
+
 		public static double Range(double value, double minval, double maxval)
 		{
 			return Math.Max(minval, Math.Min(maxval, value));
