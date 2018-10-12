@@ -15,6 +15,8 @@ namespace Charlotte.Tools
 
 		public SharedQueue(string ident)
 		{
+			ident = SecurityTools.ToFiarIdent(ident);
+
 			this.QueueFile = Path.Combine(Environment.GetEnvironmentVariable("TMP"), ident + ".tmp");
 			this.MtxHdl = MutexTools.CreateGlobal(ident + "_M");
 			this.EnqueueEv = new NamedEventUnit(NamedEventTools.CreateGlobal(ident + "_E"), true);

@@ -231,10 +231,10 @@ namespace Charlotte.Tools
 		{
 			string fmt = ident;
 
-			fmt = StringTools.ReplaceChars(fmt, StringTools.alpha + "-{}", '9');
+			fmt = StringTools.ReplaceChars(fmt, StringTools.DECIMAL + StringTools.alpha + "-{}", '9');
 			fmt = StringTools.ReplaceLoop(fmt, "99", "9");
 
-			return fmt == "9" && ident.Length <= 32;
+			return fmt == "9" && ident.Length <= 38;
 		}
 	}
 }
