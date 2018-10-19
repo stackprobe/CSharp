@@ -188,7 +188,7 @@ namespace Charlotte.Tools
 			return dest.ToArray();
 		}
 
-		public static void Transfer<T>(Action<T[], long, int> reader, long index, long size, int buffSize = 65536)
+		public static void Transfer<T>(Action<T[], long, int> readerWriter, long index, long size, int buffSize = 65536)
 		{
 			T[] buff = new T[buffSize];
 
@@ -196,7 +196,7 @@ namespace Charlotte.Tools
 			{
 				int readSize = (int)Math.Min((long)buffSize, size - offset);
 
-				reader(buff, index + offset, readSize);
+				readerWriter(buff, index + offset, readSize);
 				offset += (long)readSize;
 			}
 		}
