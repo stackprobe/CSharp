@@ -68,6 +68,7 @@
     <Compile Include="Tests\Tools\SharedQueueTest.cs" />
     <Compile Include="Tests\Tools\SortedListTest.cs" />
     <Compile Include="Tests\Tools\StringToolsTest.cs" />
+    <Compile Include="Tests\Tools\SyncListTest.cs" />
     <Compile Include="Tests\Tools\ThreadExTest.cs" />
     <Compile Include="Tests\Tools\WorkingDirTest.cs" />
   </ItemGroup>

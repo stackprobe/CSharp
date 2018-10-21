@@ -70,8 +70,9 @@ namespace Charlotte
 			//new BinToolsTest().Test02();
 			//new SharedQueueTest().Test01();
 			//new ThreadExTest().Test01();
-			new ThreadExTest().Test02();
+			//new ThreadExTest().Test02();
 			//new MultiThreadExTest().Test01();
+			new SyncListTest().Test01();
 		}
 	}
 }

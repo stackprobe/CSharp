@@ -43,5 +43,13 @@ namespace Charlotte.Tools
 				return ret;
 			}
 		}
+
+		public void Invoke(Func<T, T> routine)
+		{
+			lock (this.SyncRoot)
+			{
+				this.Value = routine(this.Value);
+			}
+		}
 	}
 }

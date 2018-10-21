@@ -41,14 +41,22 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public void Rotate(Func<T, bool> peeker, int count = 1)
+		public void Rotate(Predicate<T> match, int count = 1)
 		{
 			foreach (T element in this.Dequeue(count))
 			{
-				if (peeker(element))
+				if (match(element))
 				{
 					this.Enqueue(element);
 				}
+			}
+		}
+
+		public void Invoke(Action<Queue<T>> routine)
+		{
+			lock (this.SyncRoot)
+			{
+				routine(this.Inner);
 			}
 		}
 	}

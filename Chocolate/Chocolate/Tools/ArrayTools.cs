@@ -37,10 +37,10 @@ namespace Charlotte.Tools
 			return defval;
 		}
 
-		public static int IndexOf<T>(T[] arr, Func<T, bool> predicate, int defval = -1)
+		public static int IndexOf<T>(T[] arr, Predicate<T> match, int defval = -1)
 		{
 			for (int index = 0; index < arr.Length; index++)
-				if (predicate(arr[index]))
+				if (match(arr[index]))
 					return index;
 
 			return defval;
@@ -51,9 +51,9 @@ namespace Charlotte.Tools
 			return IndexOf<T>(arr, target, comp) != -1;
 		}
 
-		public static bool Contains<T>(T[] arr, Func<T, bool> predicate)
+		public static bool Contains<T>(T[] arr, Predicate<T> match)
 		{
-			return IndexOf<T>(arr, predicate) != -1;
+			return IndexOf<T>(arr, match) != -1;
 		}
 
 		public static List<T> ToList<T>(IEnumerable<T> src)
