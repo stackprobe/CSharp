@@ -66,14 +66,19 @@ namespace Charlotte.Tools
 			return dest;
 		}
 
-		public static T[] ToArray<T>(List<T> src)
+		public static T[] ToArray<T>(IEnumerable<T> src)
 		{
-			T[] dest = new T[src.Count];
+#if !true
+			return src.ToArray();
+#else // old same
+			List<T> list = ToList(src);
+			T[] dest = new T[list.Count];
 
-			for (int index = 0; index < src.Count; index++)
-				dest[index] = src[index];
+			for (int index = 0; index < list.Count; index++)
+				dest[index] = list[index];
 
 			return dest;
+#endif
 		}
 
 		public static T[] Repeat<T>(T element, int count)
@@ -194,10 +199,10 @@ namespace Charlotte.Tools
 
 			for (long offset = 0L; offset < size; )
 			{
-				int readSize = (int)Math.Min((long)buffSize, size - offset);
+				int readWriteSize = (int)Math.Min((long)buffSize, size - offset);
 
-				readerWriter(buff, index + offset, readSize);
-				offset += (long)readSize;
+				readerWriter(buff, index + offset, readWriteSize);
+				offset += (long)readWriteSize;
 			}
 		}
 
@@ -223,6 +228,65 @@ namespace Charlotte.Tools
 					}
 				}
 			}
+		}
+
+		public static T Lightest<T>(IEnumerable<T> src, Func<T, double> toWeight)
+		{
+			IEnumerator<T> reader = src.GetEnumerator();
+
+			if (reader.MoveNext() == false)
+				throw new ArgumentException("空のリストです。");
+
+			T ret = reader.Current;
+			double ret_weight = toWeight(ret);
+
+			while (reader.MoveNext())
+			{
+				T value = reader.Current;
+				double weight = toWeight(value);
+
+				if (weight < ret_weight)
+				{
+					ret = value;
+					ret_weight = weight;
+				}
+			}
+			return ret;
+		}
+
+		public static T Heaviest<T>(IEnumerable<T> src, Func<T, double> toWeight)
+		{
+			return Lightest(src, value => toWeight(value) * -1);
+		}
+
+		public static T Top<T>(IEnumerable<T> src, Comparison<T> comp)
+		{
+			IEnumerator<T> reader = src.GetEnumerator();
+
+			if (reader.MoveNext() == false)
+				throw new ArgumentException("空のリストです。");
+
+			T ret = reader.Current;
+
+			while (reader.MoveNext())
+			{
+				T value = reader.Current;
+
+				if (comp(value, ret) < 0)
+				{
+					ret = value;
+				}
+			}
+			return ret;
+		}
+
+		public static T Tail<T>(IEnumerable<T> src, Comparison<T> comp)
+		{
+#if true
+			return Top(src, (a, b) => comp(b, a));
+#else // old same
+			return Top(src, (a, b) => comp(a, b) * -1);
+#endif
 		}
 	}
 }
