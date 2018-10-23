@@ -14,6 +14,15 @@ namespace Charlotte.Tools
 			Ths.Add(new ThreadEx(routine));
 		}
 
+		public bool IsEnded(int millis = 0)
+		{
+			foreach (ThreadEx th in Ths)
+				if (th.IsEnded(millis) == false)
+					return false;
+
+			return true;
+		}
+
 		public void WaitToEnd()
 		{
 			foreach (ThreadEx th in Ths)

@@ -28,6 +28,14 @@ namespace Charlotte.Tools
 			Th.Start();
 		}
 
+		public bool IsEnded(int millis = 0)
+		{
+			if (Th != null && Th.Join(millis))
+				Th = null;
+
+			return Th == null;
+		}
+
 		public void WaitToEnd()
 		{
 			if (Th != null)

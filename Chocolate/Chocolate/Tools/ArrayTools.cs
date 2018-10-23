@@ -259,7 +259,7 @@ namespace Charlotte.Tools
 			return Lightest(src, value => toWeight(value) * -1);
 		}
 
-		public static T Top<T>(IEnumerable<T> src, Comparison<T> comp)
+		public static T Smallest<T>(IEnumerable<T> src, Comparison<T> comp)
 		{
 			IEnumerator<T> reader = src.GetEnumerator();
 
@@ -280,12 +280,12 @@ namespace Charlotte.Tools
 			return ret;
 		}
 
-		public static T Tail<T>(IEnumerable<T> src, Comparison<T> comp)
+		public static T Largest<T>(IEnumerable<T> src, Comparison<T> comp)
 		{
 #if true
-			return Top(src, (a, b) => comp(b, a));
+			return Smallest(src, (a, b) => comp(b, a));
 #else // old same
-			return Top(src, (a, b) => comp(a, b) * -1);
+			return Smallest(src, (a, b) => comp(a, b) * -1);
 #endif
 		}
 	}
