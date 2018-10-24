@@ -14,17 +14,24 @@ namespace Charlotte.Tests.Tools
 			{
 				using (MultiThreadEx mte = new MultiThreadEx())
 				{
-					mte.Add(() => { throw new Exception("例外01"); });
-					mte.Add(() => { throw new Exception("例外02"); });
-					mte.Add(() => { throw new Exception("例外03"); });
+					mte.Add(() => { throw new Test01_Exception("例外01"); });
+					mte.Add(() => { throw new Test01_Exception("例外02"); });
+					mte.Add(() => { throw new Test01_Exception("例外03"); });
 
 					mte.RelayThrow();
 				}
 			}
-			catch (Exception e)
+			catch (Test01_Exception e)
 			{
 				Console.WriteLine("キャッチした例外：" + e);
 			}
+		}
+
+		private class Test01_Exception : Exception
+		{
+			public Test01_Exception(string message)
+				: base(message)
+			{ }
 		}
 	}
 }

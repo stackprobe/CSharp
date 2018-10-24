@@ -24,5 +24,36 @@ namespace Charlotte.Tests.Tools
 				}
 			}
 		}
+
+		public void Test02()
+		{
+			try
+			{
+				using (MultiThreadTaskInvoker mtti = new MultiThreadTaskInvoker())
+				{
+					for (int c = 0; c < 1000; c++)
+					{
+						int f_c = c;
+
+						mtti.AddTask(() =>
+						{
+							throw new Test02_Exception("c: " + f_c);
+						});
+					}
+					mtti.RelayThrow();
+				}
+			}
+			catch (Test02_Exception e)
+			{
+				Console.WriteLine("キャッチした例外：" + e);
+			}
+		}
+
+		private class Test02_Exception : Exception
+		{
+			public Test02_Exception(string message)
+				: base(message)
+			{ }
+		}
 	}
 }

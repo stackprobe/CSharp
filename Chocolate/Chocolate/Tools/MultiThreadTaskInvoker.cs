@@ -8,15 +8,15 @@ namespace Charlotte.Tools
 {
 	public class MultiThreadTaskInvoker : IDisposable
 	{
-		public Action<Exception> ExHandler = e => { };
 		public int ThreadCountMax = Environment.ProcessorCount;
+		public int ExceptionCountMax = 10;
 
 		// <---- prop
 
 		private object SYNCROOT = new object();
 		private List<Thread> Ths = new List<Thread>();
 		private Queue<Action> Tasks = new Queue<Action>();
-		private NamedEventPair ThreadEndEv = new NamedEventPair(Guid.NewGuid().ToString("B"));
+		private List<Exception> Exs = new List<Exception>();
 
 		public void AddTask(Action task)
 		{
@@ -37,7 +37,6 @@ namespace Charlotte.Tools
 								if (this.Tasks.Count <= 0)
 								{
 									this.Ths.Remove(Thread.CurrentThread);
-									this.ThreadEndEv.Set();
 									break;
 								}
 								nextTask = this.Tasks.Dequeue();
@@ -49,12 +48,11 @@ namespace Charlotte.Tools
 							}
 							catch (Exception e)
 							{
-								try
+								lock (SYNCROOT)
 								{
-									this.ExHandler(e);
+									if (this.Exs.Count < this.ExceptionCountMax)
+										this.Exs.Add(e);
 								}
-								catch
-								{ }
 							}
 						}
 					});
@@ -76,10 +74,27 @@ namespace Charlotte.Tools
 
 		public void WaitToEnd()
 		{
-			while (this.IsEnded() == false)
+			for (; ; )
 			{
-				this.ThreadEndEv.WaitForMillis(2000);
+				Thread th;
+
+				lock (SYNCROOT)
+				{
+					if (this.Ths.Count <= 0)
+						break;
+
+					th = this.Ths[0];
+				}
+				th.Join();
 			}
+		}
+
+		public void RelayThrow()
+		{
+			this.WaitToEnd();
+
+			if (1 <= this.Exs.Count)
+				throw new Exception("Relay: " + string.Join("\r\n", this.Exs.Select(e => e + "　<---- 内部の例外ここまで")));
 		}
 
 		public void Dispose()
