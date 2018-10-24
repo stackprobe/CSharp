@@ -58,6 +58,7 @@
     <Compile Include="Tools\LongTools.cs" />
     <Compile Include="Tools\MSection.cs" />
     <Compile Include="Tools\MultiThreadEx.cs" />
+    <Compile Include="Tools\MultiThreadTaskInvoker.cs" />
     <Compile Include="Tools\MutexTools.cs" />
     <Compile Include="Tools\FilingCase3.cs" />
     <Compile Include="Tools\FilingCase3Client.cs" />
