@@ -55,5 +55,27 @@ namespace Charlotte.Tests.Tools
 				: base(message)
 			{ }
 		}
+
+		public void Test03()
+		{
+			DateTime startedTime = DateTime.Now;
+
+			using (MultiThreadTaskInvoker mtti = new MultiThreadTaskInvoker())
+			{
+				for (int c = 0; c < 1000000; c++)
+				{
+					int f_c = c;
+
+					mtti.AddTask(() =>
+					{
+						// noop
+					});
+				}
+				mtti.RelayThrow();
+			}
+			DateTime endedTime = DateTime.Now;
+
+			Console.WriteLine("処理時間：" + ((endedTime - startedTime).TotalMilliseconds / 1000.0));
+		}
 	}
 }

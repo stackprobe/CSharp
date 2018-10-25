@@ -28,6 +28,7 @@ namespace Charlotte.Tools
 				{
 					Thread th = new Thread(() =>
 					{
+#if true
 						for (; ; )
 						{
 							Action nextTask;
@@ -37,7 +38,7 @@ namespace Charlotte.Tools
 								if (this.Tasks.Count <= 0)
 								{
 									this.Ths.Remove(Thread.CurrentThread);
-									break;
+									return;
 								}
 								nextTask = this.Tasks.Dequeue();
 							}
@@ -55,6 +56,37 @@ namespace Charlotte.Tools
 								}
 							}
 						}
+#else
+						for (; ; )
+						{
+							try
+							{
+								for (; ; )
+								{
+									Action nextTask;
+
+									lock (SYNCROOT)
+									{
+										if (this.Tasks.Count <= 0)
+										{
+											this.Ths.Remove(Thread.CurrentThread);
+											return;
+										}
+										nextTask = this.Tasks.Dequeue();
+									}
+									nextTask();
+								}
+							}
+							catch (Exception e)
+							{
+								lock (SYNCROOT)
+								{
+									if (this.Exs.Count < this.ExceptionCountMax)
+										this.Exs.Add(e);
+								}
+							}
+						}
+#endif
 					});
 
 					th.Start();
