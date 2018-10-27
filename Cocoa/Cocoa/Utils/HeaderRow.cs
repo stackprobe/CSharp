@@ -17,9 +17,9 @@ namespace Charlotte.Utils
 			Row = row;
 		}
 
-		public int GetColumnIndex(Func<string, bool> predicate)
+		public int GetColumnIndex(Predicate<string> match)
 		{
-			return ArrayTools.IndexOf(Header, predicate);
+			return ArrayTools.IndexOf(Header, match);
 		}
 
 		public int GetColumnIndex(string trgColName)
