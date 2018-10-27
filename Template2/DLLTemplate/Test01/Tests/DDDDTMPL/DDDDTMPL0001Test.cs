@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Charlotte.DDDDTMPL;
 
-namespace Test01.Tests.DDDDTMPL
+namespace Charlotte.Tests.DDDDTMPL
 {
 	public class DDDDTMPL0001Test // -- 0001
 	{

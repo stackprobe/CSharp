@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Test01.Tests.DDDDTMPL;
 using Charlotte.Tools;
+using Charlotte.Tests.DDDDTMPL;
 
-namespace Test01
+namespace Charlotte
 {
 	class Program
 	{

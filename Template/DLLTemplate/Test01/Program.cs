@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Test01.Tests.DDDDTMPL;
+using Charlotte.Tests.DDDDTMPL;
 
-namespace Test01
+namespace Charlotte
 {
 	class Program
 	{
+		public const string APP_IDENT = "{a00374e8-1bfb-415e-96d6-b764926d897f}";
+		public const string APP_TITLE = "DDDDTMPL";
+
 		static void Main(string[] args)
 		{
 			try
