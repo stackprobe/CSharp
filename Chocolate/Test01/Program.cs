@@ -75,7 +75,9 @@ namespace Charlotte
 			//new SyncListTest().Test01();
 			//new MultiThreadTaskInvokerTest().Test01();
 			//new MultiThreadTaskInvokerTest().Test02();
-			new MultiThreadTaskInvokerTest().Test03();
+			//new MultiThreadTaskInvokerTest().Test03();
+			//new HugeQueueTest().Test01();
+			new HugeQueueTest().Test02();
 		}
 	}
 }
