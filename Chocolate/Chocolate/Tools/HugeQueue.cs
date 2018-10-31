@@ -61,6 +61,8 @@ namespace Charlotte.Tools
 			if (this.InnerCount == 0)
 				throw new Exception("空のキューから読み込もうとしました。");
 
+			this.InnerCount--;
+
 			byte[] bSize = new byte[4];
 			int readSize = this.Reader.Read(bSize, 0, 4);
 
@@ -105,7 +107,6 @@ namespace Charlotte.Tools
 			if (readSize != size)
 				throw new Exception("不正なデータの読み込みサイズ：" + readSize + ", " + size);
 
-			this.InnerCount--;
 			return value;
 		}
 
