@@ -16,7 +16,7 @@ namespace Charlotte.Tools
 			StringBuilder buff = new StringBuilder();
 
 			for (int index = 0; index < length; index++)
-				buff.Append(allowChars[(int)CRandom.GetRandom((uint)allowChars.Length)]);
+				buff.Append(allowChars[CRandom.GetInt(allowChars.Length)]);
 
 			return buff.ToString();
 		}

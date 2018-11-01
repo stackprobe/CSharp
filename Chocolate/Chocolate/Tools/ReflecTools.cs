@@ -105,7 +105,7 @@ namespace Charlotte.Tools
 		}
 
 		/// <summary>
-		/// 親クラスの private, private static が取ってこれないっぽいけど、名前が被ったとき面倒なので、これでいいや。
+		/// 親クラスの private, private static を取得出来ない模様。現状名前が被った場合を考慮していないので、このままにする。
 		/// </summary>
 		private const BindingFlags _bindingFlags =
 			BindingFlags.Public |
@@ -124,13 +124,7 @@ namespace Charlotte.Tools
 			return type.GetProperties(_bindingFlags).Select<PropertyInfo, PropertyBox>(prop => new PropertyBox(prop)).ToArray();
 		}
 
-		/// <summary>
-		/// name が見つからない場合 null を返す。
-		/// </summary>
-		/// <param name="type"></param>
-		/// <param name="name"></param>
-		/// <returns></returns>
-		public static FieldBox GetField(Type type, string name)
+		public static FieldBox GetField(Type type, string name) // ret: null == not found
 		{
 			FieldInfo field = type.GetField(name, _bindingFlags);
 
@@ -165,13 +159,7 @@ namespace Charlotte.Tools
 			return EqualsOrBase(a.Value.FieldType, b);
 		}
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="a"></param>
-		/// <param name="b"></param>
-		/// <returns>a == b 又は a は b を継承している。</returns>
-		public static bool EqualsOrBase(Type a, Type b)
+		public static bool EqualsOrBase(Type a, Type b) // ret: ? a == b || a は b を継承している。
 		{
 			do
 			{

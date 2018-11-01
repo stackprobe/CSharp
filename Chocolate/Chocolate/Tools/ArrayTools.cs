@@ -193,19 +193,6 @@ namespace Charlotte.Tools
 			return dest.ToArray();
 		}
 
-		public static void Transfer<T>(Action<T[], long, int> readerWriter, long index, long size, int buffSize = 65536)
-		{
-			T[] buff = new T[buffSize];
-
-			for (long offset = 0L; offset < size; )
-			{
-				int readWriteSize = (int)Math.Min((long)buffSize, size - offset);
-
-				readerWriter(buff, index + offset, readWriteSize);
-				offset += (long)readWriteSize;
-			}
-		}
-
 		public static IEnumerable<T> Distinct<T>(IEnumerable<T> src, Comparison<T> comp)
 		{
 			IEnumerator<T> reader = src.GetEnumerator();

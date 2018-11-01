@@ -29,8 +29,7 @@ namespace Charlotte.Tools
 			}
 		}
 
-		private static byte[] EMPTY_BYTES = new byte[0];
-		private byte[] Cache = EMPTY_BYTES;
+		private byte[] Cache = BinTools.EMPTY;
 		private int RIndex = 0;
 
 		public byte GetByte()
