@@ -5,15 +5,15 @@ using System.Text;
 
 namespace Charlotte.Tools
 {
-	public class SyncBox<T>
+	public class SyncValue<T>
 	{
 		private object SyncRoot = new object();
 		private T Value;
 
-		public SyncBox()
+		public SyncValue()
 		{ }
 
-		public SyncBox(T value)
+		public SyncValue(T value)
 		{
 			this.Value = value;
 		}
