@@ -10,12 +10,12 @@ namespace Charlotte.Tools
 {
 	public class NamedEventTools
 	{
-		public static EventWaitHandle Create(string ident)
+		public static EventWaitHandle Create(string name)
 		{
-			return new EventWaitHandle(false, EventResetMode.AutoReset, ident);
+			return new EventWaitHandle(false, EventResetMode.AutoReset, name);
 		}
 
-		public static EventWaitHandle CreateGlobal(string ident)
+		public static EventWaitHandle CreateGlobal(string name)
 		{
 			EventWaitHandleSecurity security = new EventWaitHandleSecurity();
 
@@ -31,7 +31,7 @@ namespace Charlotte.Tools
 				);
 
 			bool createdNew;
-			return new EventWaitHandle(false, EventResetMode.AutoReset, @"Global\Global_" + ident, out createdNew, security);
+			return new EventWaitHandle(false, EventResetMode.AutoReset, @"Global\Global_" + name, out createdNew, security);
 		}
 	}
 }

@@ -13,8 +13,8 @@ namespace Charlotte.Tools
 		private EventWaitHandle Handle;
 		private bool Binding;
 
-		public NamedEventUnit(string ident)
-			: this(NamedEventTools.Create(ident), true)
+		public NamedEventUnit(string name)
+			: this(NamedEventTools.Create(name), true)
 		{ }
 
 		public NamedEventUnit(EventWaitHandle handle, bool binding = false)

@@ -11,8 +11,8 @@ namespace Charlotte.Tools
 		private Mutex Handle;
 		private bool Binding;
 
-		public MSection(string ident)
-			: this(new Mutex(false, ident), true)
+		public MSection(string name)
+			: this(new Mutex(false, name), true)
 		{ }
 
 		public MSection(Mutex handle, bool binding = false)

@@ -15,7 +15,7 @@ namespace Charlotte.Tools
 			return new Mutex(false, name);
 		}
 
-		public static Mutex CreateGlobal(string ident)
+		public static Mutex CreateGlobal(string name)
 		{
 			MutexSecurity security = new MutexSecurity();
 
@@ -31,7 +31,7 @@ namespace Charlotte.Tools
 				);
 
 			bool createdNew;
-			return new Mutex(false, @"Global\Global_" + ident, out createdNew, security);
+			return new Mutex(false, @"Global\Global_" + name, out createdNew, security);
 		}
 	}
 }

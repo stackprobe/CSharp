@@ -235,7 +235,7 @@ namespace Charlotte.Tools
 		{
 			private static Mutex ProcMtx;
 
-			public static bool Create(string ident, string title)
+			public static bool Create(string procMtxName, string title)
 			{
 				try
 				{
@@ -253,7 +253,7 @@ namespace Charlotte.Tools
 						);
 
 					bool createdNew;
-					ProcMtx = new Mutex(false, @"Global\Global_" + ident, out createdNew, security);
+					ProcMtx = new Mutex(false, @"Global\Global_" + procMtxName, out createdNew, security);
 
 					if (ProcMtx.WaitOne(0))
 						return true;

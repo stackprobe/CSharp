@@ -10,10 +10,10 @@ namespace Charlotte.Tools
 		private NamedEventUnit HandleForSet;
 		private NamedEventUnit HandleForWait;
 
-		public NamedEventPair(string ident)
+		public NamedEventPair(string name)
 		{
-			this.HandleForSet = new NamedEventUnit(ident);
-			this.HandleForWait = new NamedEventUnit(ident); // fixme これが失敗すると HandleForSet が宙に浮く。
+			this.HandleForSet = new NamedEventUnit(name);
+			this.HandleForWait = new NamedEventUnit(name); // fixme これが失敗すると HandleForSet が宙に浮く。
 		}
 
 		public void Set()
