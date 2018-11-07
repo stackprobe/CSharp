@@ -184,36 +184,6 @@ namespace Charlotte.Tools
 			return path;
 		}
 
-		public static int CompBinFile(string file1, string file2)
-		{
-#if false
-			byte[] hash1 = SecurityTools.GetSHA512File(file1);
-			byte[] hash2 = SecurityTools.GetSHA512File(file2);
-
-			return BinTools.Comp(hash1, hash2);
-#else
-			const int buffSize = 50000000; // 50 MB
-
-			using (FileStream nb_reader1 = new FileStream(file1, FileMode.Open, FileAccess.Read))
-			using (FileStream nb_reader2 = new FileStream(file2, FileMode.Open, FileAccess.Read))
-			using (BufferedStream reader1 = new BufferedStream(nb_reader1, buffSize))
-			using (BufferedStream reader2 = new BufferedStream(nb_reader2, buffSize))
-			{
-				for (; ; )
-				{
-					int chr1 = reader1.ReadByte();
-					int chr2 = reader2.ReadByte();
-
-					if (chr1 != chr2)
-						return chr1 - chr2;
-
-					if (chr1 == -1)
-						return 0;
-				}
-			}
-#endif
-		}
-
 		public static void Write(FileStream writer, byte[] data, int offset = 0)
 		{
 			writer.Write(data, offset, data.Length - offset);
