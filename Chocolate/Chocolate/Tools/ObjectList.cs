@@ -7,10 +7,10 @@ namespace Charlotte.Tools
 {
 	public class ObjectList
 	{
-		public static ObjectList Create(ICollection<object> list)
+		public static ObjectList Create(IEnumerable<object> src)
 		{
 			ObjectList dest = new ObjectList();
-			dest.AddRange(list);
+			dest.AddRange(src);
 			return dest;
 		}
 
@@ -24,14 +24,14 @@ namespace Charlotte.Tools
 			this.AddRange(arr);
 		}
 
-		public void AddRange(ICollection<object> list)
+		public void AddRange(IEnumerable<object> src)
 		{
-			this.Inner.AddRange(list);
+			this.Inner.AddRange(src);
 		}
 
-		public void Add(object obj)
+		public void Add(object element)
 		{
-			this.Inner.Add(obj);
+			this.Inner.Add(element);
 		}
 
 		public int Count

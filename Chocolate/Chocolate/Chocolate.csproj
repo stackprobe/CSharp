@@ -84,7 +84,7 @@
     <Compile Include="Tools\ObjectMap.cs" />
     <Compile Include="Tools\ProcessTools.cs" />
     <Compile Include="Tools\RandomUnit.cs" />
-    <Compile Include="Tools\ReflecTools.cs" />
+    <Compile Include="Tools\ReflectTools.cs" />
     <Compile Include="Tools\SecurityTools.cs" />
     <Compile Include="Tools\SockServer.cs" />
     <Compile Include="Tools\SortedList.cs" />

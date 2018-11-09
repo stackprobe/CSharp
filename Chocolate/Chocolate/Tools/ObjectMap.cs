@@ -46,20 +46,20 @@ namespace Charlotte.Tools
 			get { return this.Inner.Count; }
 		}
 
-		public object this[string key]
+		public object this[object key]
 		{
-			get { return this.Inner[key]; }
-			set { this.Inner[key] = value; }
+			get { return this.Inner["" + key]; }
+			set { this.Inner["" + key] = value; }
 		}
 
-		public ICollection<string> GetKeys()
+		public IEnumerable<string> GetKeys()
 		{
 			return this.Inner.Keys;
 		}
 
-		public bool ContainsKey(string key)
+		public Dictionary<string, object> Direct()
 		{
-			return this.Inner.ContainsKey(key);
+			return this.Inner;
 		}
 	}
 }

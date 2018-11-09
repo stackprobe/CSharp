@@ -142,7 +142,7 @@ namespace Charlotte.Tools
 				}
 			}
 
-			public void AddIndent(int count)
+			private void AddIndent(int count)
 			{
 				while (0 < count)
 				{

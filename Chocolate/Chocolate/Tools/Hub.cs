@@ -43,7 +43,7 @@ namespace Charlotte.Tools
 						string typeName = ar.NextArg();
 						object[] prms = this.ReadParams(ar);
 
-						this.Vars[destVarName] = ReflecTools.GetConstructors(GetType(typeName)).Where(ctor =>
+						this.Vars[destVarName] = ReflectTools.GetConstructors(GetType(typeName)).Where(ctor =>
 							IsMatchParams(ctor, prms)
 							).ToArray()[0].Construct(prms);
 					}
@@ -59,7 +59,7 @@ namespace Charlotte.Tools
 
 							object instance = this.Vars[varName];
 
-							this.Vars[destVarName] = ReflecTools.GetMethodsByInstance(instance).Where(method =>
+							this.Vars[destVarName] = ReflectTools.GetMethodsByInstance(instance).Where(method =>
 								method.Value.Name == methodName &&
 								method.Value.IsStatic == false &&
 								IsMatchParams(method, prms)
@@ -71,7 +71,7 @@ namespace Charlotte.Tools
 							string methodName = ar.NextArg();
 							object[] prms = this.ReadParams(ar);
 
-							this.Vars[destVarName] = ReflecTools.GetMethods(GetType(typeName)).Where(method =>
+							this.Vars[destVarName] = ReflectTools.GetMethods(GetType(typeName)).Where(method =>
 								method.Value.Name == methodName &&
 								method.Value.IsStatic &&
 								IsMatchParams(method, prms)
@@ -87,7 +87,7 @@ namespace Charlotte.Tools
 
 					object instance = this.Vars[varName];
 
-					ReflecTools.GetMethodsByInstance(instance).Where(method =>
+					ReflectTools.GetMethodsByInstance(instance).Where(method =>
 						method.Value.Name == methodName &&
 						method.Value.IsStatic == false &&
 						IsMatchParams(method, prms)
@@ -99,7 +99,7 @@ namespace Charlotte.Tools
 					string methodName = ar.NextArg();
 					object[] prms = this.ReadParams(ar);
 
-					ReflecTools.GetMethods(GetType(typeName)).Where(method =>
+					ReflectTools.GetMethods(GetType(typeName)).Where(method =>
 						method.Value.Name == methodName &&
 						method.Value.IsStatic &&
 						IsMatchParams(method, prms)
@@ -127,7 +127,7 @@ namespace Charlotte.Tools
 			return prms.ToArray();
 		}
 
-		private bool IsMatchParams(ReflecTools.MethodBox method, object[] prms)
+		private bool IsMatchParams(ReflectTools.MethodBox method, object[] prms)
 		{
 			return method.GetParameters().Length == prms.Length;
 		}
