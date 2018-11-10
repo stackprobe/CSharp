@@ -47,10 +47,10 @@ namespace Charlotte.Tools
 			{
 				ObjectMap dest = ObjectMap.Create();
 
-				foreach (ReflectTools.FieldBox field in ReflectTools.GetFieldsByInstance(instance))
+				foreach (ReflectTools.FieldUnit field in ReflectTools.GetFieldsByInstance(instance))
 					dest.Add(field.Value.Name, ToListOrMap(ReflectTools.GetValue(field, instance), depth - 1));
 
-				foreach (ReflectTools.PropertyBox prop in ReflectTools.GetPropertiesByInstance(instance))
+				foreach (ReflectTools.PropertyUnit prop in ReflectTools.GetPropertiesByInstance(instance))
 					dest.Add(prop.Value.Name, ToListOrMap(ReflectTools.GetValue(prop, instance), depth - 1));
 
 				return dest;

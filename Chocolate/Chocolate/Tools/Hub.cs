@@ -127,7 +127,7 @@ namespace Charlotte.Tools
 			return prms.ToArray();
 		}
 
-		private bool IsMatchParams(ReflectTools.MethodBox method, object[] prms)
+		private bool IsMatchParams(ReflectTools.MethodUnit method, object[] prms)
 		{
 			return method.GetParameters().Length == prms.Length;
 		}

@@ -57,12 +57,13 @@ namespace Charlotte
 			//new HTTPClientTest().Test01();
 			//new HTTPClientTest().Test02();
 			//new HTTPServerTest().Test01();
-			//new ReflecToolsTest().Test01();
-			//new ReflecToolsTest().Test02();
-			//new ReflecToolsTest().Test02b();
-			//new ReflecToolsTest().Test03();
-			//new ReflecToolsTest().Test03b();
-			//new ReflecToolsTest().Test04();
+			//new ReflectToolsTest().Test01();
+			//new ReflectToolsTest().Test02();
+			//new ReflectToolsTest().Test02b();
+			//new ReflectToolsTest().Test03();
+			//new ReflectToolsTest().Test03b();
+			//new ReflectToolsTest().Test04();
+			new ReflectToolsTest().Test05();
 			//new BatchClientTest().Test01();
 			//new JsonToolsTest().Test01();
 			//new ArrayToolsTest().Test01();
@@ -77,7 +78,7 @@ namespace Charlotte
 			//new MultiThreadTaskInvokerTest().Test02();
 			//new MultiThreadTaskInvokerTest().Test03();
 			//new HugeQueueTest().Test01();
-			new HugeQueueTest().Test02();
+			//new HugeQueueTest().Test02();
 		}
 	}
 }

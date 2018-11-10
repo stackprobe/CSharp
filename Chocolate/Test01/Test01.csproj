@@ -44,6 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Tests2\Class00.cs" />
+    <Compile Include="Tests2\Class01.cs" />
+    <Compile Include="Tests2\Interface01.cs" />
+    <Compile Include="Tests2\Interface02.cs" />
+    <Compile Include="Tests2\Interface03.cs" />
     <Compile Include="Tests\Tools\HugeQueueTest.cs" />
     <Compile Include="Tests\Tools\MultiThreadTaskInvokerTest.cs" />
     <Compile Include="Program.cs" />
@@ -65,7 +70,7 @@
     <Compile Include="Tests\Tools\HubTest.cs" />
     <Compile Include="Tests\Tools\JsonToolsTest.cs" />
     <Compile Include="Tests\Tools\MultiThreadExTest.cs" />
-    <Compile Include="Tests\Tools\ReflecToolsTest.cs" />
+    <Compile Include="Tests\Tools\ReflectToolsTest.cs" />
     <Compile Include="Tests\Tools\SecurityToolsTest.cs" />
     <Compile Include="Tests\Tools\SharedQueueTest.cs" />
     <Compile Include="Tests\Tools\SortedListTest.cs" />

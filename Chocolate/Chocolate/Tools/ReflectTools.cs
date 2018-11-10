@@ -8,38 +8,38 @@ namespace Charlotte.Tools
 {
 	public class ReflectTools
 	{
-		public class FieldBox
+		public class FieldUnit
 		{
 			public FieldInfo Value;
 
-			public FieldBox(FieldInfo value)
+			public FieldUnit(FieldInfo value)
 			{
 				this.Value = value;
 			}
 		}
 
-		public class PropertyBox
+		public class PropertyUnit
 		{
 			public PropertyInfo Value;
 
-			public PropertyBox(PropertyInfo value)
+			public PropertyUnit(PropertyInfo value)
 			{
 				this.Value = value;
 			}
 		}
 
-		public class MethodBox
+		public class MethodUnit
 		{
 			public MethodBase Value; // MethodInfo | ConstructorInfo
 
-			public MethodBox(MethodBase value)
+			public MethodUnit(MethodBase value)
 			{
 				this.Value = value;
 			}
 
-			public ParameterBox[] GetParameters()
+			public ParameterUnit[] GetParameters()
 			{
-				return this.Value.GetParameters().Select<ParameterInfo, ParameterBox>(prm => new ParameterBox(prm)).ToArray();
+				return this.Value.GetParameters().Select<ParameterInfo, ParameterUnit>(prm => new ParameterUnit(prm)).ToArray();
 			}
 
 			/// <summary>
@@ -74,32 +74,32 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public class ParameterBox
+		public class ParameterUnit
 		{
 			public ParameterInfo Value;
 
-			public ParameterBox(ParameterInfo value)
+			public ParameterUnit(ParameterInfo value)
 			{
 				this.Value = value;
 			}
 		}
 
-		public static FieldBox[] GetFieldsByInstance(object instance)
+		public static FieldUnit[] GetFieldsByInstance(object instance)
 		{
 			return GetFields(instance.GetType());
 		}
 
-		public static PropertyBox[] GetPropertiesByInstance(object instance)
+		public static PropertyUnit[] GetPropertiesByInstance(object instance)
 		{
 			return GetProperties(instance.GetType());
 		}
 
-		public static FieldBox GetFieldByInstance(object instance, string name)
+		public static FieldUnit GetFieldByInstance(object instance, string name)
 		{
 			return GetField(instance.GetType(), name);
 		}
 
-		public static PropertyBox GetPropertyByInstance(object instance, string name)
+		public static PropertyUnit GetPropertyByInstance(object instance, string name)
 		{
 			return GetProperty(instance.GetType(), name);
 		}
@@ -114,37 +114,37 @@ namespace Charlotte.Tools
 			BindingFlags.Instance |
 			BindingFlags.FlattenHierarchy;
 
-		public static FieldBox[] GetFields(Type type)
+		public static FieldUnit[] GetFields(Type type)
 		{
-			return type.GetFields(_bindingFlags).Select<FieldInfo, FieldBox>(field => new FieldBox(field)).ToArray();
+			return type.GetFields(_bindingFlags).Select<FieldInfo, FieldUnit>(field => new FieldUnit(field)).ToArray();
 		}
 
-		public static PropertyBox[] GetProperties(Type type)
+		public static PropertyUnit[] GetProperties(Type type)
 		{
-			return type.GetProperties(_bindingFlags).Select<PropertyInfo, PropertyBox>(prop => new PropertyBox(prop)).ToArray();
+			return type.GetProperties(_bindingFlags).Select<PropertyInfo, PropertyUnit>(prop => new PropertyUnit(prop)).ToArray();
 		}
 
-		public static FieldBox GetField(Type type, string name) // ret: null == not found
+		public static FieldUnit GetField(Type type, string name) // ret: null == not found
 		{
 			FieldInfo field = type.GetField(name, _bindingFlags);
 
 			if (field == null)
 				return null;
 
-			return new FieldBox(field);
+			return new FieldUnit(field);
 		}
 
-		public static PropertyBox GetProperty(Type type, string name)
+		public static PropertyUnit GetProperty(Type type, string name)
 		{
 			PropertyInfo prop = type.GetProperty(name, _bindingFlags);
 
 			if (prop == null)
 				return null;
 
-			return new PropertyBox(prop);
+			return new PropertyUnit(prop);
 		}
 
-		public static bool Equals(FieldBox a, Type b)
+		public static bool Equals(FieldUnit a, Type b)
 		{
 			return Equals(a.Value.FieldType, b);
 		}
@@ -154,21 +154,21 @@ namespace Charlotte.Tools
 			return a.ToString() == b.ToString();
 		}
 
-		public static bool EqualsOrBase(FieldBox a, Type b)
+		public static bool EqualsOrBase(FieldUnit a, Type b)
 		{
 			return EqualsOrBase(a.Value.FieldType, b);
 		}
 
 		public static bool EqualsOrBase(Type a, Type b) // ret: ? a == b || a は b を継承している。
 		{
+			foreach (Type ai in a.GetInterfaces())
+				if (Equals(ai, b))
+					return true;
+
 			do
 			{
 				if (Equals(a, b))
 					return true;
-
-				foreach (Type ai in a.GetInterfaces())
-					if (Equals(ai, b))
-						return true;
 
 				a = a.BaseType;
 			}
@@ -177,17 +177,17 @@ namespace Charlotte.Tools
 			return false;
 		}
 
-		public static object GetValue(FieldBox field, object instance)
+		public static object GetValue(FieldUnit field, object instance)
 		{
 			return field.Value.GetValue(instance);
 		}
 
-		public static void SetValue(FieldBox field, object instance, object value)
+		public static void SetValue(FieldUnit field, object instance, object value)
 		{
 			field.Value.SetValue(instance, value);
 		}
 
-		public static object GetValue(PropertyBox prop, object instance)
+		public static object GetValue(PropertyUnit prop, object instance)
 		{
 			try
 			{
@@ -211,24 +211,24 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public static MethodBox[] GetMethodsByInstance(object instance)
+		public static MethodUnit[] GetMethodsByInstance(object instance)
 		{
 			return GetMethods(instance.GetType());
 		}
 
-		public static MethodBox[] GetMethods(Type type)
+		public static MethodUnit[] GetMethods(Type type)
 		{
-			return type.GetMethods(_bindingFlags).Select<MethodInfo, MethodBox>(method => new MethodBox(method)).ToArray();
+			return type.GetMethods(_bindingFlags).Select<MethodInfo, MethodUnit>(method => new MethodUnit(method)).ToArray();
 		}
 
-		public static MethodBox[] GetConstructorsByInstance(object instance)
+		public static MethodUnit[] GetConstructorsByInstance(object instance)
 		{
 			return GetConstructors(instance.GetType());
 		}
 
-		public static MethodBox[] GetConstructors(Type type)
+		public static MethodUnit[] GetConstructors(Type type)
 		{
-			return type.GetConstructors(_bindingFlags).Select<ConstructorInfo, MethodBox>(constructor => new MethodBox(constructor)).ToArray();
+			return type.GetConstructors(_bindingFlags).Select<ConstructorInfo, MethodUnit>(constructor => new MethodUnit(constructor)).ToArray();
 		}
 	}
 }

@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Reflection;
 
-namespace Charlotte.Tools
+namespace Charlotte.Tests2
 {
-	public class ReflecTools
+	public interface Interface03 
 	{
-		// delete me !!!
+		void Func03();
 	}
 }
