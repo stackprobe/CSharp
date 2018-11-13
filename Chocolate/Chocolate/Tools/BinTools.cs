@@ -140,6 +140,24 @@ namespace Charlotte.Tools
 			int offset = 0;
 
 			foreach (byte[] block in src)
+				offset += block.Length;
+
+			byte[] dest = new byte[offset];
+			offset = 0;
+
+			foreach (byte[] block in src)
+			{
+				Array.Copy(block, 0, dest, offset, block.Length);
+				offset += block.Length;
+			}
+			return dest;
+		}
+
+		public static byte[] SplittableJoin(params byte[][] src)
+		{
+			int offset = 0;
+
+			foreach (byte[] block in src)
 				offset += 4 + block.Length;
 
 			byte[] dest = new byte[offset];

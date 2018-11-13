@@ -46,7 +46,7 @@ namespace Charlotte.Tests.Tools
 			for (int index = 0; index < strs.Length; index++)
 				src[index] = Encoding.UTF8.GetBytes(strs[index]);
 
-			byte[] mid = BinTools.Join(src);
+			byte[] mid = BinTools.SplittableJoin(src);
 			byte[][] dest = BinTools.Split(mid);
 
 			for (int index = 0; index < dest.Length; index++)
