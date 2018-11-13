@@ -7,8 +7,7 @@ namespace Charlotte.Tools
 {
 	public class LongTools
 	{
-		public const long IMAX = 1000000000L;
-		public const long IMAX_64 = 1000000000000000000L;
+		public const long IMAX_64 = 1000000000000000000L; // 10^18
 
 		public static int Comp(long a, long b)
 		{

@@ -134,5 +134,13 @@ namespace Charlotte.Tools
 		{
 			return this.GetUInt() / (double)(uint.MaxValue + 1L) + 0.5;
 		}
+
+		public void Shuffle<T>(T[] arr)
+		{
+			for (int index = arr.Length; 1 < index; index--)
+			{
+				ArrayTools.Swap(arr, GetInt(index), index - 1);
+			}
+		}
 	}
 }

@@ -7,7 +7,7 @@ namespace Charlotte.Tools
 {
 	public class IntTools
 	{
-		public const int IMAX = 1000000000;
+		public const int IMAX = 1000000000; // 10^9
 
 		public static int Comp(int a, int b)
 		{
@@ -40,6 +40,22 @@ namespace Charlotte.Tools
 			{
 				return defval;
 			}
+		}
+
+		public static int[] Sequence(int count)
+		{
+			return Sequence(0, count);
+		}
+
+		private static int[] Sequence(int firstValue, int count, int step = 1)
+		{
+			int[] ret = new int[count];
+
+			for (int index = 0; index < count; index++)
+			{
+				ret[index] = firstValue + count * step;
+			}
+			return ret;
 		}
 	}
 }
