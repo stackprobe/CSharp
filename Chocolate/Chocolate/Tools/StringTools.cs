@@ -23,7 +23,7 @@ namespace Charlotte.Tools
 			GetString_SJISHalfCodeRange(0x5b, 0x60) +
 			GetString_SJISHalfCodeRange(0x7b, 0x7e);
 
-		public static string ASCII = DECIMAL + ALPHA + alpha + PUNCT; // == { 0x21 ～ 0x7e }
+		public static string ASCII = DECIMAL + ALPHA + alpha + PUNCT; // == GetString_SJISHalfCodeRange(0x21, 0x7e)
 		public static string KANA = GetString_SJISHalfCodeRange(0xa1, 0xdf);
 
 		public static string HALF = ASCII + KANA;
@@ -35,6 +35,47 @@ namespace Charlotte.Tools
 			for (int code = codeMin; code <= codeMax; code++)
 			{
 				buff.Add((byte)code);
+			}
+			return ENCODING_SJIS.GetString(buff.ToArray());
+		}
+
+		public static string MBC_DECIMAL = GetString_SJISCodeRange(0x82, 0x4f, 0x58);
+		public static string MBC_ALPHA = GetString_SJISCodeRange(0x82, 0x60, 0x79);
+		public static string mbc_alpha = GetString_SJISCodeRange(0x82, 0x81, 0x9a);
+		public static string MBC_SPACE = GetString_SJISCodeRange(0x81, 0x40, 0x40);
+		public static string MBC_PUNCT =
+			GetString_SJISCodeRange(0x81, 0x41, 0x7e) +
+			GetString_SJISCodeRange(0x81, 0x80, 0xac) +
+			GetString_SJISCodeRange(0x81, 0xb8, 0xbf) + // 集合
+			GetString_SJISCodeRange(0x81, 0xc8, 0xce) + // 論理
+			GetString_SJISCodeRange(0x81, 0xda, 0xe8) + // 数学
+			GetString_SJISCodeRange(0x81, 0xf0, 0xf7) +
+			GetString_SJISCodeRange(0x81, 0xfc, 0xfc) +
+			GetString_SJISCodeRange(0x83, 0x9f, 0xb6) + // ギリシャ語大文字
+			GetString_SJISCodeRange(0x83, 0xbf, 0xd6) + // ギリシャ語小文字
+			GetString_SJISCodeRange(0x84, 0x40, 0x60) + // キリル文字大文字
+			GetString_SJISCodeRange(0x84, 0x70, 0x7e) + // キリル文字小文字(1)
+			GetString_SJISCodeRange(0x84, 0x80, 0x91) + // キリル文字小文字(2)
+			GetString_SJISCodeRange(0x84, 0x9f, 0xbe) + // 枠線
+			GetString_SJISCodeRange(0x87, 0x40, 0x5d) + // 機種依存文字(1)
+			GetString_SJISCodeRange(0x87, 0x5f, 0x75) + // 機種依存文字(2)
+			GetString_SJISCodeRange(0x87, 0x7e, 0x7e) + // 機種依存文字(3)
+			GetString_SJISCodeRange(0x87, 0x80, 0x9c) + // 機種依存文字(4)
+			GetString_SJISCodeRange(0xee, 0xef, 0xfc); // 機種依存文字(5)
+
+		public static string MBC_HIRA = GetString_SJISCodeRange(0x82, 0x9f, 0xf1);
+		public static string MBC_KANA =
+			GetString_SJISCodeRange(0x83, 0x40, 0x7e) +
+			GetString_SJISCodeRange(0x83, 0x80, 0x96);
+
+		private static string GetString_SJISCodeRange(int lead, int trailMin, int trailMax)
+		{
+			List<byte> buff = new List<byte>();
+
+			for (int trail = trailMin; trail <= trailMax; trail++)
+			{
+				buff.Add((byte)lead);
+				buff.Add((byte)trail);
 			}
 			return ENCODING_SJIS.GetString(buff.ToArray());
 		}
@@ -321,16 +362,6 @@ namespace Charlotte.Tools
 				count--;
 			}
 			return str;
-		}
-
-		public static bool IsLine(string line)
-		{
-			return line == AsLine(line);
-		}
-
-		public static string AsLine(string line)
-		{
-			return JString.ToJString(line, true, false, true, true);
 		}
 	}
 }

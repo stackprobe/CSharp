@@ -135,6 +135,38 @@ namespace Charlotte.Tools
 				((int)src[index + 3] << 24);
 		}
 
+		public static byte[] ToBytes64(long value)
+		{
+			byte[] dest = new byte[8];
+			ToBytes64(value, dest);
+			return dest;
+		}
+
+		public static void ToBytes64(long value, byte[] dest, int index = 0)
+		{
+			dest[index + 0] = (byte)((value >> 0) & 0xff);
+			dest[index + 1] = (byte)((value >> 8) & 0xff);
+			dest[index + 2] = (byte)((value >> 16) & 0xff);
+			dest[index + 3] = (byte)((value >> 24) & 0xff);
+			dest[index + 4] = (byte)((value >> 32) & 0xff);
+			dest[index + 5] = (byte)((value >> 40) & 0xff);
+			dest[index + 6] = (byte)((value >> 48) & 0xff);
+			dest[index + 7] = (byte)((value >> 56) & 0xff);
+		}
+
+		public static long ToInt64(byte[] src, int index = 0)
+		{
+			return
+				((long)src[index + 0] << 0) |
+				((long)src[index + 1] << 8) |
+				((long)src[index + 2] << 16) |
+				((long)src[index + 3] << 24) |
+				((long)src[index + 4] << 32) |
+				((long)src[index + 5] << 40) |
+				((long)src[index + 6] << 48) |
+				((long)src[index + 7] << 56);
+		}
+
 		public static byte[] Join(params byte[][] src)
 		{
 			int offset = 0;

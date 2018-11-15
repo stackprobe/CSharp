@@ -7,6 +7,16 @@ namespace Charlotte.Tools
 {
 	public class JString
 	{
+		public static bool IsLine(string line)
+		{
+			return line == AsLine(line);
+		}
+
+		public static string AsLine(string line)
+		{
+			return ToJString(line, true, false, true, true);
+		}
+
 		public static string ToJString(string str, bool okJpn, bool okRet, bool okTab, bool okSpc)
 		{
 			if (str == null)

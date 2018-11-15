@@ -10,26 +10,65 @@ namespace Charlotte.Tests.Tools
 	{
 		public void Test01()
 		{
-			for (int value = -10000; value <= 10000; value++)
+			for (int c = -1000; c <= 1000; c++)
 			{
-				Test01a(value);
+				Test01_Int(c);
 			}
-			for (int value = -2100000000; value <= 2100000000; value += 10000)
+			for (int c = int.MinValue; c <= int.MinValue + 1000; c++)
 			{
-				Test01a(value);
+				Test01_Int(c);
 			}
-			Test01a(int.MinValue);
-			Test01a(int.MaxValue);
+			for (int c = int.MaxValue; int.MaxValue - 1000 <= c; c--)
+			{
+				Test01_Int(c);
+			}
+			for (int c = (int)(int.MinValue * 0.9); c <= (int)(int.MaxValue * 0.9); c += SecurityTools.CRandom.GetInt(int.MaxValue / 1000))
+			{
+				Test01_Long(c);
+			}
+
+			for (long c = -1000L; c <= 1000L; c++)
+			{
+				Test01_Long(c);
+			}
+			for (long c = long.MinValue; c <= long.MinValue + 1000L; c++)
+			{
+				Test01_Long(c);
+			}
+			for (long c = long.MaxValue; long.MaxValue - 1000L <= c; c--)
+			{
+				Test01_Long(c);
+			}
+			for (long c = int.MinValue * 10L; c <= int.MaxValue * 10L; c += SecurityTools.CRandom.GetInt64(int.MaxValue / 1000L))
+			{
+				Test01_Long(c);
+			}
+			for (long c = (long)(long.MinValue * 0.9); c <= (long)(long.MaxValue * 0.9); c += SecurityTools.CRandom.GetInt64(long.MaxValue / 1000000L))
+			{
+				Test01_Long(c);
+			}
 
 			Console.WriteLine("OK!");
 		}
 
-		private void Test01a(int value)
+		private void Test01_Int(int c)
 		{
-			int ret = BinTools.ToInt(BinTools.ToBytes(value));
+			int a = BinTools.ToInt(BinTools.ToBytes(c));
 
-			if (ret != value)
-				throw null;
+			//Console.WriteLine(c + " -> " + a); // test
+
+			if (a != c)
+				throw null; // bugged !!!
+		}
+
+		private void Test01_Long(long c)
+		{
+			long a = BinTools.ToInt64(BinTools.ToBytes64(c));
+
+			//Console.WriteLine(c + " -> " + a); // test
+
+			if (a != c)
+				throw null; // bugged !!!
 		}
 
 		public void Test02()
