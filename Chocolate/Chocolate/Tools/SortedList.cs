@@ -163,7 +163,7 @@ namespace Charlotte.Tools
 #if true
 			int l = this.LeftIndexOf(ferret);
 			int r = this.RightIndexOf(ferret, l - 1);
-			int count = Math.Max(0, r - l + 1);
+			int count = r - l + 1;
 
 			return this.GetRange(l, count);
 #else // smpl_same
