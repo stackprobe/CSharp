@@ -43,9 +43,7 @@ namespace Charlotte.Tools
 						string typeName = ar.NextArg();
 						object[] prms = this.ReadParams(ar);
 
-						this.Vars[destVarName] = ReflectTools.GetConstructors(GetType(typeName)).Where(ctor =>
-							IsMatchParams(ctor, prms)
-							).ToArray()[0].Construct(prms);
+						this.Vars[destVarName] = ReflectTools.GetConstructor(GetType(typeName), prms).Construct(prms);
 					}
 					else
 					{
@@ -59,11 +57,7 @@ namespace Charlotte.Tools
 
 							object instance = this.Vars[varName];
 
-							this.Vars[destVarName] = ReflectTools.GetMethodsByInstance(instance).Where(method =>
-								method.Value.Name == methodName &&
-								method.Value.IsStatic == false &&
-								IsMatchParams(method, prms)
-								).ToArray()[0].Invoke(instance, prms);
+							this.Vars[destVarName] = ReflectTools.GetMethod(instance.GetType(), methodName, prms).Invoke(instance, prms);
 						}
 						else // <変数> = <タイプ> <staticメソッド> <引数>... ;
 						{
@@ -71,11 +65,7 @@ namespace Charlotte.Tools
 							string methodName = ar.NextArg();
 							object[] prms = this.ReadParams(ar);
 
-							this.Vars[destVarName] = ReflectTools.GetMethods(GetType(typeName)).Where(method =>
-								method.Value.Name == methodName &&
-								method.Value.IsStatic &&
-								IsMatchParams(method, prms)
-								).ToArray()[0].Invoke(prms);
+							this.Vars[destVarName] = ReflectTools.GetMethod(GetType(typeName), methodName, prms).Invoke(prms);
 						}
 					}
 				}
@@ -87,11 +77,12 @@ namespace Charlotte.Tools
 
 					object instance = this.Vars[varName];
 
-					ReflectTools.GetMethodsByInstance(instance).Where(method =>
+					ReflectTools.GetMethod(instance.GetType(), method =>
 						method.Value.Name == methodName &&
 						method.Value.IsStatic == false &&
-						IsMatchParams(method, prms)
-						).ToArray()[0].Invoke(instance, prms);
+						ReflectTools.CheckParameters(prms, method.GetParameterTypes())
+						)
+						.Invoke(instance, prms);
 				}
 				else // <タイプ> <staticメソッド> <引数>... ;
 				{
@@ -99,11 +90,12 @@ namespace Charlotte.Tools
 					string methodName = ar.NextArg();
 					object[] prms = this.ReadParams(ar);
 
-					ReflectTools.GetMethods(GetType(typeName)).Where(method =>
+					ReflectTools.GetMethod(GetType(typeName), method =>
 						method.Value.Name == methodName &&
 						method.Value.IsStatic &&
-						IsMatchParams(method, prms)
-						).ToArray()[0].Invoke(prms);
+						ReflectTools.CheckParameters(prms, method.GetParameterTypes())
+						)
+						.Invoke(prms);
 				}
 			}
 			while (ar.HasArgs());
@@ -125,11 +117,6 @@ namespace Charlotte.Tools
 					prms.Add(prm);
 			}
 			return prms.ToArray();
-		}
-
-		private bool IsMatchParams(ReflectTools.MethodUnit method, object[] prms)
-		{
-			return method.GetParameters().Length == prms.Length;
 		}
 	}
 }

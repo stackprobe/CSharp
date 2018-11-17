@@ -37,9 +37,9 @@ namespace Charlotte.Tools
 				this.Value = value;
 			}
 
-			public ParameterUnit[] GetParameters()
+			public ParameterType[] GetParameterTypes()
 			{
-				return this.Value.GetParameters().Select<ParameterInfo, ParameterUnit>(prm => new ParameterUnit(prm)).ToArray();
+				return this.Value.GetParameters().Select<ParameterInfo, ParameterType>(prmType => new ParameterType(prmType)).ToArray();
 			}
 
 			/// <summary>
@@ -74,11 +74,11 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public class ParameterUnit
+		public class ParameterType
 		{
 			public ParameterInfo Value;
 
-			public ParameterUnit(ParameterInfo value)
+			public ParameterType(ParameterInfo value)
 			{
 				this.Value = value;
 			}
@@ -221,6 +221,26 @@ namespace Charlotte.Tools
 			return type.GetMethods(_bindingFlags).Select<MethodInfo, MethodUnit>(method => new MethodUnit(method)).ToArray();
 		}
 
+		public static MethodUnit GetMethod(Type type, Predicate<MethodUnit> match)
+		{
+			MethodUnit[] ret = GetMethods(type).Where(method => match(method)).ToArray();
+
+			if (ret.Length == 0)
+				throw new Exception("メソッドが見つかりません。");
+
+			return ret[0];
+		}
+
+		public static MethodUnit GetMethod(Type type, string name)
+		{
+			return GetMethod(type, method => name == method.Value.Name);
+		}
+
+		public static MethodUnit GetMethod(Type type, string name, object[] prms)
+		{
+			return GetMethod(type, method => name == method.Value.Name && CheckParameters(prms, method.GetParameterTypes()));
+		}
+
 		public static MethodUnit[] GetConstructorsByInstance(object instance)
 		{
 			return GetConstructors(instance.GetType());
@@ -228,7 +248,32 @@ namespace Charlotte.Tools
 
 		public static MethodUnit[] GetConstructors(Type type)
 		{
-			return type.GetConstructors(_bindingFlags).Select<ConstructorInfo, MethodUnit>(constructor => new MethodUnit(constructor)).ToArray();
+			return type.GetConstructors(_bindingFlags).Select<ConstructorInfo, MethodUnit>(ctor => new MethodUnit(ctor)).ToArray();
+		}
+
+		public static MethodUnit GetConstructor(Type type, Predicate<MethodUnit> match)
+		{
+			MethodUnit[] ret = GetConstructors(type).Where(method => match(method)).ToArray();
+
+			if (ret.Length == 0)
+				throw new Exception("コンストラクタが見つかりません。");
+
+			return ret[0];
+		}
+
+		public static MethodUnit GetConstructor(Type type)
+		{
+			return GetConstructor(type, ctor => true);
+		}
+
+		public static MethodUnit GetConstructor(Type type, object[] prms)
+		{
+			return GetConstructor(type, ctor => CheckParameters(prms, ctor.GetParameterTypes()));
+		}
+
+		public static bool CheckParameters(object[] prms, ParameterType[] prmTypes)
+		{
+			return prms.Length == prmTypes.Length; // XXX
 		}
 	}
 }

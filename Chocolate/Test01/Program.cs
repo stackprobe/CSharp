@@ -61,13 +61,13 @@ namespace Charlotte
 			//new ReflectToolsTest().Test02();
 			//new ReflectToolsTest().Test02b();
 			//new ReflectToolsTest().Test03();
-			//new ReflectToolsTest().Test03b();
+			new ReflectToolsTest().Test03b();
 			//new ReflectToolsTest().Test04();
 			//new ReflectToolsTest().Test05();
 			//new BatchClientTest().Test01();
 			//new JsonToolsTest().Test01();
 			//new ArrayToolsTest().Test01();
-			new BinToolsTest().Test01();
+			//new BinToolsTest().Test01();
 			//new BinToolsTest().Test02();
 			//new SharedQueueTest().Test01();
 			//new ThreadExTest().Test01();

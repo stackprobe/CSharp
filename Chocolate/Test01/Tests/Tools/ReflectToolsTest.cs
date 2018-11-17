@@ -19,7 +19,7 @@ namespace Charlotte.Tests.Tools
 				Console.WriteLine("IsStatic: " + method.Value.IsStatic);
 
 				Console.WriteLine("Parameters:");
-				foreach (ReflectTools.ParameterUnit param in method.GetParameters())
+				foreach (ReflectTools.ParameterType param in method.GetParameterTypes())
 				{
 					Console.WriteLine("\t" + param.Value.ParameterType.Name + " " + param.Value.Name);
 				}
@@ -33,7 +33,7 @@ namespace Charlotte.Tests.Tools
 				//Console.WriteLine(JsonTools.Encode(DebugTools.ToListOrMap(constructor.Value, 1)));
 
 				Console.WriteLine("Parameters:");
-				foreach (ReflectTools.ParameterUnit param in constructor.GetParameters())
+				foreach (ReflectTools.ParameterType param in constructor.GetParameterTypes())
 				{
 					Console.WriteLine("\t" + param.Value.ParameterType.Name + " " + param.Value.Name);
 				}
@@ -47,7 +47,7 @@ namespace Charlotte.Tests.Tools
 				//Console.WriteLine(JsonTools.Encode(DebugTools.ToListOrMap(constructor.Value, 1)));
 
 				Console.WriteLine("Parameters:");
-				foreach (ReflectTools.ParameterUnit param in constructor.GetParameters())
+				foreach (ReflectTools.ParameterType param in constructor.GetParameterTypes())
 				{
 					Console.WriteLine("\t" + param.Value.ParameterType.Name + " " + param.Value.Name);
 				}
@@ -161,7 +161,7 @@ Tests2.Sample3 SPrintString *** ;
 			{
 				ReflectTools.MethodUnit method = ReflectTools.GetMethods(this.GetType()).Where(m => m.Value.Name == "Test04_Func01").ToArray()[0];
 
-				foreach (ReflectTools.ParameterUnit prm in method.GetParameters())
+				foreach (ReflectTools.ParameterType prm in method.GetParameterTypes())
 				{
 					Console.WriteLine("" + prm.Value);
 				}
@@ -170,7 +170,7 @@ Tests2.Sample3 SPrintString *** ;
 			{
 				ReflectTools.MethodUnit method = ReflectTools.GetMethods(this.GetType()).Where(m => m.Value.Name == "Test04_Func01b").ToArray()[0];
 
-				foreach (ReflectTools.ParameterUnit prm in method.GetParameters())
+				foreach (ReflectTools.ParameterType prm in method.GetParameterTypes())
 				{
 					Console.WriteLine("" + prm.Value);
 				}
@@ -179,7 +179,7 @@ Tests2.Sample3 SPrintString *** ;
 			{
 				ReflectTools.MethodUnit method = ReflectTools.GetMethods(this.GetType()).Where(m => m.Value.Name == "Test04_Func02").ToArray()[0];
 
-				foreach (ReflectTools.ParameterUnit prm in method.GetParameters())
+				foreach (ReflectTools.ParameterType prm in method.GetParameterTypes())
 				{
 					Console.WriteLine("" + prm.Value);
 				}
