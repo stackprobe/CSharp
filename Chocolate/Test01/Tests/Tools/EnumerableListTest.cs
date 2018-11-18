@@ -13,18 +13,18 @@ namespace Charlotte.Tests.Tools
 			string[] oneToThree = StringTools.Tokenize("1:2:3", ":");
 
 			EnumerableList<string> oneToThree_x3 = new EnumerableList<string>()
-				.Add(new string[] { "{" })
+				.AddOne("{")
 				.Add(oneToThree)
 				.Add(oneToThree)
 				.Add(oneToThree)
-				.Add(new string[] { "}" });
+				.AddOne("}");
 
 			foreach (string s in new EnumerableList<string>()
-				.Add(new string[] { "A" })
+				.AddOne("A")
 				.Add(oneToThree)
-				.Add(new string[] { "B" })
+				.AddOne("B")
 				.Add(oneToThree_x3)
-				.Add(new string[] { "C" })
+				.AddOne("C")
 				)
 				Console.Write(" " + s);
 

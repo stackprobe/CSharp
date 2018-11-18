@@ -10,6 +10,11 @@ namespace Charlotte.Tools
 	{
 		private List<IEnumerable<T>> Sources = new List<IEnumerable<T>>();
 
+		public EnumerableList<T> AddOne(T element)
+		{
+			return this.Add(new T[] { element });
+		}
+
 		public EnumerableList<T> Add(IEnumerable<T> src)
 		{
 			this.Sources.Add(src);
