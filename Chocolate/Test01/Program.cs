@@ -50,7 +50,7 @@ namespace Charlotte
 			//new StringToolsTest().Test02();
 			//new FileToolsTest().Test01();
 			//new FileToolsTest().Test02();
-			new SortedListTest().Test01();
+			//new SortedListTest().Test01();
 			//new SecurityToolsTest.AESTest().Test01();
 			//new SecurityToolsTest().Test01();
 			//new DebugToolsTest().Test01();
@@ -79,6 +79,7 @@ namespace Charlotte
 			//new MultiThreadTaskInvokerTest().Test03();
 			//new HugeQueueTest().Test01();
 			//new HugeQueueTest().Test02();
+			new EnumerableListTest().Test01();
 		}
 	}
 }

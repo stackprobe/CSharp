@@ -48,6 +48,7 @@
     <Compile Include="Tools\DebugTools.cs" />
     <Compile Include="Tools\DictionaryTools.cs" />
     <Compile Include="Tools\DoubleTools.cs" />
+    <Compile Include="Tools\EnumerableList.cs" />
     <Compile Include="Tools\EscapeString.cs" />
     <Compile Include="Tools\HTTPServerChannel.cs" />
     <Compile Include="Tools\HTTPClient.cs" />
