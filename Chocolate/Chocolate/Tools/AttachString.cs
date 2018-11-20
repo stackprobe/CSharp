@@ -11,19 +11,19 @@ namespace Charlotte.Tools
 			: this("\t\r\n ", "trns")
 		{ }
 
-		public AttachString(string decChrs, string encChrs)
-			: this(':', '$', '.', decChrs, encChrs)
+		public AttachString(string allowedChrs, string disallowedChrs)
+			: this(':', '$', '.', allowedChrs, disallowedChrs)
 		{ }
 
-		public AttachString(char delimiter, char escapeChr, char escapeDelimiter)
-			: this(delimiter, escapeChr, escapeDelimiter, "", "")
+		public AttachString(char delimiter, char escapeChr, char escapedDelimiter)
+			: this(delimiter, escapeChr, escapedDelimiter, "", "")
 		{ }
 
-		public AttachString(char delimiter, char escapeChr, char escapeDelimiter, string decChrs, string encChrs)
+		public AttachString(char delimiter, char escapeChr, char escapedDelimiter, string allowedChrs, string disallowedChrs)
 			: this(delimiter, new EscapeString(
-				decChrs + delimiter,
+				allowedChrs + delimiter,
 				escapeChr,
-				encChrs + escapeDelimiter
+				disallowedChrs + escapedDelimiter
 				))
 		{ }
 
