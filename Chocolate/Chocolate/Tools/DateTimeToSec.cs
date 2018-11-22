@@ -158,7 +158,7 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public static class Now
+		public class Now
 		{
 			public static long GetSec()
 			{

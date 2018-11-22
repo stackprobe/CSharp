@@ -12,20 +12,20 @@ namespace Charlotte.Tests.Tools
 		{
 			using (HugeQueue hq = new HugeQueue())
 			{
-				hq.FileSizeLimit = 100;
+				hq.FileSizeLimit = 100L;
 
 				Queue<byte[]> q = new Queue<byte[]>();
 
 				for (int c = 0; c < 10000; c++)
 				{
-					int count = hq.Count;
+					long count = hq.GetCount();
 
 					Console.WriteLine(c + ": " + count);
 
-					if (count != q.Count)
+					if (count != (long)q.Count)
 						throw null; // bugged !!!
 
-					if (1 <= count && SecurityTools.CRandom.GetReal() < 0.5)
+					if (1L <= count && SecurityTools.CRandom.GetReal() < 0.5)
 					{
 						byte[] value1 = hq.Dequeue();
 						byte[] value2 = q.Dequeue();
@@ -41,7 +41,7 @@ namespace Charlotte.Tests.Tools
 						q.Enqueue(value);
 					}
 				}
-				if (hq.Count != q.Count)
+				if (hq.GetCount() != (long)q.Count)
 					throw null; // bugged !!!
 			}
 		}
@@ -84,21 +84,21 @@ namespace Charlotte.Tests.Tools
 				}
 
 
-				if (hq.Count != q.Count)
+				if (hq.GetCount() != (long)q.Count)
 					throw null; // bugged !!!
 			}
 		}
 
 		private void Test02_a(HugeQueue hq, Queue<byte[]> q, double rate)
 		{
-			int count = hq.Count;
+			long count = hq.GetCount();
 
-			if (count != q.Count)
+			if (count != (long)q.Count)
 				throw null; // bugged !!!
 
 			Console.WriteLine(count + ": " + rate.ToString("F3"));
 
-			if (1 <= count && SecurityTools.CRandom.GetReal() < rate)
+			if (1L <= count && SecurityTools.CRandom.GetReal() < rate)
 			{
 				byte[] value1 = hq.Dequeue();
 				byte[] value2 = q.Dequeue();

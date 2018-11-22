@@ -16,7 +16,7 @@ namespace Charlotte.Tools
 		private FileStream Reader;
 		private FileStream Writer;
 		private Queue<string> MidFiles = new Queue<string>();
-		private int InnerCount = 0;
+		private long Count = 0L;
 
 		public HugeQueue()
 		{
@@ -30,12 +30,14 @@ namespace Charlotte.Tools
 			this.Writer = new FileStream(this.WFile, FileMode.Create, FileAccess.Write);
 		}
 
-		public int Count
+		public long GetCount()
 		{
-			get
-			{
-				return this.InnerCount;
-			}
+			return this.Count;
+		}
+
+		public bool HasElements()
+		{
+			return this.Count != 0L;
 		}
 
 		public void Enqueue(byte[] value)
@@ -53,15 +55,15 @@ namespace Charlotte.Tools
 			}
 			FileTools.Write(this.Writer, BinTools.ToBytes(value.Length));
 			FileTools.Write(this.Writer, value);
-			this.InnerCount++;
+			this.Count++;
 		}
 
 		public byte[] Dequeue()
 		{
-			if (this.InnerCount == 0)
+			if (this.Count == 0L)
 				throw new Exception("空のキューから読み込もうとしました。");
 
-			this.InnerCount--;
+			this.Count--;
 
 			byte[] bSize = new byte[4];
 			int readSize = this.Reader.Read(bSize, 0, 4);
