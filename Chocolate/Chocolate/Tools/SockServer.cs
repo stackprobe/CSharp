@@ -36,53 +36,64 @@ namespace Charlotte.Tools
 
 						while (this.StopFlag == false)
 						{
-							Socket handler = this.Connect(listener);
-
-							if (handler == null)
+							try
 							{
-								if (connectWaitMillis < 100)
-									connectWaitMillis++;
+								Socket handler = this.Connect(listener);
 
-								Thread.Sleep(connectWaitMillis);
+								if (handler == null)
+								{
+									if (connectWaitMillis < 100)
+										connectWaitMillis++;
+
+									Thread.Sleep(connectWaitMillis);
+								}
+								else
+								{
+									connectWaitMillis = 0;
+
+									try
+									{
+										SockChannel channel = new SockChannel();
+
+										channel.Handler = handler;
+										channel.PostSetHandler();
+
+										this.Connected(channel);
+									}
+									catch (Exception e)
+									{
+										ProcMain.WriteLog(e);
+									}
+
+									try
+									{
+										handler.Shutdown(SocketShutdown.Both);
+									}
+									catch (Exception e)
+									{
+										ProcMain.WriteLog(e);
+									}
+
+									try
+									{
+										handler.Close();
+									}
+									catch (Exception e)
+									{
+										ProcMain.WriteLog(e);
+									}
+								}
 							}
-							else
+							catch (Exception e)
 							{
-								connectWaitMillis = 0;
+								ProcMain.WriteLog(e);
 
-								try
-								{
-									SockChannel channel = new SockChannel();
-
-									channel.Handler = handler;
-									channel.PostSetHandler();
-
-									this.Connected(channel);
-								}
-								catch (Exception e)
-								{
-									ProcMain.WriteLog(e);
-								}
-
-								try
-								{
-									handler.Shutdown(SocketShutdown.Both);
-								}
-								catch (Exception e)
-								{
-									ProcMain.WriteLog(e);
-								}
-
-								try
-								{
-									handler.Close();
-								}
-								catch (Exception e)
-								{
-									ProcMain.WriteLog(e);
-								}
-
-								GC.Collect();
+								ProcMain.WriteLog("5秒間待機します。"); // ここへの到達は想定外 | ノーウェイトでループしないように。
+								Thread.Sleep(5000);
+								ProcMain.WriteLog("5秒間待機しました。");
 							}
+
+							GC.Collect();
 						}
 					}
 				}
