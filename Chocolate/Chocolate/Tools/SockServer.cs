@@ -12,7 +12,7 @@ namespace Charlotte.Tools
 	{
 		public int PortNo = 59999;
 		public int Backlog = 100;
-		public Action<SockChannel> Connected = (channel) => { };
+		public Action<SockChannel> Connected = channel => { };
 
 		// <---- prm
 
