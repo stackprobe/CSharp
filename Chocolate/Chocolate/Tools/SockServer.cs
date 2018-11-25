@@ -106,7 +106,7 @@ namespace Charlotte.Tools
 			Th.Start();
 		}
 
-		private Socket Connect(Socket listener)
+		private Socket Connect(Socket listener) // ret: null == 接続タイムアウト
 		{
 			try
 			{
