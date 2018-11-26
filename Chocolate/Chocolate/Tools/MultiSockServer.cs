@@ -9,7 +9,7 @@ using Charlotte.Tools;
 
 namespace Charlotte.Tools
 {
-	public class SockServerRTS<T>
+	public class MultiSockServer<T>
 	{
 		public int PortNo = 59999;
 		public int Backlog = 100;
@@ -22,8 +22,25 @@ namespace Charlotte.Tools
 
 		// <---- prm
 
+		private enum Phase_e
+		{
+			Recv,
+			Transaction,
+			Send,
+			Disconnect,
+		}
+
+		private class Channel
+		{
+			public Phase_e Phase;
+			public Socket Handler;
+			public T Session;
+			public byte[] SendData;
+			public int SendOffset;
+		}
+
 		private Thread Th = null;
-		private List<SockChannelRTS<T>> Channels = new List<SockChannelRTS<T>>();
+		private List<Channel> Channels = new List<Channel>();
 		private byte[] Buff = new byte[1024 * 1024 * 8];
 
 		public void Start()
@@ -54,9 +71,9 @@ namespace Charlotte.Tools
 									{
 										handler.Blocking = false;
 
-										this.Channels.Add(new SockChannelRTS<T>()
+										this.Channels.Add(new Channel()
 										{
-											Phase = SockChannelRTS_Consts.Phase_e.Recv,
+											Phase = Phase_e.Recv,
 											Handler = handler,
 											Session = this.Connected(),
 										});
@@ -64,13 +81,11 @@ namespace Charlotte.Tools
 										serviceWaitMillis = 0;
 									}
 								}
-								for (int index = 0; index < this.Channels.Count; index++)
+								foreach (Channel channel in this.Channels)
 								{
-									SockChannelRTS<T> channel = this.Channels[index];
-
-									if (channel.Phase == SockChannelRTS_Consts.Phase_e.Recv)
+									try
 									{
-										try
+										if (channel.Phase == Phase_e.Recv)
 										{
 											int recvSize = channel.Handler.Receive(this.Buff, 0, this.Buff.Length, SocketFlags.None);
 
@@ -82,54 +97,19 @@ namespace Charlotte.Tools
 											Array.Copy(this.Buff, 0, recvData, 0, recvSize);
 
 											if (this.Recv(channel.Session, recvData)) // ? 受信完了 -> 処理へ
-											{
-												channel.Phase = SockChannelRTS_Consts.Phase_e.Transaction;
-												serviceWaitMillis = 0;
-											}
-										}
-										catch (SocketException e)
-										{
-											if (e.ErrorCode == 10035) // ? 受信タイムアウト
-											{
-												// noop
-											}
-											else
-											{
-												ProcMain.WriteLog(e);
+												channel.Phase = Phase_e.Transaction;
 
-												channel.Phase = SockChannelRTS_Consts.Phase_e.Disconnect;
-												serviceWaitMillis = 0;
-											}
-										}
-										catch (Exception e)
-										{
-											ProcMain.WriteLog(e);
-
-											channel.Phase = SockChannelRTS_Consts.Phase_e.Disconnect;
 											serviceWaitMillis = 0;
 										}
-									}
-									else if (channel.Phase == SockChannelRTS_Consts.Phase_e.Transaction)
-									{
-										try
+										else if (channel.Phase == Phase_e.Transaction)
 										{
 											if (this.Transaction(channel.Session)) // ? 処理完了 -> 送信へ
 											{
-												channel.Phase = SockChannelRTS_Consts.Phase_e.Transaction;
+												channel.Phase = Phase_e.Transaction;
 												serviceWaitMillis = 0;
 											}
 										}
-										catch (Exception e)
-										{
-											ProcMain.WriteLog(e);
-
-											channel.Phase = SockChannelRTS_Consts.Phase_e.Disconnect;
-											serviceWaitMillis = 0;
-										}
-									}
-									else if (channel.Phase == SockChannelRTS_Consts.Phase_e.Send)
-									{
-										try
+										else if (channel.Phase == Phase_e.Send)
 										{
 											if (channel.SendData == null)
 											{
@@ -157,29 +137,27 @@ namespace Charlotte.Tools
 
 											serviceWaitMillis = 0;
 										}
-										catch (SocketException e)
+									}
+									catch (Exception e)
+									{
+										if (e is SocketException && ((SocketException)e).ErrorCode == 10035) // ? 通信タイムアウト
 										{
-											if (e.ErrorCode == 10035) // ? 送信タイムアウト
-											{
-												// noop
-											}
-											else
-											{
-												ProcMain.WriteLog(e);
-
-												channel.Phase = SockChannelRTS_Consts.Phase_e.Disconnect;
-												serviceWaitMillis = 0;
-											}
+											// noop
 										}
-										catch (Exception e)
+										else
 										{
 											ProcMain.WriteLog(e);
 
-											channel.Phase = SockChannelRTS_Consts.Phase_e.Disconnect;
+											channel.Phase = Phase_e.Disconnect;
 											serviceWaitMillis = 0;
 										}
 									}
-									else if (channel.Phase == SockChannelRTS_Consts.Phase_e.Disconnect)
+								}
+								for (int index = 0; index < this.Channels.Count; index++)
+								{
+									Channel channel = this.Channels[index];
+
+									if (channel.Phase == Phase_e.Disconnect)
 									{
 										try
 										{
