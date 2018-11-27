@@ -105,7 +105,7 @@ namespace Charlotte.Tools
 										{
 											if (this.Transaction(channel.Session)) // ? 処理完了 -> 送信へ
 											{
-												channel.Phase = Phase_e.Transaction;
+												channel.Phase = Phase_e.Send;
 												serviceWaitMillis = 0;
 											}
 										}
