@@ -88,7 +88,6 @@
     <Compile Include="Tools\ReflectTools.cs" />
     <Compile Include="Tools\SecurityTools.cs" />
     <Compile Include="Tools\SockServer.cs" />
-    <Compile Include="Tools\MultiSockServer.cs" />
     <Compile Include="Tools\SortedList.cs" />
     <Compile Include="Tools\SSRBClient.cs" />
     <Compile Include="Tools\StringTools.cs" />

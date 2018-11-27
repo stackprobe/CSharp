@@ -16,6 +16,8 @@ namespace Charlotte.Tools
 			this.Handler.Blocking = false;
 		}
 
+		public static bool StopFlag = false;
+
 		/// <summary>
 		/// 無通信タイムアウト_ミリ秒
 		/// </summary>
@@ -53,6 +55,10 @@ namespace Charlotte.Tools
 
 			for (; ; )
 			{
+				if (StopFlag)
+				{
+					throw new Exception("受信エラー(停止リクエスト)");
+				}
 				try
 				{
 					int recvSize = this.Handler.Receive(data, offset, size, SocketFlags.None);
@@ -106,6 +112,10 @@ namespace Charlotte.Tools
 
 			for (; ; )
 			{
+				if (StopFlag)
+				{
+					throw new Exception("送信エラー(停止リクエスト)");
+				}
 				try
 				{
 					int sentSize = this.Handler.Send(data, offset, size, SocketFlags.None);

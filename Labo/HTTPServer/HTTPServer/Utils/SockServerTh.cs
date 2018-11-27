@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading;
 using System.Net;
 using System.Net.Sockets;
+using Charlotte.Tools;
 
-namespace Charlotte.Tools
+namespace Charlotte.Utils
 {
-	public class SockServer
+	public class SockServerTh
 	{
 		public int PortNo = 59999;
 		public int Backlog = 100;
@@ -17,6 +18,8 @@ namespace Charlotte.Tools
 		// <---- prm
 
 		private Thread Th = null;
+		private ThreadEx[] Ths = new ThreadEx[30];
+		private int ThCount = 0;
 
 		public void Start()
 		{
@@ -38,7 +41,7 @@ namespace Charlotte.Tools
 						{
 							try
 							{
-								Socket handler = this.Connect(listener);
+								Socket handler = this.ThCount < this.Ths.Length ? this.Connect(listener) : null;
 
 								if (handler == null)
 								{
@@ -51,38 +54,47 @@ namespace Charlotte.Tools
 								{
 									connectWaitMillis = 0;
 
-									try
 									{
 										SockChannel channel = new SockChannel();
 
 										channel.Handler = handler;
 										channel.PostSetHandler();
 
-										this.Connected(channel);
-									}
-									catch (Exception e)
-									{
-										ProcMain.WriteLog(e);
-									}
+										this.Ths[this.ThCount++] = new ThreadEx(() =>
+										{
+											try
+											{
+												this.Connected(channel);
+											}
+											catch (Exception e)
+											{
+												ProcMain.WriteLog(e);
+											}
 
-									try
-									{
-										handler.Shutdown(SocketShutdown.Both);
-									}
-									catch (Exception e)
-									{
-										ProcMain.WriteLog(e);
-									}
+											try
+											{
+												handler.Shutdown(SocketShutdown.Both);
+											}
+											catch (Exception e)
+											{
+												ProcMain.WriteLog(e);
+											}
 
-									try
-									{
-										handler.Close();
-									}
-									catch (Exception e)
-									{
-										ProcMain.WriteLog(e);
+											try
+											{
+												handler.Close();
+											}
+											catch (Exception e)
+											{
+												ProcMain.WriteLog(e);
+											}
+										});
 									}
 								}
+
+								for (int index = 0; index < this.ThCount; index++)
+									if (this.Ths[index].IsEnded())
+										this.Ths[index--] = this.Ths[--this.ThCount];
 							}
 							catch (Exception e)
 							{
@@ -96,6 +108,9 @@ namespace Charlotte.Tools
 							GC.Collect();
 						}
 					}
+
+					while (1 <= this.ThCount)
+						this.Ths[--this.ThCount].WaitToEnd();
 				}
 				catch (Exception e)
 				{
