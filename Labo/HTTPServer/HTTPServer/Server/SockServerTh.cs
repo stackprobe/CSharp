@@ -18,8 +18,8 @@ namespace Charlotte.Server
 		// <---- prm
 
 		private Thread Th = null;
-		private ThreadEx[] Ths = new ThreadEx[30];
-		private int ThCount = 0;
+		private ThreadEx[] ConnectThs = new ThreadEx[30];
+		private int ConnectThCount = 0;
 
 		public void Start()
 		{
@@ -41,7 +41,7 @@ namespace Charlotte.Server
 						{
 							try
 							{
-								Socket handler = this.ThCount < this.Ths.Length ? this.Connect(listener) : null;
+								Socket handler = this.ConnectThCount < this.ConnectThs.Length ? this.Connect(listener) : null;
 
 								if (handler == null)
 								{
@@ -60,7 +60,7 @@ namespace Charlotte.Server
 										channel.Handler = handler;
 										channel.PostSetHandler();
 
-										this.Ths[this.ThCount++] = new ThreadEx(() =>
+										this.ConnectThs[this.ConnectThCount++] = new ThreadEx(() =>
 										{
 											try
 											{
@@ -92,9 +92,14 @@ namespace Charlotte.Server
 									}
 								}
 
-								for (int index = 0; index < this.ThCount; index++)
-									if (this.Ths[index].IsEnded())
-										this.Ths[index--] = this.Ths[--this.ThCount];
+								for (int index = 0; index < this.ConnectThCount; index++)
+								{
+									if (this.ConnectThs[index].IsEnded())
+									{
+										this.ConnectThs[index--] = this.ConnectThs[--this.ConnectThCount];
+										this.ConnectThs[this.ConnectThCount] = null;
+									}
+								}
 							}
 							catch (Exception e)
 							{
@@ -109,8 +114,11 @@ namespace Charlotte.Server
 						}
 					}
 
-					while (1 <= this.ThCount)
-						this.Ths[--this.ThCount].WaitToEnd();
+					while (1 <= this.ConnectThCount)
+					{
+						this.ConnectThs[--this.ConnectThCount].WaitToEnd();
+						this.ConnectThs[this.ConnectThCount] = null;
+					}
 				}
 				catch (Exception e)
 				{
