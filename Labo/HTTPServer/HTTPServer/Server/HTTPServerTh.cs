@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Charlotte.Tools;
 
-namespace Charlotte.Utils
+namespace Charlotte.Server
 {
 	public class HTTPServerTh : SockServerTh
 	{

@@ -7,7 +7,7 @@ using System.Net;
 using System.Net.Sockets;
 using Charlotte.Tools;
 
-namespace Charlotte.Utils
+namespace Charlotte.Server
 {
 	public class SockServerTh
 	{
