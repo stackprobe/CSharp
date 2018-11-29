@@ -1,25 +1,25 @@
 ======
-�ւ���
+へちま
 ======
 
 ----
-�����
+動作環境
 
 Windows 7
 Windows 10
 
 
 --------
-�t�@�C��
+ファイル
 
-HechimaClient.exe   --  �e�L�X�g��
-HechimaClient2.exe  --  ���b�`�E�e�L�X�g��
+HechimaClient.exe   --  テキスト版
+HechimaClient2.exe  --  リッチ・テキスト版
 
-crypTunnel.exe      --  �����I�Ɏ��s�����B�ʐM�̈Í���
+crypTunnel.exe      --  内部的に実行される。通信の暗号化
 
 
 ------
-�g����
+使い方
 
-�t�H�[���̗]���������E�N���b�N����Ɛݒ�J���邩��T�[�o�[�Ƃ��p�X���[�h�Ƃ��K���ɐݒ肷��΂����B
+フォームの余白部分を右クリックすると設定開けるからサーバーとかパスワードとか適当に設定すればおｋ。
 
