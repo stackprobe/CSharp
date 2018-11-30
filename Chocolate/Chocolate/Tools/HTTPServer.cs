@@ -7,14 +7,14 @@ namespace Charlotte.Tools
 {
 	public class HTTPServer : SockServer
 	{
-		public Action<HTTPServerChannel> HTTPConnected = (channel) => { };
+		public Action<HTTPServerChannel> HTTPConnected = channel => { };
 
 		// <---- prm
 
 		public HTTPServer()
 		{
 			PortNo = 80;
-			Connected = (channel) =>
+			Connected = channel =>
 			{
 				HTTPServerChannel hsChannel = new HTTPServerChannel();
 
