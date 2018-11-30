@@ -22,6 +22,7 @@ namespace Charlotte.Tools
 			}
 
 			this.Inner = (HttpWebRequest)HttpWebRequest.Create(url);
+			this.Inner.ServicePoint.Expect100Continue = false;
 			this.ConnectionTimeoutMillis = 20000;
 			this.SetProxyNone();
 		}
