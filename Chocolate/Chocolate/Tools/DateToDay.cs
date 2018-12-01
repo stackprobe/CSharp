@@ -29,5 +29,18 @@ namespace Charlotte.Tools
 				return (int)(DateTimeToSec.Allow11To13Dig.ToDateTime(day * 86400L) / 1000000L);
 			}
 		}
+
+		public class Now
+		{
+			public static int GetDay()
+			{
+				return (int)(DateTimeToSec.Now.GetSec() / 86400L);
+			}
+
+			public static int GetDate()
+			{
+				return (int)(DateTimeToSec.Now.GetDateTime() / 1000000L);
+			}
+		}
 	}
 }
