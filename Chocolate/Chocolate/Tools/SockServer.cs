@@ -159,14 +159,8 @@ namespace Charlotte.Tools
 		{
 			Stop();
 
-			// 終了待ち
-			{
-				int millis = 0;
-
-				while (this.IsRunning(millis))
-					if (millis < 2000)
-						millis++;
-			}
+			while (this.IsRunning(2000))
+			{ }
 		}
 
 		public void Stop_B()
