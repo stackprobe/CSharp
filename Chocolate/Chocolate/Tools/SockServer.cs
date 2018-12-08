@@ -13,10 +13,12 @@ namespace Charlotte.Tools
 		public int PortNo = 59999;
 		public int Backlog = 100;
 		public Action<SockChannel> Connected = channel => { };
+		public int ConnectMax = 30;
 
 		// <---- prm
 
 		private Thread Th = null;
+		private List<ThreadEx> ConnectedThs = new List<ThreadEx>();
 
 		public void Start()
 		{
@@ -38,7 +40,7 @@ namespace Charlotte.Tools
 						{
 							try
 							{
-								Socket handler = this.Connect(listener);
+								Socket handler = this.ConnectedThs.Count < this.ConnectMax ? this.Connect(listener) : null;
 
 								if (handler == null)
 								{
@@ -51,38 +53,49 @@ namespace Charlotte.Tools
 								{
 									connectWaitMillis = 0;
 
-									try
 									{
 										SockChannel channel = new SockChannel();
 
 										channel.Handler = handler;
+										handler = null;
 										channel.PostSetHandler();
 
-										this.Connected(channel);
-									}
-									catch (Exception e)
-									{
-										ProcMain.WriteLog(e);
-									}
+										this.ConnectedThs.Add(new ThreadEx(() =>
+										{
+											try
+											{
+												this.Connected(channel);
+											}
+											catch (Exception e)
+											{
+												ProcMain.WriteLog(e);
+											}
 
-									try
-									{
-										handler.Shutdown(SocketShutdown.Both);
-									}
-									catch (Exception e)
-									{
-										ProcMain.WriteLog(e);
-									}
+											try
+											{
+												channel.Handler.Shutdown(SocketShutdown.Both);
+											}
+											catch (Exception e)
+											{
+												ProcMain.WriteLog(e);
+											}
 
-									try
-									{
-										handler.Close();
-									}
-									catch (Exception e)
-									{
-										ProcMain.WriteLog(e);
+											try
+											{
+												channel.Handler.Close();
+											}
+											catch (Exception e)
+											{
+												ProcMain.WriteLog(e);
+											}
+										}
+										));
 									}
 								}
+
+								for (int index = this.ConnectedThs.Count - 1; 0 <= index; index--)
+									if (this.ConnectedThs[index].IsEnded())
+										this.ConnectedThs.RemoveAt(index);
 							}
 							catch (Exception e)
 							{
@@ -96,6 +109,11 @@ namespace Charlotte.Tools
 							GC.Collect();
 						}
 					}
+
+					foreach (ThreadEx connectedTh in this.ConnectedThs)
+						connectedTh.WaitToEnd();
+
+					this.ConnectedThs.Clear();
 				}
 				catch (Exception e)
 				{

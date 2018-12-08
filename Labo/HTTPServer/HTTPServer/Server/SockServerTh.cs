@@ -58,6 +58,7 @@ namespace Charlotte.Server
 										SockChannel channel = new SockChannel();
 
 										channel.Handler = handler;
+										handler = null;
 										channel.PostSetHandler();
 
 										this.ConnectThs[this.ConnectThCount++] = new ThreadEx(() =>
@@ -73,7 +74,7 @@ namespace Charlotte.Server
 
 											try
 											{
-												handler.Shutdown(SocketShutdown.Both);
+												channel.Handler.Shutdown(SocketShutdown.Both);
 											}
 											catch (Exception e)
 											{
@@ -82,7 +83,7 @@ namespace Charlotte.Server
 
 											try
 											{
-												handler.Close();
+												channel.Handler.Close();
 											}
 											catch (Exception e)
 											{
