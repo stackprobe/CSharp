@@ -91,12 +91,19 @@ namespace Charlotte.Tools
 
 		private void RecvHeader()
 		{
+			int headerRoughLength = 0;
+
 			for (; ; )
 			{
 				string line = this.RecvLine();
 
 				if (line == "")
 					break;
+
+				headerRoughLength += line.Length + 10;
+
+				if (512000 < headerRoughLength)
+					throw new OverflowException();
 
 				if (line[0] <= ' ')
 				{
@@ -146,7 +153,7 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public static int BodySizeMax = 300000000; // 300 MB
+		public static int BodySizeMax = 30000000; // 30 MB -- 注意 HTTPServer.ConnectMax
 
 		private void RecvBody()
 		{
