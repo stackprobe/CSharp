@@ -10,6 +10,10 @@ namespace Charlotte.Tools
 		private NamedEventUnit HandleForSet;
 		private NamedEventUnit HandleForWait;
 
+		public NamedEventPair() :
+			this(Guid.NewGuid().ToString("B"))
+		{ }
+
 		public NamedEventPair(string name)
 		{
 			this.HandleForSet = new NamedEventUnit(name);

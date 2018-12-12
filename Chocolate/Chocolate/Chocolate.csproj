@@ -50,6 +50,8 @@
     <Compile Include="Tools\DoubleTools.cs" />
     <Compile Include="Tools\EnumerableList.cs" />
     <Compile Include="Tools\EscapeString.cs" />
+    <Compile Include="Tools\FilingCase3.cs" />
+    <Compile Include="Tools\FilingCase3Client.cs" />
     <Compile Include="Tools\HTTPServerChannel.cs" />
     <Compile Include="Tools\HTTPClient.cs" />
     <Compile Include="Tools\HTTPServer.cs" />

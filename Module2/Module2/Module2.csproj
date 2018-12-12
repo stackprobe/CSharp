@@ -49,15 +49,8 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tests\Tools\FilingCase3Test.cs" />
     <Compile Include="Tests\Tools\WorkingDirTest.cs" />
     <Compile Include="Tools\FileTools.cs" />
-    <Compile Include="Tools\FilingCase3.cs" />
-    <Compile Include="Tools\FilingCase3Client.cs" />
-    <Compile Include="Tools\SockChannel.cs" />
-    <Compile Include="Tools\SockClient.cs" />
-    <Compile Include="Tools\SSRBClient.cs" />
-    <Compile Include="Tools\StringTools.cs" />
     <Compile Include="Tools\WorkingDir.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
