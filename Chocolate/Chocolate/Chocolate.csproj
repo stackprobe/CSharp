@@ -62,8 +62,6 @@
     <Compile Include="Tools\MultiThreadEx.cs" />
     <Compile Include="Tools\MultiThreadTaskInvoker.cs" />
     <Compile Include="Tools\MutexTools.cs" />
-    <Compile Include="Tools\FilingCase3.cs" />
-    <Compile Include="Tools\FilingCase3Client.cs" />
     <Compile Include="Tools\NamedEventPair.cs" />
     <Compile Include="Tools\NamedEventTools.cs" />
     <Compile Include="Tools\NamedEventUnit.cs" />
@@ -90,7 +88,6 @@
     <Compile Include="Tools\SecurityTools.cs" />
     <Compile Include="Tools\SockServer.cs" />
     <Compile Include="Tools\SortedList.cs" />
-    <Compile Include="Tools\SSRBClient.cs" />
     <Compile Include="Tools\StringTools.cs" />
     <Compile Include="Tools\SyncValue.cs" />
     <Compile Include="Tools\SyncList.cs" />

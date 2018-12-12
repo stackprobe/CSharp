@@ -63,7 +63,6 @@
     <Compile Include="Tests\Tools\BinToolsTest.cs" />
     <Compile Include="Tests\Tools\DebugToolsTest.cs" />
     <Compile Include="Tests\Tools\HTTPClientTest.cs" />
-    <Compile Include="Tests\Tools\FilingCase3Test.cs" />
     <Compile Include="Tests\Test01.cs" />
     <Compile Include="Tests\Tools\DateTimeToSecTest.cs" />
     <Compile Include="Tests\Tools\FileToolsTest.cs" />
