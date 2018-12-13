@@ -14,7 +14,7 @@ namespace Charlotte.Tools
 		public FilingCase3Client(string domain = "localhost", int portNo = 65123, string basePath = "Common")
 		{
 			this.Client = new SockClient(domain, portNo);
-			this.Client.RSTimeoutMillis = 24 * 86400 * 1000; // 24 days  --  2^31 / 1000 / 86400 == 24.855*
+			this.Client.IdleTimeoutMillis = 24 * 86400 * 1000; // 24 days  --  2^31 / 1000 / 86400 == 24.855*
 
 			this.BasePath = basePath;
 		}

@@ -12,7 +12,7 @@ namespace Charlotte.Tools
 
 		public void RecvRequest()
 		{
-			this.Channel.RSTimeoutMillis = 2000; // 2 sec
+			this.Channel.IdleTimeoutMillis = 2000; // 2 sec
 
 			this.FirstLine = this.RecvLine();
 
@@ -24,7 +24,7 @@ namespace Charlotte.Tools
 				this.HTTPVersion = tokens[2];
 			}
 
-			this.Channel.RSTimeoutMillis = 180000; // 3 min
+			this.Channel.IdleTimeoutMillis = 180000; // 3 min
 
 			this.RecvHeader();
 			this.CheckHeader();

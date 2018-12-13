@@ -24,11 +24,11 @@ namespace Charlotte.Tools
 		{
 			using (this.Client = new SockClient(this.Domain, this.PortNo))
 			{
-				this.Client.RSTimeoutMillis = 2000; // 2 sec
+				this.Client.IdleTimeoutMillis = 2000; // 2 sec
 
 				this.Client.Send(Encoding.ASCII.GetBytes("SSRB/0.0"));
 
-				this.Client.RSTimeoutMillis = 30000; // 30 sec
+				this.Client.IdleTimeoutMillis = 30000; // 30 sec
 
 				this.SendUInt((uint)this.SendFiles.Length);
 

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Net;
 using System.IO;
-using System.Security.Cryptography.X509Certificates;
+using System.Net;
 using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Charlotte.Tools
 {
@@ -22,8 +22,7 @@ namespace Charlotte.Tools
 			}
 
 			this.Inner = (HttpWebRequest)HttpWebRequest.Create(url);
-			this.Inner.ServicePoint.Expect100Continue = false;
-			this.ConnectionTimeoutMillis = 20000;
+			//this.Inner.ServicePoint.Expect100Continue = false;
 			this.SetProxyNone();
 		}
 
@@ -43,30 +42,19 @@ namespace Charlotte.Tools
 		/// 接続を試みてから、応答ヘッダを受信し終えるまでのタイムアウト
 		/// ミリ秒
 		/// </summary>
-		public int ConnectionTimeoutMillis
-		{
-			set { this.Inner.Timeout = value; }
-		}
+		public int ConnectTimeoutMillis = 20000; // 20 sec
 
 		/// <summary>
 		/// 接続を試みてから、全て送受信し終えるまでのタイムアウト
 		/// ミリ秒
 		/// </summary>
-		public int TimeoutMillis = 30000;
+		public int TimeoutMillis = 30000; // 30 sec
 
 		/// <summary>
 		/// 応答ヘッダを受信し終えてから～全て送受信し終えるまでの間の、無通信タイムアウト
 		/// ミリ秒
 		/// </summary>
-		public int NoTrafficTimeoutMillis = 15000;
-
-		// memo
-		//
-		// 応答ヘッダ受信を a ミリ秒, 応答ボディ受信を b ～ (b + c) ミリ秒, 最長無通信時間を c ミリ秒
-		// cto, to, ntto == a, (a + b), c
-		//
-		// to は、最悪 ntto 延長する。
-		// cto < to にしておくこと。(to <= cto のとき、接続は cto 待ち、応答ボディは受信できるか不定とする)
+		public int IdleTimeoutMillis = 10000; // 10 sec
 
 		public int ResBodySizeMax = 20000000; // 20 MB
 
@@ -110,6 +98,16 @@ namespace Charlotte.Tools
 			if (StringTools.EqualsIgnoreCase(name, "User-Agent"))
 			{
 				this.Inner.UserAgent = value;
+				return;
+			}
+			if (StringTools.EqualsIgnoreCase(name, "Host"))
+			{
+				this.Inner.Host = value;
+				return;
+			}
+			if (StringTools.EqualsIgnoreCase(name, "Accept"))
+			{
+				this.Inner.Accept = value;
 				return;
 			}
 			this.Inner.Headers.Add(name, value);
@@ -156,6 +154,7 @@ namespace Charlotte.Tools
 			DateTime startedTime = DateTime.Now;
 			TimeSpan timeoutSpan = TimeSpan.FromMilliseconds(TimeoutMillis);
 
+			this.Inner.Timeout = this.ConnectTimeoutMillis;
 			this.Inner.Method = method;
 
 			if (body != null)
@@ -170,35 +169,36 @@ namespace Charlotte.Tools
 			}
 			using (WebResponse res = this.Inner.GetResponse())
 			{
-				ResHeaders = DictionaryTools.CreateIgnoreCase<string>();
+				this.ResHeaders = DictionaryTools.CreateIgnoreCase<string>();
 
 				// header
 				{
-					const int LEN_MAX = 500000; // 500 KB
+					const int RES_HEADERS_LEN_MAX = 512000;
 					const int WEIGHT = 10;
-					int totalLen = 0;
+
+					int totalRoughLength = 0;
 
 					foreach (string name in res.Headers.Keys)
 					{
-						if (LEN_MAX < name.Length)
-							throw new Exception("Response header too large. n");
+						if (RES_HEADERS_LEN_MAX < name.Length)
+							throw new Exception("受信ヘッダが長すぎます。");
 
-						totalLen += name.Length + WEIGHT;
+						totalRoughLength += name.Length + WEIGHT;
 
-						if (LEN_MAX < totalLen)
-							throw new Exception("Response header too large. t1");
+						if (RES_HEADERS_LEN_MAX < totalRoughLength)
+							throw new Exception("受信ヘッダが長すぎます。");
 
 						string value = res.Headers[name];
 
-						if (LEN_MAX < value.Length)
-							throw new Exception("Response header too large. v");
+						if (RES_HEADERS_LEN_MAX < value.Length)
+							throw new Exception("受信ヘッダが長すぎます。");
 
-						totalLen += value.Length + WEIGHT;
+						totalRoughLength += value.Length + WEIGHT;
 
-						if (LEN_MAX < totalLen)
-							throw new Exception("Response header too large. t2");
+						if (RES_HEADERS_LEN_MAX < totalRoughLength)
+							throw new Exception("受信ヘッダが長すぎます。");
 
-						ResHeaders.Add(name, res.Headers[name]);
+						this.ResHeaders.Add(name, res.Headers[name]);
 					}
 				}
 
@@ -209,7 +209,7 @@ namespace Charlotte.Tools
 					using (Stream r = res.GetResponseStream())
 					using (MemoryStream w = new MemoryStream())
 					{
-						r.ReadTimeout = this.NoTrafficTimeoutMillis; // この時間経過すると r.Read() が例外を投げる。
+						r.ReadTimeout = this.IdleTimeoutMillis; // この時間経過すると r.Read() が例外を投げる。
 
 						byte[] buff = new byte[20000000]; // 20 MB
 
@@ -221,16 +221,16 @@ namespace Charlotte.Tools
 								break;
 
 							if (timeoutSpan < DateTime.Now - startedTime)
-								throw new Exception("Response timed out");
+								throw new Exception("受信タイムアウト");
 
 							totalSize += readSize;
 
-							if (ResBodySizeMax < totalSize)
-								throw new Exception("Response body too large.");
+							if (this.ResBodySizeMax < totalSize)
+								throw new Exception("受信データが長すぎます。");
 
 							w.Write(buff, 0, readSize);
 						}
-						ResBody = w.ToArray();
+						this.ResBody = w.ToArray();
 					}
 				}
 			}

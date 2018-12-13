@@ -23,7 +23,7 @@ namespace Charlotte.Tools
 		/// <summary>
 		/// 無通信タイムアウト_ミリ秒
 		/// </summary>
-		public int RSTimeoutMillis = 180000; // 3 min
+		public int IdleTimeoutMillis = 180000; // 3 min
 
 		public byte[] Recv(int size)
 		{
@@ -78,7 +78,7 @@ namespace Charlotte.Tools
 						throw new Exception("受信エラー", e);
 					}
 				}
-				if (this.RSTimeoutMillis <= elapsedMillis)
+				if (this.IdleTimeoutMillis <= elapsedMillis)
 				{
 					throw new Exception("受信タイムアウト");
 				}
@@ -135,7 +135,7 @@ namespace Charlotte.Tools
 						throw new Exception("送信エラー", e);
 					}
 				}
-				if (this.RSTimeoutMillis <= elapsedMillis)
+				if (this.IdleTimeoutMillis <= elapsedMillis)
 				{
 					throw new Exception("送信タイムアウト");
 				}
