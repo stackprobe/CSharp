@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace Charlotte.Tools
 {
@@ -32,59 +33,60 @@ namespace Charlotte.Tools
 			if (src == null)
 				src = new byte[0];
 
-			List<byte> dest = new List<byte>();
-
-			for (int index = 0; index < src.Length; index++)
+			using (MemoryStream dest = new MemoryStream())
 			{
-				byte chr = src[index];
+				for (int index = 0; index < src.Length; index++)
+				{
+					byte chr = src[index];
 
-				if (chr == 0x09) // ? '\t'
-				{
-					if (okTab == false)
+					if (chr == 0x09) // ? '\t'
+					{
+						if (okTab == false)
+							continue;
+					}
+					else if (chr == 0x0a) // ? '\n'
+					{
+						if (okRet == false)
+							continue;
+					}
+					else if (chr < 0x20) // ? other control code
+					{
 						continue;
-				}
-				else if (chr == 0x0a) // ? '\n'
-				{
-					if (okRet == false)
-						continue;
-				}
-				else if (chr < 0x20) // ? other control code
-				{
-					continue;
-				}
-				else if (chr == 0x20) // ? ' '
-				{
-					if (okSpc == false)
-						continue;
-				}
-				else if (chr <= 0x7e) // ? ascii
-				{
-					// noop
-				}
-				else if (0xa1 <= chr && chr <= 0xdf) // ? kana
-				{
-					if (okJpn == false)
-						continue;
-				}
-				else // ? 全角文字の前半 || 破損
-				{
-					if (okJpn == false)
-						continue;
+					}
+					else if (chr == 0x20) // ? ' '
+					{
+						if (okSpc == false)
+							continue;
+					}
+					else if (chr <= 0x7e) // ? ascii
+					{
+						// noop
+					}
+					else if (0xa1 <= chr && chr <= 0xdf) // ? kana
+					{
+						if (okJpn == false)
+							continue;
+					}
+					else // ? 全角文字の前半 || 破損
+					{
+						if (okJpn == false)
+							continue;
 
-					index++;
+						index++;
 
-					if (src.Length <= index) // ? 後半欠損
-						break;
+						if (src.Length <= index) // ? 後半欠損
+							break;
 
-					if (JChar.I.Contains(chr, src[index]) == false) // ? 破損
-						continue;
+						if (JChar.I.Contains(chr, src[index]) == false) // ? 破損
+							continue;
 
-					dest.Add(chr);
-					chr = src[index];
+						dest.WriteByte(chr);
+						chr = src[index];
+					}
+					dest.WriteByte(chr);
 				}
-				dest.Add(chr);
+				return StringTools.ENCODING_SJIS.GetString(dest.GetBuffer());
 			}
-			return StringTools.ENCODING_SJIS.GetString(dest.ToArray());
 		}
 
 		public class JChar

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace Charlotte.Tools
 {
@@ -39,21 +40,23 @@ namespace Charlotte.Tools
 		private string DecodeURL(string path)
 		{
 			byte[] src = Encoding.ASCII.GetBytes(path);
-			List<byte> dest = new List<byte>();
 
-			for (int index = 0; index < src.Length; index++)
+			using (MemoryStream dest = new MemoryStream())
 			{
-				if (src[index] == 0x25) // ? '%'
+				for (int index = 0; index < src.Length; index++)
 				{
-					dest.Add((byte)Convert.ToInt32(Encoding.ASCII.GetString(BinTools.GetSubBytes(src, index + 1, 2)), 16));
-					index += 2;
+					if (src[index] == 0x25) // ? '%'
+					{
+						dest.WriteByte((byte)Convert.ToInt32(Encoding.ASCII.GetString(BinTools.GetSubBytes(src, index + 1, 2)), 16));
+						index += 2;
+					}
+					else
+					{
+						dest.WriteByte(src[index]);
+					}
 				}
-				else
-				{
-					dest.Add(src[index]);
-				}
+				return Encoding.UTF8.GetString(dest.GetBuffer());
 			}
-			return Encoding.UTF8.GetString(dest.ToArray());
 		}
 
 		public string FirstLine;
@@ -69,24 +72,25 @@ namespace Charlotte.Tools
 
 		private string RecvLine()
 		{
-			List<byte> buff = new List<byte>();
-
-			for (; ; )
+			using (MemoryStream buff = new MemoryStream())
 			{
-				byte chr = this.Channel.Recv(1)[0];
+				for (; ; )
+				{
+					byte chr = this.Channel.Recv(1)[0];
 
-				if (chr == CR)
-					continue;
+					if (chr == CR)
+						continue;
 
-				if (chr == LF)
-					break;
+					if (chr == LF)
+						break;
 
-				if (512000 < buff.Count)
-					throw new OverflowException();
+					if (512000 < buff.Length)
+						throw new OverflowException();
 
-				buff.Add(chr);
+					buff.WriteByte(chr);
+				}
+				return Encoding.ASCII.GetString(buff.ToArray());
 			}
-			return Encoding.ASCII.GetString(buff.ToArray());
 		}
 
 		private void RecvHeader()

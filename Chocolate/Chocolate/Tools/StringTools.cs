@@ -30,13 +30,13 @@ namespace Charlotte.Tools
 
 		public static string GetString_SJISHalfCodeRange(int codeMin, int codeMax)
 		{
-			List<byte> buff = new List<byte>();
+			byte[] buff = new byte[codeMax - codeMin + 1];
 
 			for (int code = codeMin; code <= codeMax; code++)
 			{
-				buff.Add((byte)code);
+				buff[code - codeMin] = (byte)code;
 			}
-			return ENCODING_SJIS.GetString(buff.ToArray());
+			return ENCODING_SJIS.GetString(buff);
 		}
 
 		public static string MBC_DECIMAL = GetString_SJISCodeRange(0x82, 0x4f, 0x58);
@@ -70,14 +70,14 @@ namespace Charlotte.Tools
 
 		private static string GetString_SJISCodeRange(int lead, int trailMin, int trailMax)
 		{
-			List<byte> buff = new List<byte>();
+			byte[] buff = new byte[(trailMax - trailMin + 1) * 2];
 
 			for (int trail = trailMin; trail <= trailMax; trail++)
 			{
-				buff.Add((byte)lead);
-				buff.Add((byte)trail);
+				buff[(trail - trailMin) * 2 + 0] = (byte)lead;
+				buff[(trail - trailMin) * 2 + 1] = (byte)trail;
 			}
-			return ENCODING_SJIS.GetString(buff.ToArray());
+			return ENCODING_SJIS.GetString(buff);
 		}
 
 		public static int Comp(string a, string b)
