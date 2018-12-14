@@ -13,7 +13,7 @@ namespace Charlotte.Tools
 		public string Value;
 		public List<XmlNode> Children;
 
-		public XmlNode(string name = "", string value = "")
+		public XmlNode(string name = "element", string value = "")
 			: this(name, value, new List<XmlNode>())
 		{ }
 
@@ -107,27 +107,22 @@ namespace Charlotte.Tools
 
 		private void AddTo(List<string> dest, String indent)
 		{
-			string name = this.Name;
-
-			if (name == "")
-				name = "element";
-
 			if (Children.Count != 0)
 			{
-				dest.Add(indent + "<" + name + ">" + this.Value);
+				dest.Add(indent + "<" + this.Name + ">" + this.Value);
 
 				foreach (XmlNode child in Children)
 					child.AddTo(dest, indent + INDENT);
 
-				dest.Add(indent + "</" + name + ">");
+				dest.Add(indent + "</" + this.Name + ">");
 			}
 			else if (this.Value != "")
 			{
-				dest.Add(indent + "<" + name + ">" + this.Value + "</" + name + ">");
+				dest.Add(indent + "<" + this.Name + ">" + this.Value + "</" + this.Name + ">");
 			}
 			else
 			{
-				dest.Add(indent + "<" + name + "/>");
+				dest.Add(indent + "<" + this.Name + "/>");
 			}
 		}
 

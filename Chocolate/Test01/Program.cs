@@ -80,7 +80,8 @@ namespace Charlotte
 			//new HugeQueueTest().Test01();
 			//new HugeQueueTest().Test02();
 			//new EnumerableListTest().Test01();
-			new WrapperTest().Test01();
+			//new WrapperTest().Test01();
+			new XmlNodeTest().Test01();
 		}
 	}
 }

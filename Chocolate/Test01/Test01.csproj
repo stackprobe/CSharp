@@ -79,6 +79,7 @@
     <Compile Include="Tests\Tools\ThreadExTest.cs" />
     <Compile Include="Tests\Tools\WorkingDirTest.cs" />
     <Compile Include="Tests\Tools\WrapperTest.cs" />
+    <Compile Include="Tests\Tools\XmlNodeTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Chocolate\Chocolate.csproj">
