@@ -26,14 +26,31 @@ namespace Charlotte.Tools
 
 			this.Th = new Thread(() =>
 			{
-				while (this.EvStop.WaitForMillis(2000) == false)
+				while (this.EvStop.WaitForMillis(5000) == false)
 				{
 					lock (SYNCROOT)
 					{
-						if (this.Client != null && --this.ClientAliveCount < 0)
+						if (this.Client != null)
 						{
-							this.Client.Dispose();
-							this.Client = null;
+							if (180 / 5 < ++this.ClientAliveCount) // 3 min
+							{
+								this.Client.Dispose();
+								this.Client = null;
+							}
+							else
+							{
+								try
+								{
+									this.Client.Hello();
+								}
+								catch (Exception e)
+								{
+									ProcMain.WriteLog(e);
+
+									this.Client.Dispose();
+									this.Client = null;
+								}
+							}
 						}
 					}
 				}
@@ -49,7 +66,7 @@ namespace Charlotte.Tools
 					if (this.Client == null)
 						this.Client = new FilingCase3Client(this.Domain, this.PortNo, this.BasePath);
 
-					this.ClientAliveCount = 3;
+					this.ClientAliveCount = 0;
 
 					return rtn();
 				}

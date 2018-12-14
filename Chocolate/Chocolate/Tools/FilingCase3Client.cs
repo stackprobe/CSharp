@@ -70,6 +70,13 @@ namespace Charlotte.Tools
 			return 1;
 		}
 
+		public int Hello()
+		{
+			this.Send("HELLO", "$");
+			this.ReadLineCheck("/HELLO/e");
+			return 1;
+		}
+
 		private void Send(string command, string path)
 		{
 			this.Send(command, path, new byte[0]);
@@ -93,7 +100,7 @@ namespace Charlotte.Tools
 		{
 			if (this.ReadLine() != line)
 			{
-				throw new Exception("Can not read " + line);
+				throw new Exception("受信データが間違っています。" + line);
 			}
 		}
 
