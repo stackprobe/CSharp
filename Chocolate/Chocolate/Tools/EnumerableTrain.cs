@@ -6,16 +6,16 @@ using System.Collections.Generic;
 
 namespace Charlotte.Tools
 {
-	public class EnumerableList<T> : IEnumerable<T>
+	public class EnumerableTrain<T> : IEnumerable<T>
 	{
 		private List<IEnumerable<T>> Sources = new List<IEnumerable<T>>();
 
-		public EnumerableList<T> AddOne(T element)
+		public EnumerableTrain<T> AddOne(T element)
 		{
 			return this.Add(new T[] { element });
 		}
 
-		public EnumerableList<T> Add(IEnumerable<T> src)
+		public EnumerableTrain<T> Add(IEnumerable<T> src)
 		{
 			this.Sources.Add(src);
 			return this;

@@ -6,20 +6,20 @@ using Charlotte.Tools;
 
 namespace Charlotte.Tests.Tools
 {
-	public class EnumerableListTest
+	public class EnumerableTrainTest
 	{
 		public void Test01()
 		{
 			string[] oneToThree = StringTools.Tokenize("1:2:3", ":");
 
-			EnumerableList<string> oneToThree_x3 = new EnumerableList<string>()
+			EnumerableTrain<string> oneToThree_x3 = new EnumerableTrain<string>()
 				.AddOne("{")
 				.Add(oneToThree)
 				.Add(oneToThree)
 				.Add(oneToThree)
 				.AddOne("}");
 
-			foreach (string s in new EnumerableList<string>()
+			foreach (string s in new EnumerableTrain<string>()
 				.AddOne("A")
 				.Add(oneToThree)
 				.AddOne("B")
