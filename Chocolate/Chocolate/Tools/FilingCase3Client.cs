@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Threading;
 
 namespace Charlotte.Tools
 {
@@ -13,10 +14,47 @@ namespace Charlotte.Tools
 
 		public FilingCase3Client(string domain = "localhost", int portNo = 65123, string basePath = "Common")
 		{
-			this.Client = new SockClient(domain, portNo);
-			this.Client.IdleTimeoutMillis = 24 * 86400 * 1000; // 24 days  --  2^31 / 1000 / 86400 == 24.855*
-
 			this.BasePath = basePath;
+			this.Connect(domain, portNo);
+			this.Client.IdleTimeoutMillis = 24 * 86400 * 1000; // 24 days  --  2^31 / 86400 / 1000 == 24.855*
+		}
+
+		private void Connect(string domain, int portNo)
+		{
+			for (int c = 1; ; c++)
+			{
+				if (this.TryConnect(domain, portNo))
+					break;
+
+				if (3 <= c)
+					throw new Exception("接続エラー");
+
+				Thread.Sleep(2000);
+			}
+		}
+
+		private bool TryConnect(string domain, int portNo)
+		{
+			try
+			{
+				this.Client = new SockClient(domain, portNo);
+				this.Client.IdleTimeoutMillis = 2000;
+
+				this.Hello();
+
+				return true;
+			}
+			catch (Exception e)
+			{
+				ProcMain.WriteLog(e);
+			}
+
+			if (this.Client != null)
+			{
+				this.Client.Dispose();
+				this.Client = null;
+			}
+			return false;
 		}
 
 		public byte[] Get(string path)
