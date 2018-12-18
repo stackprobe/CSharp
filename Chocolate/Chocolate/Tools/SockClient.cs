@@ -10,8 +10,10 @@ namespace Charlotte.Tools
 {
 	public class SockClient : SockChannel, IDisposable
 	{
-		public SockClient(string domain, int portNo)
+		public SockClient(string domain, int portNo, int connectTimeoutMillis = 20000) // 20 sec
 		{
+			// TODO connectTimeoutMillis 対応
+
 			IPHostEntry hostEntry = Dns.GetHostEntry(domain);
 			IPAddress address = GetFairAddress(hostEntry.AddressList);
 			IPEndPoint endPoint = new IPEndPoint(address, portNo);
@@ -34,6 +36,9 @@ namespace Charlotte.Tools
 			return addresses[0];
 		}
 
+		/// <summary>
+		/// このメソッドは例外を投げないこと。
+		/// </summary>
 		public void Dispose()
 		{
 			if (this.Handler != null)

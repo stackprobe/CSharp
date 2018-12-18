@@ -16,20 +16,20 @@ namespace Charlotte.Tools
 		{
 			this.BasePath = basePath;
 			this.Connect(domain, portNo);
-			this.Client.IdleTimeoutMillis = 24 * 86400 * 1000; // 24 days  --  2^31 / 86400 / 1000 == 24.855*
+			this.Client.IdleTimeoutMillis = 24 * 86400 * 1000; // 24 days  --  2^31 / 86400 / 1000 == 24.855*  --  タイムアウトはサーバー側に任せる。
 		}
 
 		private void Connect(string domain, int portNo)
 		{
-			for (int c = 1; ; c++)
+			for (int c = 0; ; c++)
 			{
 				if (this.TryConnect(domain, portNo))
 					break;
 
-				if (3 <= c)
+				if (2 <= c)
 					throw new Exception("接続エラー");
 
-				Thread.Sleep(2000);
+				Thread.Sleep(5000);
 			}
 		}
 
@@ -37,8 +37,8 @@ namespace Charlotte.Tools
 		{
 			try
 			{
-				this.Client = new SockClient(domain, portNo);
-				this.Client.IdleTimeoutMillis = 2000;
+				this.Client = new SockClient(domain, portNo, 5000);
+				this.Client.IdleTimeoutMillis = 5000;
 
 				this.Hello();
 
@@ -171,6 +171,9 @@ namespace Charlotte.Tools
 				((int)src[3] << 24);
 		}
 
+		/// <summary>
+		/// このメソッドは例外を投げないこと。
+		/// </summary>
 		public void Dispose()
 		{
 			if (this.Client != null)
