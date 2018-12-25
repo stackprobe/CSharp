@@ -18,12 +18,9 @@ namespace Charlotte.Tests.Tools
 				channel.ResBody = Encoding.ASCII.GetBytes("<html><body><h1>200</h1></body></html>");
 			};
 
-			hs.Start();
+			Console.WriteLine("Press ENTER to stop the server");
 
-			Console.WriteLine("Press ENTER to Stop");
-			Console.ReadLine();
-
-			hs.Stop_B();
+			hs.Perform();
 		}
 	}
 }

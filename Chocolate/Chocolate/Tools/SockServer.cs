@@ -12,116 +12,101 @@ namespace Charlotte.Tools
 	{
 		public int PortNo = 59999;
 		public int Backlog = 100;
-		public Action<SockChannel> Connected = channel => { };
 		public int ConnectMax = 30;
+		public Action<SockChannel> Connected = channel => { };
+		public Func<bool> Interlude = () => Console.KeyAvailable == false;
 
 		// <---- prm
 
-		private Thread Th = null;
 		private List<ThreadEx> ConnectedThs = new List<ThreadEx>();
 
-		public void Start()
+		public void Perform()
 		{
-			Th = new Thread(() =>
+			using (Socket listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
 			{
-				try
+				IPEndPoint endPoint = new IPEndPoint(0L, this.PortNo);
+
+				listener.Bind(endPoint);
+				listener.Listen(this.Backlog);
+				listener.Blocking = false;
+
+				int connectWaitMillis = 0;
+
+				while (this.Interlude())
 				{
-					using (Socket listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
+					try
 					{
-						IPEndPoint endPoint = new IPEndPoint(0L, this.PortNo);
+						Socket handler = this.ConnectedThs.Count < this.ConnectMax ? this.Connect(listener) : null;
 
-						listener.Bind(endPoint);
-						listener.Listen(this.Backlog);
-						listener.Blocking = false;
-
-						int connectWaitMillis = 0;
-
-						while (this.StopFlag == false)
+						if (handler == null)
 						{
-							try
+							if (connectWaitMillis < 100)
+								connectWaitMillis++;
+
+							Thread.Sleep(connectWaitMillis);
+						}
+						else
+						{
+							connectWaitMillis = 0;
+
 							{
-								Socket handler = this.ConnectedThs.Count < this.ConnectMax ? this.Connect(listener) : null;
+								SockChannel channel = new SockChannel();
 
-								if (handler == null)
+								channel.Handler = handler;
+								handler = null;
+								channel.PostSetHandler();
+
+								this.ConnectedThs.Add(new ThreadEx(() =>
 								{
-									if (connectWaitMillis < 100)
-										connectWaitMillis++;
-
-									Thread.Sleep(connectWaitMillis);
-								}
-								else
-								{
-									connectWaitMillis = 0;
-
+									try
 									{
-										SockChannel channel = new SockChannel();
+										this.Connected(channel);
+									}
+									catch (Exception e)
+									{
+										ProcMain.WriteLog(e);
+									}
 
-										channel.Handler = handler;
-										handler = null;
-										channel.PostSetHandler();
+									try
+									{
+										channel.Handler.Shutdown(SocketShutdown.Both);
+									}
+									catch (Exception e)
+									{
+										ProcMain.WriteLog(e);
+									}
 
-										this.ConnectedThs.Add(new ThreadEx(() =>
-										{
-											try
-											{
-												this.Connected(channel);
-											}
-											catch (Exception e)
-											{
-												ProcMain.WriteLog(e);
-											}
-
-											try
-											{
-												channel.Handler.Shutdown(SocketShutdown.Both);
-											}
-											catch (Exception e)
-											{
-												ProcMain.WriteLog(e);
-											}
-
-											try
-											{
-												channel.Handler.Close();
-											}
-											catch (Exception e)
-											{
-												ProcMain.WriteLog(e);
-											}
-										}
-										));
+									try
+									{
+										channel.Handler.Close();
+									}
+									catch (Exception e)
+									{
+										ProcMain.WriteLog(e);
 									}
 								}
-
-								for (int index = this.ConnectedThs.Count - 1; 0 <= index; index--)
-									if (this.ConnectedThs[index].IsEnded())
-										this.ConnectedThs.RemoveAt(index);
+								));
 							}
-							catch (Exception e)
-							{
-								ProcMain.WriteLog(e);
-
-								ProcMain.WriteLog("5秒間待機します。"); // ここへの到達は想定外 | ノーウェイトでループしないように。
-								Thread.Sleep(5000);
-								ProcMain.WriteLog("5秒間待機しました。");
-							}
-
-							GC.Collect();
 						}
+
+						for (int index = this.ConnectedThs.Count - 1; 0 <= index; index--)
+							if (this.ConnectedThs[index].IsEnded())
+								this.ConnectedThs.RemoveAt(index);
+					}
+					catch (Exception e)
+					{
+						ProcMain.WriteLog(e);
+
+						ProcMain.WriteLog("5秒間待機します。"); // ここへの到達は想定外 | ノーウェイトでループしないように。
+						Thread.Sleep(5000);
+						ProcMain.WriteLog("5秒間待機しました。");
 					}
 
-					foreach (ThreadEx connectedTh in this.ConnectedThs)
-						connectedTh.WaitToEnd();
-
-					this.ConnectedThs.Clear();
+					GC.Collect();
 				}
-				catch (Exception e)
-				{
-					ProcMain.WriteLog(e);
-				}
-			});
+			}
 
-			Th.Start();
+			this.Stop();
 		}
 
 		private Socket Connect(Socket listener) // ret: null == 接続タイムアウト
@@ -140,34 +125,19 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public bool IsRunning(int millis = 0)
-		{
-			if (Th != null && Th.Join(millis))
-				Th = null;
-
-			return Th != null;
-		}
-
-		private bool StopFlag = false;
-
-		public void Stop()
-		{
-			StopFlag = true;
-		}
-
-		public void Stop_B_ChannelSafe()
-		{
-			Stop();
-
-			while (this.IsRunning(2000))
-			{ }
-		}
-
-		public void Stop_B()
+		private void Stop()
 		{
 			SockChannel.StopFlag = true;
-			Stop_B_ChannelSafe();
+			Stop_ChannelSafe();
 			SockChannel.StopFlag = false;
+		}
+
+		private void Stop_ChannelSafe()
+		{
+			foreach (ThreadEx connectedTh in this.ConnectedThs)
+				connectedTh.WaitToEnd();
+
+			this.ConnectedThs.Clear();
 		}
 	}
 }
