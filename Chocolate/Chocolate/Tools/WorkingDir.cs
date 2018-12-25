@@ -14,7 +14,7 @@ namespace Charlotte.Tools
 		public class RootInfo
 		{
 			private string Dir;
-			private bool DirCreated = false;
+			private bool Created = false;
 
 			public RootInfo(string dir)
 			{
@@ -23,14 +23,24 @@ namespace Charlotte.Tools
 
 			public string GetDir()
 			{
-				if (this.DirCreated == false)
+				if (this.Created == false)
 				{
 					FileTools.Delete(this.Dir);
 					FileTools.CreateDir(this.Dir);
 
-					this.DirCreated = true;
+					this.Created = true;
 				}
 				return this.Dir;
+			}
+
+			public void Delete()
+			{
+				if (this.Created)
+				{
+					FileTools.Delete(this.Dir);
+
+					this.Created = false;
+				}
 			}
 		}
 

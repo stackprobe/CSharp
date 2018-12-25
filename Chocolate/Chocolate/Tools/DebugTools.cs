@@ -56,16 +56,5 @@ namespace Charlotte.Tools
 				return dest;
 			}
 		}
-
-		public static void GoToHomeSig()
-		{
-			while (File.Exists("home.sig") == false)
-			{
-				if (Directory.GetCurrentDirectory().Length <= 3)
-					throw new Exception("no home.sig");
-
-				Directory.SetCurrentDirectory("..");
-			}
-		}
 	}
 }

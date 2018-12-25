@@ -19,7 +19,7 @@ namespace Charlotte
 
 			ProcMain.OnBoot();
 
-			WorkingDir.Root = new WorkingDir.DirWrapper(@"C:\temp\Chocolate_Test01");
+			WorkingDir.Root = new WorkingDir.RootInfo(@"C:\temp\Chocolate_Test01");
 
 			try
 			{
@@ -32,7 +32,7 @@ namespace Charlotte
 			Console.WriteLine("Press ENTER");
 			Console.ReadLine();
 
-			WorkingDir.Root.Dispose();
+			WorkingDir.Root.Delete();
 			WorkingDir.Root = null;
 		}
 
@@ -57,7 +57,7 @@ namespace Charlotte
 			//new HTTPClientTest().Test01();
 			//new HTTPClientTest().Test02();
 			//new HTTPServerTest().Test01();
-			new HTTPServerTest().Test02();
+			//new HTTPServerTest().Test02();
 			//new ReflectToolsTest().Test01();
 			//new ReflectToolsTest().Test02();
 			//new ReflectToolsTest().Test02b();
@@ -84,6 +84,7 @@ namespace Charlotte
 			//new WrapperTest().Test01();
 			//new XmlNodeTest().Test01();
 			//new CriticalTest().Test01();
+			new JStringTest().Test01();
 		}
 	}
 }

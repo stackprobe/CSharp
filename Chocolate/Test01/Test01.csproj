@@ -52,6 +52,7 @@
     <Compile Include="Tests\Tools\CriticalTest.cs" />
     <Compile Include="Tests\Tools\EnumerableTrainTest.cs" />
     <Compile Include="Tests\Tools\HugeQueueTest.cs" />
+    <Compile Include="Tests\Tools\JStringTest.cs" />
     <Compile Include="Tests\Tools\MultiThreadTaskInvokerTest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -39,7 +39,7 @@ namespace Charlotte.Tools
 
 				mainFunc(ArgsReader);
 
-				WorkingDir.Root.Dispose();
+				WorkingDir.Root.Delete();
 				WorkingDir.Root = null;
 			}
 			catch (Exception e)
@@ -85,7 +85,7 @@ namespace Charlotte.Tools
 
 						// < core
 					}
-					WorkingDir.Root.Dispose();
+					WorkingDir.Root.Delete();
 					WorkingDir.Root = null;
 
 					GlobalProcMtx.Release();

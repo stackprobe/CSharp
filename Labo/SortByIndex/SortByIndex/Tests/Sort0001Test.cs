@@ -152,10 +152,11 @@ namespace Charlotte.Tests
 		public void Test02()
 		{
 			{
-				byte[] src = SecurityTools.CRandom.GetBytes(123000000);
-				byte[] dest = new byte[123000000];
+				byte[] src = SecurityTools.CRandom.GetBytes(123456789);
+				byte[] dest = new byte[123456789];
+				byte[] buff = new byte[1000000];
 
-				ArrayTools.Transfer<byte>((buff, index, readSize) => Array.Copy(src, (int)index, dest, (int)index, readSize), 0L, 123000000L);
+				Utils.Transfer(buff, 0L, 123456789L, (index, size) => Array.Copy(src, (int)index, dest, (int)index, size));
 
 				if (BinTools.Comp(src, dest) != 0)
 					throw null;
@@ -166,24 +167,23 @@ namespace Charlotte.Tests
 				string file1 = wd.MakePath();
 				string file2 = wd.MakePath();
 
-				File.WriteAllBytes(file1, SecurityTools.CRandom.GetBytes(159000000));
+				File.WriteAllBytes(file1, SecurityTools.CRandom.GetBytes(159159159));
 
 				using (FileStream reader = new FileStream(file1, FileMode.Open, FileAccess.Read))
 				using (FileStream writer = new FileStream(file2, FileMode.Create, FileAccess.Write))
 				{
-					ArrayTools.Transfer<byte>((buff, index, readSize) =>
+					byte[] buff = new byte[1000000];
+
+					Utils.Transfer(buff, 0L, 159159159L, (index, size) =>
 					{
-						if (reader.Read(buff, 0, readSize) != readSize)
+						if (reader.Read(buff, 0, size) != size)
 							throw null;
 
-						writer.Write(buff, 0, readSize);
-					},
-					0L,
-					159000000L
-					);
+						writer.Write(buff, 0, size);
+					});
 				}
 
-				if (FileTools.CompBinFile(file1, file2) != 0)
+				if (BinTools.CompFile(file1, file2) != 0)
 					throw null;
 			}
 		}
