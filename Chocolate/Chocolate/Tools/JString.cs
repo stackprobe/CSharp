@@ -85,7 +85,7 @@ namespace Charlotte.Tools
 					}
 					dest.WriteByte(chr);
 				}
-				return StringTools.ENCODING_SJIS.GetString(dest.GetBuffer());
+				return StringTools.ENCODING_SJIS.GetString(dest.ToArray());
 			}
 		}
 

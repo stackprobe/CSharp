@@ -45,6 +45,15 @@ namespace Charlotte.Tools
 			}
 		}
 
+		public void WaitToEnd(Critical critical)
+		{
+			if (Th != null)
+			{
+				critical.Unsection(() => Th.Join());
+				Th = null;
+			}
+		}
+
 		public void RelayThrow()
 		{
 			this.WaitToEnd();

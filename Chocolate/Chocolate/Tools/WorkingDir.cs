@@ -9,49 +9,39 @@ namespace Charlotte.Tools
 {
 	public class WorkingDir : IDisposable
 	{
-		public static DirWrapper Root;
+		public static RootInfo Root;
 
-		public class DirWrapper : IDisposable
+		public class RootInfo
 		{
 			private string Dir;
-			private bool Created = false;
+			private bool DirCreated = false;
 
-			public DirWrapper(string dir)
+			public RootInfo(string dir)
 			{
 				this.Dir = dir;
 			}
 
 			public string GetDir()
 			{
-				if (this.Created == false)
+				if (this.DirCreated == false)
 				{
 					FileTools.Delete(this.Dir);
 					FileTools.CreateDir(this.Dir);
 
-					this.Created = true;
+					this.DirCreated = true;
 				}
 				return this.Dir;
 			}
-
-			public void Dispose()
-			{
-				if (this.Created)
-				{
-					FileTools.Delete(this.Dir);
-
-					this.Created = false;
-				}
-			}
 		}
 
-		public static DirWrapper CreateRoot()
+		public static RootInfo CreateRoot()
 		{
-			return new DirWrapper(Path.Combine(Environment.GetEnvironmentVariable("TMP"), ProcMain.APP_IDENT));
+			return new RootInfo(Path.Combine(Environment.GetEnvironmentVariable("TMP"), ProcMain.APP_IDENT));
 		}
 
-		public static DirWrapper CreateProcessRoot()
+		public static RootInfo CreateProcessRoot()
 		{
-			return new DirWrapper(Path.Combine(Environment.GetEnvironmentVariable("TMP"), "{41266ce2-7655-413e-b8bb-780aaf640f4d}_" + Process.GetCurrentProcess().Id));
+			return new RootInfo(Path.Combine(Environment.GetEnvironmentVariable("TMP"), "{41266ce2-7655-413e-b8bb-780aaf640f4d}_" + Process.GetCurrentProcess().Id));
 		}
 
 		private static long CtorCounter = 0L;
@@ -93,6 +83,7 @@ namespace Charlotte.Tools
 				{
 					ProcMain.WriteLog(e);
 				}
+
 				this.Dir = null;
 			}
 		}

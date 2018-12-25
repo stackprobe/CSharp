@@ -55,7 +55,7 @@ namespace Charlotte.Tools
 						dest.WriteByte(src[index]);
 					}
 				}
-				return Encoding.UTF8.GetString(dest.GetBuffer());
+				return Encoding.UTF8.GetString(dest.ToArray());
 			}
 		}
 

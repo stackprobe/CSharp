@@ -52,8 +52,8 @@ namespace Charlotte.Tools
 
 		public int TryRecv(byte[] data, int offset, int size)
 		{
-			int millis = 0;
-			int elapsedMillis = 0;
+			int waitMillis = 0;
+			int idleMillis = 0;
 
 			for (; ; )
 			{
@@ -78,16 +78,17 @@ namespace Charlotte.Tools
 						throw new Exception("受信エラー", e);
 					}
 				}
-				if (this.IdleTimeoutMillis <= elapsedMillis)
+				if (this.IdleTimeoutMillis <= idleMillis)
 				{
 					throw new Exception("受信タイムアウト");
 				}
-				Thread.Sleep(millis);
+				if (waitMillis < 100)
+					waitMillis++;
 
-				elapsedMillis += millis;
+				SockServer.Critical.Unsection(() => Thread.Sleep(waitMillis));
 
-				if (millis < 100)
-					millis++;
+				idleMillis += waitMillis;
+
 			}
 		}
 
@@ -109,8 +110,8 @@ namespace Charlotte.Tools
 
 		private int TrySend(byte[] data, int offset, int size)
 		{
-			int millis = 0;
-			int elapsedMillis = 0;
+			int waitMillis = 0;
+			int idleMillis = 0;
 
 			for (; ; )
 			{
@@ -135,16 +136,16 @@ namespace Charlotte.Tools
 						throw new Exception("送信エラー", e);
 					}
 				}
-				if (this.IdleTimeoutMillis <= elapsedMillis)
+				if (this.IdleTimeoutMillis <= idleMillis)
 				{
 					throw new Exception("送信タイムアウト");
 				}
-				Thread.Sleep(millis);
+				if (waitMillis < 100)
+					waitMillis++;
 
-				elapsedMillis += millis;
+				SockServer.Critical.Unsection(() => Thread.Sleep(waitMillis));
 
-				if (millis < 100)
-					millis++;
+				idleMillis += waitMillis;
 			}
 		}
 	}

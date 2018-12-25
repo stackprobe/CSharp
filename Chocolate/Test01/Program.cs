@@ -56,7 +56,8 @@ namespace Charlotte
 			//new DebugToolsTest().Test01();
 			//new HTTPClientTest().Test01();
 			//new HTTPClientTest().Test02();
-			new HTTPServerTest().Test01();
+			//new HTTPServerTest().Test01();
+			new HTTPServerTest().Test02();
 			//new ReflectToolsTest().Test01();
 			//new ReflectToolsTest().Test02();
 			//new ReflectToolsTest().Test02b();
