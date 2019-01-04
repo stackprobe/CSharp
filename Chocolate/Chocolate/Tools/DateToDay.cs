@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Charlotte.Tools
 {
+	/// <summary>
+	/// 1000/1/1 ～ 9999/12/31
+	/// </summary>
 	public class DateToDay
 	{
 		public static int ToDay(int date)
@@ -17,6 +20,9 @@ namespace Charlotte.Tools
 			return (int)(DateTimeToSec.ToDateTime(day * 86400L) / 1000000L);
 		}
 
+		/// <summary>
+		/// 1/1/1 ～ 9999/12/31
+		/// </summary>
 		public class Allow5To7Dig
 		{
 			public static int ToDay(int date)

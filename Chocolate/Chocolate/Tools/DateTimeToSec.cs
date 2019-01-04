@@ -181,7 +181,7 @@ namespace Charlotte.Tools
 
 		public static readonly long POSIX_ZERO = ToSec(19700101000000L);
 
-		public static DateTime ToDateTimeStruct(long dateTime)
+		public static DateTime ToMSDateTime(long dateTime)
 		{
 			int s = (int)(dateTime % 100L);
 			dateTime /= 100L;
