@@ -22,6 +22,8 @@ namespace Charlotte.Tools
 			this.Handler.Connect(endPoint);
 
 			this.PostSetHandler();
+
+			SockServer.Critical.Enter();
 		}
 
 		private static IPAddress GetFairAddress(IPAddress[] addresses)
@@ -62,6 +64,8 @@ namespace Charlotte.Tools
 				}
 
 				this.Handler = null;
+
+				SockServer.Critical.Leave();
 			}
 		}
 	}

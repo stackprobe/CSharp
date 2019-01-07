@@ -55,6 +55,8 @@ namespace Charlotte.Tools
 					}
 				}
 			});
+
+			this.Th.Start();
 		}
 
 		private T Perform<T>(Func<T> rtn)

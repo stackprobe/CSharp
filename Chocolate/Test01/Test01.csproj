@@ -51,6 +51,7 @@
     <Compile Include="Tests2\Interface03.cs" />
     <Compile Include="Tests\Tools\CriticalTest.cs" />
     <Compile Include="Tests\Tools\EnumerableTrainTest.cs" />
+    <Compile Include="Tests\Tools\FilingCase3Test.cs" />
     <Compile Include="Tests\Tools\HugeQueueTest.cs" />
     <Compile Include="Tests\Tools\JStringTest.cs" />
     <Compile Include="Tests\Tools\MultiThreadTaskInvokerTest.cs" />
