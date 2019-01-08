@@ -6,6 +6,9 @@ using System.IO;
 
 namespace Charlotte.Tools
 {
+	/// <summary>
+	/// 削除予定
+	/// </summary>
 	public class BatchClient
 	{
 		public string Domain = "localhost";
@@ -22,8 +25,10 @@ namespace Charlotte.Tools
 
 		public void Perform()
 		{
-			using (this.Client = new SockClient(this.Domain, this.PortNo))
+			using (this.Client = new SockClient())
 			{
+				this.Client.Connect(this.Domain, this.PortNo);
+
 				this.Client.IdleTimeoutMillis = 2000; // 2 sec
 
 				this.Client.Send(Encoding.ASCII.GetBytes("SSRB/0.0"));

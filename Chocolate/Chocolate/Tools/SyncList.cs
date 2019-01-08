@@ -7,12 +7,12 @@ namespace Charlotte.Tools
 {
 	public class SyncList<T>
 	{
-		private object SyncRoot = new object();
+		private object SYNCROOT = new object();
 		private List<T> Inner = new List<T>();
 
 		public void Clear()
 		{
-			lock (this.SyncRoot)
+			lock (SYNCROOT)
 			{
 				this.Inner.Clear();
 			}
@@ -20,7 +20,7 @@ namespace Charlotte.Tools
 
 		public void Add(T value)
 		{
-			lock (this.SyncRoot)
+			lock (SYNCROOT)
 			{
 				this.Inner.Add(value);
 			}
@@ -28,7 +28,7 @@ namespace Charlotte.Tools
 
 		public void AddRange(IEnumerable<T> values)
 		{
-			lock (this.SyncRoot)
+			lock (SYNCROOT)
 			{
 				this.Inner.AddRange(values);
 			}
@@ -36,7 +36,7 @@ namespace Charlotte.Tools
 
 		public void RemoveAt(int index)
 		{
-			lock (this.SyncRoot)
+			lock (SYNCROOT)
 			{
 				this.Inner.RemoveAt(index);
 			}
@@ -44,7 +44,7 @@ namespace Charlotte.Tools
 
 		public void RemoveAll(Predicate<T> match)
 		{
-			lock (this.SyncRoot)
+			lock (SYNCROOT)
 			{
 #if true
 				this.Inner.RemoveAll(match);
@@ -64,7 +64,7 @@ namespace Charlotte.Tools
 		{
 			get
 			{
-				lock (this.SyncRoot)
+				lock (SYNCROOT)
 				{
 					return this.Inner[index];
 				}
@@ -72,7 +72,7 @@ namespace Charlotte.Tools
 
 			set
 			{
-				lock (this.SyncRoot)
+				lock (this.SYNCROOT)
 				{
 					this.Inner[index] = value;
 				}
@@ -81,7 +81,7 @@ namespace Charlotte.Tools
 
 		public T GetPost(int index, T value)
 		{
-			lock (this.SyncRoot)
+			lock (SYNCROOT)
 			{
 				T ret = this.Inner[index];
 				this.Inner[index] = value;
@@ -93,7 +93,7 @@ namespace Charlotte.Tools
 		{
 			get
 			{
-				lock (this.SyncRoot)
+				lock (SYNCROOT)
 				{
 					return this.Inner.Count;
 				}
@@ -102,7 +102,7 @@ namespace Charlotte.Tools
 
 		public T[] ToArray()
 		{
-			lock (this.SyncRoot)
+			lock (SYNCROOT)
 			{
 				return this.Inner.ToArray();
 			}
@@ -110,7 +110,7 @@ namespace Charlotte.Tools
 
 		public void Invoke(Action<List<T>> routine)
 		{
-			lock (this.SyncRoot)
+			lock (SYNCROOT)
 			{
 				routine(this.Inner);
 			}

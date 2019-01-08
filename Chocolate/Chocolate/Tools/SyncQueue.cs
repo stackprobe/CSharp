@@ -7,12 +7,12 @@ namespace Charlotte.Tools
 {
 	public class SyncQueue<T>
 	{
-		private object SyncRoot = new object();
+		private object SYNCROOT = new object();
 		private Queue<T> Inner = new Queue<T>();
 
 		public void Enqueue(T element)
 		{
-			lock (this.SyncRoot)
+			lock (SYNCROOT)
 			{
 				this.Inner.Enqueue(element);
 			}
@@ -22,7 +22,7 @@ namespace Charlotte.Tools
 		{
 			List<T> dest = new List<T>();
 
-			lock (this.SyncRoot)
+			lock (SYNCROOT)
 			{
 				while (dest.Count < count && 1 <= this.Inner.Count)
 					dest.Add(this.Inner.Dequeue());
@@ -34,7 +34,7 @@ namespace Charlotte.Tools
 		{
 			get
 			{
-				lock (this.SyncRoot)
+				lock (SYNCROOT)
 				{
 					return this.Inner.Count;
 				}
@@ -44,17 +44,13 @@ namespace Charlotte.Tools
 		public void Rotate(Predicate<T> match, int count = 1)
 		{
 			foreach (T element in this.Dequeue(count))
-			{
 				if (match(element))
-				{
 					this.Enqueue(element);
-				}
-			}
 		}
 
 		public void Invoke(Action<Queue<T>> routine)
 		{
-			lock (this.SyncRoot)
+			lock (SYNCROOT)
 			{
 				routine(this.Inner);
 			}

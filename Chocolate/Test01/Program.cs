@@ -85,8 +85,8 @@ namespace Charlotte
 			//new XmlNodeTest().Test01();
 			//new CriticalTest().Test01();
 			//new JStringTest().Test01();
-			//new FilingCase3Test().Test01();
-			new FilingCase3Test().Test02();
+			new FilingCase3Test().Test01();
+			//new FilingCase3Test().Test02();
 		}
 	}
 }

@@ -180,32 +180,5 @@ namespace Charlotte.Tools
 		}
 
 		public static readonly long POSIX_ZERO = ToSec(19700101000000L);
-
-		public static DateTime ToMSDateTime(long dateTime)
-		{
-			int s = (int)(dateTime % 100L);
-			dateTime /= 100L;
-			int i = (int)(dateTime % 100L);
-			dateTime /= 100L;
-			int h = (int)(dateTime % 100L);
-			dateTime /= 100L;
-			int d = (int)(dateTime % 100L);
-			dateTime /= 100L;
-			int m = (int)(dateTime % 100L);
-			int y = (int)(dateTime / 100L);
-
-			return new DateTime(y, m, d, h, i, s);
-		}
-
-		public static long ToDateTime(DateTime dt)
-		{
-			return
-				10000000000L * dt.Year +
-				100000000L * dt.Month +
-				1000000L * dt.Day +
-				10000L * dt.Hour +
-				100L * dt.Minute +
-				dt.Second;
-		}
 	}
 }

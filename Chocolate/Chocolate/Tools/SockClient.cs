@@ -10,7 +10,12 @@ namespace Charlotte.Tools
 {
 	public class SockClient : SockChannel, IDisposable
 	{
-		public SockClient(string domain, int portNo, int connectTimeoutMillis = 20000) // 20 sec
+		public SockClient()
+		{
+			SockServer.Critical.Enter();
+		}
+
+		public void Connect(string domain, int portNo, int connectTimeoutMillis = 20000) // 20 sec
 		{
 			// TODO connectTimeoutMillis 対応
 
@@ -22,8 +27,6 @@ namespace Charlotte.Tools
 			this.Handler.Connect(endPoint);
 
 			this.PostSetHandler();
-
-			SockServer.Critical.Enter();
 		}
 
 		private static IPAddress GetFairAddress(IPAddress[] addresses)
@@ -65,7 +68,14 @@ namespace Charlotte.Tools
 
 				this.Handler = null;
 
-				SockServer.Critical.Leave();
+				try
+				{
+					SockServer.Critical.Leave();
+				}
+				catch (Exception e)
+				{
+					ProcMain.WriteLog(e);
+				}
 			}
 		}
 	}

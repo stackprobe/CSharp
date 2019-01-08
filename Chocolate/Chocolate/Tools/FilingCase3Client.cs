@@ -37,7 +37,8 @@ namespace Charlotte.Tools
 		{
 			try
 			{
-				this.Client = new SockClient(domain, portNo, 5000);
+				this.Client = new SockClient();
+				this.Client.Connect(domain, portNo, 5000);
 				this.Client.IdleTimeoutMillis = 5000;
 
 				this.Hello();
