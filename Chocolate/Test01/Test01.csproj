@@ -75,6 +75,7 @@
     <Compile Include="Tests\Tools\MultiThreadExTest.cs" />
     <Compile Include="Tests\Tools\ReflectToolsTest.cs" />
     <Compile Include="Tests\Tools\SecurityToolsTest.cs" />
+    <Compile Include="Tests\Tools\CSemaphoreTest.cs" />
     <Compile Include="Tests\Tools\SharedQueueTest.cs" />
     <Compile Include="Tests\Tools\SortedListTest.cs" />
     <Compile Include="Tests\Tools\StringToolsTest.cs" />

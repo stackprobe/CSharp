@@ -46,7 +46,7 @@ namespace Charlotte
 			//new Test01().Main03();
 			//new Test01().Main03b();
 			//new Test01().Main04();
-			new Test02().Main01();
+			//new Test02().Main01();
 			//new StringToolsTest().Test01();
 			//new StringToolsTest().Test02();
 			//new FileToolsTest().Test01();
@@ -84,6 +84,7 @@ namespace Charlotte
 			//new WrapperTest().Test01();
 			//new XmlNodeTest().Test01();
 			//new CriticalTest().Test01();
+			new CSemaphoreTest().Test01();
 			//new JStringTest().Test01();
 			//new FilingCase3Test().Test01();
 			//new FilingCase3Test().Test02();
