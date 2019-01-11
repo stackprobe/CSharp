@@ -6,11 +6,15 @@ using System.IO;
 
 namespace Charlotte.Tools
 {
+	/// <summary>
+	/// 大量のメモリを確保しない。
+	/// ファイルハンドルを開きっぱなしにしない。
+	/// </summary>
 	public class ByteArrayLowCostBuffer : IDisposable
 	{
 		private WorkingDir WD = null;
 		private string BuffFile = null;
-		private int Count = 0;
+		private int WroteSize = 0;
 
 		private string GetBuffFile()
 		{
@@ -33,17 +37,20 @@ namespace Charlotte.Tools
 			{
 				writer.Write(data, offset, count);
 			}
-			this.Count += count;
+			this.WroteSize += count;
 		}
 
-		public int GetCount()
+		public int Count
 		{
-			return this.Count;
+			get
+			{
+				return this.WroteSize;
+			}
 		}
 
 		public byte[] ToByteArray()
 		{
-			return this.Count == 0 ? BinTools.EMPTY : File.ReadAllBytes(this.GetBuffFile());
+			return this.WroteSize == 0 ? BinTools.EMPTY : File.ReadAllBytes(this.GetBuffFile());
 		}
 
 		public void Dispose()

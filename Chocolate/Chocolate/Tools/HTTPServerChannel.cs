@@ -185,8 +185,8 @@ namespace Charlotte.Tools
 						if (size < 0)
 							throw new Exception("不正なチャンクサイズです。" + size);
 
-						if (BodySizeMax - buff.GetCount() < size)
-							throw new Exception("ボディサイズが大きすぎます。" + buff.GetCount() + " + " + size);
+						if (BodySizeMax - buff.Count < size)
+							throw new Exception("ボディサイズが大きすぎます。" + buff.Count + " + " + size);
 
 						buff.Write(this.Channel.Recv(size));
 						this.Channel.Recv(2); // CR-LF
@@ -200,8 +200,8 @@ namespace Charlotte.Tools
 					if (BodySizeMax < this.ContentLength)
 						throw new Exception("ボディサイズが大きすぎます。" + this.ContentLength);
 
-					while (buff.GetCount() < this.ContentLength)
-						buff.Write(this.Channel.Recv(Math.Min(4 * 1024 * 1024, this.ContentLength - buff.GetCount())));
+					while (buff.Count < this.ContentLength)
+						buff.Write(this.Channel.Recv(Math.Min(4 * 1024 * 1024, this.ContentLength - buff.Count)));
 				}
 				this.Body = buff.ToByteArray();
 			}
