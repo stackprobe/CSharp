@@ -58,7 +58,7 @@ namespace Charlotte
 			//new HTTPClientTest().Test01();
 			//new HTTPClientTest().Test02();
 			//new HTTPServerTest().Test01();
-			//new HTTPServerTest().Test02();
+			new HTTPServerTest().Test02();
 			//new ReflectToolsTest().Test01();
 			//new ReflectToolsTest().Test02();
 			//new ReflectToolsTest().Test02b();
@@ -84,7 +84,7 @@ namespace Charlotte
 			//new WrapperTest().Test01();
 			//new XmlNodeTest().Test01();
 			//new CriticalTest().Test01();
-			new CSemaphoreTest().Test01();
+			//new CSemaphoreTest().Test01();
 			//new JStringTest().Test01();
 			//new FilingCase3Test().Test01();
 			//new FilingCase3Test().Test02();

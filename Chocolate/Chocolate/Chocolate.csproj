@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Tools\AttachString.cs" />
+    <Compile Include="Tools\ByteArrayLowCostBuffer.cs" />
     <Compile Include="Tools\Critical.cs" />
     <Compile Include="Tools\DateTimeUnit.cs" />
     <Compile Include="Tools\DebugTools.cs" />

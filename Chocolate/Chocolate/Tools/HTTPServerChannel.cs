@@ -157,51 +157,53 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public static int BodySizeMax = 30000000; // 30 MB -- 注意 HTTPServer.ConnectMax
+		public static int BodySizeMax = 300000000; // 300 MB
 
 		private void RecvBody()
 		{
-			if (this.Chunked)
+			using (ByteArrayLowCostBuffer buff = new ByteArrayLowCostBuffer())
 			{
-				List<byte[]> buff = new List<byte[]>();
-
-				for (; ; )
+				if (this.Chunked)
 				{
-					string line = this.RecvLine();
-
-					// chunk-extension の削除
+					for (; ; )
 					{
-						int i = line.IndexOf(';');
+						string line = this.RecvLine();
 
-						if (i != -1)
-							line = line.Substring(0, i);
+						// chunk-extension の削除
+						{
+							int i = line.IndexOf(';');
+
+							if (i != -1)
+								line = line.Substring(0, i);
+						}
+
+						int size = Convert.ToInt32(line.Trim(), 16);
+
+						if (size == 0)
+							break;
+
+						if (size < 0)
+							throw new Exception("不正なチャンクサイズです。" + size);
+
+						if (BodySizeMax - buff.GetCount() < size)
+							throw new Exception("ボディサイズが大きすぎます。" + buff.GetCount() + " + " + size);
+
+						buff.Write(this.Channel.Recv(size));
+						this.Channel.Recv(2); // CR-LF
 					}
-
-					int size = Convert.ToInt32(line.Trim(), 16);
-
-					if (size == 0)
-						break;
-
-					if (size < 0)
-						throw new Exception("不正なチャンクサイズです。" + size);
-
-					if (BodySizeMax - buff.Count < size)
-						throw new Exception("ボディサイズが大きすぎます。" + buff.Count + " + " + size);
-
-					buff.Add(this.Channel.Recv(size));
-					this.Channel.Recv(2); // CR-LF
 				}
-				this.Body = BinTools.Join(buff.ToArray());
-			}
-			else
-			{
-				if (this.ContentLength < 0)
-					throw new Exception("不正なボディサイズです。" + this.ContentLength);
+				else
+				{
+					if (this.ContentLength < 0)
+						throw new Exception("不正なボディサイズです。" + this.ContentLength);
 
-				if (BodySizeMax < this.ContentLength)
-					throw new Exception("ボディサイズが大きすぎます。" + this.ContentLength);
+					if (BodySizeMax < this.ContentLength)
+						throw new Exception("ボディサイズが大きすぎます。" + this.ContentLength);
 
-				this.Body = this.Channel.Recv(this.ContentLength);
+					while (buff.GetCount() < this.ContentLength)
+						buff.Write(this.Channel.Recv(Math.Min(4 * 1024 * 1024, this.ContentLength - buff.GetCount())));
+				}
+				this.Body = buff.ToByteArray();
 			}
 		}
 
