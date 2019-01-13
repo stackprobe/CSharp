@@ -50,5 +50,20 @@ namespace Charlotte
 
 		public static int NetErrorLevel = 0;
 		public static string CliVerifyPtn = SecurityTools.makePassword();
+
+		private static Gnd _i = null;
+
+		public static Gnd I
+		{
+			get
+			{
+				if (_i == null)
+					_i = new Gnd();
+
+				return _i;
+			}
+		}
+
+		public Logger Logger = new Logger();
 	}
 }

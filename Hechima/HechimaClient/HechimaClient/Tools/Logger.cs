@@ -44,45 +44,31 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public void writeLine(string line)
+		public void writeLine(object message)
 		{
 			lock (SYNCROOT)
 			{
 				try
 				{
-					FileInfo fi = new FileInfo(_file);
-
-					if (LOG_FILE_SIZE_MAX < fi.Length)
+					if (File.Exists(_file) && LOG_FILE_SIZE_MAX < new FileInfo(_file).Length)
 					{
 						File.Delete(_file2);
 						File.Move(_file, _file2);
 					}
+
+					using (StreamWriter writer = new StreamWriter(_file, true, Encoding.UTF8))
+					{
+						writeLine(writer, message);
+					}
 				}
 				catch
 				{ }
-
-				for (int c = 0; c < 20; c++)
-				{
-					if (0 < c)
-						Thread.Sleep(100);
-
-					try
-					{
-						using (StreamWriter writer = new StreamWriter(_file, true, Encoding.UTF8))
-						{
-							writeLine(writer, line);
-						}
-						break;
-					}
-					catch
-					{ }
-				}
 			}
 		}
 
-		private void writeLine(StreamWriter writer, string line)
+		private void writeLine(StreamWriter writer, object message)
 		{
-			writer.WriteLine("[" + DateTime.Now + "] " + line);
+			writer.WriteLine("[" + DateTime.Now + "] " + message);
 		}
 	}
 }

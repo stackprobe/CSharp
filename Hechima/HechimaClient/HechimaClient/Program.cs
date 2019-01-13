@@ -33,6 +33,10 @@ namespace Charlotte
 				checkAloneExe();
 				checkLogonUser();
 
+				Gnd.I.Logger.clear();
+
+				Utils.antiWindowsDefenderSmartScreen();
+
 				Gnd.conf.Load();
 				Gnd.setting.Load();
 				Gnd.ImportSetting();

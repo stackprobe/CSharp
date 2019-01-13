@@ -156,6 +156,7 @@
     <Compile Include="Tools\WorkingDir.cs" />
     <Compile Include="Tools\XNode.cs" />
     <Compile Include="Tools\XYPoint.cs" />
+    <Compile Include="Utils.cs" />
     <Compile Include="ViewWin.cs">
       <SubType>Form</SubType>
     </Compile>
