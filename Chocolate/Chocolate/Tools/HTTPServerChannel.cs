@@ -14,7 +14,14 @@ namespace Charlotte.Tools
 		{
 			this.Channel.IdleTimeoutMillis = 2000; // 2 sec
 
-			this.FirstLine = this.RecvLine();
+			try
+			{
+				this.FirstLine = this.RecvLine();
+			}
+			catch (Exception e)
+			{
+				throw new Exception("RECV_FIRST_LINE_ERROR", e);
+			}
 
 			{
 				string[] tokens = this.FirstLine.Split(' ');
