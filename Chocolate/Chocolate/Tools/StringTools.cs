@@ -363,5 +363,20 @@ namespace Charlotte.Tools
 			}
 			return str;
 		}
+
+		public static string AntiNullOrEmpty(string str, string defval = "_")
+		{
+			return string.IsNullOrEmpty(str) ? defval : str;
+		}
+
+		public static string AntiNull(string str)
+		{
+			return str == null ? "" : str;
+		}
+
+		public static string SetCharAt(string str, int index, char chr)
+		{
+			return str.Substring(0, index) + chr + str.Substring(index + 1);
+		}
 	}
 }

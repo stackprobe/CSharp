@@ -51,5 +51,14 @@ namespace Charlotte.Tests.Tools
 		{
 			Console.WriteLine("" + StringTools.Comp("deymd", "dsymd"));
 		}
+
+		public void Test03()
+		{
+			Console.WriteLine(StringTools.SetCharAt("ABCDE", 0, '$'));
+			Console.WriteLine(StringTools.SetCharAt("ABCDE", 1, '$'));
+			Console.WriteLine(StringTools.SetCharAt("ABCDE", 2, '$'));
+			Console.WriteLine(StringTools.SetCharAt("ABCDE", 3, '$'));
+			Console.WriteLine(StringTools.SetCharAt("ABCDE", 4, '$'));
+		}
 	}
 }

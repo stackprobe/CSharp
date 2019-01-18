@@ -188,5 +188,31 @@ namespace Charlotte.Tools
 		{
 			writer.Write(data, offset, data.Length - offset);
 		}
+
+		public static void AppendAllBytes(string file, byte[] data)
+		{
+			using (FileStream writer = new FileStream(file, FileMode.Append, FileAccess.Write))
+			{
+				Write(writer, data);
+			}
+		}
+
+		public static string LinesToText(string[] lines)
+		{
+			return lines.Length == 0 ? "" : string.Join("\r\n", lines) + "\r\n";
+		}
+
+		public static string[] TextToLines(string text)
+		{
+			text = text.Replace("\r", "");
+
+			string[] lines = text.Split('\n');
+
+			if (1 <= lines.Length && lines[lines.Length - 1] == "")
+			{
+				lines = new List<string>(lines).GetRange(0, lines.Length - 1).ToArray();
+			}
+			return lines;
+		}
 	}
 }
