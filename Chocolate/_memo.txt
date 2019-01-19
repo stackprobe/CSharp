@@ -16,5 +16,23 @@ Charlotte.Tools 配下以外
 ----
 引数と戻り値の配列とListについてのガイドライン
 
-配列にする。
+	public static int[] PPPP(int[] a, int[][] b, int[][][] c)
+	{
+		...
+	}
+
+	public static string[] TTTT(string[] a, string[][] b, string[][][] c)
+	{
+		...
+	}
+
+	public static string[][] TTTT2()
+	{
+		...
+	}
+
+	public static string[][][] TTTT3()
+	{
+		...
+	}
 
