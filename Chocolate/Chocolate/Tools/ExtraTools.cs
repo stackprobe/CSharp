@@ -64,33 +64,40 @@ namespace Charlotte.Tools
 
 		public static void PostShown(Form f)
 		{
-			List<Control.ControlCollection> controlTable = new List<Control.ControlCollection>();
-
-			controlTable.Add(f.Controls);
-
-			for (int index = 0; index < controlTable.Count; index++)
+			CallAllControl(f.Controls, control =>
 			{
-				foreach (Control control in controlTable[index])
+				TextBox tb = control as TextBox;
+
+				if (tb != null)
 				{
-					GroupBox gb = control as GroupBox;
-
-					if (gb != null)
+					if (tb.ContextMenuStrip == null)
 					{
-						controlTable.Add(gb.Controls);
+						ToolStripMenuItem item = new ToolStripMenuItem();
+
+						item.Text = "項目なし";
+						item.Enabled = false;
+
+						ContextMenuStrip menu = new ContextMenuStrip();
+
+						menu.Items.Add(item);
+
+						tb.ContextMenuStrip = menu;
 					}
-					TextBox tb = control as TextBox;
+				}
+			});
+		}
 
-					if (tb != null)
-					{
-						if (tb.ContextMenuStrip == null)
-						{
-							ContextMenuStrip menu = new ContextMenuStrip();
+		public static void CallAllControl(Control.ControlCollection controls, Action<Control> rtn)
+		{
+			foreach (Control control in controls)
+			{
+				rtn(control);
 
-							//menu.Items.Add("noop", null, (sender, e) => { });
+				GroupBox gb = control as GroupBox;
 
-							tb.ContextMenuStrip = menu;
-						}
-					}
+				if (gb != null)
+				{
+					CallAllControl(gb.Controls, rtn);
 				}
 			}
 		}
