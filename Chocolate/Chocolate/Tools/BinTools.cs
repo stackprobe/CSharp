@@ -99,7 +99,7 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public static byte[] GetSubBytes(byte[] src, int offset)
+		public static byte[] GetSubBytes(byte[] src, int offset = 0)
 		{
 			return GetSubBytes(src, offset, src.Length - offset);
 		}
