@@ -9,6 +9,8 @@ namespace Charlotte
 {
 	public class Utils
 	{
+		// sync > @ AntiWindowsDefenderSmartScreen
+
 		public static void antiWindowsDefenderSmartScreen()
 		{
 			WriteLog("awdss_1");
@@ -44,6 +46,8 @@ namespace Charlotte
 			}
 			WriteLog("awdss_4");
 		}
+
+		// < sync
 
 		public static void WriteLog(object message)
 		{
