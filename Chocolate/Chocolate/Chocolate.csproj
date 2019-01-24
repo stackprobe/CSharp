@@ -49,6 +49,7 @@
     <Compile Include="Tools\Critical.cs" />
     <Compile Include="Tools\DateTimeUnit.cs" />
     <Compile Include="Tools\DebugTools.cs" />
+    <Compile Include="Tools\DevFactoryTools.cs" />
     <Compile Include="Tools\DictionaryTools.cs" />
     <Compile Include="Tools\DoubleTools.cs" />
     <Compile Include="Tools\EnumerableTrain.cs" />

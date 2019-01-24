@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Windows.Forms;
+using System.Reflection;
 
 namespace Charlotte.Tools
 {
@@ -99,7 +100,87 @@ namespace Charlotte.Tools
 				{
 					CallAllControl(gb.Controls, rtn);
 				}
+				TabControl tc = control as TabControl;
+
+				if (tc != null)
+				{
+					foreach (TabPage tp in tc.TabPages)
+					{
+						CallAllControl(tp.Controls, rtn);
+					}
+				}
+				SplitContainer sc = control as SplitContainer;
+
+				if (sc != null)
+				{
+					CallAllControl(sc.Panel1.Controls, rtn);
+					CallAllControl(sc.Panel2.Controls, rtn);
+				}
 			}
+		}
+
+		public static void SetEnabledDoubleBuffer(Control control)
+		{
+			control.GetType().InvokeMember(
+				"DoubleBuffered",
+				BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty,
+				null,
+				control,
+				new object[] { true }
+				);
+		}
+
+		private static string EasyBkDestDir = null;
+
+		public static void EasyBackupPath(string path)
+		{
+			if (EasyBkDestDir == null)
+				EasyBkDestDir = MakeFreeDir();
+
+			string destPath = Path.Combine(EasyBkDestDir, Path.GetFileName(path));
+			destPath = ToCreatablePath(destPath);
+
+			if (File.Exists(path))
+				File.Copy(path, destPath);
+			else if (Directory.Exists(path))
+				FileTools.CopyDir(path, destPath);
+		}
+
+		public static string MakeFreeDir()
+		{
+			for (int c = 1; ; c++)
+			{
+				string dir = @"C:\" + c;
+
+				if (Accessible(dir) == false)
+				{
+					FileTools.CreateDir(dir);
+					return dir;
+				}
+			}
+		}
+
+		public static string ToCreatablePath(string path)
+		{
+			if (Accessible(path))
+			{
+				String prefix = Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path));
+				String suffix = Path.GetExtension(path);
+
+				for (int c = 2; ; c++)
+				{
+					path = prefix + "~" + c + suffix;
+
+					if (Accessible(path) == false)
+						break;
+				}
+			}
+			return path;
+		}
+
+		public static bool Accessible(string path)
+		{
+			return File.Exists(path) || Directory.Exists(path);
 		}
 	}
 }
