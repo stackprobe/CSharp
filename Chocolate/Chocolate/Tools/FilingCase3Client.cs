@@ -16,7 +16,6 @@ namespace Charlotte.Tools
 		{
 			this.BasePath = basePath;
 			this.Connect(domain, portNo);
-			this.Client.IdleTimeoutMillis = 24 * 86400 * 1000; // 24 days  --  2^31 / 86400 / 1000 == 24.855*  --  タイムアウトはサーバー側に任せる。
 		}
 
 		private void Connect(string domain, int portNo)
@@ -39,7 +38,6 @@ namespace Charlotte.Tools
 			{
 				this.Client = new SockClient();
 				this.Client.Connect(domain, portNo, 5000);
-				this.Client.IdleTimeoutMillis = 5000;
 
 				this.Hello();
 
@@ -111,8 +109,13 @@ namespace Charlotte.Tools
 
 		public int Hello()
 		{
+			this.Client.IdleTimeoutMillis = 5000;
+
 			this.Send("HELLO", "$");
 			this.ReadLineCheck("/HELLO/e");
+
+			this.Client.IdleTimeoutMillis = -1; // タイムアウトはサーバー側に任せる。
+
 			return 1;
 		}
 

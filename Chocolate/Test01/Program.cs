@@ -46,10 +46,11 @@ namespace Charlotte
 			//new Test01().Main03();
 			//new Test01().Main03b();
 			//new Test01().Main04();
+			new Test01().Main05();
 			//new Test02().Main01();
 			//new StringToolsTest().Test01();
 			//new StringToolsTest().Test02();
-			new StringToolsTest().Test03();
+			//new StringToolsTest().Test03();
 			//new FileToolsTest().Test01();
 			//new FileToolsTest().Test02();
 			//new SortedListTest().Test01();

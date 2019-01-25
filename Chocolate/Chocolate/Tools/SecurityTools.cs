@@ -123,16 +123,13 @@ namespace Charlotte.Tools
 				using (SHA512 sha512 = SHA512.Create())
 				{
 					byte[] hash = sha512.ComputeHash(seed);
-					byte[] rawKey = new byte[16];
+					//byte[] rawKey = new byte[16];
 					//byte[] rawKey = new byte[24];
-					//byte[] rawKey = new byte[32];
+					byte[] rawKey = new byte[32];
 
-					Array.Copy(hash, 0, rawKey, 0, 16);
+					//Array.Copy(hash, 0, rawKey, 0, 16);
 					//Array.Copy(hash, 0, rawKey, 0, 24);
-					//Array.Copy(hash, 0, rawKey, 0, 32);
-					//Array.Copy(hash, 16, this.Counter, 0, 16);
-					//Array.Copy(hash, 24, this.Counter, 0, 16);
-					//Array.Copy(hash, 32, this.Counter, 0, 16);
+					Array.Copy(hash, 0, rawKey, 0, 32);
 
 					this.Aes = new AES(rawKey);
 				}

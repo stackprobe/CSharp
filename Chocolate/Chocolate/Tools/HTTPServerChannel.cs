@@ -57,6 +57,10 @@ namespace Charlotte.Tools
 						dest.WriteByte((byte)Convert.ToInt32(Encoding.ASCII.GetString(BinTools.GetSubBytes(src, index + 1, 2)), 16));
 						index += 2;
 					}
+					else if (src[index] == 0x2b) // ? '+'
+					{
+						dest.WriteByte(0x20); // ' '
+					}
 					else
 					{
 						dest.WriteByte(src[index]);

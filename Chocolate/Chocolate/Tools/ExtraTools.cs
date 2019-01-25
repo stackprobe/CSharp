@@ -130,20 +130,30 @@ namespace Charlotte.Tools
 				);
 		}
 
-		private static string EasyBkDestDir = null;
+		private static string SemiRemoveDestDir = null;
 
-		public static void EasyBackupPath(string path)
+		public static void SemiRemovePath(string path, bool keepSrcPath = false)
 		{
-			if (EasyBkDestDir == null)
-				EasyBkDestDir = MakeFreeDir();
+			if (SemiRemoveDestDir == null)
+				SemiRemoveDestDir = MakeFreeDir();
 
-			string destPath = Path.Combine(EasyBkDestDir, Path.GetFileName(path));
+			string destPath = Path.Combine(SemiRemoveDestDir, Path.GetFileName(path));
 			destPath = ToCreatablePath(destPath);
 
 			if (File.Exists(path))
-				File.Copy(path, destPath);
+			{
+				if (keepSrcPath)
+					File.Copy(path, destPath);
+				else
+					File.Move(path, destPath);
+			}
 			else if (Directory.Exists(path))
-				FileTools.CopyDir(path, destPath);
+			{
+				if (keepSrcPath)
+					FileTools.CopyDir(path, destPath);
+				else
+					FileTools.MoveDir(path, destPath);
+			}
 		}
 
 		public static string MakeFreeDir()

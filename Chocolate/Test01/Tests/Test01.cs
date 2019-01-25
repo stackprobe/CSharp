@@ -298,5 +298,17 @@ namespace Charlotte.Tests
 
 			Console.WriteLine("}");
 		}
+
+		public void Main05()
+		{
+			Console.WriteLine(Path.GetDirectoryName("abc.txt")); // -> ""
+			Console.WriteLine(Path.GetDirectoryName(@"\abc.txt")); // -> @"\"
+			Console.WriteLine(Path.GetDirectoryName(@".\abc.txt")); // -> "."
+
+			Console.WriteLine(Path.Combine("aaa", "bbb")); // -> @"aaa\bbb"
+			Console.WriteLine(Path.Combine("aaa", "")); // -> "aaa"
+			Console.WriteLine(Path.Combine("", "bbb")); // -> "bbb"
+			Console.WriteLine(Path.Combine("", "")); // -> ""
+		}
 	}
 }
