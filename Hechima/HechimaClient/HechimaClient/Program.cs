@@ -35,7 +35,7 @@ namespace Charlotte
 
 				Gnd.I.Logger.clear();
 
-				Utils.antiWindowsDefenderSmartScreen();
+				Utils.AntiWindowsDefenderSmartScreen();
 
 				Gnd.conf.Load();
 				Gnd.setting.Load();

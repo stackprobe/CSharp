@@ -37,7 +37,7 @@ namespace Charlotte
 				Gnd.Logger = new Logger();
 				Gnd.Logger.writeLine("へちま改_起動");
 
-				Utils.antiWindowsDefenderSmartScreen();
+				Utils.AntiWindowsDefenderSmartScreen();
 
 				Gnd.conf.Load();
 				Gnd.setting.Load();

@@ -11,7 +11,7 @@ namespace Charlotte
 	{
 		// sync > @ AntiWindowsDefenderSmartScreen
 
-		public static void antiWindowsDefenderSmartScreen()
+		public static void AntiWindowsDefenderSmartScreen()
 		{
 			WriteLog("awdss_1");
 
@@ -19,13 +19,13 @@ namespace Charlotte
 			{
 				WriteLog("awdss_2");
 
-				foreach (string exeFile in Directory.GetFiles(Program.selfDir, "*.exe", SearchOption.TopDirectoryOnly))
+				foreach (string exeFile in Directory.GetFiles(BootTools.SelfDir, "*.exe", SearchOption.TopDirectoryOnly))
 				{
 					try
 					{
 						WriteLog("awdss_exeFile: " + exeFile);
 
-						if (StringTools.equalsIgnoreCase(exeFile, Program.selfFile))
+						if (exeFile.ToLower() == BootTools.SelfFile.ToLower())
 						{
 							WriteLog("awdss_self_noop");
 						}
