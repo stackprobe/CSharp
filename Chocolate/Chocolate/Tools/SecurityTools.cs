@@ -36,77 +36,9 @@ namespace Charlotte.Tools
 			return MakePassword(StringTools.DECIMAL, 39);
 		}
 
-		public class AES : IDisposable
-		{
-			private AesManaged Aes;
-			private ICryptoTransform Encryptor = null;
-			private ICryptoTransform Decryptor = null;
-
-			public AES(byte[] rawKey)
-			{
-				if (
-					rawKey.Length != 16 &&
-					rawKey.Length != 24 &&
-					rawKey.Length != 32
-					)
-					throw new ArgumentException();
-
-				this.Aes = new AesManaged();
-				this.Aes.KeySize = rawKey.Length * 8;
-				this.Aes.BlockSize = 128;
-				this.Aes.Mode = CipherMode.ECB;
-				this.Aes.IV = new byte[16]; // dummy
-				this.Aes.Key = rawKey;
-				this.Aes.Padding = PaddingMode.None;
-			}
-
-			public void EncryptBlock(byte[] src, byte[] dest)
-			{
-				if (
-					src.Length != 16 ||
-					dest.Length != 16
-					)
-					throw new ArgumentException();
-
-				if (this.Encryptor == null)
-					this.Encryptor = this.Aes.CreateEncryptor();
-
-				this.Encryptor.TransformBlock(src, 0, 16, dest, 0);
-			}
-
-			public void DecryptBlock(byte[] src, byte[] dest)
-			{
-				if (
-					src.Length != 16 ||
-					dest.Length != 16
-					)
-					throw new ArgumentException();
-
-				if (this.Decryptor == null)
-					this.Decryptor = this.Aes.CreateDecryptor();
-
-				this.Decryptor.TransformBlock(src, 0, 16, dest, 0);
-			}
-
-			public void Dispose()
-			{
-				if (this.Aes != null)
-				{
-					if (this.Encryptor != null)
-						this.Encryptor.Dispose();
-
-					if (this.Decryptor != null)
-						this.Decryptor.Dispose();
-
-					this.Aes.Dispose();
-					this.Aes = null;
-				}
-			}
-		}
-
 		public class AESRandomNumberGenerator : RandomUnit.IRandomNumberGenerator
 		{
-			private AES Aes;
+			private CipherTools.AES Aes;
 			private byte[] Counter = new byte[16];
 			private byte[] Block = new byte[16];
 
@@ -131,7 +63,7 @@ namespace Charlotte.Tools
 					//Array.Copy(hash, 0, rawKey, 0, 24);
 					Array.Copy(hash, 0, rawKey, 0, 32);
 
-					this.Aes = new AES(rawKey);
+					this.Aes = new CipherTools.AES(rawKey);
 				}
 			}
 

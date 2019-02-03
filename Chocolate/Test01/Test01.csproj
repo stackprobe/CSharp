@@ -51,6 +51,7 @@
     <Compile Include="Tests2\Interface03.cs" />
     <Compile Include="Tests\Test02.cs" />
     <Compile Include="Tests\Tools\AttachStringTest.cs" />
+    <Compile Include="Tests\Tools\CipherToolsTest.cs" />
     <Compile Include="Tests\Tools\CriticalTest.cs" />
     <Compile Include="Tests\Tools\EnumerableTrainTest.cs" />
     <Compile Include="Tests\Tools\EscapeStringTest.cs" />

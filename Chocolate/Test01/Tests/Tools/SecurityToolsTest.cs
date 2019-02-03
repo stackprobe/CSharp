@@ -51,80 +51,21 @@ namespace Charlotte.Tests.Tools
 				}
 
 				Console.WriteLine("----");
-				Console.WriteLine(@"xx	xx	xx	ad	95	cd	ad	ad	ad"); // 最終行の想定値 @ 2018.4.4
+				Console.WriteLine(@"xx	xx	xx	e2	a1	36	e2	e2	e2"); // 最終行の想定値 @ 2019.2.3
 				// xx == 不定
 			}
+
+			//	Console.WriteLine(@"xx	xx	xx	ad	95	cd	ad	ad	ad"); // 最終行の想定値 @ 2018.4.4 // 16bitの場合
 		}
 
-		public class AESTest
+		public void Test02()
 		{
-			public void Test01()
+			using (RandomUnit rand = new RandomUnit(new SecurityTools.AESRandomNumberGenerator(123)))
 			{
-				using (StreamReader reader = new StreamReader(@"C:\Factory\Labo\utest\auto\OpenSource\aes128\testvector\t_aes128.txt", Encoding.ASCII))
+				for (int c = 0; c < 100; c++)
 				{
-					SecurityTools.AES aes = null;
-
-					for (; ; )
-					{
-						string line = reader.ReadLine();
-
-						if (line == null)
-							break;
-
-						if (line.StartsWith("K No."))
-						{
-							if (aes != null)
-								aes.Dispose();
-
-							aes = new SecurityTools.AES(GetTVBlock(line));
-						}
-						else if (line.StartsWith("P No."))
-						{
-							byte[] plain = GetTVBlock(line);
-
-							line = reader.ReadLine();
-
-							if (line.StartsWith("C No.") == false)
-								throw null;
-
-							byte[] cipher = GetTVBlock(line);
-
-							EncDecTest(aes, plain, cipher);
-						}
-					}
-					if (aes != null)
-					{
-						aes.Dispose();
-						aes = null;
-					}
+					Console.WriteLine(BinTools.Hex.ToString(rand.GetBytes(16)));
 				}
-			}
-
-			private static byte[] GetTVBlock(string line)
-			{
-				return BinTools.Hex.ToBytes(line.Substring(line.IndexOf(':') + 1).Replace(" ", ""));
-			}
-
-			private static void EncDecTest(SecurityTools.AES aes, byte[] plain, byte[] cipher)
-			{
-				Console.WriteLine("aes: " + aes + ", " + aes.GetHashCode());
-				Console.WriteLine("< " + BinTools.Hex.ToString(plain));
-				Console.WriteLine("< " + BinTools.Hex.ToString(cipher));
-
-				byte[] encans = new byte[16];
-				byte[] decans = new byte[16];
-
-				aes.EncryptBlock(plain, encans);
-				aes.DecryptBlock(cipher, decans);
-
-				Console.WriteLine("> " + BinTools.Hex.ToString(encans));
-				Console.WriteLine("> " + BinTools.Hex.ToString(decans));
-
-				if (BinTools.Comp(encans, cipher) != 0)
-					throw null;
-
-				if (BinTools.Comp(decans, plain) != 0)
-					throw null;
 			}
 		}
 	}
