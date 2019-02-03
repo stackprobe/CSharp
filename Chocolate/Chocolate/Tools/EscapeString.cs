@@ -11,23 +11,23 @@ namespace Charlotte.Tools
 			: this("\t\r\n ", '$', "trns")
 		{ }
 
-		private string AllowedChrs;
-		private char EscapeChr;
 		private string DisallowedChrs;
+		private char EscapeChr;
+		private string AllowedChrs;
 
-		public EscapeString(string allowedChrs, char escapeChr, string disallowedChrs)
+		public EscapeString(string disallowedChrs, char escapeChr, string allowedChrs)
 		{
 			if (
-				allowedChrs == null ||
 				disallowedChrs == null ||
-				allowedChrs.Length != disallowedChrs.Length ||
-				StringTools.HasSameChar(allowedChrs + escapeChr + disallowedChrs)
+				allowedChrs == null ||
+				disallowedChrs.Length != allowedChrs.Length ||
+				StringTools.HasSameChar(disallowedChrs + escapeChr + allowedChrs)
 				)
 				throw new ArgumentException();
 
-			this.AllowedChrs = allowedChrs + escapeChr;
-			this.EscapeChr = escapeChr;
 			this.DisallowedChrs = disallowedChrs + escapeChr;
+			this.EscapeChr = escapeChr;
+			this.AllowedChrs = allowedChrs + escapeChr;
 		}
 
 		public string Encode(string str)
@@ -36,7 +36,7 @@ namespace Charlotte.Tools
 
 			foreach (char chr in str)
 			{
-				int chrPos = this.AllowedChrs.IndexOf(chr);
+				int chrPos = this.DisallowedChrs.IndexOf(chr);
 
 				if (chrPos == -1)
 				{
@@ -45,7 +45,7 @@ namespace Charlotte.Tools
 				else
 				{
 					buff.Append(this.EscapeChr);
-					buff.Append(this.DisallowedChrs[chrPos]);
+					buff.Append(this.AllowedChrs[chrPos]);
 				}
 			}
 			return buff.ToString();
@@ -63,11 +63,11 @@ namespace Charlotte.Tools
 				{
 					index++;
 					chr = str[index];
-					int chrPos = this.DisallowedChrs.IndexOf(chr);
+					int chrPos = this.AllowedChrs.IndexOf(chr);
 
 					if (chrPos != -1)
 					{
-						chr = this.AllowedChrs[chrPos];
+						chr = this.DisallowedChrs[chrPos];
 					}
 				}
 				buff.Append(chr);

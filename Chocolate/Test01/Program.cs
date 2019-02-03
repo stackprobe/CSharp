@@ -46,7 +46,7 @@ namespace Charlotte
 			//new Test01().Main03();
 			//new Test01().Main03b();
 			//new Test01().Main04();
-			new Test01().Main05();
+			//new Test01().Main05();
 			//new Test02().Main01();
 			//new StringToolsTest().Test01();
 			//new StringToolsTest().Test02();
@@ -90,6 +90,8 @@ namespace Charlotte
 			//new JStringTest().Test01();
 			//new FilingCase3Test().Test01();
 			//new FilingCase3Test().Test02();
+			//new AttachStringTest().Test01();
+			new EscapeStringTest().Test01();
 		}
 	}
 }

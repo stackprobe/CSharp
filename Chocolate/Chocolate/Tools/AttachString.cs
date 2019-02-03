@@ -8,22 +8,14 @@ namespace Charlotte.Tools
 	public class AttachString
 	{
 		public AttachString()
-			: this("\t\r\n ", "trns")
-		{ }
-
-		public AttachString(string allowedChrs, string disallowedChrs)
-			: this(':', '$', '.', allowedChrs, disallowedChrs)
+			: this(':', '$', '.')
 		{ }
 
 		public AttachString(char delimiter, char escapeChr, char escapedDelimiter)
-			: this(delimiter, escapeChr, escapedDelimiter, "", "")
-		{ }
-
-		public AttachString(char delimiter, char escapeChr, char escapedDelimiter, string allowedChrs, string disallowedChrs)
 			: this(delimiter, new EscapeString(
-				allowedChrs + delimiter,
+				delimiter.ToString(),
 				escapeChr,
-				disallowedChrs + escapedDelimiter
+				escapedDelimiter.ToString()
 				))
 		{ }
 
@@ -44,14 +36,14 @@ namespace Charlotte.Tools
 				dest.Add(this.ES.Encode(token));
 
 			dest.Add("");
-			return string.Join("" + this.Delimiter, dest);
+			return string.Join(this.Delimiter.ToString(), dest);
 		}
 
 		public string[] Tokenize(string str)
 		{
 			List<string> dest = new List<string>();
 
-			foreach (string token in StringTools.Tokenize(str, "" + this.Delimiter))
+			foreach (string token in StringTools.Tokenize(str, this.Delimiter.ToString()))
 				dest.Add(this.ES.Decode(token));
 
 			dest.RemoveAt(dest.Count - 1);
