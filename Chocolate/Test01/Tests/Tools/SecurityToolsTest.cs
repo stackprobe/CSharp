@@ -11,9 +11,9 @@ namespace Charlotte.Tests.Tools
 	{
 		public void Test01()
 		{
-			using (RandomUnit r1 = new RandomUnit(new SecurityTools.RNGRandomNumberGenerator()))
-			using (RandomUnit r2 = new RandomUnit(new SecurityTools.RNGRandomNumberGenerator()))
-			using (RandomUnit r3 = new RandomUnit(new SecurityTools.RNGRandomNumberGenerator()))
+			using (RandomUnit r1 = new RandomUnit(new SecurityTools.CSPRandomNumberGenerator()))
+			using (RandomUnit r2 = new RandomUnit(new SecurityTools.CSPRandomNumberGenerator()))
+			using (RandomUnit r3 = new RandomUnit(new SecurityTools.CSPRandomNumberGenerator()))
 			// --
 			using (RandomUnit a1 = new RandomUnit(new SecurityTools.AESRandomNumberGenerator(1)))
 			using (RandomUnit a2 = new RandomUnit(new SecurityTools.AESRandomNumberGenerator(2)))

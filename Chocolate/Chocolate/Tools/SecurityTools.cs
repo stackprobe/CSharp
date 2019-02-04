@@ -9,7 +9,7 @@ namespace Charlotte.Tools
 {
 	public class SecurityTools
 	{
-		public static RandomUnit CRandom = new RandomUnit(new RNGRandomNumberGenerator());
+		public static RandomUnit CRandom = new RandomUnit(new CSPRandomNumberGenerator());
 
 		public static string MakePassword(string allowChars, int length)
 		{
@@ -93,7 +93,7 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public class RNGRandomNumberGenerator : RandomUnit.IRandomNumberGenerator
+		public class CSPRandomNumberGenerator : RandomUnit.IRandomNumberGenerator
 		{
 			private RandomNumberGenerator Rng = new RNGCryptoServiceProvider();
 			private byte[] Cache = new byte[4096];
