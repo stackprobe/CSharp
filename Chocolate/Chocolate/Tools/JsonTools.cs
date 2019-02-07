@@ -336,9 +336,6 @@ namespace Charlotte.Tools
 					{
 						chr = this.Next();
 
-						if (chr <= ' ')
-							break;
-
 						if (
 							chr == '}' ||
 							chr == ']' ||
@@ -351,7 +348,7 @@ namespace Charlotte.Tools
 						}
 						buff.Append(chr);
 					}
-					Word word = new Word() { Value = buff.ToString() };
+					Word word = new Word() { Value = buff.ToString().Trim() };
 
 					if (word.IsFairJsonWord() == false)
 						ProcMain.WriteLog("JSON format warning: value is not fair JSON word");

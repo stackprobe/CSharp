@@ -60,5 +60,30 @@ namespace Charlotte.Tests.Tools
 			Console.WriteLine(StringTools.SetCharAt("ABCDE", 3, '$'));
 			Console.WriteLine(StringTools.SetCharAt("ABCDE", 4, '$'));
 		}
+
+		public void Test04()
+		{
+			string a = StringTools.ASCII;
+			string b = StringTools.GetString_SJISHalfCodeRange(0x21, 0x7e);
+
+			Console.WriteLine("a: " + a);
+			Console.WriteLine("b: " + b);
+
+			a = Sort(a);
+			b = Sort(b);
+
+			Console.WriteLine("a: " + a);
+			Console.WriteLine("b: " + b);
+
+			if (a != b)
+				throw null; // bugged !!!
+		}
+
+		private string Sort(string str)
+		{
+			char[] chrs = str.ToCharArray();
+			Array.Sort(chrs, (a, b) => (int)a - (int)b);
+			return new string(chrs);
+		}
 	}
 }

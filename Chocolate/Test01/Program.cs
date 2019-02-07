@@ -51,6 +51,7 @@ namespace Charlotte
 			//new StringToolsTest().Test01();
 			//new StringToolsTest().Test02();
 			//new StringToolsTest().Test03();
+			new StringToolsTest().Test04();
 			//new FileToolsTest().Test01();
 			//new FileToolsTest().Test02();
 			//new SortedListTest().Test01();
@@ -70,7 +71,7 @@ namespace Charlotte
 			//new ReflectToolsTest().Test04();
 			//new ReflectToolsTest().Test05();
 			//new JsonToolsTest().Test01();
-			new JsonToolsTest().Test02();
+			//new JsonToolsTest().Test02();
 			//new ArrayToolsTest().Test01();
 			//new BinToolsTest().Test01();
 			//new BinToolsTest().Test02();
