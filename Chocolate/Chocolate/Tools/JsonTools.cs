@@ -40,11 +40,7 @@ namespace Charlotte.Tools
 					this.Buff.Append("{");
 					this.Buff.Append(this.NewLine);
 
-					List<string> keys = ArrayTools.ToList(om.GetKeys());
-
-					keys.Sort(StringTools.Comp);
-
-					foreach (string key in keys)
+					foreach (string key in om.GetKeys())
 					{
 						object value = om[key];
 
@@ -54,9 +50,7 @@ namespace Charlotte.Tools
 							this.Buff.Append(this.NewLine);
 						}
 						this.AddIndent(indent + 1);
-						this.Buff.Append("\"");
-						this.Buff.Append(key);
-						this.Buff.Append("\"");
+						this.Add(key, 0); // key is string
 						this.Buff.Append(this.Blank);
 						this.Buff.Append(":");
 						this.Buff.Append(this.Blank);
@@ -214,29 +208,49 @@ namespace Charlotte.Tools
 				return chr;
 			}
 
-			public object GetObject()
+			private char NextNS(string allowedChrs)
 			{
 				char chr = this.NextNS();
 
+				if (allowedChrs.Contains(chr) == false)
+					throw new Exception("JSON format error: " + allowedChrs + ", " + chr);
+
+				return chr;
+			}
+
+			public object GetObject()
+			{
+				return GetObject(this.NextNS());
+			}
+
+			public object GetObject(char chr)
+			{
 				if (chr == '{')
 				{
 					ObjectMap om = ObjectMap.CreateIgnoreCase();
 
-					if (this.NextNS() != '}')
+					if ((chr = this.NextNS()) != '}')
 					{
-						this.RPos--;
-
-						do
+						for (; ; )
 						{
-							object key = this.GetObject();
+							object key = this.GetObject(chr);
 
-							this.NextNS(); // ':'
+							if (key is string == false)
+								ProcMain.WriteLog("JSON format warning: key is not string");
 
-							object value = this.GetObject();
+							this.NextNS(":");
 
-							om.Add(key, value);
+							om.Add(key, this.GetObject());
+
+							if (this.NextNS(",}") == '}')
+								break;
+
+							if ((chr = this.NextNS()) == '}')
+							{
+								ProcMain.WriteLog("JSON format warning: found ',' before '}'");
+								break;
+							}
 						}
-						while (this.NextNS() != '}'); // ',' or '}'
 					}
 					return om;
 				}
@@ -244,15 +258,21 @@ namespace Charlotte.Tools
 				{
 					ObjectList ol = new ObjectList();
 
-					if (this.NextNS() != ']')
+					if ((chr = this.NextNS()) != ']')
 					{
-						this.RPos--;
-
-						do
+						for (; ; )
 						{
-							ol.Add(this.GetObject());
+							ol.Add(this.GetObject(chr));
+
+							if (this.NextNS(",]") == ']')
+								break;
+
+							if ((chr = this.NextNS()) == ']')
+							{
+								ProcMain.WriteLog("JSON format warning: found ',' before ']'");
+								break;
+							}
 						}
-						while (this.NextNS() != ']'); // ',' or '}'
 					}
 					return ol;
 				}
@@ -316,6 +336,9 @@ namespace Charlotte.Tools
 					{
 						chr = this.Next();
 
+						if (chr <= ' ')
+							break;
+
 						if (
 							chr == '}' ||
 							chr == ']' ||
@@ -328,7 +351,12 @@ namespace Charlotte.Tools
 						}
 						buff.Append(chr);
 					}
-					return new Word() { Value = buff.ToString().Trim() };
+					Word word = new Word() { Value = buff.ToString() };
+
+					if (word.IsFairJsonWord() == false)
+						ProcMain.WriteLog("JSON format warning: value is not fair JSON word");
+
+					return word;
 				}
 			}
 		}
@@ -336,6 +364,30 @@ namespace Charlotte.Tools
 		public class Word
 		{
 			public string Value;
+
+			public override string ToString()
+			{
+				return this.Value;
+			}
+
+			public bool IsFairJsonWord()
+			{
+				return
+					this.Value == "true" ||
+					this.Value == "false" ||
+					this.Value == "null" ||
+					this.IsNumber();
+			}
+
+			private bool IsNumber() // XXX
+			{
+				string fmt = this.Value;
+
+				fmt = StringTools.ReplaceChars(fmt, StringTools.DECIMAL + "+-.Ee", '9');
+				fmt = StringTools.ReplaceLoop(fmt, "99", "9");
+
+				return fmt == "9";
+			}
 		}
 	}
 }
