@@ -7,21 +7,13 @@ namespace Charlotte.Tools
 {
 	public class ObjectMap
 	{
-		public class ValueInfo
-		{
-			public object Value;
-			public long Index;
-			public string Key;
-		}
-
-		private Dictionary<string, ValueInfo> Inner;
-		private long Counter = 0L;
+		private OrderedMap<string, object> Inner;
 
 		public static ObjectMap Create()
 		{
 			return new ObjectMap()
 			{
-				Inner = new Dictionary<string, ValueInfo>(new StringTools.IEComp()),
+				Inner = DictionaryTools.CreateOrdered<object>(),
 			};
 		}
 
@@ -29,7 +21,7 @@ namespace Charlotte.Tools
 		{
 			return new ObjectMap()
 			{
-				Inner = new Dictionary<string, ValueInfo>(new StringTools.IECompIgnoreCase()),
+				Inner = DictionaryTools.CreateOrderedIgnoreCase<object>(),
 			};
 		}
 
@@ -46,12 +38,7 @@ namespace Charlotte.Tools
 
 		public void Add(object key, object value)
 		{
-			this.Inner.Add("" + key, new ValueInfo()
-			{
-				Value = value,
-				Index = this.Counter++,
-				Key = "" + key,
-			});
+			this.Inner.Add("" + key, value);
 		}
 
 		public int Count
@@ -66,41 +53,36 @@ namespace Charlotte.Tools
 		{
 			get
 			{
-				return this.Inner["" + key].Value;
+				return this.Inner["" + key];
 			}
 
 			set
 			{
-				if (this.Inner.ContainsKey("" + key))
-					this.Inner["" + key].Value = value;
-				else
-					this.Add(key, value);
+				this.Inner["" + key] = value;
 			}
 		}
 
 		public IEnumerable<string> GetKeySet()
 		{
-			return this.Inner.Keys;
-		}
-
-		public List<ValueInfo> GetInfos()
-		{
-			List<ValueInfo> infos = new List<ValueInfo>(this.Inner.Values);
-			infos.Sort((a, b) => LongTools.Comp(a.Index, b.Index));
-			return infos;
+			return this.Inner.GetKeySet();
 		}
 
 		public IEnumerable<string> GetKeys()
 		{
-			return GetInfos().Select(info => info.Key);
+			return this.Inner.GetKeys();
+		}
+
+		public IEnumerable<KeyValuePair<string, object>> GetEntries()
+		{
+			return this.Inner.GetEntries();
 		}
 
 		public IEnumerable<object> GetValues()
 		{
-			return GetInfos().Select(info => info.Value);
+			return this.Inner.GetValues();
 		}
 
-		public Dictionary<string, ValueInfo> Direct()
+		public OrderedMap<string, object> Direct()
 		{
 			return this.Inner;
 		}

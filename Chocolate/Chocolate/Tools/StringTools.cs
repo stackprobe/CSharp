@@ -378,5 +378,52 @@ namespace Charlotte.Tools
 		{
 			return str.Substring(0, index) + chr + str.Substring(index + 1);
 		}
+
+		public static string Repeat(string ptn, int count)
+		{
+			StringBuilder buff = new StringBuilder(ptn.Length * count);
+
+			while (0 < count)
+			{
+				buff.Append(ptn);
+				count--;
+			}
+			return buff.ToString();
+		}
+
+		public static string Escape(string str)
+		{
+			StringBuilder buff = new StringBuilder();
+
+			foreach (char chr in str)
+			{
+				if (chr <= ' ' || chr == '$' || (0x7f <= chr && chr <= 0xff))
+				{
+					buff.Append('$');
+					buff.Append(((int)chr).ToString("x2"));
+				}
+				else
+					buff.Append(chr);
+			}
+			return buff.ToString();
+		}
+
+		public static string Unescape(string str)
+		{
+			StringBuilder buff = new StringBuilder();
+
+			for (int index = 0; index < str.Length; index++)
+			{
+				char chr = str[index];
+
+				if (chr == '$')
+				{
+					chr = (char)Convert.ToInt32(str.Substring(index + 1, 2), 16);
+					index += 2;
+				}
+				buff.Append(chr);
+			}
+			return buff.ToString();
+		}
 	}
 }

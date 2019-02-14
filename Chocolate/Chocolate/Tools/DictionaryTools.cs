@@ -16,5 +16,15 @@ namespace Charlotte.Tools
 		{
 			return new Dictionary<string, V>(new StringTools.IECompIgnoreCase());
 		}
+
+		public static OrderedMap<string, V> CreateOrdered<V>()
+		{
+			return new OrderedMap<string, V>(new StringTools.IEComp());
+		}
+
+		public static OrderedMap<string, V> CreateOrderedIgnoreCase<V>()
+		{
+			return new OrderedMap<string, V>(new StringTools.IECompIgnoreCase());
+		}
 	}
 }
