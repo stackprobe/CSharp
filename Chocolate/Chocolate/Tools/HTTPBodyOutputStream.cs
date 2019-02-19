@@ -6,11 +6,7 @@ using System.IO;
 
 namespace Charlotte.Tools
 {
-	/// <summary>
-	/// 大量のメモリを確保しない。
-	/// ファイルハンドルを開きっぱなしにしない。
-	/// </summary>
-	public class ByteArrayLowCostBuffer : IDisposable
+	public class HTTPBodyOutputStream : IDisposable
 	{
 		private WorkingDir WD = null;
 		private string BuffFile = null;

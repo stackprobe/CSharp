@@ -172,7 +172,7 @@ namespace Charlotte.Tools
 
 		private void RecvBody()
 		{
-			using (ByteArrayLowCostBuffer buff = new ByteArrayLowCostBuffer())
+			using (HTTPBodyOutputStream buff = new HTTPBodyOutputStream())
 			{
 				if (this.Chunked)
 				{
