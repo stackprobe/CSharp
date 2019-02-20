@@ -47,7 +47,7 @@ namespace Charlotte.Tools
 			return Sequence(0, count);
 		}
 
-		private static int[] Sequence(int firstValue, int count, int step = 1)
+		public static int[] Sequence(int firstValue, int count, int step = 1)
 		{
 			int[] ret = new int[count];
 

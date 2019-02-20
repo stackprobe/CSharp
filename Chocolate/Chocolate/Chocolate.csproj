@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Tools\AttachString.cs" />
+    <Compile Include="Tools\Base64Unit.cs" />
     <Compile Include="Tools\HTTPBodyOutputStream.cs" />
     <Compile Include="Tools\CipherTools.cs" />
     <Compile Include="Tools\Critical.cs" />

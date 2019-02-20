@@ -69,6 +69,22 @@ namespace Charlotte.Tools
 			return this.Inner.Keys;
 		}
 
+		public IEnumerable<KeyValuePair<K, V>> GetEntrySet()
+		{
+			foreach (ValueInfo info in this.Inner.Values)
+			{
+				yield return new KeyValuePair<K, V>(info.Key, info.Value);
+			}
+		}
+
+		public IEnumerable<V> GetValueSet()
+		{
+			foreach (ValueInfo info in this.Inner.Values)
+			{
+				yield return info.Value;
+			}
+		}
+
 		public List<ValueInfo> GetInfos()
 		{
 			List<ValueInfo> infos = new List<ValueInfo>(this.Inner.Values);

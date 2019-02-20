@@ -26,6 +26,13 @@ Charlotte.Tools ”z‰ºˆÈŠO
 		...
 	}
 
+	–”‚Í
+
+	public static string[] TTTT(IEnumerable<string> a, IEnumerable<string[]> b, IEnumerable<string[][]> c)
+	{
+		...
+	}
+
 	public static string[][] TTTT2()
 	{
 		...

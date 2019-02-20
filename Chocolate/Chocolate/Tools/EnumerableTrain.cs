@@ -15,6 +15,13 @@ namespace Charlotte.Tools
 			return this.Add(new T[] { element });
 		}
 
+#if false
+		public EnumerableTrain<T> AddLot(params T[] elements)
+		{
+			return this.Add(elements);
+		}
+#endif
+
 		public EnumerableTrain<T> Add(IEnumerable<T> src)
 		{
 			this.Sources.Add(src);
