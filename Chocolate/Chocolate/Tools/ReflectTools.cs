@@ -16,6 +16,44 @@ namespace Charlotte.Tools
 			{
 				this.Value = value;
 			}
+
+			/// <summary>
+			/// static フィールド 取得
+			/// </summary>
+			/// <returns></returns>
+			public object GetValue()
+			{
+				return this.Value.GetValue(null);
+			}
+
+			/// <summary>
+			/// インスタンス フィールド 取得
+			/// </summary>
+			/// <param name="instance"></param>
+			/// <returns></returns>
+			public object GetValue(object instance)
+			{
+				return this.Value.GetValue(instance);
+			}
+
+			/// <summary>
+			/// static フィールド 設定
+			/// </summary>
+			/// <param name="value"></param>
+			public void SetValue(object value)
+			{
+				this.Value.SetValue(null, value);
+			}
+
+			/// <summary>
+			/// インスタンス フィールド 設定
+			/// </summary>
+			/// <param name="instance"></param>
+			/// <param name="value"></param>
+			public void SetValue(object instance, object value)
+			{
+				this.Value.SetValue(instance, value);
+			}
 		}
 
 		public class PropertyUnit
@@ -25,6 +63,71 @@ namespace Charlotte.Tools
 			public PropertyUnit(PropertyInfo value)
 			{
 				this.Value = value;
+			}
+
+			/// <summary>
+			/// static プロパティ 取得
+			/// </summary>
+			/// <returns></returns>
+			public object GetValue()
+			{
+				try
+				{
+					return this.Value.GetValue(null, null);
+				}
+				catch
+				{
+					return null; // getter無し || 配列 || etc.
+				}
+			}
+
+			/// <summary>
+			/// インスタンス プロパティ 取得
+			/// </summary>
+			/// <param name="instance"></param>
+			/// <returns></returns>
+			public object GetValue(object instance)
+			{
+				try
+				{
+					return this.Value.GetValue(instance, null);
+				}
+				catch
+				{
+					return null; // getter無し || 配列 || etc.
+				}
+			}
+
+			/// <summary>
+			/// static プロパティ 設定
+			/// </summary>
+			/// <param name="value"></param>
+			public void SetValue(object value)
+			{
+				try
+				{
+					this.Value.SetValue(null, value, null);
+				}
+				catch
+				{
+					// setter無し || 配列 || etc.
+				}
+			}
+
+			/// <summary>
+			/// インスタンス プロパティ 設定
+			/// </summary>
+			/// <param name="value"></param>
+			public void SetValue(object instance, object value)
+			{
+				try
+				{
+					this.Value.SetValue(instance, value, null);
+				}
+				catch
+				{
+					// setter無し || 配列 || etc.
+				}
 			}
 		}
 
@@ -175,28 +278,6 @@ namespace Charlotte.Tools
 			while (a != null);
 
 			return false;
-		}
-
-		public static object GetValue(FieldUnit field, object instance)
-		{
-			return field.Value.GetValue(instance);
-		}
-
-		public static void SetValue(FieldUnit field, object instance, object value)
-		{
-			field.Value.SetValue(instance, value);
-		}
-
-		public static object GetValue(PropertyUnit prop, object instance)
-		{
-			try
-			{
-				return prop.Value.GetValue(instance, null);
-			}
-			catch
-			{
-				return null; // getter無し || 配列 || etc.
-			}
 		}
 
 		public static bool IsList(Type type)

@@ -70,6 +70,7 @@ namespace Charlotte
 			//new ReflectToolsTest().Test03b();
 			//new ReflectToolsTest().Test04();
 			//new ReflectToolsTest().Test05();
+			new ReflectToolsTest().Test06();
 			//new JsonToolsTest().Test01();
 			//new JsonToolsTest().Test02();
 			//new ArrayToolsTest().Test01();
@@ -85,7 +86,8 @@ namespace Charlotte
 			//new MultiThreadTaskInvokerTest().Test03();
 			//new HugeQueueTest().Test01();
 			//new HugeQueueTest().Test02();
-			//new EnumerableListTest().Test01();
+			//new EnumerableTrainTest().Test01();
+			//new EnumerableTrainTest().Test02();
 			//new WrapperTest().Test01();
 			//new XmlNodeTest().Test01();
 			//new CriticalTest().Test01();
@@ -95,7 +97,7 @@ namespace Charlotte
 			//new FilingCase3Test().Test02();
 			//new AttachStringTest().Test01();
 			//new EscapeStringTest().Test01();
-			new ObjectTreeTest().Test01();
+			//new ObjectTreeTest().Test01();
 			//new Base64UnitTest().Test01();
 			//new Base64UnitTest().Test02();
 		}

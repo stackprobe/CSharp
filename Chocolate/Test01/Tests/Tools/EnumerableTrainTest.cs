@@ -30,5 +30,24 @@ namespace Charlotte.Tests.Tools
 
 			Console.WriteLine("");
 		}
+
+		public void Test02()
+		{
+			string[] strs = "A:BB:CCC".Split(':');
+
+			EnumerableTrain<string> strtbl = new EnumerableTrain<string>();
+
+			strtbl.Add(strs);
+			strtbl.Add(strs);
+			strtbl.Add(strs);
+
+			Console.WriteLine("*1");
+			foreach (string str in strtbl)
+				Console.WriteLine(str);
+
+			Console.WriteLine("*2");
+			foreach (string str in strtbl.Iterate())
+				Console.WriteLine(str);
+		}
 	}
 }

@@ -212,5 +212,48 @@ Tests2.Sample3 SPrintString *** ;
 			foreach (Type i in typeof(Interface01).GetInterfaces())
 				Console.WriteLine("" + i);
 		}
+
+		private class Test06_Class
+		{
+			public static int StaticInt = 1111;
+			public int InstanceInt = 2222;
+
+			public static int StaticPropInt
+			{
+				set { Console.WriteLine("StaticPropInt_Set: " + value); }
+				get { return 3333; }
+			}
+
+			public int InstancePropInt
+			{
+				set { Console.WriteLine("InstancePropInt_Set: " + value); }
+				get { return 4444; }
+			}
+		}
+
+		public void Test06()
+		{
+			ReflectTools.FieldUnit si = ReflectTools.GetField(typeof(Test06_Class), "StaticInt");
+			ReflectTools.FieldUnit ii = ReflectTools.GetField(typeof(Test06_Class), "InstanceInt");
+			ReflectTools.PropertyUnit spi = ReflectTools.GetProperty(typeof(Test06_Class), "StaticPropInt");
+			ReflectTools.PropertyUnit ipi = ReflectTools.GetProperty(typeof(Test06_Class), "InstancePropInt");
+
+			Console.WriteLine("" + si.GetValue());
+			Console.WriteLine("" + ii.GetValue(new Test06_Class()));
+			Console.WriteLine("" + spi.GetValue());
+			Console.WriteLine("" + ipi.GetValue(new Test06_Class()));
+
+			si.SetValue(5555);
+			Console.WriteLine("" + si.GetValue());
+
+			{
+				Test06_Class i = new Test06_Class();
+				ii.SetValue(i, 6666);
+				Console.WriteLine("" + ii.GetValue(i));
+			}
+
+			spi.SetValue(7777);
+			ipi.SetValue(new Test06_Class(), 8888);
+		}
 	}
 }

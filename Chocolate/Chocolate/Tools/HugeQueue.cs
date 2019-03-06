@@ -20,14 +20,17 @@ namespace Charlotte.Tools
 
 		public HugeQueue()
 		{
-			this.WD = new WorkingDir();
-			this.RFile = this.WD.MakePath();
-			this.WFile = this.WD.MakePath();
+			HandleDam.Section(hDam =>
+			{
+				this.WD = hDam.Add(new WorkingDir());
+				this.RFile = this.WD.MakePath();
+				this.WFile = this.WD.MakePath();
 
-			File.WriteAllBytes(this.RFile, BinTools.EMPTY);
+				File.WriteAllBytes(this.RFile, BinTools.EMPTY);
 
-			this.Reader = new FileStream(this.RFile, FileMode.Open, FileAccess.Read);
-			this.Writer = new FileStream(this.WFile, FileMode.Create, FileAccess.Write);
+				this.Reader = hDam.Add(new FileStream(this.RFile, FileMode.Open, FileAccess.Read));
+				this.Writer = hDam.Add(new FileStream(this.WFile, FileMode.Create, FileAccess.Write));
+			});
 		}
 
 		public long GetCount()
@@ -116,11 +119,14 @@ namespace Charlotte.Tools
 		{
 			if (this.WD != null)
 			{
-				this.Reader.Dispose();
-				this.Writer.Dispose();
+				ExceptionDam.Section(eDam =>
+				{
+					eDam.Invoke(() => this.Reader.Dispose());
+					eDam.Invoke(() => this.Writer.Dispose());
 
-				this.WD.Dispose();
-				this.WD = null;
+					eDam.Invoke(() => this.WD.Dispose());
+					this.WD = null;
+				});
 			}
 		}
 	}

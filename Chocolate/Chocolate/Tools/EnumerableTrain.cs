@@ -28,6 +28,17 @@ namespace Charlotte.Tools
 			return this;
 		}
 
+		/// <summary>
+		/// こっちで良くね？
+		/// </summary>
+		/// <returns></returns>
+		public IEnumerable<T> Iterate()
+		{
+			foreach (IEnumerable<T> src in this.Sources)
+				foreach (T element in src)
+					yield return element;
+		}
+
 		IEnumerator IEnumerable.GetEnumerator()
 		{
 			return GetEnumerator2();
