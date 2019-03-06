@@ -28,8 +28,9 @@ namespace Charlotte
 
 		private void Main2(ArgsReader ar)
 		{
-			new HeaderTableTest().Test01();
+			//new HeaderTableTest().Test01();
 			//new ArrayUtilsTest().Test01();
+			new CsvFileSorterTest().Test01();
 		}
 	}
 }
