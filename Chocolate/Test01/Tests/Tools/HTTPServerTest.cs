@@ -15,7 +15,7 @@ namespace Charlotte.Tests.Tools
 			hs.HTTPConnected = channel =>
 			{
 				channel.ResContentType = "text/html; charset=ASCII";
-				channel.ResBody = Encoding.ASCII.GetBytes("<html><body><h1>200</h1></body></html>");
+				channel.ResBody = new byte[][] { Encoding.ASCII.GetBytes("<html><body><h1>200</h1></body></html>") };
 			};
 
 			Console.WriteLine("Press ENTER to stop the server");
@@ -54,7 +54,7 @@ namespace Charlotte.Tests.Tools
 				_buff.Append("</body>");
 				_buff.Append("</html>");
 
-				channel.ResBody = Encoding.UTF8.GetBytes(_buff.ToString());
+				channel.ResBody = new byte[][] { Encoding.UTF8.GetBytes(_buff.ToString()) };
 			};
 
 			Console.WriteLine("Press ENTER to stop the server");

@@ -222,7 +222,7 @@ namespace Charlotte.Tools
 		public string ResServer = null;
 		public string ResContentType = null;
 		public List<string[]> ResHeaderPairs = new List<string[]>();
-		public byte[] ResBody = null;
+		public IEnumerable<byte[]> ResBody = null;
 
 		public void SendResponse()
 		{
@@ -237,13 +237,51 @@ namespace Charlotte.Tools
 			foreach (string[] pair in this.ResHeaderPairs)
 				this.SendLine(pair[0] + ": " + pair[1]);
 
-			if (this.ResBody != null)
-				this.SendLine("Content-Length: " + this.ResBody.Length);
+			if (this.ResBody == null)
+			{
+				this.EndHeader();
+			}
+			else
+			{
+				IEnumerator<byte[]> resBodyIte = this.ResBody.GetEnumerator();
 
+				if (resBodyIte.MoveNext())
+				{
+					if (resBodyIte.MoveNext())
+					{
+						do
+						{
+							if (1 <= resBodyIte.Current.Length)
+							{
+								this.SendLine(resBodyIte.Current.Length.ToString("x"));
+								this.Channel.Send(resBodyIte.Current);
+								this.Channel.Send(CRLF);
+							}
+						}
+						while (resBodyIte.MoveNext());
+
+						this.SendLine("0");
+						this.Channel.Send(CRLF);
+					}
+					else
+					{
+						this.SendLine("Content-Length: " + resBodyIte.Current.Length);
+						this.EndHeader();
+						this.Channel.Send(resBodyIte.Current);
+					}
+				}
+				else
+				{
+					this.SendLine("Content-Length: 0");
+					this.EndHeader();
+				}
+			}
+		}
+
+		private void EndHeader()
+		{
 			this.SendLine("Connection: close");
-			this.SendLine("");
-
-			this.Channel.Send(this.ResBody);
+			this.Channel.Send(CRLF);
 		}
 
 		private readonly byte[] CRLF = new byte[] { CR, LF };
