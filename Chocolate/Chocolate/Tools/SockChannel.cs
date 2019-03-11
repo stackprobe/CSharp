@@ -80,7 +80,7 @@ namespace Charlotte.Tools
 				}
 				if (this.IdleTimeoutMillis != -1 && this.IdleTimeoutMillis <= idleMillis)
 				{
-					throw new Exception("受信タイムアウト");
+					throw new IdleTimeoutException();
 				}
 				if (waitMillis < 100)
 					waitMillis++;
@@ -91,6 +91,9 @@ namespace Charlotte.Tools
 
 			}
 		}
+
+		public class IdleTimeoutException : Exception
+		{ }
 
 		public void Send(byte[] data, int offset = 0)
 		{

@@ -66,6 +66,10 @@ namespace Charlotte.Tools
 										{
 											this.Connected(channel);
 										}
+										catch (HTTPServerChannel.RecvFirstLineIdleTimeoutException)
+										{
+											// noop
+										}
 										catch (Exception e)
 										{
 											ProcMain.WriteLog(e);

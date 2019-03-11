@@ -18,9 +18,9 @@ namespace Charlotte.Tools
 			{
 				this.FirstLine = this.RecvLine();
 			}
-			catch (Exception e)
+			catch (SockChannel.IdleTimeoutException)
 			{
-				throw new Exception("RECV_FIRST_LINE_ERROR", e);
+				throw new RecvFirstLineIdleTimeoutException();
 			}
 
 			{
@@ -43,6 +43,9 @@ namespace Charlotte.Tools
 			}
 			this.RecvBody();
 		}
+
+		public class RecvFirstLineIdleTimeoutException : Exception
+		{ }
 
 		private string DecodeURL(string path)
 		{
@@ -247,16 +250,15 @@ namespace Charlotte.Tools
 
 				if (resBodyIte.MoveNext())
 				{
+					byte[] first = resBodyIte.Current;
+
 					if (resBodyIte.MoveNext())
 					{
+						SendChunk(first);
+
 						do
 						{
-							if (1 <= resBodyIte.Current.Length)
-							{
-								this.SendLine(resBodyIte.Current.Length.ToString("x"));
-								this.Channel.Send(resBodyIte.Current);
-								this.Channel.Send(CRLF);
-							}
+							SendChunk(resBodyIte.Current);
 						}
 						while (resBodyIte.MoveNext());
 
@@ -265,9 +267,9 @@ namespace Charlotte.Tools
 					}
 					else
 					{
-						this.SendLine("Content-Length: " + resBodyIte.Current.Length);
+						this.SendLine("Content-Length: " + first.Length);
 						this.EndHeader();
-						this.Channel.Send(resBodyIte.Current);
+						this.Channel.Send(first);
 					}
 				}
 				else
@@ -282,6 +284,16 @@ namespace Charlotte.Tools
 		{
 			this.SendLine("Connection: close");
 			this.Channel.Send(CRLF);
+		}
+
+		private void SendChunk(byte[] chunk)
+		{
+			if (1 <= chunk.Length)
+			{
+				this.SendLine(chunk.Length.ToString("x"));
+				this.Channel.Send(chunk);
+				this.Channel.Send(CRLF);
+			}
 		}
 
 		private readonly byte[] CRLF = new byte[] { CR, LF };

@@ -62,7 +62,7 @@ namespace Charlotte
 			//new HTTPClientTest().Test01();
 			//new HTTPClientTest().Test02();
 			//new HTTPServerTest().Test01();
-			//new HTTPServerTest().Test02();
+			new HTTPServerTest().Test02();
 			//new ReflectToolsTest().Test01();
 			//new ReflectToolsTest().Test02();
 			//new ReflectToolsTest().Test02b();
@@ -70,7 +70,7 @@ namespace Charlotte
 			//new ReflectToolsTest().Test03b();
 			//new ReflectToolsTest().Test04();
 			//new ReflectToolsTest().Test05();
-			new ReflectToolsTest().Test06();
+			//new ReflectToolsTest().Test06();
 			//new JsonToolsTest().Test01();
 			//new JsonToolsTest().Test02();
 			//new ArrayToolsTest().Test01();

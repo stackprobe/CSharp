@@ -36,7 +36,7 @@ namespace Charlotte.Tools
 			Exception[] es = Ths.Select(th => th.GetException()).Where(e => e != null).ToArray();
 
 			if (1 <= es.Length)
-				throw new Exception("Relay: " + string.Join("\r\n", es.Select(e => e + "　<---- 内部の例外ここまで")));
+				throw new AggregateException("Relay", es);
 		}
 
 		public void Dispose()

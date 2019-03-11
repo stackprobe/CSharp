@@ -94,7 +94,7 @@ namespace Charlotte.Tools
 			this.WaitToEnd();
 
 			if (1 <= this.Exs.Count)
-				throw new Exception("Relay: " + string.Join("\r\n", this.Exs.Select(e => e + "　<---- 内部の例外ここまで")));
+				throw new AggregateException("Relay", this.Exs);
 		}
 
 		public void Dispose()
