@@ -14,9 +14,9 @@ namespace Charlotte.Tests.Tools
 
 			for (int c = 0; c < 10000; c++)
 			{
-				String str = Test01_MkStr();
-				String enc = es.Encode(str);
-				String dec = es.Decode(enc);
+				string str = Test01_MkStr();
+				string enc = es.Encode(str);
+				string dec = es.Decode(enc);
 
 				Console.WriteLine("str: " + Test01_ForPrint(str));
 				Console.WriteLine("enc: " + Test01_ForPrint(enc));

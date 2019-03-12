@@ -14,9 +14,9 @@ namespace Charlotte.Tests.Tools
 
 			for (int c = 0; c < 10000; c++)
 			{
-				String[] tkns = Test01_MkTkns();
-				String str = attStr.Untokenize(tkns);
-				String[] tkns2 = attStr.Tokenize(str);
+				string[] tkns = Test01_MkTkns();
+				string str = attStr.Untokenize(tkns);
+				string[] tkns2 = attStr.Tokenize(str);
 
 				Console.WriteLine("tkns_: " + string.Join(", ", tkns));
 				Console.WriteLine("str: " + str);

@@ -21,7 +21,7 @@ namespace Charlotte.Tests.Tools
 					mte.RelayThrow();
 				}
 			}
-			catch (Test01_Exception e)
+			catch (Exception e)
 			{
 				Console.WriteLine("キャッチした例外：" + e);
 			}

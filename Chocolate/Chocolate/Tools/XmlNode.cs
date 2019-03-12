@@ -105,7 +105,7 @@ namespace Charlotte.Tools
 			return dest.ToArray();
 		}
 
-		private void AddTo(List<string> dest, String indent)
+		private void AddTo(List<string> dest, string indent)
 		{
 			if (Children.Count != 0)
 			{

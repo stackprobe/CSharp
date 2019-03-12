@@ -43,7 +43,7 @@ namespace Charlotte.Tests.Tools
 					mtti.RelayThrow();
 				}
 			}
-			catch (Test02_Exception e)
+			catch (Exception e)
 			{
 				Console.WriteLine("キャッチした例外：" + e);
 			}
@@ -64,8 +64,6 @@ namespace Charlotte.Tests.Tools
 			{
 				for (int c = 0; c < 1000000; c++)
 				{
-					int f_c = c;
-
 					mtti.AddTask(() =>
 					{
 						// noop

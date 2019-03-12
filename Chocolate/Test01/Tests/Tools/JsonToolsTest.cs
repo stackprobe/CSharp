@@ -54,7 +54,7 @@ namespace Charlotte.Tests.Tools
 			Test02_a("-1.234e+99");
 		}
 
-		private static void Test02_a(String json)
+		private static void Test02_a(string json)
 		{
 			Console.WriteLine("< " + json);
 

@@ -83,8 +83,8 @@ namespace Charlotte.Tools
 
 		public void SetAuthorization(string user, string password)
 		{
-			String plain = user + ":" + password;
-			String enc = Convert.ToBase64String(Encoding.UTF8.GetBytes(plain));
+			string plain = user + ":" + password;
+			string enc = Convert.ToBase64String(Encoding.UTF8.GetBytes(plain));
 			this.AddHeader("Authorization", "Basic " + enc);
 		}
 

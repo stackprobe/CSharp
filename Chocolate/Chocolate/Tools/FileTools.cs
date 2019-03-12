@@ -214,5 +214,20 @@ namespace Charlotte.Tools
 			}
 			return lines;
 		}
+
+		public static void ReadToEnd(Func<byte[], int, int, int> reader, Action<byte[], int, int> writer)
+		{
+			byte[] buff = new byte[4 * 1024 * 1024];
+
+			for (; ; )
+			{
+				int readSize = reader(buff, 0, buff.Length);
+
+				if (readSize <= 0)
+					break;
+
+				writer(buff, 0, readSize);
+			}
+		}
 	}
 }

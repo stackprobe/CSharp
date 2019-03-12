@@ -53,7 +53,6 @@
     <Compile Include="Tools\Critical.cs" />
     <Compile Include="Tools\DateTimeUnit.cs" />
     <Compile Include="Tools\DebugTools.cs" />
-    <Compile Include="Tools\DevFactoryTools.cs" />
     <Compile Include="Tools\DictionaryTools.cs" />
     <Compile Include="Tools\DoubleTools.cs" />
     <Compile Include="Tools\EnumerableTrain.cs" />
@@ -68,6 +67,7 @@
     <Compile Include="Tools\HugeQueue.cs" />
     <Compile Include="Tools\JsonTools.cs" />
     <Compile Include="Tools\JString.cs" />
+    <Compile Include="Tools\LimitedWriter.cs" />
     <Compile Include="Tools\LongTools.cs" />
     <Compile Include="Tools\MSection.cs" />
     <Compile Include="Tools\MultiThreadEx.cs" />
@@ -109,6 +109,7 @@
     <Compile Include="Tools\WorkingDir.cs" />
     <Compile Include="Tools\Wrapper.cs" />
     <Compile Include="Tools\XmlNode.cs" />
+    <Compile Include="Tools\ZipTools.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

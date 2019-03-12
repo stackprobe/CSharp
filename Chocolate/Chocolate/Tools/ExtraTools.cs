@@ -174,8 +174,8 @@ namespace Charlotte.Tools
 		{
 			if (Accessible(path))
 			{
-				String prefix = Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path));
-				String suffix = Path.GetExtension(path);
+				string prefix = Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path));
+				string suffix = Path.GetExtension(path);
 
 				for (int c = 2; ; c++)
 				{

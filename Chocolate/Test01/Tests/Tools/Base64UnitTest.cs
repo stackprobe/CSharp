@@ -24,9 +24,9 @@ namespace Charlotte.Tests.Tools
 			for (int index = 0; index < TEST_VECTOR.Length; index += 2)
 			{
 				byte[] plain = Encoding.ASCII.GetBytes(TEST_VECTOR[index]);
-				String encoded = TEST_VECTOR[index + 1];
+				string encoded = TEST_VECTOR[index + 1];
 
-				String enc = new Base64Unit().Encode(plain);
+				string enc = new Base64Unit().Encode(plain);
 				byte[] dec = new Base64Unit().Decode(encoded);
 
 				if (ArrayTools.Comp(plain, dec, BinTools.Comp) != 0)
