@@ -8,7 +8,7 @@ namespace Charlotte.Tools
 {
 	public class MultiThreadTaskInvoker : IDisposable
 	{
-		public int ThreadCountMax = Environment.ProcessorCount;
+		public int ThreadCountMax = Math.Max(1, Environment.ProcessorCount);
 		public int ExceptionCountMax = 10;
 
 		// <---- prop

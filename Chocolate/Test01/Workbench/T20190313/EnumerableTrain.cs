@@ -4,11 +4,8 @@ using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Charlotte.Tools
+namespace Charlotte.Workbench.T20190313
 {
-	/// <summary>
-	/// 廃止予定
-	/// </summary>
 	public class EnumerableTrain<T> : IEnumerable<T>
 	{
 		private List<IEnumerable<T>> Sources = new List<IEnumerable<T>>();
