@@ -20,7 +20,7 @@ namespace Charlotte.Tools
 
 		public HugeQueue()
 		{
-			HandleDam.Section(hDam =>
+			HandleDam.Transaction(hDam =>
 			{
 				this.WD = hDam.Add(new WorkingDir());
 				this.RFile = this.WD.MakePath();

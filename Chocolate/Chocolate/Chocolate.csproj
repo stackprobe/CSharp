@@ -46,6 +46,8 @@
   <ItemGroup>
     <Compile Include="Tools\AttachString.cs" />
     <Compile Include="Tools\Base64Unit.cs" />
+    <Compile Include="Tools\EnumerableTools.cs" />
+    <Compile Include="Tools\EnumeratorCartridge.cs" />
     <Compile Include="Tools\ExceptionDam.cs" />
     <Compile Include="Tools\HandleDam.cs" />
     <Compile Include="Tools\HTTPBodyOutputStream.cs" />

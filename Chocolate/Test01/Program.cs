@@ -101,7 +101,8 @@ namespace Charlotte
 			//new Base64UnitTest().Test01();
 			//new Base64UnitTest().Test02();
 			//new ZipToolsTest().Test01();
-			new ZipToolsTest().Test02();
+			//new ZipToolsTest().Test02();
+			new EnumeratorCartridgeTest().Test01();
 		}
 	}
 }
