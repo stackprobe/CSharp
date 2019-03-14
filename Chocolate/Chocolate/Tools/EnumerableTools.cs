@@ -7,6 +7,13 @@ namespace Charlotte.Tools
 {
 	public class EnumerableTools
 	{
+		public static IEnumerable<T> Linearize<T>(IEnumerable<IEnumerable<T>> src)
+		{
+			foreach (IEnumerable<T> part in src)
+				foreach (T element in part)
+					yield return element;
+		}
+
 		public static void Merge<T>(IEnumerable<T> enu1, IEnumerable<T> enu2, Action<T> destOnly1, Action<T> destBoth1, Action<T> destBoth2, Action<T> destOnly2, Comparison<T> comp)
 		{
 			EnumeratorCartridge<T> reader1 = new EnumeratorCartridge<T>(enu1.GetEnumerator()).Seek();

@@ -57,6 +57,7 @@ namespace Charlotte.Tools
 			catch (Exception e)
 			{
 				hDam.Burst(e);
+				//throw null; // never
 			}
 		}
 
@@ -85,7 +86,7 @@ namespace Charlotte.Tools
 			});
 		}
 
-		public void Burst(ExceptionDam eDam)
+		private void Burst(ExceptionDam eDam)
 		{
 			for (int index = this.Handles.Count - 1; 0 <= index; index--)
 				eDam.Invoke(() => this.Handles[index].Dispose());
