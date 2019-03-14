@@ -24,6 +24,22 @@ namespace Charlotte.Tools
 			this.Remaining = inner.MoveNext() ? 2 : 1;
 		}
 
+		private void Forward()
+		{
+			if (this.Remaining == 2)
+			{
+				this.CurrentValue = this.Inner.Current;
+
+				if (this.Inner.MoveNext() == false)
+					this.Remaining = 1;
+			}
+			else if (this.Remaining == 1)
+			{
+				this.CurrentValue = this.DefaultValue;
+				this.Remaining = 0;
+			}
+		}
+
 		public bool HasNext()
 		{
 			return 2 <= this.Remaining;
@@ -36,20 +52,7 @@ namespace Charlotte.Tools
 
 		public T Next()
 		{
-			if (this.Remaining == 2)
-			{
-				this.CurrentValue = this.Inner.Current;
-				this.Remaining = this.Inner.MoveNext() ? 2 : 1;
-			}
-			else if (this.Remaining == 1)
-			{
-				this.CurrentValue = this.Inner.Current;
-				this.Remaining = 0;
-			}
-			else
-			{
-				this.CurrentValue = this.DefaultValue;
-			}
+			this.Forward();
 			return this.CurrentValue;
 		}
 
@@ -63,18 +66,14 @@ namespace Charlotte.Tools
 
 		public bool MoveNext()
 		{
-			if (this.HasNext())
-			{
-				this.Next();
-				return true;
-			}
-			return false;
+			this.Next();
+			return this.HasCurrent();
 		}
 
 		public EnumeratorCartridge<T> Seek(int count = 1)
 		{
 			for (; 1 <= count; count--)
-				this.MoveNext();
+				this.Forward();
 
 			return this;
 		}
