@@ -9,10 +9,11 @@ namespace Charlotte.Tools
 	public class HTTPServerChannel
 	{
 		public SockChannel Channel;
+		public HandleDam HDam;
 
 		public void RecvRequest()
 		{
-			this.Channel.IdleTimeoutMillis = 2000; // 2 sec
+			this.Channel.IdleTimeoutMillis = 2000; // 2 sec // FIRST_LINE_TIMEOUT
 
 			try
 			{

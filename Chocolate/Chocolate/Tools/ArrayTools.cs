@@ -91,6 +91,17 @@ namespace Charlotte.Tools
 			return dest;
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="arr1"></param>
+		/// <param name="arr2"></param>
+		/// <param name="destOnly1">null可</param>
+		/// <param name="destBoth1">null可</param>
+		/// <param name="destBoth2">null可</param>
+		/// <param name="destOnly2">null可</param>
+		/// <param name="comp"></param>
 		public static void Merge<T>(T[] arr1, T[] arr2, List<T> destOnly1, List<T> destBoth1, List<T> destBoth2, List<T> destOnly2, Comparison<T> comp)
 		{
 			Array.Sort(arr1, comp);

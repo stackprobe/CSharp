@@ -68,7 +68,7 @@ namespace Charlotte.Tools
 										}
 										catch (HTTPServerChannel.RecvFirstLineIdleTimeoutException)
 										{
-											// noop
+											ProcMain.WriteLog("FIRST_LINE_IDLE_TIMEOUT"); // test test test
 										}
 										catch (Exception e)
 										{
