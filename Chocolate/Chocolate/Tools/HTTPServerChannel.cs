@@ -13,7 +13,7 @@ namespace Charlotte.Tools
 
 		public void RecvRequest()
 		{
-			this.Channel.IdleTimeoutMillis = 2000; // 2 sec // FIRST_LINE_TIMEOUT
+			this.Channel.IdleTimeoutMillis = 2000;
 
 			try
 			{
