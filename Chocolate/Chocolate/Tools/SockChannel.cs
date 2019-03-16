@@ -52,7 +52,7 @@ namespace Charlotte.Tools
 
 		public int TryRecv(byte[] data, int offset, int size)
 		{
-			SockServer.Critical.Unsection(() => { }); // context switching
+			SockServer.Critical.ContextSwitching();
 
 			int waitMillis = 0;
 			int idleMillis = 0;
@@ -115,7 +115,7 @@ namespace Charlotte.Tools
 
 		private int TrySend(byte[] data, int offset, int size)
 		{
-			SockServer.Critical.Unsection(() => { }); // context switching
+			SockServer.Critical.ContextSwitching();
 
 			int waitMillis = 0;
 			int idleMillis = 0;

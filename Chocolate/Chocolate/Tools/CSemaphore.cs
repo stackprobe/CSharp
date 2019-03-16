@@ -105,5 +105,11 @@ namespace Charlotte.Tools
 				this.Enter();
 			}
 		}
+
+		public void ContextSwitching()
+		{
+			this.Leave();
+			this.Enter();
+		}
 	}
 }
