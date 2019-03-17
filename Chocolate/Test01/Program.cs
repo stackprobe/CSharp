@@ -91,6 +91,7 @@ namespace Charlotte
 			//new WrapperTest().Test01();
 			//new XmlNodeTest().Test01();
 			//new CriticalTest().Test01();
+			new CriticalTest().Test02();
 			//new CSemaphoreTest().Test01();
 			//new JStringTest().Test01();
 			//new FilingCase3Test().Test01();
@@ -102,7 +103,7 @@ namespace Charlotte
 			//new Base64UnitTest().Test02();
 			//new ZipToolsTest().Test01();
 			//new ZipToolsTest().Test02();
-			new EnumeratorCartridgeTest().Test01();
+			//new EnumeratorCartridgeTest().Test01();
 		}
 	}
 }

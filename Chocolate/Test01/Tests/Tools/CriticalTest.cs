@@ -43,5 +43,64 @@ namespace Charlotte.Tests.Tools
 
 			Console.WriteLine("100 x 100 == " + count);
 		}
+
+		public void Test02()
+		{
+			Critical critical = new Critical();
+
+			Console.WriteLine("*1");
+			DateTime t = DateTime.Now;
+
+			critical.Section(() =>
+			{
+				for (int c = 0; c < 10000000; c++)
+				{
+					critical.ContextSwitching();
+				}
+			});
+
+			DateTime t2 = DateTime.Now;
+			Console.WriteLine("*2 " + t2 + ", " + (t2 - t).TotalMilliseconds);
+
+			using (MultiThreadEx mte = new MultiThreadEx())
+			{
+				for (int i = 0; i < 2; i++)
+				{
+					mte.Add(() =>
+					{
+						critical.Section(() =>
+						{
+							for (int c = 0; c < 10000000; c++)
+							{
+								critical.ContextSwitching();
+							}
+						});
+					});
+				}
+			}
+
+			DateTime t3 = DateTime.Now;
+			Console.WriteLine("*3 " + t3 + ", " + (t3 - t2).TotalMilliseconds);
+
+			using (MultiThreadEx mte = new MultiThreadEx())
+			{
+				for (int i = 0; i < 3; i++)
+				{
+					mte.Add(() =>
+					{
+						critical.Section(() =>
+						{
+							for (int c = 0; c < 10000000; c++)
+							{
+								critical.ContextSwitching();
+							}
+						});
+					});
+				}
+			}
+
+			DateTime t4 = DateTime.Now;
+			Console.WriteLine("*4 " + t4 + ", " + (t4 - t3).TotalMilliseconds);
+		}
 	}
 }
