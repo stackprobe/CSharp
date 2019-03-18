@@ -18,27 +18,25 @@ namespace Charlotte.Tools
 
 		// <---- prm
 
-		public static Critical Critical = new Critical();
-
 		private List<ThreadEx> ConnectedThs = new List<ThreadEx>();
 
 		public void Perform()
 		{
-			Critical.Section(() =>
+			SockChannel.Critical.Section(() =>
 			{
-				using (Socket listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
+				try
 				{
-					IPEndPoint endPoint = new IPEndPoint(0L, this.PortNo);
-
-					listener.Bind(endPoint);
-					listener.Listen(this.Backlog);
-					listener.Blocking = false;
-
-					int connectWaitMillis = 0;
-
-					while (this.Interlude())
+					using (Socket listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
 					{
-						try
+						IPEndPoint endPoint = new IPEndPoint(0L, this.PortNo);
+
+						listener.Bind(endPoint);
+						listener.Listen(this.Backlog);
+						listener.Blocking = false;
+
+						int connectWaitMillis = 0;
+
+						while (this.Interlude())
 						{
 							Socket handler = this.ConnectedThs.Count < this.ConnectMax ? this.Connect(listener) : null;
 
@@ -47,7 +45,7 @@ namespace Charlotte.Tools
 								if (connectWaitMillis < 100)
 									connectWaitMillis++;
 
-								Critical.Unsection(() => Thread.Sleep(connectWaitMillis));
+								SockChannel.Critical.Unsection(() => Thread.Sleep(connectWaitMillis));
 							}
 							else
 							{
@@ -60,7 +58,7 @@ namespace Charlotte.Tools
 									handler = null;
 									channel.PostSetHandler();
 
-									this.ConnectedThs.Add(new ThreadEx(() => Critical.Section(() =>
+									this.ConnectedThs.Add(new ThreadEx(() => SockChannel.Critical.Section(() =>
 									{
 										try
 										{
@@ -100,18 +98,14 @@ namespace Charlotte.Tools
 							for (int index = this.ConnectedThs.Count - 1; 0 <= index; index--)
 								if (this.ConnectedThs[index].IsEnded())
 									this.ConnectedThs.RemoveAt(index);
-						}
-						catch (Exception e)
-						{
-							ProcMain.WriteLog(e);
 
-							ProcMain.WriteLog("5秒間待機します。"); // ここへの到達は想定外 | ノーウェイトでループしないように。
-							Critical.Unsection(() => Thread.Sleep(5000));
-							ProcMain.WriteLog("5秒間待機しました。");
+							GC.Collect();
 						}
-
-						GC.Collect();
 					}
+				}
+				catch (Exception e)
+				{
+					ProcMain.WriteLog("想定外のエラー：" + e);
 				}
 
 				this.Stop();
@@ -144,7 +138,7 @@ namespace Charlotte.Tools
 		private void Stop_ChannelSafe()
 		{
 			foreach (ThreadEx connectedTh in this.ConnectedThs)
-				connectedTh.WaitToEnd(Critical);
+				connectedTh.WaitToEnd(SockChannel.Critical);
 
 			this.ConnectedThs.Clear();
 		}

@@ -52,7 +52,7 @@ namespace Charlotte.Tools
 
 		public int TryRecv(byte[] data, int offset, int size)
 		{
-			SockServer.Critical.ContextSwitching();
+			Critical.ContextSwitching();
 
 			int waitMillis = 0;
 			int idleMillis = 0;
@@ -87,7 +87,7 @@ namespace Charlotte.Tools
 				if (waitMillis < 100)
 					waitMillis++;
 
-				SockServer.Critical.Unsection(() => Thread.Sleep(waitMillis));
+				Critical.Unsection(() => Thread.Sleep(waitMillis));
 
 				idleMillis += waitMillis;
 
@@ -115,7 +115,7 @@ namespace Charlotte.Tools
 
 		private int TrySend(byte[] data, int offset, int size)
 		{
-			SockServer.Critical.ContextSwitching();
+			Critical.ContextSwitching();
 
 			int waitMillis = 0;
 			int idleMillis = 0;
@@ -150,10 +150,12 @@ namespace Charlotte.Tools
 				if (waitMillis < 100)
 					waitMillis++;
 
-				SockServer.Critical.Unsection(() => Thread.Sleep(waitMillis));
+				Critical.Unsection(() => Thread.Sleep(waitMillis));
 
 				idleMillis += waitMillis;
 			}
 		}
+
+		public static Critical Critical = new Critical();
 	}
 }

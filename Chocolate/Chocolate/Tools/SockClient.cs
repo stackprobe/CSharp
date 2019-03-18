@@ -12,7 +12,7 @@ namespace Charlotte.Tools
 	{
 		public SockClient()
 		{
-			SockServer.Critical.Enter();
+			SockChannel.Critical.Enter();
 		}
 
 		public void Connect(string domain, int portNo, int connectTimeoutMillis = 20000) // 20 sec
@@ -70,7 +70,7 @@ namespace Charlotte.Tools
 
 				try
 				{
-					SockServer.Critical.Leave();
+					SockChannel.Critical.Leave();
 				}
 				catch (Exception e)
 				{
