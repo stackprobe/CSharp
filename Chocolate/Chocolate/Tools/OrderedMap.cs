@@ -7,7 +7,7 @@ namespace Charlotte.Tools
 {
 	public class OrderedMap<K, V>
 	{
-		public class ValueInfo
+		private class ValueInfo
 		{
 			public V Value;
 			public long Index;
@@ -38,6 +38,11 @@ namespace Charlotte.Tools
 				Index = this.Counter++,
 				Key = key,
 			});
+		}
+
+		public void Remove(K key)
+		{
+			this.Inner.Remove(key);
 		}
 
 		public int Count
@@ -85,10 +90,12 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public List<ValueInfo> GetInfos()
+		private List<ValueInfo> GetInfos()
 		{
 			List<ValueInfo> infos = new List<ValueInfo>(this.Inner.Values);
+
 			infos.Sort((a, b) => LongTools.Comp(a.Index, b.Index));
+
 			return infos;
 		}
 
@@ -105,11 +112,6 @@ namespace Charlotte.Tools
 		public IEnumerable<V> GetValues()
 		{
 			return GetInfos().Select(info => info.Value);
-		}
-
-		public Dictionary<K, ValueInfo> Direct()
-		{
-			return this.Inner;
 		}
 	}
 }
