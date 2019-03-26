@@ -160,5 +160,22 @@ namespace Charlotte.Tools
 				}
 			}
 		}
+
+		public static IEnumerable<T> Repeat<T>(T element, int count)
+		{
+			while (1 <= count)
+			{
+				yield return element;
+				count--;
+			}
+		}
+
+		public static IEnumerable<T> Reverse<T>(T[] src)
+		{
+			for (int index = src.Length - 1; 0 <= index; index--)
+			{
+				yield return src[index];
+			}
+		}
 	}
 }

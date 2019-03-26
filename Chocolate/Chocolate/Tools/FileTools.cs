@@ -215,6 +215,9 @@ namespace Charlotte.Tools
 			return lines;
 		}
 
+		//public delegate int Read_d(byte[] buffer, int offset, int count);
+		//public delegate void Write_d(byte[] buffer, int offset, int count);
+
 		public static void ReadToEnd(Func<byte[], int, int, int> reader, Action<byte[], int, int> writer)
 		{
 			byte[] buff = new byte[4 * 1024 * 1024];
