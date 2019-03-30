@@ -158,12 +158,7 @@ namespace Charlotte.Tools
 
 		public static bool IsFiarIdent(string ident)
 		{
-			string fmt = ident;
-
-			fmt = StringTools.ReplaceChars(fmt, StringTools.DECIMAL + StringTools.alpha + "-{}", '9');
-			fmt = StringTools.ReplaceLoop(fmt, "99", "9");
-
-			return fmt == "9" && ident.Length <= 38;
+			return StringTools.LiteValidate(ident, StringTools.DECIMAL + StringTools.alpha + "-{}", 1, 38);
 		}
 	}
 }

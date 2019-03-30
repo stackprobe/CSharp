@@ -425,5 +425,32 @@ namespace Charlotte.Tools
 			}
 			return buff.ToString();
 		}
+
+		public static bool LiteValidate(string target, string allowChars) // target == "" --> false
+		{
+			string format = target;
+
+			char escapeChar = allowChars[0];
+			string escape = new string(new char[] { escapeChar });
+			string escape2 = new string(new char[] { escapeChar, escapeChar });
+
+			format = StringTools.ReplaceChars(format, allowChars, escapeChar);
+			format = StringTools.ReplaceLoop(format, escape2, escape);
+
+			return format == escape;
+		}
+
+		public static bool LiteValidate(string target, string allowChars, int minlen)
+		{
+			if (minlen == 0 && target == "")
+				return true;
+
+			return minlen <= target.Length && LiteValidate(target, allowChars);
+		}
+
+		public static bool LiteValidate(string target, string allowChars, int minlen, int maxlen)
+		{
+			return target.Length <= maxlen && LiteValidate(target, allowChars, minlen);
+		}
 	}
 }

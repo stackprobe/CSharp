@@ -378,12 +378,7 @@ namespace Charlotte.Tools
 
 			private bool IsNumber() // XXX
 			{
-				string fmt = this.Value;
-
-				fmt = StringTools.ReplaceChars(fmt, StringTools.DECIMAL + "+-.Ee", '9');
-				fmt = StringTools.ReplaceLoop(fmt, "99", "9");
-
-				return fmt == "9";
+				return StringTools.LiteValidate(this.Value, StringTools.DECIMAL + "+-.Ee");
 			}
 		}
 	}

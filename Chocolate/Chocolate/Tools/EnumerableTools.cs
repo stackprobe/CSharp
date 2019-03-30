@@ -161,6 +161,19 @@ namespace Charlotte.Tools
 			}
 		}
 
+		public static IEnumerable<T> Endless<T>(T element)
+		{
+			return Endless<T>(() => element);
+		}
+
+		public static IEnumerable<T> Endless<T>(Func<T> getter)
+		{
+			for (; ; )
+			{
+				yield return getter();
+			}
+		}
+
 		public static IEnumerable<T> Repeat<T>(T element, int count)
 		{
 			while (1 <= count)
