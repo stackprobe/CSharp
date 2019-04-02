@@ -43,6 +43,11 @@ namespace Charlotte.Tools
 			}
 		}
 
+		public static Cartridge<T> GetCartridge<T>(IEnumerator<T> inner)
+		{
+			return new Cartridge<T>(inner);
+		}
+
 		/// <summary>
 		/// 
 		/// </summary>
@@ -56,8 +61,8 @@ namespace Charlotte.Tools
 		/// <param name="comp"></param>
 		public static void Merge<T>(IEnumerable<T> enu1, IEnumerable<T> enu2, Action<T> destOnly1, Action<T> destBoth1, Action<T> destBoth2, Action<T> destOnly2, Comparison<T> comp)
 		{
-			Cartridge<T> reader1 = new Cartridge<T>(enu1.GetEnumerator());
-			Cartridge<T> reader2 = new Cartridge<T>(enu2.GetEnumerator());
+			Cartridge<T> reader1 = GetCartridge(enu1.GetEnumerator());
+			Cartridge<T> reader2 = GetCartridge(enu2.GetEnumerator());
 
 			if (destOnly1 == null)
 				destOnly1 = v => { };
@@ -151,8 +156,8 @@ namespace Charlotte.Tools
 
 		public static void CollectMergedPairs<T>(IEnumerable<T> enu1, IEnumerable<T> enu2, Action<T[]> dest, T defval, Comparison<T> comp)
 		{
-			Cartridge<T> reader1 = new Cartridge<T>(enu1.GetEnumerator());
-			Cartridge<T> reader2 = new Cartridge<T>(enu2.GetEnumerator());
+			Cartridge<T> reader1 = GetCartridge(enu1.GetEnumerator());
+			Cartridge<T> reader2 = GetCartridge(enu2.GetEnumerator());
 
 			reader1.MoveNext();
 			reader2.MoveNext();
