@@ -14,8 +14,12 @@ namespace Charlotte.Tools
 		private StreamReader Reader;
 
 		public CsvFileReader(string file)
+			: this(file, StringTools.ENCODING_SJIS)
+		{ }
+
+		public CsvFileReader(string file, Encoding encoding)
 		{
-			this.Reader = new StreamReader(file, StringTools.ENCODING_SJIS);
+			this.Reader = new StreamReader(file, encoding);
 		}
 
 		private int LastChar;

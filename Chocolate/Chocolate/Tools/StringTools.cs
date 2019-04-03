@@ -141,6 +141,25 @@ namespace Charlotte.Tools
 			return str.ToLower().IndexOf(ptn.ToLower());
 		}
 
+		public static int IndexOfIgnoreCase(string str, char chr)
+		{
+			return str.ToLower().IndexOf(char.ToLower(chr));
+		}
+
+		public static bool Contains(string str, Predicate<char> match)
+		{
+			return IndexOf(str, match) != -1;
+		}
+
+		public static int IndexOf(string str, Predicate<char> match)
+		{
+			for (int index = 0; index < str.Length; index++)
+				if (match(str[index]))
+					return index;
+
+			return -1;
+		}
+
 		public class Island
 		{
 			public string Str;
@@ -193,6 +212,51 @@ namespace Charlotte.Tools
 				Start = index,
 				End = index + mid.Length,
 			};
+		}
+
+		public static Island GetIslandIgnoreCase(string str, string mid, int startIndex = 0)
+		{
+			Island ret = GetIsland(
+				str.ToLower(),
+				mid.ToLower(),
+				startIndex
+				);
+
+			if (ret != null)
+				ret.Str = str;
+
+			return ret;
+		}
+
+		public static Island[] GetAllIsland(string str, string mid, int startIndex = 0)
+		{
+			List<Island> dest = new List<Island>();
+
+			for (; ; )
+			{
+				Island island = GetIsland(str, mid, startIndex);
+
+				if (island == null)
+					break;
+
+				dest.Add(island);
+				startIndex = island.End;
+			}
+			return dest.ToArray();
+		}
+
+		public static Island[] GetAllIslandIgnoreCase(string str, string mid, int startIndex = 0)
+		{
+			Island[] ret = GetAllIsland(
+				str.ToLower(),
+				mid.ToLower(),
+				startIndex
+				);
+
+			foreach (Island island in ret)
+				island.Str = str;
+
+			return ret;
 		}
 
 		public class Enclosed
