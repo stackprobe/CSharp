@@ -54,7 +54,6 @@
     <Compile Include="Tests\Tools\Base64UnitTest.cs" />
     <Compile Include="Tests\Tools\CipherToolsTest.cs" />
     <Compile Include="Tests\Tools\CriticalTest.cs" />
-    <Compile Include="Workbench\T20190313\Tests\EnumerableTrainTest.cs" />
     <Compile Include="Tests\Tools\EscapeStringTest.cs" />
     <Compile Include="Tests\Tools\FilingCase3Test.cs" />
     <Compile Include="Tests\Tools\HugeQueueTest.cs" />
@@ -90,7 +89,6 @@
     <Compile Include="Tests\Tools\WrapperTest.cs" />
     <Compile Include="Tests\Tools\XmlNodeTest.cs" />
     <Compile Include="Tests\Tools\ZipToolsTest.cs" />
-    <Compile Include="Workbench\T20190313\EnumerableTrain.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Chocolate\Chocolate.csproj">

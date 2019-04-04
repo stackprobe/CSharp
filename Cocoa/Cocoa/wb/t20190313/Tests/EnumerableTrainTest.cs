@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Charlotte.Tools;
 
-namespace Charlotte.Workbench.T20190313.Tests
+namespace Charlotte.wb.t20190313.Tests
 {
 	public class EnumerableTrainTest
 	{

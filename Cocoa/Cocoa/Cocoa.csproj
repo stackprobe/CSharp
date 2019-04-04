@@ -60,6 +60,8 @@
     <Compile Include="Utils\HeaderRow.cs" />
     <Compile Include="Utils\HeaderTable.cs" />
     <Compile Include="Utils\HugeSorter.cs" />
+    <Compile Include="wb\t20190313\EnumerableTrain.cs" />
+    <Compile Include="wb\t20190313\Tests\EnumerableTrainTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

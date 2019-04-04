@@ -4,7 +4,7 @@ using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Charlotte.Workbench.T20190313
+namespace Charlotte.wb.t20190313
 {
 	public class EnumerableTrain<T> : IEnumerable<T>
 	{
