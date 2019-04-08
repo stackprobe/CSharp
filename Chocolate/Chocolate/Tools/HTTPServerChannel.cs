@@ -228,6 +228,19 @@ namespace Charlotte.Tools
 		public List<string[]> ResHeaderPairs = new List<string[]>();
 		public IEnumerable<byte[]> ResBody = null;
 
+		public byte[] ResBody_B
+		{
+			get
+			{
+				return BinTools.Join(this.ResBody.ToArray());
+			}
+
+			set
+			{
+				this.ResBody = new byte[][] { value };
+			}
+		}
+
 		public void SendResponse()
 		{
 			this.SendLine("HTTP/1.1 " + this.ResStatus + " Chocolate Cake");
