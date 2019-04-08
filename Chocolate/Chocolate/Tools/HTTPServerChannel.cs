@@ -232,12 +232,18 @@ namespace Charlotte.Tools
 		{
 			get
 			{
-				return BinTools.Join(this.ResBody.ToArray());
+				if (this.ResBody == null)
+					return null;
+				else
+					return BinTools.Join(this.ResBody.ToArray());
 			}
 
 			set
 			{
-				this.ResBody = new byte[][] { value };
+				if (value == null)
+					this.ResBody = null;
+				else
+					this.ResBody = new byte[][] { value };
 			}
 		}
 
