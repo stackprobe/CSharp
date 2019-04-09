@@ -99,7 +99,7 @@ namespace Charlotte.Tools
 								if (this.ConnectedThs[index].IsEnded())
 									this.ConnectedThs.RemoveAt(index);
 
-							//GC.Collect(); // StaGeo の Server.sln が重くなるため、暫定削除 @ 2019.4.9
+							//GC.Collect(); // GeoDemo の Server.sln が重くなるため、暫定削除 @ 2019.4.9
 						}
 					}
 				}
