@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using Charlotte.Tools;
 using Charlotte.Tests.ScrMusHook;
+using Charlotte.ScrMusHook;
+using System.Threading;
 
 namespace Charlotte
 {
@@ -22,7 +24,7 @@ namespace Charlotte
 
 		private void Main2(ArgsReader ar)
 		{
-			new ScrMusHook0001Test().Test01(); // -- 0001
+			//new ScrMusHook0001Test().Test01(); // not work orz
 		}
 	}
 }
