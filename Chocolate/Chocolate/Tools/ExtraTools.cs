@@ -192,5 +192,17 @@ namespace Charlotte.Tools
 		{
 			return File.Exists(path) || Directory.Exists(path);
 		}
+
+		public static T DesertElement<T>(List<T> list, int index)
+		{
+			T ret = list[index];
+			list.RemoveAt(index);
+			return ret;
+		}
+
+		public static T UnaddElement<T>(List<T> list)
+		{
+			return DesertElement(list, list.Count - 1);
+		}
 	}
 }
