@@ -67,6 +67,7 @@
     <Compile Include="Tools\HugeQueue.cs" />
     <Compile Include="Tools\JsonTools.cs" />
     <Compile Include="Tools\JString.cs" />
+    <Compile Include="Tools\LimitedReader.cs" />
     <Compile Include="Tools\LimitedWriter.cs" />
     <Compile Include="Tools\LongTools.cs" />
     <Compile Include="Tools\MSection.cs" />

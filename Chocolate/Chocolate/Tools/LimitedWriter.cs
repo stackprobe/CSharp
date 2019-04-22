@@ -8,9 +8,9 @@ namespace Charlotte.Tools
 	public class LimitedWriter
 	{
 		private long Remaining;
-		private Action<byte[], int, int> AnotherWriter;
+		private FileTools.Write_d AnotherWriter;
 
-		public LimitedWriter(long limit, Action<byte[], int, int> writer)
+		public LimitedWriter(long limit, FileTools.Write_d writer)
 		{
 			this.Remaining = limit;
 			this.AnotherWriter = writer;

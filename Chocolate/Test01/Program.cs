@@ -58,6 +58,7 @@ namespace Charlotte
 			//new CipherToolsTest.AESTest().Test01();
 			//new SecurityToolsTest().Test01();
 			//new SecurityToolsTest().Test02();
+			new SecurityToolsTest().Test03();
 			//new DebugToolsTest().Test01();
 			//new HTTPClientTest().Test01();
 			//new HTTPClientTest().Test02();
@@ -91,7 +92,7 @@ namespace Charlotte
 			//new WrapperTest().Test01();
 			//new XmlNodeTest().Test01();
 			//new CriticalTest().Test01();
-			new CriticalTest().Test02();
+			//new CriticalTest().Test02();
 			//new CSemaphoreTest().Test01();
 			//new JStringTest().Test01();
 			//new FilingCase3Test().Test01();

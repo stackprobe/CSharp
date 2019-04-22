@@ -184,6 +184,26 @@ namespace Charlotte.Tools
 			return path;
 		}
 
+		public static byte[] Read(FileStream reader, int size)
+		{
+			byte[] buff = new byte[size];
+			Read(reader, buff);
+			return buff;
+		}
+
+		public static void Read(FileStream reader, byte[] buff, int offset = 0)
+		{
+			Read(reader, buff, offset, buff.Length - offset);
+		}
+
+		public static void Read(FileStream reader, byte[] buff, int offset, int count)
+		{
+			if (reader.Read(buff, offset, count) != count)
+			{
+				throw new Exception("データの途中でファイルの終端に到達しました。");
+			}
+		}
+
 		public static void Write(FileStream writer, byte[] data, int offset = 0)
 		{
 			writer.Write(data, offset, data.Length - offset);
@@ -215,10 +235,10 @@ namespace Charlotte.Tools
 			return lines;
 		}
 
-		//public delegate int Read_d(byte[] buffer, int offset, int count);
-		//public delegate void Write_d(byte[] buffer, int offset, int count);
+		public delegate int Read_d(byte[] buffer, int offset, int count);
+		public delegate void Write_d(byte[] buffer, int offset, int count);
 
-		public static void ReadToEnd(Func<byte[], int, int, int> reader, Action<byte[], int, int> writer)
+		public static void ReadToEnd(Read_d reader, Write_d writer)
 		{
 			byte[] buff = new byte[4 * 1024 * 1024];
 
@@ -226,10 +246,34 @@ namespace Charlotte.Tools
 			{
 				int readSize = reader(buff, 0, buff.Length);
 
-				if (readSize <= 0)
+				if (readSize < 0)
 					break;
 
 				writer(buff, 0, readSize);
+			}
+		}
+
+		public static IEnumerable<byte[]> Iterate(Read_d reader)
+		{
+			byte[] buff = new byte[4 * 1024 * 1024];
+			byte[] part;
+
+			for (; ; )
+			{
+				int readSize = reader(buff, 0, buff.Length);
+
+				if (readSize < 0)
+					break;
+
+				if (readSize < buff.Length)
+				{
+					part = new byte[readSize];
+					Array.Copy(buff, 0, part, 0, readSize);
+				}
+				else
+					part = buff;
+
+				yield return part;
 			}
 		}
 	}

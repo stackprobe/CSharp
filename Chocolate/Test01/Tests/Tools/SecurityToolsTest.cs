@@ -68,5 +68,55 @@ namespace Charlotte.Tests.Tools
 				}
 			}
 		}
+
+		public void Test03()
+		{
+			Test03_a("");
+			Test03_a("ABC");
+			Test03_a("ABCDEF");
+			Test03_a("ABCDEFHIJ");
+			Test03_a("123");
+			Test03_a("123:456");
+			Test03_a("123:456:789");
+			Test03_a(":");
+			Test03_a("::");
+			Test03_a(":::");
+			Test03_a("aaaa:");
+			Test03_a(":aaaa");
+			Test03_a(":aaaa:");
+		}
+
+		private void Test03_a(string src)
+		{
+			byte[][] bParts = src.Split(':').Select(token => Encoding.ASCII.GetBytes(token)).ToArray();
+			byte[] bSrc = BinTools.Join(bParts);
+
+			Console.WriteLine("bSrc: " + BinTools.Hex.ToString(bSrc));
+
+			foreach (byte[] bPart in bParts)
+				Console.WriteLine("bPart: " + BinTools.Hex.ToString(bPart));
+
+			{
+				byte[] hash1 = SecurityTools.GetSHA512(bSrc);
+				byte[] hash2 = SecurityTools.GetSHA512(bParts);
+
+				Console.WriteLine("hash1: " + BinTools.Hex.ToString(hash1));
+				Console.WriteLine("hash2: " + BinTools.Hex.ToString(hash2));
+
+				if (BinTools.Comp(hash1, hash2) != 0)
+					throw null; // bugged !!!
+			}
+
+			{
+				byte[] hash1 = SecurityTools.GetMD5(bSrc);
+				byte[] hash2 = SecurityTools.GetMD5(bParts);
+
+				Console.WriteLine("hash1: " + BinTools.Hex.ToString(hash1));
+				Console.WriteLine("hash2: " + BinTools.Hex.ToString(hash2));
+
+				if (BinTools.Comp(hash1, hash2) != 0)
+					throw null; // bugged !!!
+			}
+		}
 	}
 }
