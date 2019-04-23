@@ -195,20 +195,6 @@ namespace Charlotte
 			return 0xc0 * 3 < color.R + color.G + color.B;
 		}
 
-		/// <summary>
-		/// ColorDialog.CustomColors 用
-		/// </summary>
-		/// <returns></returns>
-		public static int[] MakeCustomColors()
-		{
-			List<int> buff = new List<int>();
-
-			for (int c = 0; c < 16; c++)
-				buff.Add((int)(SecurityTools.getCRandUInt() & 0xffffff));
-
-			return buff.ToArray();
-		}
-
 		public static List<MemberFont> ToMemberFonts(string src)
 		{
 			List<MemberFont> dest = new List<MemberFont>();

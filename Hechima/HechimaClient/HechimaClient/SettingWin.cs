@@ -369,38 +369,10 @@ namespace Charlotte
 		{
 			Color color = GetColor(btn);
 
-			//ColorDialogクラスのインスタンスを作成
-			using (ColorDialog cd = new ColorDialog())
+			if (SaveLoadDialogs.SelectColor(ref color))
 			{
-				//はじめに選択されている色を設定
-				cd.Color = color;
-				//色の作成部分を表示可能にする
-				//デフォルトがTrueのため必要はない
-				cd.AllowFullOpen = true;
-				//純色だけに制限しない
-				//デフォルトがFalseのため必要はない
-				cd.SolidColorOnly = false;
-				//[作成した色]に指定した色（RGB値）を表示する
-				cd.CustomColors = MakeCustomColors();
-
-				//ダイアログを表示する
-				if (cd.ShowDialog() == DialogResult.OK)
-				{
-					//選択された色の取得
-					color = cd.Color;
-					SetColor(btn, color);
-				}
+				SetColor(btn, color);
 			}
-		}
-
-		private int[] MakeCustomColors()
-		{
-			List<int> buff = new List<int>();
-
-			for (int c = 0; c < 16; c++)
-				buff.Add((int)(SecurityTools.getCRandUInt() & 0xffffff));
-
-			return buff.ToArray();
 		}
 
 		private void UpdateUserTripBtn_Click(object sender, EventArgs e)

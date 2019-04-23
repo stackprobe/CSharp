@@ -82,6 +82,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Remark.cs" />
+    <Compile Include="SaveLoadDialogs.cs" />
     <Compile Include="Setting.cs" />
     <Compile Include="SettingWin.cs">
       <SubType>Form</SubType>

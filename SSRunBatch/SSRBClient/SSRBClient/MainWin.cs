@@ -139,49 +139,26 @@ namespace Charlotte
 		{
 			for (; ; )
 			{
-				//OpenFileDialogクラスのインスタンスを作成
-				using (OpenFileDialog ofd = new OpenFileDialog())
+				string file = SaveLoadDialogs.LoadFile(
+					"送信ファイルを選択してください",
+					"",
+					Path.GetDirectoryName(this.LastSendFile),
+					Path.GetFileName(this.LastSendFile)
+					);
+
+				if (file != null)
 				{
-					//はじめのファイル名を指定する
-					//はじめに「ファイル名」で表示される文字列を指定する
-					ofd.FileName = Path.GetFileName(this.LastSendFile);
-					//はじめに表示されるフォルダを指定する
-					//指定しない（空の文字列）の時は、現在のディレクトリが表示される
-					ofd.InitialDirectory = Path.GetDirectoryName(this.LastSendFile);
-					//[ファイルの種類]に表示される選択肢を指定する
-					//指定しないとすべてのファイルが表示される
-					ofd.Filter = "すべてのファイル(*.*)|*.*";
-					//[ファイルの種類]ではじめに選択されるものを指定する
-					//2番目の「すべてのファイル」が選択されているようにする
-					ofd.FilterIndex = 1;
-					//タイトルを設定する
-					ofd.Title = "送信ファイルを選択してください";
-					//ダイアログボックスを閉じる前に現在のディレクトリを復元するようにする
-					ofd.RestoreDirectory = true;
-					//存在しないファイルの名前が指定されたとき警告を表示する
-					//デフォルトでTrueなので指定する必要はない
-					ofd.CheckFileExists = true;
-					//存在しないパスが指定されたとき警告を表示する
-					//デフォルトでTrueなので指定する必要はない
-					ofd.CheckPathExists = true;
+					this.LastSendFile = file;
 
-					//ダイアログを表示する
-					if (ofd.ShowDialog() == DialogResult.OK)
+					try
 					{
-						//OKボタンがクリックされたとき、選択されたファイル名を表示する
-						//Console.WriteLine(ofd.FileName);
-						this.LastSendFile = ofd.FileName;
-
-						try
-						{
-							this.CheckSendFile(this.LastSendFile);
-							Gnd.I.SendFiles.Add(this.LastSendFile);
-						}
-						catch (Exception ex)
-						{
-							MessageBox.Show(this, "" + ex, "送信ファイルを追加出来ません", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-							continue;
-						}
+						this.CheckSendFile(this.LastSendFile);
+						Gnd.I.SendFiles.Add(this.LastSendFile);
+					}
+					catch (Exception ex)
+					{
+						MessageBox.Show(this, "" + ex, "送信ファイルを追加出来ません", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+						continue;
 					}
 				}
 				break;
@@ -209,48 +186,26 @@ namespace Charlotte
 		{
 			for (; ; )
 			{
-				//SaveFileDialogクラスのインスタンスを作成
-				using (SaveFileDialog sfd = new SaveFileDialog())
+				string file = SaveLoadDialogs.SaveFile(
+					"受信ファイル(保存先パス)を入力してください",
+					"",
+					Path.GetDirectoryName(this.LastRecvFile),
+					Path.GetFileName(this.LastRecvFile)
+					);
+
+				if (file != null)
 				{
-					//はじめのファイル名を指定する
-					//はじめに「ファイル名」で表示される文字列を指定する
-					sfd.FileName = Path.GetFileName(this.LastRecvFile);
-					//はじめに表示されるフォルダを指定する
-					sfd.InitialDirectory = Path.GetDirectoryName(this.LastRecvFile);
-					//[ファイルの種類]に表示される選択肢を指定する
-					//指定しない（空の文字列）の時は、現在のディレクトリが表示される
-					sfd.Filter = "すべてのファイル(*.*)|*.*";
-					//[ファイルの種類]ではじめに選択されるものを指定する
-					//2番目の「すべてのファイル」が選択されているようにする
-					sfd.FilterIndex = 1;
-					//タイトルを設定する
-					sfd.Title = "受信ファイル(保存先パス)を入力してください";
-					//ダイアログボックスを閉じる前に現在のディレクトリを復元するようにする
-					sfd.RestoreDirectory = true;
-					//既に存在するファイル名を指定したとき警告する
-					//デフォルトでTrueなので指定する必要はない
-					sfd.OverwritePrompt = true;
-					//存在しないパスが指定されたとき警告を表示する
-					//デフォルトでTrueなので指定する必要はない
-					sfd.CheckPathExists = true;
+					this.LastRecvFile = file;
 
-					//ダイアログを表示する
-					if (sfd.ShowDialog() == DialogResult.OK)
+					try
 					{
-						//OKボタンがクリックされたとき、選択されたファイル名を表示する
-						//Console.WriteLine(sfd.FileName);
-						this.LastRecvFile = sfd.FileName;
-
-						try
-						{
-							this.CheckRecvFile(this.LastRecvFile);
-							Gnd.I.RecvFiles.Add(this.LastRecvFile);
-						}
-						catch (Exception ex)
-						{
-							MessageBox.Show(this, "" + ex, "受信ファイルを追加出来ません", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-							continue;
-						}
+						this.CheckRecvFile(this.LastRecvFile);
+						Gnd.I.RecvFiles.Add(this.LastRecvFile);
+					}
+					catch (Exception ex)
+					{
+						MessageBox.Show(this, "" + ex, "受信ファイルを追加出来ません", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+						continue;
 					}
 				}
 				break;

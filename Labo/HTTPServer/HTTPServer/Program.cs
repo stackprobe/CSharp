@@ -32,7 +32,7 @@ namespace Charlotte
 				HTTPConnected = channel =>
 				{
 					channel.ResContentType = "text/html; charset=UTF-8";
-					channel.ResBody = Encoding.UTF8.GetBytes("<html><body>It's works.</body></html>");
+					channel.ResBody_B = Encoding.UTF8.GetBytes("<html><body>It's works.</body></html>");
 				},
 			};
 

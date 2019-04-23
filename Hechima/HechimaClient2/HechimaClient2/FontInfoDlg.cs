@@ -172,29 +172,10 @@ namespace Charlotte
 		{
 			Color color = Common.ToColorHex(this.L文字色.Text);
 
-			//ColorDialogクラスのインスタンスを作成
-			using (ColorDialog cd = new ColorDialog())
+			if (SaveLoadDialogs.SelectColor(ref color))
 			{
-				//はじめに選択されている色を設定
-				cd.Color = color;
-				//色の作成部分を表示可能にする
-				//デフォルトがTrueのため必要はない
-				cd.AllowFullOpen = true;
-				//純色だけに制限しない
-				//デフォルトがFalseのため必要はない
-				cd.SolidColorOnly = false;
-				//[作成した色]に指定した色（RGB値）を表示する
-				cd.CustomColors = Common.MakeCustomColors();
-
-				//ダイアログを表示する
-				if (cd.ShowDialog() == DialogResult.OK)
-				{
-					//選択された色の取得
-					color = cd.Color;
-
-					this.L文字色.Text = Common.ToHexString(color);
-					this.UIRefresh();
-				}
+				this.L文字色.Text = Common.ToHexString(color);
+				this.UIRefresh();
 			}
 		}
 
