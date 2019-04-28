@@ -18,7 +18,8 @@ namespace Test01
 				//Test02();
 				//Test03();
 				//Test04();
-				Test05();
+				//Test05();
+				Test06();
 				//new DateSpanListTest().Test01();
 				//new NamesToGroupDateSpansTest().Test01();
 				//new NamesToGroupDateSpansTest().Test02();
@@ -239,6 +240,15 @@ Test02_a_a: { X = 3 }
 			Console.WriteLine(string.Format("{0:x8}", 0xffff)); // 0000ffff
 
 			Console.WriteLine(string.Format("{0:x}", -0xffff)); // ffff0001
+		}
+
+		private static void Test06()
+		{
+			// '/' -> '\\' してくれる。
+			Console.WriteLine(Path.GetFullPath("C:/AAA/BBB/CCC")); // -> @"C:\AAA\BBB\CCC"
+
+			// '/' -> '\\' してくれる。
+			Console.WriteLine(Path.GetFullPath("//xxx/aaa/bbb/ccc")); // -> @"\\xxx\aaa\bbb\ccc"
 		}
 	}
 }

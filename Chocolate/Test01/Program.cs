@@ -54,11 +54,12 @@ namespace Charlotte
 			//new StringToolsTest().Test04();
 			//new FileToolsTest().Test01();
 			//new FileToolsTest().Test02();
+			new FileToolsTest().Test03();
 			//new SortedListTest().Test01();
 			//new CipherToolsTest.AESTest().Test01();
 			//new SecurityToolsTest().Test01();
 			//new SecurityToolsTest().Test02();
-			new SecurityToolsTest().Test03();
+			//new SecurityToolsTest().Test03();
 			//new DebugToolsTest().Test01();
 			//new HTTPClientTest().Test01();
 			//new HTTPClientTest().Test02();

@@ -152,5 +152,20 @@ namespace Charlotte.Tests.Tools
 			}
 			dest.Add("E"); // End
 		}
+
+		public void Test03()
+		{
+			Test03_a(@"C:\AAA\BBB", @"C:\", @"D:\xxx"); // -> @"D:\xxx\AAA\BBB"
+			Test03_a(@"C:\AAA\BBB", @"C:\", @"D:\xxx\"); // -> @"D:\xxx\AAA\BBB"
+			Test03_a(@"C:\AAA\BBB", @"C:\AAA", @"D:\xxx"); // -> @"D:\xxx\BBB"
+			Test03_a(@"C:\AAA\BBB", @"C:\AAA", @"D:\xxx\"); // -> @"D:\xxx\BBB"
+			Test03_a(@"C:\AAA\BBB", @"C:\AAA\", @"D:\xxx"); // -> @"D:\xxx\BBB"
+			Test03_a(@"C:\AAA\BBB", @"C:\AAA\", @"D:\xxx\"); // -> @"D:\xxx\BBB"
+		}
+
+		private static void Test03_a(string path, string oldRoot, string rootNew)
+		{
+			Console.WriteLine(FileTools.ChangeRoot(path, oldRoot, rootNew));
+		}
 	}
 }

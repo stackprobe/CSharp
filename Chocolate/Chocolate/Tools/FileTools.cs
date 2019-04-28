@@ -133,13 +133,17 @@ namespace Charlotte.Tools
 
 		public static string ChangeRoot(string path, string oldRoot, string rootNew)
 		{
+			return PutYen(rootNew) + ChangeRoot(path, oldRoot);
+		}
+
+		public static string ChangeRoot(string path, string oldRoot)
+		{
 			oldRoot = PutYen(oldRoot);
-			rootNew = PutYen(rootNew);
 
 			if (StringTools.StartsWithIgnoreCase(path, oldRoot) == false)
 				throw new Exception("パスの配下ではありません。" + oldRoot + " -> " + path);
 
-			return rootNew + path.Substring(oldRoot.Length);
+			return path.Substring(oldRoot.Length);
 		}
 
 		public static string PutYen(string path)
@@ -160,13 +164,13 @@ namespace Charlotte.Tools
 
 			path = Path.GetFullPath(path);
 
-			if (path.Contains('/'))
+			if (path.Contains('/')) // Path.GetFullPath が '/' を '\\' に置換するはず。
 				throw null;
 
 			if (path.StartsWith("\\\\"))
 				throw new Exception("ネットワークパスまたはデバイス名は使用出来ません。");
 
-			if (path.Substring(1, 2) != ":\\")
+			if (path.Substring(1, 2) != ":\\") // ネットワークパスでないならローカルパスのはず。
 				throw null;
 
 			path = PutYen(path) + ".";
