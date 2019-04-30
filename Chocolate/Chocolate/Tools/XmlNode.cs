@@ -24,7 +24,7 @@ namespace Charlotte.Tools
 			this.Children = children;
 		}
 
-		public static XmlNode LoadFile(string xmlFile)
+		public static XmlNode LoadFile(string xmlFile, string attributeNamePrefix = "", string attributeNameSuffix = "")
 		{
 			XmlNode node = new XmlNode();
 			Stack<XmlNode> parents = new Stack<XmlNode>();
@@ -46,7 +46,7 @@ namespace Charlotte.Tools
 								bool singleTag = reader.IsEmptyElement;
 
 								while (reader.MoveToNextAttribute())
-									node.Children.Add(new XmlNode(reader.Name, reader.Value));
+									node.Children.Add(new XmlNode(attributeNamePrefix + reader.Name + attributeNameSuffix, reader.Value));
 
 								if (singleTag)
 									node = parents.Pop();

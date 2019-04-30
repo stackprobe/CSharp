@@ -428,6 +428,87 @@ namespace Charlotte.Tools
 			return str;
 		}
 
+		public static string MultiReplace(string str, params string[] ptns)
+		{
+			return MultiReplace(str, ptns, false);
+		}
+
+		public static string MultiReplaceIgnoreCase(string str, params string[] ptns)
+		{
+			return MultiReplace(str, ptns, true);
+		}
+
+		public class ReplaceInfo
+		{
+			public string OldValue;
+			public string ValueNew;
+			public bool IgnoreCase;
+		}
+
+		public static string MultiReplace(string str, string[] ptns, bool ignoreCase)
+		{
+			if (ptns.Length % 2 != 0)
+				throw new ArgumentException("最後の置き換え「後」パターンが不足しています。");
+
+			ReplaceInfo[] infos = new ReplaceInfo[ptns.Length / 2];
+
+			for (int index = 0; index < infos.Length; index++)
+			{
+				infos[index] = new ReplaceInfo()
+				{
+					OldValue = ptns[index * 2 + 0],
+					ValueNew = ptns[index * 2 + 1],
+					IgnoreCase = ignoreCase,
+				};
+			}
+			return MultiReplace(str, infos);
+		}
+
+		public static string MultiReplace(string str, ReplaceInfo[] infos)
+		{
+			if (str == null) throw new ArgumentException("str is null");
+			if (infos == null) throw new ArgumentException("infos is null");
+
+			foreach (ReplaceInfo info in infos)
+			{
+				if (info == null) throw new ArgumentException("info is null");
+				if (string.IsNullOrEmpty(info.OldValue)) throw new ArgumentException("info.OldValue is null or empty");
+				if (info.ValueNew == null) throw new ArgumentException("info.ValueNew is null");
+				//info.IgnoreCase
+			}
+
+			// ここまで引数チェック
+
+			StringBuilder buff = new StringBuilder();
+
+			for (int index = 0; index < str.Length; index++)
+			{
+				foreach (ReplaceInfo info in infos)
+				{
+					if (info.OldValue.Length <= str.Length - index)
+					{
+						string part = str.Substring(index, info.OldValue.Length);
+
+						if (
+							info.IgnoreCase ?
+							info.OldValue.ToLower() == part.ToLower() :
+							info.OldValue == part
+							)
+						{
+							buff.Append(info.ValueNew);
+							index += info.OldValue.Length - 1;
+							goto replaced;
+						}
+					}
+				}
+				buff.Append(str[index]);
+
+			replaced:
+				;
+			}
+			return buff.ToString();
+		}
+
 		public static string AntiNullOrEmpty(string str, string defval = "_")
 		{
 			return string.IsNullOrEmpty(str) ? defval : str;

@@ -52,9 +52,10 @@ namespace Charlotte
 			//new StringToolsTest().Test02();
 			//new StringToolsTest().Test03();
 			//new StringToolsTest().Test04();
+			new StringToolsTest().Test05();
 			//new FileToolsTest().Test01();
 			//new FileToolsTest().Test02();
-			new FileToolsTest().Test03();
+			//new FileToolsTest().Test03();
 			//new SortedListTest().Test01();
 			//new CipherToolsTest.AESTest().Test01();
 			//new SecurityToolsTest().Test01();

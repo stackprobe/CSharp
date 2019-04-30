@@ -85,5 +85,11 @@ namespace Charlotte.Tests.Tools
 			Array.Sort(chrs, (a, b) => (int)a - (int)b);
 			return new string(chrs);
 		}
+
+		public void Test05()
+		{
+			Console.WriteLine(StringTools.MultiReplace("ABC", "A", "ABC", "B", "BAC", "C", "CAB"));
+			Console.WriteLine(StringTools.MultiReplace("[A][B][C]", "A", "(ABC)", "B", "(BAC)", "C", "(CAB)"));
+		}
 	}
 }
