@@ -17,7 +17,7 @@ C#で書いたコードの寄せ集めです。
 --------
 
 2018/08/03  01:17    <DIR>          AntiScreenSaver
-2018/07/20  08:47    <DIR>          Chocolate         共有ライブラリ -- Template2用(DLL)
+2018/07/20  08:47    <DIR>          Chocolate         共有ライブラリ -- Template2用
 2018/08/03  01:17    <DIR>          Hechima
 2018/07/27  23:08    <DIR>          Labo
 2018/07/20  08:48    <DIR>          Module            共有ライブラリ -- 旧ver
