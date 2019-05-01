@@ -479,6 +479,28 @@ namespace Charlotte.Tools
 
 			// ここまで引数チェック
 
+			infos = infos.Clone() as ReplaceInfo[];
+
+			Array.Sort(infos, (a, b) =>
+			{
+				int ret = VariantTools.Comp(a, b, v => v.OldValue.Length) * -1; // OldValue 長い -> 短い 順
+				if (ret != 0)
+					return ret;
+
+				ret = VariantTools.Comp(a, b, v => v.IgnoreCase ? 1 : 0); // case sensive -> ignore case 順
+				if (ret != 0)
+					return ret;
+
+				// 以降は動作を一定にするための順序決め
+
+				ret = StringTools.Comp(a.OldValue, b.OldValue);
+				if (ret != 0)
+					return ret;
+
+				ret = StringTools.Comp(a.ValueNew, b.ValueNew);
+				return ret;
+			});
+
 			StringBuilder buff = new StringBuilder();
 
 			for (int index = 0; index < str.Length; index++)
@@ -576,6 +598,7 @@ namespace Charlotte.Tools
 			string format = target;
 
 			char escapeChar = allowChars[0];
+			allowChars = allowChars.Substring(1);
 			string escape = new string(new char[] { escapeChar });
 			string escape2 = new string(new char[] { escapeChar, escapeChar });
 
