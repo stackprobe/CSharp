@@ -32,7 +32,7 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWin));
 			this.TaskTrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
 			this.TTIMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-			this.終了XToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.EndProcMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.MainTimer = new System.Windows.Forms.Timer(this.components);
 			this.TTIMenu.SuspendLayout();
 			this.SuspendLayout();
@@ -46,16 +46,16 @@
 			// TTIMenu
 			// 
 			this.TTIMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.終了XToolStripMenuItem});
+            this.EndProcMenuItem});
 			this.TTIMenu.Name = "TTIMenu";
-			this.TTIMenu.Size = new System.Drawing.Size(114, 26);
+			this.TTIMenu.Size = new System.Drawing.Size(153, 48);
 			// 
-			// 終了XToolStripMenuItem
+			// EndProcMenuItem
 			// 
-			this.終了XToolStripMenuItem.Name = "終了XToolStripMenuItem";
-			this.終了XToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
-			this.終了XToolStripMenuItem.Text = "終了(&X)";
-			this.終了XToolStripMenuItem.Click += new System.EventHandler(this.終了XToolStripMenuItem_Click);
+			this.EndProcMenuItem.Name = "EndProcMenuItem";
+			this.EndProcMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.EndProcMenuItem.Text = "Exit";
+			this.EndProcMenuItem.Click += new System.EventHandler(this.EndProcMenuItem_Click);
 			// 
 			// MainTimer
 			// 
@@ -89,7 +89,7 @@
 
 		private System.Windows.Forms.NotifyIcon TaskTrayIcon;
 		private System.Windows.Forms.ContextMenuStrip TTIMenu;
-		private System.Windows.Forms.ToolStripMenuItem 終了XToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem EndProcMenuItem;
 		private System.Windows.Forms.Timer MainTimer;
 	}
 }

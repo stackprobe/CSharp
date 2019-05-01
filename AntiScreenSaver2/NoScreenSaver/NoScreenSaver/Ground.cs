@@ -35,7 +35,7 @@ namespace Charlotte
 			return dest.ToArray();
 		}
 
-		// ----
+		// ---- Items ----
 
 		public static int WakeupPeriodMillis;
 
@@ -47,7 +47,7 @@ namespace Charlotte
 			lines = RemoveCommentEmptyLine(lines);
 			int c = 0;
 
-			// ----
+			// ---- Items ----
 
 			WakeupPeriodMillis = int.Parse(lines[c++]);
 

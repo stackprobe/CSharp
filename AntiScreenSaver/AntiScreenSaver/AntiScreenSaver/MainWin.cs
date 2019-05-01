@@ -72,7 +72,7 @@ namespace Charlotte
 			this.Close();
 		}
 
-		private void 終了XToolStripMenuItem_Click(object sender, EventArgs e)
+		private void EndProcMenuItem_Click(object sender, EventArgs e)
 		{
 			this.CloseWindow();
 		}
