@@ -90,6 +90,10 @@ namespace Charlotte.Tests.Tools
 		{
 			Console.WriteLine(StringTools.MultiReplace("ABC", "A", "ABC", "B", "BAC", "C", "CAB"));
 			Console.WriteLine(StringTools.MultiReplace("[A][B][C]", "A", "(ABC)", "B", "(BAC)", "C", "(CAB)"));
+
+			Console.WriteLine(StringTools.MultiReplace("@@@@", "@", "1", "@@", "2", "@@@", "3"));
+			Console.WriteLine(StringTools.MultiReplace("@@@@@", "@", "1", "@@", "2", "@@@", "3"));
+			Console.WriteLine(StringTools.MultiReplace("@@@@@@", "@", "1", "@@", "2", "@@@", "3"));
 		}
 	}
 }
