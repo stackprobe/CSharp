@@ -441,7 +441,7 @@ namespace Charlotte.Tools
 		public class ReplaceInfo
 		{
 			public string OldValue;
-			public string ValueNew;
+			public Func<string> GetValueNew;
 			public bool IgnoreCase;
 		}
 
@@ -454,10 +454,12 @@ namespace Charlotte.Tools
 
 			for (int index = 0; index < infos.Length; index++)
 			{
+				string valueNew = ptns[index * 2 + 1];
+
 				infos[index] = new ReplaceInfo()
 				{
 					OldValue = ptns[index * 2 + 0],
-					ValueNew = ptns[index * 2 + 1],
+					GetValueNew = () => valueNew,
 					IgnoreCase = ignoreCase,
 				};
 			}
@@ -473,7 +475,7 @@ namespace Charlotte.Tools
 			{
 				if (info == null) throw new ArgumentException("info is null");
 				if (string.IsNullOrEmpty(info.OldValue)) throw new ArgumentException("info.OldValue is null or empty");
-				if (info.ValueNew == null) throw new ArgumentException("info.ValueNew is null");
+				if (info.GetValueNew == null) throw new ArgumentException("info.GetValueNew is null");
 				//info.IgnoreCase
 			}
 
@@ -491,13 +493,7 @@ namespace Charlotte.Tools
 				if (ret != 0)
 					return ret;
 
-				// 以降は動作を一定にするための順序決め
-
 				ret = StringTools.Comp(a.OldValue, b.OldValue);
-				if (ret != 0)
-					return ret;
-
-				ret = StringTools.Comp(a.ValueNew, b.ValueNew);
 				return ret;
 			});
 
@@ -517,7 +513,7 @@ namespace Charlotte.Tools
 							info.OldValue == part
 							)
 						{
-							buff.Append(info.ValueNew);
+							buff.Append(info.GetValueNew());
 							index += info.OldValue.Length - 1;
 							goto replaced;
 						}
