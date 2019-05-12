@@ -19,7 +19,9 @@ namespace Test01
 				//Test03();
 				//Test04();
 				//Test05();
-				Test06();
+				//Test06();
+				//Test07();
+				Test07_B();
 				//new DateSpanListTest().Test01();
 				//new NamesToGroupDateSpansTest().Test01();
 				//new NamesToGroupDateSpansTest().Test02();
@@ -249,6 +251,25 @@ Test02_a_a: { X = 3 }
 
 			// '/' -> '\\' してくれる。
 			Console.WriteLine(Path.GetFullPath("//xxx/aaa/bbb/ccc")); // -> @"\\xxx\aaa\bbb\ccc"
+		}
+
+		private static void Test07()
+		{
+			int[] array = Test07_NewArray<int>(1500000000 / 4); // ok
+			//int[] array = Test07_NewArray<int>(1600000000 / 4); // ng
+			//int[] array = Test07_NewArray<int>(1700000000 / 4); // ng
+			//int[] array = Test07_NewArray<int>(2000000000 / 4); // ng
+		}
+
+		private static T[] Test07_NewArray<T>(int length)
+		{
+			return new T[length];
+		}
+
+		private static void Test07_B()
+		{
+			int[] array = new int[1500000000 / 4]; // ok
+			//int[] array = new int[1600000000 / 4]; // ng
 		}
 	}
 }

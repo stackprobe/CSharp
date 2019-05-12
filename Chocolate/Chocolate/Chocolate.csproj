@@ -45,7 +45,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Tools\AttachString.cs" />
+    <Compile Include="Tools\AutoList.cs" />
     <Compile Include="Tools\Base64Unit.cs" />
+    <Compile Include="Tools\BitList.cs" />
+    <Compile Include="Tools\BitTable.cs" />
     <Compile Include="Tools\EnumerableTools.cs" />
     <Compile Include="Tools\ExceptionDam.cs" />
     <Compile Include="Tools\HandleDam.cs" />
