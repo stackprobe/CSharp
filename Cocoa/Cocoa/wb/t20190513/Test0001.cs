@@ -11,7 +11,130 @@ namespace Charlotte.wb.t20190513
 	{
 		public void Test01()
 		{
-			Test01_07();
+			//Test01_00();
+			//Test01_01();
+			//Test01_02();
+			//Test01_03();
+			//Test01_04();
+			//Test01_05();
+			//Test01_06();
+			//Test01_07();
+			//Test01_08();
+
+			//Test01_0001();
+			//Test01_0011();
+			Test01_0015();
+		}
+
+		// memo:
+		// 100 -- 1x1
+		// 200 -- 2x1 横長
+		// 300 -- 1x2 縦長
+		// 400 -- 2x2
+
+		private void Test01_00()
+		{
+			Test01_a(new Status()
+			{
+				Map = new int[][]
+				{
+					new int[] { 301, 402, 402, 303 },
+					new int[] { 301, 402, 402, 303 },
+					new int[] { 104, 105, 106, 107 },
+					new int[] { 308, 209, 209, 310 }, 
+					new int[] { 308, 0, 0, 310 },
+				},
+			});
+		}
+
+		private void Test01_01()
+		{
+			Test01_a(new Status()
+			{
+				Map = new int[][]
+				{
+					new int[] { 301, 402, 402, 303 },
+					new int[] { 301, 402, 402, 303 },
+					new int[] { 204, 204, 205, 205 },
+					new int[] { 106, 107, 108, 109 }, 
+					new int[] { 110, 0, 0, 111 },
+				},
+			});
+		}
+
+		private void Test01_02() // 時間かかる？
+		{
+			Test01_a(new Status()
+			{
+				Map = new int[][]
+				{
+					new int[] { 301, 402, 402, 303 },
+					new int[] { 301, 402, 402, 303 },
+					new int[] { 104, 105, 106, 107 },
+					new int[] { 208, 208, 209, 209 }, 
+					new int[] { 110, 0, 0, 111 },
+				},
+			});
+		}
+
+		private void Test01_03()
+		{
+			Test01_a(new Status()
+			{
+				Map = new int[][]
+				{
+					new int[] { 101, 402, 402, 103 },
+					new int[] { 104, 402, 402, 105 },
+					new int[] { 206, 206, 207, 207 },
+					new int[] { 208, 208, 209, 209 }, 
+					new int[] { 110, 0, 0, 111 },
+				},
+			});
+		}
+
+		private void Test01_04()
+		{
+			Test01_a(new Status()
+			{
+				Map = new int[][]
+				{
+					new int[] { 101, 402, 402, 103 },
+					new int[] { 304, 402, 402, 305 },
+					new int[] { 304, 106, 107, 305 },
+					new int[] { 308, 209, 209, 310 }, 
+					new int[] { 308, 0, 0, 310 },
+				},
+			});
+		}
+
+		private void Test01_05()
+		{
+			Test01_a(new Status()
+			{
+				Map = new int[][]
+				{
+					new int[] { 301, 402, 402, 303 },
+					new int[] { 301, 402, 402, 303 },
+					new int[] { 304, 105, 106, 307 },
+					new int[] { 304, 108, 109, 307 }, 
+					new int[] { 110, 0, 0, 111 },
+				},
+			});
+		}
+
+		private void Test01_06()
+		{
+			Test01_a(new Status()
+			{
+				Map = new int[][]
+				{
+					new int[] { 301, 402, 402, 303 },
+					new int[] { 301, 402, 402, 303 },
+					new int[] { 304, 205, 205, 306 },
+					new int[] { 304, 107, 108, 306 }, 
+					new int[] { 109, 0, 0, 110 },
+				},
+			});
 		}
 
 		private void Test01_07()
@@ -25,6 +148,68 @@ namespace Charlotte.wb.t20190513
 					new int[] { 204, 204, 205, 205 },
 					new int[] { 106, 207, 207, 108 },
 					new int[] { 109, 0, 0, 110 },
+				},
+			});
+		}
+
+		private void Test01_08() // 時間かかる。
+		{
+			Test01_a(new Status()
+			{
+				Map = new int[][]
+				{
+					new int[] { 301, 402, 402, 303 },
+					new int[] { 301, 402, 402, 303 },
+					new int[] { 104, 105, 106, 107 },
+					new int[] { 108, 209, 209, 110 },
+					new int[] { 111, 0, 0, 112 },
+				},
+			});
+		}
+
+		private void Test01_0001()
+		{
+			Test01_a(new Status()
+			{
+				Map = new int[][]
+				{
+					// 308, 311 == 1x3
+
+					new int[] { 101, 102, 103, 104 },
+					new int[] { 105, 406, 406, 107 },
+					new int[] { 308, 406, 406, 311 },
+					new int[] { 308, 109, 110, 311 }, 
+					new int[] { 308, 0, 0, 311 },
+				},
+			});
+		}
+
+		private void Test01_0011()
+		{
+			Test01_a(new Status()
+			{
+				Map = new int[][]
+				{
+					new int[] { 101, 502, 502, 303 },
+					new int[] { 404, 404, 502, 303 },
+					new int[] { 404, 404, 105, 106 },
+					new int[] { 207, 207, 108, 109 }, 
+					new int[] { 110, 0, 0, 111 },
+				},
+			});
+		}
+
+		private void Test01_0015()
+		{
+			Test01_a(new Status()
+			{
+				Map = new int[][]
+				{
+					new int[] { 101, 102, 503, 503 },
+					new int[] { 104, 405, 405, 503 },
+					new int[] { 106, 405, 405, 107 },
+					new int[] { 108, 109, 210, 210 }, 
+					new int[] { 111, 0, 0, 112 },
 				},
 			});
 		}
@@ -45,6 +230,7 @@ namespace Charlotte.wb.t20190513
 			// 200 -- 2x1 横長
 			// 300 -- 1x2 縦長
 			// 400 -- 2x2
+			// 500 -- 変形
 
 			public int[][] Map;
 		}
@@ -241,6 +427,7 @@ namespace Charlotte.wb.t20190513
 				case 2: return "#aa0";
 				case 3: return "#0c0";
 				case 4: return "#c00";
+				case 5: return "#a0a";
 
 				default:
 					throw null; // never
