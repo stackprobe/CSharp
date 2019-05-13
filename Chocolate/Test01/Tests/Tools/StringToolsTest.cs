@@ -95,5 +95,10 @@ namespace Charlotte.Tests.Tools
 			Console.WriteLine(StringTools.MultiReplace("@@@@@", "@", "1", "@@", "2", "@@@", "3"));
 			Console.WriteLine(StringTools.MultiReplace("@@@@@@", "@", "1", "@@", "2", "@@@", "3"));
 		}
+
+		public void Test06()
+		{
+			Console.WriteLine(string.Join(", ", StringTools.Tokenize("A=B=C", "=", false, false, 2)));
+		}
 	}
 }

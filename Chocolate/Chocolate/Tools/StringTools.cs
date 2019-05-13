@@ -63,10 +63,12 @@ namespace Charlotte.Tools
 			GetString_SJISCodeRange(0x87, 0x80, 0x9c) + // 機種依存文字(4)
 			GetString_SJISCodeRange(0xee, 0xef, 0xfc); // 機種依存文字(5)
 
+		public static string MBC_CHOUONPU = GetString_SJISCodeRange(0x81, 0x5b, 0x5b); // 815b == 長音符
+
 		public static string MBC_HIRA = GetString_SJISCodeRange(0x82, 0x9f, 0xf1);
 		public static string MBC_KANA =
 			GetString_SJISCodeRange(0x83, 0x40, 0x7e) +
-			GetString_SJISCodeRange(0x83, 0x80, 0x96);
+			GetString_SJISCodeRange(0x83, 0x80, 0x96) + MBC_CHOUONPU;
 
 		private static string GetString_SJISCodeRange(int lead, int trailMin, int trailMax)
 		{
@@ -375,14 +377,14 @@ namespace Charlotte.Tools
 			return ret;
 		}
 
-		public static string[] Tokenize(string str, string delimiters, bool meaningFlag = false, bool ignoreEmpty = false)
+		public static string[] Tokenize(string str, string delimiters, bool meaningFlag = false, bool ignoreEmpty = false, int limit = 0)
 		{
 			StringBuilder buff = new StringBuilder();
 			List<string> tokens = new List<string>();
 
 			foreach (char chr in str)
 			{
-				if (delimiters.Contains(chr) == meaningFlag)
+				if (tokens.Count + 1 == limit || delimiters.Contains(chr) == meaningFlag)
 				{
 					buff.Append(chr);
 				}
