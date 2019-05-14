@@ -18,12 +18,16 @@ namespace Charlotte.wb.t20190513
 			//Test01_04();
 			//Test01_05();
 			//Test01_06(); // 定番
-			Test01_07(); // やや定番
+			//Test01_07(); // やや定番
 			//Test01_08();
 
 			//Test01_0001();
 			//Test01_0011();
 			//Test01_0015();
+
+			//Test01_L7();
+			//Test01_L8();
+			Test01_L9();
 		}
 
 		// memo:
@@ -62,7 +66,7 @@ namespace Charlotte.wb.t20190513
 			});
 		}
 
-		private void Test01_02() // 時間かかる？
+		private void Test01_02()
 		{
 			Test01_a(new Status()
 			{
@@ -152,7 +156,7 @@ namespace Charlotte.wb.t20190513
 			});
 		}
 
-		private void Test01_08() // 時間かかる。
+		private void Test01_08()
 		{
 			Test01_a(new Status()
 			{
@@ -214,6 +218,51 @@ namespace Charlotte.wb.t20190513
 			});
 		}
 
+		private void Test01_L7()
+		{
+			Test01_a(new Status()
+			{
+				Map = new int[][]
+				{
+					new int[] { 101, 402, 402, 103 },
+					new int[] { 304, 402, 402, 305 },
+					new int[] { 304, 0, 306, 305 },
+					new int[] { 107, 0, 306, 108 }, 
+					new int[] { 209, 209, 210, 210 },
+				},
+			});
+		}
+
+		private void Test01_L8()
+		{
+			Test01_a(new Status()
+			{
+				Map = new int[][]
+				{
+					new int[] { 0, 401, 401, 0 },
+					new int[] { 102, 401, 401, 103 },
+					new int[] { 304, 205, 205, 306 },
+					new int[] { 304, 207, 207, 306 }, 
+					new int[] { 108, 209, 209, 110 },
+				},
+			});
+		}
+
+		private void Test01_L9()
+		{
+			Test01_a(new Status()
+			{
+				Map = new int[][]
+				{
+					new int[] { 301, 102, 103, 104 },
+					new int[] { 301, 305, 406, 406 },
+					new int[] { 307, 305, 406, 406 },
+					new int[] { 307, 208, 208, 109 }, 
+					new int[] { 0, 0, 210, 210 },
+				},
+			});
+		}
+
 		private class Bingo : Exception
 		{ }
 
@@ -225,6 +274,9 @@ namespace Charlotte.wb.t20190513
 			public Status Prev; // null == 初期状態
 
 			// 0 -- empty cell
+
+			// 1,10の位 == ピース別のシリアル番号
+			// 100の位 == 形状
 
 			// 100 -- 1x1
 			// 200 -- 2x1 横長

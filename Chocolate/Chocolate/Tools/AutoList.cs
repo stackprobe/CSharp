@@ -26,6 +26,14 @@ namespace Charlotte.Tools
 			}
 		}
 
+		public int Capacity
+		{
+			get
+			{
+				return this.Buffer.Length;
+			}
+		}
+
 		public T this[int index]
 		{
 			get
