@@ -21,7 +21,8 @@ namespace Test01
 				//Test05();
 				//Test06();
 				//Test07();
-				Test07_B();
+				//Test07_B();
+				Test08();
 				//new DateSpanListTest().Test01();
 				//new NamesToGroupDateSpansTest().Test01();
 				//new NamesToGroupDateSpansTest().Test02();
@@ -270,6 +271,24 @@ Test02_a_a: { X = 3 }
 		{
 			int[] array = new int[1500000000 / 4]; // ok
 			//int[] array = new int[1600000000 / 4]; // ng
+		}
+
+		private static void Test08()
+		{
+			Queue<int> q = new Queue<int>();
+
+			q.Enqueue(1);
+			q.Enqueue(2);
+			q.Enqueue(3);
+
+			foreach (var i in q.ToArray())
+			{
+				Console.WriteLine(i);
+			}
+			while (1 <= q.Count)
+			{
+				Console.WriteLine(q.Dequeue());
+			}
 		}
 	}
 }
