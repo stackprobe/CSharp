@@ -204,5 +204,29 @@ namespace Charlotte.Tools
 		{
 			return DesertElement(list, list.Count - 1);
 		}
+
+		public static string GetHomeDir(string marker = "_home")
+		{
+			return GetHomeDir(marker, Directory.GetCurrentDirectory());
+		}
+
+		public static string GetHomeDir(string marker, string dir)
+		{
+			dir = FileTools.MakeFullPath(dir);
+
+			for (; ; )
+			{
+				string file = Path.Combine(dir, marker);
+
+				if (File.Exists(file))
+					break;
+
+				if (dir.Length <= 3) // ? ルートディレクトリに達した。
+					throw new Exception("no " + marker);
+
+				dir = Path.GetDirectoryName(dir);
+			}
+			return dir;
+		}
 	}
 }
