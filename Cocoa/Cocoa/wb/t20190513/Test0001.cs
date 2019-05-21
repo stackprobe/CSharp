@@ -21,13 +21,13 @@ namespace Charlotte.wb.t20190513
 			//Test01_07(); // やや定番
 			//Test01_08();
 
-			//Test01_0001();
+			Test01_0001();
 			//Test01_0011();
 			//Test01_0015();
 
 			//Test01_L7();
 			//Test01_L8();
-			Test01_L9();
+			//Test01_L9();
 		}
 
 		// memo:
