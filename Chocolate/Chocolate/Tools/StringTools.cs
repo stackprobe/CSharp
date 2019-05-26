@@ -420,6 +420,17 @@ namespace Charlotte.Tools
 			return str;
 		}
 
+		public static string RepalceCharsPair(string str, string rChrs, string wChrs)
+		{
+			if (rChrs.Length != wChrs.Length)
+				throw new ArgumentException("置き換え前と置き換え後の文字が対応していません。");
+
+			for (int index = 0; index < rChrs.Length; index++)
+				str = str.Replace(rChrs[index], wChrs[index]);
+
+			return str;
+		}
+
 		public static string ReplaceLoop(string str, string rPtn, string wPtn, int count = 30)
 		{
 			while (1 <= count)
