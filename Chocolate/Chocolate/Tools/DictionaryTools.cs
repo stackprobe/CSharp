@@ -26,5 +26,15 @@ namespace Charlotte.Tools
 		{
 			return new OrderedMap<string, V>(new StringTools.IECompIgnoreCase());
 		}
+
+		public static TreeSet<string> CreateSet()
+		{
+			return new TreeSet<string>(new StringTools.IEComp());
+		}
+
+		public static TreeSet<string> CreateSetIgnoreCase()
+		{
+			return new TreeSet<string>(new StringTools.IECompIgnoreCase());
+		}
 	}
 }

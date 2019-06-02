@@ -111,6 +111,7 @@
     <Compile Include="Tools\SyncList.cs" />
     <Compile Include="Tools\SyncQueue.cs" />
     <Compile Include="Tools\ThreadEx.cs" />
+    <Compile Include="Tools\TreeSet.cs" />
     <Compile Include="Tools\VariantTools.cs" />
     <Compile Include="Tools\WorkingDir.cs" />
     <Compile Include="Tools\Wrapper.cs" />
