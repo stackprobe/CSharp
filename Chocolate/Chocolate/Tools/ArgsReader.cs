@@ -22,6 +22,8 @@ namespace Charlotte.Tools
 		{
 			this.Args = args;
 			this.ArgIndex = argIndex;
+
+			this.ReadSysArgs();
 		}
 
 		private class SpellInfo
