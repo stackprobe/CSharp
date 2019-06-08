@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace Charlotte.Tools
 {
@@ -24,6 +25,75 @@ namespace Charlotte.Tools
 			this.ArgIndex = argIndex;
 
 			this.ReadSysArgs();
+		}
+
+		private void ReadSysArgs()
+		{
+			while (this.HasArgs())
+			{
+				if (this.ArgIs("//$")) // 読み込み中止
+				{
+					break;
+				}
+				if (this.ArgIs("//F"))
+				{
+					string text = File.ReadAllText(this.NextArg(), StringTools.ENCODING_SJIS);
+					string[] subArgs = TokenizeArgs(text);
+
+					this.Args = this.Args.Concat(subArgs).ToArray();
+					continue;
+				}
+				if (this.ArgIs("//R"))
+				{
+					string[] subArgs = File.ReadAllLines(this.NextArg(), StringTools.ENCODING_SJIS);
+
+					this.Args = this.Args.Concat(subArgs).ToArray();
+					continue;
+				}
+				break;
+			}
+		}
+
+		private static string[] TokenizeArgs(string str)
+		{
+			List<string> args = new List<string>();
+			StringBuilder buff = new StringBuilder();
+			bool literalMode = false;
+
+			for (int index = 0; index < str.Length; index++)
+			{
+				char chr = str[index];
+
+				if (literalMode)
+				{
+					if (chr == '"')
+					{
+						literalMode = false;
+						continue;
+					}
+				}
+				else
+				{
+					if (chr <= ' ')
+					{
+						args.Add(buff.ToString());
+						buff = new StringBuilder();
+						continue;
+					}
+					if (chr == '"')
+					{
+						literalMode = true;
+						continue;
+					}
+				}
+
+				if (chr == '\\')
+					chr = str[++index];
+
+				buff.Append(chr);
+			}
+			args.Add(buff.ToString());
+			return args.ToArray();
 		}
 
 		private class SpellInfo
