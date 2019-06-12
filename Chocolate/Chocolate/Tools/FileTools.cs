@@ -24,7 +24,7 @@ namespace Charlotte.Tools
 					}
 					catch (Exception e)
 					{
-						ProcMain.WriteLog(e);
+						ProcMain.WriteLog(e + " <---- 例外ここまで、処理を続行します。");
 					}
 					if (File.Exists(path) == false)
 						break;
@@ -46,7 +46,7 @@ namespace Charlotte.Tools
 					}
 					catch (Exception e)
 					{
-						ProcMain.WriteLog(e);
+						ProcMain.WriteLog(e + " <---- 例外ここまで、処理を続行します。");
 					}
 					if (Directory.Exists(path) == false)
 						break;
@@ -73,7 +73,7 @@ namespace Charlotte.Tools
 				}
 				catch (Exception e)
 				{
-					ProcMain.WriteLog(e);
+					ProcMain.WriteLog(e + " <---- 例外ここまで、処理を続行します。");
 				}
 				if (Directory.Exists(dir))
 					break;
