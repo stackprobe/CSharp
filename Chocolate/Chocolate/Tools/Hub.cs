@@ -11,25 +11,12 @@ namespace Charlotte.Tools
 	/// </summary>
 	public class Hub
 	{
-		public static Type GetType(string typeName)
-		{
-			foreach (string prefix in new string[] { "", "Charlotte." }) // zantei
-			{
-				foreach (string suffix in new string[] { "," + Assembly.GetEntryAssembly().GetName().Name, "" }) // zantei
-				{
-					Type type = Type.GetType(prefix + typeName + suffix);
-
-					if (type != null)
-						return type;
-				}
-			}
-			throw new Exception("指定されたタイプは見つかりません。" + typeName);
-		}
-
 		private ObjectMap Vars = ObjectMap.CreateIgnoreCase();
 
 		public void Perform(ArgsReader ar)
 		{
+			this.Vars.Add("Hub", this);
+
 			do
 			{
 				string option1 = ar.NextArg();
@@ -101,6 +88,21 @@ namespace Charlotte.Tools
 			while (ar.HasArgs());
 		}
 
+		private static Type GetType(string typeName)
+		{
+			foreach (string prefix in new string[] { "", "Charlotte." }) // zantei
+			{
+				foreach (string suffix in new string[] { "," + Assembly.GetEntryAssembly().GetName().Name, "" }) // zantei
+				{
+					Type type = Type.GetType(prefix + typeName + suffix);
+
+					if (type != null)
+						return type;
+				}
+			}
+			throw new Exception("指定されたタイプは見つかりません。" + typeName);
+		}
+
 		private object[] ReadParams(ArgsReader ar)
 		{
 			List<object> prms = new List<object>();
@@ -117,6 +119,20 @@ namespace Charlotte.Tools
 					prms.Add(prm);
 			}
 			return prms.ToArray();
+		}
+
+		// コマンドラインから使うメソッド ...
+
+		public void Set(string varName, string fieldName, object value) // Hub . Set <変数> <フィールド名> <フィールドに代入する値> ;
+		{
+			object instance = this.Vars[varName];
+
+			ReflectTools.GetFieldByInstance(instance, fieldName).SetValue(instance, value);
+		}
+
+		public void SetInt(string varName, string fieldName, string value) // Hub . SetInt <変数> <フィールド名> <フィールドに代入する整数> ;
+		{
+			this.Set(varName, fieldName, int.Parse(value));
 		}
 	}
 }

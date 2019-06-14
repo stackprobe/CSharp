@@ -21,6 +21,7 @@ namespace Charlotte.Tools
 		public static string SelfDir;
 
 		public static ArgsReader ArgsReader;
+		public static bool CUIError = false;
 
 		public static void CUIMain(Action<ArgsReader> mainFunc, string appIdent, string appTitle)
 		{
@@ -45,6 +46,7 @@ namespace Charlotte.Tools
 			catch (Exception e)
 			{
 				WriteLog(e);
+				CUIError = true;
 			}
 		}
 
