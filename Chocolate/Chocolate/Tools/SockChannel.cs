@@ -90,7 +90,6 @@ namespace Charlotte.Tools
 				Critical.Unsection(() => Thread.Sleep(waitMillis));
 
 				idleMillis += waitMillis;
-
 			}
 		}
 

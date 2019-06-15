@@ -53,7 +53,7 @@ namespace Charlotte
 			//new StringToolsTest().Test03();
 			//new StringToolsTest().Test04();
 			//new StringToolsTest().Test05();
-			new StringToolsTest().Test06();
+			//new StringToolsTest().Test06();
 			//new FileToolsTest().Test01();
 			//new FileToolsTest().Test02();
 			//new FileToolsTest().Test03();
@@ -66,7 +66,7 @@ namespace Charlotte
 			//new HTTPClientTest().Test01();
 			//new HTTPClientTest().Test02();
 			//new HTTPServerTest().Test01();
-			//new HTTPServerTest().Test02();
+			new HTTPServerTest().Test02();
 			//new ReflectToolsTest().Test01();
 			//new ReflectToolsTest().Test02();
 			//new ReflectToolsTest().Test02b();
