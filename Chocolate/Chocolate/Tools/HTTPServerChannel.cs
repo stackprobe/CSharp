@@ -173,7 +173,7 @@ namespace Charlotte.Tools
 		}
 
 		public static int BodySizeMax = 300000000; // 300 MB
-		public static int RecvSizeMax = 3000000; // 3 MB
+		public static int BuffSize = 3000000; // 3 MB
 
 		private void RecvBody()
 		{
@@ -207,7 +207,7 @@ namespace Charlotte.Tools
 						int chunkEnd = buff.Count + size;
 
 						while (buff.Count < chunkEnd)
-							buff.Write(this.Channel.Recv(Math.Min(RecvSizeMax, chunkEnd - buff.Count)));
+							buff.Write(this.Channel.Recv(Math.Min(BuffSize, chunkEnd - buff.Count)));
 
 						this.Channel.Recv(2); // CR-LF
 					}
@@ -221,7 +221,7 @@ namespace Charlotte.Tools
 						throw new Exception("ボディサイズが大きすぎます。" + this.ContentLength);
 
 					while (buff.Count < this.ContentLength)
-						buff.Write(this.Channel.Recv(Math.Min(RecvSizeMax, this.ContentLength - buff.Count)));
+						buff.Write(this.Channel.Recv(Math.Min(BuffSize, this.ContentLength - buff.Count)));
 				}
 				this.Body = buff.ToByteArray();
 			}
