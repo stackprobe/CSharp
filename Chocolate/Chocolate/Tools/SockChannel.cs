@@ -16,14 +16,36 @@ namespace Charlotte.Tools
 		public void PostSetHandler()
 		{
 			this.Handler.Blocking = false;
+			this.ConnectedTime = DateTime.Now;
 		}
+
+		private DateTime ConnectedTime;
 
 		public static bool StopFlag = false;
 
 		/// <summary>
-		/// 無通信タイムアウト_ミリ秒
+		/// セッションタイムアウト_ミリ秒
+		/// -1 == INFINITE
 		/// </summary>
-		public int IdleTimeoutMillis = 180000; // 3 min // -1 == INFINITE
+		public int SessionTimeoutMillis = -1;
+
+		/// <summary>
+		/// 無通信タイムアウト_ミリ秒
+		/// -1 == INFINITE
+		/// </summary>
+		public int IdleTimeoutMillis = 180000; // 3 min
+
+		private void PreRecvSend()
+		{
+			if (StopFlag)
+			{
+				throw new Exception("停止リクエスト");
+			}
+			if (this.SessionTimeoutMillis != -1 && DateTime.Now < this.ConnectedTime + new TimeSpan((long)this.SessionTimeoutMillis * 10000L))
+			{
+				throw new SessionTimeoutException();
+			}
+		}
 
 		public byte[] Recv(int size)
 		{
@@ -59,10 +81,8 @@ namespace Charlotte.Tools
 
 			for (; ; )
 			{
-				if (StopFlag)
-				{
-					throw new Exception("受信エラー(停止リクエスト)");
-				}
+				this.PreRecvSend();
+
 				try
 				{
 					int recvSize = this.Handler.Receive(data, offset, size, SocketFlags.None);
@@ -93,6 +113,9 @@ namespace Charlotte.Tools
 			}
 		}
 
+		public class SessionTimeoutException : Exception
+		{ }
+
 		public class IdleTimeoutException : Exception
 		{ }
 
@@ -121,10 +144,8 @@ namespace Charlotte.Tools
 
 			for (; ; )
 			{
-				if (StopFlag)
-				{
-					throw new Exception("送信エラー(停止リクエスト)");
-				}
+				this.PreRecvSend();
+
 				try
 				{
 					int sentSize = this.Handler.Send(data, offset, size, SocketFlags.None);

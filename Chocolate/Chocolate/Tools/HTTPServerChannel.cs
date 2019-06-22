@@ -11,9 +11,28 @@ namespace Charlotte.Tools
 		public SockChannel Channel;
 		public HandleDam HDam;
 
+		/// <summary>
+		/// セッションタイムアウト_ミリ秒
+		/// -1 == INFINITE
+		/// </summary>
+		public static int SessionTimeoutMillis = -1;
+
+		/// <summary>
+		/// 最初の行のみの無通信タイムアウト_ミリ秒
+		/// -1 == INFINITE
+		/// </summary>
+		public static int FirstLineTimeoutMillis = 2000;
+
+		/// <summary>
+		/// 最初の行以降の無通信タイムアウト_ミリ秒
+		/// -1 == INFINITE
+		/// </summary>
+		public static int IdleTimeoutMillis = 180000; // 3 min
+
 		public void RecvRequest()
 		{
-			this.Channel.IdleTimeoutMillis = 2000;
+			this.Channel.SessionTimeoutMillis = SessionTimeoutMillis;
+			this.Channel.IdleTimeoutMillis = FirstLineTimeoutMillis;
 
 			try
 			{
@@ -32,7 +51,7 @@ namespace Charlotte.Tools
 				this.HTTPVersion = tokens[2];
 			}
 
-			this.Channel.IdleTimeoutMillis = 180000; // 3 min
+			this.Channel.IdleTimeoutMillis = IdleTimeoutMillis;
 
 			this.RecvHeader();
 			this.CheckHeader();
