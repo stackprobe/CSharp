@@ -12,10 +12,16 @@ namespace Charlotte.Tools
 		public HandleDam HDam;
 
 		/// <summary>
-		/// セッションタイムアウト_ミリ秒
+		/// 要求タイムアウト_ミリ秒
 		/// -1 == INFINITE
 		/// </summary>
-		public static int SessionTimeoutMillis = -1;
+		public static int RequestTimeoutMillis = -1;
+
+		/// <summary>
+		/// 応答タイムアウト_ミリ秒
+		/// -1 == INFINITE
+		/// </summary>
+		public static int ResponseTimeoutMillis = -1;
 
 		/// <summary>
 		/// 最初の行のみの無通信タイムアウト_ミリ秒
@@ -31,7 +37,7 @@ namespace Charlotte.Tools
 
 		public void RecvRequest()
 		{
-			this.Channel.SessionTimeoutMillis = SessionTimeoutMillis;
+			this.Channel.SessionTimeoutTime = TimeoutMillisToDateTime(RequestTimeoutMillis);
 			this.Channel.IdleTimeoutMillis = FirstLineTimeoutMillis;
 
 			try
@@ -62,6 +68,14 @@ namespace Charlotte.Tools
 				this.SendLine("");
 			}
 			this.RecvBody();
+		}
+
+		private static DateTime? TimeoutMillisToDateTime(int millis)
+		{
+			if (millis == -1)
+				return null;
+
+			return DateTime.Now + new TimeSpan((long)millis * 10000L);
 		}
 
 		public class RecvFirstLineIdleTimeoutException : Exception
@@ -273,6 +287,9 @@ namespace Charlotte.Tools
 
 		public void SendResponse()
 		{
+			this.Body = null;
+			this.Channel.SessionTimeoutTime = TimeoutMillisToDateTime(ResponseTimeoutMillis);
+
 			this.SendLine("HTTP/1.1 " + this.ResStatus + " Chocolate Cake");
 
 			if (this.ResServer != null)

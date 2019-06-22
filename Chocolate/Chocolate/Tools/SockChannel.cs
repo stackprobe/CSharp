@@ -16,18 +16,15 @@ namespace Charlotte.Tools
 		public void PostSetHandler()
 		{
 			this.Handler.Blocking = false;
-			this.ConnectedTime = DateTime.Now;
 		}
-
-		private DateTime ConnectedTime;
 
 		public static bool StopFlag = false;
 
 		/// <summary>
-		/// セッションタイムアウト_ミリ秒
-		/// -1 == INFINITE
+		/// セッションタイムアウト日時
+		/// null == INFINITE
 		/// </summary>
-		public int SessionTimeoutMillis = -1;
+		public DateTime? SessionTimeoutTime = null;
 
 		/// <summary>
 		/// 無通信タイムアウト_ミリ秒
@@ -41,7 +38,7 @@ namespace Charlotte.Tools
 			{
 				throw new Exception("停止リクエスト");
 			}
-			if (this.SessionTimeoutMillis != -1 && DateTime.Now < this.ConnectedTime + new TimeSpan((long)this.SessionTimeoutMillis * 10000L))
+			if (this.SessionTimeoutTime != null && this.SessionTimeoutTime.Value < DateTime.Now)
 			{
 				throw new SessionTimeoutException();
 			}
