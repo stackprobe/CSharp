@@ -153,7 +153,12 @@ namespace Charlotte.Tools
 
 		public static object Decode(byte[] src)
 		{
-			return Decode(GetEncoding(src).GetString(src)); // src に BOM が付いている場合、encoding.GetString(src) にも BOM が付く！
+			return Decode(ToJsonString(src));
+		}
+
+		public static string ToJsonString(byte[] src)
+		{
+			return GetEncoding(src).GetString(src); // src に BOM が付いている場合、encoding.GetString(src) にも BOM が付く！
 		}
 
 		private static Encoding GetEncoding(byte[] src)
@@ -181,7 +186,11 @@ namespace Charlotte.Tools
 
 		public static object Decode(string src)
 		{
-			return new Decoder() { Src = src }.GetObject();
+			return new Decoder()
+			{
+				Src = src,
+			}
+			.GetObject();
 		}
 
 		private class Decoder

@@ -13,6 +13,9 @@ namespace Charlotte.Tools
 			if (root == null)
 				return null;
 
+			if (root is string) // string も IEnumerable
+				return root;
+
 			if (root is IDictionary) // IDictionary は IEnumerable を継承しているので、先に。
 			{
 				ObjectMap om = ObjectMap.Create();
