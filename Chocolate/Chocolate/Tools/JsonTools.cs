@@ -153,12 +153,7 @@ namespace Charlotte.Tools
 
 		public static object Decode(byte[] src)
 		{
-			return Decode(ToJsonString(src));
-		}
-
-		public static string ToJsonString(byte[] src)
-		{
-			return GetEncoding(src).GetString(src); // src に BOM が付いている場合、encoding.GetString(src) にも BOM が付く！
+			return Decode(GetEncoding(src).GetString(src)); // src に BOM が付いている場合、encoding.GetString(src) にも BOM が付く！
 		}
 
 		private static Encoding GetEncoding(byte[] src)
@@ -333,7 +328,9 @@ namespace Charlotte.Tools
 						}
 						buff.Append(chr);
 					}
-					return buff.ToString();
+					string str = buff.ToString();
+					str = DecodeStringFilter(str);
+					return str;
 				}
 
 				{
@@ -357,11 +354,15 @@ namespace Charlotte.Tools
 						}
 						buff.Append(chr);
 					}
-					Word word = new Word() { Value = buff.ToString().Trim() };
+					Word word = new Word()
+					{
+						Value = buff.ToString().Trim(),
+					};
 
 					if (word.IsFairJsonWord() == false)
 						ProcMain.WriteLog("JSON format warning: value is not fair JSON word");
 
+					word.Value = DecodeStringFilter(word.Value);
 					return word;
 				}
 			}
@@ -390,5 +391,7 @@ namespace Charlotte.Tools
 				return StringTools.LiteValidate(this.Value, StringTools.DECIMAL + "+-.Ee");
 			}
 		}
+
+		public static Func<string, string> DecodeStringFilter = str => str;
 	}
 }
