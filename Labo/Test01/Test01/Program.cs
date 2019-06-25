@@ -22,7 +22,8 @@ namespace Test01
 				//Test06();
 				//Test07();
 				//Test07_B();
-				Test08();
+				//Test08();
+				Test09();
 				//new DateSpanListTest().Test01();
 				//new NamesToGroupDateSpansTest().Test01();
 				//new NamesToGroupDateSpansTest().Test02();
@@ -289,6 +290,18 @@ Test02_a_a: { X = 3 }
 			{
 				Console.WriteLine(q.Dequeue());
 			}
+		}
+
+		private static void Test09()
+		{
+			byte[] bytes = new byte[256];
+
+			for (int index = 0; index < 256; index++)
+				bytes[index] = (byte)index;
+
+			string str = Encoding.ASCII.GetString(bytes);
+
+			Console.WriteLine("[" + str + "]");
 		}
 	}
 }
