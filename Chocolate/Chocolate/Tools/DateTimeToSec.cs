@@ -167,18 +167,28 @@ namespace Charlotte.Tools
 
 			public static long GetDateTime()
 			{
-				DateTime dt = DateTime.Now;
-
-				return
-					10000000000L * dt.Year +
-					100000000L * dt.Month +
-					1000000L * dt.Day +
-					10000L * dt.Hour +
-					100L * dt.Minute +
-					dt.Second;
+				return ToDateTime(DateTime.Now);
 			}
 		}
 
 		public static readonly long POSIX_ZERO = ToSec(19700101000000L);
+
+		// ここから C# のみ
+
+		public static long ToSec(DateTime dt)
+		{
+			return ToSec(ToDateTime(dt));
+		}
+
+		public static long ToDateTime(DateTime dt)
+		{
+			return
+				10000000000L * dt.Year +
+				100000000L * dt.Month +
+				1000000L * dt.Day +
+				10000L * dt.Hour +
+				100L * dt.Minute +
+				dt.Second;
+		}
 	}
 }

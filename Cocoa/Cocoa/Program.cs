@@ -32,7 +32,8 @@ namespace Charlotte
 			//new ArrayUtilsTest().Test01();
 			//new CsvFileSorterTest().Test01();
 			//new Charlotte.wb.t20190313.Tests.EnumerableTrainTest().Test01();
-			new Charlotte.wb.t20190513.Test0001().Test01();
+			//new Charlotte.wb.t20190513.Test0001().Test01();
+			new Charlotte.wb.t20190630.Test0001().Test01();
 		}
 	}
 }

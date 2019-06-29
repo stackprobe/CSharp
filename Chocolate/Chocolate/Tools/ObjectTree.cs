@@ -13,6 +13,13 @@ namespace Charlotte.Tools
 			if (root == null)
 				return null;
 
+			if (root.GetType().IsPrimitive)
+			{
+				return new JsonTools.Word()
+				{
+					Value = root.ToString(),
+				};
+			}
 			if (root is string) // string も IEnumerable
 				return root;
 

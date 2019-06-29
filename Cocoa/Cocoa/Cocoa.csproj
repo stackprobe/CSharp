@@ -63,6 +63,7 @@
     <Compile Include="wb\t20190313\EnumerableTrain.cs" />
     <Compile Include="wb\t20190313\Tests\EnumerableTrainTest.cs" />
     <Compile Include="wb\t20190513\Test0001.cs" />
+    <Compile Include="wb\t20190630\Test0001.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

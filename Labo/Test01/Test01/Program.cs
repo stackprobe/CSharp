@@ -23,7 +23,8 @@ namespace Test01
 				//Test07();
 				//Test07_B();
 				//Test08();
-				Test09();
+				//Test09();
+				Test10();
 				//new DateSpanListTest().Test01();
 				//new NamesToGroupDateSpansTest().Test01();
 				//new NamesToGroupDateSpansTest().Test02();
@@ -302,6 +303,11 @@ Test02_a_a: { X = 3 }
 			string str = Encoding.ASCII.GetString(bytes);
 
 			Console.WriteLine("[" + str + "]");
+		}
+
+		private static void Test10()
+		{
+			Console.WriteLine(DateTime.Now.Ticks / 10000000.0);
 		}
 	}
 }
