@@ -10,16 +10,24 @@ namespace Charlotte.Tools
 	{
 		public static object Conv(object root)
 		{
-			if (root == null)
-				return null;
+			// for JsonTools.Encode() {
 
-			if (root.GetType().IsPrimitive) // for JsonTools.Encode()
+			if (root == null)
 			{
 				return new JsonTools.Word()
 				{
-					Value = root.ToString(),
+					Value = "null",
 				};
 			}
+			if (root.GetType().IsPrimitive)
+			{
+				return new JsonTools.Word()
+				{
+					Value = root.ToString().ToLower(),
+				};
+			}
+
+			// }
 
 			if (root is string) // string も IEnumerable
 				return root;

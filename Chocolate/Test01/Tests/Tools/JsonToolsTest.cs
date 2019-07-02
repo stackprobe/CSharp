@@ -81,6 +81,7 @@ namespace Charlotte.Tests.Tools
 				789L,
 				123.456,
 				789.012F,
+				null,
 			}
 			)));
 		}
