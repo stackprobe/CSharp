@@ -68,5 +68,21 @@ namespace Charlotte.Tests.Tools
 			//Console.WriteLine(">2 " + ret2);
 			//Console.WriteLine(">3 " + ret3);
 		}
+
+		public void Test03()
+		{
+			Console.WriteLine(JsonTools.Encode(ObjectTree.Conv(new object[]
+			{
+				"String",
+				true,
+				false,
+				123,
+				(Int16)456,
+				789L,
+				123.456,
+				789.012F,
+			}
+			)));
+		}
 	}
 }
