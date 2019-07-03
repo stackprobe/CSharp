@@ -227,8 +227,15 @@ namespace Charlotte.Tools
 				return GetObject(this.NextNS());
 			}
 
+			private int ObjectCount = 0;
+
 			public object GetObject(char chr)
 			{
+				if (DecodeObjectCountMax != -1 && DecodeObjectCountMax <= this.ObjectCount)
+					throw new Exception("JSON format error: over " + DecodeObjectCountMax + " objects");
+
+				this.ObjectCount++;
+
 				if (chr == '{')
 				{
 					ObjectMap om = ObjectMap.CreateIgnoreCase();
@@ -393,5 +400,6 @@ namespace Charlotte.Tools
 		}
 
 		public static Func<string, string> DecodeStringFilter = str => str;
+		public static int DecodeObjectCountMax = -1;
 	}
 }
