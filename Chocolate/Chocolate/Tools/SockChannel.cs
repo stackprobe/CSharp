@@ -27,6 +27,12 @@ namespace Charlotte.Tools
 		public DateTime? SessionTimeoutTime = null;
 
 		/// <summary>
+		/// セッションタイムアウト日時２
+		/// null == INFINITE
+		/// </summary>
+		public DateTime? SessionTimeoutTime2 = null;
+
+		/// <summary>
 		/// 無通信タイムアウト_ミリ秒
 		/// -1 == INFINITE
 		/// </summary>
@@ -39,6 +45,10 @@ namespace Charlotte.Tools
 				throw new Exception("停止リクエスト");
 			}
 			if (this.SessionTimeoutTime != null && this.SessionTimeoutTime.Value < DateTime.Now)
+			{
+				throw new SessionTimeoutException();
+			}
+			if (this.SessionTimeoutTime2 != null && this.SessionTimeoutTime2.Value < DateTime.Now)
 			{
 				throw new SessionTimeoutException();
 			}
