@@ -27,7 +27,7 @@ namespace Charlotte.Tools
 		/// チャンク毎の応答タイムアウト_ミリ秒
 		/// -1 == INFINITE
 		/// </summary>
-		public static int ChunkTimeoutMillis = -1;
+		public static int ResponseChunkTimeoutMillis = -1;
 
 		/// <summary>
 		/// リクエストの最初の行のみの無通信タイムアウト_ミリ秒
@@ -44,7 +44,6 @@ namespace Charlotte.Tools
 		public void RecvRequest()
 		{
 			this.Channel.SessionTimeoutTime = TimeoutMillisToDateTime(RequestTimeoutMillis);
-			this.Channel.SessionTimeoutTime2 = TimeoutMillisToDateTime(ChunkTimeoutMillis);
 			this.Channel.IdleTimeoutMillis = FirstLineTimeoutMillis;
 
 			try
@@ -223,8 +222,6 @@ namespace Charlotte.Tools
 				{
 					for (; ; )
 					{
-						this.Channel.SessionTimeoutTime2 = TimeoutMillisToDateTime(ChunkTimeoutMillis);
-
 						string line = this.RecvLine();
 
 						// chunk-extension の削除
@@ -258,8 +255,6 @@ namespace Charlotte.Tools
 				}
 				else
 				{
-					this.Channel.SessionTimeoutTime2 = null;
-
 					if (this.ContentLength < 0)
 						throw new Exception("不正なボディサイズです。" + this.ContentLength);
 
@@ -302,7 +297,7 @@ namespace Charlotte.Tools
 		{
 			this.Body = null;
 			this.Channel.SessionTimeoutTime = TimeoutMillisToDateTime(ResponseTimeoutMillis);
-			this.Channel.SessionTimeoutTime2 = TimeoutMillisToDateTime(ChunkTimeoutMillis);
+			this.Channel.SessionTimeoutTime2 = TimeoutMillisToDateTime(ResponseChunkTimeoutMillis);
 
 			this.SendLine("HTTP/1.1 " + this.ResStatus + " Chocolate Cake");
 
@@ -333,7 +328,7 @@ namespace Charlotte.Tools
 
 						do
 						{
-							this.Channel.SessionTimeoutTime2 = TimeoutMillisToDateTime(ChunkTimeoutMillis);
+							this.Channel.SessionTimeoutTime2 = TimeoutMillisToDateTime(ResponseChunkTimeoutMillis);
 
 							SendChunk(resBodyIte.Current);
 						}
