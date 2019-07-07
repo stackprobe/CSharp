@@ -23,11 +23,7 @@ namespace Charlotte.Tools
 		/// </summary>
 		public static int ResponseTimeoutMillis = -1;
 
-		/// <summary>
-		/// チャンク毎の応答タイムアウト_ミリ秒
-		/// -1 == INFINITE
-		/// </summary>
-		public static int ResponseChunkTimeoutMillis = -1;
+		// memo: チャンク毎のタイムアウトは IdleTimeoutMillis で代替する。
 
 		/// <summary>
 		/// リクエストの最初の行のみの無通信タイムアウト_ミリ秒
@@ -297,7 +293,6 @@ namespace Charlotte.Tools
 		{
 			this.Body = null;
 			this.Channel.SessionTimeoutTime = TimeoutMillisToDateTime(ResponseTimeoutMillis);
-			this.Channel.SessionTimeoutTime2 = TimeoutMillisToDateTime(ResponseChunkTimeoutMillis);
 
 			this.SendLine("HTTP/1.1 " + this.ResStatus + " Chocolate Cake");
 
@@ -328,8 +323,6 @@ namespace Charlotte.Tools
 
 						do
 						{
-							this.Channel.SessionTimeoutTime2 = TimeoutMillisToDateTime(ResponseChunkTimeoutMillis);
-
 							SendChunk(resBodyIte.Current);
 						}
 						while (resBodyIte.MoveNext());
@@ -339,8 +332,6 @@ namespace Charlotte.Tools
 					}
 					else
 					{
-						this.Channel.SessionTimeoutTime2 = null;
-
 						this.SendLine("Content-Length: " + first.Length);
 						this.EndHeader();
 						this.Channel.Send(first);
