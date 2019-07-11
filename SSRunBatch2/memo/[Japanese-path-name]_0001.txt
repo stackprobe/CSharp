@@ -1,22 +1,22 @@
-..\..\SSRunBatch\memo\[00]_�v���f�[�^.txt �Ɠ����B
+..\..\SSRunBatch\memo\[00]_要求データ.txt と同じ。
 
-�A���A�ŏ��̃R�}���h�� REM SSRunBatch_Meta=TSR �ɂ���Ə풓���[�h�Ńo�b�`�t�@�C�������s����B
+但し、最初のコマンドを REM SSRunBatch_Meta=TSR にすると常駐モードでバッチファイルを実行する。
 
 
 - - -
-�풓���[�h
+常駐モード
 
-�����t�@�C�����w�肵�Ă͂Ȃ�Ȃ��B
+応答ファイルを指定してはならない。
 
-�o�b�`�t�@�C���̏I����҂����ɉ�������B
+バッチファイルの終了を待たずに応答する。
 
-WSSRBServer.exe (SSRBServer.exe /TSR-SERVER) �̏I�������o�b�`�t�@�C���̏I����҂��Ȃ��B
+WSSRBServer.exe (SSRBServer.exe /TSR-SERVER) の終了時もバッチファイルの終了を待たない。
 
-	-----> SSRBServer.exe /TSR �����b�v����`�ŌĂяo���A��Еt�����s���̂ŁA����ɓ��삷��΃S�~�t�@�C�����c�邱�Ƃ͂Ȃ��B
-		SSRBServer.exe �������I��������A�o�b�`�t�@�C�����s���ɃV���b�g�_�E�������ꍇ�A���̌���ł͂Ȃ��B
+	-----> SSRBServer.exe /TSR がラップする形で呼び出し、後片付けを行うので、正常に動作すればゴミファイルが残ることはない。
+		SSRBServer.exe を強制終了したり、バッチファイル実行中にシャットダウンした場合、この限りではない。
 
-�����f�[�^
-	�����t�@�C���� = 0
-	�W���o�͍s��   = 1
-	�W���o�͍s[0]  = TSR OK
+応答データ
+	応答ファイル数 = 0
+	標準出力行数   = 1
+	標準出力行[0]  = TSR OK
 

@@ -1,8 +1,8 @@
 ----
 
-MainWin_FormClosed �C�x���g���� AfterWin ��\�����Ă��ǂ����ۂ��B-> t0001
+MainWin_FormClosed イベント中に AfterWin を表示しても良いっぽい。-> t0001
 
 ----
 
-WinAfterMainWin �́AMainWin ���ŏ������ă^�X�N�o�[�E�E�N���b�N�E����ŕ���� AfterWin ���\������Ȃ����Ƃ�����B
-�C���ĂƂ��āAWinAfterMainWin_Kai
+WinAfterMainWin は、MainWin を最小化してタスクバー・右クリック・閉じるで閉じると AfterWin が表示されないことがある。
+修正案として、WinAfterMainWin_Kai

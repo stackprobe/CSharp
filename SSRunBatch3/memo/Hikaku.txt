@@ -1,12 +1,12 @@
-              —v‹ƒtƒ@ƒCƒ‹
-              ‰ž“šƒtƒ@ƒCƒ‹
-              ƒRƒ}ƒ“ƒhƒŠƒXƒg
-              (ƒoƒbƒ`ƒtƒ@ƒCƒ‹)
-              •W€o—Í                                                                   ƒT[ƒo[’âŽ~Žž‚É
-              ... ‚ÌƒTƒCƒY§ŒÀ   Ú‘±ƒŠƒgƒ‰ƒC   ƒoƒbƒ`ƒtƒ@ƒCƒ‹ŽÀsŽžŠÔ§ŒÀ   TSR‚É‘Î‰ž   TSR‚à’âŽ~‚·‚é
+              è¦æ±‚ãƒ•ã‚¡ã‚¤ãƒ«
+              å¿œç­”ãƒ•ã‚¡ã‚¤ãƒ«
+              ã‚³ãƒžãƒ³ãƒ‰ãƒªã‚¹ãƒˆ
+              (ãƒãƒƒãƒãƒ•ã‚¡ã‚¤ãƒ«)
+              æ¨™æº–å‡ºåŠ›                                                                   ã‚µãƒ¼ãƒãƒ¼åœæ­¢æ™‚ã«
+              ... ã®ã‚µã‚¤ã‚ºåˆ¶é™   æŽ¥ç¶šãƒªãƒˆãƒ©ã‚¤   ãƒãƒƒãƒãƒ•ã‚¡ã‚¤ãƒ«å®Ÿè¡Œæ™‚é–“åˆ¶é™   TSRã«å¯¾å¿œ   TSRã‚‚åœæ­¢ã™ã‚‹
 ------------------------------------------------------------------------------------------------------
-SSRunBatch    ƒƒ‚ƒŠŽŸ‘æ         ‚µ‚È‚¢         30 •b                        N           -
-SSRunBatch2   2^32 - 1 ƒoƒCƒg    29 ‰ñ          24 “ú                        Y           N
-SSRunBatch3   ƒƒ‚ƒŠŽŸ‘æ         ‚µ‚È‚¢         30 •b                        Y           Y
+SSRunBatch    ãƒ¡ãƒ¢ãƒªæ¬¡ç¬¬         ã—ãªã„         30 ç§’                        N           -
+SSRunBatch2   2^32 - 1 ãƒã‚¤ãƒˆ    29 å›ž          24 æ—¥                        Y           N
+SSRunBatch3   ãƒ¡ãƒ¢ãƒªæ¬¡ç¬¬         ã—ãªã„         30 ç§’                        Y           Y
 - - -
-Chocolate     ƒƒ‚ƒŠŽŸ‘æ         ‚µ‚È‚¢         30 •b
+Chocolate     ãƒ¡ãƒ¢ãƒªæ¬¡ç¬¬         ã—ãªã„         30 ç§’
