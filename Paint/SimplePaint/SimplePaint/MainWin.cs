@@ -283,10 +283,10 @@ namespace Charlotte
 				{
 					string file = SaveLoadDialogs.LoadFile(
 						"画像ファイルを選択して下さい",
-						"",
-						Ground.I.ActiveImageFile == null ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : Path.GetDirectoryName(Ground.I.ActiveImageFile),
-						Ground.I.ActiveImageFile == null ? "Input.png" : Path.GetFileName(Ground.I.ActiveImageFile),
-						dlg => dlg.Filter = "画像ファイル(*.bmp;*.gif;*.jpg;*.jpeg;*.png)|*.bmp;*.gif;*.jpg;*.jpeg;*.png|すべてのファイル(*.*)|*.*"
+						"画像:bmp.gif.jpg.jpeg.png",
+						Ground.I.ActiveImageFile == null ?
+							Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Input.png") :
+							Ground.I.ActiveImageFile
 						);
 
 					if (file != null)
@@ -306,7 +306,7 @@ namespace Charlotte
 							using (Graphics g = Graphics.FromImage(img2))
 							{
 								g.FillRectangle(Brushes.White, 0, 0, img2.Width, img2.Height);
-								g.DrawImage(img, 0, 0);
+								g.DrawImage(img, new Rectangle(0, 0, img2.Width, img2.Height));
 							}
 							this.MPic_SetImage(img2);
 						}
@@ -335,9 +335,9 @@ namespace Charlotte
 					string file = SaveLoadDialogs.SaveFile(
 						"保存するファイルを入力して下さい",
 						"bmp.gif.jpg.jpeg.png",
-						Ground.I.ActiveImageFile == null ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : Path.GetDirectoryName(Ground.I.ActiveImageFile),
-						Ground.I.ActiveImageFile == null ? "Output.png" : Path.GetFileName(Ground.I.ActiveImageFile),
-						dlg => dlg.FilterIndex = 5
+						Ground.I.ActiveImageFile == null ?
+							Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Output.png") :
+							Ground.I.ActiveImageFile
 						);
 
 					if (file != null)
