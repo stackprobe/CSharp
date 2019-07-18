@@ -61,7 +61,7 @@ namespace Charlotte
 
 			// ----
 
-			this.MTEnabled = true;
+			this.MTBusy.Leave();
 		}
 
 		private void MainWin_FormClosing(object sender, FormClosingEventArgs e)
@@ -71,28 +71,19 @@ namespace Charlotte
 
 		private void MainWin_FormClosed(object sender, FormClosedEventArgs e)
 		{
-			this.MTEnabled = false;
+			this.MTBusy.Enter();
 
 			// ----
 
 			// -- 9999
 		}
 
-		private void BeforeDialog()
-		{
-			this.MTEnabled = false;
-		}
-
-		private void AfterDialog()
-		{
-			this.MTEnabled = true;
-		}
-
 		private void CloseWindow()
 		{
-			// -- 9000
-
+			using (MTBusy.Section())
 			{
+				// -- 9000
+
 				DialogResult ret = MessageBox.Show(
 					"画像ファイルに保存しますか？",
 					"確認",
@@ -106,32 +97,30 @@ namespace Charlotte
 				if (ret == System.Windows.Forms.DialogResult.Yes)
 					if (this.SaveFileUI() == false)
 						return;
+
+				// ----
+
+				this.MTBusy.Enter();
+
+				// ----
+
+				// -- 9900
+
+				// ----
+
+				this.Close();
 			}
-
-			// ----
-
-			this.MTEnabled = false;
-
-			// ----
-
-			// -- 9000_確定
-
-			// ----
-
-			this.Close();
 		}
 
-		private bool MTEnabled;
-		private bool MTBusy;
+		private VisitorCounter MTBusy = new VisitorCounter(1);
 		private long MTCount;
 
 		private void MainTimer_Tick(object sender, EventArgs e)
 		{
-			if (this.MTEnabled == false || this.MTBusy)
+			if (this.MTBusy.HasVisitor())
 				return;
 
-			this.MTBusy = true;
-
+			this.MTBusy.Enter();
 			try
 			{
 				if (this.XPressed)
@@ -148,7 +137,7 @@ namespace Charlotte
 			}
 			finally
 			{
-				this.MTBusy = false;
+				this.MTBusy.Leave();
 				this.MTCount++;
 			}
 		}
@@ -273,8 +262,7 @@ namespace Charlotte
 
 		private void サイズ変更ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			this.BeforeDialog();
-
+			using (this.MTBusy.Section())
 			using (InputSizeDlg f = new InputSizeDlg())
 			{
 				f.RefSize = this.MainPicture.Image.Size;
@@ -285,93 +273,89 @@ namespace Charlotte
 					this.MPic_SetSize(f.RefSize);
 				}
 			}
-			this.AfterDialog();
 		}
 
 		private void ファイル読み込みToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			this.BeforeDialog();
-			this.LoadFileUI();
-			this.AfterDialog();
+			using (this.MTBusy.Section())
+			{
+				try
+				{
+					string file = SaveLoadDialogs.LoadFile(
+						"画像ファイルを選択して下さい",
+						"",
+						Ground.I.ActiveImageFile == null ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : Path.GetDirectoryName(Ground.I.ActiveImageFile),
+						Ground.I.ActiveImageFile == null ? "Input.png" : Path.GetFileName(Ground.I.ActiveImageFile),
+						dlg => dlg.Filter = "画像ファイル(*.bmp;*.gif;*.jpg;*.jpeg;*.png)|*.bmp;*.gif;*.jpg;*.jpeg;*.png|すべてのファイル(*.*)|*.*"
+						);
+
+					if (file != null)
+					{
+						using (Image img = Image.FromFile(file))
+						{
+							if (img.Width != IntTools.Range(img.Width, Consts.MPIC_W_MIN, Consts.MPIC_W_MAX))
+								throw new Exception("画像の幅に問題があります。");
+
+							if (img.Height != IntTools.Range(img.Height, Consts.MPIC_H_MIN, Consts.MPIC_H_MAX))
+								throw new Exception("画像の高さに問題があります。");
+
+							Image img2 = new Bitmap(img.Width, img.Height);
+
+							// ここで例外投げると img2 が宙に浮く -> GC
+
+							using (Graphics g = Graphics.FromImage(img2))
+							{
+								g.FillRectangle(Brushes.White, 0, 0, img2.Width, img2.Height);
+								g.DrawImage(img, 0, 0);
+							}
+							this.MPic_SetImage(img2);
+						}
+						Ground.I.ActiveImageFile = file;
+					}
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show("" + ex, "ファイル読み込み失敗", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				}
+				GC.Collect();
+			}
 		}
 
 		private void ファイル書き出しToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			this.BeforeDialog();
 			this.SaveFileUI();
-			this.AfterDialog();
-		}
-
-		private void LoadFileUI()
-		{
-			try
-			{
-				string file = SaveLoadDialogs.LoadFile(
-					"画像ファイルを選択して下さい",
-					"",
-					Ground.I.ActiveImageFile == null ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : Path.GetDirectoryName(Ground.I.ActiveImageFile),
-					Ground.I.ActiveImageFile == null ? "Input.png" : Path.GetFileName(Ground.I.ActiveImageFile),
-					dlg => dlg.Filter = "画像ファイル(*.bmp;*.gif;*.jpg;*.jpeg;*.png)|*.bmp;*.gif;*.jpg;*.jpeg;*.png|すべてのファイル(*.*)|*.*"
-					);
-
-				if (file != null)
-				{
-					using (Image img = Image.FromFile(file))
-					{
-						if (img.Width != IntTools.Range(img.Width, Consts.MPIC_W_MIN, Consts.MPIC_W_MAX))
-							throw new Exception("画像の幅に問題があります。");
-
-						if (img.Height != IntTools.Range(img.Height, Consts.MPIC_H_MIN, Consts.MPIC_H_MAX))
-							throw new Exception("画像の高さに問題があります。");
-
-						Image img2 = new Bitmap(img.Width, img.Height);
-
-						// ここで例外投げると img2 が宙に浮く -> GC
-
-						using (Graphics g = Graphics.FromImage(img2))
-						{
-							g.FillRectangle(Brushes.White, 0, 0, img2.Width, img2.Height);
-							g.DrawImage(img, 0, 0);
-						}
-						this.MPic_SetImage(img2);
-					}
-					Ground.I.ActiveImageFile = file;
-				}
-			}
-			catch (Exception ex)
-			{
-				MessageBox.Show("" + ex, "ファイル読み込み失敗", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-			}
-			GC.Collect();
 		}
 
 		private bool SaveFileUI()
 		{
-			try
+			using (this.MTBusy.Section())
 			{
-				string file = SaveLoadDialogs.SaveFile(
-					"保存するファイルを入力して下さい",
-					"bmp.gif.jpg.jpeg.png",
-					Ground.I.ActiveImageFile == null ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : Path.GetDirectoryName(Ground.I.ActiveImageFile),
-					Ground.I.ActiveImageFile == null ? "Output.png" : Path.GetFileName(Ground.I.ActiveImageFile),
-					dlg => dlg.FilterIndex = 5
-					);
-
-				if (file != null)
+				try
 				{
-					this.MainPicture.Image.Save(file, CommonUtils.ExtToImageFormat(Path.GetExtension(file)));
+					string file = SaveLoadDialogs.SaveFile(
+						"保存するファイルを入力して下さい",
+						"bmp.gif.jpg.jpeg.png",
+						Ground.I.ActiveImageFile == null ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : Path.GetDirectoryName(Ground.I.ActiveImageFile),
+						Ground.I.ActiveImageFile == null ? "Output.png" : Path.GetFileName(Ground.I.ActiveImageFile),
+						dlg => dlg.FilterIndex = 5
+						);
 
-					Ground.I.ActiveImageFile = file;
+					if (file != null)
+					{
+						this.MainPicture.Image.Save(file, CommonUtils.ExtToImageFormat(Path.GetExtension(file)));
 
-					MessageBox.Show("保存しました。", "成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
-					return true;
+						Ground.I.ActiveImageFile = file;
+
+						MessageBox.Show("保存しました。", "成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
+						return true;
+					}
 				}
+				catch (Exception ex)
+				{
+					MessageBox.Show("" + ex, "ファイル書き出し失敗", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				}
+				return false;
 			}
-			catch (Exception ex)
-			{
-				MessageBox.Show("" + ex, "ファイル書き出し失敗", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-			}
-			return false;
 		}
 	}
 }

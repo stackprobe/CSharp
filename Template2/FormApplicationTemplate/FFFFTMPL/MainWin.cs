@@ -47,19 +47,22 @@ namespace Charlotte
 
 		private void CloseWindow()
 		{
-			// -- 9000
+			using (this.MTBusy.Section())
+			{
+				// -- 9000
 
-			// ----
+				// ----
 
-			this.MTBusy.Enter();
+				this.MTBusy.Enter();
 
-			// ----
+				// ----
 
-			// -- 9900
+				// -- 9900
 
-			// ----
+				// ----
 
-			this.Close();
+				this.Close();
+			}
 		}
 
 		private VisitorCounter MTBusy = new VisitorCounter(1);
