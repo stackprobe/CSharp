@@ -190,13 +190,24 @@ namespace Charlotte
 			w = IntTools.Range(w, Consts.MPIC_W_MIN, Consts.MPIC_W_MAX);
 			h = IntTools.Range(h, Consts.MPIC_H_MIN, Consts.MPIC_H_MAX);
 
-			this.MainPicture.Image = new Bitmap(w, h);
+			Image img = new Bitmap(w, h);
 
-			using (Graphics g = Graphics.FromImage(this.MainPicture.Image))
+			using (Graphics g = Graphics.FromImage(img))
 			{
 				g.FillRectangle(Brushes.White, 0, 0, w, h);
 			}
-			this.MainPicture.Bounds = new Rectangle(0, 0, w, h);
+			this.MPic_SetImage(img);
+		}
+
+		private void MPic_SetImage(Image img)
+		{
+			Image oldImg = this.MainPicture.Image;
+
+			this.MainPicture.Image = img;
+			this.MainPicture.Bounds = new Rectangle(0, 0, img.Width, img.Height);
+
+			if (oldImg != null)
+				oldImg.Dispose();
 		}
 
 		private void MPic_Draw(Action<Graphics> routine)
@@ -262,7 +273,7 @@ namespace Charlotte
 
 		private void サイズ変更ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			this.MTEnabled = false;
+			this.BeforeDialog();
 
 			using (InputSizeDlg f = new InputSizeDlg())
 			{
@@ -274,21 +285,21 @@ namespace Charlotte
 					this.MPic_SetSize(f.RefSize);
 				}
 			}
-			this.MTEnabled = true;
+			this.AfterDialog();
 		}
 
 		private void ファイル読み込みToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			this.MTEnabled = false;
+			this.BeforeDialog();
 			this.LoadFileUI();
-			this.MTEnabled = true;
+			this.AfterDialog();
 		}
 
 		private void ファイル書き出しToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			this.MTEnabled = false;
+			this.BeforeDialog();
 			this.SaveFileUI();
-			this.MTEnabled = true;
+			this.AfterDialog();
 		}
 
 		private void LoadFileUI()
@@ -298,24 +309,32 @@ namespace Charlotte
 				string file = SaveLoadDialogs.LoadFile(
 					"画像ファイルを選択して下さい",
 					"",
-					Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
-					"Input.png",
+					Ground.I.ActiveImageFile == null ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : Path.GetDirectoryName(Ground.I.ActiveImageFile),
+					Ground.I.ActiveImageFile == null ? "Input.png" : Path.GetFileName(Ground.I.ActiveImageFile),
 					dlg => dlg.Filter = "画像ファイル(*.bmp;*.gif;*.jpg;*.jpeg;*.png)|*.bmp;*.gif;*.jpg;*.jpeg;*.png|すべてのファイル(*.*)|*.*"
 					);
 
 				if (file != null)
 				{
-					Image img = Image.FromFile(file);
+					using (Image img = Image.FromFile(file))
+					{
+						if (img.Width != IntTools.Range(img.Width, Consts.MPIC_W_MIN, Consts.MPIC_W_MAX))
+							throw new Exception("画像の幅に問題があります。");
 
-					if (img.Width != IntTools.Range(img.Width, Consts.MPIC_W_MIN, Consts.MPIC_W_MAX))
-						throw new Exception("画像の幅に問題があります。");
+						if (img.Height != IntTools.Range(img.Height, Consts.MPIC_H_MIN, Consts.MPIC_H_MAX))
+							throw new Exception("画像の高さに問題があります。");
 
-					if (img.Height != IntTools.Range(img.Height, Consts.MPIC_H_MIN, Consts.MPIC_H_MAX))
-						throw new Exception("画像の高さに問題があります。");
+						Image img2 = new Bitmap(img.Width, img.Height);
 
-					this.MainPicture.Image = img;
-					this.MainPicture.Bounds = new Rectangle(0, 0, img.Width, img.Height);
+						// ここで例外投げると img2 が宙に浮く -> GC
 
+						using (Graphics g = Graphics.FromImage(img2))
+						{
+							g.FillRectangle(Brushes.White, 0, 0, img2.Width, img2.Height);
+							g.DrawImage(img, 0, 0);
+						}
+						this.MPic_SetImage(img2);
+					}
 					Ground.I.ActiveImageFile = file;
 				}
 			}
@@ -323,6 +342,7 @@ namespace Charlotte
 			{
 				MessageBox.Show("" + ex, "ファイル読み込み失敗", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
+			GC.Collect();
 		}
 
 		private bool SaveFileUI()

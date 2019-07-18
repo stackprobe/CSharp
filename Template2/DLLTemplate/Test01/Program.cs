@@ -16,8 +16,11 @@ namespace Charlotte
 		{
 			ProcMain.CUIMain(new Program().Main2, APP_IDENT, APP_TITLE);
 
-			Console.WriteLine("Press ENTER.");
-			Console.ReadLine();
+			//if (ProcMain.CUIError)
+			{
+				Console.WriteLine("Press ENTER.");
+				Console.ReadLine();
+			}
 		}
 
 		private void Main2(ArgsReader ar)

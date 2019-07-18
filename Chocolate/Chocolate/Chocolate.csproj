@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Tools\AnonyDisposable.cs" />
     <Compile Include="Tools\AttachString.cs" />
     <Compile Include="Tools\AutoList.cs" />
     <Compile Include="Tools\AutoTable.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="Tools\ThreadEx.cs" />
     <Compile Include="Tools\TreeSet.cs" />
     <Compile Include="Tools\VariantTools.cs" />
+    <Compile Include="Tools\VisitorCounter.cs" />
     <Compile Include="Tools\WorkingDir.cs" />
     <Compile Include="Tools\Wrapper.cs" />
     <Compile Include="Tools\XmlNode.cs" />

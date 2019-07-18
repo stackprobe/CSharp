@@ -47,7 +47,7 @@ namespace Charlotte
 
 			this.Visible = false;
 			this.TaskTrayIcon.Visible = true;
-			this.MTEnabled = true;
+			this.MTBusy.Leave();
 		}
 
 		private void MainWin_FormClosing(object sender, FormClosingEventArgs e)
@@ -57,7 +57,7 @@ namespace Charlotte
 
 		private void MainWin_FormClosed(object sender, FormClosedEventArgs e)
 		{
-			this.MTEnabled = false;
+			this.MTBusy.Enter();
 			this.TaskTrayIcon.Visible = false;
 
 			// ----
@@ -65,43 +65,33 @@ namespace Charlotte
 			// -- 9999
 		}
 
-		private void BeforeDialog()
-		{
-			this.MTEnabled = false;
-			this.TaskTrayIcon.Visible = false;
-		}
-
-		private void AfterDialog()
-		{
-			this.TaskTrayIcon.Visible = true;
-			this.MTEnabled = true;
-		}
-
 		private void CloseWindow()
 		{
-			this.MTEnabled = false;
+			// -- 9000
+
+			// ----
+
+			this.MTBusy.Enter();
 			this.TaskTrayIcon.Visible = false;
 
 			// ----
 
-			// -- 9000
+			// -- 9900
 
 			// ----
 
 			this.Close();
 		}
 
-		private bool MTEnabled;
-		private bool MTBusy;
+		private VisitorCounter MTBusy = new VisitorCounter(1);
 		private long MTCount;
 
 		private void MainTimer_Tick(object sender, EventArgs e)
 		{
-			if (this.MTEnabled == false || this.MTBusy)
+			if (this.MTBusy.HasVisitor())
 				return;
 
-			this.MTBusy = true;
-
+			this.MTBusy.Enter();
 			try
 			{
 				// -- 3001
@@ -118,7 +108,7 @@ namespace Charlotte
 			}
 			finally
 			{
-				this.MTBusy = false;
+				this.MTBusy.Leave();
 				this.MTCount++;
 			}
 		}
