@@ -5,6 +5,9 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.IO;
+using System.Drawing.Imaging;
+using System.Security.Permissions;
 using System.Windows.Forms;
 using Charlotte.Tools;
 
@@ -12,6 +15,26 @@ namespace Charlotte
 {
 	public partial class MainWin : Form
 	{
+		#region ALT_F4 抑止
+
+		private bool XPressed = false;
+
+		[SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.UnmanagedCode)]
+		protected override void WndProc(ref Message m)
+		{
+			const int WM_SYSCOMMAND = 0x112;
+			const long SC_CLOSE = 0xF060L;
+
+			if (m.Msg == WM_SYSCOMMAND && (m.WParam.ToInt64() & 0xFFF0L) == SC_CLOSE)
+			{
+				this.XPressed = true;
+				return;
+			}
+			base.WndProc(ref m);
+		}
+
+		#endregion
+
 		public MainWin()
 		{
 			InitializeComponent();
@@ -67,11 +90,31 @@ namespace Charlotte
 
 		private void CloseWindow()
 		{
+			// -- 9000
+
+			{
+				DialogResult ret = MessageBox.Show(
+					"画像ファイルに保存しますか？",
+					"確認",
+					MessageBoxButtons.YesNoCancel,
+					MessageBoxIcon.Question
+					);
+
+				if (ret == System.Windows.Forms.DialogResult.Cancel)
+					return;
+
+				if (ret == System.Windows.Forms.DialogResult.Yes)
+					if (this.SaveFileUI() == false)
+						return;
+			}
+
+			// ----
+
 			this.MTEnabled = false;
 
 			// ----
 
-			// -- 9000
+			// -- 9000_確定
 
 			// ----
 
@@ -91,7 +134,13 @@ namespace Charlotte
 
 			try
 			{
-				// -- 3001
+				if (this.XPressed)
+				{
+					this.XPressed = false;
+					this.CloseWindow();
+					return;
+				}
+				this.RefreshSouthWest();
 			}
 			catch (Exception ex)
 			{
@@ -101,6 +150,16 @@ namespace Charlotte
 			{
 				this.MTBusy = false;
 				this.MTCount++;
+			}
+		}
+
+		private void RefreshSouthWest()
+		{
+			{
+				string text = "(" + Ground.I.LastNibX + ", " + Ground.I.LastNibY + ")";
+
+				if (this.SouthWest.Text != text)
+					this.SouthWest.Text = text;
 			}
 		}
 
@@ -121,8 +180,16 @@ namespace Charlotte
 
 		// ---- MPic_ ----
 
+		private void MPic_SetSize(Size size)
+		{
+			this.MPic_SetSize(size.Width, size.Height);
+		}
+
 		private void MPic_SetSize(int w, int h)
 		{
+			w = IntTools.Range(w, Consts.MPIC_W_MIN, Consts.MPIC_W_MAX);
+			h = IntTools.Range(h, Consts.MPIC_H_MIN, Consts.MPIC_H_MAX);
+
 			this.MainPicture.Image = new Bitmap(w, h);
 
 			using (Graphics g = Graphics.FromImage(this.MainPicture.Image))
@@ -191,6 +258,100 @@ namespace Charlotte
 
 			Ground.I.LastNibX = nibX;
 			Ground.I.LastNibY = nibY;
+		}
+
+		private void サイズ変更ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			this.MTEnabled = false;
+
+			using (InputSizeDlg f = new InputSizeDlg())
+			{
+				f.RefSize = this.MainPicture.Image.Size;
+				f.ShowDialog();
+
+				if (f.OkPressed)
+				{
+					this.MPic_SetSize(f.RefSize);
+				}
+			}
+			this.MTEnabled = true;
+		}
+
+		private void ファイル読み込みToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			this.MTEnabled = false;
+			this.LoadFileUI();
+			this.MTEnabled = true;
+		}
+
+		private void ファイル書き出しToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			this.MTEnabled = false;
+			this.SaveFileUI();
+			this.MTEnabled = true;
+		}
+
+		private void LoadFileUI()
+		{
+			try
+			{
+				string file = SaveLoadDialogs.LoadFile(
+					"画像ファイルを選択して下さい",
+					"",
+					Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+					"Input.png",
+					dlg => dlg.Filter = "画像ファイル(*.bmp;*.gif;*.jpg;*.jpeg;*.png)|*.bmp;*.gif;*.jpg;*.jpeg;*.png|すべてのファイル(*.*)|*.*"
+					);
+
+				if (file != null)
+				{
+					Image img = Image.FromFile(file);
+
+					if (img.Width != IntTools.Range(img.Width, Consts.MPIC_W_MIN, Consts.MPIC_W_MAX))
+						throw new Exception("画像の幅に問題があります。");
+
+					if (img.Height != IntTools.Range(img.Height, Consts.MPIC_H_MIN, Consts.MPIC_H_MAX))
+						throw new Exception("画像の高さに問題があります。");
+
+					this.MainPicture.Image = img;
+					this.MainPicture.Bounds = new Rectangle(0, 0, img.Width, img.Height);
+
+					Ground.I.ActiveImageFile = file;
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("" + ex, "ファイル読み込み失敗", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			}
+		}
+
+		private bool SaveFileUI()
+		{
+			try
+			{
+				string file = SaveLoadDialogs.SaveFile(
+					"保存するファイルを入力して下さい",
+					"bmp.gif.jpg.jpeg.png",
+					Ground.I.ActiveImageFile == null ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : Path.GetDirectoryName(Ground.I.ActiveImageFile),
+					Ground.I.ActiveImageFile == null ? "Output.png" : Path.GetFileName(Ground.I.ActiveImageFile),
+					dlg => dlg.FilterIndex = 5
+					);
+
+				if (file != null)
+				{
+					this.MainPicture.Image.Save(file, CommonUtils.ExtToImageFormat(Path.GetExtension(file)));
+
+					Ground.I.ActiveImageFile = file;
+
+					MessageBox.Show("保存しました。", "成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					return true;
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("" + ex, "ファイル書き出し失敗", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			}
+			return false;
 		}
 	}
 }

@@ -54,7 +54,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommonUtils.cs" />
+    <Compile Include="Consts.cs" />
     <Compile Include="Ground.cs" />
+    <Compile Include="InputSizeDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InputSizeDlg.Designer.cs">
+      <DependentUpon>InputSizeDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainWin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,6 +71,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SaveLoadDialog.cs" />
+    <EmbeddedResource Include="InputSizeDlg.resx">
+      <DependentUpon>InputSizeDlg.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainWin.resx">
       <DependentUpon>MainWin.cs</DependentUpon>
     </EmbeddedResource>

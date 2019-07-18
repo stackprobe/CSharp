@@ -21,5 +21,7 @@ namespace Charlotte
 		public bool NibDown = false;
 		public int LastNibX = 0;
 		public int LastNibY = 0;
+
+		public string ActiveImageFile = null;
 	}
 }

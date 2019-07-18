@@ -32,15 +32,19 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWin));
 			this.MainTimer = new System.Windows.Forms.Timer(this.components);
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+			this.アプリToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.終了ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.編集ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.クリアToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.South = new System.Windows.Forms.ToolStripStatusLabel();
 			this.SouthWest = new System.Windows.Forms.ToolStripStatusLabel();
-			this.アプリToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.終了ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.MainPanel = new System.Windows.Forms.Panel();
 			this.MainPicture = new System.Windows.Forms.PictureBox();
-			this.編集ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.クリアToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.サイズ変更ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+			this.ファイル読み込みToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.ファイル書き出しToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			this.MainPanel.SuspendLayout();
@@ -62,6 +66,40 @@
 			this.menuStrip1.Size = new System.Drawing.Size(784, 24);
 			this.menuStrip1.TabIndex = 0;
 			this.menuStrip1.Text = "menuStrip1";
+			// 
+			// アプリToolStripMenuItem
+			// 
+			this.アプリToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.終了ToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.ファイル読み込みToolStripMenuItem,
+            this.ファイル書き出しToolStripMenuItem});
+			this.アプリToolStripMenuItem.Name = "アプリToolStripMenuItem";
+			this.アプリToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
+			this.アプリToolStripMenuItem.Text = "アプリ";
+			// 
+			// 終了ToolStripMenuItem
+			// 
+			this.終了ToolStripMenuItem.Name = "終了ToolStripMenuItem";
+			this.終了ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+			this.終了ToolStripMenuItem.Text = "終了";
+			this.終了ToolStripMenuItem.Click += new System.EventHandler(this.終了ToolStripMenuItem_Click);
+			// 
+			// 編集ToolStripMenuItem
+			// 
+			this.編集ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.クリアToolStripMenuItem,
+            this.サイズ変更ToolStripMenuItem});
+			this.編集ToolStripMenuItem.Name = "編集ToolStripMenuItem";
+			this.編集ToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
+			this.編集ToolStripMenuItem.Text = "編集";
+			// 
+			// クリアToolStripMenuItem
+			// 
+			this.クリアToolStripMenuItem.Name = "クリアToolStripMenuItem";
+			this.クリアToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.クリアToolStripMenuItem.Text = "クリア";
+			this.クリアToolStripMenuItem.Click += new System.EventHandler(this.クリアToolStripMenuItem_Click);
 			// 
 			// statusStrip1
 			// 
@@ -88,21 +126,6 @@
 			this.SouthWest.Size = new System.Drawing.Size(47, 17);
 			this.SouthWest.Text = "Ready...";
 			// 
-			// アプリToolStripMenuItem
-			// 
-			this.アプリToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.終了ToolStripMenuItem});
-			this.アプリToolStripMenuItem.Name = "アプリToolStripMenuItem";
-			this.アプリToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
-			this.アプリToolStripMenuItem.Text = "アプリ";
-			// 
-			// 終了ToolStripMenuItem
-			// 
-			this.終了ToolStripMenuItem.Name = "終了ToolStripMenuItem";
-			this.終了ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-			this.終了ToolStripMenuItem.Text = "終了";
-			this.終了ToolStripMenuItem.Click += new System.EventHandler(this.終了ToolStripMenuItem_Click);
-			// 
 			// MainPanel
 			// 
 			this.MainPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -127,20 +150,31 @@
 			this.MainPicture.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainPicture_MouseMove);
 			this.MainPicture.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainPicture_MouseUp);
 			// 
-			// 編集ToolStripMenuItem
+			// サイズ変更ToolStripMenuItem
 			// 
-			this.編集ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.クリアToolStripMenuItem});
-			this.編集ToolStripMenuItem.Name = "編集ToolStripMenuItem";
-			this.編集ToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
-			this.編集ToolStripMenuItem.Text = "編集";
+			this.サイズ変更ToolStripMenuItem.Name = "サイズ変更ToolStripMenuItem";
+			this.サイズ変更ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.サイズ変更ToolStripMenuItem.Text = "サイズ変更";
+			this.サイズ変更ToolStripMenuItem.Click += new System.EventHandler(this.サイズ変更ToolStripMenuItem_Click);
 			// 
-			// クリアToolStripMenuItem
+			// toolStripMenuItem1
 			// 
-			this.クリアToolStripMenuItem.Name = "クリアToolStripMenuItem";
-			this.クリアToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-			this.クリアToolStripMenuItem.Text = "クリア";
-			this.クリアToolStripMenuItem.Click += new System.EventHandler(this.クリアToolStripMenuItem_Click);
+			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(157, 6);
+			// 
+			// ファイル読み込みToolStripMenuItem
+			// 
+			this.ファイル読み込みToolStripMenuItem.Name = "ファイル読み込みToolStripMenuItem";
+			this.ファイル読み込みToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+			this.ファイル読み込みToolStripMenuItem.Text = "ファイルを開く";
+			this.ファイル読み込みToolStripMenuItem.Click += new System.EventHandler(this.ファイル読み込みToolStripMenuItem_Click);
+			// 
+			// ファイル書き出しToolStripMenuItem
+			// 
+			this.ファイル書き出しToolStripMenuItem.Name = "ファイル書き出しToolStripMenuItem";
+			this.ファイル書き出しToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+			this.ファイル書き出しToolStripMenuItem.Text = "ファイルに保存する";
+			this.ファイル書き出しToolStripMenuItem.Click += new System.EventHandler(this.ファイル書き出しToolStripMenuItem_Click);
 			// 
 			// MainWin
 			// 
@@ -184,6 +218,10 @@
 		private System.Windows.Forms.PictureBox MainPicture;
 		private System.Windows.Forms.ToolStripMenuItem 編集ToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem クリアToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem サイズ変更ToolStripMenuItem;
+		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+		private System.Windows.Forms.ToolStripMenuItem ファイル読み込みToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem ファイル書き出しToolStripMenuItem;
 	}
 }
 
