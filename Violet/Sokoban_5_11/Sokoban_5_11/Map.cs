@@ -122,7 +122,6 @@ namespace Charlotte
 					if (this.Table[x][y].Box && Question.GeneralMap.Table[x][y].DeadZone)
 						return true;
 
-#if true
 			for (int x = 0; x < this.W - 1; x++)
 			{
 				for (int y = 0; y < this.H - 1; y++)
@@ -155,27 +154,19 @@ namespace Charlotte
 						return true;
 				}
 			}
-#else // old
-			for (int x = 0; x < this.W - 1; x++)
+
+			foreach (GeneralMap.DeadLine deadLine in Question.GeneralMap.DeadLines)
 			{
-				for (int y = 0; y < this.H - 1; y++)
-				{
-					if (
-						this.Table[x + 0][y + 0].Box &&
-						this.Table[x + 1][y + 0].Box &&
-						this.Table[x + 0][y + 1].Box &&
-						this.Table[x + 1][y + 1].Box
-						)
-						if (
-							this.Table[x + 0][y + 0].Point == false ||
-							this.Table[x + 1][y + 0].Point == false ||
-							this.Table[x + 0][y + 1].Point == false ||
-							this.Table[x + 1][y + 1].Point == false
-							)
-							return true;
-				}
+				int b = 0;
+
+				for (int x = deadLine.X; x <= deadLine.X2; x++)
+					for (int y = deadLine.Y; y <= deadLine.Y2; y++)
+						if (this.Table[x][y].Box)
+							b++;
+
+				if (deadLine.BoxMax < b)
+					return true;
 			}
-#endif
 
 			// TODO もっと厳密に、、
 

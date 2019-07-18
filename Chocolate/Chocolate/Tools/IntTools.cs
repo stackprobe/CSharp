@@ -42,20 +42,17 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public static int[] Sequence(int count)
+		public static IEnumerable<int> Sequence(int count)
 		{
 			return Sequence(0, count);
 		}
 
-		public static int[] Sequence(int firstValue, int count, int step = 1)
+		public static IEnumerable<int> Sequence(int firstValue, int count, int step = 1)
 		{
-			int[] ret = new int[count];
-
 			for (int index = 0; index < count; index++)
 			{
-				ret[index] = firstValue + count * step;
+				yield return firstValue + index * step;
 			}
-			return ret;
 		}
 	}
 }
