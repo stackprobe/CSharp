@@ -77,7 +77,7 @@ namespace Charlotte
 			//new ReflectToolsTest().Test06();
 			//new JsonToolsTest().Test01();
 			//new JsonToolsTest().Test02();
-			new JsonToolsTest().Test03();
+			//new JsonToolsTest().Test03();
 			//new ArrayToolsTest().Test01();
 			//new BinToolsTest().Test01();
 			//new BinToolsTest().Test02();
@@ -109,6 +109,7 @@ namespace Charlotte
 			//new ZipToolsTest().Test01();
 			//new ZipToolsTest().Test02();
 			//new EnumeratorCartridgeTest().Test01();
+			new CanvasTest().Test01();
 		}
 	}
 }

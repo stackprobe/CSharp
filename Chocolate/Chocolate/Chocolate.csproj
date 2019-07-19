@@ -51,6 +51,9 @@
     <Compile Include="Tools\Base64Unit.cs" />
     <Compile Include="Tools\BitList.cs" />
     <Compile Include="Tools\BitTable.cs" />
+    <Compile Include="Tools\Canvas.cs" />
+    <Compile Include="Tools\Canvas2.cs" />
+    <Compile Include="Tools\CanvasTools.cs" />
     <Compile Include="Tools\EnumerableTools.cs" />
     <Compile Include="Tools\ExceptionDam.cs" />
     <Compile Include="Tools\HandleDam.cs" />

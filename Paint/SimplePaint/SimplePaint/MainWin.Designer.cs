@@ -34,17 +34,17 @@
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.アプリToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.終了ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+			this.ファイル読み込みToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.ファイル書き出しToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.編集ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.クリアToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.サイズ変更ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.South = new System.Windows.Forms.ToolStripStatusLabel();
 			this.SouthWest = new System.Windows.Forms.ToolStripStatusLabel();
 			this.MainPanel = new System.Windows.Forms.Panel();
 			this.MainPicture = new System.Windows.Forms.PictureBox();
-			this.サイズ変更ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-			this.ファイル読み込みToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.ファイル書き出しToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			this.MainPanel.SuspendLayout();
@@ -85,6 +85,25 @@
 			this.終了ToolStripMenuItem.Text = "終了";
 			this.終了ToolStripMenuItem.Click += new System.EventHandler(this.終了ToolStripMenuItem_Click);
 			// 
+			// toolStripMenuItem1
+			// 
+			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(157, 6);
+			// 
+			// ファイル読み込みToolStripMenuItem
+			// 
+			this.ファイル読み込みToolStripMenuItem.Name = "ファイル読み込みToolStripMenuItem";
+			this.ファイル読み込みToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+			this.ファイル読み込みToolStripMenuItem.Text = "ファイルを開く";
+			this.ファイル読み込みToolStripMenuItem.Click += new System.EventHandler(this.ファイル読み込みToolStripMenuItem_Click);
+			// 
+			// ファイル書き出しToolStripMenuItem
+			// 
+			this.ファイル書き出しToolStripMenuItem.Name = "ファイル書き出しToolStripMenuItem";
+			this.ファイル書き出しToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+			this.ファイル書き出しToolStripMenuItem.Text = "ファイルに保存する";
+			this.ファイル書き出しToolStripMenuItem.Click += new System.EventHandler(this.ファイル書き出しToolStripMenuItem_Click);
+			// 
 			// 編集ToolStripMenuItem
 			// 
 			this.編集ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -100,6 +119,13 @@
 			this.クリアToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.クリアToolStripMenuItem.Text = "クリア";
 			this.クリアToolStripMenuItem.Click += new System.EventHandler(this.クリアToolStripMenuItem_Click);
+			// 
+			// サイズ変更ToolStripMenuItem
+			// 
+			this.サイズ変更ToolStripMenuItem.Name = "サイズ変更ToolStripMenuItem";
+			this.サイズ変更ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.サイズ変更ToolStripMenuItem.Text = "サイズ変更";
+			this.サイズ変更ToolStripMenuItem.Click += new System.EventHandler(this.サイズ変更ToolStripMenuItem_Click);
 			// 
 			// statusStrip1
 			// 
@@ -149,32 +175,6 @@
 			this.MainPicture.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainPicture_MouseDown);
 			this.MainPicture.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainPicture_MouseMove);
 			this.MainPicture.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainPicture_MouseUp);
-			// 
-			// サイズ変更ToolStripMenuItem
-			// 
-			this.サイズ変更ToolStripMenuItem.Name = "サイズ変更ToolStripMenuItem";
-			this.サイズ変更ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-			this.サイズ変更ToolStripMenuItem.Text = "サイズ変更";
-			this.サイズ変更ToolStripMenuItem.Click += new System.EventHandler(this.サイズ変更ToolStripMenuItem_Click);
-			// 
-			// toolStripMenuItem1
-			// 
-			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-			this.toolStripMenuItem1.Size = new System.Drawing.Size(157, 6);
-			// 
-			// ファイル読み込みToolStripMenuItem
-			// 
-			this.ファイル読み込みToolStripMenuItem.Name = "ファイル読み込みToolStripMenuItem";
-			this.ファイル読み込みToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-			this.ファイル読み込みToolStripMenuItem.Text = "ファイルを開く";
-			this.ファイル読み込みToolStripMenuItem.Click += new System.EventHandler(this.ファイル読み込みToolStripMenuItem_Click);
-			// 
-			// ファイル書き出しToolStripMenuItem
-			// 
-			this.ファイル書き出しToolStripMenuItem.Name = "ファイル書き出しToolStripMenuItem";
-			this.ファイル書き出しToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-			this.ファイル書き出しToolStripMenuItem.Text = "ファイルに保存する";
-			this.ファイル書き出しToolStripMenuItem.Click += new System.EventHandler(this.ファイル書き出しToolStripMenuItem_Click);
 			// 
 			// MainWin
 			// 
