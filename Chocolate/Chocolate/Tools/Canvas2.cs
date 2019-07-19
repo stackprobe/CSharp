@@ -86,7 +86,16 @@ namespace Charlotte.Tools
 			return g;
 		}
 
-		public void DrawString(String str, Font font, Color color, int x, int y, double xRate = -0.5, double yRate = -0.5)
+		// memo: g.DrawString() の x, y は、描画した文字列の左上の座標っぽい。余白が入るので文字本体は座標より少し離れる。
+
+		public static double DRAW_STRING_DEFAULT_Y_RATE = -0.5;
+
+		public void DrawString(String str, Font font, Color color, int x, int y, double xRate = -0.5)
+		{
+			this.DrawString(str, font, color, x, y, xRate, DRAW_STRING_DEFAULT_Y_RATE);
+		}
+
+		public void DrawString(String str, Font font, Color color, int x, int y, double xRate, double yRate)
 		{
 			using (Graphics g = this.GetGraphics())
 			{

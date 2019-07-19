@@ -44,7 +44,7 @@ namespace Charlotte.Tools
 				{
 					for (int y = 0; y < h; y++)
 					{
-						this[x, y] = bmp.GetPixel(x, y);
+						this.Set(x, y, bmp.GetPixel(x, y));
 					}
 				}
 			}
@@ -67,32 +67,29 @@ namespace Charlotte.Tools
 
 		public static Color DEFAULT_COLOR = Color.FromArgb(255, 255, 255, 0);
 
-		public Color this[int x, int y]
+		public Color Get(int x, int y)
 		{
-			get
+			if (this.IsFairPoint(x, y))
 			{
-				if (this.IsFairPoint(x, y))
-				{
-					return Color.FromArgb((int)this.Dots[x + y * this.Width]);
-				}
-				else
-				{
-					return DEFAULT_COLOR;
-				}
+				return Color.FromArgb((int)this.Dots[x + y * this.Width]);
 			}
-
-			set
+			else
 			{
-				if (this.IsFairPoint(x, y))
-				{
-					this.Dots[x + y * this.Width] = (uint)value.ToArgb();
-				}
+				return DEFAULT_COLOR;
+			}
+		}
+
+		public void Set(int x, int y, Color color)
+		{
+			if (this.IsFairPoint(x, y))
+			{
+				this.Dots[x + y * this.Width] = (uint)color.ToArgb();
 			}
 		}
 
 		public void Put(int x, int y, Color color)
 		{
-			this[x, y] = CanvasTools.Cover(this[x, y], color);
+			this.Set(x, y, CanvasTools.Cover(this.Get(x, y), color));
 		}
 
 		public Image GetImage()
@@ -103,7 +100,7 @@ namespace Charlotte.Tools
 			{
 				for (int y = 0; y < this.GetHeight(); y++)
 				{
-					image.SetPixel(x, y, this[x, y]);
+					image.SetPixel(x, y, this.Get(x, y));
 				}
 			}
 			return image;
@@ -140,7 +137,7 @@ namespace Charlotte.Tools
 			{
 				for (int y = 0; y < this.GetHeight(); y++)
 				{
-					this[x, y] = prm[x, y];
+					this.Set(x, y, prm.Get(x, y));
 				}
 			}
 		}
@@ -151,7 +148,7 @@ namespace Charlotte.Tools
 			{
 				for (int y = 0; y < this.GetHeight(); y++)
 				{
-					this.Put(x, y, prm[x, y]);
+					this.Put(x, y, prm.Get(x, y));
 				}
 			}
 		}
@@ -169,7 +166,7 @@ namespace Charlotte.Tools
 			{
 				for (int y = 0; y < this.GetHeight(); y++)
 				{
-					ret[x, y] = this[l + x, t + y];
+					ret.Set(x, y, this.Get(l + x, t + y));
 				}
 			}
 			return ret;
@@ -186,7 +183,7 @@ namespace Charlotte.Tools
 			{
 				for (int y = 0; y < this.GetHeight(); y++)
 				{
-					this[l + x, t + y] = color;
+					this.Set(l + x, t + y, color);
 				}
 			}
 		}
@@ -254,7 +251,7 @@ namespace Charlotte.Tools
 			{
 				for (int y = 0; y < this.GetHeight(); y++)
 				{
-					ret[y, x] = this[x, y];
+					ret.Set(y, x, this.Get(x, y));
 				}
 			}
 			return ret;
@@ -268,7 +265,7 @@ namespace Charlotte.Tools
 			{
 				for (int y = 0; y < this.GetHeight(); y++)
 				{
-					ret[x, this.GetHeight() - 1 - y] = this[x, y];
+					ret.Set(x, this.GetHeight() - 1 - y, this.Get(x, y));
 				}
 			}
 			return ret;
@@ -282,7 +279,7 @@ namespace Charlotte.Tools
 			{
 				for (int y = 0; y < this.GetHeight(); y++)
 				{
-					ret[this.GetWidth() - 1 - x, y] = this[x, y];
+					ret.Set(this.GetWidth() - 1 - x, y, this.Get(x, y));
 				}
 			}
 			return ret;
@@ -325,7 +322,7 @@ namespace Charlotte.Tools
 			{
 				for (int y = 0; y < this.GetHeight(); y++)
 				{
-					if (match(this[x, y]))
+					if (match(this.Get(x, y)))
 					{
 						l = Math.Min(l, x);
 						t = Math.Min(t, y);
