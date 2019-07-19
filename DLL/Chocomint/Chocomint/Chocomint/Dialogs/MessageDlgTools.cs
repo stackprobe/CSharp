@@ -7,6 +7,11 @@ namespace Charlotte.Chocomint.Dialogs
 {
 	public class MessageDlgTools
 	{
+		public static void Information(string title, string message, string detailMessage = null)
+		{
+			Show(MessageDlg.Mode_e.Information, title, message, detailMessage);
+		}
+
 		public static void Error(string title, Exception e)
 		{
 			Show(MessageDlg.Mode_e.Error, title, e);

@@ -14,6 +14,8 @@ namespace Charlotte
 		{
 			SIMPLE,
 			THICK,
+			THICK_x2,
+			THICK_x3,
 		}
 
 		public Nib_e Nib = Nib_e.SIMPLE;

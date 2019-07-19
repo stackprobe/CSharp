@@ -64,8 +64,8 @@ namespace Charlotte.Chocomint.Dialogs
 
 				if (this.Width < w)
 				{
+					this.Left -= (w - this.Width) / 2;
 					this.Width = w;
-					this.Left -= w / 2;
 				}
 			}
 
@@ -123,7 +123,7 @@ namespace Charlotte.Chocomint.Dialogs
 
 		private void TextDetail_KeyPress(object sender, KeyPressEventArgs e)
 		{
-			if (e.KeyChar == (char)1)
+			if (e.KeyChar == (char)1) // ctrl_a
 			{
 				this.TextDetail.SelectAll();
 				e.Handled = true;

@@ -1,6 +1,6 @@
 ﻿namespace Charlotte.Chocomint.Dialogs
 {
-	partial class InputFolderDlg
+	partial class InputFileDlg
 	{
 		/// <summary>
 		/// 必要なデザイナー変数です。
@@ -29,38 +29,27 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InputFolderDlg));
-			this.BtnCancel = new System.Windows.Forms.Button();
-			this.BtnOk = new System.Windows.Forms.Button();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InputFileDlg));
+			this.BtnBrowse = new System.Windows.Forms.Button();
 			this.TextValue = new System.Windows.Forms.TextBox();
 			this.TextValueMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.項目なしToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.Prompt = new System.Windows.Forms.Label();
-			this.BtnBrowse = new System.Windows.Forms.Button();
+			this.BtnCancel = new System.Windows.Forms.Button();
+			this.BtnOk = new System.Windows.Forms.Button();
 			this.TextValueMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
-			// BtnCancel
+			// BtnBrowse
 			// 
-			this.BtnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.BtnCancel.Location = new System.Drawing.Point(472, 129);
-			this.BtnCancel.Name = "BtnCancel";
-			this.BtnCancel.Size = new System.Drawing.Size(100, 50);
-			this.BtnCancel.TabIndex = 4;
-			this.BtnCancel.Text = "キャンセル";
-			this.BtnCancel.UseVisualStyleBackColor = true;
-			this.BtnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
-			// 
-			// BtnOk
-			// 
-			this.BtnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.BtnOk.Location = new System.Drawing.Point(366, 129);
-			this.BtnOk.Name = "BtnOk";
-			this.BtnOk.Size = new System.Drawing.Size(100, 50);
-			this.BtnOk.TabIndex = 3;
-			this.BtnOk.Text = "OK";
-			this.BtnOk.UseVisualStyleBackColor = true;
-			this.BtnOk.Click += new System.EventHandler(this.BtnOk_Click);
+			this.BtnBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.BtnBrowse.Location = new System.Drawing.Point(522, 53);
+			this.BtnBrowse.Name = "BtnBrowse";
+			this.BtnBrowse.Size = new System.Drawing.Size(50, 27);
+			this.BtnBrowse.TabIndex = 2;
+			this.BtnBrowse.Text = "...";
+			this.BtnBrowse.UseVisualStyleBackColor = true;
+			this.BtnBrowse.Click += new System.EventHandler(this.BtnBrowse_Click);
 			// 
 			// TextValue
 			// 
@@ -95,25 +84,35 @@
 			this.Prompt.Name = "Prompt";
 			this.Prompt.Size = new System.Drawing.Size(191, 20);
 			this.Prompt.TabIndex = 0;
-			this.Prompt.Text = "フォルダ名を入力して下さい。";
+			this.Prompt.Text = "ファイル名を入力して下さい。";
 			// 
-			// BtnBrowse
+			// BtnCancel
 			// 
-			this.BtnBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.BtnBrowse.Location = new System.Drawing.Point(522, 53);
-			this.BtnBrowse.Name = "BtnBrowse";
-			this.BtnBrowse.Size = new System.Drawing.Size(50, 27);
-			this.BtnBrowse.TabIndex = 2;
-			this.BtnBrowse.Text = "...";
-			this.BtnBrowse.UseVisualStyleBackColor = true;
-			this.BtnBrowse.Click += new System.EventHandler(this.BtnBrowse_Click);
+			this.BtnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.BtnCancel.Location = new System.Drawing.Point(472, 129);
+			this.BtnCancel.Name = "BtnCancel";
+			this.BtnCancel.Size = new System.Drawing.Size(100, 50);
+			this.BtnCancel.TabIndex = 4;
+			this.BtnCancel.Text = "キャンセル";
+			this.BtnCancel.UseVisualStyleBackColor = true;
+			this.BtnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
 			// 
-			// InputFolderDlg
+			// BtnOk
+			// 
+			this.BtnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.BtnOk.Location = new System.Drawing.Point(366, 129);
+			this.BtnOk.Name = "BtnOk";
+			this.BtnOk.Size = new System.Drawing.Size(100, 50);
+			this.BtnOk.TabIndex = 3;
+			this.BtnOk.Text = "OK";
+			this.BtnOk.UseVisualStyleBackColor = true;
+			this.BtnOk.Click += new System.EventHandler(this.BtnOk_Click);
+			// 
+			// InputFileDlg
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(584, 191);
-			this.ContextMenuStrip = this.TextValueMenu;
 			this.Controls.Add(this.BtnBrowse);
 			this.Controls.Add(this.TextValue);
 			this.Controls.Add(this.Prompt);
@@ -124,14 +123,14 @@
 			this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
-			this.Name = "InputFolderDlg";
+			this.Name = "InputFileDlg";
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "フォルダ入力";
-			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.InputFolderDlg_FormClosing);
-			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.InputFolderDlg_FormClosed);
-			this.Load += new System.EventHandler(this.InputFolderDlg_Load);
-			this.Shown += new System.EventHandler(this.InputFolderDlg_Shown);
+			this.Text = "ファイル入力";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.InputFileDlg_FormClosing);
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.InputFileDlg_FormClosed);
+			this.Load += new System.EventHandler(this.InputFileDlg_Load);
+			this.Shown += new System.EventHandler(this.InputFileDlg_Shown);
 			this.TextValueMenu.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
@@ -140,11 +139,11 @@
 
 		#endregion
 
-		private System.Windows.Forms.Button BtnCancel;
-		private System.Windows.Forms.Button BtnOk;
+		private System.Windows.Forms.Button BtnBrowse;
 		public System.Windows.Forms.TextBox TextValue;
 		public System.Windows.Forms.Label Prompt;
-		private System.Windows.Forms.Button BtnBrowse;
+		private System.Windows.Forms.Button BtnCancel;
+		private System.Windows.Forms.Button BtnOk;
 		private System.Windows.Forms.ContextMenuStrip TextValueMenu;
 		private System.Windows.Forms.ToolStripMenuItem 項目なしToolStripMenuItem;
 	}

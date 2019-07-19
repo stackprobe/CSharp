@@ -14,7 +14,7 @@ namespace Charlotte.Chocomint.Dialogs
 		public bool OkPressed = false;
 		public string Value = "";
 		public Action PostShown = () => { };
-		public Action<string> Validator = v => { };
+		public Func<string, string> Validator = ret => ret;
 
 		// <---- prm
 
@@ -54,7 +54,7 @@ namespace Charlotte.Chocomint.Dialogs
 			{
 				string ret = this.TextValue.Text;
 
-				this.Validator(ret);
+				ret = this.Validator(ret);
 
 				this.OkPressed = true;
 				this.Value = ret;
@@ -63,12 +63,24 @@ namespace Charlotte.Chocomint.Dialogs
 			catch (Exception ex)
 			{
 				MessageDlgTools.Warning("入力エラー", ex);
+
+				this.TextValue.Focus();
+				this.TextValue.SelectAll();
 			}
 		}
 
 		private void BtnCancel_Click(object sender, EventArgs e)
 		{
 			this.Close();
+		}
+
+		private void TextValue_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (e.KeyChar == (char)13) // enter
+			{
+				this.BtnOk.Focus();
+				e.Handled = true;
+			}
 		}
 	}
 }

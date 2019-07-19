@@ -11,10 +11,17 @@ namespace Test02
 		public void Main2()
 		{
 			//new InputStringDlgTest().Test01();
-			new InputStringDlgTest().Test02();
+			//new InputStringDlgTest().Test02();
+			//new InputStringDlgTest().Test03();
 			//new MessageDlgTest().Test01();
 			//new MessageDlgTest().Test02();
 			//new MessageDlgTest().Test03();
+			//new MessageDlgTest().Test04();
+			//new InputFolderDlgTest().Test01();
+			//new InputFileDlgTest().Test01();
+			//new InputDecimalDlgTest().Test01();
+			//new InputComboDlgTest().Test01();
+			new InputComboDlgTest().Test02();
 		}
 	}
 }

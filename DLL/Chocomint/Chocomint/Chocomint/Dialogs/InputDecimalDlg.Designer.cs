@@ -1,6 +1,6 @@
 ﻿namespace Charlotte.Chocomint.Dialogs
 {
-	partial class InputStringDlg
+	partial class InputDecimalDlg
 	{
 		/// <summary>
 		/// 必要なデザイナー変数です。
@@ -29,61 +29,36 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InputStringDlg));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InputDecimalDlg));
+			this.NumValue = new System.Windows.Forms.NumericUpDown();
 			this.Prompt = new System.Windows.Forms.Label();
-			this.TextValue = new System.Windows.Forms.TextBox();
-			this.TextValueMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-			this.項目なしToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.BtnOk = new System.Windows.Forms.Button();
 			this.BtnCancel = new System.Windows.Forms.Button();
+			this.項目なしToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.TextValueMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.BtnOk = new System.Windows.Forms.Button();
+			((System.ComponentModel.ISupportInitialize)(this.NumValue)).BeginInit();
 			this.TextValueMenu.SuspendLayout();
 			this.SuspendLayout();
+			// 
+			// NumValue
+			// 
+			this.NumValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.NumValue.Location = new System.Drawing.Point(34, 53);
+			this.NumValue.Name = "NumValue";
+			this.NumValue.Size = new System.Drawing.Size(520, 27);
+			this.NumValue.TabIndex = 1;
+			this.NumValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.NumValue.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumValue_KeyPress);
 			// 
 			// Prompt
 			// 
 			this.Prompt.AutoSize = true;
 			this.Prompt.Location = new System.Drawing.Point(30, 30);
 			this.Prompt.Name = "Prompt";
-			this.Prompt.Size = new System.Drawing.Size(165, 20);
+			this.Prompt.Size = new System.Drawing.Size(152, 20);
 			this.Prompt.TabIndex = 0;
-			this.Prompt.Text = "文字列を入力して下さい。";
-			// 
-			// TextValue
-			// 
-			this.TextValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.TextValue.ContextMenuStrip = this.TextValueMenu;
-			this.TextValue.Location = new System.Drawing.Point(34, 53);
-			this.TextValue.MaxLength = 300;
-			this.TextValue.Name = "TextValue";
-			this.TextValue.Size = new System.Drawing.Size(520, 27);
-			this.TextValue.TabIndex = 1;
-			this.TextValue.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextValue_KeyPress);
-			// 
-			// TextValueMenu
-			// 
-			this.TextValueMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.項目なしToolStripMenuItem});
-			this.TextValueMenu.Name = "TextValueMenu";
-			this.TextValueMenu.Size = new System.Drawing.Size(117, 26);
-			// 
-			// 項目なしToolStripMenuItem
-			// 
-			this.項目なしToolStripMenuItem.Enabled = false;
-			this.項目なしToolStripMenuItem.Name = "項目なしToolStripMenuItem";
-			this.項目なしToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
-			this.項目なしToolStripMenuItem.Text = "項目なし";
-			// 
-			// BtnOk
-			// 
-			this.BtnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.BtnOk.Location = new System.Drawing.Point(366, 129);
-			this.BtnOk.Name = "BtnOk";
-			this.BtnOk.Size = new System.Drawing.Size(100, 50);
-			this.BtnOk.TabIndex = 2;
-			this.BtnOk.Text = "OK";
-			this.BtnOk.UseVisualStyleBackColor = true;
-			this.BtnOk.Click += new System.EventHandler(this.BtnOk_Click);
+			this.Prompt.Text = "整数を入力して下さい。";
 			// 
 			// BtnCancel
 			// 
@@ -96,28 +71,54 @@
 			this.BtnCancel.UseVisualStyleBackColor = true;
 			this.BtnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
 			// 
-			// InputStringDlg
+			// 項目なしToolStripMenuItem
+			// 
+			this.項目なしToolStripMenuItem.Enabled = false;
+			this.項目なしToolStripMenuItem.Name = "項目なしToolStripMenuItem";
+			this.項目なしToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+			this.項目なしToolStripMenuItem.Text = "項目なし";
+			// 
+			// TextValueMenu
+			// 
+			this.TextValueMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.項目なしToolStripMenuItem});
+			this.TextValueMenu.Name = "TextValueMenu";
+			this.TextValueMenu.Size = new System.Drawing.Size(117, 26);
+			// 
+			// BtnOk
+			// 
+			this.BtnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.BtnOk.Location = new System.Drawing.Point(366, 129);
+			this.BtnOk.Name = "BtnOk";
+			this.BtnOk.Size = new System.Drawing.Size(100, 50);
+			this.BtnOk.TabIndex = 2;
+			this.BtnOk.Text = "OK";
+			this.BtnOk.UseVisualStyleBackColor = true;
+			this.BtnOk.Click += new System.EventHandler(this.BtnOk_Click);
+			// 
+			// InputDecimalDlg
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(584, 191);
+			this.Controls.Add(this.Prompt);
 			this.Controls.Add(this.BtnCancel);
 			this.Controls.Add(this.BtnOk);
-			this.Controls.Add(this.TextValue);
-			this.Controls.Add(this.Prompt);
+			this.Controls.Add(this.NumValue);
 			this.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
-			this.Name = "InputStringDlg";
+			this.Name = "InputDecimalDlg";
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "文字列入力";
-			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.InputStringDlg_FormClosing);
-			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.InputStringDlg_FormClosed);
-			this.Load += new System.EventHandler(this.InputStringDlg_Load);
-			this.Shown += new System.EventHandler(this.InputStringDlg_Shown);
+			this.Text = "整数入力";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.InputNumberDlg_FormClosing);
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.InputNumberDlg_FormClosed);
+			this.Load += new System.EventHandler(this.InputNumberDlg_Load);
+			this.Shown += new System.EventHandler(this.InputNumberDlg_Shown);
+			((System.ComponentModel.ISupportInitialize)(this.NumValue)).EndInit();
 			this.TextValueMenu.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
@@ -126,11 +127,11 @@
 
 		#endregion
 
-		private System.Windows.Forms.ContextMenuStrip TextValueMenu;
-		private System.Windows.Forms.ToolStripMenuItem 項目なしToolStripMenuItem;
 		public System.Windows.Forms.Label Prompt;
-		public System.Windows.Forms.TextBox TextValue;
-		private System.Windows.Forms.Button BtnOk;
 		private System.Windows.Forms.Button BtnCancel;
+		private System.Windows.Forms.ToolStripMenuItem 項目なしToolStripMenuItem;
+		private System.Windows.Forms.ContextMenuStrip TextValueMenu;
+		private System.Windows.Forms.Button BtnOk;
+		public System.Windows.Forms.NumericUpDown NumValue;
 	}
 }

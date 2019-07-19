@@ -6,10 +6,13 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Drawing.Text;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Security.Permissions;
 using System.Windows.Forms;
 using Charlotte.Tools;
+using Charlotte.Chocomint.Dialogs;
 
 namespace Charlotte
 {
@@ -159,6 +162,7 @@ namespace Charlotte
 
 				tokens.Add(this.MainPicture.Image.Width + " x " + this.MainPicture.Image.Height);
 				tokens.Add(string.Format("色={0:x8}", Ground.I.NibColor.ToArgb()));
+				tokens.Add("ペン先=" + Ground.I.Nib);
 
 				string text = string.Join(", ", tokens);
 
@@ -210,6 +214,11 @@ namespace Charlotte
 		{
 			using (Graphics g = Graphics.FromImage(this.MainPicture.Image))
 			{
+				if (Ground.I.AntiAliasing)
+				{
+					g.TextRenderingHint = TextRenderingHint.AntiAlias;
+					g.SmoothingMode = SmoothingMode.AntiAlias;
+				}
 				routine(g);
 			}
 			this.MainPicture.Invalidate();
@@ -255,6 +264,18 @@ namespace Charlotte
 					{
 						case Ground.Nib_e.SIMPLE:
 							g.DrawLine(new Pen(Ground.I.NibColor), nibX, nibY, Ground.I.LastNibX, Ground.I.LastNibY);
+							break;
+
+						case Ground.Nib_e.THICK:
+							g.DrawLine(new Pen(Ground.I.NibColor, 5), nibX, nibY, Ground.I.LastNibX, Ground.I.LastNibY);
+							break;
+
+						case Ground.Nib_e.THICK_x2:
+							g.DrawLine(new Pen(Ground.I.NibColor, 10), nibX, nibY, Ground.I.LastNibX, Ground.I.LastNibY);
+							break;
+
+						case Ground.Nib_e.THICK_x3:
+							g.DrawLine(new Pen(Ground.I.NibColor, 15), nibX, nibY, Ground.I.LastNibX, Ground.I.LastNibY);
 							break;
 
 						default:
@@ -383,12 +404,60 @@ namespace Charlotte
 
 		private void 特殊な色ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			// TODO
+			using (MTBusy.Section())
+			using (InputDecimalDlg f = new InputDecimalDlg())
+			{
+				f.MinValue = 0;
+				f.MaxValue = 255;
+				f.Value = Ground.I.NibColor.A;
+				f.StartPosition = FormStartPosition.CenterParent;
+
+				f.PostShown = () =>
+				{
+					f.Text = "アルファ値";
+					f.Prompt.Text = "アルファ値を入力して下さい。(0 ～ 255 = 透明 ～ 不透明)";
+				};
+
+				f.ShowDialog();
+
+				if (f.OkPressed)
+				{
+					Ground.I.NibColor = Color.FromArgb(
+						(int)f.Value,
+						Ground.I.NibColor.R,
+						Ground.I.NibColor.G,
+						Ground.I.NibColor.B
+						);
+				}
+			}
+			this.RefreshUI();
 		}
 
 		private void 形ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			// TODO
+			using (MTBusy.Section())
+			using (InputComboDlg f = new InputComboDlg())
+			{
+				f.Value = Ground.I.Nib;
+				f.StartPosition = FormStartPosition.CenterParent;
+
+				f.PostShown = () =>
+				{
+					f.Text = "ペン先の形状";
+					f.Prompt.Text = "ペン先の形状を選択して下さい。";
+				};
+
+				foreach (Ground.Nib_e nib in Enum.GetValues(typeof(Ground.Nib_e)))
+					f.AddItem(nib, Enum.GetName(typeof(Ground.Nib_e), nib));
+
+				f.ShowDialog();
+
+				if (f.OkPressed)
+				{
+					Ground.I.Nib = (Ground.Nib_e)f.Value;
+				}
+			}
+			this.RefreshUI();
 		}
 	}
 }

@@ -28,13 +28,15 @@ namespace Test02.Tests.Chocomint.Dialogs
 					f.Text = "好きな食べ物";
 					f.Prompt.Text = "好きな食べ物（３文字まで）";
 					f.TextValue.MaxLength = 3;
-					f.Validator = v =>
+					f.Validator = ret =>
 					{
-						if (v == "")
+						if (ret == "")
 							throw new Exception("空っぽ！");
 
-						if (v == "すあま")
+						if (ret == "すあま")
 							throw new Exception("「すあま」以外で！");
+
+						return ret;
 					};
 				};
 
@@ -44,6 +46,25 @@ namespace Test02.Tests.Chocomint.Dialogs
 				{
 					MessageBox.Show("入力された文字列：" + f.Value);
 				}
+			}
+		}
+
+		public void Test03()
+		{
+			using (InputStringDlg f = new InputStringDlg())
+			{
+				f.Value = "-2100000000";
+
+				f.PostShown = () =>
+				{
+					f.Text = "数値入力";
+					f.Prompt.Text = "数値を入力して下さい。";
+					f.TextValue.MaxLength = 11;
+					f.TextValue.TextAlign = HorizontalAlignment.Right;
+					f.Validator = ret => "" + int.Parse(ret);
+				};
+
+				f.ShowDialog();
 			}
 		}
 	}

@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 // ^ sync @ SaveLoadDialogs
 
-namespace Charlotte
+namespace Charlotte.Chocomint.Dialogs
 {
 	// sync > @ SaveLoadDialogs
 
