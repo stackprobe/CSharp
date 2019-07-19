@@ -155,11 +155,18 @@ namespace Charlotte
 		private void RefreshUI()
 		{
 			{
-				string text = this.MainPicture.Image.Width + " x " + this.MainPicture.Image.Height;
+				List<string> tokens = new List<string>();
+
+				tokens.Add(this.MainPicture.Image.Width + " x " + this.MainPicture.Image.Height);
+				tokens.Add(string.Format("色={0:x8}", Ground.I.NibColor.ToArgb()));
+
+				string text = string.Join(", ", tokens);
 
 				if (this.South.Text != text)
 					this.South.Text = text;
 			}
+
+			this.アンチエイリアスToolStripMenuItem.Checked = Ground.I.AntiAliasing;
 		}
 
 		private void MainPicture_Click(object sender, EventArgs e)
@@ -356,6 +363,32 @@ namespace Charlotte
 				}
 				return false;
 			}
+		}
+
+		private void アンチエイリアスToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Ground.I.AntiAliasing = Ground.I.AntiAliasing == false;
+
+			this.RefreshUI();
+		}
+
+		private void 色ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			using (MTBusy.Section())
+			{
+				SaveLoadDialogs.SelectColor(ref Ground.I.NibColor);
+			}
+			this.RefreshUI();
+		}
+
+		private void 特殊な色ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			// TODO
+		}
+
+		private void 形ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			// TODO
 		}
 	}
 }
