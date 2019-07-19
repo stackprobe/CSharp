@@ -43,7 +43,7 @@
       <HintPath>C:\Dev\CSharp\Chocolate\Chocolate\bin\Release\Chocolate.dll</HintPath>
     </Reference>
     <Reference Include="Chocomint">
-      <HintPath>..\..\..\DLL\Chocomint\Chocomint\bin\Release\Chocomint.dll</HintPath>
+      <HintPath>C:\Dev\CSharp\DLL\Chocomint\Chocomint\bin\Release\Chocomint.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -66,6 +66,7 @@
     <Compile Include="InputSizeDlg.Designer.cs">
       <DependentUpon>InputSizeDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="History.cs" />
     <Compile Include="MainWin.cs">
       <SubType>Form</SubType>
     </Compile>

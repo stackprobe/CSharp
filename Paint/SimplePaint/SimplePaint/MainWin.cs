@@ -78,6 +78,9 @@ namespace Charlotte
 
 			// ----
 
+			Ground.I.History.Dispose();
+			Ground.I.History = null;
+
 			// -- 9999
 		}
 
@@ -163,11 +166,28 @@ namespace Charlotte
 				tokens.Add(this.MainPicture.Image.Width + " x " + this.MainPicture.Image.Height);
 				tokens.Add(string.Format("色={0:x8}", Ground.I.NibColor.ToArgb()));
 				tokens.Add("ペン先=" + Ground.I.Nib);
+				tokens.Add("Mode=" + (Ground.I.NibRoutine == null ? 0 : 1));
+				tokens.Add("Hist=" + Ground.I.History.GetCount());
 
 				string text = string.Join(", ", tokens);
 
 				if (this.South.Text != text)
 					this.South.Text = text;
+
+				Color backColor = Consts.DefaultBackColor;
+				Color foreColor = Consts.DefaultForeColor;
+
+				if (Ground.I.NibRoutine != null)
+				{
+					backColor = Color.DarkCyan;
+					foreColor = Color.White;
+				}
+
+				if (this.South.BackColor != backColor)
+					this.South.BackColor = backColor;
+
+				if (this.South.ForeColor != foreColor)
+					this.South.ForeColor = foreColor;
 			}
 
 			this.アンチエイリアスToolStripMenuItem.Checked = Ground.I.AntiAliasing;
@@ -243,12 +263,30 @@ namespace Charlotte
 
 		private void MainPicture_MouseDown(object sender, MouseEventArgs e)
 		{
+			Ground.I.History.Save(this.MainPicture.Image);
+
+			if (Ground.I.NibRoutine != null)
+			{
+				try
+				{
+					if (Ground.I.NibRoutine(e.X, e.Y))
+						Ground.I.NibRoutine = null;
+				}
+				catch (Exception ex)
+				{
+					MessageDlgTools.Warning("NibRoutine Error", ex);
+				}
+				this.RefreshUI();
+				return;
+			}
 			Ground.I.NibDown = true;
+			//this.RefreshUI(); // moved -> _MouseUp()
 		}
 
 		private void MainPicture_MouseUp(object sender, MouseEventArgs e)
 		{
 			Ground.I.NibDown = false;
+			this.RefreshUI();
 		}
 
 		private void MainPicture_MouseMove(object sender, MouseEventArgs e)
@@ -457,6 +495,68 @@ namespace Charlotte
 					Ground.I.Nib = (Ground.Nib_e)f.Value;
 				}
 			}
+			this.RefreshUI();
+		}
+
+		private void MainWin_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (e.KeyChar == (char)26) // ctrl_z
+			{
+				this.CtrlZMenuItem_Click(null, null);
+				e.Handled = true;
+			}
+		}
+
+		private void CtrlZMenuItem_Click(object sender, EventArgs e)
+		{
+			Image image = Ground.I.History.Unsave();
+
+			if (image != null)
+				this.MPic_SetImage(image);
+
+			this.RefreshUI();
+		}
+
+		private void 塗りつぶしToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Ground.I.NibRoutine = (targetX, targetY) =>
+			{
+				Canvas canvas = new Canvas(this.MainPicture.Image);
+				Color targetColor = canvas.Get(targetX, targetY);
+
+				if (targetColor == Ground.I.NibColor)
+					goto endFunc;
+
+				Queue<int[]> dots = new Queue<int[]>();
+
+				dots.Enqueue(new int[] { targetX, targetY });
+
+				while (1 <= dots.Count)
+				{
+					int[] dot = dots.Dequeue();
+					int x = dot[0];
+					int y = dot[1];
+
+					if (
+						x < 0 || canvas.GetWidth() <= x ||
+						y < 0 || canvas.GetHeight() <= y ||
+						canvas.Get(x, y) != targetColor
+						)
+						continue;
+
+					canvas.Set(x, y, Ground.I.NibColor);
+
+					dots.Enqueue(new int[] { x - 1, y });
+					dots.Enqueue(new int[] { x + 1, y });
+					dots.Enqueue(new int[] { x, y - 1 });
+					dots.Enqueue(new int[] { x, y + 1 });
+				}
+				this.MPic_SetImage(canvas.GetImage());
+
+			endFunc:
+				return true;
+			};
+
 			this.RefreshUI();
 		}
 	}
