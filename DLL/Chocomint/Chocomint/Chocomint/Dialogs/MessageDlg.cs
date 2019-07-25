@@ -59,16 +59,6 @@ namespace Charlotte.Chocomint.Dialogs
 			this.TextMessage.Text = this.Message;
 			this.TextMessage.Top += (this.MessageIcon.Height - this.TextMessage.Height) / 2;
 
-			{
-				int w = this.TextMessage.Left + this.TextMessage.Width + 30;
-
-				if (this.Width < w)
-				{
-					this.Left -= (w - this.Width) / 2;
-					this.Width = w;
-				}
-			}
-
 			if (this.DetailMessage != null)
 				this.DetailLabel.Visible = true;
 

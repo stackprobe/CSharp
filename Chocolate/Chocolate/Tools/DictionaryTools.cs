@@ -36,5 +36,15 @@ namespace Charlotte.Tools
 		{
 			return new TreeSet<string>(new StringTools.IECompIgnoreCase());
 		}
+
+		public static CacheMap<string, V> CreateCache<V>(Func<string, V> createValue)
+		{
+			return new CacheMap<string, V>(Create<V>(), createValue);
+		}
+
+		public static CacheMap<string, V> CreateCacheIgnoreCase<V>(Func<string, V> createValue)
+		{
+			return new CacheMap<string, V>(CreateIgnoreCase<V>(), createValue);
+		}
 	}
 }

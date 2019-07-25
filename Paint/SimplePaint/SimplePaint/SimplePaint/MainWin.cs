@@ -686,12 +686,14 @@ namespace Charlotte
 					BusyDlgTools.Show("テクスチャ", "テクスチャ処理中...", () =>
 					{
 						Canvas texture = new Canvas(textureImageFile);
-						Color targetColor = canvas.Get(targetX, targetY);
 
-						for (int x = 0; x < canvas.GetWidth(); x++)
-							for (int y = 0; y < canvas.GetHeight(); y++)
-								if (canvas.Get(x, y) == targetColor)
-									canvas.Set(x, y, texture.Get(x % texture.GetWidth(), y % texture.GetHeight()));
+						canvas.SpreadSameColor(targetX, targetY, pt =>
+						{
+							int x = pt.X;
+							int y = pt.Y;
+
+							canvas.Set(x, y, texture.Get(x % texture.GetWidth(), y % texture.GetHeight()));
+						});
 					},
 					true
 					);
@@ -730,35 +732,90 @@ namespace Charlotte
 					{
 						Color targetColor = canvas.Get(targetX, targetY);
 
-						for (int tileX = 0; tileX * tileW < this.MainPicture.Image.Width; tileX++)
+						CacheMap<string, Color> tileColors = DictionaryTools.CreateCache<Color>(k =>
 						{
-							for (int tileY = 0; tileY * tileH < this.MainPicture.Image.Height; tileY++)
-							{
-								double a = SecurityTools.CRandom.GetReal();
+							double a = SecurityTools.CRandom.GetReal();
 
-								a = alphaMin + (1.0 - alphaMin) * a;
+							a = alphaMin + (1.0 - alphaMin) * a;
 
-								for (int x = 0; x < tileW; x++)
-								{
-									for (int y = 0; y < tileH; y++)
-									{
-										int xx = tileX * tileW + x;
-										int yy = tileY * tileH + y;
-										Color color = canvas.Get(xx, yy);
+							Color color = targetColor;
 
-										if (color == targetColor)
-										{
-											canvas.Set(xx, yy, Color.FromArgb(
-												color.A,
-												DoubleTools.ToInt(color.R * a),
-												DoubleTools.ToInt(color.G * a),
-												DoubleTools.ToInt(color.B * a)
-												));
-										}
-									}
-								}
-							}
-						}
+							return Color.FromArgb(
+								color.A,
+								DoubleTools.ToInt(color.R * a),
+								DoubleTools.ToInt(color.G * a),
+								DoubleTools.ToInt(color.B * a)
+								);
+						});
+
+						canvas.SpreadSameColor(targetX, targetY, pt =>
+						{
+							int x = pt.X;
+							int y = pt.Y;
+
+							int tileX = x / tileW;
+							int tileY = y / tileH;
+
+							canvas.Set(x, y, tileColors[tileX + ":" + tileY]);
+						});
+					},
+					true
+					);
+
+					this.MPic_SetImage(canvas.GetImage());
+				}
+				return true;
+			};
+
+			this.RefreshUI();
+		}
+
+		private void テクスチャ矩形タイル2ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Ground.I.NibRoutine = (targetX, targetY) =>
+			{
+				string line = InputStringDlgTools.Show("タイルサイズ(色⇒色2)", "タイルサイズを入力して下さい。(書式 = 幅:高さ, 例 = 30:20)", true);
+
+				if (line != null)
+				{
+					string[] tokens = line.Split(':');
+					int tileW = int.Parse(tokens[0]);
+					int tileH = int.Parse(tokens[1]);
+
+					if (
+						tileW < 1 || IntTools.IMAX < tileW ||
+						tileH < 1 || IntTools.IMAX < tileH
+						)
+						throw new Exception("不正なタイルサイズ");
+
+					Canvas canvas = new Canvas(this.MainPicture.Image);
+
+					BusyDlgTools.Show("テクスチャ_矩形タイル", "テクスチャ_矩形タイル 処理中...", () =>
+					{
+						Color targetColor = canvas.Get(targetX, targetY);
+
+						CacheMap<string, Color> tileColors = DictionaryTools.CreateCache<Color>(k =>
+						{
+							double rate = SecurityTools.CRandom.GetReal();
+
+							return Color.FromArgb(
+								DoubleTools.ToInt(Ground.I.NibColor.A + (Ground.I.NibColor2.A - Ground.I.NibColor.A) * rate),
+								DoubleTools.ToInt(Ground.I.NibColor.R + (Ground.I.NibColor2.R - Ground.I.NibColor.R) * rate),
+								DoubleTools.ToInt(Ground.I.NibColor.G + (Ground.I.NibColor2.G - Ground.I.NibColor.G) * rate),
+								DoubleTools.ToInt(Ground.I.NibColor.B + (Ground.I.NibColor2.B - Ground.I.NibColor.B) * rate)
+								);
+						});
+
+						canvas.SpreadSameColor(targetX, targetY, pt =>
+						{
+							int x = pt.X;
+							int y = pt.Y;
+
+							int tileX = x / tileW;
+							int tileY = y / tileH;
+
+							canvas.Set(x, y, tileColors[tileX + ":" + tileY]);
+						});
 					},
 					true
 					);
@@ -820,81 +877,69 @@ namespace Charlotte
 
 							BusyDlgTools.Show("グラデーション", "グラデーション処理中...", () =>
 							{
+								Rectangle rect = canvas.GetRectSameColor(targetX, targetY);
+
 								double rrMax = 1.0;
-
-								Color targetColor = canvas.Get(targetX, targetY);
-								Rectangle rect = canvas.GetRectMatch(pt =>
+								canvas.SpreadSameColor(targetX, targetY, pt =>
 								{
-									if (canvas.Get(pt.X, pt.Y) == targetColor)
-									{
-										{
-											int xx = pt.X - targetX;
-											int yy = pt.Y - targetY;
+									int xx = pt.X - targetX;
+									int yy = pt.Y - targetY;
 
-											rrMax = Math.Max(rrMax, xx * xx + yy * yy);
-										}
-
-										return true;
-									}
-									return false;
+									rrMax = Math.Max(rrMax, xx * xx + yy * yy);
 								});
-
 								double rMax = Math.Sqrt(rrMax);
 
-								for (int x = 0; x < rect.Width; x++)
+								canvas.SpreadSameColor(targetX, targetY, pt =>
 								{
-									for (int y = 0; y < rect.Height; y++)
+									int xx = pt.X;
+									int yy = pt.Y;
+
+									int x = xx - rect.X;
+									int y = yy - rect.Y;
+
+									Color color;
+
+									switch (mode)
 									{
-										int xx = rect.X + x;
-										int yy = rect.Y + y;
+										case 1:
+											color = Color.FromArgb(
+												DoubleTools.ToInt(Ground.I.NibColor.A + (Ground.I.NibColor2.A - Ground.I.NibColor.A) * (double)x / (rect.Width - 1)),
+												DoubleTools.ToInt(Ground.I.NibColor.R + (Ground.I.NibColor2.R - Ground.I.NibColor.R) * (double)x / (rect.Width - 1)),
+												DoubleTools.ToInt(Ground.I.NibColor.G + (Ground.I.NibColor2.G - Ground.I.NibColor.G) * (double)x / (rect.Width - 1)),
+												DoubleTools.ToInt(Ground.I.NibColor.B + (Ground.I.NibColor2.B - Ground.I.NibColor.B) * (double)x / (rect.Width - 1))
+												);
+											break;
 
-										if (canvas.Get(xx, yy) == targetColor)
-										{
-											Color color;
+										case 2:
+											color = Color.FromArgb(
+												DoubleTools.ToInt(Ground.I.NibColor.A + (Ground.I.NibColor2.A - Ground.I.NibColor.A) * (double)y / (rect.Height - 1)),
+												DoubleTools.ToInt(Ground.I.NibColor.R + (Ground.I.NibColor2.R - Ground.I.NibColor.R) * (double)y / (rect.Height - 1)),
+												DoubleTools.ToInt(Ground.I.NibColor.G + (Ground.I.NibColor2.G - Ground.I.NibColor.G) * (double)y / (rect.Height - 1)),
+												DoubleTools.ToInt(Ground.I.NibColor.B + (Ground.I.NibColor2.B - Ground.I.NibColor.B) * (double)y / (rect.Height - 1))
+												);
+											break;
 
-											switch (mode)
-											{
-												case 1:
-													color = Color.FromArgb(
-														DoubleTools.ToInt(Ground.I.NibColor.A + (Ground.I.NibColor2.A - Ground.I.NibColor.A) * (double)x / (rect.Width - 1)),
-														DoubleTools.ToInt(Ground.I.NibColor.R + (Ground.I.NibColor2.R - Ground.I.NibColor.R) * (double)x / (rect.Width - 1)),
-														DoubleTools.ToInt(Ground.I.NibColor.G + (Ground.I.NibColor2.G - Ground.I.NibColor.G) * (double)x / (rect.Width - 1)),
-														DoubleTools.ToInt(Ground.I.NibColor.B + (Ground.I.NibColor2.B - Ground.I.NibColor.B) * (double)x / (rect.Width - 1))
-														);
-													break;
+										case 3:
+											int xx2 = xx - targetX;
+											int yy2 = yy - targetY;
 
-												case 2:
-													color = Color.FromArgb(
-														DoubleTools.ToInt(Ground.I.NibColor.A + (Ground.I.NibColor2.A - Ground.I.NibColor.A) * (double)y / (rect.Height - 1)),
-														DoubleTools.ToInt(Ground.I.NibColor.R + (Ground.I.NibColor2.R - Ground.I.NibColor.R) * (double)y / (rect.Height - 1)),
-														DoubleTools.ToInt(Ground.I.NibColor.G + (Ground.I.NibColor2.G - Ground.I.NibColor.G) * (double)y / (rect.Height - 1)),
-														DoubleTools.ToInt(Ground.I.NibColor.B + (Ground.I.NibColor2.B - Ground.I.NibColor.B) * (double)y / (rect.Height - 1))
-														);
-													break;
+											double r = Math.Sqrt(xx2 * xx2 + yy2 * yy2);
 
-												case 3:
-													int xx2 = xx - targetX;
-													int yy2 = yy - targetY;
+											r /= rMax;
 
-													double r = Math.Sqrt(xx2 * xx2 + yy2 * yy2);
+											color = Color.FromArgb(
+												DoubleTools.ToInt(Ground.I.NibColor.A + (Ground.I.NibColor2.A - Ground.I.NibColor.A) * r),
+												DoubleTools.ToInt(Ground.I.NibColor.R + (Ground.I.NibColor2.R - Ground.I.NibColor.R) * r),
+												DoubleTools.ToInt(Ground.I.NibColor.G + (Ground.I.NibColor2.G - Ground.I.NibColor.G) * r),
+												DoubleTools.ToInt(Ground.I.NibColor.B + (Ground.I.NibColor2.B - Ground.I.NibColor.B) * r)
+												);
+											break;
 
-													r /= rMax;
-
-													color = Color.FromArgb(
-														DoubleTools.ToInt(Ground.I.NibColor.A + (Ground.I.NibColor2.A - Ground.I.NibColor.A) * r),
-														DoubleTools.ToInt(Ground.I.NibColor.R + (Ground.I.NibColor2.R - Ground.I.NibColor.R) * r),
-														DoubleTools.ToInt(Ground.I.NibColor.G + (Ground.I.NibColor2.G - Ground.I.NibColor.G) * r),
-														DoubleTools.ToInt(Ground.I.NibColor.B + (Ground.I.NibColor2.B - Ground.I.NibColor.B) * r)
-														);
-													break;
-
-												default:
-													throw null; // never
-											}
-											canvas.Set(xx, yy, color);
-										}
+										default:
+											throw null; // never
 									}
-								}
+									canvas.Set(xx, yy, color);
+								});
 							},
 							true
 							);

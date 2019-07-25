@@ -76,13 +76,17 @@ namespace Charlotte.Tools
 			return new Canvas(this.Image);
 		}
 
+		public bool AntiAliasing = true;
+
 		public Graphics GetGraphics()
 		{
 			Graphics g = Graphics.FromImage(this.Image);
 
-			g.TextRenderingHint = TextRenderingHint.AntiAlias;
-			g.SmoothingMode = SmoothingMode.AntiAlias;
-
+			if (this.AntiAliasing)
+			{
+				g.TextRenderingHint = TextRenderingHint.AntiAlias;
+				g.SmoothingMode = SmoothingMode.AntiAlias;
+			}
 			return g;
 		}
 

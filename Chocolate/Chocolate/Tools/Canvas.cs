@@ -360,14 +360,14 @@ namespace Charlotte.Tools
 			return new Rectangle(l, t, w, h);
 		}
 
-		public Rectangle GetRectAdjoin(int startX, int startY, Predicate<Point> match)
+		public Rectangle GetRectSpread(int startX, int startY, Predicate<Point> match)
 		{
 			int l = int.MaxValue;
 			int t = int.MaxValue;
 			int r = -1;
 			int b = -1;
 
-			this.Adjoin(startX, startY, pt =>
+			this.Spread(startX, startY, pt =>
 			{
 				if (match(pt))
 				{
@@ -397,7 +397,7 @@ namespace Charlotte.Tools
 		{
 			Color targetColor = this.Get(startX, startY);
 
-			return this.GetRectAdjoin(startX, startY, pt =>
+			return this.GetRectSpread(startX, startY, pt =>
 			{
 				int x = pt.X;
 				int y = pt.Y;
@@ -408,25 +408,30 @@ namespace Charlotte.Tools
 
 		public void FillSameColor(int startX, int startY, Color color)
 		{
+			this.SpreadSameColor(startX, startY, pt => this.Set(pt.X, pt.Y, color));
+		}
+
+		public void SpreadSameColor(int startX, int startY, Action<Point> reaction)
+		{
 			Color targetColor = this.Get(startX, startY);
 
-			this.Adjoin(startX, startY, pt =>
+			this.Spread(startX, startY, pt =>
 			{
 				int x = pt.X;
 				int y = pt.Y;
 
 				if (this.Get(x, y) == targetColor)
 				{
-					this.Set(x, y, color);
+					reaction(pt);
 					return true;
 				}
 				return false;
 			});
 		}
 
-		public void Adjoin(int startX, int startY, Predicate<Point> match)
+		public void Spread(int startX, int startY, Predicate<Point> match)
 		{
-			BitTable knownPts = new BitTable(this.GetWidth(), this.GetHeight());
+			BitTable reachedMap = new BitTable(this.GetWidth(), this.GetHeight());
 			Queue<Point> pts = new Queue<Point>();
 
 			pts.Enqueue(new Point(startX, startY));
@@ -437,9 +442,9 @@ namespace Charlotte.Tools
 				int x = pt.X;
 				int y = pt.Y;
 
-				if (this.IsFairPoint(x, y) && knownPts.GetBit(x, y) == false && match(pt))
+				if (this.IsFairPoint(x, y) && reachedMap.GetBit(x, y) == false && match(pt))
 				{
-					knownPts.SetBit(x, y, true);
+					reachedMap.SetBit(x, y, true);
 					pts.Enqueue(new Point(x - 1, y));
 					pts.Enqueue(new Point(x + 1, y));
 					pts.Enqueue(new Point(x, y - 1));

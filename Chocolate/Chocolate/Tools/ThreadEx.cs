@@ -59,7 +59,7 @@ namespace Charlotte.Tools
 			this.WaitToEnd();
 
 			if (this.Ex != null)
-				throw new Exception("Relay", this.Ex);
+				throw new AggregateException("Relay", this.Ex);
 		}
 
 		public Exception GetException()

@@ -25,7 +25,15 @@ namespace Charlotte.Chocomint.Dialogs
 
 		public static void Show(MessageDlg.Mode_e mode, string title, Exception e, bool hasParent = false)
 		{
-			Show(mode, title, e.Message, hasParent, "" + e);
+			Show(mode, title, GetTrueMessage(e), hasParent, "" + e);
+		}
+
+		private static string GetTrueMessage(Exception e)
+		{
+			while (e is AggregateException)
+				e = ((AggregateException)e).InnerException;
+
+			return e.Message;
 		}
 
 		public static void Show(MessageDlg.Mode_e mode, string title, string message, bool hasParent = false, string detailMessage = null)

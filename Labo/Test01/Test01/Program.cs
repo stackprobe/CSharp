@@ -24,7 +24,8 @@ namespace Test01
 				//Test07_B();
 				//Test08();
 				//Test09();
-				Test10();
+				//Test10();
+				Test11();
 				//new DateSpanListTest().Test01();
 				//new NamesToGroupDateSpansTest().Test01();
 				//new NamesToGroupDateSpansTest().Test02();
@@ -308,6 +309,39 @@ Test02_a_a: { X = 3 }
 		private static void Test10()
 		{
 			Console.WriteLine(DateTime.Now.Ticks / 10000000.0);
+		}
+
+		private static void Test11()
+		{
+			try
+			{
+				throw new AggregateException();
+			}
+			catch (AggregateException e)
+			{
+				Console.WriteLine(e.InnerException != null);
+				Console.WriteLine(e.InnerExceptions.Count());
+			}
+
+			try
+			{
+				throw new AggregateException("aaa", new Exception());
+			}
+			catch (AggregateException e)
+			{
+				Console.WriteLine(e.InnerException != null);
+				Console.WriteLine(e.InnerExceptions.Count());
+			}
+
+			try
+			{
+				throw new AggregateException(new Exception(), new Exception(), new Exception());
+			}
+			catch (AggregateException e)
+			{
+				Console.WriteLine(e.InnerException != null);
+				Console.WriteLine(e.InnerExceptions.Count());
+			}
 		}
 	}
 }
