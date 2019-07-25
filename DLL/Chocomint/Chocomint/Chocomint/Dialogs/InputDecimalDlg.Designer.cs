@@ -28,16 +28,12 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InputDecimalDlg));
 			this.NumValue = new System.Windows.Forms.NumericUpDown();
 			this.Prompt = new System.Windows.Forms.Label();
 			this.BtnCancel = new System.Windows.Forms.Button();
-			this.項目なしToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.TextValueMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.BtnOk = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.NumValue)).BeginInit();
-			this.TextValueMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// NumValue
@@ -70,20 +66,6 @@
 			this.BtnCancel.Text = "キャンセル";
 			this.BtnCancel.UseVisualStyleBackColor = true;
 			this.BtnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
-			// 
-			// 項目なしToolStripMenuItem
-			// 
-			this.項目なしToolStripMenuItem.Enabled = false;
-			this.項目なしToolStripMenuItem.Name = "項目なしToolStripMenuItem";
-			this.項目なしToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
-			this.項目なしToolStripMenuItem.Text = "項目なし";
-			// 
-			// TextValueMenu
-			// 
-			this.TextValueMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.項目なしToolStripMenuItem});
-			this.TextValueMenu.Name = "TextValueMenu";
-			this.TextValueMenu.Size = new System.Drawing.Size(117, 26);
 			// 
 			// BtnOk
 			// 
@@ -119,7 +101,6 @@
 			this.Load += new System.EventHandler(this.InputNumberDlg_Load);
 			this.Shown += new System.EventHandler(this.InputNumberDlg_Shown);
 			((System.ComponentModel.ISupportInitialize)(this.NumValue)).EndInit();
-			this.TextValueMenu.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -129,8 +110,6 @@
 
 		public System.Windows.Forms.Label Prompt;
 		private System.Windows.Forms.Button BtnCancel;
-		private System.Windows.Forms.ToolStripMenuItem 項目なしToolStripMenuItem;
-		private System.Windows.Forms.ContextMenuStrip TextValueMenu;
 		private System.Windows.Forms.Button BtnOk;
 		public System.Windows.Forms.NumericUpDown NumValue;
 	}

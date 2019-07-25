@@ -28,17 +28,13 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InputFolderDlg));
 			this.BtnCancel = new System.Windows.Forms.Button();
 			this.BtnOk = new System.Windows.Forms.Button();
 			this.TextValue = new System.Windows.Forms.TextBox();
-			this.TextValueMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-			this.項目なしToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.Prompt = new System.Windows.Forms.Label();
 			this.BtnBrowse = new System.Windows.Forms.Button();
 			this.Hint = new System.Windows.Forms.Label();
-			this.TextValueMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// BtnCancel
@@ -67,27 +63,12 @@
 			// 
 			this.TextValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.TextValue.ContextMenuStrip = this.TextValueMenu;
 			this.TextValue.Location = new System.Drawing.Point(34, 53);
 			this.TextValue.MaxLength = 300;
 			this.TextValue.Name = "TextValue";
 			this.TextValue.Size = new System.Drawing.Size(482, 27);
 			this.TextValue.TabIndex = 1;
 			this.TextValue.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextValue_KeyPress);
-			// 
-			// TextValueMenu
-			// 
-			this.TextValueMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.項目なしToolStripMenuItem});
-			this.TextValueMenu.Name = "TextValueMenu";
-			this.TextValueMenu.Size = new System.Drawing.Size(117, 26);
-			// 
-			// 項目なしToolStripMenuItem
-			// 
-			this.項目なしToolStripMenuItem.Enabled = false;
-			this.項目なしToolStripMenuItem.Name = "項目なしToolStripMenuItem";
-			this.項目なしToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
-			this.項目なしToolStripMenuItem.Text = "項目なし";
 			// 
 			// Prompt
 			// 
@@ -126,7 +107,6 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(584, 191);
-			this.ContextMenuStrip = this.TextValueMenu;
 			this.Controls.Add(this.Hint);
 			this.Controls.Add(this.BtnBrowse);
 			this.Controls.Add(this.TextValue);
@@ -148,7 +128,6 @@
 			this.Shown += new System.EventHandler(this.InputFolderDlg_Shown);
 			this.DragDrop += new System.Windows.Forms.DragEventHandler(this.InputFolderDlg_DragDrop);
 			this.DragEnter += new System.Windows.Forms.DragEventHandler(this.InputFolderDlg_DragEnter);
-			this.TextValueMenu.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -161,8 +140,6 @@
 		public System.Windows.Forms.TextBox TextValue;
 		public System.Windows.Forms.Label Prompt;
 		private System.Windows.Forms.Button BtnBrowse;
-		private System.Windows.Forms.ContextMenuStrip TextValueMenu;
-		private System.Windows.Forms.ToolStripMenuItem 項目なしToolStripMenuItem;
 		private System.Windows.Forms.Label Hint;
 	}
 }

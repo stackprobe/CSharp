@@ -25,8 +25,8 @@ namespace Test02
 			//new InputComboDlgTest().Test02();
 			//new InputOptionDlgTest().Test01();
 			//new InputOptionDlgTest().Test02();
-			//new InputTrackBarDlgTest().Test01();
-			new InputTrackBarDlgToolsTest().Test01();
+			new InputTrackBarDlgTest().Test01();
+			//new InputTrackBarDlgToolsTest().Test01();
 		}
 	}
 }

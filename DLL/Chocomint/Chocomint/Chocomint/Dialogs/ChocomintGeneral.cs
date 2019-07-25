@@ -8,6 +8,6 @@ namespace Charlotte.Chocomint.Dialogs
 {
 	public class ChocomintGeneral
 	{
-		public static Action<Form> CommonPostShown = f => { };
+		public static Action<Form> OptionalPostShown = f => { };
 	}
 }

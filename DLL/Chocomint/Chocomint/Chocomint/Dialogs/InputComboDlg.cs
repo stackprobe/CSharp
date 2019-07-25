@@ -81,7 +81,7 @@ namespace Charlotte.Chocomint.Dialogs
 			}
 
 			this.PostShown();
-			ChocomintGeneral.CommonPostShown(this);
+			ChocomintCommon.DlgCommonPostShown(this);
 		}
 
 		private int IndexOf(object value)

@@ -28,17 +28,13 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InputTrackBarDlg));
 			this.BarValue = new System.Windows.Forms.TrackBar();
 			this.BtnOk = new System.Windows.Forms.Button();
 			this.Prompt = new System.Windows.Forms.Label();
-			this.項目なしToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.TextValueMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.BtnCancel = new System.Windows.Forms.Button();
 			this.CurrValue = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.BarValue)).BeginInit();
-			this.TextValueMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// BarValue
@@ -71,20 +67,6 @@
 			this.Prompt.Size = new System.Drawing.Size(152, 20);
 			this.Prompt.TabIndex = 0;
 			this.Prompt.Text = "数値を入力して下さい。";
-			// 
-			// 項目なしToolStripMenuItem
-			// 
-			this.項目なしToolStripMenuItem.Enabled = false;
-			this.項目なしToolStripMenuItem.Name = "項目なしToolStripMenuItem";
-			this.項目なしToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
-			this.項目なしToolStripMenuItem.Text = "項目なし";
-			// 
-			// TextValueMenu
-			// 
-			this.TextValueMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.項目なしToolStripMenuItem});
-			this.TextValueMenu.Name = "TextValueMenu";
-			this.TextValueMenu.Size = new System.Drawing.Size(117, 26);
 			// 
 			// BtnCancel
 			// 
@@ -131,7 +113,6 @@
 			this.Load += new System.EventHandler(this.InputTrackBarDlg_Load);
 			this.Shown += new System.EventHandler(this.InputTrackBarDlg_Shown);
 			((System.ComponentModel.ISupportInitialize)(this.BarValue)).EndInit();
-			this.TextValueMenu.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -141,8 +122,6 @@
 
 		private System.Windows.Forms.Button BtnOk;
 		public System.Windows.Forms.Label Prompt;
-		private System.Windows.Forms.ToolStripMenuItem 項目なしToolStripMenuItem;
-		private System.Windows.Forms.ContextMenuStrip TextValueMenu;
 		private System.Windows.Forms.Button BtnCancel;
 		private System.Windows.Forms.Label CurrValue;
 		public System.Windows.Forms.TrackBar BarValue;

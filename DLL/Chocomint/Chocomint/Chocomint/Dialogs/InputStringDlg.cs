@@ -36,7 +36,7 @@ namespace Charlotte.Chocomint.Dialogs
 			this.TextValue.SelectAll();
 
 			this.PostShown();
-			ChocomintGeneral.CommonPostShown(this);
+			ChocomintCommon.DlgCommonPostShown(this);
 		}
 
 		private void InputStringDlg_FormClosing(object sender, FormClosingEventArgs e)

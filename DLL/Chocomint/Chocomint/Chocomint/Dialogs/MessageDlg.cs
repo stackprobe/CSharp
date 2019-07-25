@@ -73,7 +73,7 @@ namespace Charlotte.Chocomint.Dialogs
 				this.DetailLabel.Visible = true;
 
 			this.PostShown();
-			ChocomintGeneral.CommonPostShown(this);
+			ChocomintCommon.DlgCommonPostShown(this);
 		}
 
 		private void MessageDlg_FormClosing(object sender, FormClosingEventArgs e)

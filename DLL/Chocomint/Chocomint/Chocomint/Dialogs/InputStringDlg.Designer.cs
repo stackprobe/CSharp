@@ -28,15 +28,11 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InputStringDlg));
 			this.Prompt = new System.Windows.Forms.Label();
 			this.TextValue = new System.Windows.Forms.TextBox();
-			this.TextValueMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-			this.項目なしToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.BtnOk = new System.Windows.Forms.Button();
 			this.BtnCancel = new System.Windows.Forms.Button();
-			this.TextValueMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// Prompt
@@ -52,27 +48,12 @@
 			// 
 			this.TextValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.TextValue.ContextMenuStrip = this.TextValueMenu;
 			this.TextValue.Location = new System.Drawing.Point(34, 53);
 			this.TextValue.MaxLength = 300;
 			this.TextValue.Name = "TextValue";
 			this.TextValue.Size = new System.Drawing.Size(520, 27);
 			this.TextValue.TabIndex = 1;
 			this.TextValue.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextValue_KeyPress);
-			// 
-			// TextValueMenu
-			// 
-			this.TextValueMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.項目なしToolStripMenuItem});
-			this.TextValueMenu.Name = "TextValueMenu";
-			this.TextValueMenu.Size = new System.Drawing.Size(117, 26);
-			// 
-			// 項目なしToolStripMenuItem
-			// 
-			this.項目なしToolStripMenuItem.Enabled = false;
-			this.項目なしToolStripMenuItem.Name = "項目なしToolStripMenuItem";
-			this.項目なしToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
-			this.項目なしToolStripMenuItem.Text = "項目なし";
 			// 
 			// BtnOk
 			// 
@@ -118,7 +99,6 @@
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.InputStringDlg_FormClosed);
 			this.Load += new System.EventHandler(this.InputStringDlg_Load);
 			this.Shown += new System.EventHandler(this.InputStringDlg_Shown);
-			this.TextValueMenu.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -126,8 +106,6 @@
 
 		#endregion
 
-		private System.Windows.Forms.ContextMenuStrip TextValueMenu;
-		private System.Windows.Forms.ToolStripMenuItem 項目なしToolStripMenuItem;
 		public System.Windows.Forms.Label Prompt;
 		public System.Windows.Forms.TextBox TextValue;
 		private System.Windows.Forms.Button BtnOk;
