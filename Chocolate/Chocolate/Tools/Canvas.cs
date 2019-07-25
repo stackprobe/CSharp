@@ -345,5 +345,48 @@ namespace Charlotte.Tools
 			}
 			return this.Copy(l, t, r - l, b - t);
 		}
+
+		public void FillSameColor(int startX, int startY, Color color)
+		{
+			Color targetColor = this.Get(startX, startY);
+
+			if (targetColor == color)
+				throw new ArgumentException();
+
+			this.Adjoin(startX, startY, dot =>
+			{
+				int x = dot[0];
+				int y = dot[1];
+
+				if (this.Get(x, y) == targetColor)
+				{
+					this.Set(x, y, color);
+					return true;
+				}
+				return false;
+			});
+		}
+
+		public void Adjoin(int startX, int startY, Predicate<int[]> match)
+		{
+			Queue<int[]> dots = new Queue<int[]>();
+
+			dots.Enqueue(new int[] { startX, startY });
+
+			while (1 <= dots.Count)
+			{
+				int[] dot = dots.Dequeue();
+				int x = dot[0];
+				int y = dot[1];
+
+				if (this.IsFairPoint(x, y) && match(dot))
+				{
+					dots.Enqueue(new int[] { x - 1, y });
+					dots.Enqueue(new int[] { x + 1, y });
+					dots.Enqueue(new int[] { x, y - 1 });
+					dots.Enqueue(new int[] { x, y + 1 });
+				}
+			}
+		}
 	}
 }

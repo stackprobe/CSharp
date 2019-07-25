@@ -533,38 +533,10 @@ namespace Charlotte
 			Ground.I.NibRoutine = (targetX, targetY) =>
 			{
 				Canvas canvas = new Canvas(this.MainPicture.Image);
-				Color targetColor = canvas.Get(targetX, targetY);
 
-				if (targetColor == Ground.I.NibColor)
-					goto endFunc;
+				canvas.FillSameColor(targetX, targetY, Ground.I.NibColor);
 
-				Queue<int[]> dots = new Queue<int[]>();
-
-				dots.Enqueue(new int[] { targetX, targetY });
-
-				while (1 <= dots.Count)
-				{
-					int[] dot = dots.Dequeue();
-					int x = dot[0];
-					int y = dot[1];
-
-					if (
-						x < 0 || canvas.GetWidth() <= x ||
-						y < 0 || canvas.GetHeight() <= y ||
-						canvas.Get(x, y) != targetColor
-						)
-						continue;
-
-					canvas.Set(x, y, Ground.I.NibColor);
-
-					dots.Enqueue(new int[] { x - 1, y });
-					dots.Enqueue(new int[] { x + 1, y });
-					dots.Enqueue(new int[] { x, y - 1 });
-					dots.Enqueue(new int[] { x, y + 1 });
-				}
 				this.MPic_SetImage(canvas.GetImage());
-
-			endFunc:
 				return true;
 			};
 

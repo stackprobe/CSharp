@@ -70,6 +70,8 @@ namespace Charlotte.Chocomint.Dialogs
 				SaveLoadDialogs.SelectFolder(ref dir, "フォルダを選択して下さい");
 
 				this.TextValue.Text = dir;
+				this.TextValue.SelectAll();
+				this.TextValue.Focus();
 			}
 			catch (Exception ex)
 			{
@@ -110,6 +112,25 @@ namespace Charlotte.Chocomint.Dialogs
 			{
 				this.BtnOk.Focus();
 				e.Handled = true;
+			}
+		}
+
+		private void InputFolderDlg_DragEnter(object sender, DragEventArgs e)
+		{
+			e.Effect = DragDropEffects.Copy;
+		}
+
+		private void InputFolderDlg_DragDrop(object sender, DragEventArgs e)
+		{
+			try
+			{
+				this.TextValue.Text = ((string[])e.Data.GetData(DataFormats.FileDrop)).First(dir => Directory.Exists(dir));
+				this.TextValue.SelectAll();
+				this.TextValue.Focus();
+			}
+			catch
+			{
+				this.TextValue.Text = "";
 			}
 		}
 	}

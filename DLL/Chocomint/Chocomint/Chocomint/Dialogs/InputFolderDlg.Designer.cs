@@ -37,6 +37,7 @@
 			this.項目なしToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.Prompt = new System.Windows.Forms.Label();
 			this.BtnBrowse = new System.Windows.Forms.Button();
+			this.Hint = new System.Windows.Forms.Label();
 			this.TextValueMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -46,7 +47,7 @@
 			this.BtnCancel.Location = new System.Drawing.Point(472, 129);
 			this.BtnCancel.Name = "BtnCancel";
 			this.BtnCancel.Size = new System.Drawing.Size(100, 50);
-			this.BtnCancel.TabIndex = 4;
+			this.BtnCancel.TabIndex = 5;
 			this.BtnCancel.Text = "キャンセル";
 			this.BtnCancel.UseVisualStyleBackColor = true;
 			this.BtnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
@@ -57,7 +58,7 @@
 			this.BtnOk.Location = new System.Drawing.Point(366, 129);
 			this.BtnOk.Name = "BtnOk";
 			this.BtnOk.Size = new System.Drawing.Size(100, 50);
-			this.BtnOk.TabIndex = 3;
+			this.BtnOk.TabIndex = 4;
 			this.BtnOk.Text = "OK";
 			this.BtnOk.UseVisualStyleBackColor = true;
 			this.BtnOk.Click += new System.EventHandler(this.BtnOk_Click);
@@ -108,12 +109,25 @@
 			this.BtnBrowse.UseVisualStyleBackColor = true;
 			this.BtnBrowse.Click += new System.EventHandler(this.BtnBrowse_Click);
 			// 
+			// Hint
+			// 
+			this.Hint.AutoSize = true;
+			this.Hint.Font = new System.Drawing.Font("メイリオ", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.Hint.ForeColor = System.Drawing.Color.Teal;
+			this.Hint.Location = new System.Drawing.Point(31, 83);
+			this.Hint.Name = "Hint";
+			this.Hint.Size = new System.Drawing.Size(250, 17);
+			this.Hint.TabIndex = 3;
+			this.Hint.Text = "フォルダのドラッグアンドドロップも可能です。";
+			// 
 			// InputFolderDlg
 			// 
+			this.AllowDrop = true;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(584, 191);
 			this.ContextMenuStrip = this.TextValueMenu;
+			this.Controls.Add(this.Hint);
 			this.Controls.Add(this.BtnBrowse);
 			this.Controls.Add(this.TextValue);
 			this.Controls.Add(this.Prompt);
@@ -132,6 +146,8 @@
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.InputFolderDlg_FormClosed);
 			this.Load += new System.EventHandler(this.InputFolderDlg_Load);
 			this.Shown += new System.EventHandler(this.InputFolderDlg_Shown);
+			this.DragDrop += new System.Windows.Forms.DragEventHandler(this.InputFolderDlg_DragDrop);
+			this.DragEnter += new System.Windows.Forms.DragEventHandler(this.InputFolderDlg_DragEnter);
 			this.TextValueMenu.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
@@ -147,5 +163,6 @@
 		private System.Windows.Forms.Button BtnBrowse;
 		private System.Windows.Forms.ContextMenuStrip TextValueMenu;
 		private System.Windows.Forms.ToolStripMenuItem 項目なしToolStripMenuItem;
+		private System.Windows.Forms.Label Hint;
 	}
 }
