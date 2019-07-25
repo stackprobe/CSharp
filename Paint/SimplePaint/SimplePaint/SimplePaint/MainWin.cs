@@ -13,6 +13,7 @@ using System.Security.Permissions;
 using System.Windows.Forms;
 using Charlotte.Tools;
 using Charlotte.Chocomint.Dialogs;
+using Charlotte.Command2;
 
 namespace Charlotte
 {
@@ -238,6 +239,9 @@ namespace Charlotte
 		private void MPic_SetImage(Image img)
 		{
 			Image oldImg = this.MainPicture.Image;
+
+			if (oldImg == img)
+				return;
 
 			this.MainPicture.Image = img;
 			this.MainPicture.Bounds = new Rectangle(0, 0, img.Width, img.Height);
@@ -646,6 +650,48 @@ namespace Charlotte
 				return true;
 			};
 
+			this.RefreshUI();
+		}
+
+		private void puzzleToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			using (this.MTBusy.Section())
+			{
+				try
+				{
+					string line = InputStringDlgTools.Show("Input xNum, yNum", "Input => xNum:yNum (e.g. 20:30)");
+					string[] tokens = line.Split(':');
+					int xNum = int.Parse(tokens[0]);
+					int yNum = int.Parse(tokens[1]);
+
+					int pW = this.MainPicture.Image.Width / xNum;
+					int pH = this.MainPicture.Image.Height / yNum;
+
+					if (pW * xNum != this.MainPicture.Image.Width)
+						throw new Exception("xNum Error");
+
+					if (pH * yNum != this.MainPicture.Image.Height)
+						throw new Exception("yNum Error");
+
+					Puzzle p = new Puzzle();
+
+					p.XNum = xNum;
+					p.YNum = yNum;
+					p.Piece_W = pW;
+					p.Piece_H = pH;
+
+					Ground.I.NibRoutine = (x, y) =>
+					{
+						this.MPic_SetImage(p.Routine(this.MainPicture.Image, x, y));
+
+						return false;
+					};
+				}
+				catch (Exception ex)
+				{
+					MessageDlgTools.Warning("Puzzle 失敗", ex, this);
+				}
+			}
 			this.RefreshUI();
 		}
 	}

@@ -133,22 +133,22 @@ namespace Charlotte.Tools
 
 		public void Paste(Canvas prm, int l = 0, int t = 0)
 		{
-			for (int x = 0; x < this.GetWidth(); x++)
+			for (int x = 0; x < prm.GetWidth(); x++)
 			{
-				for (int y = 0; y < this.GetHeight(); y++)
+				for (int y = 0; y < prm.GetHeight(); y++)
 				{
-					this.Set(x, y, prm.Get(x, y));
+					this.Set(l + x, t + y, prm.Get(x, y));
 				}
 			}
 		}
 
 		public void Cover(Canvas prm, int l = 0, int t = 0)
 		{
-			for (int x = 0; x < this.GetWidth(); x++)
+			for (int x = 0; x < prm.GetWidth(); x++)
 			{
-				for (int y = 0; y < this.GetHeight(); y++)
+				for (int y = 0; y < prm.GetHeight(); y++)
 				{
-					this.Put(x, y, prm.Get(x, y));
+					this.Put(l + x, t + y, prm.Get(x, y));
 				}
 			}
 		}
@@ -162,9 +162,9 @@ namespace Charlotte.Tools
 		{
 			Canvas ret = new Canvas(w, h);
 
-			for (int x = 0; x < this.GetWidth(); x++)
+			for (int x = 0; x < w; x++)
 			{
-				for (int y = 0; y < this.GetHeight(); y++)
+				for (int y = 0; y < h; y++)
 				{
 					ret.Set(x, y, this.Get(l + x, t + y));
 				}
@@ -179,9 +179,9 @@ namespace Charlotte.Tools
 
 		public void FillRect(Color color, int l, int t, int w, int h)
 		{
-			for (int x = 0; x < this.GetWidth(); x++)
+			for (int x = 0; x < w; x++)
 			{
-				for (int y = 0; y < this.GetHeight(); y++)
+				for (int y = 0; y < h; y++)
 				{
 					this.Set(l + x, t + y, color);
 				}
@@ -195,9 +195,9 @@ namespace Charlotte.Tools
 
 		public void CoverRect(Color color, int l, int t, int w, int h)
 		{
-			for (int x = 0; x < this.GetWidth(); x++)
+			for (int x = 0; x < w; x++)
 			{
-				for (int y = 0; y < this.GetHeight(); y++)
+				for (int y = 0; y < h; y++)
 				{
 					this.Put(l + x, t + y, color);
 				}

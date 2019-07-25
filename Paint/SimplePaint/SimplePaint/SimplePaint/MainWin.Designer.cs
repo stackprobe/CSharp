@@ -64,6 +64,8 @@
 			this.SouthWest = new System.Windows.Forms.ToolStripStatusLabel();
 			this.MainPanel = new System.Windows.Forms.Panel();
 			this.MainPicture = new System.Windows.Forms.PictureBox();
+			this.command2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.puzzleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			this.MainPanel.SuspendLayout();
@@ -83,7 +85,8 @@
             this.設定ToolStripMenuItem,
             this.ペン先ToolStripMenuItem,
             this.操作ToolStripMenuItem,
-            this.commandToolStripMenuItem});
+            this.commandToolStripMenuItem,
+            this.command2ToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
 			this.menuStrip1.Size = new System.Drawing.Size(784, 24);
@@ -346,6 +349,21 @@
 			this.MainPicture.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainPicture_MouseMove);
 			this.MainPicture.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainPicture_MouseUp);
 			// 
+			// command2ToolStripMenuItem
+			// 
+			this.command2ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.puzzleToolStripMenuItem});
+			this.command2ToolStripMenuItem.Name = "command2ToolStripMenuItem";
+			this.command2ToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
+			this.command2ToolStripMenuItem.Text = "Command2";
+			// 
+			// puzzleToolStripMenuItem
+			// 
+			this.puzzleToolStripMenuItem.Name = "puzzleToolStripMenuItem";
+			this.puzzleToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.puzzleToolStripMenuItem.Text = "Puzzle";
+			this.puzzleToolStripMenuItem.Click += new System.EventHandler(this.puzzleToolStripMenuItem_Click);
+			// 
 			// MainWin
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -412,6 +430,8 @@
 		private System.Windows.Forms.ToolStripMenuItem テクスチャToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem CtrlYMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem GCMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem command2ToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem puzzleToolStripMenuItem;
 	}
 }
 
