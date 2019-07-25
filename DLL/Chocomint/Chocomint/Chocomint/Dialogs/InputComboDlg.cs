@@ -79,6 +79,9 @@ namespace Charlotte.Chocomint.Dialogs
 
 				this.ComboValue.SelectedIndex = index;
 			}
+
+			this.PostShown();
+			ChocomintGeneral.CommonPostShown(this);
 		}
 
 		private int IndexOf(object value)

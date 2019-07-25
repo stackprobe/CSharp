@@ -54,14 +54,16 @@
 			this.矩形選択ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.矩形選択解除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.CtrlZMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.CtrlYMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.GCMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.commandToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.塗りつぶしToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.テクスチャToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.South = new System.Windows.Forms.ToolStripStatusLabel();
 			this.SouthWest = new System.Windows.Forms.ToolStripStatusLabel();
 			this.MainPanel = new System.Windows.Forms.Panel();
 			this.MainPicture = new System.Windows.Forms.PictureBox();
-			this.テクスチャToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			this.MainPanel.SuspendLayout();
@@ -180,47 +182,47 @@
 			// 色ToolStripMenuItem
 			// 
 			this.色ToolStripMenuItem.Name = "色ToolStripMenuItem";
-			this.色ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.色ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
 			this.色ToolStripMenuItem.Text = "色";
 			this.色ToolStripMenuItem.Click += new System.EventHandler(this.色ToolStripMenuItem_Click);
 			// 
 			// 透明度ToolStripMenuItem
 			// 
 			this.透明度ToolStripMenuItem.Name = "透明度ToolStripMenuItem";
-			this.透明度ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.透明度ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
 			this.透明度ToolStripMenuItem.Text = "透明度";
 			this.透明度ToolStripMenuItem.Click += new System.EventHandler(this.透明度ToolStripMenuItem_Click);
 			// 
 			// 形ToolStripMenuItem
 			// 
 			this.形ToolStripMenuItem.Name = "形ToolStripMenuItem";
-			this.形ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.形ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
 			this.形ToolStripMenuItem.Text = "形";
 			this.形ToolStripMenuItem.Click += new System.EventHandler(this.形ToolStripMenuItem_Click);
 			// 
 			// toolStripMenuItem2
 			// 
 			this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-			this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
+			this.toolStripMenuItem2.Size = new System.Drawing.Size(119, 6);
 			// 
 			// 色2MenuItem
 			// 
 			this.色2MenuItem.Name = "色2MenuItem";
-			this.色2MenuItem.Size = new System.Drawing.Size(152, 22);
+			this.色2MenuItem.Size = new System.Drawing.Size(122, 22);
 			this.色2MenuItem.Text = "色２";
 			this.色2MenuItem.Click += new System.EventHandler(this.色2MenuItem_Click);
 			// 
 			// 透明度2MenuItem
 			// 
 			this.透明度2MenuItem.Name = "透明度2MenuItem";
-			this.透明度2MenuItem.Size = new System.Drawing.Size(152, 22);
+			this.透明度2MenuItem.Size = new System.Drawing.Size(122, 22);
 			this.透明度2MenuItem.Text = "透明度２";
 			this.透明度2MenuItem.Click += new System.EventHandler(this.透明度2MenuItem_Click);
 			// 
 			// 形2MenuItem
 			// 
 			this.形2MenuItem.Name = "形2MenuItem";
-			this.形2MenuItem.Size = new System.Drawing.Size(152, 22);
+			this.形2MenuItem.Size = new System.Drawing.Size(122, 22);
 			this.形2MenuItem.Text = "形２";
 			this.形2MenuItem.Click += new System.EventHandler(this.形2MenuItem_Click);
 			// 
@@ -229,7 +231,9 @@
 			this.操作ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.矩形選択ToolStripMenuItem,
             this.矩形選択解除ToolStripMenuItem,
-            this.CtrlZMenuItem});
+            this.CtrlZMenuItem,
+            this.CtrlYMenuItem,
+            this.GCMenuItem});
 			this.操作ToolStripMenuItem.Name = "操作ToolStripMenuItem";
 			this.操作ToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
 			this.操作ToolStripMenuItem.Text = "操作";
@@ -255,6 +259,20 @@
 			this.CtrlZMenuItem.Text = "Ctrl_Z";
 			this.CtrlZMenuItem.Click += new System.EventHandler(this.CtrlZMenuItem_Click);
 			// 
+			// CtrlYMenuItem
+			// 
+			this.CtrlYMenuItem.Name = "CtrlYMenuItem";
+			this.CtrlYMenuItem.Size = new System.Drawing.Size(156, 22);
+			this.CtrlYMenuItem.Text = "Ctrl_Y";
+			this.CtrlYMenuItem.Click += new System.EventHandler(this.CtrlYMenuItem_Click);
+			// 
+			// GCMenuItem
+			// 
+			this.GCMenuItem.Name = "GCMenuItem";
+			this.GCMenuItem.Size = new System.Drawing.Size(156, 22);
+			this.GCMenuItem.Text = "GC";
+			this.GCMenuItem.Click += new System.EventHandler(this.GCMenuItem_Click);
+			// 
 			// commandToolStripMenuItem
 			// 
 			this.commandToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -270,6 +288,13 @@
 			this.塗りつぶしToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.塗りつぶしToolStripMenuItem.Text = "塗りつぶし";
 			this.塗りつぶしToolStripMenuItem.Click += new System.EventHandler(this.塗りつぶしToolStripMenuItem_Click);
+			// 
+			// テクスチャToolStripMenuItem
+			// 
+			this.テクスチャToolStripMenuItem.Name = "テクスチャToolStripMenuItem";
+			this.テクスチャToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.テクスチャToolStripMenuItem.Text = "テクスチャ";
+			this.テクスチャToolStripMenuItem.Click += new System.EventHandler(this.テクスチャToolStripMenuItem_Click);
 			// 
 			// statusStrip1
 			// 
@@ -320,13 +345,6 @@
 			this.MainPicture.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainPicture_MouseDown);
 			this.MainPicture.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainPicture_MouseMove);
 			this.MainPicture.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainPicture_MouseUp);
-			// 
-			// テクスチャToolStripMenuItem
-			// 
-			this.テクスチャToolStripMenuItem.Name = "テクスチャToolStripMenuItem";
-			this.テクスチャToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-			this.テクスチャToolStripMenuItem.Text = "テクスチャ";
-			this.テクスチャToolStripMenuItem.Click += new System.EventHandler(this.テクスチャToolStripMenuItem_Click);
 			// 
 			// MainWin
 			// 
@@ -392,6 +410,8 @@
 		private System.Windows.Forms.ToolStripMenuItem 透明度2MenuItem;
 		private System.Windows.Forms.ToolStripMenuItem 形2MenuItem;
 		private System.Windows.Forms.ToolStripMenuItem テクスチャToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem CtrlYMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem GCMenuItem;
 	}
 }
 

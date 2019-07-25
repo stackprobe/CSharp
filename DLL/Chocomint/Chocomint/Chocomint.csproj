@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Chocomint\Dialogs\ChocomintGeneral.cs" />
     <Compile Include="Chocomint\Dialogs\InputComboDlg.cs">
       <SubType>Form</SubType>
     </Compile>

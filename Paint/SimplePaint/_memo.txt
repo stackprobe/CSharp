@@ -1,4 +1,4 @@
 ----
 
-設定された NibRoutine は、South クリックで解除できる。
+設定された NibRoutine は、South クリック or 右クリックで解除できる。
 

@@ -156,7 +156,14 @@ namespace Charlotte
 		private void RefreshSouthWest()
 		{
 			{
-				string text = "(" + Ground.I.LastNibX + ", " + Ground.I.LastNibY + ")";
+				double workingSetMB = Environment.WorkingSet / 1000000.0;
+
+				List<string> tokens = new List<string>();
+
+				tokens.Add(string.Format("{0:F1} MB", workingSetMB));
+				tokens.Add("(" + Ground.I.LastNibX + ", " + Ground.I.LastNibY + ")");
+
+				string text = string.Join(", ", tokens);
 
 				if (this.SouthWest.Text != text)
 					this.SouthWest.Text = text;
@@ -174,7 +181,7 @@ namespace Charlotte
 				tokens.Add("ペン先=" + Ground.I.Nib);
 				tokens.Add("ペン先2=" + Ground.I.Nib2);
 				tokens.Add("Mode=" + (Ground.I.NibRoutine == null ? 0 : 1));
-				tokens.Add("Hist=" + Ground.I.History.GetCount());
+				tokens.Add("Hist=" + Ground.I.History.GetCount() + "_" + Ground.I.History.GetCountForRedo());
 
 				string text = string.Join(", ", tokens);
 
@@ -224,6 +231,8 @@ namespace Charlotte
 				g.FillRectangle(Brushes.White, 0, 0, w, h);
 			}
 			this.MPic_SetImage(img);
+
+			Ground.I.History.Clear(); // リサイズしたら履歴は読み込めないので、、
 		}
 
 		private void MPic_SetImage(Image img)
@@ -286,6 +295,7 @@ namespace Charlotte
 						catch (Exception ex)
 						{
 							MessageDlgTools.Warning("NibRoutine Error", ex);
+							Ground.I.NibRoutine = null;
 						}
 					}
 					else
@@ -555,16 +565,36 @@ namespace Charlotte
 				this.CtrlZMenuItem_Click(null, null);
 				e.Handled = true;
 			}
+			if (e.KeyChar == (char)25) // ctrl_y
+			{
+				this.CtrlYMenuItem_Click(null, null);
+				e.Handled = true;
+			}
 		}
 
 		private void CtrlZMenuItem_Click(object sender, EventArgs e)
 		{
-			Image image = Ground.I.History.Unsave();
+			Image image = Ground.I.History.Undo(this.MainPicture.Image);
 
 			if (image != null)
 				this.MPic_SetImage(image);
 
 			this.RefreshUI();
+		}
+
+		private void CtrlYMenuItem_Click(object sender, EventArgs e)
+		{
+			Image image = Ground.I.History.Redo(this.MainPicture.Image);
+
+			if (image != null)
+				this.MPic_SetImage(image);
+
+			this.RefreshUI();
+		}
+
+		private void GCMenuItem_Click(object sender, EventArgs e)
+		{
+			GC.Collect();
 		}
 
 		private void South_Click(object sender, EventArgs e)
@@ -588,9 +618,34 @@ namespace Charlotte
 			this.RefreshUI();
 		}
 
+		private string ActiveTextureImageFile = "";
+
 		private void テクスチャToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			// TODO
+			Ground.I.NibRoutine = (targetX, targetY) =>
+			{
+				string textureImageFile = InputFileDlgTools.Load("テクスチャ画像ファイル入力", "テクスチャ画像ファイルを入力して下さい。", this.ActiveTextureImageFile, null, "bmp.gif.jpg.jpeg.png", this);
+
+				if (textureImageFile != null)
+				{
+					this.ActiveTextureImageFile = textureImageFile;
+
+					Canvas texture = new Canvas(textureImageFile);
+					Canvas canvas = new Canvas(this.MainPicture.Image);
+
+					Color targetColor = canvas.Get(targetX, targetY);
+
+					for (int x = 0; x < canvas.GetWidth(); x++)
+						for (int y = 0; y < canvas.GetHeight(); y++)
+							if (canvas.Get(x, y) == targetColor)
+								canvas.Set(x, y, texture.Get(x % texture.GetWidth(), y % texture.GetHeight()));
+
+					this.MPic_SetImage(canvas.GetImage());
+				}
+				return true;
+			};
+
+			this.RefreshUI();
 		}
 	}
 }

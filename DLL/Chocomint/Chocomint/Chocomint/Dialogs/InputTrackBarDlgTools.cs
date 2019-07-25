@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Charlotte.Tools;
 
 namespace Charlotte.Chocomint.Dialogs
 {
@@ -45,7 +46,7 @@ namespace Charlotte.Chocomint.Dialogs
 
 		private static int GetTickFrequency(int range)
 		{
-			for (int i = (int)Math.Sqrt((double)range); 2 <= i; i--)
+			for (int i = DoubleTools.ToInt(Math.Sqrt((double)range)); 2 <= i; i--)
 				if (range % i == 0)
 					return i;
 
