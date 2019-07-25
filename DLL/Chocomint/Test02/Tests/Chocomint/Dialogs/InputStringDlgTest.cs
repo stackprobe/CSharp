@@ -72,5 +72,10 @@ namespace Test02.Tests.Chocomint.Dialogs
 		{
 			MessageDlgTools.Information("info", "ret=" + InputStringDlgTools.Double("input double", "input double :"));
 		}
+
+		public void Test04_2()
+		{
+			MessageDlgTools.Information("info", "ret=" + InputStringDlgTools.Int("ポート番号を入力して下さい。", "ポート番号：", true, 8080, 1, 65535));
+		}
 	}
 }

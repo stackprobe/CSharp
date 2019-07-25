@@ -9,8 +9,17 @@ namespace Charlotte.Chocomint.Dialogs
 {
 	public class BusyDlgTools
 	{
+		private static VisitorCounter BusyDlgVCnt = new VisitorCounter();
+
 		public static void Show(string title, string message, Action routine, bool hasParent = false)
 		{
+			if (BusyDlgVCnt.HasVisitor())
+			{
+				routine();
+				return;
+			}
+
+			using (BusyDlgVCnt.Section())
 			using (BusyDlg f = new BusyDlg())
 			using (ThreadEx th = new ThreadEx(routine))
 			{
