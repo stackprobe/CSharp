@@ -370,6 +370,7 @@ namespace Charlotte
 					this.MPic_SetSize(f.RefSize);
 				}
 			}
+			this.RefreshUI();
 		}
 
 		private void ファイル読み込みToolStripMenuItem_Click(object sender, EventArgs e)
