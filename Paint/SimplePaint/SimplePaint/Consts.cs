@@ -17,6 +17,6 @@ namespace Charlotte
 		public static readonly Color DefaultBackColor = new Button().BackColor;
 		public static readonly Color DefaultForeColor = new Button().ForeColor;
 
-		public const int HISTORY_MAX = 10;
+		public const int HISTORY_MAX = 999;
 	}
 }

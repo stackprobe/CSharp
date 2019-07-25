@@ -44,8 +44,12 @@
 			this.アンチエイリアスToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ペン先ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.色ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.特殊な色ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.透明度ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.形ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+			this.色2MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.透明度2MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.形2MenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.操作ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.矩形選択ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.矩形選択解除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,6 +61,7 @@
 			this.SouthWest = new System.Windows.Forms.ToolStripStatusLabel();
 			this.MainPanel = new System.Windows.Forms.Panel();
 			this.MainPicture = new System.Windows.Forms.PictureBox();
+			this.テクスチャToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			this.MainPanel.SuspendLayout();
@@ -162,8 +167,12 @@
 			// 
 			this.ペン先ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.色ToolStripMenuItem,
-            this.特殊な色ToolStripMenuItem,
-            this.形ToolStripMenuItem});
+            this.透明度ToolStripMenuItem,
+            this.形ToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.色2MenuItem,
+            this.透明度2MenuItem,
+            this.形2MenuItem});
 			this.ペン先ToolStripMenuItem.Name = "ペン先ToolStripMenuItem";
 			this.ペン先ToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
 			this.ペン先ToolStripMenuItem.Text = "ペン先";
@@ -171,23 +180,49 @@
 			// 色ToolStripMenuItem
 			// 
 			this.色ToolStripMenuItem.Name = "色ToolStripMenuItem";
-			this.色ToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+			this.色ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.色ToolStripMenuItem.Text = "色";
 			this.色ToolStripMenuItem.Click += new System.EventHandler(this.色ToolStripMenuItem_Click);
 			// 
-			// 特殊な色ToolStripMenuItem
+			// 透明度ToolStripMenuItem
 			// 
-			this.特殊な色ToolStripMenuItem.Name = "特殊な色ToolStripMenuItem";
-			this.特殊な色ToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
-			this.特殊な色ToolStripMenuItem.Text = "透明度";
-			this.特殊な色ToolStripMenuItem.Click += new System.EventHandler(this.特殊な色ToolStripMenuItem_Click);
+			this.透明度ToolStripMenuItem.Name = "透明度ToolStripMenuItem";
+			this.透明度ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.透明度ToolStripMenuItem.Text = "透明度";
+			this.透明度ToolStripMenuItem.Click += new System.EventHandler(this.透明度ToolStripMenuItem_Click);
 			// 
 			// 形ToolStripMenuItem
 			// 
 			this.形ToolStripMenuItem.Name = "形ToolStripMenuItem";
-			this.形ToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+			this.形ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.形ToolStripMenuItem.Text = "形";
 			this.形ToolStripMenuItem.Click += new System.EventHandler(this.形ToolStripMenuItem_Click);
+			// 
+			// toolStripMenuItem2
+			// 
+			this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+			this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
+			// 
+			// 色2MenuItem
+			// 
+			this.色2MenuItem.Name = "色2MenuItem";
+			this.色2MenuItem.Size = new System.Drawing.Size(152, 22);
+			this.色2MenuItem.Text = "色２";
+			this.色2MenuItem.Click += new System.EventHandler(this.色2MenuItem_Click);
+			// 
+			// 透明度2MenuItem
+			// 
+			this.透明度2MenuItem.Name = "透明度2MenuItem";
+			this.透明度2MenuItem.Size = new System.Drawing.Size(152, 22);
+			this.透明度2MenuItem.Text = "透明度２";
+			this.透明度2MenuItem.Click += new System.EventHandler(this.透明度2MenuItem_Click);
+			// 
+			// 形2MenuItem
+			// 
+			this.形2MenuItem.Name = "形2MenuItem";
+			this.形2MenuItem.Size = new System.Drawing.Size(152, 22);
+			this.形2MenuItem.Text = "形２";
+			this.形2MenuItem.Click += new System.EventHandler(this.形2MenuItem_Click);
 			// 
 			// 操作ToolStripMenuItem
 			// 
@@ -223,7 +258,8 @@
 			// commandToolStripMenuItem
 			// 
 			this.commandToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.塗りつぶしToolStripMenuItem});
+            this.塗りつぶしToolStripMenuItem,
+            this.テクスチャToolStripMenuItem});
 			this.commandToolStripMenuItem.Name = "commandToolStripMenuItem";
 			this.commandToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
 			this.commandToolStripMenuItem.Text = "Command";
@@ -231,7 +267,7 @@
 			// 塗りつぶしToolStripMenuItem
 			// 
 			this.塗りつぶしToolStripMenuItem.Name = "塗りつぶしToolStripMenuItem";
-			this.塗りつぶしToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+			this.塗りつぶしToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.塗りつぶしToolStripMenuItem.Text = "塗りつぶし";
 			this.塗りつぶしToolStripMenuItem.Click += new System.EventHandler(this.塗りつぶしToolStripMenuItem_Click);
 			// 
@@ -249,7 +285,7 @@
 			// South
 			// 
 			this.South.Name = "South";
-			this.South.Size = new System.Drawing.Size(691, 17);
+			this.South.Size = new System.Drawing.Size(722, 17);
 			this.South.Spring = true;
 			this.South.Text = "Ready...";
 			this.South.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -284,6 +320,13 @@
 			this.MainPicture.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainPicture_MouseDown);
 			this.MainPicture.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainPicture_MouseMove);
 			this.MainPicture.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainPicture_MouseUp);
+			// 
+			// テクスチャToolStripMenuItem
+			// 
+			this.テクスチャToolStripMenuItem.Name = "テクスチャToolStripMenuItem";
+			this.テクスチャToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.テクスチャToolStripMenuItem.Text = "テクスチャ";
+			this.テクスチャToolStripMenuItem.Click += new System.EventHandler(this.テクスチャToolStripMenuItem_Click);
 			// 
 			// MainWin
 			// 
@@ -342,8 +385,13 @@
 		private System.Windows.Forms.ToolStripMenuItem 矩形選択解除ToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem 色ToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem 形ToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem 特殊な色ToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem 透明度ToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem CtrlZMenuItem;
+		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+		private System.Windows.Forms.ToolStripMenuItem 色2MenuItem;
+		private System.Windows.Forms.ToolStripMenuItem 透明度2MenuItem;
+		private System.Windows.Forms.ToolStripMenuItem 形2MenuItem;
+		private System.Windows.Forms.ToolStripMenuItem テクスチャToolStripMenuItem;
 	}
 }
 

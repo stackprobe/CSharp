@@ -67,11 +67,13 @@ namespace Charlotte.Chocomint.Dialogs
 
 		private void NumValue_KeyPress(object sender, KeyPressEventArgs e)
 		{
-			if (e.KeyChar == (char)13) // enter
+#if false // 警告音が出る。
+			if (e.KeyChar == (char)13)
 			{
 				this.BtnOk.Focus();
 				e.Handled = true;
 			}
+#endif
 		}
 
 		private void BtnCancel_Click(object sender, EventArgs e)

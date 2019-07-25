@@ -19,7 +19,9 @@ namespace Charlotte
 		}
 
 		public Nib_e Nib = Nib_e.SIMPLE;
+		public Nib_e Nib2 = Nib_e.SIMPLE;
 		public Color NibColor = Color.Black;
+		public Color NibColor2 = Color.White;
 		public Func<int, int, bool> NibRoutine = null; // ボタン押下時に発動する。真を返すと解除する。偽を返すと解除しない。
 
 		public bool NibDown = false;

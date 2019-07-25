@@ -41,6 +41,8 @@ namespace Charlotte
 		public MainWin()
 		{
 			InitializeComponent();
+
+			this.MinimumSize = this.Size;
 		}
 
 		private void MainWin_Load(object sender, EventArgs e)
@@ -168,7 +170,9 @@ namespace Charlotte
 
 				tokens.Add(this.MainPicture.Image.Width + " x " + this.MainPicture.Image.Height);
 				tokens.Add(string.Format("色={0:x8}", Ground.I.NibColor.ToArgb()));
+				tokens.Add(string.Format("色2={0:x8}", Ground.I.NibColor2.ToArgb()));
 				tokens.Add("ペン先=" + Ground.I.Nib);
+				tokens.Add("ペン先2=" + Ground.I.Nib2);
 				tokens.Add("Mode=" + (Ground.I.NibRoutine == null ? 0 : 1));
 				tokens.Add("Hist=" + Ground.I.History.GetCount());
 
@@ -268,22 +272,30 @@ namespace Charlotte
 		{
 			using (this.MTBusy.Section())
 			{
-				Ground.I.History.Save(this.MainPicture.Image);
-
 				if (Ground.I.NibRoutine != null)
 				{
-					try
+					if (e.Button == System.Windows.Forms.MouseButtons.Left)
 					{
-						if (Ground.I.NibRoutine(e.X, e.Y))
-							Ground.I.NibRoutine = null;
+						Ground.I.History.Save(this.MainPicture.Image);
+
+						try
+						{
+							if (Ground.I.NibRoutine(e.X, e.Y))
+								Ground.I.NibRoutine = null;
+						}
+						catch (Exception ex)
+						{
+							MessageDlgTools.Warning("NibRoutine Error", ex);
+						}
 					}
-					catch (Exception ex)
+					else
 					{
-						MessageDlgTools.Warning("NibRoutine Error", ex);
+						Ground.I.NibRoutine = null; // モード解除
 					}
 					this.RefreshUI();
 					return;
 				}
+				Ground.I.History.Save(this.MainPicture.Image);
 				Ground.I.NibDown = true;
 				//this.RefreshUI(); // moved -> _MouseUp()
 			}
@@ -302,24 +314,27 @@ namespace Charlotte
 
 			if (Ground.I.NibDown)
 			{
+				Ground.Nib_e nib = e.Button == System.Windows.Forms.MouseButtons.Left ? Ground.I.Nib : Ground.I.Nib2;
+				Color nibColor = e.Button == System.Windows.Forms.MouseButtons.Left ? Ground.I.NibColor : Ground.I.NibColor2;
+
 				this.MPic_Draw(g =>
 				{
-					switch (Ground.I.Nib)
+					switch (nib)
 					{
 						case Ground.Nib_e.SIMPLE:
-							g.DrawLine(new Pen(Ground.I.NibColor), nibX, nibY, Ground.I.LastNibX, Ground.I.LastNibY);
+							g.DrawLine(new Pen(nibColor), nibX, nibY, Ground.I.LastNibX, Ground.I.LastNibY);
 							break;
 
 						case Ground.Nib_e.THICK:
-							g.DrawLine(new Pen(Ground.I.NibColor, 5), nibX, nibY, Ground.I.LastNibX, Ground.I.LastNibY);
+							g.DrawLine(new Pen(nibColor, 5), nibX, nibY, Ground.I.LastNibX, Ground.I.LastNibY);
 							break;
 
 						case Ground.Nib_e.THICK_x2:
-							g.DrawLine(new Pen(Ground.I.NibColor, 10), nibX, nibY, Ground.I.LastNibX, Ground.I.LastNibY);
+							g.DrawLine(new Pen(nibColor, 10), nibX, nibY, Ground.I.LastNibX, Ground.I.LastNibY);
 							break;
 
 						case Ground.Nib_e.THICK_x3:
-							g.DrawLine(new Pen(Ground.I.NibColor, 15), nibX, nibY, Ground.I.LastNibX, Ground.I.LastNibY);
+							g.DrawLine(new Pen(nibColor, 15), nibX, nibY, Ground.I.LastNibX, Ground.I.LastNibY);
 							break;
 
 						default:
@@ -445,19 +460,40 @@ namespace Charlotte
 			this.RefreshUI();
 		}
 
-		private void 特殊な色ToolStripMenuItem_Click(object sender, EventArgs e)
+		private void 色2MenuItem_Click(object sender, EventArgs e)
+		{
+			using (MTBusy.Section())
+			{
+				SaveLoadDialogs.SelectColor(ref Ground.I.NibColor2);
+			}
+			this.RefreshUI();
+		}
+
+		private void 透明度ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Ground.I.NibColor = this.Edit透明度(Ground.I.NibColor, "左");
+			this.RefreshUI();
+		}
+
+		private void 透明度2MenuItem_Click(object sender, EventArgs e)
+		{
+			Ground.I.NibColor2 = this.Edit透明度(Ground.I.NibColor2, "右");
+			this.RefreshUI();
+		}
+
+		private Color Edit透明度(Color target, string titleTrailer)
 		{
 			using (MTBusy.Section())
 			using (InputDecimalDlg f = new InputDecimalDlg())
 			{
 				f.MinValue = 0;
 				f.MaxValue = 255;
-				f.Value = Ground.I.NibColor.A;
+				f.Value = target.A;
 				f.StartPosition = FormStartPosition.CenterParent;
 
 				f.PostShown = () =>
 				{
-					f.Text = "アルファ値";
+					f.Text = "アルファ値：" + titleTrailer;
 					f.Prompt.Text = "アルファ値を入力して下さい。(0 ～ 255 = 透明 ～ 不透明)";
 				};
 
@@ -465,28 +501,40 @@ namespace Charlotte
 
 				if (f.OkPressed)
 				{
-					Ground.I.NibColor = Color.FromArgb(
+					target = Color.FromArgb(
 						(int)f.Value,
-						Ground.I.NibColor.R,
-						Ground.I.NibColor.G,
-						Ground.I.NibColor.B
+						target.R,
+						target.G,
+						target.B
 						);
 				}
 			}
-			this.RefreshUI();
+			return target;
 		}
 
 		private void 形ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
+			Ground.I.Nib = this.Edit形(Ground.I.Nib, "左");
+			this.RefreshUI();
+		}
+
+		private void 形2MenuItem_Click(object sender, EventArgs e)
+		{
+			Ground.I.Nib2 = this.Edit形(Ground.I.Nib2, "右");
+			this.RefreshUI();
+		}
+
+		private Ground.Nib_e Edit形(Ground.Nib_e target, string titleTrailer)
+		{
 			using (MTBusy.Section())
 			using (InputComboDlg f = new InputComboDlg())
 			{
-				f.Value = Ground.I.Nib;
+				f.Value = target;
 				f.StartPosition = FormStartPosition.CenterParent;
 
 				f.PostShown = () =>
 				{
-					f.Text = "ペン先の形状";
+					f.Text = "ペン先の形状：" + titleTrailer;
 					f.Prompt.Text = "ペン先の形状を選択して下さい。";
 				};
 
@@ -497,10 +545,10 @@ namespace Charlotte
 
 				if (f.OkPressed)
 				{
-					Ground.I.Nib = (Ground.Nib_e)f.Value;
+					target = (Ground.Nib_e)f.Value;
 				}
 			}
-			this.RefreshUI();
+			return target;
 		}
 
 		private void MainWin_KeyPress(object sender, KeyPressEventArgs e)
@@ -524,7 +572,7 @@ namespace Charlotte
 
 		private void South_Click(object sender, EventArgs e)
 		{
-			Ground.I.NibRoutine = null;
+			Ground.I.NibRoutine = null; // モード解除
 			this.RefreshUI();
 		}
 
@@ -541,6 +589,11 @@ namespace Charlotte
 			};
 
 			this.RefreshUI();
+		}
+
+		private void テクスチャToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			//
 		}
 	}
 }
