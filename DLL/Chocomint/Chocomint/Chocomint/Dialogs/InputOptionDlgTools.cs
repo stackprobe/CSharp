@@ -8,14 +8,14 @@ namespace Charlotte.Chocomint.Dialogs
 {
 	public class InputOptionDlgTools
 	{
-		public static int Show(string title, string message, string[] options, Form parent = null)
+		public static int Show(string title, string message, string[] options, bool hasParent = false)
 		{
 			using (InputOptionDlg f = new InputOptionDlg())
 			{
 				f.Message = message;
 				f.Options = options;
 
-				if (parent != null)
+				if (hasParent)
 					f.StartPosition = FormStartPosition.CenterParent;
 
 				f.PostShown = () =>

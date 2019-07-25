@@ -9,7 +9,7 @@ namespace Charlotte.Chocomint.Dialogs
 {
 	public class InputTrackBarDlgTools
 	{
-		public static int Show(string title, string prompt, int value = 0, int minval = 0, int maxval = 10, int defval = -1, Func<int, int> validator = null, Form parent = null)
+		public static int Show(string title, string prompt, bool hasParent = false, int value = 0, int minval = 0, int maxval = 10, int defval = -1, Func<int, int> validator = null)
 		{
 			using (InputTrackBarDlg f = new InputTrackBarDlg())
 			{
@@ -17,7 +17,7 @@ namespace Charlotte.Chocomint.Dialogs
 				f.MinValue = minval;
 				f.MaxValue = maxval;
 
-				if (parent != null)
+				if (hasParent)
 					f.StartPosition = FormStartPosition.CenterParent;
 
 				f.PostShown = () =>

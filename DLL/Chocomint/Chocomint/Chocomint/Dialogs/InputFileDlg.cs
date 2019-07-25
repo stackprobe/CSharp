@@ -81,7 +81,7 @@ namespace Charlotte.Chocomint.Dialogs
 			}
 			catch (Exception ex)
 			{
-				MessageDlgTools.Warning("入力エラー", ex, this);
+				MessageDlgTools.Warning("入力エラー", ex, true);
 
 				this.TextValue.Focus();
 				this.TextValue.SelectAll();
@@ -125,7 +125,7 @@ namespace Charlotte.Chocomint.Dialogs
 			}
 			catch (Exception ex)
 			{
-				MessageDlgTools.Warning("ファイル選択エラー", ex, this);
+				MessageDlgTools.Warning("ファイル選択エラー", ex, true);
 			}
 		}
 

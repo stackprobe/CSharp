@@ -9,7 +9,7 @@ namespace Charlotte.Chocomint.Dialogs
 {
 	public class InputStringDlgTools
 	{
-		public static double Double(string title, string prompt, double value = 0.0, double minval = (double)-IntTools.IMAX, double maxval = (double)IntTools.IMAX, double defval = 0.0, Form parent = null)
+		public static double Double(string title, string prompt, bool hasParent = false, double value = 0.0, double minval = (double)-IntTools.IMAX, double maxval = (double)IntTools.IMAX, double defval = 0.0)
 		{
 			Func<string, string> validator = v =>
 			{
@@ -21,10 +21,10 @@ namespace Charlotte.Chocomint.Dialogs
 				return "" + ret;
 			};
 
-			return DoubleTools.ToDouble(Show(title, prompt, "" + value, 300, null, true, validator, parent), minval, maxval, defval);
+			return DoubleTools.ToDouble(Show(title, prompt, hasParent, "" + value, 300, null, true, validator), minval, maxval, defval);
 		}
 
-		public static long Long(string title, string prompt, long value = 0L, long minval = 0L, long maxval = LongTools.IMAX_64, long defval = -1L, Form parent = null)
+		public static long Long(string title, string prompt, bool hasParent = false, long value = 0L, long minval = 0L, long maxval = LongTools.IMAX_64, long defval = -1L)
 		{
 			Func<string, string> validator = v =>
 			{
@@ -36,11 +36,10 @@ namespace Charlotte.Chocomint.Dialogs
 				return "" + ret;
 			};
 
-			//return long.Parse(Show(title, prompt, "" + value, 20, "" + defval, true, validator, parent)); // same
-			return LongTools.ToLong(Show(title, prompt, "" + value, 20, null, true, validator, parent), minval, maxval, defval);
+			return LongTools.ToLong(Show(title, prompt, hasParent, "" + value, 20, null, true, validator), minval, maxval, defval);
 		}
 
-		public static int Int(string title, string prompt, int value = 0, int minval = 0, int maxval = IntTools.IMAX, int defval = -1, Form parent = null)
+		public static int Int(string title, string prompt, bool hasParent = false, int value = 0, int minval = 0, int maxval = IntTools.IMAX, int defval = -1)
 		{
 			Func<string, string> validator = v =>
 			{
@@ -52,8 +51,7 @@ namespace Charlotte.Chocomint.Dialogs
 				return "" + ret;
 			};
 
-			//return int.Parse(Show(title, prompt, "" + value, 11, "" + defval, true, validator, parent)); // same
-			return IntTools.ToInt(Show(title, prompt, "" + value, 11, null, true, validator, parent), minval, maxval, defval);
+			return IntTools.ToInt(Show(title, prompt, hasParent, "" + value, 11, null, true, validator), minval, maxval, defval);
 		}
 
 		private static string OutOfRangeErrorMessage(object minval, object maxval)
@@ -61,13 +59,13 @@ namespace Charlotte.Chocomint.Dialogs
 			return string.Format("{0} 以上 {1} 以下 でなければなりません。", minval, maxval);
 		}
 
-		public static string Show(string title, string prompt, string value = "", int maxlen = 300, string defval = null, bool rightAlign = false, Func<string, string> validator = null, Form parent = null)
+		public static string Show(string title, string prompt, bool hasParent = false, string value = "", int maxlen = 300, string defval = null, bool rightAlign = false, Func<string, string> validator = null)
 		{
 			using (InputStringDlg f = new InputStringDlg())
 			{
 				f.Value = value;
 
-				if (parent != null)
+				if (hasParent)
 					f.StartPosition = FormStartPosition.CenterParent;
 
 				f.PostShown = () =>

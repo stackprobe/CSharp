@@ -8,27 +8,27 @@ namespace Charlotte.Chocomint.Dialogs
 {
 	public class MessageDlgTools
 	{
-		public static void Information(string title, string message, string detailMessage = null, Form parent = null)
+		public static void Information(string title, string message, bool hasParent = false, string detailMessage = null)
 		{
-			Show(MessageDlg.Mode_e.Information, title, message, detailMessage, parent);
+			Show(MessageDlg.Mode_e.Information, title, message, hasParent, detailMessage);
 		}
 
-		public static void Error(string title, Exception e, Form parent = null)
+		public static void Error(string title, Exception e, bool hasParent = false)
 		{
-			Show(MessageDlg.Mode_e.Error, title, e, parent);
+			Show(MessageDlg.Mode_e.Error, title, e, hasParent);
 		}
 
-		public static void Warning(string title, Exception e, Form parent = null)
+		public static void Warning(string title, Exception e, bool hasParent = false)
 		{
-			Show(MessageDlg.Mode_e.Warning, title, e, parent);
+			Show(MessageDlg.Mode_e.Warning, title, e, hasParent);
 		}
 
-		public static void Show(MessageDlg.Mode_e mode, string title, Exception e, Form parent = null)
+		public static void Show(MessageDlg.Mode_e mode, string title, Exception e, bool hasParent = false)
 		{
-			Show(mode, title, e.Message, "" + e, parent);
+			Show(mode, title, e.Message, hasParent, "" + e);
 		}
 
-		public static void Show(MessageDlg.Mode_e mode, string title, string message, string detailMessage = null, Form parent = null)
+		public static void Show(MessageDlg.Mode_e mode, string title, string message, bool hasParent = false, string detailMessage = null)
 		{
 			using (MessageDlg f = new MessageDlg())
 			{
@@ -36,7 +36,7 @@ namespace Charlotte.Chocomint.Dialogs
 				f.Message = message;
 				f.DetailMessage = detailMessage;
 
-				if (parent != null)
+				if (hasParent)
 					f.StartPosition = FormStartPosition.CenterParent;
 
 				f.PostShown = () =>

@@ -96,7 +96,7 @@ namespace Charlotte.Chocomint.Dialogs
 			}
 			catch (Exception ex)
 			{
-				MessageDlgTools.Warning("入力エラー", ex, this);
+				MessageDlgTools.Warning("入力エラー", ex, true);
 
 				this.NumValue.Focus();
 				SelectAll(this.NumValue);

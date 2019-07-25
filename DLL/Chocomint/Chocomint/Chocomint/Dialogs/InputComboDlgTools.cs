@@ -20,7 +20,7 @@ namespace Charlotte.Chocomint.Dialogs
 			}
 		}
 
-		public static T Show<T>(string title, string prompt, IEnumerable<Item<T>> items, T value = default(T), T defval = default(T), Func<T, T> validator = null, Form parent = null)
+		public static T Show<T>(string title, string prompt, IEnumerable<Item<T>> items, bool hasParent = false, T value = default(T), T defval = default(T), Func<T, T> validator = null)
 		{
 			using (InputComboDlg f = new InputComboDlg())
 			{
@@ -29,7 +29,7 @@ namespace Charlotte.Chocomint.Dialogs
 				if (items != null)
 					f.AddItems(items.Select(item => new InputComboDlg.Item(item.Value, item.ValueForUI)));
 
-				if (parent != null)
+				if (hasParent)
 					f.StartPosition = FormStartPosition.CenterParent;
 
 				f.PostShown = () =>

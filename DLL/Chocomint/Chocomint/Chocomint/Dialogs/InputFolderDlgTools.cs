@@ -9,7 +9,7 @@ namespace Charlotte.Chocomint.Dialogs
 {
 	public class InputFolderDlgTools
 	{
-		public static string Existing(string title, string prompt, string dir = "", string defval = null, Form parent = null)
+		public static string Existing(string title, string prompt, bool hasParent = false, string dir = "", string defval = null)
 		{
 			Func<string, string> validator = v =>
 			{
@@ -19,16 +19,16 @@ namespace Charlotte.Chocomint.Dialogs
 				return v;
 			};
 
-			return Show(title, prompt, dir, defval, validator, parent);
+			return Show(title, prompt, hasParent, dir, defval, validator);
 		}
 
-		public static string Show(string title, string prompt, string dir = "", string defval = null, Func<string, string> validator = null, Form parent = null)
+		public static string Show(string title, string prompt, bool hasParent = false, string dir = "", string defval = null, Func<string, string> validator = null)
 		{
 			using (InputFolderDlg f = new InputFolderDlg())
 			{
 				f.Value = dir;
 
-				if (parent != null)
+				if (hasParent)
 					f.StartPosition = FormStartPosition.CenterParent;
 
 				f.PostShown = () =>

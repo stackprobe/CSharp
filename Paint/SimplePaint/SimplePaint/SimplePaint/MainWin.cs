@@ -127,7 +127,7 @@ namespace Charlotte
 					"確認",
 					"画像ファイルに保存しますか？",
 					"はい:いいえ:キャンセル".Split(':'),
-					this
+					true
 					);
 
 				if (ret == 0)
@@ -417,7 +417,7 @@ namespace Charlotte
 				}
 				catch (Exception ex)
 				{
-					MessageDlgTools.Warning("ファイル読み込み失敗", ex, this);
+					MessageDlgTools.Warning("ファイル読み込み失敗", ex, true);
 				}
 				GC.Collect();
 			}
@@ -448,13 +448,13 @@ namespace Charlotte
 
 						Ground.I.ActiveImageFile = file;
 
-						MessageDlgTools.Information("成功", "保存しました。", null, this);
+						MessageDlgTools.Information("成功", "保存しました。", true);
 						return true;
 					}
 				}
 				catch (Exception ex)
 				{
-					MessageDlgTools.Warning("ファイル書き出し失敗", ex, this);
+					MessageDlgTools.Warning("ファイル書き出し失敗", ex, true);
 				}
 				return false;
 			}
@@ -503,12 +503,12 @@ namespace Charlotte
 				int ret = InputTrackBarDlgTools.Show(
 					"アルファ値：" + titleTrailer,
 					"アルファ値を入力して下さい。(0 ～ 255 = 透明 ～ 不透明)",
+					true,
 					target.A,
 					0,
 					255,
 					-1,
-					null,
-					this
+					null
 					);
 
 				if (ret != -1)
@@ -629,7 +629,7 @@ namespace Charlotte
 		{
 			Ground.I.NibRoutine = (targetX, targetY) =>
 			{
-				string textureImageFile = InputFileDlgTools.Load("テクスチャ画像ファイル入力", "テクスチャ画像ファイルを入力して下さい。", this.ActiveTextureImageFile, null, "bmp.gif.jpg.jpeg.png", this);
+				string textureImageFile = InputFileDlgTools.Load("テクスチャ画像ファイル入力", "テクスチャ画像ファイルを入力して下さい。", true, this.ActiveTextureImageFile, null, "bmp.gif.jpg.jpeg.png");
 
 				if (textureImageFile != null)
 				{
@@ -659,7 +659,7 @@ namespace Charlotte
 			{
 				try
 				{
-					string line = InputStringDlgTools.Show("Input xNum, yNum", "Input => xNum:yNum (e.g. 20:30)");
+					string line = InputStringDlgTools.Show("Input xNum, yNum", "Input => xNum:yNum (e.g. 20:30)", true);
 					string[] tokens = line.Split(':');
 					int xNum = int.Parse(tokens[0]);
 					int yNum = int.Parse(tokens[1]);
@@ -689,7 +689,7 @@ namespace Charlotte
 				}
 				catch (Exception ex)
 				{
-					MessageDlgTools.Warning("Puzzle 失敗", ex, this);
+					MessageDlgTools.Warning("Puzzle 失敗", ex, true);
 				}
 			}
 			this.RefreshUI();

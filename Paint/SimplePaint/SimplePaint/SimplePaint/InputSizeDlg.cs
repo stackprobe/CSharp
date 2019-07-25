@@ -57,7 +57,7 @@ namespace Charlotte
 			}
 			catch (Exception ex)
 			{
-				MessageDlgTools.Warning("保存できません", ex, this);
+				MessageDlgTools.Warning("保存できません", ex, true);
 			}
 		}
 
