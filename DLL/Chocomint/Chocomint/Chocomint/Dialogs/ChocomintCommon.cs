@@ -106,7 +106,7 @@ namespace Charlotte.Chocomint.Dialogs
 				w = Math.Max(w, c.Right);
 			});
 
-			w += 30;
+			w += 10; // margin
 
 			if (f.Width < w)
 			{
