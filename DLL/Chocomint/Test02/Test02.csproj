@@ -55,6 +55,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Program2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\Chocomint\Dialogs\BusyDlgTest.cs" />
     <Compile Include="Tests\Chocomint\Dialogs\InputComboDlgTest.cs" />
     <Compile Include="Tests\Chocomint\Dialogs\InputDecimalDlgTest.cs" />
     <Compile Include="Tests\Chocomint\Dialogs\InputFileDlgTest.cs" />

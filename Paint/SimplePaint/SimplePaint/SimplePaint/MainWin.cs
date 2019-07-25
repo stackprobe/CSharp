@@ -244,6 +244,7 @@ namespace Charlotte
 				return;
 
 			this.MainPicture.Image = img;
+			this.MainPicture.Bounds = new Rectangle(0, 0, 10, 10); // MainPictureの位置がおかしくなる問題の対策
 			this.MainPicture.Bounds = new Rectangle(0, 0, img.Width, img.Height);
 
 			if (oldImg != null)
@@ -377,6 +378,66 @@ namespace Charlotte
 			this.RefreshUI();
 		}
 
+		private void MainWin_DragEnter(object sender, DragEventArgs e)
+		{
+			e.Effect = DragDropEffects.Copy;
+		}
+
+		private void MainWin_DragDrop(object sender, DragEventArgs e)
+		{
+			using (this.MTBusy.Section())
+			{
+				if (InputOptionDlgTools.Show("質問", "ドラッグアンドドロップしたファイルをロードしますか？", "はい:いいえ".Split(':'), true) == 0)
+				{
+					try
+					{
+						string file = ((string[])e.Data.GetData(DataFormats.FileDrop)).FirstOrDefault(v => File.Exists(v));
+
+						if (file == null)
+							throw new Exception("ファイル以外の何か！");
+
+						this.LoadFile(file);
+					}
+					catch (Exception ex)
+					{
+						MessageDlgTools.Warning("ファイル読み込み失敗", ex, true);
+					}
+					GC.Collect();
+				}
+			}
+		}
+
+		private void LoadFile(string file)
+		{
+			using (Image img = Image.FromFile(file))
+			{
+				if (img.Width != IntTools.Range(img.Width, Consts.MPIC_W_MIN, Consts.MPIC_W_MAX))
+					throw new Exception("画像の幅に問題があります。");
+
+				if (img.Height != IntTools.Range(img.Height, Consts.MPIC_H_MIN, Consts.MPIC_H_MAX))
+					throw new Exception("画像の高さに問題があります。");
+
+				Image img2 = new Bitmap(img.Width, img.Height);
+
+				// ここで例外投げると img2 が宙に浮く -> GC
+
+				using (Graphics g = Graphics.FromImage(img2))
+				{
+					g.FillRectangle(Brushes.White, 0, 0, img2.Width, img2.Height);
+					g.DrawImage(img, new Rectangle(0, 0, img2.Width, img2.Height));
+				}
+				this.MPic_SetImage(img2);
+				this.RefreshUI();
+			}
+		}
+
+		private void MPicBoundsBugMenuItem_Click(object sender, EventArgs e)
+		{
+			Image img = this.MainPicture.Image;
+
+			this.MainPicture.Bounds = new Rectangle(0, 0, img.Width, img.Height);
+		}
+
 		private void ファイル読み込みToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			using (this.MTBusy.Section())
@@ -393,25 +454,7 @@ namespace Charlotte
 
 					if (file != null)
 					{
-						using (Image img = Image.FromFile(file))
-						{
-							if (img.Width != IntTools.Range(img.Width, Consts.MPIC_W_MIN, Consts.MPIC_W_MAX))
-								throw new Exception("画像の幅に問題があります。");
-
-							if (img.Height != IntTools.Range(img.Height, Consts.MPIC_H_MIN, Consts.MPIC_H_MAX))
-								throw new Exception("画像の高さに問題があります。");
-
-							Image img2 = new Bitmap(img.Width, img.Height);
-
-							// ここで例外投げると img2 が宙に浮く -> GC
-
-							using (Graphics g = Graphics.FromImage(img2))
-							{
-								g.FillRectangle(Brushes.White, 0, 0, img2.Width, img2.Height);
-								g.DrawImage(img, new Rectangle(0, 0, img2.Width, img2.Height));
-							}
-							this.MPic_SetImage(img2);
-						}
+						this.LoadFile(file);
 						Ground.I.ActiveImageFile = file;
 					}
 				}
@@ -659,26 +702,7 @@ namespace Charlotte
 			{
 				try
 				{
-					string line = InputStringDlgTools.Show("Input xNum, yNum", "Input => xNum:yNum (e.g. 20:30)", true);
-					string[] tokens = line.Split(':');
-					int xNum = int.Parse(tokens[0]);
-					int yNum = int.Parse(tokens[1]);
-
-					int pW = this.MainPicture.Image.Width / xNum;
-					int pH = this.MainPicture.Image.Height / yNum;
-
-					if (pW * xNum != this.MainPicture.Image.Width)
-						throw new Exception("xNum Error");
-
-					if (pH * yNum != this.MainPicture.Image.Height)
-						throw new Exception("yNum Error");
-
-					Puzzle p = new Puzzle();
-
-					p.XNum = xNum;
-					p.YNum = yNum;
-					p.Piece_W = pW;
-					p.Piece_H = pH;
+					Puzzle p = new Puzzle(this.MainPicture.Image);
 
 					Ground.I.NibRoutine = (x, y) =>
 					{

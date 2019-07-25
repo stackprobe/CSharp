@@ -47,6 +47,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Chocomint\Dialogs\BusyDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chocomint\Dialogs\BusyDlg.Designer.cs">
+      <DependentUpon>BusyDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chocomint\Dialogs\BusyDlgTools.cs" />
     <Compile Include="Chocomint\Dialogs\ChocomintCommon.cs" />
     <Compile Include="Chocomint\Dialogs\ChocomintGeneral.cs" />
     <Compile Include="Chocomint\Dialogs\InputComboDlg.cs">
@@ -120,6 +127,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Chocomint\Dialogs\BusyDlg.resx">
+      <DependentUpon>BusyDlg.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Chocomint\Dialogs\InputComboDlg.resx">
       <DependentUpon>InputComboDlg.cs</DependentUpon>
     </EmbeddedResource>

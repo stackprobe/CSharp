@@ -59,13 +59,14 @@
 			this.commandToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.塗りつぶしToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.テクスチャToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.command2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.puzzleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.South = new System.Windows.Forms.ToolStripStatusLabel();
 			this.SouthWest = new System.Windows.Forms.ToolStripStatusLabel();
 			this.MainPanel = new System.Windows.Forms.Panel();
 			this.MainPicture = new System.Windows.Forms.PictureBox();
-			this.command2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.puzzleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.MPicBoundsBugMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			this.MainPanel.SuspendLayout();
@@ -236,7 +237,8 @@
             this.矩形選択解除ToolStripMenuItem,
             this.CtrlZMenuItem,
             this.CtrlYMenuItem,
-            this.GCMenuItem});
+            this.GCMenuItem,
+            this.MPicBoundsBugMenuItem});
 			this.操作ToolStripMenuItem.Name = "操作ToolStripMenuItem";
 			this.操作ToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
 			this.操作ToolStripMenuItem.Text = "操作";
@@ -245,34 +247,34 @@
 			// 
 			this.矩形選択ToolStripMenuItem.Enabled = false;
 			this.矩形選択ToolStripMenuItem.Name = "矩形選択ToolStripMenuItem";
-			this.矩形選択ToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+			this.矩形選択ToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
 			this.矩形選択ToolStripMenuItem.Text = "矩形選択";
 			// 
 			// 矩形選択解除ToolStripMenuItem
 			// 
 			this.矩形選択解除ToolStripMenuItem.Enabled = false;
 			this.矩形選択解除ToolStripMenuItem.Name = "矩形選択解除ToolStripMenuItem";
-			this.矩形選択解除ToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+			this.矩形選択解除ToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
 			this.矩形選択解除ToolStripMenuItem.Text = "矩形選択の解除";
 			// 
 			// CtrlZMenuItem
 			// 
 			this.CtrlZMenuItem.Name = "CtrlZMenuItem";
-			this.CtrlZMenuItem.Size = new System.Drawing.Size(156, 22);
+			this.CtrlZMenuItem.Size = new System.Drawing.Size(162, 22);
 			this.CtrlZMenuItem.Text = "Ctrl_Z";
 			this.CtrlZMenuItem.Click += new System.EventHandler(this.CtrlZMenuItem_Click);
 			// 
 			// CtrlYMenuItem
 			// 
 			this.CtrlYMenuItem.Name = "CtrlYMenuItem";
-			this.CtrlYMenuItem.Size = new System.Drawing.Size(156, 22);
+			this.CtrlYMenuItem.Size = new System.Drawing.Size(162, 22);
 			this.CtrlYMenuItem.Text = "Ctrl_Y";
 			this.CtrlYMenuItem.Click += new System.EventHandler(this.CtrlYMenuItem_Click);
 			// 
 			// GCMenuItem
 			// 
 			this.GCMenuItem.Name = "GCMenuItem";
-			this.GCMenuItem.Size = new System.Drawing.Size(156, 22);
+			this.GCMenuItem.Size = new System.Drawing.Size(162, 22);
 			this.GCMenuItem.Text = "GC";
 			this.GCMenuItem.Click += new System.EventHandler(this.GCMenuItem_Click);
 			// 
@@ -298,6 +300,21 @@
 			this.テクスチャToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.テクスチャToolStripMenuItem.Text = "テクスチャ";
 			this.テクスチャToolStripMenuItem.Click += new System.EventHandler(this.テクスチャToolStripMenuItem_Click);
+			// 
+			// command2ToolStripMenuItem
+			// 
+			this.command2ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.puzzleToolStripMenuItem});
+			this.command2ToolStripMenuItem.Name = "command2ToolStripMenuItem";
+			this.command2ToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
+			this.command2ToolStripMenuItem.Text = "Command2";
+			// 
+			// puzzleToolStripMenuItem
+			// 
+			this.puzzleToolStripMenuItem.Name = "puzzleToolStripMenuItem";
+			this.puzzleToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+			this.puzzleToolStripMenuItem.Text = "Puzzle";
+			this.puzzleToolStripMenuItem.Click += new System.EventHandler(this.puzzleToolStripMenuItem_Click);
 			// 
 			// statusStrip1
 			// 
@@ -349,23 +366,16 @@
 			this.MainPicture.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainPicture_MouseMove);
 			this.MainPicture.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainPicture_MouseUp);
 			// 
-			// command2ToolStripMenuItem
+			// MPicBoundsBugMenuItem
 			// 
-			this.command2ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.puzzleToolStripMenuItem});
-			this.command2ToolStripMenuItem.Name = "command2ToolStripMenuItem";
-			this.command2ToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
-			this.command2ToolStripMenuItem.Text = "Command2";
-			// 
-			// puzzleToolStripMenuItem
-			// 
-			this.puzzleToolStripMenuItem.Name = "puzzleToolStripMenuItem";
-			this.puzzleToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-			this.puzzleToolStripMenuItem.Text = "Puzzle";
-			this.puzzleToolStripMenuItem.Click += new System.EventHandler(this.puzzleToolStripMenuItem_Click);
+			this.MPicBoundsBugMenuItem.Name = "MPicBoundsBugMenuItem";
+			this.MPicBoundsBugMenuItem.Size = new System.Drawing.Size(162, 22);
+			this.MPicBoundsBugMenuItem.Text = "MPicBoundsBug";
+			this.MPicBoundsBugMenuItem.Click += new System.EventHandler(this.MPicBoundsBugMenuItem_Click);
 			// 
 			// MainWin
 			// 
+			this.AllowDrop = true;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(784, 561);
@@ -382,6 +392,8 @@
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainWin_FormClosed);
 			this.Load += new System.EventHandler(this.MainWin_Load);
 			this.Shown += new System.EventHandler(this.MainWin_Shown);
+			this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainWin_DragDrop);
+			this.DragEnter += new System.Windows.Forms.DragEventHandler(this.MainWin_DragEnter);
 			this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.MainWin_KeyPress);
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
@@ -432,6 +444,7 @@
 		private System.Windows.Forms.ToolStripMenuItem GCMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem command2ToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem puzzleToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem MPicBoundsBugMenuItem;
 	}
 }
 
