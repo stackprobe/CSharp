@@ -120,17 +120,29 @@ namespace Charlotte.Tools
 			return (int)this.GetRandom((uint)modulo);
 		}
 
-		public double GetReal() // [0,1]
+		/// <summary>
+		/// [0,1]
+		/// </summary>
+		/// <returns>乱数</returns>
+		public double GetReal()
 		{
 			return this.GetUInt() / (double)uint.MaxValue;
 		}
 
-		public double GetReal2() // [0,1)
+		/// <summary>
+		/// [0,1)
+		/// </summary>
+		/// <returns>乱数</returns>
+		public double GetReal2()
 		{
 			return this.GetUInt() / (double)(uint.MaxValue + 1L);
 		}
 
-		public double GetReal3() // (0,1)
+		/// <summary>
+		/// (0,1)
+		/// </summary>
+		/// <returns>乱数</returns>
+		public double GetReal3()
 		{
 			return this.GetUInt() / (double)(uint.MaxValue + 1L) + 0.5;
 		}

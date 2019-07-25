@@ -56,6 +56,7 @@
 			this.CtrlZMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.CtrlYMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.GCMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.MPicBoundsBugMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.commandToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.塗りつぶしToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.テクスチャToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,7 +67,7 @@
 			this.SouthWest = new System.Windows.Forms.ToolStripStatusLabel();
 			this.MainPanel = new System.Windows.Forms.Panel();
 			this.MainPicture = new System.Windows.Forms.PictureBox();
-			this.MPicBoundsBugMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.テクスチャ矩形タイルToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			this.MainPanel.SuspendLayout();
@@ -278,11 +279,19 @@
 			this.GCMenuItem.Text = "GC";
 			this.GCMenuItem.Click += new System.EventHandler(this.GCMenuItem_Click);
 			// 
+			// MPicBoundsBugMenuItem
+			// 
+			this.MPicBoundsBugMenuItem.Name = "MPicBoundsBugMenuItem";
+			this.MPicBoundsBugMenuItem.Size = new System.Drawing.Size(162, 22);
+			this.MPicBoundsBugMenuItem.Text = "MPicBoundsBug";
+			this.MPicBoundsBugMenuItem.Click += new System.EventHandler(this.MPicBoundsBugMenuItem_Click);
+			// 
 			// commandToolStripMenuItem
 			// 
 			this.commandToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.塗りつぶしToolStripMenuItem,
-            this.テクスチャToolStripMenuItem});
+            this.テクスチャToolStripMenuItem,
+            this.テクスチャ矩形タイルToolStripMenuItem});
 			this.commandToolStripMenuItem.Name = "commandToolStripMenuItem";
 			this.commandToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
 			this.commandToolStripMenuItem.Text = "Command";
@@ -290,14 +299,14 @@
 			// 塗りつぶしToolStripMenuItem
 			// 
 			this.塗りつぶしToolStripMenuItem.Name = "塗りつぶしToolStripMenuItem";
-			this.塗りつぶしToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.塗りつぶしToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
 			this.塗りつぶしToolStripMenuItem.Text = "塗りつぶし";
 			this.塗りつぶしToolStripMenuItem.Click += new System.EventHandler(this.塗りつぶしToolStripMenuItem_Click);
 			// 
 			// テクスチャToolStripMenuItem
 			// 
 			this.テクスチャToolStripMenuItem.Name = "テクスチャToolStripMenuItem";
-			this.テクスチャToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.テクスチャToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
 			this.テクスチャToolStripMenuItem.Text = "テクスチャ";
 			this.テクスチャToolStripMenuItem.Click += new System.EventHandler(this.テクスチャToolStripMenuItem_Click);
 			// 
@@ -366,12 +375,12 @@
 			this.MainPicture.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainPicture_MouseMove);
 			this.MainPicture.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainPicture_MouseUp);
 			// 
-			// MPicBoundsBugMenuItem
+			// テクスチャ矩形タイルToolStripMenuItem
 			// 
-			this.MPicBoundsBugMenuItem.Name = "MPicBoundsBugMenuItem";
-			this.MPicBoundsBugMenuItem.Size = new System.Drawing.Size(162, 22);
-			this.MPicBoundsBugMenuItem.Text = "MPicBoundsBug";
-			this.MPicBoundsBugMenuItem.Click += new System.EventHandler(this.MPicBoundsBugMenuItem_Click);
+			this.テクスチャ矩形タイルToolStripMenuItem.Name = "テクスチャ矩形タイルToolStripMenuItem";
+			this.テクスチャ矩形タイルToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.テクスチャ矩形タイルToolStripMenuItem.Text = "テクスチャ_矩形タイル";
+			this.テクスチャ矩形タイルToolStripMenuItem.Click += new System.EventHandler(this.テクスチャ矩形タイルToolStripMenuItem_Click);
 			// 
 			// MainWin
 			// 
@@ -445,6 +454,7 @@
 		private System.Windows.Forms.ToolStripMenuItem command2ToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem puzzleToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem MPicBoundsBugMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem テクスチャ矩形タイルToolStripMenuItem;
 	}
 }
 

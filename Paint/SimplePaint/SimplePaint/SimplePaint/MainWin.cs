@@ -299,7 +299,7 @@ namespace Charlotte
 						}
 						catch (Exception ex)
 						{
-							MessageDlgTools.Warning("NibRoutine Error", ex);
+							MessageDlgTools.Warning("NibRoutine Error", ex, true);
 							Ground.I.NibRoutine = null;
 						}
 					}
@@ -678,15 +678,87 @@ namespace Charlotte
 				{
 					this.ActiveTextureImageFile = textureImageFile;
 
-					Canvas texture = new Canvas(textureImageFile);
 					Canvas canvas = new Canvas(this.MainPicture.Image);
 
-					Color targetColor = canvas.Get(targetX, targetY);
+					BusyDlgTools.Show("テクスチャ", "テクスチャ処理中...", () =>
+					{
+						Canvas texture = new Canvas(textureImageFile);
+						Color targetColor = canvas.Get(targetX, targetY);
 
-					for (int x = 0; x < canvas.GetWidth(); x++)
-						for (int y = 0; y < canvas.GetHeight(); y++)
-							if (canvas.Get(x, y) == targetColor)
-								canvas.Set(x, y, texture.Get(x % texture.GetWidth(), y % texture.GetHeight()));
+						for (int x = 0; x < canvas.GetWidth(); x++)
+							for (int y = 0; y < canvas.GetHeight(); y++)
+								if (canvas.Get(x, y) == targetColor)
+									canvas.Set(x, y, texture.Get(x % texture.GetWidth(), y % texture.GetHeight()));
+					},
+					true
+					);
+
+					this.MPic_SetImage(canvas.GetImage());
+				}
+				return true;
+			};
+
+			this.RefreshUI();
+		}
+
+		private void テクスチャ矩形タイルToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Ground.I.NibRoutine = (targetX, targetY) =>
+			{
+				string line = InputStringDlgTools.Show("タイルサイズ", "タイルサイズを入力して下さい。(書式 = 幅:高さ:アルファ値下限(0～1), 例 = 30:20:0.5)", true);
+
+				if (line != null)
+				{
+					string[] tokens = line.Split(':');
+					int tileW = int.Parse(tokens[0]);
+					int tileH = int.Parse(tokens[1]);
+					double alphaMin = double.Parse(tokens[2]);
+
+					if (
+						tileW < 1 || IntTools.IMAX < tileW ||
+						tileH < 1 || IntTools.IMAX < tileH ||
+						alphaMin < 0.0 || 1.0 < alphaMin
+						)
+						throw new Exception("不正なタイルサイズ");
+
+					Canvas canvas = new Canvas(this.MainPicture.Image);
+
+					BusyDlgTools.Show("テクスチャ_矩形タイル", "テクスチャ_矩形タイル 処理中...", () =>
+					{
+						Color targetColor = canvas.Get(targetX, targetY);
+
+						for (int tileX = 0; tileX * tileW < this.MainPicture.Image.Width; tileX++)
+						{
+							for (int tileY = 0; tileY * tileH < this.MainPicture.Image.Height; tileY++)
+							{
+								double a = SecurityTools.CRandom.GetReal();
+
+								a = alphaMin + (1.0 - alphaMin) * a;
+
+								for (int x = 0; x < tileW; x++)
+								{
+									for (int y = 0; y < tileH; y++)
+									{
+										int xx = tileX * tileW + x;
+										int yy = tileY * tileH + y;
+										Color color = canvas.Get(xx, yy);
+
+										if (color == targetColor)
+										{
+											canvas.Set(xx, yy, Color.FromArgb(
+												color.A,
+												DoubleTools.ToInt(color.R * a),
+												DoubleTools.ToInt(color.G * a),
+												DoubleTools.ToInt(color.B * a)
+												));
+										}
+									}
+								}
+							}
+						}
+					},
+					true
+					);
 
 					this.MPic_SetImage(canvas.GetImage());
 				}
