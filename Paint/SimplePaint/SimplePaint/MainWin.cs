@@ -120,19 +120,22 @@ namespace Charlotte
 			{
 				// -- 9000
 
-				DialogResult ret = MessageBox.Show(
-					"画像ファイルに保存しますか？",
+				int ret = InputOptionDlgTools.Show(
 					"確認",
-					MessageBoxButtons.YesNoCancel,
-					MessageBoxIcon.Question
+					"画像ファイルに保存しますか？",
+					"はい:いいえ:キャンセル".Split(':'),
+					this
 					);
 
-				if (ret == System.Windows.Forms.DialogResult.Cancel)
-					return;
-
-				if (ret == System.Windows.Forms.DialogResult.Yes)
+				if (ret == 0)
+				{
 					if (this.SaveFileUI() == false)
 						return;
+				}
+				else if (ret != 1)
+				{
+					return;
+				}
 
 				// ----
 
@@ -384,7 +387,7 @@ namespace Charlotte
 				}
 				catch (Exception ex)
 				{
-					MessageBox.Show("" + ex, "ファイル読み込み失敗", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+					MessageDlgTools.Warning("ファイル読み込み失敗", ex, this);
 				}
 				GC.Collect();
 			}
@@ -415,13 +418,13 @@ namespace Charlotte
 
 						Ground.I.ActiveImageFile = file;
 
-						MessageBox.Show("保存しました。", "成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
+						MessageDlgTools.Information("成功", "保存しました。", null, this);
 						return true;
 					}
 				}
 				catch (Exception ex)
 				{
-					MessageBox.Show("" + ex, "ファイル書き出し失敗", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+					MessageDlgTools.Warning("ファイル書き出し失敗", ex, this);
 				}
 				return false;
 			}

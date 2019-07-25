@@ -71,6 +71,13 @@
     <Compile Include="Chocomint\Dialogs\InputFolderDlg.Designer.cs">
       <DependentUpon>InputFolderDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="Chocomint\Dialogs\InputOptionDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chocomint\Dialogs\InputOptionDlg.Designer.cs">
+      <DependentUpon>InputOptionDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chocomint\Dialogs\InputOptionDlgTools.cs" />
     <Compile Include="Chocomint\Dialogs\InputStringDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,6 +117,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Chocomint\Dialogs\InputFolderDlg.resx">
       <DependentUpon>InputFolderDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chocomint\Dialogs\InputOptionDlg.resx">
+      <DependentUpon>InputOptionDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Chocomint\Dialogs\InputStringDlg.resx">
       <DependentUpon>InputStringDlg.cs</DependentUpon>

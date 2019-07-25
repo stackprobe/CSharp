@@ -16,12 +16,14 @@ namespace Test02
 			//new MessageDlgTest().Test01();
 			//new MessageDlgTest().Test02();
 			//new MessageDlgTest().Test03();
-			new MessageDlgTest().Test04();
+			//new MessageDlgTest().Test04();
 			//new InputFolderDlgTest().Test01();
 			//new InputFileDlgTest().Test01();
 			//new InputDecimalDlgTest().Test01();
 			//new InputComboDlgTest().Test01();
 			//new InputComboDlgTest().Test02();
+			//new InputOptionDlgTest().Test01();
+			new InputOptionDlgTest().Test02();
 		}
 	}
 }

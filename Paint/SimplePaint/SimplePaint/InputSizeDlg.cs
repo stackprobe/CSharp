@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Charlotte.Tools;
+using Charlotte.Chocomint.Dialogs;
 
 namespace Charlotte
 {
@@ -56,7 +57,7 @@ namespace Charlotte
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show("" + ex, "保存できません", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				MessageDlgTools.Warning("保存できません", ex, this);
 			}
 		}
 
