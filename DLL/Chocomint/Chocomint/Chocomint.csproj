@@ -53,24 +53,28 @@
     <Compile Include="Chocomint\Dialogs\InputComboDlg.Designer.cs">
       <DependentUpon>InputComboDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="Chocomint\Dialogs\InputComboDlgTools.cs" />
     <Compile Include="Chocomint\Dialogs\InputDecimalDlg.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Chocomint\Dialogs\InputDecimalDlg.Designer.cs">
       <DependentUpon>InputDecimalDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="Chocomint\Dialogs\InputDecimalDlgTools.cs" />
     <Compile Include="Chocomint\Dialogs\InputFileDlg.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Chocomint\Dialogs\InputFileDlg.Designer.cs">
       <DependentUpon>InputFileDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="Chocomint\Dialogs\InputFileDlgTools.cs" />
     <Compile Include="Chocomint\Dialogs\InputFolderDlg.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Chocomint\Dialogs\InputFolderDlg.Designer.cs">
       <DependentUpon>InputFolderDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="Chocomint\Dialogs\InputFolderDlgTools.cs" />
     <Compile Include="Chocomint\Dialogs\InputOptionDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,6 +88,14 @@
     <Compile Include="Chocomint\Dialogs\InputStringDlg.Designer.cs">
       <DependentUpon>InputStringDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="Chocomint\Dialogs\InputStringDlgTools.cs" />
+    <Compile Include="Chocomint\Dialogs\InputTrackBarDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chocomint\Dialogs\InputTrackBarDlg.Designer.cs">
+      <DependentUpon>InputTrackBarDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chocomint\Dialogs\InputTrackBarDlgTools.cs" />
     <Compile Include="Chocomint\Dialogs\MessageDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -123,6 +135,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Chocomint\Dialogs\InputStringDlg.resx">
       <DependentUpon>InputStringDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chocomint\Dialogs\InputTrackBarDlg.resx">
+      <DependentUpon>InputTrackBarDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Chocomint\Dialogs\MessageDlg.resx">
       <DependentUpon>MessageDlg.cs</DependentUpon>

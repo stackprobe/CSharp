@@ -61,6 +61,8 @@
     <Compile Include="Tests\Chocomint\Dialogs\InputFolderDlgTest.cs" />
     <Compile Include="Tests\Chocomint\Dialogs\InputOptionDlgTest.cs" />
     <Compile Include="Tests\Chocomint\Dialogs\InputStringDlgTest.cs" />
+    <Compile Include="Tests\Chocomint\Dialogs\InputTrackBarDlgTest.cs" />
+    <Compile Include="Tests\Chocomint\Dialogs\InputTrackBarDlgToolsTest.cs" />
     <Compile Include="Tests\Chocomint\Dialogs\MessageDlgTest.cs" />
     <EmbeddedResource Include="MainWin.resx">
       <DependentUpon>MainWin.cs</DependentUpon>

@@ -484,25 +484,22 @@ namespace Charlotte
 		private Color Edit透明度(Color target, string titleTrailer)
 		{
 			using (MTBusy.Section())
-			using (InputDecimalDlg f = new InputDecimalDlg())
 			{
-				f.MinValue = 0;
-				f.MaxValue = 255;
-				f.Value = target.A;
-				f.StartPosition = FormStartPosition.CenterParent;
+				int ret = InputTrackBarDlgTools.Show(
+					"アルファ値：" + titleTrailer,
+					"アルファ値を入力して下さい。(0 ～ 255 = 透明 ～ 不透明)",
+					target.A,
+					0,
+					255,
+					-1,
+					null,
+					this
+					);
 
-				f.PostShown = () =>
-				{
-					f.Text = "アルファ値：" + titleTrailer;
-					f.Prompt.Text = "アルファ値を入力して下さい。(0 ～ 255 = 透明 ～ 不透明)";
-				};
-
-				f.ShowDialog();
-
-				if (f.OkPressed)
+				if (ret != -1)
 				{
 					target = Color.FromArgb(
-						(int)f.Value,
+						ret,
 						target.R,
 						target.G,
 						target.B
@@ -593,7 +590,7 @@ namespace Charlotte
 
 		private void テクスチャToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			//
+			// TODO
 		}
 	}
 }

@@ -22,7 +22,7 @@ namespace Charlotte.Chocomint.Dialogs
 		public Mode_e Mode = Mode_e.LOAD;
 		public string DefaultFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Default.txt");
 		public string FilterString = "txt.bin";
-		public string BrowseTitle = "ファイル入力";
+		public string BrowseTitle = "ファイル選択";
 		public bool OkPressed = false;
 		public string Value = "";
 		public Action PostShown = () => { };

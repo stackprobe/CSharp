@@ -67,5 +67,10 @@ namespace Test02.Tests.Chocomint.Dialogs
 				f.ShowDialog();
 			}
 		}
+
+		public void Test04()
+		{
+			MessageDlgTools.Information("info", "ret=" + InputStringDlgTools.Double("input double", "input double :"));
+		}
 	}
 }

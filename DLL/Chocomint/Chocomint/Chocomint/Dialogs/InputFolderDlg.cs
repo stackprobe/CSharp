@@ -14,7 +14,7 @@ namespace Charlotte.Chocomint.Dialogs
 	public partial class InputFolderDlg : Form
 	{
 		public string DefaultDir = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-		public string BrowseTitle = "フォルダ入力";
+		public string BrowseTitle = "フォルダ選択";
 		public bool OkPressed = false;
 		public string Value = "";
 		public Action PostShown = () => { };
