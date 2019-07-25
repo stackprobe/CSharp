@@ -1,0 +1,4 @@
+■以下の外部ファイルをリリース物に含める。
+
+	Chocolate.dll
+	Chocomint.dll
