@@ -32,9 +32,11 @@
 			this.ErrorIcon = new System.Windows.Forms.PictureBox();
 			this.InformationIcon = new System.Windows.Forms.PictureBox();
 			this.WarningIcon = new System.Windows.Forms.PictureBox();
+			this.QuestionIcon = new System.Windows.Forms.PictureBox();
 			((System.ComponentModel.ISupportInitialize)(this.ErrorIcon)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.InformationIcon)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.WarningIcon)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.QuestionIcon)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// ErrorIcon
@@ -58,25 +60,37 @@
 			// WarningIcon
 			// 
 			this.WarningIcon.Image = ((System.Drawing.Image)(resources.GetObject("WarningIcon.Image")));
-			this.WarningIcon.Location = new System.Drawing.Point(152, 12);
+			this.WarningIcon.Location = new System.Drawing.Point(222, 12);
 			this.WarningIcon.Name = "WarningIcon";
 			this.WarningIcon.Size = new System.Drawing.Size(64, 64);
 			this.WarningIcon.TabIndex = 2;
 			this.WarningIcon.TabStop = false;
+			// 
+			// QuestionIcon
+			// 
+			this.QuestionIcon.Image = ((System.Drawing.Image)(resources.GetObject("QuestionIcon.Image")));
+			this.QuestionIcon.Location = new System.Drawing.Point(152, 12);
+			this.QuestionIcon.Name = "QuestionIcon";
+			this.QuestionIcon.Size = new System.Drawing.Size(64, 64);
+			this.QuestionIcon.TabIndex = 3;
+			this.QuestionIcon.TabStop = false;
 			// 
 			// Resource0001
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(784, 561);
+			this.Controls.Add(this.QuestionIcon);
 			this.Controls.Add(this.WarningIcon);
 			this.Controls.Add(this.InformationIcon);
 			this.Controls.Add(this.ErrorIcon);
 			this.Name = "Resource0001";
 			this.Text = "Resource0001";
+			this.Load += new System.EventHandler(this.Resource0001_Load);
 			((System.ComponentModel.ISupportInitialize)(this.ErrorIcon)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.InformationIcon)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.WarningIcon)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.QuestionIcon)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -86,6 +100,7 @@
 		public System.Windows.Forms.PictureBox ErrorIcon;
 		public System.Windows.Forms.PictureBox InformationIcon;
 		public System.Windows.Forms.PictureBox WarningIcon;
+		public System.Windows.Forms.PictureBox QuestionIcon;
 
 	}
 }

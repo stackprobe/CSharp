@@ -15,5 +15,10 @@ namespace Charlotte.Chocomint.Dialogs.Resource
 		{
 			InitializeComponent();
 		}
+
+		private void Resource0001_Load(object sender, EventArgs e)
+		{
+			// noop
+		}
 	}
 }

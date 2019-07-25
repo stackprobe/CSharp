@@ -94,12 +94,12 @@ namespace Charlotte.Chocomint.Dialogs
 		{
 			int w = this.Width;
 
-			if (this.TextDetail.Visible)
+			if (this.TextDetailMessage.Visible)
 			{
 				this.MinimumSize = new Size(500, 250);
 				this.Size = this.MinimumSize;
 
-				this.TextDetail.Visible = false;
+				this.TextDetailMessage.Visible = false;
 
 				this.DetailLabel.Text = "詳細を表示";
 			}
@@ -108,24 +108,29 @@ namespace Charlotte.Chocomint.Dialogs
 				this.MinimumSize = new Size(500, 500);
 				this.Size = this.MinimumSize;
 
-				this.TextDetail.Text = this.DetailMessage;
-				this.TextDetail.Left = 25;
-				this.TextDetail.Top = 105;
-				this.TextDetail.Width = 440;
-				this.TextDetail.Height = 235;
-				this.TextDetail.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-				this.TextDetail.Visible = true;
+				this.TextDetailMessage.Text = this.DetailMessage;
+				this.TextDetailMessage.Left = 25;
+				this.TextDetailMessage.Top = 105;
+				this.TextDetailMessage.Width = 440;
+				this.TextDetailMessage.Height = 235;
+				this.TextDetailMessage.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+				this.TextDetailMessage.Visible = true;
 
 				this.DetailLabel.Text = "詳細を隠す";
 			}
 			this.Width = w;
 		}
 
-		private void TextDetail_KeyPress(object sender, KeyPressEventArgs e)
+		private void TextDetailMessage_TextChanged(object sender, EventArgs e)
+		{
+			// noop
+		}
+
+		private void TextDetailMessage_KeyPress(object sender, KeyPressEventArgs e)
 		{
 			if (e.KeyChar == (char)1) // ctrl_a
 			{
-				this.TextDetail.SelectAll();
+				this.TextDetailMessage.SelectAll();
 				e.Handled = true;
 			}
 		}

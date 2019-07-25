@@ -84,6 +84,36 @@ namespace Charlotte
 			// -- 9999
 		}
 
+		private VisitorCounter MTBusy = new VisitorCounter(1);
+		private long MTCount;
+
+		private void MainTimer_Tick(object sender, EventArgs e)
+		{
+			if (this.MTBusy.HasVisitor())
+				return;
+
+			this.MTBusy.Enter();
+			try
+			{
+				if (this.XPressed)
+				{
+					this.XPressed = false;
+					this.CloseWindow();
+					return;
+				}
+				this.RefreshSouthWest();
+			}
+			catch (Exception ex)
+			{
+				ProcMain.WriteLog(ex);
+			}
+			finally
+			{
+				this.MTBusy.Leave();
+				this.MTCount++;
+			}
+		}
+
 		private void CloseWindow()
 		{
 			using (MTBusy.Section())
@@ -115,36 +145,6 @@ namespace Charlotte
 				// ----
 
 				this.Close();
-			}
-		}
-
-		private VisitorCounter MTBusy = new VisitorCounter(1);
-		private long MTCount;
-
-		private void MainTimer_Tick(object sender, EventArgs e)
-		{
-			if (this.MTBusy.HasVisitor())
-				return;
-
-			this.MTBusy.Enter();
-			try
-			{
-				if (this.XPressed)
-				{
-					this.XPressed = false;
-					this.CloseWindow();
-					return;
-				}
-				this.RefreshSouthWest();
-			}
-			catch (Exception ex)
-			{
-				ProcMain.WriteLog(ex);
-			}
-			finally
-			{
-				this.MTBusy.Leave();
-				this.MTCount++;
 			}
 		}
 
@@ -263,24 +263,27 @@ namespace Charlotte
 
 		private void MainPicture_MouseDown(object sender, MouseEventArgs e)
 		{
-			Ground.I.History.Save(this.MainPicture.Image);
-
-			if (Ground.I.NibRoutine != null)
+			using (this.MTBusy.Section())
 			{
-				try
+				Ground.I.History.Save(this.MainPicture.Image);
+
+				if (Ground.I.NibRoutine != null)
 				{
-					if (Ground.I.NibRoutine(e.X, e.Y))
-						Ground.I.NibRoutine = null;
+					try
+					{
+						if (Ground.I.NibRoutine(e.X, e.Y))
+							Ground.I.NibRoutine = null;
+					}
+					catch (Exception ex)
+					{
+						MessageDlgTools.Warning("NibRoutine Error", ex);
+					}
+					this.RefreshUI();
+					return;
 				}
-				catch (Exception ex)
-				{
-					MessageDlgTools.Warning("NibRoutine Error", ex);
-				}
-				this.RefreshUI();
-				return;
+				Ground.I.NibDown = true;
+				//this.RefreshUI(); // moved -> _MouseUp()
 			}
-			Ground.I.NibDown = true;
-			//this.RefreshUI(); // moved -> _MouseUp()
 		}
 
 		private void MainPicture_MouseUp(object sender, MouseEventArgs e)
@@ -427,7 +430,6 @@ namespace Charlotte
 		private void アンチエイリアスToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			Ground.I.AntiAliasing = Ground.I.AntiAliasing == false;
-
 			this.RefreshUI();
 		}
 
@@ -514,6 +516,12 @@ namespace Charlotte
 			if (image != null)
 				this.MPic_SetImage(image);
 
+			this.RefreshUI();
+		}
+
+		private void South_Click(object sender, EventArgs e)
+		{
+			Ground.I.NibRoutine = null;
 			this.RefreshUI();
 		}
 

@@ -231,7 +231,7 @@
 			// 塗りつぶしToolStripMenuItem
 			// 
 			this.塗りつぶしToolStripMenuItem.Name = "塗りつぶしToolStripMenuItem";
-			this.塗りつぶしToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.塗りつぶしToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
 			this.塗りつぶしToolStripMenuItem.Text = "塗りつぶし";
 			this.塗りつぶしToolStripMenuItem.Click += new System.EventHandler(this.塗りつぶしToolStripMenuItem_Click);
 			// 
@@ -249,10 +249,11 @@
 			// South
 			// 
 			this.South.Name = "South";
-			this.South.Size = new System.Drawing.Size(722, 17);
+			this.South.Size = new System.Drawing.Size(691, 17);
 			this.South.Spring = true;
 			this.South.Text = "Ready...";
 			this.South.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.South.Click += new System.EventHandler(this.South_Click);
 			// 
 			// SouthWest
 			// 

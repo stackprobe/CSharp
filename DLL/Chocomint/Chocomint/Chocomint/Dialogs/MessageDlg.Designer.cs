@@ -33,8 +33,8 @@
 			this.MessageIcon = new System.Windows.Forms.PictureBox();
 			this.TextMessage = new System.Windows.Forms.Label();
 			this.MainPanel = new System.Windows.Forms.Panel();
+			this.TextDetailMessage = new System.Windows.Forms.TextBox();
 			this.DetailLabel = new System.Windows.Forms.Label();
-			this.TextDetail = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.MessageIcon)).BeginInit();
 			this.MainPanel.SuspendLayout();
 			this.SuspendLayout();
@@ -73,7 +73,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.MainPanel.BackColor = System.Drawing.Color.White;
-			this.MainPanel.Controls.Add(this.TextDetail);
+			this.MainPanel.Controls.Add(this.TextDetailMessage);
 			this.MainPanel.Controls.Add(this.DetailLabel);
 			this.MainPanel.Controls.Add(this.MessageIcon);
 			this.MainPanel.Controls.Add(this.TextMessage);
@@ -81,6 +81,20 @@
 			this.MainPanel.Name = "MainPanel";
 			this.MainPanel.Size = new System.Drawing.Size(484, 130);
 			this.MainPanel.TabIndex = 0;
+			// 
+			// TextDetailMessage
+			// 
+			this.TextDetailMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.TextDetailMessage.Location = new System.Drawing.Point(372, 12);
+			this.TextDetailMessage.Multiline = true;
+			this.TextDetailMessage.Name = "TextDetailMessage";
+			this.TextDetailMessage.ReadOnly = true;
+			this.TextDetailMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+			this.TextDetailMessage.Size = new System.Drawing.Size(100, 82);
+			this.TextDetailMessage.TabIndex = 1;
+			this.TextDetailMessage.Visible = false;
+			this.TextDetailMessage.TextChanged += new System.EventHandler(this.TextDetailMessage_TextChanged);
+			this.TextDetailMessage.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextDetailMessage_KeyPress);
 			// 
 			// DetailLabel
 			// 
@@ -96,19 +110,6 @@
 			this.DetailLabel.Text = "詳細を表示";
 			this.DetailLabel.Visible = false;
 			this.DetailLabel.Click += new System.EventHandler(this.DetailLabel_Click);
-			// 
-			// TextDetail
-			// 
-			this.TextDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.TextDetail.Location = new System.Drawing.Point(372, 12);
-			this.TextDetail.Multiline = true;
-			this.TextDetail.Name = "TextDetail";
-			this.TextDetail.ReadOnly = true;
-			this.TextDetail.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.TextDetail.Size = new System.Drawing.Size(100, 82);
-			this.TextDetail.TabIndex = 1;
-			this.TextDetail.Visible = false;
-			this.TextDetail.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextDetail_KeyPress);
 			// 
 			// MessageDlg
 			// 
@@ -144,6 +145,6 @@
 		private System.Windows.Forms.Label TextMessage;
 		private System.Windows.Forms.Panel MainPanel;
 		private System.Windows.Forms.Label DetailLabel;
-		private System.Windows.Forms.TextBox TextDetail;
+		private System.Windows.Forms.TextBox TextDetailMessage;
 	}
 }
