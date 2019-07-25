@@ -60,14 +60,15 @@
 			this.commandToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.塗りつぶしToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.テクスチャToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.テクスチャ矩形タイルToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.グラデーションToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.command2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.puzzleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.PuzzleMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.South = new System.Windows.Forms.ToolStripStatusLabel();
 			this.SouthWest = new System.Windows.Forms.ToolStripStatusLabel();
 			this.MainPanel = new System.Windows.Forms.Panel();
 			this.MainPicture = new System.Windows.Forms.PictureBox();
-			this.テクスチャ矩形タイルToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			this.MainPanel.SuspendLayout();
@@ -291,7 +292,8 @@
 			this.commandToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.塗りつぶしToolStripMenuItem,
             this.テクスチャToolStripMenuItem,
-            this.テクスチャ矩形タイルToolStripMenuItem});
+            this.テクスチャ矩形タイルToolStripMenuItem,
+            this.グラデーションToolStripMenuItem});
 			this.commandToolStripMenuItem.Name = "commandToolStripMenuItem";
 			this.commandToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
 			this.commandToolStripMenuItem.Text = "Command";
@@ -310,20 +312,34 @@
 			this.テクスチャToolStripMenuItem.Text = "テクスチャ";
 			this.テクスチャToolStripMenuItem.Click += new System.EventHandler(this.テクスチャToolStripMenuItem_Click);
 			// 
+			// テクスチャ矩形タイルToolStripMenuItem
+			// 
+			this.テクスチャ矩形タイルToolStripMenuItem.Name = "テクスチャ矩形タイルToolStripMenuItem";
+			this.テクスチャ矩形タイルToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.テクスチャ矩形タイルToolStripMenuItem.Text = "テクスチャ_矩形タイル";
+			this.テクスチャ矩形タイルToolStripMenuItem.Click += new System.EventHandler(this.テクスチャ矩形タイルToolStripMenuItem_Click);
+			// 
+			// グラデーションToolStripMenuItem
+			// 
+			this.グラデーションToolStripMenuItem.Name = "グラデーションToolStripMenuItem";
+			this.グラデーションToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.グラデーションToolStripMenuItem.Text = "グラデーション";
+			this.グラデーションToolStripMenuItem.Click += new System.EventHandler(this.グラデーションToolStripMenuItem_Click);
+			// 
 			// command2ToolStripMenuItem
 			// 
 			this.command2ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.puzzleToolStripMenuItem});
+            this.PuzzleMenuItem});
 			this.command2ToolStripMenuItem.Name = "command2ToolStripMenuItem";
 			this.command2ToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
 			this.command2ToolStripMenuItem.Text = "Command2";
 			// 
-			// puzzleToolStripMenuItem
+			// PuzzleMenuItem
 			// 
-			this.puzzleToolStripMenuItem.Name = "puzzleToolStripMenuItem";
-			this.puzzleToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
-			this.puzzleToolStripMenuItem.Text = "Puzzle";
-			this.puzzleToolStripMenuItem.Click += new System.EventHandler(this.puzzleToolStripMenuItem_Click);
+			this.PuzzleMenuItem.Name = "PuzzleMenuItem";
+			this.PuzzleMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.PuzzleMenuItem.Text = "Puzzle";
+			this.PuzzleMenuItem.Click += new System.EventHandler(this.PuzzleMenuItem_Click);
 			// 
 			// statusStrip1
 			// 
@@ -374,13 +390,6 @@
 			this.MainPicture.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainPicture_MouseDown);
 			this.MainPicture.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainPicture_MouseMove);
 			this.MainPicture.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainPicture_MouseUp);
-			// 
-			// テクスチャ矩形タイルToolStripMenuItem
-			// 
-			this.テクスチャ矩形タイルToolStripMenuItem.Name = "テクスチャ矩形タイルToolStripMenuItem";
-			this.テクスチャ矩形タイルToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
-			this.テクスチャ矩形タイルToolStripMenuItem.Text = "テクスチャ_矩形タイル";
-			this.テクスチャ矩形タイルToolStripMenuItem.Click += new System.EventHandler(this.テクスチャ矩形タイルToolStripMenuItem_Click);
 			// 
 			// MainWin
 			// 
@@ -452,9 +461,10 @@
 		private System.Windows.Forms.ToolStripMenuItem CtrlYMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem GCMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem command2ToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem puzzleToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem PuzzleMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem MPicBoundsBugMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem テクスチャ矩形タイルToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem グラデーションToolStripMenuItem;
 	}
 }
 

@@ -232,8 +232,6 @@ namespace Charlotte
 				g.FillRectangle(Brushes.White, 0, 0, w, h);
 			}
 			this.MPic_SetImage(img);
-
-			Ground.I.History.Clear(); // リサイズしたら履歴は読み込めないので、、
 		}
 
 		private void MPic_SetImage(Image img)
@@ -243,12 +241,17 @@ namespace Charlotte
 			if (oldImg == img)
 				return;
 
+			bool resized = oldImg == null || oldImg.Size != img.Size;
+
 			this.MainPicture.Image = img;
 			this.MainPicture.Bounds = new Rectangle(0, 0, 10, 10); // MainPictureの位置がおかしくなる問題の対策
 			this.MainPicture.Bounds = new Rectangle(0, 0, img.Width, img.Height);
 
 			if (oldImg != null)
 				oldImg.Dispose();
+
+			if (resized)
+				Ground.I.History.Clear(); // リサイズしたら履歴は読み込めない。
 		}
 
 		private void MPic_Draw(Action<Graphics> routine)
@@ -768,7 +771,7 @@ namespace Charlotte
 			this.RefreshUI();
 		}
 
-		private void puzzleToolStripMenuItem_Click(object sender, EventArgs e)
+		private void PuzzleMenuItem_Click(object sender, EventArgs e)
 		{
 			using (this.MTBusy.Section())
 			{
@@ -786,6 +789,124 @@ namespace Charlotte
 				catch (Exception ex)
 				{
 					MessageDlgTools.Warning("Puzzle 失敗", ex, true);
+				}
+			}
+			this.RefreshUI();
+		}
+
+		private void グラデーションToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			using (this.MTBusy.Section())
+			{
+				try
+				{
+					Ground.I.NibRoutine = (targetX, targetY) =>
+					{
+						var options = new[]
+						{
+							// { mode, 表示名 }
+							new[] { "1", "左から右" },
+							new[] { "2", "上から下" },
+							new[] { "3", "中心から" },
+						};
+
+						int mode = InputOptionDlgTools.Show("グラデーション", "モード？", options.Select(v => v[1]).ToArray(), true);
+
+						if (mode != -1)
+						{
+							mode = int.Parse(options[mode][0]);
+
+							Canvas canvas = new Canvas(this.MainPicture.Image);
+
+							BusyDlgTools.Show("グラデーション", "グラデーション処理中...", () =>
+							{
+								double rrMax = 1.0;
+
+								Color targetColor = canvas.Get(targetX, targetY);
+								Rectangle rect = canvas.GetRectMatch(pt =>
+								{
+									if (canvas.Get(pt.X, pt.Y) == targetColor)
+									{
+										{
+											int xx = pt.X - targetX;
+											int yy = pt.Y - targetY;
+
+											rrMax = Math.Max(rrMax, xx * xx + yy * yy);
+										}
+
+										return true;
+									}
+									return false;
+								});
+
+								double rMax = Math.Sqrt(rrMax);
+
+								for (int x = 0; x < rect.Width; x++)
+								{
+									for (int y = 0; y < rect.Height; y++)
+									{
+										int xx = rect.X + x;
+										int yy = rect.Y + y;
+
+										if (canvas.Get(xx, yy) == targetColor)
+										{
+											Color color;
+
+											switch (mode)
+											{
+												case 1:
+													color = Color.FromArgb(
+														DoubleTools.ToInt(Ground.I.NibColor.A + (Ground.I.NibColor2.A - Ground.I.NibColor.A) * (double)x / (rect.Width - 1)),
+														DoubleTools.ToInt(Ground.I.NibColor.R + (Ground.I.NibColor2.R - Ground.I.NibColor.R) * (double)x / (rect.Width - 1)),
+														DoubleTools.ToInt(Ground.I.NibColor.G + (Ground.I.NibColor2.G - Ground.I.NibColor.G) * (double)x / (rect.Width - 1)),
+														DoubleTools.ToInt(Ground.I.NibColor.B + (Ground.I.NibColor2.B - Ground.I.NibColor.B) * (double)x / (rect.Width - 1))
+														);
+													break;
+
+												case 2:
+													color = Color.FromArgb(
+														DoubleTools.ToInt(Ground.I.NibColor.A + (Ground.I.NibColor2.A - Ground.I.NibColor.A) * (double)y / (rect.Height - 1)),
+														DoubleTools.ToInt(Ground.I.NibColor.R + (Ground.I.NibColor2.R - Ground.I.NibColor.R) * (double)y / (rect.Height - 1)),
+														DoubleTools.ToInt(Ground.I.NibColor.G + (Ground.I.NibColor2.G - Ground.I.NibColor.G) * (double)y / (rect.Height - 1)),
+														DoubleTools.ToInt(Ground.I.NibColor.B + (Ground.I.NibColor2.B - Ground.I.NibColor.B) * (double)y / (rect.Height - 1))
+														);
+													break;
+
+												case 3:
+													int xx2 = xx - targetX;
+													int yy2 = yy - targetY;
+
+													double r = Math.Sqrt(xx2 * xx2 + yy2 * yy2);
+
+													r /= rMax;
+
+													color = Color.FromArgb(
+														DoubleTools.ToInt(Ground.I.NibColor.A + (Ground.I.NibColor2.A - Ground.I.NibColor.A) * r),
+														DoubleTools.ToInt(Ground.I.NibColor.R + (Ground.I.NibColor2.R - Ground.I.NibColor.R) * r),
+														DoubleTools.ToInt(Ground.I.NibColor.G + (Ground.I.NibColor2.G - Ground.I.NibColor.G) * r),
+														DoubleTools.ToInt(Ground.I.NibColor.B + (Ground.I.NibColor2.B - Ground.I.NibColor.B) * r)
+														);
+													break;
+
+												default:
+													throw null; // never
+											}
+											canvas.Set(xx, yy, color);
+										}
+									}
+								}
+							},
+							true
+							);
+
+							this.MPic_SetImage(canvas.GetImage());
+						}
+						return true;
+					};
+				}
+				catch (Exception ex)
+				{
+					MessageDlgTools.Warning("グラデーション失敗", ex, true);
 				}
 			}
 			this.RefreshUI();

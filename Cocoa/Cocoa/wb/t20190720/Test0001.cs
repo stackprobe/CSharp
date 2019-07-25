@@ -20,6 +20,11 @@ namespace Charlotte.wb.t20190720
 
 			Console.WriteLine(ret[1]);
 
+			// - - -
+
+			Console.WriteLine(string.Join(":", items.Select(v => v[0])));
+			Console.WriteLine(string.Join(":", items.Select(v => v[1])));
+
 			// ----
 
 			var vals = new[]

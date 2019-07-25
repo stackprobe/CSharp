@@ -158,6 +158,11 @@ namespace Charlotte.Tools
 			return this.Copy(0, 0, this.GetWidth(), this.GetHeight());
 		}
 
+		public Canvas Copy(Rectangle rect)
+		{
+			return this.Copy(rect.Left, rect.Top, rect.Width, rect.Height);
+		}
+
 		public Canvas Copy(int l, int t, int w, int h)
 		{
 			Canvas ret = new Canvas(w, h);
@@ -177,6 +182,11 @@ namespace Charlotte.Tools
 			this.FillRect(color, 0, 0, this.GetWidth(), this.GetHeight());
 		}
 
+		public void Fill(Color color, Rectangle rect)
+		{
+			this.FillRect(color, rect.Left, rect.Top, rect.Width, rect.Height);
+		}
+
 		public void FillRect(Color color, int l, int t, int w, int h)
 		{
 			for (int x = 0; x < w; x++)
@@ -191,6 +201,11 @@ namespace Charlotte.Tools
 		public void Cover(Color color)
 		{
 			this.CoverRect(color, 0, 0, this.GetWidth(), this.GetHeight());
+		}
+
+		public void CoverRect(Color color, Rectangle rect)
+		{
+			this.CoverRect(color, rect.Left, rect.Top, rect.Width, rect.Height);
 		}
 
 		public void CoverRect(Color color, int l, int t, int w, int h)
@@ -311,10 +326,15 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public Canvas CutoutUnmatch(Predicate<Color> match)
+		public Canvas CutoutUnmatch(Predicate<Point> match)
 		{
-			int l = this.GetWidth();
-			int t = this.GetHeight();
+			return this.Copy(GetRectMatch(match));
+		}
+
+		public Rectangle GetRectMatch(Predicate<Point> match)
+		{
+			int l = int.MaxValue;
+			int t = int.MaxValue;
 			int r = -1;
 			int b = -1;
 
@@ -322,7 +342,7 @@ namespace Charlotte.Tools
 			{
 				for (int y = 0; y < this.GetHeight(); y++)
 				{
-					if (match(this.Get(x, y)))
+					if (match(new Point(x, y)))
 					{
 						l = Math.Min(l, x);
 						t = Math.Min(t, y);
@@ -332,31 +352,68 @@ namespace Charlotte.Tools
 				}
 			}
 			if (r == -1)
+				throw new Exception("マッチするピクセルはありませんでした。");
+
+			int w = r - l + 1;
+			int h = b - t + 1;
+
+			return new Rectangle(l, t, w, h);
+		}
+
+		public Rectangle GetRectAdjoin(int startX, int startY, Predicate<Point> match)
+		{
+			int l = int.MaxValue;
+			int t = int.MaxValue;
+			int r = -1;
+			int b = -1;
+
+			this.Adjoin(startX, startY, pt =>
 			{
-				l = 0;
-				t = 0;
-				r = this.GetWidth();
-				b = this.GetHeight();
-			}
-			else
+				if (match(pt))
+				{
+					int x = pt.X;
+					int y = pt.Y;
+
+					l = Math.Min(l, x);
+					t = Math.Min(t, y);
+					r = Math.Max(r, x);
+					b = Math.Max(b, y);
+
+					return true;
+				}
+				return false;
+			});
+
+			if (r == -1)
+				throw new Exception("マッチするピクセルはありませんでした。");
+
+			int w = r - l + 1;
+			int h = b - t + 1;
+
+			return new Rectangle(l, t, w, h);
+		}
+
+		public Rectangle GetRectSameColor(int startX, int startY)
+		{
+			Color targetColor = this.Get(startX, startY);
+
+			return this.GetRectAdjoin(startX, startY, pt =>
 			{
-				r++;
-				b++;
-			}
-			return this.Copy(l, t, r - l, b - t);
+				int x = pt.X;
+				int y = pt.Y;
+
+				return this.Get(x, y) == targetColor;
+			});
 		}
 
 		public void FillSameColor(int startX, int startY, Color color)
 		{
 			Color targetColor = this.Get(startX, startY);
 
-			if (targetColor == color)
-				throw new ArgumentException();
-
-			this.Adjoin(startX, startY, dot =>
+			this.Adjoin(startX, startY, pt =>
 			{
-				int x = dot[0];
-				int y = dot[1];
+				int x = pt.X;
+				int y = pt.Y;
 
 				if (this.Get(x, y) == targetColor)
 				{
@@ -367,24 +424,26 @@ namespace Charlotte.Tools
 			});
 		}
 
-		public void Adjoin(int startX, int startY, Predicate<int[]> match)
+		public void Adjoin(int startX, int startY, Predicate<Point> match)
 		{
-			Queue<int[]> dots = new Queue<int[]>();
+			BitTable knownPts = new BitTable(this.GetWidth(), this.GetHeight());
+			Queue<Point> pts = new Queue<Point>();
 
-			dots.Enqueue(new int[] { startX, startY });
+			pts.Enqueue(new Point(startX, startY));
 
-			while (1 <= dots.Count)
+			while (1 <= pts.Count)
 			{
-				int[] dot = dots.Dequeue();
-				int x = dot[0];
-				int y = dot[1];
+				Point pt = pts.Dequeue();
+				int x = pt.X;
+				int y = pt.Y;
 
-				if (this.IsFairPoint(x, y) && match(dot))
+				if (this.IsFairPoint(x, y) && knownPts.GetBit(x, y) == false && match(pt))
 				{
-					dots.Enqueue(new int[] { x - 1, y });
-					dots.Enqueue(new int[] { x + 1, y });
-					dots.Enqueue(new int[] { x, y - 1 });
-					dots.Enqueue(new int[] { x, y + 1 });
+					knownPts.SetBit(x, y, true);
+					pts.Enqueue(new Point(x - 1, y));
+					pts.Enqueue(new Point(x + 1, y));
+					pts.Enqueue(new Point(x, y - 1));
+					pts.Enqueue(new Point(x, y + 1));
 				}
 			}
 		}
