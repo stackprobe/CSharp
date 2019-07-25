@@ -621,6 +621,11 @@ namespace Charlotte
 				this.CtrlYMenuItem_Click(null, null);
 				e.Handled = true;
 			}
+			if (e.KeyChar == (char)19) // ctrl_s
+			{
+				this.SaveFileUI();
+				e.Handled = true;
+			}
 		}
 
 		private void CtrlZMenuItem_Click(object sender, EventArgs e)
@@ -706,14 +711,18 @@ namespace Charlotte
 			this.RefreshUI();
 		}
 
+		private string テクスチャ矩形タイルLastInputLine = "";
+
 		private void テクスチャ矩形タイルToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			Ground.I.NibRoutine = (targetX, targetY) =>
 			{
-				string line = InputStringDlgTools.Show("タイルサイズ", "タイルサイズを入力して下さい。(書式 = 幅:高さ:アルファ値下限(0～1), 例 = 30:20:0.5)", true);
+				string line = InputStringDlgTools.Show("タイルサイズ", "タイルサイズを入力して下さい。(書式 = 幅:高さ:アルファ値下限(0～1), 例 = 30:20:0.5)", true, this.テクスチャ矩形タイルLastInputLine);
 
 				if (line != null)
 				{
+					this.テクスチャ矩形タイルLastInputLine = line;
+
 					string[] tokens = line.Split(':');
 					int tileW = int.Parse(tokens[0]);
 					int tileH = int.Parse(tokens[1]);
@@ -770,14 +779,18 @@ namespace Charlotte
 			this.RefreshUI();
 		}
 
+		private string テクスチャ矩形タイル2LastInputLine = "";
+
 		private void テクスチャ矩形タイル2ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			Ground.I.NibRoutine = (targetX, targetY) =>
 			{
-				string line = InputStringDlgTools.Show("タイルサイズ(色⇒色2)", "タイルサイズを入力して下さい。(書式 = 幅:高さ, 例 = 30:20)", true);
+				string line = InputStringDlgTools.Show("タイルサイズ(色⇒色2)", "タイルサイズを入力して下さい。(書式 = 幅:高さ, 例 = 30:20)", true, this.テクスチャ矩形タイル2LastInputLine);
 
 				if (line != null)
 				{
+					this.テクスチャ矩形タイル2LastInputLine = line;
+
 					string[] tokens = line.Split(':');
 					int tileW = int.Parse(tokens[0]);
 					int tileH = int.Parse(tokens[1]);

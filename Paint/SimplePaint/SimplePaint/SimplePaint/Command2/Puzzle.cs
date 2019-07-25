@@ -15,9 +15,17 @@ namespace Charlotte.Command2
 		private int Piece_W;
 		private int Piece_H;
 
+		private static string LastInputLine = "";
+
 		public Puzzle(Image image)
 		{
-			string line = InputStringDlgTools.Show("Input xNum, yNum", "Input => xNum:yNum (e.g. 20:30)", true);
+			string line = InputStringDlgTools.Show("Input xNum, yNum", "Input => xNum:yNum (e.g. 20:30)", true, LastInputLine);
+
+			if (line == null)
+				throw new Exception("キャンセル");
+
+			LastInputLine = line;
+
 			string[] tokens = line.Split(':');
 			int xNum = int.Parse(tokens[0]);
 			int yNum = int.Parse(tokens[1]);

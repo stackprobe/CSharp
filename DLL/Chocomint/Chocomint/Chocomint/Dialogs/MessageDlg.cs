@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Charlotte.Chocomint.Dialogs.Resource;
+using System.Media;
 
 namespace Charlotte.Chocomint.Dialogs
 {
@@ -42,14 +43,17 @@ namespace Charlotte.Chocomint.Dialogs
 			{
 				case Mode_e.Error:
 					this.MessageIcon.Image = new Resource0001().ErrorIcon.Image;
+					SystemSounds.Hand.Play();
 					break;
 
 				case Mode_e.Information:
 					this.MessageIcon.Image = new Resource0001().InformationIcon.Image;
+					SystemSounds.Asterisk.Play();
 					break;
 
 				case Mode_e.Warning:
 					this.MessageIcon.Image = new Resource0001().WarningIcon.Image;
+					SystemSounds.Exclamation.Play();
 					break;
 
 				default:

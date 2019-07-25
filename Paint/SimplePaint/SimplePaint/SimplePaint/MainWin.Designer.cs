@@ -61,6 +61,7 @@
 			this.塗りつぶしToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.テクスチャToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.テクスチャ矩形タイルToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.テクスチャ矩形タイル2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.グラデーションToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.command2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.PuzzleMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,7 +70,6 @@
 			this.SouthWest = new System.Windows.Forms.ToolStripStatusLabel();
 			this.MainPanel = new System.Windows.Forms.Panel();
 			this.MainPicture = new System.Windows.Forms.PictureBox();
-			this.テクスチャ矩形タイル2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			this.MainPanel.SuspendLayout();
@@ -111,27 +111,27 @@
 			// 終了ToolStripMenuItem
 			// 
 			this.終了ToolStripMenuItem.Name = "終了ToolStripMenuItem";
-			this.終了ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+			this.終了ToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
 			this.終了ToolStripMenuItem.Text = "終了";
 			this.終了ToolStripMenuItem.Click += new System.EventHandler(this.終了ToolStripMenuItem_Click);
 			// 
 			// toolStripMenuItem1
 			// 
 			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-			this.toolStripMenuItem1.Size = new System.Drawing.Size(157, 6);
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(192, 6);
 			// 
 			// ファイル読み込みToolStripMenuItem
 			// 
 			this.ファイル読み込みToolStripMenuItem.Name = "ファイル読み込みToolStripMenuItem";
-			this.ファイル読み込みToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+			this.ファイル読み込みToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
 			this.ファイル読み込みToolStripMenuItem.Text = "ファイルを開く";
 			this.ファイル読み込みToolStripMenuItem.Click += new System.EventHandler(this.ファイル読み込みToolStripMenuItem_Click);
 			// 
 			// ファイル書き出しToolStripMenuItem
 			// 
 			this.ファイル書き出しToolStripMenuItem.Name = "ファイル書き出しToolStripMenuItem";
-			this.ファイル書き出しToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-			this.ファイル書き出しToolStripMenuItem.Text = "ファイルに保存する";
+			this.ファイル書き出しToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+			this.ファイル書き出しToolStripMenuItem.Text = "ファイルに保存する Ctrl+S";
 			this.ファイル書き出しToolStripMenuItem.Click += new System.EventHandler(this.ファイル書き出しToolStripMenuItem_Click);
 			// 
 			// 編集ToolStripMenuItem
@@ -189,47 +189,47 @@
 			// 色ToolStripMenuItem
 			// 
 			this.色ToolStripMenuItem.Name = "色ToolStripMenuItem";
-			this.色ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+			this.色ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.色ToolStripMenuItem.Text = "色";
 			this.色ToolStripMenuItem.Click += new System.EventHandler(this.色ToolStripMenuItem_Click);
 			// 
 			// 透明度ToolStripMenuItem
 			// 
 			this.透明度ToolStripMenuItem.Name = "透明度ToolStripMenuItem";
-			this.透明度ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+			this.透明度ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.透明度ToolStripMenuItem.Text = "透明度";
 			this.透明度ToolStripMenuItem.Click += new System.EventHandler(this.透明度ToolStripMenuItem_Click);
 			// 
 			// 形ToolStripMenuItem
 			// 
 			this.形ToolStripMenuItem.Name = "形ToolStripMenuItem";
-			this.形ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+			this.形ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.形ToolStripMenuItem.Text = "形";
 			this.形ToolStripMenuItem.Click += new System.EventHandler(this.形ToolStripMenuItem_Click);
 			// 
 			// toolStripMenuItem2
 			// 
 			this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-			this.toolStripMenuItem2.Size = new System.Drawing.Size(119, 6);
+			this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
 			// 
 			// 色2MenuItem
 			// 
 			this.色2MenuItem.Name = "色2MenuItem";
-			this.色2MenuItem.Size = new System.Drawing.Size(122, 22);
+			this.色2MenuItem.Size = new System.Drawing.Size(152, 22);
 			this.色2MenuItem.Text = "色２";
 			this.色2MenuItem.Click += new System.EventHandler(this.色2MenuItem_Click);
 			// 
 			// 透明度2MenuItem
 			// 
 			this.透明度2MenuItem.Name = "透明度2MenuItem";
-			this.透明度2MenuItem.Size = new System.Drawing.Size(122, 22);
+			this.透明度2MenuItem.Size = new System.Drawing.Size(152, 22);
 			this.透明度2MenuItem.Text = "透明度２";
 			this.透明度2MenuItem.Click += new System.EventHandler(this.透明度2MenuItem_Click);
 			// 
 			// 形2MenuItem
 			// 
 			this.形2MenuItem.Name = "形2MenuItem";
-			this.形2MenuItem.Size = new System.Drawing.Size(122, 22);
+			this.形2MenuItem.Size = new System.Drawing.Size(152, 22);
 			this.形2MenuItem.Text = "形２";
 			this.形2MenuItem.Click += new System.EventHandler(this.形2MenuItem_Click);
 			// 
@@ -321,6 +321,13 @@
 			this.テクスチャ矩形タイルToolStripMenuItem.Text = "テクスチャ_矩形タイル";
 			this.テクスチャ矩形タイルToolStripMenuItem.Click += new System.EventHandler(this.テクスチャ矩形タイルToolStripMenuItem_Click);
 			// 
+			// テクスチャ矩形タイル2ToolStripMenuItem
+			// 
+			this.テクスチャ矩形タイル2ToolStripMenuItem.Name = "テクスチャ矩形タイル2ToolStripMenuItem";
+			this.テクスチャ矩形タイル2ToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+			this.テクスチャ矩形タイル2ToolStripMenuItem.Text = "テクスチャ_矩形タイル２";
+			this.テクスチャ矩形タイル2ToolStripMenuItem.Click += new System.EventHandler(this.テクスチャ矩形タイル2ToolStripMenuItem_Click);
+			// 
 			// グラデーションToolStripMenuItem
 			// 
 			this.グラデーションToolStripMenuItem.Name = "グラデーションToolStripMenuItem";
@@ -392,13 +399,6 @@
 			this.MainPicture.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainPicture_MouseDown);
 			this.MainPicture.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainPicture_MouseMove);
 			this.MainPicture.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainPicture_MouseUp);
-			// 
-			// テクスチャ矩形タイル2ToolStripMenuItem
-			// 
-			this.テクスチャ矩形タイル2ToolStripMenuItem.Name = "テクスチャ矩形タイル2ToolStripMenuItem";
-			this.テクスチャ矩形タイル2ToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
-			this.テクスチャ矩形タイル2ToolStripMenuItem.Text = "テクスチャ_矩形タイル２";
-			this.テクスチャ矩形タイル2ToolStripMenuItem.Click += new System.EventHandler(this.テクスチャ矩形タイル2ToolStripMenuItem_Click);
 			// 
 			// MainWin
 			// 
