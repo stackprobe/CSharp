@@ -18,7 +18,9 @@ namespace Charlotte.Tools
 
 		// <---- prm
 
-		public static Action<object> WriteError = message => ProcMain.WriteLog(message);
+		public static Action<object> ErrorOccurred = message => ProcMain.WriteLog(message);
+		public static Action<object> ErrorOccurred_Fatal = message => ProcMain.WriteLog("[FATAL] " + message);
+		public static Action ErrorOccurred_RecvFirstLineIdleTimeout = () => ProcMain.WriteLog("RECV_FIRST_LINE_IDLE_TIMEOUT");
 
 		private List<ThreadEx> ConnectedThs = new List<ThreadEx>();
 
@@ -68,11 +70,11 @@ namespace Charlotte.Tools
 										}
 										catch (HTTPServerChannel.RecvFirstLineIdleTimeoutException)
 										{
-											WriteError("FIRST_LINE_IDLE_TIMEOUT");
+											ErrorOccurred_RecvFirstLineIdleTimeout();
 										}
 										catch (Exception e)
 										{
-											WriteError(e);
+											ErrorOccurred(e);
 										}
 
 										try
@@ -81,7 +83,7 @@ namespace Charlotte.Tools
 										}
 										catch (Exception e)
 										{
-											WriteError(e);
+											ErrorOccurred(e);
 										}
 
 										try
@@ -90,7 +92,7 @@ namespace Charlotte.Tools
 										}
 										catch (Exception e)
 										{
-											WriteError(e);
+											ErrorOccurred(e);
 										}
 									}
 									)));
@@ -107,7 +109,7 @@ namespace Charlotte.Tools
 				}
 				catch (Exception e)
 				{
-					WriteError("想定外のエラー：" + e);
+					ErrorOccurred_Fatal(e);
 				}
 
 				this.Stop();
