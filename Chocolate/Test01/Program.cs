@@ -66,7 +66,7 @@ namespace Charlotte
 			//new HTTPClientTest().Test01();
 			//new HTTPClientTest().Test02();
 			//new HTTPServerTest().Test01();
-			//new HTTPServerTest().Test02();
+			new HTTPServerTest().Test02();
 			//new ReflectToolsTest().Test01();
 			//new ReflectToolsTest().Test02();
 			//new ReflectToolsTest().Test02b();
@@ -109,7 +109,7 @@ namespace Charlotte
 			//new ZipToolsTest().Test01();
 			//new ZipToolsTest().Test02();
 			//new EnumeratorCartridgeTest().Test01();
-			new CanvasTest().Test01();
+			//new CanvasTest().Test01();
 		}
 	}
 }

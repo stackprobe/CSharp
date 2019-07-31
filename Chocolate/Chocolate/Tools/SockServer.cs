@@ -18,6 +18,8 @@ namespace Charlotte.Tools
 
 		// <---- prm
 
+		public static Action<object> WriteError = message => ProcMain.WriteLog(message);
+
 		private List<ThreadEx> ConnectedThs = new List<ThreadEx>();
 
 		public void Perform()
@@ -64,13 +66,9 @@ namespace Charlotte.Tools
 										{
 											this.Connected(channel);
 										}
-										catch (HTTPServerChannel.RecvFirstLineIdleTimeoutException)
-										{
-											ProcMain.WriteLog("FIRST_LINE_IDLE_TIMEOUT");
-										}
 										catch (Exception e)
 										{
-											ProcMain.WriteLog(e);
+											WriteError(e);
 										}
 
 										try
@@ -79,7 +77,7 @@ namespace Charlotte.Tools
 										}
 										catch (Exception e)
 										{
-											ProcMain.WriteLog(e);
+											WriteError(e);
 										}
 
 										try
@@ -88,7 +86,7 @@ namespace Charlotte.Tools
 										}
 										catch (Exception e)
 										{
-											ProcMain.WriteLog(e);
+											WriteError(e);
 										}
 									}
 									)));
@@ -105,7 +103,7 @@ namespace Charlotte.Tools
 				}
 				catch (Exception e)
 				{
-					ProcMain.WriteLog("想定外のエラー：" + e);
+					WriteError("想定外のエラー：" + e);
 				}
 
 				this.Stop();
