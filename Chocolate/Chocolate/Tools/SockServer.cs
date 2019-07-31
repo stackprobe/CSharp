@@ -66,6 +66,10 @@ namespace Charlotte.Tools
 										{
 											this.Connected(channel);
 										}
+										catch (HTTPServerChannel.RecvFirstLineIdleTimeoutException)
+										{
+											WriteError("FIRST_LINE_IDLE_TIMEOUT");
+										}
 										catch (Exception e)
 										{
 											WriteError(e);

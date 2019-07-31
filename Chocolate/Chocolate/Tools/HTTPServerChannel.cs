@@ -42,7 +42,14 @@ namespace Charlotte.Tools
 			this.Channel.SessionTimeoutTime = TimeoutMillisToDateTime(RequestTimeoutMillis);
 			this.Channel.IdleTimeoutMillis = FirstLineTimeoutMillis;
 
-			this.FirstLine = this.RecvLine();
+			try
+			{
+				this.FirstLine = this.RecvLine();
+			}
+			catch (SockChannel.IdleTimeoutException)
+			{
+				throw new RecvFirstLineIdleTimeoutException();
+			}
 
 			{
 				string[] tokens = this.FirstLine.Split(' ');
@@ -72,6 +79,9 @@ namespace Charlotte.Tools
 
 			return DateTime.Now + new TimeSpan((long)millis * 10000L);
 		}
+
+		public class RecvFirstLineIdleTimeoutException : Exception
+		{ }
 
 		private string DecodeURL(string path)
 		{
