@@ -10,6 +10,13 @@ namespace Charlotte
 	{
 		private Moment Initial;
 
+		public Question(string[] lines, int x, int y)
+			: this(lines)
+		{
+			this.Initial.X = x;
+			this.Initial.Y = y;
+		}
+
 		public Question(string[] lines)
 		{
 			Moment m = new Moment()
