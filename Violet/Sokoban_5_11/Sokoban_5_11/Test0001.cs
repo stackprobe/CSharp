@@ -108,5 +108,23 @@ namespace Charlotte
 			)
 			.Solve();
 		}
+
+		public void Test07()
+		{
+			new Question(new string[]
+			{
+				"#####   ",
+				"#   ####",
+				"# #22  #",
+				"#2#11# #", 
+				"#21  1 #",
+				"#21 # S#",
+				"#21  3 #",
+				"# #33  #",
+				"#   #  #",
+				"########",
+			})
+			.Solve();
+		}
 	}
 }
