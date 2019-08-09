@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Test01.DateSpans.Tools
 {
-	public class DateToDay
+	public static class DateToDay
 	{
 		public static int ToDay(int date)
 		{

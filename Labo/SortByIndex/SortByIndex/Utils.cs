@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Charlotte
 {
-	public class Utils
+	public static class Utils
 	{
 		public static void Transfer<T>(T[] buff, long startPosition, long endPosition, Action<long, int> routine)
 		{

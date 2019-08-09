@@ -8,7 +8,7 @@ using System.Security.Principal;
 
 namespace Charlotte.Tools
 {
-	public class NamedEventTools
+	public static class NamedEventTools
 	{
 		public static EventWaitHandle Create(string name)
 		{

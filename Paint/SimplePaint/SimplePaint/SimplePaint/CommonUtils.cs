@@ -6,7 +6,7 @@ using System.Drawing.Imaging;
 
 namespace Charlotte
 {
-	public class CommonUtils
+	public static class CommonUtils
 	{
 		public static ImageFormat ExtToImageFormat(string ext)
 		{

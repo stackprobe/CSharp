@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace KeysMon
 {
-	public class KeysStat
+	public static class KeysStat
 	{
 		[DllImport("user32.dll")]
 		static extern short GetAsyncKeyState(Keys vKey); 

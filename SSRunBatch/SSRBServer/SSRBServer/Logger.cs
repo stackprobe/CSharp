@@ -6,7 +6,7 @@ using System.IO;
 
 namespace Charlotte
 {
-	public class Logger
+	public static class Logger
 	{
 		private static readonly object SYNCROOT = new object();
 

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Charlotte.Tools
 {
-	public class DoubleTools
+	public static class DoubleTools
 	{
 		public static int Comp(double a, double b)
 		{

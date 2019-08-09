@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace Charlotte
 {
-	public class Gnd
+	public static class Gnd
 	{
 		public static Conf conf = new Conf();
 		public static Setting setting = new Setting();

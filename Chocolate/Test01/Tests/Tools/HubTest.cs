@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Charlotte.Tests.Tools
 {
-	public class HubTest
+	public static class HubTest
 	{
 		// -> ReflectToolsTest.cs
 	}

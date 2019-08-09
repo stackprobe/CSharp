@@ -6,7 +6,7 @@ using System.IO;
 
 namespace Charlotte.Tools
 {
-	public class JString
+	public static class JString
 	{
 		public static bool IsLine(string line)
 		{

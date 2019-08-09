@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Charlotte.Tools
 {
-	public class EnumerableTools
+	public static class EnumerableTools
 	{
 		public static IEnumerable<T> Linearize<T>(IEnumerable<IEnumerable<T>> src)
 		{

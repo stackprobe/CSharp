@@ -8,7 +8,7 @@ using System.Security.Principal;
 
 namespace Test01.Modules
 {
-	public class BlockSection
+	public static class BlockSection
 	{
 		private const string IDENT = "{765e7fbb-433e-4ccf-9cb1-281f6d8dff20}"; // shared_uuid@ign
 

@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace Charlotte
 {
-	public class Consts
+	public static class Consts
 	{
 		public const int MPIC_W_MIN = 10;
 		public const int MPIC_H_MIN = 10;

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Charlotte
 {
-	public class Sort0001
+	public static class Sort0001
 	{
 		public static void Sort(int count, Comparison<int> comp, Action<int, int> swap)
 		{

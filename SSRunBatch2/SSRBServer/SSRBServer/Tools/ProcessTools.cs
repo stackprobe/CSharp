@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace Charlotte.Tools
 {
-	public class ProcessTools
+	public static class ProcessTools
 	{
 		/// <summary>
 		/// この値をWSSRBServerから受け取る。

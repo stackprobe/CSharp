@@ -6,7 +6,7 @@ using System.IO;
 
 namespace Charlotte.Tools
 {
-	public class BinTools
+	public static class BinTools
 	{
 		public static byte[] EMPTY = new byte[0];
 

@@ -12,7 +12,7 @@ using System.Security.Principal;
 
 namespace Charlotte.Tools
 {
-	public class ProcMain
+	public static class ProcMain
 	{
 		public static string APP_IDENT;
 		public static string APP_TITLE;

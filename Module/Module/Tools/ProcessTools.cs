@@ -9,7 +9,7 @@ namespace Charlotte.Tools
 {
 	// バッチなので、"%" -> "%%"
 
-	public class ProcessTools
+	public static class ProcessTools
 	{
 		public static void runOnBatch(string line, string dir = null, WindowStyle_e winStyle = WindowStyle_e.INVISIBLE)
 		{

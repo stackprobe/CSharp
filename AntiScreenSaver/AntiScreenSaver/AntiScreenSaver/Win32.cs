@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 
 namespace Charlotte
 {
-	public class Win32
+	public static class Win32
 	{
 		[StructLayout(LayoutKind.Sequential)]
 		public class Rect

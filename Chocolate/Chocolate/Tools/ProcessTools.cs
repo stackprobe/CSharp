@@ -7,7 +7,7 @@ using System.IO;
 
 namespace Charlotte.Tools
 {
-	public class ProcessTools
+	public static class ProcessTools
 	{
 		public enum WindowStyle_e
 		{

@@ -8,7 +8,7 @@ using System.Drawing.Imaging;
 
 namespace Charlotte.Tools
 {
-	public class CanvasTools
+	public static class CanvasTools
 	{
 		public static bool IsFairImageSize(int w, int h)
 		{

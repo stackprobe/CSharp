@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Charlotte.Tools
 {
-	public class ArrayTools
+	public static class ArrayTools
 	{
 		public static int Comp<T>(T[] a, T[] b, Comparison<T> comp)
 		{

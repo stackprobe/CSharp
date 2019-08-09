@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace Charlotte.Tools
 {
-	public class HandleSectionTools
+	public static class HandleSectionTools
 	{
 		public static HandleSection<bool> Lock(Mutex mtx, int timeoutMillis = Timeout.Infinite)
 		{

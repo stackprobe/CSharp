@@ -8,7 +8,7 @@ namespace Charlotte.Tools
 	/// <summary>
 	/// 1000/1/1 ～ 9999/12/31
 	/// </summary>
-	public class DateToDay
+	public static class DateToDay
 	{
 		public static int ToDay(int date)
 		{

@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 
 namespace Charlotte.Tools
 {
-	public class SecurityTools
+	public static class SecurityTools
 	{
 		public static RandomUnit CRandom = new RandomUnit(new CSPRandomNumberGenerator());
 

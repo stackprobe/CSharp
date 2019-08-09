@@ -7,7 +7,7 @@ using System.IO;
 
 namespace Charlotte.Chocomint.Dialogs
 {
-	public class InputFolderDlgTools
+	public static class InputFolderDlgTools
 	{
 		public static string Existing(string title, string prompt, bool hasParent = false, string dir = "", string defval = null)
 		{

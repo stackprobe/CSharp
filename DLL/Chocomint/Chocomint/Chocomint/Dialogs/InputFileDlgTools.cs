@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Charlotte.Chocomint.Dialogs
 {
-	public class InputFileDlgTools
+	public static class InputFileDlgTools
 	{
 		/// <summary>
 		/// 読み込み用ファイルの選択ダイアログ

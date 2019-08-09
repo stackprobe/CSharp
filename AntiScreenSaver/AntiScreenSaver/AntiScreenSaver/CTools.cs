@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace Charlotte
 {
-	public class CTools
+	public static class CTools
 	{
 		private static string _CToolsFile = null;
 

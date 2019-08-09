@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 
 namespace Charlotte.Tools
 {
-	public class CipherTools
+	public static class CipherTools
 	{
 		public interface IBlockCipher : IDisposable
 		{

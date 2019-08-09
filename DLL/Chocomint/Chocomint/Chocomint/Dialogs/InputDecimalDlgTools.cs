@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace Charlotte.Chocomint.Dialogs
 {
-	public class InputDecimalDlgTools
+	public static class InputDecimalDlgTools
 	{
 		public static decimal Show(string title, string prompt, bool hasParent = false, decimal value = 0, decimal minval = 0, decimal maxval = 100, decimal defval = -1, Func<decimal, decimal> validator = null)
 		{

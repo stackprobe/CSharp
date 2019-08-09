@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Charlotte.Tools
 {
-	public class Wrapper
+	public static class Wrapper
 	{
 		public static Unit<T> Create<T>(T value)
 		{

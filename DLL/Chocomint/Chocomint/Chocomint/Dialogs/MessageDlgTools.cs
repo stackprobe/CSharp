@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace Charlotte.Chocomint.Dialogs
 {
-	public class MessageDlgTools
+	public static class MessageDlgTools
 	{
 		public static void Information(string title, string message, bool hasParent = false, string detailMessage = null)
 		{

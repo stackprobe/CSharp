@@ -7,7 +7,7 @@ using Charlotte.Tools;
 
 namespace Charlotte.Chocomint.Dialogs
 {
-	public class ChocomintCommon
+	public static class ChocomintCommon
 	{
 		/// <summary>
 		/// Charlotte.Chocomint.Dialogs 直下のフォームは _Shown メソッドの最後に、このメソッドを呼び出さなければならない。

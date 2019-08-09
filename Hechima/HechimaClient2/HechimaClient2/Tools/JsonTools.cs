@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Charlotte.Tools
 {
-	public class JsonTools
+	public static class JsonTools
 	{
 		public static string encode(object src, bool noBlank = false)
 		{

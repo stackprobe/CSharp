@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace Charlotte.Chocomint.Dialogs
 {
-	public class InputComboDlgTools
+	public static class InputComboDlgTools
 	{
 		public class Item<T>
 		{

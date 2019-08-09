@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace Charlotte
 {
-	public class SockClient
+	public static class SockClient
 	{
 		public delegate void Transmit_d(Connection connection);
 

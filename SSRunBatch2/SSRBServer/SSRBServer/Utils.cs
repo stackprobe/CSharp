@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace Charlotte
 {
-	public class Utils
+	public static class Utils
 	{
 		private static object PostMessage_SYNCROOT = new object();
 		private static AntiRecursive PostMessage_AntiRecursive = new AntiRecursive();

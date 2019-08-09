@@ -8,7 +8,7 @@ namespace Test01.DateSpans.Tools
 	/// <summary>
 	/// 1000/1/1 ～ 9999/12/31
 	/// </summary>
-	public class DateTimeToSec
+	public static class DateTimeToSec
 	{
 		public static long ToSec(long dateTime)
 		{

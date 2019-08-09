@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace Charlotte
 {
-	public class Gnd
+	public static class Gnd
 	{
 		public static Icon[] Icons = new Icon[11];
 

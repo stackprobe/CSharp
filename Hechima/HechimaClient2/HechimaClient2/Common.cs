@@ -13,7 +13,7 @@ using System.Diagnostics;
 
 namespace Charlotte
 {
-	public class Common
+	public static class Common
 	{
 		public static void WaitToBgServiceEnded(bool noDlg = false)
 		{

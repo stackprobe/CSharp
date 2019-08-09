@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 
 namespace Test01.Modules
 {
-	public class RandDataFileHelper
+	public static class RandDataFileHelper
 	{
 		public static void Make(string file, long size, ulong seed, bool includeHash)
 		{

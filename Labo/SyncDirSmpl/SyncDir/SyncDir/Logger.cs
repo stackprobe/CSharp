@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SyncDir
 {
-	public class Logger
+	public static class Logger
 	{
 		public static void WriteLine(object message)
 		{

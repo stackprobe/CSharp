@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace Charlotte.Tools
 {
-	public class ReflecTools
+	public static class ReflecTools
 	{
 		/// <summary>
 		/// 

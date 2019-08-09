@@ -8,7 +8,7 @@ using System.IO;
 
 namespace Charlotte
 {
-	public class SSRBServerProc
+	public static class SSRBServerProc
 	{
 		private static string ExeFile
 		{

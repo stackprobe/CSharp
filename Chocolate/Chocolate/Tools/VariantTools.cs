@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Charlotte.Tools
 {
-	public class VariantTools
+	public static class VariantTools
 	{
 		public static int Comp<T>(T a, T b, Func<T, int> getWeight)
 		{

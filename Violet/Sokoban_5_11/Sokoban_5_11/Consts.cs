@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Charlotte
 {
-	public class Consts
+	public static class Consts
 	{
 		public const string KNOWN_HASH_ROOT_DIR = @"C:\temp\Sokoban_5_11_Known_Hashes";
 

@@ -7,7 +7,7 @@ using Charlotte.Tools;
 
 namespace Charlotte
 {
-	public class ShowAnswer
+	public static class ShowAnswer
 	{
 		public static void Perform(Moment[] route)
 		{

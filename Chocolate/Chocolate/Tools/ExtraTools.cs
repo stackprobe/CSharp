@@ -8,7 +8,7 @@ using System.Reflection;
 
 namespace Charlotte.Tools
 {
-	public class ExtraTools
+	public static class ExtraTools
 	{
 		public static void AntiWindowsDefenderSmartScreen()
 		{

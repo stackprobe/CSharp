@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Test01.DateSpans.Tools
 {
-	public class StringTools
+	public static class StringTools
 	{
 		public static int Comp(string a, string b)
 		{

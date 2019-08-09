@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Charlotte.Tools
 {
-	public class LongTools
+	public static class LongTools
 	{
 		public const long IMAX_64 = 1000000000000000000L; // 10^18
 

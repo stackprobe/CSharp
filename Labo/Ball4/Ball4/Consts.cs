@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Charlotte
 {
-	public class Consts
+	public static class Consts
 	{
 		public const int TABLE_W = 7;
 		public const int TABLE_H = 5;

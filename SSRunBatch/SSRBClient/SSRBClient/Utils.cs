@@ -6,7 +6,7 @@ using System.IO;
 
 namespace Charlotte
 {
-	public class Utils
+	public static class Utils
 	{
 		public static bool ContainsLPath(List<string> paths, string targetLPath)
 		{

@@ -7,7 +7,7 @@ using Charlotte.Tools;
 
 namespace Charlotte.Chocomint.Dialogs
 {
-	public class InputStringDlgTools
+	public static class InputStringDlgTools
 	{
 		public static double Double(string title, string prompt, bool hasParent = false, double value = 0.0, double minval = (double)-IntTools.IMAX, double maxval = (double)IntTools.IMAX, double defval = 0.0)
 		{

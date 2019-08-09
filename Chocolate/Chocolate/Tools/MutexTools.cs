@@ -8,7 +8,7 @@ using System.Security.Principal;
 
 namespace Charlotte.Tools
 {
-	public class MutexTools
+	public static class MutexTools
 	{
 		public static Mutex Create(string name)
 		{

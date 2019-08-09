@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Charlotte.Labo
 {
-	public class ArrayUtils
+	public static class ArrayUtils
 	{
 		public static void Distinct<T>(List<T> list, Comparison<T> comp)
 		{

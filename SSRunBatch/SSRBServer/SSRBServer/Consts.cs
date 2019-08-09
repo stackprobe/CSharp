@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Charlotte
 {
-	public class Consts
+	public static class Consts
 	{
 		public static readonly Encoding ENCODING_SJIS = Encoding.GetEncoding(932);
 	}

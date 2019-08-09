@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 
 namespace Charlotte
 {
-	public class MSender
+	public static class MSender
 	{
 		public static void MSend(string ident, byte[] message)
 		{

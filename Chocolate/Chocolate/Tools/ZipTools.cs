@@ -7,7 +7,7 @@ using System.IO.Compression;
 
 namespace Charlotte.Tools
 {
-	public class ZipTools
+	public static class ZipTools
 	{
 		public static byte[] Compress(byte[] src)
 		{

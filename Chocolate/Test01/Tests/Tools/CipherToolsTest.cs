@@ -7,7 +7,7 @@ using Charlotte.Tools;
 
 namespace Charlotte.Tests.Tools
 {
-	public class CipherToolsTest
+	public static class CipherToolsTest
 	{
 		public class AESTest
 		{

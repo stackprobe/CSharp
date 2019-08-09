@@ -8,7 +8,7 @@ using System.IO;
 
 namespace Charlotte.Tools
 {
-	public class DebugTools
+	public static class DebugTools
 	{
 		public static object toListOrMap(object instance, int depth = 3)
 		{

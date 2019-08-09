@@ -7,7 +7,7 @@ using Charlotte.Tools;
 
 namespace Charlotte.Chocomint.Dialogs
 {
-	public class BusyDlgTools
+	public static class BusyDlgTools
 	{
 		private static VisitorCounter BusyDlgVCnt = new VisitorCounter();
 

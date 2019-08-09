@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 
 namespace Charlotte
 {
-	public class Common
+	public static class Common
 	{
 		public static void WaitToBgServiceEnded(bool noDlg = false)
 		{

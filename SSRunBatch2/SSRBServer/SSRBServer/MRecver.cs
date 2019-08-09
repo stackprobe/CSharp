@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 
 namespace Charlotte
 {
-	public class MRecver
+	public static class MRecver
 	{
 		public static void MRecv(string ident, Action<byte[]> recved, Func<bool> isAlive)
 		{
