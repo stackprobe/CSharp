@@ -57,6 +57,8 @@
     <Compile Include="Tools\CanvasTools.cs" />
     <Compile Include="Tools\D2Point.cs" />
     <Compile Include="Tools\D2Size.cs" />
+    <Compile Include="Tools\D3Color.cs" />
+    <Compile Include="Tools\D4Color.cs" />
     <Compile Include="Tools\D4Rect.cs" />
     <Compile Include="Tools\EnumerableTools.cs" />
     <Compile Include="Tools\ExceptionDam.cs" />
@@ -79,6 +81,8 @@
     <Compile Include="Tools\HugeQueue.cs" />
     <Compile Include="Tools\I2Point.cs" />
     <Compile Include="Tools\I2Size.cs" />
+    <Compile Include="Tools\I3Color.cs" />
+    <Compile Include="Tools\I4Color.cs" />
     <Compile Include="Tools\I4Rect.cs" />
     <Compile Include="Tools\JsonTools.cs" />
     <Compile Include="Tools\JString.cs" />
