@@ -18,5 +18,15 @@ namespace Charlotte.Tools
 			this.X = x;
 			this.Y = y;
 		}
+
+		public static D2Point operator +(D2Point a, D2Point b)
+		{
+			return new D2Point(a.X + b.X, a.Y + b.Y);
+		}
+
+		public static D2Point operator -(D2Point a, D2Point b)
+		{
+			return new D2Point(a.X - b.X, a.Y - b.Y);
+		}
 	}
 }
