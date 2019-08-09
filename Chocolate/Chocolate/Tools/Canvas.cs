@@ -158,9 +158,9 @@ namespace Charlotte.Tools
 			return this.Copy(0, 0, this.GetWidth(), this.GetHeight());
 		}
 
-		public Canvas Copy(Rectangle rect)
+		public Canvas Copy(I4Rect rect)
 		{
-			return this.Copy(rect.Left, rect.Top, rect.Width, rect.Height);
+			return this.Copy(rect.L, rect.T, rect.W, rect.H);
 		}
 
 		public Canvas Copy(int l, int t, int w, int h)
@@ -182,9 +182,9 @@ namespace Charlotte.Tools
 			this.FillRect(color, 0, 0, this.GetWidth(), this.GetHeight());
 		}
 
-		public void Fill(Color color, Rectangle rect)
+		public void Fill(Color color, I4Rect rect)
 		{
-			this.FillRect(color, rect.Left, rect.Top, rect.Width, rect.Height);
+			this.FillRect(color, rect.L, rect.T, rect.W, rect.H);
 		}
 
 		public void FillRect(Color color, int l, int t, int w, int h)
@@ -203,9 +203,9 @@ namespace Charlotte.Tools
 			this.CoverRect(color, 0, 0, this.GetWidth(), this.GetHeight());
 		}
 
-		public void CoverRect(Color color, Rectangle rect)
+		public void CoverRect(Color color, I4Rect rect)
 		{
-			this.CoverRect(color, rect.Left, rect.Top, rect.Width, rect.Height);
+			this.CoverRect(color, rect.L, rect.T, rect.W, rect.H);
 		}
 
 		public void CoverRect(Color color, int l, int t, int w, int h)
@@ -326,12 +326,12 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public Canvas CutoutUnmatch(Predicate<Point> match)
+		public Canvas CutoutUnmatch(Predicate<I2Point> match)
 		{
 			return this.Copy(GetRectMatch(match));
 		}
 
-		public Rectangle GetRectMatch(Predicate<Point> match)
+		public I4Rect GetRectMatch(Predicate<I2Point> match)
 		{
 			int l = int.MaxValue;
 			int t = int.MaxValue;
@@ -342,7 +342,7 @@ namespace Charlotte.Tools
 			{
 				for (int y = 0; y < this.GetHeight(); y++)
 				{
-					if (match(new Point(x, y)))
+					if (match(new I2Point(x, y)))
 					{
 						l = Math.Min(l, x);
 						t = Math.Min(t, y);
@@ -357,10 +357,10 @@ namespace Charlotte.Tools
 			int w = r - l + 1;
 			int h = b - t + 1;
 
-			return new Rectangle(l, t, w, h);
+			return new I4Rect(l, t, w, h);
 		}
 
-		public Rectangle GetRectSpread(int startX, int startY, Predicate<Point> match)
+		public I4Rect GetRectSpread(int startX, int startY, Predicate<I2Point> match)
 		{
 			int l = int.MaxValue;
 			int t = int.MaxValue;
@@ -390,10 +390,10 @@ namespace Charlotte.Tools
 			int w = r - l + 1;
 			int h = b - t + 1;
 
-			return new Rectangle(l, t, w, h);
+			return new I4Rect(l, t, w, h);
 		}
 
-		public Rectangle GetRectSameColor(int startX, int startY)
+		public I4Rect GetRectSameColor(int startX, int startY)
 		{
 			Color targetColor = this.Get(startX, startY);
 
@@ -411,7 +411,7 @@ namespace Charlotte.Tools
 			this.SpreadSameColor(startX, startY, pt => this.Set(pt.X, pt.Y, color));
 		}
 
-		public void SpreadSameColor(int startX, int startY, Action<Point> reaction)
+		public void SpreadSameColor(int startX, int startY, Action<I2Point> reaction)
 		{
 			Color targetColor = this.Get(startX, startY);
 
@@ -429,26 +429,26 @@ namespace Charlotte.Tools
 			});
 		}
 
-		public void Spread(int startX, int startY, Predicate<Point> match)
+		public void Spread(int startX, int startY, Predicate<I2Point> match)
 		{
 			BitTable reachedMap = new BitTable(this.GetWidth(), this.GetHeight());
-			Queue<Point> pts = new Queue<Point>();
+			Queue<I2Point> pts = new Queue<I2Point>();
 
-			pts.Enqueue(new Point(startX, startY));
+			pts.Enqueue(new I2Point(startX, startY));
 
 			while (1 <= pts.Count)
 			{
-				Point pt = pts.Dequeue();
+				I2Point pt = pts.Dequeue();
 				int x = pt.X;
 				int y = pt.Y;
 
 				if (this.IsFairPoint(x, y) && reachedMap.GetBit(x, y) == false && match(pt))
 				{
 					reachedMap.SetBit(x, y, true);
-					pts.Enqueue(new Point(x - 1, y));
-					pts.Enqueue(new Point(x + 1, y));
-					pts.Enqueue(new Point(x, y - 1));
-					pts.Enqueue(new Point(x, y + 1));
+					pts.Enqueue(new I2Point(x - 1, y));
+					pts.Enqueue(new I2Point(x + 1, y));
+					pts.Enqueue(new I2Point(x, y - 1));
+					pts.Enqueue(new I2Point(x, y + 1));
 				}
 			}
 		}
