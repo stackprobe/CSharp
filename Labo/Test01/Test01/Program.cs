@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using Test01.DateSpans.Tests;
 using Test01.Modules.Tests;
+using Test01.Tests;
 
 namespace Test01
 {
@@ -25,7 +26,7 @@ namespace Test01
 				//Test08();
 				//Test09();
 				//Test10();
-				Test11();
+				//Test11();
 				//new DateSpanListTest().Test01();
 				//new NamesToGroupDateSpansTest().Test01();
 				//new NamesToGroupDateSpansTest().Test02();
@@ -38,6 +39,7 @@ namespace Test01
 				//new AsyncFileWriterTest().Test01();
 				//new BlockSectionTest().Test01();
 				//new BlockSectionTest().Test02();
+				new Test0001().Test01();
 			}
 			catch (Exception e)
 			{
