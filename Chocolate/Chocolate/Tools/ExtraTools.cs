@@ -205,6 +205,19 @@ namespace Charlotte.Tools
 			return DesertElement(list, list.Count - 1);
 		}
 
+		public static T FastDesertElement<T>(List<T> list, int index)
+		{
+			T ret = UnaddElement(list);
+
+			if (index < list.Count - 1)
+			{
+				T ret2 = list[index];
+				list[index] = ret;
+				ret = ret2;
+			}
+			return ret;
+		}
+
 		public static string GetHomeDir(string marker = "_home")
 		{
 			return GetHomeDir(marker, Directory.GetCurrentDirectory());
