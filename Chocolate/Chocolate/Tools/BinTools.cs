@@ -56,7 +56,7 @@ namespace Charlotte.Tools
 #endif
 		}
 
-		public class Hex
+		public static class Hex
 		{
 			public static string ToString(byte chr)
 			{
