@@ -23,7 +23,7 @@ namespace Charlotte.Tools
 		/// <summary>
 		/// 1/1/1 ～ 9999/12/31
 		/// </summary>
-		public class Allow5To7Dig
+		public static class Allow5To7Dig
 		{
 			public static int ToDay(int date)
 			{
@@ -36,7 +36,7 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public class Now
+		public static class Now
 		{
 			public static int GetDay()
 			{

@@ -26,7 +26,7 @@ namespace Charlotte.Tools
 		/// <summary>
 		/// 1/1/1 ～ 9999/12/31
 		/// </summary>
-		public class Allow11To13Dig
+		public static class Allow11To13Dig
 		{
 			public static long ToSec(long dateTime)
 			{
@@ -158,7 +158,7 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public class Now
+		public static class Now
 		{
 			public static long GetSec()
 			{
