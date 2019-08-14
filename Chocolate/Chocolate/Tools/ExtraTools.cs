@@ -209,7 +209,7 @@ namespace Charlotte.Tools
 		{
 			T ret = UnaddElement(list);
 
-			if (index < list.Count - 1)
+			if (index < list.Count)
 			{
 				T ret2 = list[index];
 				list[index] = ret;
