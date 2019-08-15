@@ -46,6 +46,8 @@
   <ItemGroup>
     <Compile Include="Tools\AnonyDisposable.cs" />
     <Compile Include="Tools\AttachString.cs" />
+    <Compile Include="Tools\BluffList.cs" />
+    <Compile Include="Tools\BluffListTools.cs" />
     <Compile Include="Tools\CacheMap.cs" />
     <Compile Include="Tools\AutoList.cs" />
     <Compile Include="Tools\AutoTable.cs" />
