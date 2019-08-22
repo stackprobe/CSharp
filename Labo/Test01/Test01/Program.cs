@@ -27,6 +27,7 @@ namespace Test01
 				//Test09();
 				//Test10();
 				//Test11();
+				Test12();
 				//new DateSpanListTest().Test01();
 				//new NamesToGroupDateSpansTest().Test01();
 				//new NamesToGroupDateSpansTest().Test02();
@@ -39,7 +40,7 @@ namespace Test01
 				//new AsyncFileWriterTest().Test01();
 				//new BlockSectionTest().Test01();
 				//new BlockSectionTest().Test02();
-				new Test0001().Test01();
+				//new Test0001().Test01();
 			}
 			catch (Exception e)
 			{
@@ -344,6 +345,22 @@ Test02_a_a: { X = 3 }
 				Console.WriteLine(e.InnerException != null);
 				Console.WriteLine(e.InnerExceptions.Count());
 			}
+		}
+
+		private static void Test12()
+		{
+			Queue<string> q = new Queue<string>();
+
+			q.Enqueue("AAA");
+			q.Enqueue("BBB");
+			q.Enqueue("CCC");
+
+			foreach (string str in q) // ここでは Dequeue されない。
+				Console.WriteLine("foreach -> " + str);
+
+			Console.WriteLine(q.Dequeue());
+			Console.WriteLine(q.Dequeue());
+			Console.WriteLine(q.Dequeue());
 		}
 	}
 }
