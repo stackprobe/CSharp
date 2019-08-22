@@ -28,5 +28,15 @@ namespace Charlotte.Tools
 		{
 			return new D2Point(a.X - b.X, a.Y - b.Y);
 		}
+
+		public static D2Point operator *(D2Point a, double b)
+		{
+			return new D2Point(a.X * b, a.Y * b);
+		}
+
+		public static D2Point operator /(D2Point a, double b)
+		{
+			return new D2Point(a.X / b, a.Y / b);
+		}
 	}
 }
