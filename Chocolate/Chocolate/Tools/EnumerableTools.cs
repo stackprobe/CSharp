@@ -230,5 +230,12 @@ namespace Charlotte.Tools
 				yield return src[index];
 			}
 		}
+
+		public static IEnumerable<T> Sort<T>(IEnumerable<T> src, Comparison<T> comp)
+		{
+			T[] arr = src.ToArray();
+			Array.Sort(arr, comp);
+			return arr;
+		}
 	}
 }
