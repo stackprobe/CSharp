@@ -54,23 +54,47 @@ namespace Charlotte.Tools
 
 		public uint GetUInt16()
 		{
+			byte[] r = GetBytes(2);
+
 			return
-				((uint)this.GetByte() << 8) |
-				((uint)this.GetByte() << 0);
+				((uint)r[0] << 0) |
+				((uint)r[1] << 8);
+		}
+
+		public uint GetUInt24()
+		{
+			byte[] r = GetBytes(3);
+
+			return
+				((uint)r[0] << 0) |
+				((uint)r[1] << 8) |
+				((uint)r[2] << 16);
 		}
 
 		public uint GetUInt()
 		{
+			byte[] r = GetBytes(4);
+
 			return
-				(this.GetUInt16() << 16) |
-				(this.GetUInt16() << 0);
+				((uint)r[0] << 0) |
+				((uint)r[1] << 8) |
+				((uint)r[2] << 16) |
+				((uint)r[3] << 24);
 		}
 
 		public ulong GetUInt64()
 		{
+			byte[] r = GetBytes(8);
+
 			return
-				((ulong)this.GetUInt() << 32) |
-				((ulong)this.GetUInt() << 0);
+				((ulong)r[0] << 0) |
+				((ulong)r[1] << 8) |
+				((ulong)r[2] << 16) |
+				((ulong)r[3] << 24) |
+				((ulong)r[4] << 32) |
+				((ulong)r[5] << 40) |
+				((ulong)r[6] << 48) |
+				((ulong)r[7] << 56);
 		}
 
 		public ulong GetRandom64(ulong modulo)

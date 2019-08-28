@@ -80,6 +80,7 @@
     <Compile Include="Tests\Tools\JsonToolsTest.cs" />
     <Compile Include="Tests\Tools\MultiThreadExTest.cs" />
     <Compile Include="Tests\Tools\ObjectTreeTest.cs" />
+    <Compile Include="Tests\Tools\RandomUnitTest.cs" />
     <Compile Include="Tests\Tools\ReflectToolsTest.cs" />
     <Compile Include="Tests\Tools\SecurityToolsTest.cs" />
     <Compile Include="Tests\Tools\CSemaphoreTest.cs" />
