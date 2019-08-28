@@ -890,7 +890,7 @@ namespace Charlotte
 
 							BusyDlgTools.Show("グラデーション", "グラデーション処理中...", () =>
 							{
-								Rectangle rect = canvas.GetRectSameColor(targetX, targetY);
+								I4Rect rect = canvas.GetRectSameColor(targetX, targetY);
 
 								double rrMax = 1.0;
 								canvas.SpreadSameColor(targetX, targetY, pt =>
@@ -907,8 +907,8 @@ namespace Charlotte
 									int xx = pt.X;
 									int yy = pt.Y;
 
-									int x = xx - rect.X;
-									int y = yy - rect.Y;
+									int x = xx - rect.L;
+									int y = yy - rect.T;
 
 									Color color;
 
@@ -916,19 +916,19 @@ namespace Charlotte
 									{
 										case 1:
 											color = Color.FromArgb(
-												DoubleTools.ToInt(Ground.I.NibColor.A + (Ground.I.NibColor2.A - Ground.I.NibColor.A) * (double)x / (rect.Width - 1)),
-												DoubleTools.ToInt(Ground.I.NibColor.R + (Ground.I.NibColor2.R - Ground.I.NibColor.R) * (double)x / (rect.Width - 1)),
-												DoubleTools.ToInt(Ground.I.NibColor.G + (Ground.I.NibColor2.G - Ground.I.NibColor.G) * (double)x / (rect.Width - 1)),
-												DoubleTools.ToInt(Ground.I.NibColor.B + (Ground.I.NibColor2.B - Ground.I.NibColor.B) * (double)x / (rect.Width - 1))
+												DoubleTools.ToInt(Ground.I.NibColor.A + (Ground.I.NibColor2.A - Ground.I.NibColor.A) * (double)x / (rect.W - 1)),
+												DoubleTools.ToInt(Ground.I.NibColor.R + (Ground.I.NibColor2.R - Ground.I.NibColor.R) * (double)x / (rect.W - 1)),
+												DoubleTools.ToInt(Ground.I.NibColor.G + (Ground.I.NibColor2.G - Ground.I.NibColor.G) * (double)x / (rect.W - 1)),
+												DoubleTools.ToInt(Ground.I.NibColor.B + (Ground.I.NibColor2.B - Ground.I.NibColor.B) * (double)x / (rect.W - 1))
 												);
 											break;
 
 										case 2:
 											color = Color.FromArgb(
-												DoubleTools.ToInt(Ground.I.NibColor.A + (Ground.I.NibColor2.A - Ground.I.NibColor.A) * (double)y / (rect.Height - 1)),
-												DoubleTools.ToInt(Ground.I.NibColor.R + (Ground.I.NibColor2.R - Ground.I.NibColor.R) * (double)y / (rect.Height - 1)),
-												DoubleTools.ToInt(Ground.I.NibColor.G + (Ground.I.NibColor2.G - Ground.I.NibColor.G) * (double)y / (rect.Height - 1)),
-												DoubleTools.ToInt(Ground.I.NibColor.B + (Ground.I.NibColor2.B - Ground.I.NibColor.B) * (double)y / (rect.Height - 1))
+												DoubleTools.ToInt(Ground.I.NibColor.A + (Ground.I.NibColor2.A - Ground.I.NibColor.A) * (double)y / (rect.H - 1)),
+												DoubleTools.ToInt(Ground.I.NibColor.R + (Ground.I.NibColor2.R - Ground.I.NibColor.R) * (double)y / (rect.H - 1)),
+												DoubleTools.ToInt(Ground.I.NibColor.G + (Ground.I.NibColor2.G - Ground.I.NibColor.G) * (double)y / (rect.H - 1)),
+												DoubleTools.ToInt(Ground.I.NibColor.B + (Ground.I.NibColor2.B - Ground.I.NibColor.B) * (double)y / (rect.H - 1))
 												);
 											break;
 

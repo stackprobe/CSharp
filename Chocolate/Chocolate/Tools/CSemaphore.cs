@@ -24,7 +24,7 @@ namespace Charlotte.Tools
 
 		// @ 2019.1.7
 		// Monitor.Enter -> Monitor.Exit は同一スレッドでなければならないっぽい。
-		// Enter -> 別スレッドで Leave 出来るように ---> Monitor.Wait -> Monitor.Pulse にした。
+		// (Enter -> 別スレッドで Leave)出来るように ---> (Monitor.Wait -> Monitor.Pulse)にした。
 
 		public void Enter()
 		{
@@ -67,7 +67,7 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public void Section(Action routine)
+		public void Section_A(Action routine)
 		{
 			this.Enter();
 			try
@@ -78,6 +78,12 @@ namespace Charlotte.Tools
 			{
 				this.Leave();
 			}
+		}
+
+		public IDisposable Section()
+		{
+			this.Enter();
+			return new AnonyDisposable(() => this.Leave());
 		}
 
 		public T Unsection_Get<T>(Func<T> routine)
@@ -93,7 +99,7 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public void Unsection(Action routine)
+		public void Unsection_A(Action routine)
 		{
 			this.Leave();
 			try
@@ -104,6 +110,12 @@ namespace Charlotte.Tools
 			{
 				this.Enter();
 			}
+		}
+
+		public IDisposable Unsection()
+		{
+			this.Leave();
+			return new AnonyDisposable(() => this.Enter());
 		}
 
 		public void ContextSwitching()

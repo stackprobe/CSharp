@@ -26,7 +26,7 @@ namespace Charlotte.Tools
 
 		public void Perform()
 		{
-			SockChannel.Critical.Section(() =>
+			using (SockChannel.Critical.Section())
 			{
 				try
 				{
@@ -49,7 +49,7 @@ namespace Charlotte.Tools
 								if (connectWaitMillis < 100)
 									connectWaitMillis++;
 
-								SockChannel.Critical.Unsection(() => Thread.Sleep(connectWaitMillis));
+								SockChannel.Critical.Unsection_A(() => Thread.Sleep(connectWaitMillis));
 							}
 							else
 							{
@@ -62,7 +62,7 @@ namespace Charlotte.Tools
 									handler = null;
 									channel.PostSetHandler();
 
-									this.ConnectedThs.Add(new ThreadEx(() => SockChannel.Critical.Section(() =>
+									this.ConnectedThs.Add(new ThreadEx(() => SockChannel.Critical.Section_A(() =>
 									{
 										try
 										{
@@ -113,7 +113,7 @@ namespace Charlotte.Tools
 				}
 
 				this.Stop();
-			});
+			}
 		}
 
 		private Socket Connect(Socket listener) // ret: null == 接続タイムアウト

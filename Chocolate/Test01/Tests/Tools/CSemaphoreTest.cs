@@ -41,7 +41,7 @@ namespace Charlotte.Tests.Tools
 				{
 					for (int d = 0; d < 100; d++)
 					{
-						semaphore.Section(() =>
+						semaphore.Section_A(() =>
 						{
 							lock (Test01_SYNCROOT)
 							{

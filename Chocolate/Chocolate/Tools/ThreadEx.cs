@@ -49,7 +49,7 @@ namespace Charlotte.Tools
 		{
 			if (Th != null)
 			{
-				critical.Unsection(() => Th.Join());
+				critical.Unsection_A(() => Th.Join());
 				Th = null;
 			}
 		}
