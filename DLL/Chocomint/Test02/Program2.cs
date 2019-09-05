@@ -15,7 +15,7 @@ namespace Test02
 			//new InputStringDlgTest().Test03();
 			//new InputStringDlgTest().Test04();
 			//new InputStringDlgTest().Test04_2();
-			new MessageDlgTest().Test01();
+			//new MessageDlgTest().Test01();
 			//new MessageDlgTest().Test02();
 			//new MessageDlgTest().Test03();
 			//new MessageDlgTest().Test04();
@@ -31,6 +31,7 @@ namespace Test02
 			//new BusyDlgTest().Test01();
 			//new BusyDlgTest().Test02();
 			//new BusyDlgTest().Test03();
+			new BusyDlgTest().Test04();
 		}
 	}
 }

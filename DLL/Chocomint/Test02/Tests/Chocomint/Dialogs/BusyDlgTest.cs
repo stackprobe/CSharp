@@ -26,5 +26,10 @@ namespace Test02.Tests.Chocomint.Dialogs
 		{
 			BusyDlgTools.Show("busy", "15 seconds", () => Thread.Sleep(15000));
 		}
+
+		public void Test04()
+		{
+			BusyDlgTools.Show("busy", "60 seconds", () => Thread.Sleep(60000));
+		}
 	}
 }

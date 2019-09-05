@@ -68,6 +68,7 @@ namespace Charlotte.Chocomint.Dialogs
 		private int EndedCount = -1;
 		private double ProgressRate = 0.0;
 		private int PRCount = 0;
+		private int PRCC = 0;
 
 		private void MainTimer_Tick(object sender, EventArgs e)
 		{
@@ -83,16 +84,18 @@ namespace Charlotte.Chocomint.Dialogs
 					this.ProgressRateChanged();
 					return;
 				}
-				this.PRCount++;
-				this.PRCount %= 10;
-
-				if (this.PRCount == 1)
+				if (this.PRCount == 0)
 				{
 					this.ProgressRate -= 0.9;
 					this.ProgressRate *= 0.9;
 					this.ProgressRate += 0.9;
 					this.ProgressRateChanged();
+					this.PRCount = 10 + (this.PRCC % 3) * 10;
+					this.PRCC++;
 				}
+				else
+					this.PRCount--;
+
 				return;
 			}
 			if (10 < ++this.EndedCount)
