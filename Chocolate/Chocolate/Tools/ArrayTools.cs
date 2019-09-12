@@ -206,23 +206,24 @@ namespace Charlotte.Tools
 
 		public static IEnumerable<T> Distinct<T>(IEnumerable<T> src, Comparison<T> comp)
 		{
-			IEnumerator<T> reader = src.GetEnumerator();
-
-			if (reader.MoveNext())
+			using (IEnumerator<T> reader = src.GetEnumerator())
 			{
-				T lastElement = reader.Current;
-
-				yield return lastElement;
-
-				while (reader.MoveNext())
+				if (reader.MoveNext())
 				{
-					T element = reader.Current;
+					T lastElement = reader.Current;
 
-					if (comp(element, lastElement) != 0)
+					yield return lastElement;
+
+					while (reader.MoveNext())
 					{
-						yield return element;
+						T element = reader.Current;
 
-						lastElement = element;
+						if (comp(element, lastElement) != 0)
+						{
+							yield return element;
+
+							lastElement = element;
+						}
 					}
 				}
 			}
@@ -230,26 +231,27 @@ namespace Charlotte.Tools
 
 		public static T Lightest<T>(IEnumerable<T> src, Func<T, double> toWeight)
 		{
-			IEnumerator<T> reader = src.GetEnumerator();
-
-			if (reader.MoveNext() == false)
-				throw new ArgumentException("空のリストです。");
-
-			T ret = reader.Current;
-			double ret_weight = toWeight(ret);
-
-			while (reader.MoveNext())
+			using (IEnumerator<T> reader = src.GetEnumerator())
 			{
-				T value = reader.Current;
-				double weight = toWeight(value);
+				if (reader.MoveNext() == false)
+					throw new ArgumentException("空のリストです。");
 
-				if (weight < ret_weight)
+				T ret = reader.Current;
+				double ret_weight = toWeight(ret);
+
+				while (reader.MoveNext())
 				{
-					ret = value;
-					ret_weight = weight;
+					T value = reader.Current;
+					double weight = toWeight(value);
+
+					if (weight < ret_weight)
+					{
+						ret = value;
+						ret_weight = weight;
+					}
 				}
+				return ret;
 			}
-			return ret;
 		}
 
 		public static T Heaviest<T>(IEnumerable<T> src, Func<T, double> toWeight)
@@ -259,23 +261,24 @@ namespace Charlotte.Tools
 
 		public static T Smallest<T>(IEnumerable<T> src, Comparison<T> comp)
 		{
-			IEnumerator<T> reader = src.GetEnumerator();
-
-			if (reader.MoveNext() == false)
-				throw new ArgumentException("空のリストです。");
-
-			T ret = reader.Current;
-
-			while (reader.MoveNext())
+			using (IEnumerator<T> reader = src.GetEnumerator())
 			{
-				T value = reader.Current;
+				if (reader.MoveNext() == false)
+					throw new ArgumentException("空のリストです。");
 
-				if (comp(value, ret) < 0)
+				T ret = reader.Current;
+
+				while (reader.MoveNext())
 				{
-					ret = value;
+					T value = reader.Current;
+
+					if (comp(value, ret) < 0)
+					{
+						ret = value;
+					}
 				}
+				return ret;
 			}
-			return ret;
 		}
 
 		public static T Largest<T>(IEnumerable<T> src, Comparison<T> comp)

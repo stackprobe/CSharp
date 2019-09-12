@@ -311,36 +311,37 @@ namespace Charlotte.Tools
 			}
 			else
 			{
-				IEnumerator<byte[]> resBodyIte = this.ResBody.GetEnumerator();
-
-				if (resBodyIte.MoveNext())
+				using (IEnumerator<byte[]> resBodyIte = this.ResBody.GetEnumerator())
 				{
-					byte[] first = resBodyIte.Current;
-
 					if (resBodyIte.MoveNext())
 					{
-						SendChunk(first);
+						byte[] first = resBodyIte.Current;
 
-						do
+						if (resBodyIte.MoveNext())
 						{
-							SendChunk(resBodyIte.Current);
-						}
-						while (resBodyIte.MoveNext());
+							SendChunk(first);
 
-						this.SendLine("0");
-						this.Channel.Send(CRLF);
+							do
+							{
+								SendChunk(resBodyIte.Current);
+							}
+							while (resBodyIte.MoveNext());
+
+							this.SendLine("0");
+							this.Channel.Send(CRLF);
+						}
+						else
+						{
+							this.SendLine("Content-Length: " + first.Length);
+							this.EndHeader();
+							this.Channel.Send(first);
+						}
 					}
 					else
 					{
-						this.SendLine("Content-Length: " + first.Length);
+						this.SendLine("Content-Length: 0");
 						this.EndHeader();
-						this.Channel.Send(first);
 					}
-				}
-				else
-				{
-					this.SendLine("Content-Length: 0");
-					this.EndHeader();
 				}
 			}
 		}
