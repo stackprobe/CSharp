@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Charlotte.Labo
+namespace Charlotte.Utils2
 {
 	public static class ArrayUtils
 	{

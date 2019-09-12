@@ -27,7 +27,7 @@ namespace Test01
 				//Test09();
 				//Test10();
 				//Test11();
-				Test12();
+				//Test12();
 				//new DateSpanListTest().Test01();
 				//new NamesToGroupDateSpansTest().Test01();
 				//new NamesToGroupDateSpansTest().Test02();
@@ -41,6 +41,7 @@ namespace Test01
 				//new BlockSectionTest().Test01();
 				//new BlockSectionTest().Test02();
 				//new Test0001().Test01();
+				new Test0002().Test01();
 			}
 			catch (Exception e)
 			{

@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Windows.Forms;
 using Charlotte.Tools;
 using Charlotte.Tests.Utils;
-using Charlotte.Tests.Labo;
+using Charlotte.Tests.Utils2;
 
 namespace Charlotte
 {

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Charlotte.Labo;
 using Charlotte.Tools;
+using Charlotte.Utils2;
 
-namespace Charlotte.Tests.Labo
+namespace Charlotte.Tests.Utils2
 {
 	public class ArrayUtilsTest
 	{

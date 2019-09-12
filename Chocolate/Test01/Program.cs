@@ -113,8 +113,7 @@ namespace Charlotte
 			//new EnumeratorCartridgeTest().Test01();
 			//new CanvasTest().Test01();
 			//new D2PointTest().Test01();
-			//new RandomUnitTest().Test01();
-			new EnumerableToolsTest().Test01();
+			new RandomUnitTest().Test01();
 		}
 	}
 }
