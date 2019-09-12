@@ -178,5 +178,10 @@ namespace Charlotte.Tools
 				ArrayTools.Swap(arr, GetInt(index), index - 1);
 			}
 		}
+
+		public T ChooseOne<T>(T[] arr)
+		{
+			return arr[GetInt(arr.Length)];
+		}
 	}
 }
