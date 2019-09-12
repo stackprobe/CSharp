@@ -12,22 +12,26 @@ namespace Charlotte.Tools
 		//private const char DELIMITER = '\t';
 
 		private StreamWriter Writer;
-		private bool RowHead;
+		private bool RowBegin;
 
 		public CsvFileWriter(string file, bool append = false)
 			: this(file, append, StringTools.ENCODING_SJIS)
 		{ }
 
 		public CsvFileWriter(string file, bool append, Encoding encoding)
+			: this(new StreamWriter(file, append, encoding))
+		{ }
+
+		public CsvFileWriter(StreamWriter writer_binding)
 		{
-			this.Writer = new StreamWriter(file, append, encoding);
-			this.RowHead = true;
+			this.Writer = writer_binding;
+			this.RowBegin = true;
 		}
 
 		public void WriteCell(string cell)
 		{
-			if (this.RowHead)
-				this.RowHead = false;
+			if (this.RowBegin)
+				this.RowBegin = false;
 			else
 				this.Writer.Write(DELIMITER);
 
@@ -48,7 +52,7 @@ namespace Charlotte.Tools
 		public void EndRow()
 		{
 			this.Writer.Write('\n');
-			this.RowHead = true;
+			this.RowBegin = true;
 		}
 
 		public void WriteCells(string[] cells)

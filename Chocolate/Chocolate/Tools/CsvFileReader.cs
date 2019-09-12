@@ -18,8 +18,12 @@ namespace Charlotte.Tools
 		{ }
 
 		public CsvFileReader(string file, Encoding encoding)
+			: this(new StreamReader(file, encoding))
+		{ }
+
+		public CsvFileReader(StreamReader reader_binding)
 		{
-			this.Reader = new StreamReader(file, encoding);
+			this.Reader = reader_binding;
 		}
 
 		private int LastChar;

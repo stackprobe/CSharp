@@ -12,6 +12,10 @@ namespace Charlotte.Tools
 		public int W;
 		public int H;
 
+		public AutoTable()
+			: this(16, 16)
+		{ }
+
 		public AutoTable(int w, int h)
 		{
 			if (w < 1 || h < 1)
