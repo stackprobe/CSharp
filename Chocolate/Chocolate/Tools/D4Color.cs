@@ -12,9 +12,6 @@ namespace Charlotte.Tools
 		public double B;
 		public double A;
 
-		public D4Color()
-		{ }
-
 		public D4Color(double r, double g, double b, double a)
 		{
 			this.R = r;

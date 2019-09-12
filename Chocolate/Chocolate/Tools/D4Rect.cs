@@ -12,9 +12,6 @@ namespace Charlotte.Tools
 		public double W;
 		public double H;
 
-		public D4Rect()
-		{ }
-
 		public D4Rect(double l, double t, double w, double h)
 		{
 			this.L = l;

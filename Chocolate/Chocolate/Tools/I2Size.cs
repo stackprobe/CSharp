@@ -5,13 +5,10 @@ using System.Text;
 
 namespace Charlotte.Tools
 {
-	public class I2Size
+	public struct I2Size
 	{
 		public int W;
 		public int H;
-
-		public I2Size()
-		{ }
 
 		public I2Size(int w, int h)
 		{

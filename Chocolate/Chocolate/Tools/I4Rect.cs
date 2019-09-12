@@ -5,15 +5,12 @@ using System.Text;
 
 namespace Charlotte.Tools
 {
-	public class I4Rect
+	public struct I4Rect
 	{
 		public int L;
 		public int T;
 		public int W;
 		public int H;
-
-		public I4Rect()
-		{ }
 
 		public I4Rect(int l, int t, int w, int h)
 		{

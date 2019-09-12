@@ -5,14 +5,11 @@ using System.Text;
 
 namespace Charlotte.Tools
 {
-	public class I3Color
+	public struct I3Color
 	{
 		public int R;
 		public int G;
 		public int B;
-
-		public I3Color()
-		{ }
 
 		public I3Color(int r, int g, int b)
 		{
