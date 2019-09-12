@@ -237,5 +237,11 @@ namespace Charlotte.Tools
 			Array.Sort(arr, comp);
 			return arr;
 		}
+
+		public static Func<T> Supplier<T>(IEnumerable<T> src)
+		{
+			IEnumerator<T> reader = src.GetEnumerator();
+			return () => reader.MoveNext() ? reader.Current : default(T);
+		}
 	}
 }
