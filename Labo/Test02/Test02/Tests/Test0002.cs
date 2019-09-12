@@ -71,18 +71,38 @@ namespace Charlotte.Tests
 				Console.WriteLine(reader.MoveNext());
 				Console.WriteLine(reader.Current);
 				Console.WriteLine("*1");
+
+				//reader = null;
 			}
 
 			// Test02_Seq() の DISPOSE は呼ばれない。
 
 			Console.WriteLine("*2");
 
-			for (int c = 0; c < 100; c++)
+			for (int c = 0; c < 30; c++)
 			{
 				GC.Collect();
+
+				Thread.Sleep(100);
 			}
 
-			Console.WriteLine("*2");
+			Console.WriteLine("*3");
+		}
+
+		public void Test02_B()
+		{
+			while (Console.KeyAvailable == false)
+			{
+				Console.WriteLine("hit any key to stop...");
+
+				for (int c = 0; c < 1000000; c++)
+				{
+					Test02_Seq().GetEnumerator().MoveNext();
+
+					// ^ を放置してもメモリリークはしない模様...
+				}
+				GC.Collect();
+			}
 		}
 	}
 }
