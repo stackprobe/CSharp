@@ -73,6 +73,7 @@ namespace Charlotte
 
 				// ----
 
+				// 終了確定
 				this.MTBusy.Enter();
 				this.TaskTrayIcon.Visible = false;
 

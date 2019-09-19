@@ -53,7 +53,7 @@ namespace Charlotte
 
 				// ----
 
-				this.MTBusy.Enter();
+				this.MTBusy.Enter(); // 終了確定
 
 				// ----
 
