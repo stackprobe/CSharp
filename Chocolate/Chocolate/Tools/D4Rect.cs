@@ -40,5 +40,45 @@ namespace Charlotte.Tools
 				return this.T + this.H;
 			}
 		}
+
+		public D2Point LT
+		{
+			get
+			{
+				return new D2Point(this.L, this.T);
+			}
+		}
+
+		public D2Point RT
+		{
+			get
+			{
+				return new D2Point(this.R, this.T);
+			}
+		}
+
+		public D2Point RB
+		{
+			get
+			{
+				return new D2Point(this.R, this.B);
+			}
+		}
+
+		public D2Point LB
+		{
+			get
+			{
+				return new D2Point(this.L, this.B);
+			}
+		}
+
+		public P4Poly Poly
+		{
+			get
+			{
+				return new P4Poly(this.LT, this.RT, this.RB, this.LB);
+			}
+		}
 	}
 }
