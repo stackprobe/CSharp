@@ -100,6 +100,7 @@
     <Compile Include="Tools\ObjectTree.cs" />
     <Compile Include="Tools\CSemaphore.cs" />
     <Compile Include="Tools\OrderedMap.cs" />
+    <Compile Include="Tools\P4Poly.cs" />
     <Compile Include="Tools\SharedQueue.cs" />
     <Compile Include="Tools\SockChannel.cs" />
     <Compile Include="Tools\SockClient.cs" />
