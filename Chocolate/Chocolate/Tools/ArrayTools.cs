@@ -46,6 +46,24 @@ namespace Charlotte.Tools
 			return defval;
 		}
 
+		public static int LastIndexOf<T>(T[] arr, T target, Comparison<T> comp, int defval = -1)
+		{
+			for (int index = arr.Length - 1; 0 <= index; index--)
+				if (comp(arr[index], target) == 0)
+					return index;
+
+			return defval;
+		}
+
+		public static int LastIndexOf<T>(T[] arr, Predicate<T> match, int defval = -1)
+		{
+			for (int index = arr.Length - 1; 0 <= index; index--)
+				if (match(arr[index]))
+					return index;
+
+			return defval;
+		}
+
 		public static bool Contains<T>(T[] arr, T target, Comparison<T> comp)
 		{
 			return IndexOf<T>(arr, target, comp) != -1;
