@@ -28,6 +28,8 @@ namespace Test01
 				//Test10();
 				//Test11();
 				//Test12();
+				Test13();
+				Test13_B();
 				//new DateSpanListTest().Test01();
 				//new NamesToGroupDateSpansTest().Test01();
 				//new NamesToGroupDateSpansTest().Test02();
@@ -41,7 +43,7 @@ namespace Test01
 				//new BlockSectionTest().Test01();
 				//new BlockSectionTest().Test02();
 				//new Test0001().Test01();
-				new Test0002().Test01();
+				//new Test0002().Test01();
 			}
 			catch (Exception e)
 			{
@@ -362,6 +364,42 @@ Test02_a_a: { X = 3 }
 			Console.WriteLine(q.Dequeue());
 			Console.WriteLine(q.Dequeue());
 			Console.WriteLine(q.Dequeue());
+		}
+
+		private static void Test13()
+		{
+			string[] ss = "AAA:BBB:CCC".Split(':');
+
+			foreach (string s in ss)
+			{
+				if (s == "BBB")
+				{
+					ss[2] = "XXX"; // CCC -> XXX // <---- OK
+				}
+				Console.WriteLine(s);
+			}
+		}
+
+		private static void Test13_B()
+		{
+			List<string> ss = new List<string>("AAA:BBB:CCC".Split(':'));
+
+			foreach (string s in ss)
+			{
+				if (s == "BBB")
+				{
+					ss[2] = "XXX"; // CCC -> XXX // <---- 例外！！！
+				}
+				Console.WriteLine(s);
+			}
+			foreach (string s in ss)
+			{
+				if (s == "BBB")
+				{
+					ss.Add("DDD"); // <---- 例外！！！
+				}
+				Console.WriteLine(s);
+			}
 		}
 	}
 }
