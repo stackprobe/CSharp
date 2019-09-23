@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Charlotte.Tools
 {
-	public class D4Color
+	public struct D4Color
 	{
 		public double R;
 		public double G;

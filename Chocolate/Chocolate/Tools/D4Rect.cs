@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Charlotte.Tools
 {
-	public class D4Rect
+	public struct D4Rect
 	{
 		public double L;
 		public double T;
