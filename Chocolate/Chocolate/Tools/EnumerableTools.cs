@@ -7,6 +7,11 @@ namespace Charlotte.Tools
 {
 	public static class EnumerableTools
 	{
+		public static IEnumerable<T> Linearize<T>(params IEnumerable<T>[] src)
+		{
+			return Linearize((IEnumerable<IEnumerable<T>>)src);
+		}
+
 		public static IEnumerable<T> Linearize<T>(IEnumerable<IEnumerable<T>> src)
 		{
 			foreach (IEnumerable<T> part in src)
