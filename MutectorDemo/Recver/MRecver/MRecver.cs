@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Threading;
 
 namespace Charlotte
@@ -21,8 +22,8 @@ namespace Charlotte
 
 				hdls[3].WaitOne();
 
-				List<byte> buff = new List<byte>();
-				byte chr = 0x00;
+				MemoryStream mem = new MemoryStream();
+				byte chr = 0;
 				int waitCount = 1;
 
 				for (int i = 0, c = 0; !this.MRecvEnd; )
@@ -32,45 +33,42 @@ namespace Charlotte
 					hdls[3 + n].WaitOne();
 					hdls[3 + c].ReleaseMutex();
 
-					bool bit = !hdls[n].WaitOne(0);
+					bool nBit = hdls[n].WaitOne(0);
 
-					if (!bit)
+					if (nBit)
 						hdls[n].ReleaseMutex();
 
 					if (waitCount <= 0)
 					{
-						if (bit)
+						if (!nBit)
 							chr |= (byte)(1 << i);
 
 						if (8 <= ++i)
 						{
-							if (chr == 0x00)
+							if (chr == 0)
 							{
 								recved(Encoding.UTF8.GetString(
-									buff.ToArray()
+									mem.GetBuffer()
 									));
-								buff.Clear();
+								mem = new MemoryStream();
 								waitCount = 1;
 							}
 							else
-								buff.Add(chr);
+								mem.WriteByte(chr);
 
-							i = 0;
-							chr = 0x00;
+							i = chr = 0;
 						}
 					}
 					else
 					{
-						if (bit)
-						{
-							if (8 <= ++i) { i = 0; waitCount = 0; }
-						}
-						else
+						if (nBit)
 						{
 							i = 0;
 							Thread.Sleep(waitCount);
 							if (waitCount < 100) waitCount++;
 						}
+						else if (8 <= ++i)
+							i = waitCount = 0;
 					}
 					c = n;
 				}

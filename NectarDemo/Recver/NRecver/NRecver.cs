@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Threading;
 
 namespace Charlotte
@@ -21,8 +22,8 @@ namespace Charlotte
 			using (var r = new EventWaitHandle(
 				false, EventResetMode.AutoReset, ident + "R"))
 			{
-				List<byte> buff = new List<byte>();
-				byte chr = 0x00;
+				MemoryStream mem = new MemoryStream();
+				byte chr = 0;
 				bool recving = false;
 
 				// cleanup
@@ -43,19 +44,18 @@ namespace Charlotte
 
 						if (8 <= ++i)
 						{
-							if (chr == 0x00)
+							if (chr == 0)
 							{
 								recved(Encoding.UTF8.GetString(
-									buff.ToArray()
+									mem.GetBuffer()
 									));
-								buff.Clear();
+								mem = new MemoryStream();
 								recving = false;
 							}
 							else
-								buff.Add(chr);
+								mem.WriteByte(chr);
 
-							i = 0;
-							chr = 0x00;
+							i = chr = 0;
 						}
 					}
 					else
