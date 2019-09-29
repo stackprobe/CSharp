@@ -20,5 +20,18 @@ namespace Charlotte.Tests.Tools
 					));
 			}
 		}
+
+		public void Test02()
+		{
+			for (int c = 0; c < 1000; c++)
+			{
+				Console.WriteLine(string.Join(", ",
+					SecurityTools.CRandom.GetRandom64(1),
+					SecurityTools.CRandom.GetRandom64(2),
+					SecurityTools.CRandom.GetRandom64(3),
+					SecurityTools.CRandom.GetRandom64(4)
+					));
+			}
+		}
 	}
 }

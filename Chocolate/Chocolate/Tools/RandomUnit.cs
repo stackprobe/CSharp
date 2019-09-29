@@ -102,9 +102,6 @@ namespace Charlotte.Tools
 			if (modulo == 0UL)
 				throw new ArgumentOutOfRangeException("modulo == 0");
 
-			if (modulo == 1UL)
-				return 0UL;
-
 			ulong r_mod = (ulong.MaxValue % modulo + 1UL) % modulo;
 			ulong r;
 
