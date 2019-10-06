@@ -4,11 +4,22 @@ using System.Linq;
 using System.Text;
 using Charlotte.TCalcs;
 using Charlotte.Tools;
+using System.Text.RegularExpressions;
 
 namespace Charlotte.Tests
 {
 	public class Test0001
 	{
+		/// <summary>
+		/// 2^127 - 1 == メルセンヌ素数
+		/// </summary>
+		public const string S2P127_1 = "170141183460469231731687303715884105727";
+
+		/// <summary>
+		/// 2^607 - 1 == メルセンヌ素数
+		/// </summary>
+		public const string S2P607_1 = "531137992816767098689588206552468627329593117727031923199444138200403559860852242739162502265229285668889329486246501015346579337652707239409519978766587351943831270835393219031728127";
+
 		/// <summary>
 		/// 2^1279 - 1 == メルセンヌ素数
 		/// </summary>
@@ -21,19 +32,50 @@ namespace Charlotte.Tests
 
 		public void Test01()
 		{
-			Test01_b(S2P1279_1);
+			for (int c = 0; c <= 100; c++)
+			{
+				Test01_b("" + c);
+			}
+
+			Test01_b(TCalc_Int.Calc(S2P127_1, "-", "2"));
+			Test01_b(TCalc_Int.Calc(S2P127_1, "-", "1"));
+			Test01_b(S2P127_1);
+			Test01_b(TCalc_Int.Calc(S2P127_1, "+", "1"));
+			Test01_b(TCalc_Int.Calc(S2P127_1, "+", "2"));
+
+			Test01_b(TCalc_Int.Calc(S2P607_1, "-", "2"));
+			Test01_b(TCalc_Int.Calc(S2P607_1, "-", "1"));
+			Test01_b(S2P607_1);
+			Test01_b(TCalc_Int.Calc(S2P607_1, "+", "1"));
+			Test01_b(TCalc_Int.Calc(S2P607_1, "+", "2"));
+
+			//Test01_b(S2P1279_1);
 			//Test01_b(S2P4253_1);
 		}
 
 		private void Test01_b(string val)
 		{
-			Console.WriteLine(Test01_b_Main(val));
+			Console.WriteLine(val + " is prime ? --> " + Test01_b_Main(val));
 		}
 
 		private static TCalc TCalc_Int = new TCalc(10, 0);
 
 		private bool Test01_b_Main(string val)
 		{
+			if (StringTools.LiteValidate(val, StringTools.DECIMAL) == false)
+				throw new ArgumentException();
+
+			val = TCalc_Int.Calc(val, "+", "0");
+
+			if (Regex.IsMatch(val, "^[01]$"))
+				return false;
+
+			if (Regex.IsMatch(val, "^[23]$"))
+				return true;
+
+			if (IsEven(val))
+				return false;
+
 			const int MR_K = 30;
 
 			string d = val;
@@ -49,9 +91,9 @@ namespace Charlotte.Tests
 			for (r = 0; IsEven(d); r++)
 				d = TCalc_Int.Calc(d, "/", "2");
 
-			for (k = MR_K; 0 <= k; k--)
+			for (k = 0; k < MR_K; k++)
 			{
-				Console.WriteLine("k=" + k);
+				//Console.WriteLine("k: " + k); // test
 
 				x = SecurityTools.MakePassword(StringTools.DECIMAL, val.Length + 10); // + margin
 				x = TCalc_Int.Calc(
