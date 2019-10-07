@@ -37,30 +37,36 @@ namespace Charlotte.Tests
 				Test01_b("" + c);
 			}
 
-			Test01_b(TCalc_Int.Calc(S2P127_1, "-", "2"));
-			Test01_b(TCalc_Int.Calc(S2P127_1, "-", "1"));
-			Test01_b(S2P127_1);
-			Test01_b(TCalc_Int.Calc(S2P127_1, "+", "1"));
-			Test01_b(TCalc_Int.Calc(S2P127_1, "+", "2"));
+			Test01_Bnd(S2P127_1);
+			Test01_Bnd(S2P607_1);
 
-			Test01_b(TCalc_Int.Calc(S2P607_1, "-", "2"));
-			Test01_b(TCalc_Int.Calc(S2P607_1, "-", "1"));
-			Test01_b(S2P607_1);
-			Test01_b(TCalc_Int.Calc(S2P607_1, "+", "1"));
-			Test01_b(TCalc_Int.Calc(S2P607_1, "+", "2"));
+			//Test01_Bnd(S2P1279_1);
+			//Test01_Bnd(S2P4253_1);
+		}
 
-			//Test01_b(S2P1279_1);
-			//Test01_b(S2P4253_1);
+		private void Test01_Bnd(string val)
+		{
+			Test01_b(TCalc_Int.Calc(val, "-", "5"));
+			Test01_b(TCalc_Int.Calc(val, "-", "4"));
+			Test01_b(TCalc_Int.Calc(val, "-", "3"));
+			Test01_b(TCalc_Int.Calc(val, "-", "2"));
+			Test01_b(TCalc_Int.Calc(val, "-", "1"));
+			Test01_b(val);
+			Test01_b(TCalc_Int.Calc(val, "+", "1"));
+			Test01_b(TCalc_Int.Calc(val, "+", "2"));
+			Test01_b(TCalc_Int.Calc(val, "+", "3"));
+			Test01_b(TCalc_Int.Calc(val, "+", "4"));
+			Test01_b(TCalc_Int.Calc(val, "+", "5"));
 		}
 
 		private void Test01_b(string val)
 		{
-			Console.WriteLine(val + " is prime ? --> " + Test01_b_Main(val));
+			Console.WriteLine(val + " is prime ? --> " + IsPrime(val));
 		}
 
 		private static TCalc TCalc_Int = new TCalc(10, 0);
 
-		private bool Test01_b_Main(string val)
+		private bool IsPrime(string val)
 		{
 			if (StringTools.LiteValidate(val, StringTools.DECIMAL) == false)
 				throw new ArgumentException();
@@ -76,7 +82,7 @@ namespace Charlotte.Tests
 			if (IsEven(val))
 				return false;
 
-			const int MR_K = 30;
+			const int MR_K = 50;
 
 			string d = val;
 			string x;
