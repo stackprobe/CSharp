@@ -56,6 +56,7 @@ namespace Charlotte.Chocomint.Dialogs
 		{
 			using (InputFileDlg f = new InputFileDlg())
 			{
+				f.Mode = mode;
 				f.Value = file;
 
 				if (filterString != null)

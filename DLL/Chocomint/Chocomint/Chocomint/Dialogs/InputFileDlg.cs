@@ -26,7 +26,7 @@ namespace Charlotte.Chocomint.Dialogs
 		public bool OkPressed = false;
 		public string Value = "";
 		public Action PostShown = () => { };
-		public Func<string, string> Validator = dir => FileTools.MakeFullPath(dir);
+		public Func<string, string> Validator = v => v;
 
 		// <---- prm
 
