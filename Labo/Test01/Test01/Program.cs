@@ -28,8 +28,9 @@ namespace Test01
 				//Test10();
 				//Test11();
 				//Test12();
-				Test13();
-				Test13_B();
+				//Test13();
+				//Test13_B();
+				Test14();
 				//new DateSpanListTest().Test01();
 				//new NamesToGroupDateSpansTest().Test01();
 				//new NamesToGroupDateSpansTest().Test02();
@@ -400,6 +401,36 @@ Test02_a_a: { X = 3 }
 				}
 				Console.WriteLine(s);
 			}
+		}
+
+		private static void Test14()
+		{
+			double nan = double.NaN;
+			double inf = double.PositiveInfinity;
+			double nif = double.NegativeInfinity;
+
+			Console.WriteLine(string.Join(", ", nan, inf, nif));
+			Console.WriteLine(string.Join(", ", nan < 0, inf < 0, nif < 0));
+			Console.WriteLine(string.Join(", ", nan > 0, inf > 0, nif > 0));
+			Console.WriteLine(string.Join(", ", nan == 0, inf == 0, nif == 0));
+			Console.WriteLine(string.Join(", ", Math.Min(nan, 0), Math.Min(inf, 0), Math.Min(nif, 0)));
+			Console.WriteLine(string.Join(", ", Math.Max(nan, 0), Math.Max(inf, 0), Math.Max(nif, 0)));
+			Console.WriteLine(string.Join(", ", (int)nan, (int)inf, (int)nif));
+			Console.WriteLine(string.Join(", ", (long)nan, (long)inf, (long)nif));
+			Console.WriteLine(string.Join(", ", nan + 1, inf + 1, nif + 1));
+			Console.WriteLine(string.Join(", ", nan - 1, inf - 1, nif - 1));
+			Console.WriteLine(string.Join(", ", nan * 0, inf * 0, nif * 0));
+			Console.WriteLine(string.Join(", ", nan * 1, inf * 1, nif * 1));
+			Console.WriteLine(string.Join(", ", nan * -1, inf * -1, nif * -1));
+			Console.WriteLine(string.Join(", ", nan / -1, inf / -1, nif / -1));
+			Console.WriteLine(string.Join(", ", nan / 1, inf / 1, nif / 1));
+			Console.WriteLine(string.Join(", ", nan / 0, inf / 0, nif / 0));
+			Console.WriteLine(string.Join(", ", 1 / nan, 1 / inf, 1 / nif));
+			Console.WriteLine(string.Join(", ", 0 / nan, 0 / inf, 0 / nif));
+			Console.WriteLine(string.Join(", ", nan + 0.5, inf + 0.5, nif + 0.5));
+			Console.WriteLine(string.Join(", ", nan - 0.5, inf - 0.5, nif - 0.5));
+			Console.WriteLine(string.Join(", ", nan * 0.5, inf * 0.5, nif * 0.5));
+			Console.WriteLine(string.Join(", ", nan / 0.5, inf / 0.5, nif / 0.5));
 		}
 	}
 }

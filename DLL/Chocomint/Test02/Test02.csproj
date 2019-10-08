@@ -65,6 +65,7 @@
     <Compile Include="Tests\Chocomint\Dialogs\InputTrackBarDlgTest.cs" />
     <Compile Include="Tests\Chocomint\Dialogs\InputTrackBarDlgToolsTest.cs" />
     <Compile Include="Tests\Chocomint\Dialogs\MessageDlgTest.cs" />
+    <Compile Include="Tests\Chocomint\Dialogs\WaitDlgTest.cs" />
     <EmbeddedResource Include="MainWin.resx">
       <DependentUpon>MainWin.cs</DependentUpon>
     </EmbeddedResource>

@@ -18,8 +18,16 @@ namespace Charlotte.Tools
 			return 0;
 		}
 
+		private static void CheckNaN(double value)
+		{
+			if (double.IsNaN(value))
+				throw new Exception("NaN");
+		}
+
 		public static double Range(double value, double minval, double maxval)
 		{
+			CheckNaN(value);
+
 			return Math.Max(minval, Math.Min(maxval, value));
 		}
 
@@ -37,6 +45,8 @@ namespace Charlotte.Tools
 
 		public static int ToInt(double value)
 		{
+			CheckNaN(value);
+
 			if (value < 0.0)
 				return (int)(value - 0.5);
 			else
@@ -45,6 +55,8 @@ namespace Charlotte.Tools
 
 		public static long ToLong(double value)
 		{
+			CheckNaN(value);
+
 			if (value < 0.0)
 				return (long)(value - 0.5);
 			else

@@ -31,7 +31,11 @@ namespace Test02
 			//new BusyDlgTest().Test01();
 			//new BusyDlgTest().Test02();
 			//new BusyDlgTest().Test03();
-			new BusyDlgTest().Test04();
+			//new BusyDlgTest().Test04();
+			//new WaitDlgTest().Test01();
+			new WaitDlgTest().Test02();
+			//new WaitDlgTest().Test03();
+			//new WaitDlgTest().Test04();
 		}
 	}
 }
