@@ -59,5 +59,18 @@ namespace Test02.Tests.Chocomint.Dialogs
 				f.ShowDialog();
 			}
 		}
+
+		public void Test04_B()
+		{
+			using (MessageDlg f = new MessageDlg())
+			{
+				f.Message = "もっと長いメッセージ " +
+					"0123456789 abcdef 0123456789 abcdef 0123456789 abcdef " +
+					"0123456789 abcdef 0123456789 abcdef 0123456789 abcdef " +
+					"0123456789 abcdef 0123456789 abcdef 0123456789 abcdef";
+
+				f.ShowDialog();
+			}
+		}
 	}
 }

@@ -110,6 +110,8 @@ namespace Charlotte.Chocomint.Dialogs
 
 			if (f.Width < w)
 			{
+				w += 20; // margin
+
 				f.Left -= (w - f.Width) / 2;
 				f.Width = w;
 			}

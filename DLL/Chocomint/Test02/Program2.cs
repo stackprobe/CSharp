@@ -18,7 +18,7 @@ namespace Test02
 			//new MessageDlgTest().Test01();
 			//new MessageDlgTest().Test02();
 			//new MessageDlgTest().Test03();
-			//new MessageDlgTest().Test04();
+			new MessageDlgTest().Test04();
 			//new InputFolderDlgTest().Test01();
 			//new InputFileDlgTest().Test01();
 			//new InputDecimalDlgTest().Test01();
@@ -33,7 +33,7 @@ namespace Test02
 			//new BusyDlgTest().Test03();
 			//new BusyDlgTest().Test04();
 			//new WaitDlgTest().Test01();
-			new WaitDlgTest().Test02();
+			//new WaitDlgTest().Test02();
 			//new WaitDlgTest().Test03();
 			//new WaitDlgTest().Test04();
 		}
