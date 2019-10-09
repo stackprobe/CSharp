@@ -77,7 +77,7 @@ namespace Charlotte.Chocomint.Dialogs
 			this.InputOptionDlg_Resize(null, null);
 
 			this.PostShown();
-			ChocomintCommon.DlgCommonPostShown(this);
+			ChocomintDialogsCommon.DlgCommonPostShown(this);
 		}
 
 		private Button CreateButton(string text, int index)

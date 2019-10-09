@@ -40,7 +40,7 @@ namespace Charlotte.Chocomint.Dialogs
 			this.BarValue_Scroll(null, null);
 
 			this.PostShown();
-			ChocomintCommon.DlgCommonPostShown(this);
+			ChocomintDialogsCommon.DlgCommonPostShown(this);
 		}
 
 		private void InputTrackBarDlg_FormClosing(object sender, FormClosingEventArgs e)

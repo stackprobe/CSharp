@@ -48,7 +48,7 @@ namespace Charlotte.Chocomint.Dialogs
 			this.TextValue.SelectAll();
 
 			this.PostShown();
-			ChocomintCommon.DlgCommonPostShown(this);
+			ChocomintDialogsCommon.DlgCommonPostShown(this);
 		}
 
 		private void InputFileDlg_FormClosing(object sender, FormClosingEventArgs e)

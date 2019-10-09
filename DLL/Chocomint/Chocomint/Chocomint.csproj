@@ -54,14 +54,21 @@
       <DependentUpon>BusyDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="Chocomint\Dialogs\BusyDlgTools.cs" />
+    <Compile Include="Chocomint\Dialogs\LongMessageDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chocomint\Dialogs\LongMessageDlg.Designer.cs">
+      <DependentUpon>LongMessageDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chocomint\Dialogs\LongMessageDlgTools.cs" />
     <Compile Include="Chocomint\Dialogs\WaitDlg.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Chocomint\Dialogs\WaitDlg.Designer.cs">
       <DependentUpon>WaitDlg.cs</DependentUpon>
     </Compile>
-    <Compile Include="Chocomint\Dialogs\ChocomintCommon.cs" />
-    <Compile Include="Chocomint\Dialogs\ChocomintGeneral.cs" />
+    <Compile Include="Chocomint\Dialogs\ChocomintDialogsCommon.cs" />
+    <Compile Include="Chocomint\Dialogs\ChocomintDialogsGeneral.cs" />
     <Compile Include="Chocomint\Dialogs\InputComboDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -136,6 +143,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Chocomint\Dialogs\BusyDlg.resx">
       <DependentUpon>BusyDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chocomint\Dialogs\LongMessageDlg.resx">
+      <DependentUpon>LongMessageDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Chocomint\Dialogs\WaitDlg.resx">
       <DependentUpon>WaitDlg.cs</DependentUpon>

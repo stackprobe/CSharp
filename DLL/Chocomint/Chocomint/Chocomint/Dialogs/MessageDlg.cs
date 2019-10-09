@@ -5,10 +5,9 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Media;
 using System.Windows.Forms;
 using Charlotte.Chocomint.Dialogs.Resource;
-using System.Media;
-using Charlotte.Tools;
 
 namespace Charlotte.Chocomint.Dialogs
 {
@@ -61,31 +60,14 @@ namespace Charlotte.Chocomint.Dialogs
 					throw null; // never
 			}
 			this.MessageIcon.Size = this.MessageIcon.Image.Size;
-			this.TextMessage.Text = GetDisplayableMessage(this.Message);
+			this.TextMessage.Text = this.Message;
 			this.TextMessage.Top += (this.MessageIcon.Height - this.TextMessage.Height) / 2;
 
 			if (this.DetailMessage != null)
 				this.DetailLabel.Visible = true;
 
 			this.PostShown();
-			ChocomintCommon.DlgCommonPostShown(this);
-		}
-
-		private static string GetDisplayableMessage(string message)
-		{
-			string[] lines = FileTools.TextToLines(message.Trim());
-
-			if (4 < lines.Length)
-			{
-				lines = new string[]
-				{
-					lines[0],
-					lines[1],
-					"...",
-					lines[lines.Length - 1],
-				};
-			}
-			return FileTools.LinesToText(lines).Trim();
+			ChocomintDialogsCommon.DlgCommonPostShown(this);
 		}
 
 		private void MessageDlg_FormClosing(object sender, FormClosingEventArgs e)

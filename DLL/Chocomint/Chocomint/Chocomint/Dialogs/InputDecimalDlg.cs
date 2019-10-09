@@ -41,7 +41,7 @@ namespace Charlotte.Chocomint.Dialogs
 			SelectAll(this.NumValue);
 
 			this.PostShown();
-			ChocomintCommon.DlgCommonPostShown(this);
+			ChocomintDialogsCommon.DlgCommonPostShown(this);
 		}
 
 		private static void SelectAll(NumericUpDown numValue)

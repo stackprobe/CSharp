@@ -7,7 +7,7 @@ using Charlotte.Tools;
 
 namespace Charlotte.Chocomint.Dialogs
 {
-	public static class ChocomintCommon
+	public static class ChocomintDialogsCommon
 	{
 		/// <summary>
 		/// Charlotte.Chocomint.Dialogs 直下のフォームは _Shown メソッドの最後に、このメソッドを呼び出さなければならない。
@@ -17,7 +17,7 @@ namespace Charlotte.Chocomint.Dialogs
 		{
 			PostShown(f);
 			見切れ解消(f);
-			ChocomintGeneral.OptionalPostShown(f);
+			ChocomintDialogsGeneral.OptionalPostShown(f);
 		}
 
 		// sync > @ PostShown
@@ -103,15 +103,16 @@ namespace Charlotte.Chocomint.Dialogs
 
 			PostShown_GetAllControl(f, c =>
 			{
-				w = Math.Max(w, c.Right);
+				if (c is Label) // 今のところ Label のみ
+				{
+					w = Math.Max(w, c.Right);
+				}
 			});
 
-			w += 10; // margin
+			w += 30; // margin
 
 			if (f.Width < w)
 			{
-				w += 20; // margin
-
 				f.Left -= (w - f.Width) / 2;
 				f.Width = w;
 			}

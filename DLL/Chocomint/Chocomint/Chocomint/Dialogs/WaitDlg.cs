@@ -62,7 +62,7 @@ namespace Charlotte.Chocomint.Dialogs
 			this.EndedCount = 0;
 
 			this.PostShown();
-			ChocomintCommon.DlgCommonPostShown(this);
+			ChocomintDialogsCommon.DlgCommonPostShown(this);
 		}
 
 		private void WaitDlg_FormClosing(object sender, FormClosingEventArgs e)

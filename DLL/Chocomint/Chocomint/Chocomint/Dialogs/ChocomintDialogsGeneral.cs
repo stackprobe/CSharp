@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace Charlotte.Chocomint.Dialogs
 {
-	public static class ChocomintGeneral
+	public static class ChocomintDialogsGeneral
 	{
 		public static Action<Form> OptionalPostShown = f => { };
 	}

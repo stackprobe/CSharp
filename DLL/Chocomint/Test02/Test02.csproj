@@ -34,6 +34,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Chocolate, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Chocolate\Chocolate\bin\Release\Chocolate.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -64,6 +68,7 @@
     <Compile Include="Tests\Chocomint\Dialogs\InputStringDlgTest.cs" />
     <Compile Include="Tests\Chocomint\Dialogs\InputTrackBarDlgTest.cs" />
     <Compile Include="Tests\Chocomint\Dialogs\InputTrackBarDlgToolsTest.cs" />
+    <Compile Include="Tests\Chocomint\Dialogs\LongMessageDlgTest.cs" />
     <Compile Include="Tests\Chocomint\Dialogs\MessageDlgTest.cs" />
     <Compile Include="Tests\Chocomint\Dialogs\WaitDlgTest.cs" />
     <EmbeddedResource Include="MainWin.resx">
