@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Windows.Forms;
+using Charlotte.Tools;
 
 namespace Charlotte.Chocomint.Dialogs
 {
@@ -36,7 +37,7 @@ namespace Charlotte.Chocomint.Dialogs
 		/// <returns>存在しないかもしれないファイル名</returns>
 		public static string Save(string title, string prompt, bool hasParent = false, string file = "", string defval = null, string filterString = null)
 		{
-			return Show(InputFileDlg.Mode_e.SAVE, title, prompt, hasParent, file, defval, filterString, null);
+			return WithOverwritePrompt(InputFileDlg.Mode_e.SAVE, title, prompt, hasParent, file, defval, filterString);
 		}
 
 		public static string Existing(InputFileDlg.Mode_e mode, string title, string prompt, bool hasParent = false, string file = "", string defval = null, string filterString = null)
@@ -46,6 +47,38 @@ namespace Charlotte.Chocomint.Dialogs
 				if (File.Exists(v) == false)
 					throw new Exception("指定されたファイルは存在しません。");
 
+				return v;
+			};
+
+			return Show(mode, title, prompt, hasParent, file, defval, filterString, validator);
+		}
+
+		public static string WithOverwritePrompt(InputFileDlg.Mode_e mode, string title, string prompt, bool hasParent = false, string file = "", string defval = null, string filterString = null)
+		{
+			Func<string, string> validator = v =>
+			{
+				if (Directory.Exists(v))
+				{
+					if (InputOptionDlgTools.Warning(
+						"上書き確認",
+						"指定されたファイルと同名のフォルダが存在します。",
+						new string[] { "OK", "キャンセル" },
+						true
+						) != 0
+						)
+						throw new Returning();
+				}
+				else if (File.Exists(v))
+				{
+					if (InputOptionDlgTools.Warning(
+						"上書き確認",
+						"指定されたファイルはすでに存在します。",
+						new string[] { "OK", "キャンセル" },
+						true
+						) != 0
+						)
+						throw new Returning();
+				}
 				return v;
 			};
 

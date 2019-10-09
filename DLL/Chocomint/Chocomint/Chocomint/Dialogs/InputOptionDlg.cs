@@ -7,11 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Charlotte.Chocomint.Dialogs.Resource;
+using System.Media;
 
 namespace Charlotte.Chocomint.Dialogs
 {
 	public partial class InputOptionDlg : Form
 	{
+		public enum Mode_e
+		{
+			Default = 1,
+			Warning,
+		}
+
+		public Mode_e Mode = Mode_e.Default;
 		public string[] Options = new string[] { "OK", "Cancel" };
 		public int SelectedIndex = -1;
 		public string Message = "メッセージを準備しています。";
@@ -37,7 +45,20 @@ namespace Charlotte.Chocomint.Dialogs
 
 		private void InputOptionDlg_Shown(object sender, EventArgs e)
 		{
-			this.MessageIcon.Image = new Resource0001().QuestionIcon.Image;
+			switch (this.Mode)
+			{
+				case Mode_e.Default:
+					this.MessageIcon.Image = new Resource0001().QuestionIcon.Image;
+					break;
+
+				case Mode_e.Warning:
+					this.MessageIcon.Image = new Resource0001().WarningIcon.Image;
+					SystemSounds.Exclamation.Play();
+					break;
+
+				default:
+					throw null; // never
+			}
 			this.TextMessage.Text = this.Message;
 			this.TextMessage.Top += (this.MessageIcon.Height - this.TextMessage.Height) / 2;
 

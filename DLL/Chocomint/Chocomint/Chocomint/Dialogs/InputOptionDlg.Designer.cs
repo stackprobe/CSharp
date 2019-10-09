@@ -111,7 +111,7 @@
 
 		private System.Windows.Forms.Panel MainPanel;
 		private System.Windows.Forms.Button FirstButton;
-		private System.Windows.Forms.PictureBox MessageIcon;
 		private System.Windows.Forms.Label TextMessage;
+		private System.Windows.Forms.PictureBox MessageIcon;
 	}
 }

@@ -54,6 +54,7 @@
     <Compile Include="Tools\Base64Unit.cs" />
     <Compile Include="Tools\BitList.cs" />
     <Compile Include="Tools\BitTable.cs" />
+    <Compile Include="Tools\Cancelled.cs" />
     <Compile Include="Tools\Canvas.cs" />
     <Compile Include="Tools\Canvas2.cs" />
     <Compile Include="Tools\CanvasTools.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="Tools\CSemaphore.cs" />
     <Compile Include="Tools\OrderedMap.cs" />
     <Compile Include="Tools\P4Poly.cs" />
+    <Compile Include="Tools\Returning.cs" />
     <Compile Include="Tools\SharedQueue.cs" />
     <Compile Include="Tools\SockChannel.cs" />
     <Compile Include="Tools\SockClient.cs" />

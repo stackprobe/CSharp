@@ -79,6 +79,8 @@ namespace Charlotte.Chocomint.Dialogs
 				this.Value = ret;
 				this.Close();
 			}
+			catch (Returning)
+			{ }
 			catch (Exception ex)
 			{
 				MessageDlgTools.Warning("入力エラー", ex, true);
@@ -90,6 +92,7 @@ namespace Charlotte.Chocomint.Dialogs
 
 		private void BtnBrowse_Click(object sender, EventArgs e)
 		{
+			SaveLoadDialogs.SaveFileOverwritePrompt = false;
 			try
 			{
 				string file = this.TextValue.Text;
@@ -127,6 +130,7 @@ namespace Charlotte.Chocomint.Dialogs
 			{
 				MessageDlgTools.Warning("ファイル選択エラー", ex, true);
 			}
+			SaveLoadDialogs.SaveFileOverwritePrompt = true; // 復元
 		}
 
 		private void TextValue_KeyPress(object sender, KeyPressEventArgs e)
