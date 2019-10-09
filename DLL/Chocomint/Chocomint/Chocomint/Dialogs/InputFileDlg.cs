@@ -66,13 +66,27 @@ namespace Charlotte.Chocomint.Dialogs
 			this.Close();
 		}
 
+		public static bool FAT32 = false;
+
+		private static string S_MakeFullPath(string path)
+		{
+			if (FAT32)
+			{
+				return ExtraTools.MakeFullPath_FAT32(path);
+			}
+			else
+			{
+				return FileTools.MakeFullPath(path);
+			}
+		}
+
 		private void BtnOk_Click(object sender, EventArgs e)
 		{
 			try
 			{
 				string ret = this.TextValue.Text;
 
-				ret = FileTools.MakeFullPath(ret);
+				ret = S_MakeFullPath(ret);
 				ret = this.Validator(ret);
 
 				this.OkPressed = true;
@@ -99,7 +113,7 @@ namespace Charlotte.Chocomint.Dialogs
 
 				try
 				{
-					file = FileTools.MakeFullPath(file);
+					file = S_MakeFullPath(file);
 				}
 				catch
 				{

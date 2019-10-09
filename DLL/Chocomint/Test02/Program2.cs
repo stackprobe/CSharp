@@ -21,11 +21,11 @@ namespace Test02
 			//new MessageDlgTest().Test04();
 			//new MessageDlgTest().Test04_B();
 			//new LongMessageDlgTest().Test01();
-			new LongMessageDlgTest().Test02();
+			//new LongMessageDlgTest().Test02();
 			//new InputFolderDlgTest().Test01();
 			//new InputFileDlgTest().Test01();
 			//new InputFileDlgTest().Test02_Load();
-			//new InputFileDlgTest().Test02_Save();
+			new InputFileDlgTest().Test02_Save();
 			//new InputDecimalDlgTest().Test01();
 			//new InputComboDlgTest().Test01();
 			//new InputComboDlgTest().Test02();

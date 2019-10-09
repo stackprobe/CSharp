@@ -57,3 +57,22 @@ Charlotte.Tools 配下以外
 		...
 	}
 
+
+----
+例外のキャッチ
+
+	try
+	{
+		...
+	}
+	catch (Returning)
+	{ }
+	catch (Cancelled)
+	{
+		MessageBox.Show("中止しました。");
+	}
+	catch (Exception e)
+	{
+		MessageBox.Show("失敗しました。理由：" + e.Message);
+	}
+

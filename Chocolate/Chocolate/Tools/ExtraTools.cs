@@ -241,5 +241,20 @@ namespace Charlotte.Tools
 			}
 			return dir;
 		}
+
+		public const int PATH_SIZE = 250; // PATH_SIZE @ C:\Factory\Common\DataConv.h
+
+		public static string MakeFullPath_FAT32(string path)
+		{
+			path = FileTools.MakeFullPath(path);
+
+			if (path != JString.ToJString(path, true, false, false, true))
+				throw new Exception("Shift_JIS に変換出来ない文字を含むパスは使用出来ません。");
+
+			if (ExtraTools.PATH_SIZE < path.Length)
+				throw new Exception("パスが長すぎます。");
+
+			return path;
+		}
 	}
 }

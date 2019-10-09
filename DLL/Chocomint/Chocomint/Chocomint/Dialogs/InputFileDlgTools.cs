@@ -58,21 +58,14 @@ namespace Charlotte.Chocomint.Dialogs
 			Func<string, string> validator = v =>
 			{
 				if (Directory.Exists(v))
+					throw new Exception("指定されたファイルと同名のフォルダが存在します。");
+
+				if (File.Exists(v))
 				{
 					if (InputOptionDlgTools.Warning(
 						"上書き確認",
-						"指定されたファイルと同名のフォルダが存在します。",
-						new string[] { "OK", "キャンセル" },
-						true
-						) != 0
-						)
-						throw new Returning();
-				}
-				else if (File.Exists(v))
-				{
-					if (InputOptionDlgTools.Warning(
-						"上書き確認",
-						"指定されたファイルはすでに存在します。",
+						"指定されたファイルは既に存在します。\r\n" +
+						"上書きして宜しいですか？",
 						new string[] { "OK", "キャンセル" },
 						true
 						) != 0

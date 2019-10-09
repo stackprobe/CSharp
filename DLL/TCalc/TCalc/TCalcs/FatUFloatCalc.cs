@@ -16,55 +16,55 @@ namespace Charlotte.TCalcs
 
 		public void Add(FatUFloat a, FatUFloat b)
 		{
-			a.normalize();
-			b.normalize();
+			a.Normalize();
+			b.Normalize();
 
-			a.sync(b);
-			b.sync(a);
+			a.Sync(b);
+			b.Sync(a);
 
 			new FatUIntCalc(Radix).Add(a.Inner, b.Inner);
 
-			a.normalize();
+			a.Normalize();
 		}
 
 		public int Sub(FatUFloat a, FatUFloat b)
 		{
-			a.normalize();
-			b.normalize();
+			a.Normalize();
+			b.Normalize();
 
-			a.sync(b);
-			b.sync(a);
+			a.Sync(b);
+			b.Sync(a);
 
 			int sign = new FatUIntCalc(Radix).Sub(a.Inner, b.Inner);
 
-			a.normalize();
+			a.Normalize();
 
 			return sign;
 		}
 
 		public FatUFloat Mul(FatUFloat a, FatUFloat b)
 		{
-			a.normalize();
-			b.normalize();
+			a.Normalize();
+			b.Normalize();
 
 			FatUFloat answer = new FatUFloat(new FatUIntCalc(Radix).Mul(a.Inner, b.Inner), a.Exponent + b.Exponent);
 
-			answer.normalize();
+			answer.Normalize();
 
 			return answer;
 		}
 
 		public FatUFloat Div(FatUFloat a, FatUFloat b)
 		{
-			a.normalize();
-			b.normalize();
+			a.Normalize();
+			b.Normalize();
 
-			a.sync(b);
-			b.sync(a);
+			a.Sync(b);
+			b.Sync(a);
 
 			FatUFloat answer = new FatUFloat(new FatUIntCalc(Radix).Div(a.Inner, b.Inner), 0);
 
-			answer.normalize();
+			answer.Normalize();
 
 			return answer;
 		}

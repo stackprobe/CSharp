@@ -18,7 +18,7 @@ namespace Charlotte.TCalcs
 
 		public void Normalize()
 		{
-			this.Inner.normalize();
+			this.Inner.Normalize();
 
 			if (this.Inner.Inner.Figures.Length == 0)
 			{

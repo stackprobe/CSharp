@@ -16,7 +16,7 @@ namespace Charlotte.TCalcs
 			this.Exponent = exponent;
 		}
 
-		public void normalize()
+		public void Normalize()
 		{
 			int start;
 
@@ -45,7 +45,7 @@ namespace Charlotte.TCalcs
 			}
 		}
 
-		public void sync(FatUFloat another)
+		public void Sync(FatUFloat another)
 		{
 			int count = this.Exponent - another.Exponent;
 

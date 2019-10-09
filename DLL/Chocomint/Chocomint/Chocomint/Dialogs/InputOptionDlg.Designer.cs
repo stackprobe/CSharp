@@ -47,12 +47,12 @@
 			this.MainPanel.Controls.Add(this.TextMessage);
 			this.MainPanel.Location = new System.Drawing.Point(0, 0);
 			this.MainPanel.Name = "MainPanel";
-			this.MainPanel.Size = new System.Drawing.Size(584, 125);
+			this.MainPanel.Size = new System.Drawing.Size(664, 165);
 			this.MainPanel.TabIndex = 0;
 			// 
 			// MessageIcon
 			// 
-			this.MessageIcon.Location = new System.Drawing.Point(30, 30);
+			this.MessageIcon.Location = new System.Drawing.Point(50, 50);
 			this.MessageIcon.Name = "MessageIcon";
 			this.MessageIcon.Size = new System.Drawing.Size(64, 64);
 			this.MessageIcon.TabIndex = 8;
@@ -61,7 +61,7 @@
 			// TextMessage
 			// 
 			this.TextMessage.AutoSize = true;
-			this.TextMessage.Location = new System.Drawing.Point(100, 30);
+			this.TextMessage.Location = new System.Drawing.Point(120, 50);
 			this.TextMessage.Name = "TextMessage";
 			this.TextMessage.Size = new System.Drawing.Size(191, 20);
 			this.TextMessage.TabIndex = 0;
@@ -71,9 +71,9 @@
 			// 
 			this.FirstButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.FirstButton.Location = new System.Drawing.Point(12, 139);
+			this.FirstButton.Location = new System.Drawing.Point(12, 179);
 			this.FirstButton.Name = "FirstButton";
-			this.FirstButton.Size = new System.Drawing.Size(560, 50);
+			this.FirstButton.Size = new System.Drawing.Size(640, 50);
 			this.FirstButton.TabIndex = 1;
 			this.FirstButton.Text = "OK";
 			this.FirstButton.UseVisualStyleBackColor = true;
@@ -83,7 +83,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(584, 201);
+			this.ClientSize = new System.Drawing.Size(664, 241);
 			this.Controls.Add(this.FirstButton);
 			this.Controls.Add(this.MainPanel);
 			this.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));

@@ -15,6 +15,9 @@ namespace Charlotte.Chocomint.Dialogs
 			{
 				double ret = double.Parse(v);
 
+				if (double.IsNaN(ret))
+					throw new Exception("入力された値は実数ではありません。");
+
 				if (ret < minval || maxval < ret)
 					throw new Exception(OutOfRangeErrorMessage(minval, maxval));
 
