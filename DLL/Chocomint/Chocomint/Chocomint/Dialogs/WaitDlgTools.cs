@@ -11,6 +11,17 @@ namespace Charlotte.Chocomint.Dialogs
 	{
 		private static VisitorCounter WaitDlgVCnt = new VisitorCounter();
 
+		/// <summary>
+		/// 長時間用のビジーダイアログ
+		/// キャンセル可能
+		/// 実行中のプログレスバーの位置・メッセージの変更可能
+		/// </summary>
+		/// <param name="title">タイトル</param>
+		/// <param name="message">初期メッセージ</param>
+		/// <param name="routine">主処理</param>
+		/// <param name="interlude">実行中100ミリ秒毎に呼ばれる。進捗(0.0～1.0)を返す。</param>
+		/// <param name="interlude_cancelled">キャンセル後100ミリ秒毎に呼ばれる。</param>
+		/// <param name="hasParent">? 親ウィンドウ有り</param>
 		public static void Show(string title, string message, Action routine, Func<double> interlude, Action interlude_cancelled, bool hasParent = false)
 		{
 			if (WaitDlgVCnt.HasVisitor())
