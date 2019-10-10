@@ -46,6 +46,7 @@ namespace Charlotte.Chocomint.Dialogs
 		public WaitDlg()
 		{
 			LastCancelled = false; // reset
+			MessagePost.Post(null); // reset
 
 			InitializeComponent();
 
