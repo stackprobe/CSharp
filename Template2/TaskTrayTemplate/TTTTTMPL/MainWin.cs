@@ -57,6 +57,7 @@ namespace Charlotte
 
 		private void MainWin_FormClosed(object sender, FormClosedEventArgs e)
 		{
+			// 2bs
 			this.MTBusy.Enter();
 			this.TaskTrayIcon.Visible = false;
 
@@ -69,20 +70,26 @@ namespace Charlotte
 		{
 			using (this.MTBusy.Section())
 			{
-				// -- 9000
+				try
+				{
+					// -- 9000
 
-				// ----
+					// ----
 
-				// 終了確定
-				this.MTBusy.Enter();
-				this.TaskTrayIcon.Visible = false;
+					// 終了確定
+					this.MTBusy.Enter();
+					this.TaskTrayIcon.Visible = false;
 
-				// ----
+					// ----
 
-				// -- 9900
+					// -- 9900
 
-				// ----
-
+					// ----
+				}
+				catch (Exception e)
+				{
+					MessageBox.Show("" + e, "Error @ CloseWindow()", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
 				this.Close();
 			}
 		}
@@ -100,7 +107,7 @@ namespace Charlotte
 			{
 				// -- 3001
 
-				if (this.MTCount == 30) // 3 sec
+				if (this.MTCount == 150) // 15 sec
 				{
 					this.CloseWindow();
 					return;
