@@ -34,5 +34,11 @@ namespace Charlotte.Tools
 				this.Handle = null;
 			}
 		}
+
+		public static IDisposable Unsection(Mutex handle)
+		{
+			handle.ReleaseMutex();
+			return new AnonyDisposable(() => handle.WaitOne());
+		}
 	}
 }
