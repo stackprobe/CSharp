@@ -16,7 +16,8 @@ namespace Charlotte.Chocomint.Dialogs
 		public static void DlgCommonPostShown(Form f)
 		{
 			PostShown(f);
-			見切れ解消(f);
+			AntiMessageOutOfWindow(f);
+			AntiWindowOutOfScreen(f);
 			ChocomintDialogsGeneral.OptionalPostShown(f);
 		}
 
@@ -97,7 +98,7 @@ namespace Charlotte.Chocomint.Dialogs
 
 		// < sync
 
-		public static void 見切れ解消(Form f)
+		public static void AntiMessageOutOfWindow(Form f)
 		{
 			int w = -1;
 
@@ -116,6 +117,56 @@ namespace Charlotte.Chocomint.Dialogs
 				f.Left -= (w - f.Width) / 2;
 				f.Width = w;
 			}
+		}
+
+		public static void AntiWindowOutOfScreen(Form f)
+		{
+			Screen screen = GetScreen_Inside(f);
+
+			if (screen == null)
+				return;
+
+			I4Rect winRect = new I4Rect(f.Left, f.Top, f.Width, f.Height);
+			I4Rect scrRect = new I4Rect(
+				screen.Bounds.Left,
+				screen.Bounds.Top,
+				screen.Bounds.Width,
+				screen.Bounds.Height
+				);
+
+			winRect.L = Math.Min(winRect.L, scrRect.R - winRect.W);
+			winRect.T = Math.Min(winRect.T, scrRect.B - winRect.H);
+
+			winRect.L = Math.Max(winRect.L, scrRect.L);
+			winRect.T = Math.Max(winRect.T, scrRect.T);
+
+			if (f.Left != winRect.L)
+				f.Left = winRect.L;
+
+			if (f.Top != winRect.T)
+				f.Top = winRect.T;
+		}
+
+		private static Screen GetScreen_Inside(Form f)
+		{
+			I2Point winCenter = new I2Point((f.Left + f.Right) / 2, (f.Top + f.Bottom) / 2);
+
+			foreach (Screen screen in Screen.AllScreens)
+			{
+				I4Rect scrRect = new I4Rect(
+					screen.Bounds.Left,
+					screen.Bounds.Top,
+					screen.Bounds.Width,
+					screen.Bounds.Height
+					);
+
+				if (
+					scrRect.L <= winCenter.X && winCenter.X < scrRect.R &&
+					scrRect.T <= winCenter.Y && winCenter.Y < scrRect.B
+					)
+					return screen;
+			}
+			return null;
 		}
 	}
 }
