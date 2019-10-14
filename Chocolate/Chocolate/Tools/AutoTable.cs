@@ -22,7 +22,6 @@ namespace Charlotte.Tools
 				throw new ArgumentException();
 
 			this.Rows = new AutoList<AutoList<T>>(h);
-
 			this.W = w;
 			this.H = h;
 		}

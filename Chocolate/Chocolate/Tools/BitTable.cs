@@ -8,8 +8,9 @@ namespace Charlotte.Tools
 	public class BitTable
 	{
 		private BitList Buffer;
-		private int W;
-		private int H;
+
+		public int W;
+		public int H;
 
 		public BitTable(int w, int h)
 		{
