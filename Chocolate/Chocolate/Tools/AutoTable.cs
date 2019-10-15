@@ -9,7 +9,14 @@ namespace Charlotte.Tools
 	{
 		private AutoList<AutoList<T>> Rows;
 
+		/// <summary>
+		/// 幅、但し実際の幅とは関係無い。呼び出し側で管理すること。
+		/// </summary>
 		public int W;
+
+		/// <summary>
+		/// 高さ、但し実際の高さとは関係無い。呼び出し側で管理すること。
+		/// </summary>
 		public int H;
 
 		public AutoTable()

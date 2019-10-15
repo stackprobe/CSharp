@@ -9,9 +9,18 @@ namespace Charlotte.Tools
 	{
 		private T[] Buffer;
 
-		public AutoList(int capacity = 0)
+		/// <summary>
+		/// 長さ、但し実際の長さとは関係無い。呼び出し側で管理すること。
+		/// </summary>
+		public int Count;
+
+		public AutoList(int capacity = 16)
 		{
+			if (capacity < 0)
+				throw new ArgumentException();
+
 			this.Buffer = new T[capacity];
+			this.Count = capacity;
 		}
 
 		public void EnsureCapacity(int capacity)

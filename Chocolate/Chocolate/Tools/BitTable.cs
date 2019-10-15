@@ -9,8 +9,8 @@ namespace Charlotte.Tools
 	{
 		private BitList Buffer;
 
-		public int W;
-		public int H;
+		public int W { get; private set; }
+		public int H { get; private set; }
 
 		public BitTable(int w, int h)
 		{
