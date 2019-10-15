@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Charlotte.Tools
+namespace Charlotte
 {
-	public static class ExtraTools
+	public interface IKnapsack
 	{
-		// add to here...
+		int GetBestValue();
 	}
 }
