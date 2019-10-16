@@ -7,14 +7,14 @@ C#で書いたコードの寄せ集めです。
 開発環境
 --------
 
-	Windows 10 Pro | Windows 7 Professional
+	Windows 10 Pro
 	Visual C# 2010 Express
 
 	このファイルの場所は C:\Dev\CSharp\Readme.txt です。
 
 
-フォルダ
---------
+フォルダmemo
+------------
 
 2018/08/03  01:17    <DIR>          AntiScreenSaver
 2018/07/20  08:47    <DIR>          Chocolate         共有ライブラリ -- Template2用
