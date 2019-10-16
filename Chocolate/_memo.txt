@@ -52,6 +52,8 @@ Charlotte.Tools 配下以外
 
 	総称型クラスは public な静的メンバーを持たない。
 
+	- - -
+
 	public IEnumerable<T> Iterate()
 	{
 		...

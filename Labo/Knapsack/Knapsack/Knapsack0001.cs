@@ -14,18 +14,15 @@ namespace Charlotte
 			this.Cond = cond;
 		}
 
-		private int ToIndex(int i, int w)
-		{
-			return i * (this.Cond.Capacity + 1) + w;
-		}
-
 		public int GetBestValue()
 		{
 			int ret = 0;
-			int[] item_weight2Value = new int[this.Cond.Items.Length * (this.Cond.Capacity + 1)];
+			int[][] item_weight2Value = new int[this.Cond.Items.Length][];
 
 			for (int i = 0; i < this.Cond.Items.Length; i++)
 			{
+				item_weight2Value[i] = new int[this.Cond.Capacity + 1];
+
 				int w = this.Cond.Items[i].Weight;
 
 				if (w <= this.Cond.Capacity)
@@ -33,14 +30,14 @@ namespace Charlotte
 					int v = this.Cond.Items[i].Value;
 
 					ret = Math.Max(ret, v);
-					item_weight2Value[this.ToIndex(i, w)] = v;
+					item_weight2Value[i][w] = v;
 				}
 			}
 			for (int i = 0; i < this.Cond.Items.Length; i++)
 			{
 				for (int w = 0; w <= this.Cond.Capacity; w++)
 				{
-					int v = item_weight2Value[this.ToIndex(i, w)];
+					int v = item_weight2Value[i][w];
 
 					if (v != 0) // .Value == 0 のアイテムだけの組み合わせは無視して良い。
 					{
@@ -52,10 +49,10 @@ namespace Charlotte
 							{
 								int vv = v + this.Cond.Items[ii].Value;
 
-								if (item_weight2Value[this.ToIndex(ii, ww)] < vv)
+								if (item_weight2Value[ii][ww] < vv)
 								{
 									ret = Math.Max(ret, vv);
-									item_weight2Value[this.ToIndex(ii, ww)] = vv;
+									item_weight2Value[ii][ww] = vv;
 								}
 							}
 						}

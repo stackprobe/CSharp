@@ -14,36 +14,32 @@ namespace Charlotte
 			this.Cond = cond;
 		}
 
-		private int BestTotalValue;
+		private int MaxTotalValue;
 		private int TotalValue;
 		private int TotalWeight;
 
 		public int GetBestValue()
 		{
-			this.BestTotalValue = 0;
+			this.MaxTotalValue = 0;
 			this.TotalValue = 0;
 			this.TotalWeight = 0;
 
 			bool[] chooseds = new bool[this.Cond.Items.Length];
-			bool ahead = true;
+			bool forward = true;
 			int index = 0;
 
 			for (; ; )
 			{
-				if (ahead)
+				if (forward)
 				{
 					if (this.Check() == false)
 					{
-						ahead = false;
+						forward = false;
 					}
-					else if (index < this.Cond.Items.Length)
+					else if (this.Cond.Items.Length <= index)
 					{
-						//chooseds[index] = false;
-					}
-					else
-					{
+						forward = false;
 						this.End();
-						ahead = false;
 					}
 				}
 				else
@@ -54,7 +50,7 @@ namespace Charlotte
 						TotalWeight += this.Cond.Items[index].Weight;
 
 						chooseds[index] = true;
-						ahead = true;
+						forward = true;
 					}
 					else
 					{
@@ -65,7 +61,7 @@ namespace Charlotte
 					}
 				}
 
-				if (ahead)
+				if (forward)
 				{
 					index++;
 				}
@@ -77,7 +73,7 @@ namespace Charlotte
 					index--;
 				}
 			}
-			return this.BestTotalValue;
+			return this.MaxTotalValue;
 		}
 
 		private bool Check()
@@ -87,7 +83,7 @@ namespace Charlotte
 
 		private void End()
 		{
-			this.BestTotalValue = Math.Max(this.BestTotalValue, this.TotalValue);
+			this.MaxTotalValue = Math.Max(this.MaxTotalValue, this.TotalValue);
 		}
 	}
 }
