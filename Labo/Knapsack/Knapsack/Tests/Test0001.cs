@@ -9,8 +9,11 @@ namespace Charlotte.Tests
 	{
 		public void Test01()
 		{
+			int testCnt = 0;
+
 			while (Console.KeyAvailable == false)
 			{
+				Console.WriteLine("testCnt: " + (++testCnt));
 				Test01_Main();
 			}
 			Console.WriteLine("End");
@@ -18,24 +21,25 @@ namespace Charlotte.Tests
 
 		private void Test01_Main()
 		{
-			Test01_A();
-			Test01_B(ConditionUtils.Make());
-			Test01_B(ConditionUtils.Make2());
+			Console.WriteLine("**** Test01_All ****");
+			Test01_All(ConditionUtils.Make_Lite());
+
+			Console.WriteLine("**** Test01_K1 ****");
+			Test01_K1(ConditionUtils.Make());
+
+			Console.WriteLine("**** Test01_K1 ****");
+			Test01_K1(ConditionUtils.Make2());
 		}
 
-		private void Test01_A()
+		private void Test01_All(Condition cond)
 		{
-			Condition cond = ConditionUtils.Make_Lite();
-
-			Console.WriteLine(cond.Items.Length + " " + cond.Capacity);
-
-			IKnapsack k1 = new Knapsack0001(cond);
 			IKnapsack sk = new KnapsackSimple(cond);
+			IKnapsack k1 = new Knapsack0001(cond);
 
 			DateTime tm1 = DateTime.Now;
-			int ret1 = k1.GetBestValue();
+			int ret1 = sk.GetBestValue();
 			DateTime tm2 = DateTime.Now;
-			int ret2 = sk.GetBestValue();
+			int ret2 = k1.GetBestValue();
 			DateTime tm3 = DateTime.Now;
 
 			Console.WriteLine((tm2 - tm1).TotalMilliseconds.ToString("F15"));
@@ -48,10 +52,8 @@ namespace Charlotte.Tests
 				throw null; // bugged !!!
 		}
 
-		private void Test01_B(Condition cond)
+		private void Test01_K1(Condition cond)
 		{
-			Console.WriteLine(cond.Items.Length + " " + cond.Capacity);
-
 			IKnapsack k1 = new Knapsack0001(cond);
 
 			DateTime tm1 = DateTime.Now;

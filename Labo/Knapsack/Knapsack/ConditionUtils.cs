@@ -11,10 +11,10 @@ namespace Charlotte
 		public static Condition Make_Lite()
 		{
 			return Make(
-				(int)SecurityTools.CRandom.GetRandom((uint)20),
+				(int)SecurityTools.CRandom.GetRandom((uint)30),
 				10000,
 				100,
-				(int)SecurityTools.CRandom.GetRandom((uint)2000)
+				(int)SecurityTools.CRandom.GetRandom((uint)3000)
 				);
 		}
 
@@ -54,6 +54,7 @@ namespace Charlotte
 					Weight = (int)SecurityTools.CRandom.GetRandom((uint)weightLimit),
 				};
 			}
+			Console.WriteLine(string.Join(" ", cond.Items.Length, valueLimit, weightLimit, cond.Capacity)); // test
 			return cond;
 		}
 	}

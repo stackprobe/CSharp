@@ -24,9 +24,9 @@ namespace Charlotte
 			this.TotalValue = 0;
 			this.TotalWeight = 0;
 
-			int index = 0;
-			bool ahead = true;
 			bool[] chooseds = new bool[this.Cond.Items.Length];
+			bool ahead = true;
+			int index = 0;
 
 			for (; ; )
 			{
