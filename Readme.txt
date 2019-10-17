@@ -16,8 +16,8 @@ C#で書いたコードの寄せ集めです。
 フォルダmemo
 ------------
 
-	Chocolate   旧共有ライブラリ -- Template2用
-	Module      旧共有ライブラリ -- 旧ver
+	Chocolate   共有ライブラリ   -- Template2用
+	Module      旧共有ライブラリ -- Module2の旧ver
 	Module2     旧共有ライブラリ -- Template用
 	Module3     旧共有ライブラリ -- テンプレート非依存
 
