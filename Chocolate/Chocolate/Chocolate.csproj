@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChcolateExtensions.cs" />
     <Compile Include="Tools\AnonyDisposable.cs" />
     <Compile Include="Tools\AttachString.cs" />
     <Compile Include="Tools\BluffList.cs" />

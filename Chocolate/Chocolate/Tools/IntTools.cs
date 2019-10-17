@@ -42,11 +42,23 @@ namespace Charlotte.Tools
 			}
 		}
 
+		/// <summary>
+		/// Enumerable.Range(0, count) と同じ
+		/// </summary>
+		/// <param name="count">個数</param>
+		/// <returns>{ 0, 1, 2, ... count }</returns>
 		public static IEnumerable<int> Sequence(int count)
 		{
 			return Sequence(0, count);
 		}
 
+		/// <summary>
+		/// Enumerable.Range(0, count).Select(v => firstValue + v * step) と同じ
+		/// </summary>
+		/// <param name="firstValue">初期値</param>
+		/// <param name="count">個数</param>
+		/// <param name="step">ステップ</param>
+		/// <returns>{ firstValue + 0 * step, firstValue + 1 * step, firstValue + 2 * step, ... firstValue + count * step }</returns>
 		public static IEnumerable<int> Sequence(int firstValue, int count, int step = 1)
 		{
 			for (int index = 0; index < count; index++)
