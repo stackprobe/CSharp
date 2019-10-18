@@ -8,8 +8,6 @@ namespace Charlotte
 {
 	public class MSender
 	{
-		// ---- ここから
-
 		public void MSend(string ident, string message)
 		{
 			Mutex[] hdls = new Mutex[6];
@@ -23,10 +21,11 @@ namespace Charlotte
 				bool[] flgs = new bool[3];
 				int c = 0;
 
-				foreach (byte[] bMes in new byte[][] {
-				new byte[] { 0xff },
-				Encoding.UTF8.GetBytes(message.Replace("\0", "")),
-				new byte[] { 0x00 }
+				foreach (byte[] bMes in new byte[][]
+				{
+					new byte[] { 0xff },
+					Encoding.UTF8.GetBytes(message.Replace("\0", "")),
+					new byte[] { 0x00 }
 				})
 				{
 					for (int i = 0; i / 8 < bMes.Length; i++)
@@ -64,7 +63,5 @@ namespace Charlotte
 				}
 			}
 		}
-
-		// ---- ここまで
 	}
 }

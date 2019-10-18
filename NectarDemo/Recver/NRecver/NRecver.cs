@@ -9,18 +9,12 @@ namespace Charlotte
 {
 	public class NRecver
 	{
-		// ---- ここから
-
 		public void NRecv(string ident, Action<string> recved)
 		{
-			using (var s = new EventWaitHandle(
-				false, EventResetMode.AutoReset, ident + "S"))
-			using (var k = new EventWaitHandle(
-				false, EventResetMode.AutoReset, ident + "K"))
-			using (var b = new EventWaitHandle(
-				false, EventResetMode.AutoReset, ident + "B"))
-			using (var r = new EventWaitHandle(
-				false, EventResetMode.AutoReset, ident + "R"))
+			using (var s = new EventWaitHandle(false, EventResetMode.AutoReset, ident + "S"))
+			using (var k = new EventWaitHandle(false, EventResetMode.AutoReset, ident + "K"))
+			using (var b = new EventWaitHandle(false, EventResetMode.AutoReset, ident + "B"))
+			using (var r = new EventWaitHandle(false, EventResetMode.AutoReset, ident + "R"))
 			{
 				MemoryStream mem = new MemoryStream();
 				byte chr = 0;
@@ -46,9 +40,7 @@ namespace Charlotte
 						{
 							if (chr == 0)
 							{
-								recved(Encoding.UTF8.GetString(
-									mem.GetBuffer()
-									));
+								recved(Encoding.UTF8.GetString(mem.GetBuffer()));
 								mem = new MemoryStream();
 								recving = false;
 							}
@@ -63,18 +55,15 @@ namespace Charlotte
 				}
 			}
 		}
+
 		public void NRecvEnd(string ident)
 		{
-			using (var s = new EventWaitHandle(
-				false, EventResetMode.AutoReset, ident + "S"))
-			using (var k = new EventWaitHandle(
-				false, EventResetMode.AutoReset, ident + "K"))
+			using (var s = new EventWaitHandle(false, EventResetMode.AutoReset, ident + "S"))
+			using (var k = new EventWaitHandle(false, EventResetMode.AutoReset, ident + "K"))
 			{
 				k.Set();
 				s.Set();
 			}
 		}
-
-		// ---- ここまで
 	}
 }

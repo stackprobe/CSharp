@@ -30,7 +30,8 @@ namespace Test01
 				//Test12();
 				//Test13();
 				//Test13_B();
-				Test14();
+				//Test14();
+				Test15();
 				//new DateSpanListTest().Test01();
 				//new NamesToGroupDateSpansTest().Test01();
 				//new NamesToGroupDateSpansTest().Test02();
@@ -431,6 +432,13 @@ Test02_a_a: { X = 3 }
 			Console.WriteLine(string.Join(", ", nan - 0.5, inf - 0.5, nif - 0.5));
 			Console.WriteLine(string.Join(", ", nan * 0.5, inf * 0.5, nif * 0.5));
 			Console.WriteLine(string.Join(", ", nan / 0.5, inf / 0.5, nif / 0.5));
+		}
+
+		private static void Test15()
+		{
+			Console.WriteLine(string.Join(", ", Enumerable.Range(0, 10)));
+			Console.WriteLine(string.Join(", ", Enumerable.Range(1, 10)));
+			Console.WriteLine(string.Join(", ", Enumerable.Range(101, 8)));
 		}
 	}
 }

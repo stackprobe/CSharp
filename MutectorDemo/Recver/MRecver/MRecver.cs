@@ -9,9 +9,8 @@ namespace Charlotte
 {
 	public class MRecver
 	{
-		// ---- ここから
-
 		public bool MRecvEnd;
+
 		public void MRecv(string ident, Action<string> recved)
 		{
 			Mutex[] hdls = new Mutex[6];
@@ -47,9 +46,7 @@ namespace Charlotte
 						{
 							if (chr == 0)
 							{
-								recved(Encoding.UTF8.GetString(
-									mem.GetBuffer()
-									));
+								recved(Encoding.UTF8.GetString(mem.GetBuffer()));
 								mem = new MemoryStream();
 								waitCount = 1;
 							}
@@ -84,7 +81,5 @@ namespace Charlotte
 				}
 			}
 		}
-
-		// ---- ここまで
 	}
 }
