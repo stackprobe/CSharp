@@ -40,7 +40,7 @@ namespace Charlotte
 						{
 							if (chr == 0)
 							{
-								recved(Encoding.UTF8.GetString(mem.GetBuffer()));
+								recved(Encoding.UTF8.GetString(mem.ToArray()));
 								mem = new MemoryStream();
 								recving = false;
 							}
