@@ -38,7 +38,7 @@ namespace Charlotte
 
 		private void SendBtn_Click(object sender, EventArgs e)
 		{
-			new MSender().MSend("M-Test", this.Message.Text);
+			new MSender().MSend(Consts.mIdent, this.Message.Text);
 			this.Message.Text = "";
 		}
 

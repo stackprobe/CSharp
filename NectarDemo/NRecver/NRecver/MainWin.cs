@@ -27,7 +27,7 @@ namespace Charlotte
 
 		private void MainWin_Shown(object sender, EventArgs e)
 		{
-			_th = new Thread(() => _mr.NRecv("N-Test", this.Recved));
+			_th = new Thread(() => _mr.NRecv(Consts.nIdent, this.Recved));
 			_th.Start();
 		}
 
@@ -38,7 +38,7 @@ namespace Charlotte
 
 		private void MainWin_FormClosed(object sender, FormClosedEventArgs e)
 		{
-			_mr.NRecvEnd("N-Test");
+			_mr.NRecvEnd(Consts.nIdent);
 			_th.Join();
 			_th = null;
 		}

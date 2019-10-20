@@ -40,7 +40,7 @@ namespace Charlotte
 		{
 			try
 			{
-				new NSender().NSend("N-Test", this.Message.Text);
+				new NSender().NSend(Consts.nIdent, this.Message.Text);
 				this.Message.Text = "";
 			}
 			catch (Exception ex)
