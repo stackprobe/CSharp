@@ -29,9 +29,20 @@ namespace Charlotte
 
 		private void Main2(ArgsReader ar)
 		{
+			//new HeaderTableTest().Test01();
+			//new ArrayUtilsTest().Test01();
+			//new CsvFileSorterTest().Test01();
 			//new Test0002().Test01();
 			//new Test0002().Test02();
-			new Test0002().Test02_B();
+			//new Test0002().Test02_B();
+			//new Charlotte.wb.t20190313.Tests.EnumerableTrainTest().Test01();
+			//new Charlotte.wb.t20190513.Test0001().Test01();
+			//new Charlotte.wb.t20190630.Test0001().Test01();
+			//new Charlotte.wb.t20190716.Test0001().Test01();
+			//new Charlotte.wb.t20190716.Test0001().Test02();
+			//new Charlotte.wb.t20190720.Test0001().Test01();
+			//new Charlotte.wb.t20190805.Test0001().Test01();
+			new Charlotte.wb.t20190827.Test0001().Test01();
 		}
 	}
 }

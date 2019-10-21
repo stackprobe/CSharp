@@ -53,6 +53,22 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\Test0002.cs" />
+    <Compile Include="Tests\Utils2\ArrayUtilsTest.cs" />
+    <Compile Include="Tests\Utils\CsvFileSorterTest.cs" />
+    <Compile Include="Tests\Utils\HeaderTableTest.cs" />
+    <Compile Include="Utils2\ArrayUtils.cs" />
+    <Compile Include="Utils\CsvFileSorter.cs" />
+    <Compile Include="Utils\HeaderRow.cs" />
+    <Compile Include="Utils\HeaderTable.cs" />
+    <Compile Include="Utils\HugeSorter.cs" />
+    <Compile Include="wb\t20190313\EnumerableTrain.cs" />
+    <Compile Include="wb\t20190313\Tests\EnumerableTrainTest.cs" />
+    <Compile Include="wb\t20190513\Test0001.cs" />
+    <Compile Include="wb\t20190630\Test0001.cs" />
+    <Compile Include="wb\t20190716\Test0001.cs" />
+    <Compile Include="wb\t20190720\Test0001.cs" />
+    <Compile Include="wb\t20190805\Test0001.cs" />
+    <Compile Include="wb\t20190827\Test0001.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
