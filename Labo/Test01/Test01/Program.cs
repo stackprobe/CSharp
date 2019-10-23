@@ -31,7 +31,8 @@ namespace Test01
 				//Test13();
 				//Test13_B();
 				//Test14();
-				Test15();
+				//Test15();
+				Test16();
 				//new DateSpanListTest().Test01();
 				//new NamesToGroupDateSpansTest().Test01();
 				//new NamesToGroupDateSpansTest().Test02();
@@ -439,6 +440,35 @@ Test02_a_a: { X = 3 }
 			Console.WriteLine(string.Join(", ", Enumerable.Range(0, 10)));
 			Console.WriteLine(string.Join(", ", Enumerable.Range(1, 10)));
 			Console.WriteLine(string.Join(", ", Enumerable.Range(101, 8)));
+		}
+
+		private static void Test16()
+		{
+			int[,] tbl = new int[2, 3];
+
+			for (int x = 0; x < 2; x++)
+				for (int y = 0; y < 3; y++)
+					tbl[x, y] = x + y;
+
+			foreach (int v in tbl)
+				Console.WriteLine(v);
+
+			Console.WriteLine("*" + tbl.Length);
+
+			// ----
+
+			tbl = new int[,]
+			{
+				{ 1, 2 },
+				{ 3, 4 },
+				{ 5, 6 },
+				{ 7, 8 },
+			};
+
+			foreach (int v in tbl)
+				Console.WriteLine(v);
+
+			Console.WriteLine("*" + tbl.Length);
 		}
 	}
 }
