@@ -16,7 +16,7 @@ namespace Charlotte.Tools
 			NORMAL,
 		};
 
-		public static Process Start(string file, string args, string workingDir = "", WindowStyle_e winStyle = WindowStyle_e.INVISIBLE)
+		public static Process Start(string file, string args, string workingDir = "", WindowStyle_e winStyle = WindowStyle_e.INVISIBLE, Action<ProcessStartInfo> beforeStart = null)
 		{
 			ProcessStartInfo psi = new ProcessStartInfo();
 
@@ -43,6 +43,8 @@ namespace Charlotte.Tools
 				default:
 					throw null;
 			}
+			if (beforeStart != null)
+				beforeStart(psi);
 
 			return Process.Start(psi);
 		}
