@@ -7,6 +7,9 @@ using System.IO;
 
 namespace Charlotte.wb.t20190827
 {
+	/// <summary>
+	/// バケット・はかりの構造を勘違いしていた様なので没
+	/// </summary>
 	public class Test0002
 	{
 		private class ReportInfo
