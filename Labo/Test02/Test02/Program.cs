@@ -42,7 +42,8 @@ namespace Charlotte
 			//new Charlotte.wb.t20190716.Test0001().Test02();
 			//new Charlotte.wb.t20190720.Test0001().Test01();
 			//new Charlotte.wb.t20190805.Test0001().Test01();
-			new Charlotte.wb.t20190827.Test0001().Test01();
+			//new Charlotte.wb.t20190827.Test0001().Test01();
+			new Charlotte.wb.t20190827.Test0002().Test01();
 			//new Charlotte.wb.t20191022.Test0001().Test01();
 		}
 	}

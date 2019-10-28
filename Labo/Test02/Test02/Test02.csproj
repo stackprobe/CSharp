@@ -69,6 +69,7 @@
     <Compile Include="wb\t20190720\Test0001.cs" />
     <Compile Include="wb\t20190805\Test0001.cs" />
     <Compile Include="wb\t20190827\Test0001.cs" />
+    <Compile Include="wb\t20190827\Test0002.cs" />
     <Compile Include="wb\t20191022\Test0001.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
