@@ -28,7 +28,7 @@ namespace Charlotte.Tools
 		{ }
 
 		public Canvas2(byte[] raw)
-			: this(CanvasTools.GetImage(raw))
+			: this(CanvasTools.GetImage2(raw))
 		{ }
 
 		public Canvas2(Image image)
@@ -66,9 +66,9 @@ namespace Charlotte.Tools
 			File.WriteAllBytes(file, this.GetBytes());
 		}
 
-		public void Save(string file, ImageFormat format)
+		public void Save(string file, ImageFormat format, int quality = -1)
 		{
-			File.WriteAllBytes(file, this.GetBytes(format));
+			File.WriteAllBytes(file, this.GetBytes(format, quality));
 		}
 
 		public Canvas ToCanvas()

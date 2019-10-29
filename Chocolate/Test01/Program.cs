@@ -112,9 +112,10 @@ namespace Charlotte
 			//new ZipToolsTest().Test02();
 			//new EnumeratorCartridgeTest().Test01();
 			//new CanvasTest().Test01();
+			new Canvas2Test().Test01();
 			//new D2PointTest().Test01();
 			//new RandomUnitTest().Test01();
-			new RandomUnitTest().Test02();
+			//new RandomUnitTest().Test02();
 		}
 	}
 }

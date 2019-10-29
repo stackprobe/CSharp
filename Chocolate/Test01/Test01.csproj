@@ -53,6 +53,7 @@
     <Compile Include="Tests\Test02.cs" />
     <Compile Include="Tests\Tools\AttachStringTest.cs" />
     <Compile Include="Tests\Tools\Base64UnitTest.cs" />
+    <Compile Include="Tests\Tools\Canvas2Test.cs" />
     <Compile Include="Tests\Tools\CanvasTest.cs" />
     <Compile Include="Tests\Tools\CipherToolsTest.cs" />
     <Compile Include="Tests\Tools\CriticalTest.cs" />
