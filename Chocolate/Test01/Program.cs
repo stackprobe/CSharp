@@ -116,6 +116,7 @@ namespace Charlotte
 			//new D2PointTest().Test01();
 			//new RandomUnitTest().Test01();
 			//new RandomUnitTest().Test02();
+			//new ExtraToolsTest().Test01();
 		}
 	}
 }

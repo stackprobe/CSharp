@@ -28,12 +28,12 @@ namespace Charlotte.Tools
 		{ }
 
 		public Canvas2(byte[] raw)
-			: this(CanvasTools.GetImage2(raw))
+			: this(CanvasTools.GetImage(raw))
 		{ }
 
 		public Canvas2(Image image)
 		{
-			this.Image = image;
+			this.Image = CanvasTools.CopyImage(image);
 		}
 
 		public int GetWidth()
@@ -92,14 +92,13 @@ namespace Charlotte.Tools
 
 		// memo: g.DrawString() の x, y は、描画した文字列の左上の座標っぽい。余白が入るので文字本体は座標より少し離れる。
 
-		public static double DRAW_STRING_DEFAULT_Y_RATE = -0.5;
+		// xRate == -0.5 ==> 中央に寄ってくれる。
+		// yRate == -0.5 ==> 多少ズレる。多分上下にある余白のせい。メイリオでは上にズレる。多分フォントに依る。
 
-		public void DrawString(String str, Font font, Color color, int x, int y, double xRate = -0.5)
-		{
-			this.DrawString(str, font, color, x, y, xRate, DRAW_STRING_DEFAULT_Y_RATE);
-		}
+		public const double DRAW_STRING_DEFAULT_X_RATE = -0.5;
+		public const double DRAW_STRING_DEFAULT_Y_RATE = -0.5;
 
-		public void DrawString(String str, Font font, Color color, int x, int y, double xRate, double yRate)
+		public void DrawString(String str, Font font, Color color, int x, int y, double xRate = DRAW_STRING_DEFAULT_X_RATE, double yRate = DRAW_STRING_DEFAULT_Y_RATE)
 		{
 			using (Graphics g = this.GetGraphics())
 			{

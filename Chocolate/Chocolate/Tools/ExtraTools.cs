@@ -156,16 +156,24 @@ namespace Charlotte.Tools
 			}
 		}
 
+		/// <summary>
+		/// C:\Factory\Common\Mutex.c の COMMONMUTEXNAME と同じ。
+		/// </summary>
+		public const string FACTORY_COMMONMUTEXNAME = "cerulean.charlotte Factory common mutex object";
+
 		public static string MakeFreeDir()
 		{
-			for (int c = 1; ; c++)
+			using (new MSection(FACTORY_COMMONMUTEXNAME))
 			{
-				string dir = @"C:\" + c;
-
-				if (Accessible(dir) == false)
+				for (int c = 1; ; c++)
 				{
-					FileTools.CreateDir(dir);
-					return dir;
+					string dir = @"C:\" + c;
+
+					if (Accessible(dir) == false)
+					{
+						FileTools.CreateDir(dir);
+						return dir;
+					}
 				}
 			}
 		}

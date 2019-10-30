@@ -20,6 +20,8 @@ namespace Charlotte.Tests.Tools
 				Canvas2 c2 = canvas.ToCanvas2();
 
 				c2.DrawString("Canvas", new Font("メイリオ", 100F, FontStyle.Regular), Color.White, 400, 300);
+				//c2.DrawString("キャンバス", new Font("メイリオ", 100F, FontStyle.Regular), Color.White, 400, 300);
+				//c2.DrawString("画布", new Font("メイリオ", 100F, FontStyle.Regular), Color.White, 400, 300);
 
 				canvas = c2.ToCanvas();
 			}
