@@ -162,16 +162,59 @@ namespace Charlotte.Tools
 		{
 #if true
 			int l = this.LeftIndexOf(ferret);
-			int r = this.RightIndexOf(ferret, l - 1);
-			int count = r - l + 1;
+			int r = this.RightIndexOf(ferret, l - 1) + 1;
 
-			return this.GetRange(l, count);
+			return this.GetRange(l, r - l);
 #else // smpl_same
 			List<T> dest = new List<T>();
 
 			for (int index = this.LeftIndexOf(ferret); index <= this.RightIndexOf(ferret); index++)
 			{
 				dest.Add(this.InnerList[index]);
+			}
+			return dest;
+#endif
+		}
+
+		public List<T> GetMatchWithEdge(Func<T, int> ferret)
+		{
+#if true
+			int l = this.LeftIndexOf(ferret);
+			int r = this.RightIndexOf(ferret, l - 1) + 1;
+
+			bool ld = false;
+			bool rd = false;
+
+			if (1 <= l)
+				l--;
+			else
+				ld = true;
+
+			if (r < this.Count)
+				r++;
+			else
+				rd = true;
+
+			List<T> dest = new List<T>();
+
+			if (ld)
+				dest.Add(default(T));
+
+			dest.AddRange(this.GetRange(l, r - l));
+
+			if (rd)
+				dest.Add(default(T));
+
+			return dest;
+#else // smpl_same
+			List<T> dest = new List<T>();
+
+			for (int index = this.LeftIndexOf(ferret) - 1; index <= this.RightIndexOf(ferret) + 1; index++)
+			{
+				if (index < 0 || this.Count <= index)
+					dest.Add(default(T));
+				else
+					dest.Add(this.InnerList[index]);
 			}
 			return dest;
 #endif

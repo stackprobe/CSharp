@@ -57,7 +57,8 @@ namespace Charlotte
 			//new FileToolsTest().Test01();
 			//new FileToolsTest().Test02();
 			//new FileToolsTest().Test03();
-			//new SortedListTest().Test01();
+			new SortedListTest().Test01();
+			new SortedListTest().Test02();
 			//new CipherToolsTest.AESTest().Test01();
 			//new SecurityToolsTest().Test01();
 			//new SecurityToolsTest().Test02();
@@ -112,7 +113,7 @@ namespace Charlotte
 			//new ZipToolsTest().Test02();
 			//new EnumeratorCartridgeTest().Test01();
 			//new CanvasTest().Test01();
-			new Canvas2Test().Test01();
+			//new Canvas2Test().Test01();
 			//new D2PointTest().Test01();
 			//new RandomUnitTest().Test01();
 			//new RandomUnitTest().Test02();
