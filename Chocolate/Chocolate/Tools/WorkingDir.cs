@@ -52,43 +52,8 @@ namespace Charlotte.Tools
 		public static RootInfo CreateProcessRoot()
 		{
 			const string prefix = "{41266ce2-7655-413e-b8bb-780aaf640f4d}_";
-			DeleteDebris(prefix);
+			//DeleteDebris(prefix);
 			return new RootInfo(Path.Combine(Environment.GetEnvironmentVariable("TMP"), prefix + Process.GetCurrentProcess().Id));
-		}
-
-		private static void DeleteDebris(string prefix)
-		{
-			int idLimit = Process.GetCurrentProcess().Id;
-
-			if (idLimit < 8)
-				return;
-
-			using (new MSection(MutexTools.CreateGlobal("{f711a91e-6cf9-4310-8f27-c9832321380e}")))
-			{
-				for (int c = 0; c < 100; c++)
-				{
-					int id = ((int)SecurityTools.CRandom.GetRandom((uint)idLimit / 4 - 1) + 1) * 4;
-
-					if (CanGetProcessById(id) == false)
-					{
-						string dir = Path.Combine(Environment.GetEnvironmentVariable("TMP"), prefix + id);
-
-						FileTools.Delete(dir);
-					}
-				}
-			}
-		}
-
-		private static bool CanGetProcessById(int id)
-		{
-			try
-			{
-				return Process.GetProcessById(id) != null;
-			}
-			catch
-			{
-				return false;
-			}
 		}
 
 		private static long CtorCounter = 0L;
