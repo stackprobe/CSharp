@@ -57,6 +57,7 @@
     <Compile Include="Tests\Tools\CanvasTest.cs" />
     <Compile Include="Tests\Tools\CipherToolsTest.cs" />
     <Compile Include="Tests\Tools\CriticalTest.cs" />
+    <Compile Include="Tests\Tools\CrossDictionaryTest.cs" />
     <Compile Include="Tests\Tools\D2PointTest.cs" />
     <Compile Include="Tests\Tools\EscapeStringTest.cs" />
     <Compile Include="Tests\Tools\ExtraToolsTest.cs" />

@@ -56,5 +56,19 @@ namespace Charlotte.Tools
 				return dest;
 			}
 		}
+
+		public static void MustThrow(Action routine)
+		{
+			try
+			{
+				routine();
+			}
+			catch (Exception e)
+			{
+				ProcMain.WriteLog(e + " <--- 想定どおり");
+				return;
+			}
+			throw new Exception();
+		}
 	}
 }
