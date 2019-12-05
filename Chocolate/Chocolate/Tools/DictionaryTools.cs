@@ -46,21 +46,5 @@ namespace Charlotte.Tools
 		{
 			return new CacheMap<string, V>(CreateIgnoreCase<V>(), createValue);
 		}
-
-		public static CrossDictionary<string, string> CreateCross()
-		{
-			return new CrossDictionary<string, string>(
-				Create<string>(),
-				Create<string>()
-				);
-		}
-
-		public static CrossDictionary<string, string> CreateCrossIgnoreCase()
-		{
-			return new CrossDictionary<string, string>(
-				CreateIgnoreCase<string>(),
-				CreateIgnoreCase<string>()
-				);
-		}
 	}
 }

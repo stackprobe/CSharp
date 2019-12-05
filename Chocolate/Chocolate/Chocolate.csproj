@@ -59,7 +59,6 @@
     <Compile Include="Tools\Canvas.cs" />
     <Compile Include="Tools\Canvas2.cs" />
     <Compile Include="Tools\CanvasTools.cs" />
-    <Compile Include="Tools\CrossDictionary.cs" />
     <Compile Include="Tools\D2Point.cs" />
     <Compile Include="Tools\D2Size.cs" />
     <Compile Include="Tools\D3Color.cs" />
