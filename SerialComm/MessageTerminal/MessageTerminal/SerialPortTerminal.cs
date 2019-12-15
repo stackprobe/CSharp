@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO.Ports;
 using System.Security.Cryptography;
+using Charlotte.Tools;
 
 // ^ sync @ SerialComm_SerialPortTerminal
 
@@ -21,25 +22,19 @@ namespace Charlotte
 
 		private SerialPort Port;
 
-		public SerialPortTerminal(string[] args)
-			: this(new Queue<string>(args))
-		{ }
-
-		public SerialPortTerminal(Queue<string> argq)
+		public SerialPortTerminal(ArgsReader ar)
 		{
 			int baudRate = BAUD_RATE_1;
 			int portNo = 1;
 
-			while (1 <= argq.Count)
+			while (ar.HasArgs())
 			{
-				string arg = argq.Dequeue().ToUpper();
-
-				if (arg == ";")
+				if (ar.ArgIs(";"))
 					break;
 
-				if (arg == "/B")
+				if (ar.ArgIs("/B"))
 				{
-					switch (int.Parse(argq.Dequeue()))
+					switch (int.Parse(ar.NextArg()))
 					{
 						case 1: baudRate = BAUD_RATE_1; break;
 						case 2: baudRate = BAUD_RATE_2; break;
@@ -52,9 +47,9 @@ namespace Charlotte
 					}
 					continue;
 				}
-				if (arg == "/C")
+				if (ar.ArgIs("/C"))
 				{
-					portNo = int.Parse(argq.Dequeue());
+					portNo = int.Parse(ar.NextArg());
 
 					if (portNo < 1 || 9 < portNo)
 						throw new ArgumentException();
