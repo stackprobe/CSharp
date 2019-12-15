@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO.Ports;
+using System.Security.Cryptography;
 
 // ^ sync @ SerialComm_SerialPortTerminal
 
@@ -84,6 +85,113 @@ namespace Charlotte
 				this.Port.Dispose();
 				this.Port = null;
 			}
+		}
+
+		private const int RW_SIZE_MAX = 128 * 1024 * 1024;
+
+		public void WriteLine(string line)
+		{
+			this.Write(Encoding.UTF8.GetBytes(line));
+		}
+
+		public void Write(byte[] data, int offset = 0)
+		{
+			this.Write(data, offset, data.Length - offset);
+		}
+
+		public void Write(byte[] data, int offset, int size)
+		{
+			if (data == null)
+				throw new ArgumentException();
+
+			if (offset < 0 || data.Length < offset)
+				throw new ArgumentException();
+
+			if (size < 0 || data.Length - offset < size)
+				throw new ArgumentException();
+
+			if (RW_SIZE_MAX < size)
+				throw new ArgumentException();
+
+			WriteUInt((uint)size);
+			WriteBytes(data, 0, size);
+
+			using (SHA512 sha512 = SHA512.Create())
+			{
+				WriteBytes(sha512.ComputeHash(data, 0, size), 0, 16);
+			}
+		}
+
+		private void WriteUInt(uint value)
+		{
+			WriteBytes(
+				new byte[]
+				{
+					(byte)((value >>  0) & 0xff),
+					(byte)((value >>  8) & 0xff),
+					(byte)((value >> 16) & 0xff),
+					(byte)((value >> 24) & 0xff),
+				},
+				0,
+				4
+				);
+		}
+
+		private void WriteBytes(byte[] data, int offset, int size)
+		{
+			this.Port.Write(data, offset, size);
+		}
+
+		public string ReadLine()
+		{
+			return Encoding.UTF8.GetString(Read());
+		}
+
+		public byte[] Read()
+		{
+			int size = (int)ReadUInt();
+
+			if (size < 0 || RW_SIZE_MAX < size)
+				throw new Exception();
+
+			byte[] data = ReadBytes(size);
+
+			using (SHA512 sha512 = SHA512.Create())
+			{
+				byte[] hash1 = ReadBytes(16);
+				byte[] hash2 = sha512.ComputeHash(data);
+
+				if (hash1.SequenceEqual(hash2) == false)
+					throw new Exception();
+			}
+			return data;
+		}
+
+		private uint ReadUInt()
+		{
+			byte[] data = ReadBytes(4);
+
+			return
+				((uint)data[0] << 0) |
+				((uint)data[1] << 8) |
+				((uint)data[2] << 16) |
+				((uint)data[3] << 24);
+		}
+
+		private byte[] ReadBytes(int size)
+		{
+			byte[] data = new byte[size];
+
+			for (int offset = 0; offset < size; )
+			{
+				int readSize = this.Port.Read(data, offset, size - offset);
+
+				if (readSize < 0 || size - offset < readSize)
+					throw new Exception();
+
+				offset += readSize;
+			}
+			return data;
 		}
 	}
 
