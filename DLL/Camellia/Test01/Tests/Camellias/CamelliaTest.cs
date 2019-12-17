@@ -21,6 +21,7 @@ namespace Charlotte.Tests.Camellias
 			{
 				if (line.StartsWith("K No."))
 				{
+					Dispose(camellia);
 					camellia = new Camellia(GetBlockByLine(line));
 				}
 				else if (line.StartsWith("P No."))
@@ -47,11 +48,18 @@ namespace Charlotte.Tests.Camellias
 						throw null; // bugged !!!
 				}
 			}
+			Dispose(camellia);
 		}
 
 		private byte[] GetBlockByLine(string line)
 		{
 			return BinTools.Hex.ToBytes(StringTools.GetIsland(line, ":").Right.Replace(" ", ""));
+		}
+
+		private void Dispose(IDisposable obj)
+		{
+			if (obj != null)
+				obj.Dispose();
 		}
 	}
 }
