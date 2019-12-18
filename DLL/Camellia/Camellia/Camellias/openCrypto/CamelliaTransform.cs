@@ -73,13 +73,13 @@ namespace Charlotte.Camellias.openCrypto
 			fixed (byte* data = &buffer[offset])
 			fixed (uint* k = _keyTable, p1 = _sbox1, p2 = _sbox2, p3 = _sbox3, p4 = _sbox4)
 			{
-				XorBlock((uint*)data, (uint*)data + blockCount - 1);
+				XorBlock((uint*)data, (uint*)data + (blockCount - 1) * 4);
 				EncryptBlock(k, p1, p2, p3, p4, (uint*)data, (uint*)data);
 
 				for (int index = 1; index < blockCount; index++)
 				{
-					XorBlock((uint*)data + index, (uint*)data + index - 1);
-					EncryptBlock(k, p1, p2, p3, p4, (uint*)data + index, (uint*)data + index);
+					XorBlock((uint*)data + index * 4, (uint*)data + (index - 1) * 4);
+					EncryptBlock(k, p1, p2, p3, p4, (uint*)data + index * 4, (uint*)data + index * 4);
 				}
 			}
 		}
@@ -91,11 +91,11 @@ namespace Charlotte.Camellias.openCrypto
 			{
 				for (int index = blockCount - 1; 1 <= index; index--)
 				{
-					DecryptBlock(k, p1, p2, p3, p4, (uint*)data + index, (uint*)data + index);
-					XorBlock((uint*)data + index, (uint*)data + index - 1);
+					DecryptBlock(k, p1, p2, p3, p4, (uint*)data + index * 4, (uint*)data + index * 4);
+					XorBlock((uint*)data + index * 4, (uint*)data + (index - 1) * 4);
 				}
 				DecryptBlock(k, p1, p2, p3, p4, (uint*)data, (uint*)data);
-				XorBlock((uint*)data, (uint*)data + blockCount - 1);
+				XorBlock((uint*)data, (uint*)data + (blockCount - 1) * 4);
 			}
 		}
 

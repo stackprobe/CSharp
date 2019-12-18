@@ -53,6 +53,11 @@ namespace Charlotte.Camellias
 			return transforms;
 		}
 
+		public void Encrypt(byte[] data, int offset = 0)
+		{
+			this.Encrypt(data, offset, data.Length - offset);
+		}
+
 		public void Encrypt(byte[] data, int offset, int size)
 		{
 			if (
@@ -66,6 +71,11 @@ namespace Charlotte.Camellias
 
 			foreach (CamelliaTransformLE transform in this.Transforms)
 				transform.EncryptRingCBC(data, offset, size / 16);
+		}
+
+		public void Decrypt(byte[] data, int offset = 0)
+		{
+			this.Decrypt(data, offset, data.Length - offset);
 		}
 
 		public void Decrypt(byte[] data, int offset, int size)
