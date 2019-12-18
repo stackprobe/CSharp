@@ -54,18 +54,57 @@ namespace Charlotte.Camellias.openCrypto
 		protected abstract unsafe void EncryptBlock(uint* k, uint* sbox1, uint* sbox2, uint* sbox3, uint* sbox4, uint* plaintext, uint* ciphertext);
 		protected abstract unsafe void DecryptBlock(uint* k, uint* sbox1, uint* sbox2, uint* sbox3, uint* sbox4, uint* ciphertext, uint* plaintext);
 
-		public override unsafe void EncryptECB(byte[] inputBuffer, int inputOffset, byte[] outputBuffer, int outputOffset)
+		internal override unsafe void EncryptECB(byte[] inputBuffer, int inputOffset, byte[] outputBuffer, int outputOffset)
 		{
 			fixed (byte* input = &inputBuffer[inputOffset], output = &outputBuffer[outputOffset])
 			fixed (uint* k = _keyTable, p1 = _sbox1, p2 = _sbox2, p3 = _sbox3, p4 = _sbox4)
 				EncryptBlock(k, p1, p2, p3, p4, (uint*)input, (uint*)output);
 		}
 
-		public override unsafe void DecryptECB(byte[] inputBuffer, int inputOffset, byte[] outputBuffer, int outputOffset)
+		internal override unsafe void DecryptECB(byte[] inputBuffer, int inputOffset, byte[] outputBuffer, int outputOffset)
 		{
 			fixed (byte* input = &inputBuffer[inputOffset], output = &outputBuffer[outputOffset])
 			fixed (uint* k = _keyTable, p1 = _sbox1, p2 = _sbox2, p3 = _sbox3, p4 = _sbox4)
 				DecryptBlock(k, p1, p2, p3, p4, (uint*)input, (uint*)output);
+		}
+
+		internal unsafe void EncryptRingCBC(byte[] buffer, int offset, int blockCount)
+		{
+			fixed (byte* data = &buffer[offset])
+			fixed (uint* k = _keyTable, p1 = _sbox1, p2 = _sbox2, p3 = _sbox3, p4 = _sbox4)
+			{
+				XorBlock((uint*)data, (uint*)data + blockCount - 1);
+				EncryptBlock(k, p1, p2, p3, p4, (uint*)data, (uint*)data);
+
+				for (int index = 1; index < blockCount; index++)
+				{
+					XorBlock((uint*)data + index, (uint*)data + index - 1);
+					EncryptBlock(k, p1, p2, p3, p4, (uint*)data + index, (uint*)data + index);
+				}
+			}
+		}
+
+		internal unsafe void DecryptRingCBC(byte[] buffer, int offset, int blockCount)
+		{
+			fixed (byte* data = &buffer[offset])
+			fixed (uint* k = _keyTable, p1 = _sbox1, p2 = _sbox2, p3 = _sbox3, p4 = _sbox4)
+			{
+				for (int index = blockCount - 1; 1 <= index; index--)
+				{
+					DecryptBlock(k, p1, p2, p3, p4, (uint*)data + index, (uint*)data + index);
+					XorBlock((uint*)data + index, (uint*)data + index - 1);
+				}
+				DecryptBlock(k, p1, p2, p3, p4, (uint*)data, (uint*)data);
+				XorBlock((uint*)data, (uint*)data + blockCount - 1);
+			}
+		}
+
+		private unsafe void XorBlock(uint* target, uint* mask)
+		{
+			target[0] ^= mask[0];
+			target[1] ^= mask[1];
+			target[2] ^= mask[2];
+			target[3] ^= mask[3];
 		}
 	}
 }

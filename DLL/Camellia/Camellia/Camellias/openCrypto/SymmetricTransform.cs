@@ -293,8 +293,8 @@ namespace Charlotte.Camellias.openCrypto
 			return tmp2;
 		}
 
-		public abstract void EncryptECB(byte[] inputBuffer, int inputOffset, byte[] outputBuffer, int outputOffset);
-		public abstract void DecryptECB(byte[] inputBuffer, int inputOffset, byte[] outputBuffer, int outputOffset);
+		internal abstract void EncryptECB(byte[] inputBuffer, int inputOffset, byte[] outputBuffer, int outputOffset);
+		internal abstract void DecryptECB(byte[] inputBuffer, int inputOffset, byte[] outputBuffer, int outputOffset);
 
 		public virtual void Dispose()
 		{
