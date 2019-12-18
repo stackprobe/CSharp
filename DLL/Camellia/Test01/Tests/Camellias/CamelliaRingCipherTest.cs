@@ -8,7 +8,7 @@ using System.IO;
 
 namespace Charlotte.Tests.Camellias
 {
-	public class CamelliaRingCBCTest
+	public class CamelliaRingCipherTest
 	{
 		public void Test01()
 		{
@@ -51,40 +51,38 @@ namespace Charlotte.Tests.Camellias
 
 		private byte[] CreateEncryptableData()
 		{
-			return SecurityTools.CRandom.GetBytes(16 * SecurityTools.CRandom.GetRange(2, 100));
+			return SecurityTools.CRandom.GetBytes(SecurityTools.CRandom.GetRange(0, 100));
 		}
 
 		private void Test01_1(byte[] rawKey, byte[] data)
 		{
-			byte[] wkData = BinTools.GetSubBytes(data);
+			CamelliaRingCipher cipher = new CamelliaRingCipher(rawKey);
 
-			CamelliaRingCBC crcbc = new CamelliaRingCBC(rawKey);
+			byte[] encData = cipher.Encrypt(data);
 
-			crcbc.Encrypt(wkData);
+			if (BinTools.Comp(data, encData) == 0)
+				throw null; // bugged !!!
 
-			if (BinTools.Comp(data, wkData) == 0)
-				throw null; // bugged !!! --- 確率は充分低くても同じになることはあるの？
+			byte[] decData = cipher.Decrypt(encData);
 
-			crcbc.Decrypt(wkData);
-
-			if (BinTools.Comp(data, wkData) != 0)
+			if (BinTools.Comp(data, decData) != 0)
 				throw null; // bugged !!!
 		}
 
 		private void Test01_2(byte[] rawKey, byte[] data)
 		{
-			byte[] data1 = BinTools.GetSubBytes(data);
-			byte[] data2 = EncryptBlock_Factory(rawKey, data);
+			CamelliaRingCipher cipher = new CamelliaRingCipher(rawKey);
 
-			CamelliaRingCBC crcbc = new CamelliaRingCBC(rawKey);
+			byte[] encData = cipher.Encrypt(data);
 
-			crcbc.Encrypt(data1);
+			byte[] decData1 = cipher.Decrypt(encData);
+			byte[] decData2 = Decrypt_Factory(rawKey, encData);
 
-			if (BinTools.Comp(data1, data2) != 0)
+			if (BinTools.Comp(decData1, decData2) != 0)
 				throw null; // bugged !!!
 		}
 
-		private static byte[] EncryptBlock_Factory(byte[] rawKey, byte[] data)
+		private static byte[] Decrypt_Factory(byte[] rawKey, byte[] data)
 		{
 			using (WorkingDir wd = new WorkingDir())
 			{
@@ -97,7 +95,7 @@ namespace Charlotte.Tests.Camellias
 
 				ProcessTools.Start(
 					@"C:\Factory\Labo\Tools\CamelliaRingCBC.exe",
-					string.Format("/K \"{0}\" /R \"{1}\" /EB /W \"{2}\"", rawKeyFile, rDataFile, wDataFile)
+					string.Format("/K \"{0}\" /R \"{1}\" /D /W \"{2}\"", rawKeyFile, rDataFile, wDataFile)
 					)
 					.WaitForExit();
 

@@ -26,7 +26,8 @@ namespace Charlotte
 		private void Main2(ArgsReader ar)
 		{
 			//new CamelliaTest().Test01();
-			new CamelliaRingCBCTest().Test01();
+			//new CamelliaRingCBCTest().Test01();
+			new CamelliaRingCipherTest().Test01();
 		}
 	}
 }
