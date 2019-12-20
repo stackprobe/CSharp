@@ -58,7 +58,7 @@ namespace Charlotte.Camellias
 				src.Length < offset ||
 				src.Length - offset < size ||
 				size < 16 + 64 + 64 + 64 ||
-				//size < 256 + 64 + 64 + 64 || // while (size + padSize < 0xff); してなかった時の暗号文はこれより短い
+				//size < 256 + 64 + 64 + 64 || // while (size + padSize < 0xff); してなかった時の暗号文はこれより短い (最小padding 旧->新: 16->256)
 				size % 16 != 0
 				)
 				throw new ArgumentException();
