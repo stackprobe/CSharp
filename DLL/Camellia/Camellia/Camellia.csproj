@@ -50,6 +50,7 @@
     <Compile Include="Camellias\Camellia.cs" />
     <Compile Include="Camellias\CamelliaRingCBC.cs" />
     <Compile Include="Camellias\CamelliaRingCipher.cs" />
+    <Compile Include="Camellias\CamelliaRingCipherUtils.cs" />
     <Compile Include="Camellias\openCrypto\CamelliaBase.cs" />
     <Compile Include="Camellias\openCrypto\CamelliaManaged.cs" />
     <Compile Include="Camellias\openCrypto\CamelliaTransform.cs" />

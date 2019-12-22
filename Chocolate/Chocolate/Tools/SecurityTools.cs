@@ -135,6 +135,16 @@ namespace Charlotte.Tools
 			}
 		}
 
+		public static byte[] GetSHA512(Action<FileTools.Write_d> execute)
+		{
+			using (SHA512 sha512 = SHA512.Create())
+			{
+				execute((buffer, offset, size) => sha512.TransformBlock(buffer, offset, size, null, 0));
+				sha512.TransformFinalBlock(BinTools.EMPTY, 0, 0);
+				return sha512.Hash;
+			}
+		}
+
 		public static byte[] GetSHA512File(string file)
 		{
 			using (SHA512 sha512 = SHA512.Create())
@@ -160,6 +170,16 @@ namespace Charlotte.Tools
 				{
 					md5.TransformBlock(part, 0, part.Length, null, 0);
 				}
+				md5.TransformFinalBlock(BinTools.EMPTY, 0, 0);
+				return md5.Hash;
+			}
+		}
+
+		public static byte[] GetMD5(Action<FileTools.Write_d> execute)
+		{
+			using (MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider())
+			{
+				execute((buffer, offset, size) => md5.TransformBlock(buffer, offset, size, null, 0));
 				md5.TransformFinalBlock(BinTools.EMPTY, 0, 0);
 				return md5.Hash;
 			}

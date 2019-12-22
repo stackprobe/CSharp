@@ -12,6 +12,10 @@ namespace Charlotte.Camellias
 	{
 		private CamelliaRingCBC _crcbc;
 
+		public CamelliaRingCipher(string passphrase)
+			: this(CamelliaRingCipherUtils.GenerateRawKey(passphrase))
+		{ }
+
 		public CamelliaRingCipher(byte[] rawKey)
 		{
 			_crcbc = new CamelliaRingCBC(rawKey);
