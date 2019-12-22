@@ -51,7 +51,7 @@ namespace Charlotte.Tests.Camellias
 
 		private byte[] CreateEncryptableData()
 		{
-			return SecurityTools.CRandom.GetBytes(SecurityTools.CRandom.GetRange(0, 100));
+			return SecurityTools.CRandom.GetBytes(SecurityTools.CRandom.GetRange(0, 2000));
 		}
 
 		private void Test01_1(byte[] rawKey, byte[] data)

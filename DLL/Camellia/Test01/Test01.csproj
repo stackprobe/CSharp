@@ -52,6 +52,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\Camellias\CamelliaRingCBCTest.cs" />
     <Compile Include="Tests\Camellias\CamelliaRingCipherTest.cs" />
+    <Compile Include="Tests\Camellias\CamelliaRingCipherUtilsTest.cs" />
     <Compile Include="Tests\Camellias\CamelliaTest.cs" />
   </ItemGroup>
   <ItemGroup>

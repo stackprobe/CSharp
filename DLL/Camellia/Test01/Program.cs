@@ -27,7 +27,8 @@ namespace Charlotte
 		{
 			//new CamelliaTest().Test01();
 			//new CamelliaRingCBCTest().Test01();
-			new CamelliaRingCipherTest().Test01();
+			//new CamelliaRingCipherTest().Test01();
+			new CamelliaRingCipherUtilsTest().Test01();
 		}
 	}
 }
