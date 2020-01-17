@@ -30,7 +30,44 @@ namespace Charlotte
 		{
 			using (SerialPortTerminal spt = new SerialPortTerminal(ar))
 			{
-				//spt.ReadLine();
+				if (ar.ArgIs("Client"))
+				{
+					Console.WriteLine("[クライアントモード]空行を入力すると終了します。");
+
+					for (; ; )
+					{
+						string line = Console.ReadLine();
+
+						if (line == "")
+							break;
+
+						spt.WriteLine(line);
+					}
+				}
+				else if (ar.ArgIs("Server"))
+				{
+					Console.WriteLine("[サーバーモード]何かキーを押すと終了します。");
+
+					while (Console.KeyAvailable == false)
+					{
+						try
+						{
+							string line = spt.ReadLine();
+
+							Console.WriteLine(line);
+						}
+						catch (TimeoutException)
+						{ }
+						catch (Exception e)
+						{
+							Console.WriteLine(e);
+						}
+					}
+				}
+				else
+				{
+					throw new Exception("不明なモード");
+				}
 			}
 		}
 	}
