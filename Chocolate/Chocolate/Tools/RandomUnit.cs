@@ -180,5 +180,16 @@ namespace Charlotte.Tools
 		{
 			return arr[GetInt(arr.Length)];
 		}
+
+		public T[] ChooseSome<T>(T[] arr, int count)
+		{
+			List<T> src = new List<T>(arr);
+			T[] dest = new T[count];
+
+			for (int index = 0; index < count; index++)
+				dest[index] = ExtraTools.FastDesertElement(src, GetInt(src.Count));
+
+			return dest;
+		}
 	}
 }
