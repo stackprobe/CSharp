@@ -69,6 +69,11 @@ namespace Charlotte.Tools
 			}
 		}
 
+		public void Recv(byte[] buff, FileTools.Write_d writer)
+		{
+			writer(buff, 0, TryRecv(buff, 0, buff.Length));
+		}
+
 		public int TryRecv(byte[] data, int offset, int size)
 		{
 			Critical.ContextSwitching();
