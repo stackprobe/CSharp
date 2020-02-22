@@ -1130,6 +1130,7 @@
 			this.Text = "へちまの設定";
 			this.TopMost = true;
 			this.Load += new System.EventHandler(this.SettingWin_Load);
+			this.Shown += new System.EventHandler(this.SettingWin_Shown);
 			this.tabControl1.ResumeLayout(false);
 			this.tabPage1.ResumeLayout(false);
 			this.tabPage1.PerformLayout();

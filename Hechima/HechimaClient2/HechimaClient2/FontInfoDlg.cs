@@ -43,6 +43,7 @@ namespace Charlotte
 			this.LoadData();
 			this.CB背景を暗く.Checked = Common.IsBrightColor(this.FontInfo.Color);
 			this.UIRefresh();
+			Utils.PostShown(this);
 		}
 
 		private void LoadData()

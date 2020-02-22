@@ -39,6 +39,8 @@ namespace Charlotte
 			}
 
 			this.T最近のIdents.Text = string.Join("\r\n", Gnd.RecentlyIdents);
+
+			Utils.PostShown(this);
 		}
 
 		private void MemberFontDlg_FormClosing(object sender, FormClosingEventArgs e)

@@ -25,6 +25,11 @@ namespace Charlotte
 			this.UIRefresh();
 		}
 
+		private void SettingWin_Shown(object sender, EventArgs e)
+		{
+			Utils.PostShown(this);
+		}
+
 		private void LoadSetting()
 		{
 			// ---- 設定画面 Items ----
