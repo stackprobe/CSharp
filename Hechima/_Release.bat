@@ -10,4 +10,4 @@ C:\Factory\Tools\xcp.exe doc out
 
 C:\Factory\SubTools\zip.exe /O out HechimaClient
 
-PAUSE
+IF NOT "%1" == "/-P" PAUSE

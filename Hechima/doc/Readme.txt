@@ -5,7 +5,7 @@
 ----
 動作環境
 
-Windows 7
+Windows 7  (推定)
 Windows 10
 
 
