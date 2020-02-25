@@ -63,62 +63,6 @@ namespace Charlotte.Tools
 			return _初回起動.Value;
 		}
 
-		public static void PostShown(Form f)
-		{
-			CallAllControl(f.Controls, control =>
-			{
-				TextBox tb = control as TextBox;
-
-				if (tb != null)
-				{
-					if (tb.ContextMenuStrip == null)
-					{
-						ToolStripMenuItem item = new ToolStripMenuItem();
-
-						item.Text = "項目なし";
-						item.Enabled = false;
-
-						ContextMenuStrip menu = new ContextMenuStrip();
-
-						menu.Items.Add(item);
-
-						tb.ContextMenuStrip = menu;
-					}
-				}
-			});
-		}
-
-		public static void CallAllControl(Control.ControlCollection controls, Action<Control> rtn)
-		{
-			foreach (Control control in controls)
-			{
-				rtn(control);
-
-				GroupBox gb = control as GroupBox;
-
-				if (gb != null)
-				{
-					CallAllControl(gb.Controls, rtn);
-				}
-				TabControl tc = control as TabControl;
-
-				if (tc != null)
-				{
-					foreach (TabPage tp in tc.TabPages)
-					{
-						CallAllControl(tp.Controls, rtn);
-					}
-				}
-				SplitContainer sc = control as SplitContainer;
-
-				if (sc != null)
-				{
-					CallAllControl(sc.Panel1.Controls, rtn);
-					CallAllControl(sc.Panel2.Controls, rtn);
-				}
-			}
-		}
-
 		public static void SetEnabledDoubleBuffer(Control control)
 		{
 			control.GetType().InvokeMember(
