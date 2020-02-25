@@ -33,7 +33,7 @@ namespace Charlotte
 				checkAloneExe();
 				checkLogonUser();
 
-				Gnd.I.Logger.clear();
+				//Gnd.I.Logger.clear();
 
 				Utils.AntiWindowsDefenderSmartScreen();
 
@@ -61,6 +61,8 @@ namespace Charlotte
 
 		public const string APP_IDENT = "{7c371795-b860-4a77-bdae-4b7fe182af8c}"; // shared_uuid ---> other HechimaClients
 		public const string APP_TITLE = "HechimaClient";
+
+		public const string LOG_IDENT = "{ad351893-1a8c-488e-a1e8-819d3a7405d0}";
 
 		private static void applicationThreadException(object sender, ThreadExceptionEventArgs e)
 		{

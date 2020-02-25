@@ -20,7 +20,8 @@ namespace Charlotte.Tools
 		public Logger()
 			: this(
 				//Path.Combine(Program.selfDir, Path.GetFileNameWithoutExtension(Program.selfFile) + ".log")
-				Path.Combine(Environment.GetEnvironmentVariable("TMP"), Program.APP_IDENT + ".log")
+				//Path.Combine(Environment.GetEnvironmentVariable("TMP"), Program.APP_IDENT + ".log")
+				Path.Combine(Environment.GetEnvironmentVariable("TMP"), Program.LOG_IDENT + ".log")
 				)
 		{ }
 

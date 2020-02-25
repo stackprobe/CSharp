@@ -66,6 +66,8 @@ namespace Charlotte
 		public const string APP_IDENT = "{7c371795-b860-4a77-bdae-4b7fe182af8c}"; // shared_uuid ---> other HechimaClients
 		public const string APP_TITLE = "HechimaClient2";
 
+		public const string LOG_IDENT = "{77bbc468-512d-40de-a314-5385b37e7df9}";
+
 		private static void applicationThreadException(object sender, ThreadExceptionEventArgs e)
 		{
 			try
