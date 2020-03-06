@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Charlotte.Tools;
-using Charlotte.Tests.DDDDTMPL;
+using Charlotte.Tests.DDDDTMNS;
 
 namespace Charlotte
 {

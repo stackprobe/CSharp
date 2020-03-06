@@ -125,6 +125,11 @@ namespace Charlotte.Tools
 			Array.Sort(arr1, comp);
 			Array.Sort(arr2, comp);
 
+			Merge_NoSort(arr1, arr2, destOnly1, destBoth1, destBoth2, destOnly2, comp);
+		}
+
+		public static void Merge_NoSort<T>(T[] arr1, T[] arr2, List<T> destOnly1, List<T> destBoth1, List<T> destBoth2, List<T> destOnly2, Comparison<T> comp)
+		{
 			int index1 = 0;
 			int index2 = 0;
 
@@ -181,6 +186,11 @@ namespace Charlotte.Tools
 			Array.Sort(arr1, comp);
 			Array.Sort(arr2, comp);
 
+			return GetMergedPairs_NoSort(arr1, arr2, defval, comp);
+		}
+
+		public static T[][] GetMergedPairs_NoSort<T>(T[] arr1, T[] arr2, T defval, Comparison<T> comp)
+		{
 			int index1 = 0;
 			int index2 = 0;
 

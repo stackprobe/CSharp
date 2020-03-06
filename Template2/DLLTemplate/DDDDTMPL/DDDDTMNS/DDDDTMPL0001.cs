@@ -5,7 +5,7 @@ using System.Text;
 using System.IO;
 using Charlotte.Tools;
 
-namespace Charlotte.DDDDTMPL
+namespace Charlotte.DDDDTMNS
 {
 	public class DDDDTMPL0001 // -- 0001
 	{

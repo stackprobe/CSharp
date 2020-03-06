@@ -50,12 +50,12 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tests\DDDDTMPL\DDDDTMPL0001Test.cs" />
+    <Compile Include="Tests\DDDDTMNS\DDDDTMPL0001Test.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DDDDTMPL\DDDDTMPL.csproj">
+    <ProjectReference Include="..\DDDDTMPL\DDDDTMNS.csproj">
       <Project>{024B68E0-006B-449E-9520-7AEFC1CD80BB}</Project>
-      <Name>DDDDTMPL</Name>
+      <Name>DDDDTMNS</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
