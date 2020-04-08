@@ -53,7 +53,7 @@
     <Compile Include="Tests\DDDDTMNS\DDDDTMPL0001Test.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DDDDTMPL\DDDDTMNS.csproj">
+    <ProjectReference Include="..\DDDDTMPL\DDDDTMPL.csproj">
       <Project>{024B68E0-006B-449E-9520-7AEFC1CD80BB}</Project>
       <Name>DDDDTMNS</Name>
     </ProjectReference>
