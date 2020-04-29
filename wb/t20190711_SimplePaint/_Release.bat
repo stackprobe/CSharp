@@ -6,4 +6,4 @@ COPY SimplePaint\SimplePaint\bin\Release\Chocomint.dll out
 
 C:\Factory\SubTools\zip.exe /O out SimplePaint
 
-PAUSE
+IF NOT "%1" == "/-P" PAUSE
