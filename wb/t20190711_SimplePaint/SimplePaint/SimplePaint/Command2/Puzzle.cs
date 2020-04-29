@@ -60,13 +60,54 @@ namespace Charlotte.Command2
 			}
 			else
 			{
-				BusyDlgTools.Show("Puzzle", "Puzzle 処理中...", () =>
+				//BusyDlgTools.Show("Puzzle", "Puzzle 処理中...", () =>
 				{
 					int lastX = this.LastXY[0];
 					int lastY = this.LastXY[1];
 
 					this.LastXY = null;
 
+#if true
+					{
+						Bitmap tmpImg1 = new Bitmap(this.Piece_W, this.Piece_H);
+						Bitmap tmpImg2 = new Bitmap(this.Piece_W, this.Piece_H);
+
+						using (Graphics g1 = Graphics.FromImage(tmpImg1))
+						{
+							g1.DrawImage(
+								image,
+								new Rectangle(0, 0, this.Piece_W, this.Piece_H),
+								new Rectangle(lastX, lastY, this.Piece_W, this.Piece_H),
+								GraphicsUnit.Pixel
+								);
+						}
+						using (Graphics g2 = Graphics.FromImage(tmpImg2))
+						{
+							g2.DrawImage(
+								image,
+								new Rectangle(0, 0, this.Piece_W, this.Piece_H),
+								new Rectangle(x, y, this.Piece_W, this.Piece_H),
+								GraphicsUnit.Pixel
+								);
+						}
+						using (Graphics g = Graphics.FromImage(image))
+						{
+							g.DrawImage(
+								tmpImg1,
+								new Rectangle(x, y, this.Piece_W, this.Piece_H),
+								new Rectangle(0, 0, this.Piece_W, this.Piece_H),
+								GraphicsUnit.Pixel
+								);
+
+							g.DrawImage(
+								tmpImg2,
+								new Rectangle(lastX, lastY, this.Piece_W, this.Piece_H),
+								new Rectangle(0, 0, this.Piece_W, this.Piece_H),
+								GraphicsUnit.Pixel
+								);
+						}
+					}
+#else
 					Canvas c = new Canvas(image);
 					Canvas piece1 = c.Copy(lastX, lastY, this.Piece_W, this.Piece_H);
 					Canvas piece2 = c.Copy(x, y, this.Piece_W, this.Piece_H);
@@ -75,9 +116,11 @@ namespace Charlotte.Command2
 					c.Paste(piece1, x, y);
 
 					image = c.GetImage();
-				},
-				true
-				);
+#endif
+				}
+				//},
+				//true
+				//);
 			}
 			return image;
 		}

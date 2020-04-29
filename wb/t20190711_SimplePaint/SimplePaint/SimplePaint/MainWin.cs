@@ -234,11 +234,11 @@ namespace Charlotte
 			this.MPic_SetImage(img);
 		}
 
-		private void MPic_SetImage(Image img)
+		private void MPic_SetImage(Image img, bool forceChange = false)
 		{
 			Image oldImg = this.MainPicture.Image;
 
-			if (oldImg == img)
+			if (forceChange == false && oldImg == img)
 				return;
 
 			bool resized = oldImg == null || oldImg.Size != img.Size;
@@ -247,7 +247,7 @@ namespace Charlotte
 			this.MainPicture.Bounds = new Rectangle(0, 0, 10, 10); // MainPictureの位置がおかしくなる問題の対策
 			this.MainPicture.Bounds = new Rectangle(0, 0, img.Width, img.Height);
 
-			if (oldImg != null)
+			if (oldImg != null && oldImg != img)
 				oldImg.Dispose();
 
 			if (resized)
@@ -851,7 +851,7 @@ namespace Charlotte
 
 					Ground.I.NibRoutine = (x, y) =>
 					{
-						this.MPic_SetImage(p.Routine(this.MainPicture.Image, x, y));
+						this.MPic_SetImage(p.Routine(this.MainPicture.Image, x, y), true);
 
 						return false;
 					};
