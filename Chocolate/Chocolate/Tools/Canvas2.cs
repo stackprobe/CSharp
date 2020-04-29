@@ -75,13 +75,11 @@ namespace Charlotte.Tools
 			return new Canvas(this.Image);
 		}
 
-		public bool AntiAliasing = true;
-
-		public Graphics GetGraphics()
+		public Graphics GetGraphics(bool antiAliasing = true)
 		{
 			Graphics g = Graphics.FromImage(this.Image);
 
-			if (this.AntiAliasing)
+			if (antiAliasing)
 			{
 				g.TextRenderingHint = TextRenderingHint.AntiAlias;
 				g.SmoothingMode = SmoothingMode.AntiAlias;
