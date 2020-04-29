@@ -21,8 +21,10 @@ namespace Charlotte
 			{
 				Console.WriteLine(e);
 			}
+#if DEBUG
 			Console.WriteLine("Press ENTER");
 			Console.ReadLine();
+#endif
 		}
 
 		private void Main2()
