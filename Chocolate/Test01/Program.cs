@@ -115,10 +115,12 @@ namespace Charlotte
 			//new EnumeratorCartridgeTest().Test01();
 			//new CanvasTest().Test01();
 			//new Canvas2Test().Test01();
+			new Canvas2Test().Test02();
+			//new Canvas2Test().Test03();
 			//new D2PointTest().Test01();
 			//new RandomUnitTest().Test01();
 			//new RandomUnitTest().Test02();
-			new ExtraToolsTest().Test01();
+			//new ExtraToolsTest().Test01();
 		}
 	}
 }

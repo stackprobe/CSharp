@@ -10,9 +10,9 @@ namespace Charlotte.Tools
 {
 	public static class CanvasTools
 	{
-		public static bool IsFairImageSize(int w, int h)
+		public static bool IsFairImageSize(int w, int h, int maxDotNum)
 		{
-			return 1 <= w && w <= 10000 && 1 <= h && h <= 10000 && w * h <= 9000000; // max 10000 x 900, 3000 x 3000, 900 x 10000, etc.
+			return 1 <= w && w <= maxDotNum && 1 <= h && h <= maxDotNum && w <= maxDotNum / h;
 		}
 
 		public static Image CopyImage(Image src)
@@ -21,7 +21,8 @@ namespace Charlotte.Tools
 
 			using (Graphics g = Graphics.FromImage(dest))
 			{
-				g.DrawImage(src, 0, 0);
+				//g.DrawImage(src, 0, 0); // 画像サイズと異なる幅・高さで描画されることがある。-> 幅・高さは指定するべき。@ 2020.4.20
+				g.DrawImage(src, 0, 0, src.Width, src.Height);
 			}
 			return dest;
 		}

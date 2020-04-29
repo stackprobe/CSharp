@@ -15,8 +15,8 @@ namespace Charlotte.Tools
 
 		public Canvas(int w, int h)
 		{
-			if (CanvasTools.IsFairImageSize(w, h) == false)
-				throw new ArgumentException();
+			if (CanvasTools.IsFairImageSize(w, h, 9000000) == false)
+				throw new ArgumentException("Bad w, h: " + w + ", " + h);
 
 			this.Dots = new uint[w * h];
 			this.Width = w;
