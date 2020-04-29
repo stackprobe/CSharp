@@ -33,7 +33,12 @@ namespace Charlotte
 
 		private void Test01()
 		{
-			new Test0001(@"C:\wb2\20200413\krt202005.jpg", 17, 24).Perform();
+			Test01_a(@"C:\wb2\20200413\krt202005.jpg", 17, 24);
+		}
+
+		private void Test01_a(string imgFile, int xNum, int yNum)
+		{
+			new SolvePuzzle(new PuzzleData(imgFile, xNum, yNum)).Perform();
 		}
 	}
 }
