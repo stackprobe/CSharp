@@ -55,6 +55,8 @@
     <Compile Include="Puzzle.cs" />
     <Compile Include="PzPiace.cs" />
     <Compile Include="PzPiaceSide.cs" />
+    <Compile Include="PzPiaceSidePair.cs" />
+    <Compile Include="PzPiaceSidePairCache.cs" />
     <Compile Include="SolvePuzzle.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -36,6 +36,18 @@ namespace Charlotte
 			YNum = yNum;
 			Piace_W = Canvas.GetWidth() / XNum;
 			Piace_H = Canvas.GetHeight() / YNum;
+
+			MakePiaces();
+
+#if false
+			// test
+			{
+				for (int index = 0; index < Piaces.Count; index++)
+				{
+					Piaces[index].Canvas.Save(string.Format(@"C:\temp\Piace_{0:D3}.png", index));
+				}
+			}
+#endif
 		}
 
 		public static List<PzPiace> Piaces = new List<PzPiace>();

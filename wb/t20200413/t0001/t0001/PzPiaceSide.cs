@@ -41,12 +41,26 @@ namespace Charlotte
 			int pLen = p.Length;
 			double[] dest = new double[pLen];
 
-			dest[0] = (p[0] + p[1]) / 2.0;
+			dest[0] = (
+				p[0] * 2.0 +
+				p[1] * 1.0
+				)
+				/ 3.0;
 
 			for (int index = 1; index + 1 < pLen; index++)
-				dest[index] = (p[index - 1] + p[index] + p[index + 1]) / 3.0;
+				dest[index] = (
+					p[index - 1] * 1.0 +
+					p[index + 0] * 2.0 +
+					p[index + 1] * 1.0
+					)
+					/ 4.0;
 
-			dest[pLen - 1] = (p[pLen - 2] + p[pLen - 1]) / 2.0;
+			dest[pLen - 1] = (
+				p[pLen - 2] * 1.0 +
+				p[pLen - 1] * 2.0
+				)
+				/ 3.0;
+
 			p = dest;
 		}
 	}
