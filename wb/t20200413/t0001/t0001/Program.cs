@@ -38,7 +38,9 @@ namespace Charlotte
 
 		private void Test01_a(string imgFile, int xNum, int yNum)
 		{
-			new SolvePuzzle(new PuzzleData(imgFile, xNum, yNum)).Perform();
+			Puzzle.Load(imgFile, xNum, yNum);
+
+			// TODO
 		}
 	}
 }
