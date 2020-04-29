@@ -7,12 +7,12 @@ using Charlotte.Tools;
 
 namespace Charlotte
 {
-	public class PuzzlePiace
+	public class PzPiace
 	{
 		public Canvas Canvas;
-		public PuzzlePiaceSide Side_2;
-		public PuzzlePiaceSide Side_4;
-		public PuzzlePiaceSide Side_6;
-		public PuzzlePiaceSide Side_8;
+		public PzPiaceSide Side_2;
+		public PzPiaceSide Side_4;
+		public PzPiaceSide Side_6;
+		public PzPiaceSide Side_8;
 	}
 }

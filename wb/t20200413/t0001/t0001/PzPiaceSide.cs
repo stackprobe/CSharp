@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace Charlotte
 {
-	public class PuzzlePiaceSide
+	public class PzPiaceSide
 	{
 		public static int IdentCount = 0;
 
@@ -15,11 +15,11 @@ namespace Charlotte
 		public double[] G;
 		public double[] B;
 
-		public PuzzlePiaceSide(IEnumerable<Color> eColor)
+		public PzPiaceSide(IEnumerable<Color> colorEnum)
 		{
 			this.Ident = IdentCount++;
 
-			Color[] colors = eColor.ToArray();
+			Color[] colors = colorEnum.ToArray();
 
 			this.R = new double[colors.Length];
 			this.G = new double[colors.Length];

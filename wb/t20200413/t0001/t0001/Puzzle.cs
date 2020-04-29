@@ -38,7 +38,7 @@ namespace Charlotte
 			Piace_H = Canvas.GetHeight() / YNum;
 		}
 
-		public static List<PuzzlePiace> Piaces = new List<PuzzlePiace>();
+		public static List<PzPiace> Piaces = new List<PzPiace>();
 
 		private static void MakePiaces()
 		{
@@ -46,21 +46,21 @@ namespace Charlotte
 			{
 				for (int y = 0; y < Puzzle.YNum; y++)
 				{
-					Piaces.Add(new PuzzlePiace()
+					Piaces.Add(new PzPiace()
 					{
 						Canvas = Canvas.Copy(x * Piace_W, y * Piace_H, Piace_W, Piace_H),
 					});
 				}
 			}
 
-			PuzzlePiaceSide.IdentCount = 0;
+			PzPiaceSide.IdentCount = 0;
 
-			foreach (PuzzlePiace piace in Piaces)
+			foreach (PzPiace piace in Piaces)
 			{
-				piace.Side_2 = new PuzzlePiaceSide(Enumerable.Range(0, Piace_W).Select(v => piace.Canvas.Get(v, Piace_H - 1)));
-				piace.Side_4 = new PuzzlePiaceSide(Enumerable.Range(0, Piace_H).Select(v => piace.Canvas.Get(0, v)));
-				piace.Side_6 = new PuzzlePiaceSide(Enumerable.Range(0, Piace_H).Select(v => piace.Canvas.Get(Piace_W - 1, v)));
-				piace.Side_8 = new PuzzlePiaceSide(Enumerable.Range(0, Piace_W).Select(v => piace.Canvas.Get(v, 0)));
+				piace.Side_2 = new PzPiaceSide(Enumerable.Range(0, Piace_W).Select(v => piace.Canvas.Get(v, Piace_H - 1)));
+				piace.Side_4 = new PzPiaceSide(Enumerable.Range(0, Piace_H).Select(v => piace.Canvas.Get(0, v)));
+				piace.Side_6 = new PzPiaceSide(Enumerable.Range(0, Piace_H).Select(v => piace.Canvas.Get(Piace_W - 1, v)));
+				piace.Side_8 = new PzPiaceSide(Enumerable.Range(0, Piace_W).Select(v => piace.Canvas.Get(v, 0)));
 			}
 		}
 	}
