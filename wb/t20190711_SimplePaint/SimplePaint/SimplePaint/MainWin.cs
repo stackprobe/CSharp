@@ -222,8 +222,8 @@ namespace Charlotte
 
 		private void MPic_SetSize(int w, int h)
 		{
-			w = IntTools.Range(w, Consts.MPIC_W_MIN, Consts.MPIC_W_MAX);
-			h = IntTools.Range(h, Consts.MPIC_H_MIN, Consts.MPIC_H_MAX);
+			w = IntTools.ToRange(w, Consts.MPIC_W_MIN, Consts.MPIC_W_MAX);
+			h = IntTools.ToRange(h, Consts.MPIC_H_MIN, Consts.MPIC_H_MAX);
 
 			Image img = new Bitmap(w, h);
 
@@ -414,10 +414,10 @@ namespace Charlotte
 		{
 			using (Image img = Image.FromFile(file))
 			{
-				if (img.Width != IntTools.Range(img.Width, Consts.MPIC_W_MIN, Consts.MPIC_W_MAX))
+				if (img.Width != IntTools.ToRange(img.Width, Consts.MPIC_W_MIN, Consts.MPIC_W_MAX))
 					throw new Exception("画像の幅に問題があります。");
 
-				if (img.Height != IntTools.Range(img.Height, Consts.MPIC_H_MIN, Consts.MPIC_H_MAX))
+				if (img.Height != IntTools.ToRange(img.Height, Consts.MPIC_H_MIN, Consts.MPIC_H_MAX))
 					throw new Exception("画像の高さに問題があります。");
 
 				Image img2 = new Bitmap(img.Width, img.Height);

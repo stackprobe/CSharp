@@ -20,7 +20,7 @@ namespace Charlotte.Tools
 			return 0;
 		}
 
-		public static int Range(int value, int minval, int maxval)
+		public static int ToRange(int value, int minval, int maxval)
 		{
 			return Math.Max(minval, Math.Min(maxval, value));
 		}

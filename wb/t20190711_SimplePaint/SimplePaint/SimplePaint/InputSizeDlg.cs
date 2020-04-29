@@ -45,10 +45,10 @@ namespace Charlotte
 				int w = int.Parse(this.TxtWidth.Text);
 				int h = int.Parse(this.TxtHeight.Text);
 
-				if (w != IntTools.Range(w, Consts.MPIC_W_MIN, Consts.MPIC_W_MAX))
+				if (w != IntTools.ToRange(w, Consts.MPIC_W_MIN, Consts.MPIC_W_MAX))
 					throw new Exception("幅 は " + Consts.MPIC_W_MIN + " 以上 " + Consts.MPIC_W_MAX + " 以下 でなければなりません。");
 
-				if (h != IntTools.Range(h, Consts.MPIC_H_MIN, Consts.MPIC_H_MAX))
+				if (h != IntTools.ToRange(h, Consts.MPIC_H_MIN, Consts.MPIC_H_MAX))
 					throw new Exception("高さ は " + Consts.MPIC_H_MIN + " 以上 " + Consts.MPIC_H_MAX + " 以下 でなければなりません。");
 
 				this.RefSize = new Size(w, h);

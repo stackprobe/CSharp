@@ -111,7 +111,7 @@ namespace Charlotte.Chocomint.Dialogs
 				{
 					double progressRate = this.Interlude();
 
-					progressRate = DoubleTools.Range(progressRate, 0.0, 1.0);
+					progressRate = DoubleTools.ToRange(progressRate, 0.0, 1.0);
 					progressRate *= 0.9;
 					progressRate += 0.05;
 
@@ -139,7 +139,7 @@ namespace Charlotte.Chocomint.Dialogs
 
 		private void SetProgressRate(double progressRate)
 		{
-			progressRate = DoubleTools.Range(progressRate, 0.0, 1.0);
+			progressRate = DoubleTools.ToRange(progressRate, 0.0, 1.0);
 
 			int value = DoubleTools.ToInt(progressRate * 1000.0);
 

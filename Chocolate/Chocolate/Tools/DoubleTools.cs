@@ -24,7 +24,7 @@ namespace Charlotte.Tools
 				throw new Exception("NaN");
 		}
 
-		public static double Range(double value, double minval, double maxval)
+		public static double ToRange(double value, double minval, double maxval)
 		{
 			CheckNaN(value);
 
@@ -35,7 +35,7 @@ namespace Charlotte.Tools
 		{
 			try
 			{
-				return Range(double.Parse(str), minval, maxval);
+				return ToRange(double.Parse(str), minval, maxval);
 			}
 			catch
 			{
