@@ -16,7 +16,11 @@ namespace Charlotte.Tests.Tools
 
 			using (WorkingDir wd = new WorkingDir())
 			{
-				MessageBox.Show("1");
+				MessageBox.Show("1.0");
+				wd.GetPath("ABC");
+				MessageBox.Show("1.1");
+				wd.GetPath("DEF");
+				MessageBox.Show("1.2");
 			}
 			MessageBox.Show("2");
 		}

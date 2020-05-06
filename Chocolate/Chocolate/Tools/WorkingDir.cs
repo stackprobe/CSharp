@@ -9,7 +9,7 @@ namespace Charlotte.Tools
 {
 	public class WorkingDir : IDisposable
 	{
-		public static RootInfo Root;
+		public static RootInfo Root = null;
 
 		public class RootInfo
 		{
@@ -58,15 +58,27 @@ namespace Charlotte.Tools
 
 		private static long CtorCounter = 0L;
 
-		private string Dir;
+		private string Dir = null;
 
-		public WorkingDir()
+		private string GetDir()
 		{
-			//this.Dir = Path.Combine(Root.GetDir(), Guid.NewGuid().ToString("B"));
-			//this.Dir = Path.Combine(Root.GetDir(), SecurityTools.MakePassword_9A());
-			this.Dir = Path.Combine(Root.GetDir(), "$" + CtorCounter++);
+			if (this.Dir == null)
+			{
+				if (Root == null)
+					throw new Exception("Root is null");
 
-			FileTools.CreateDir(this.Dir);
+				//this.Dir = Path.Combine(Root.GetDir(), Guid.NewGuid().ToString("B"));
+				//this.Dir = Path.Combine(Root.GetDir(), SecurityTools.MakePassword_9A());
+				this.Dir = Path.Combine(Root.GetDir(), "$" + CtorCounter++);
+
+				FileTools.CreateDir(this.Dir);
+			}
+			return this.Dir;
+		}
+
+		public string GetPath(string localName)
+		{
+			return Path.Combine(this.GetDir(), localName);
 		}
 
 		private long PathCounter = 0L;
@@ -76,11 +88,6 @@ namespace Charlotte.Tools
 			//return this.GetPath(Guid.NewGuid().ToString("B"));
 			//return this.GetPath(SecurityTools.MakePassword_9A());
 			return this.GetPath("$" + this.PathCounter++);
-		}
-
-		public string GetPath(string localName)
-		{
-			return Path.Combine(this.Dir, localName);
 		}
 
 		public void Dispose()

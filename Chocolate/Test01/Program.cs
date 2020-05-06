@@ -40,7 +40,7 @@ namespace Charlotte
 		private void Main2()
 		{
 			//new FilingCase3Test().Test01();
-			//new WorkingDirTest().Test01();
+			new WorkingDirTest().Test01();
 			//new DateTimeToSecTest().Test01();
 			//new Test01().Main01();
 			//new Test01().Main02();
@@ -115,7 +115,7 @@ namespace Charlotte
 			//new EnumeratorCartridgeTest().Test01();
 			//new CanvasTest().Test01();
 			//new Canvas2Test().Test01();
-			new Canvas2Test().Test02();
+			//new Canvas2Test().Test02();
 			//new Canvas2Test().Test03();
 			//new D2PointTest().Test01();
 			//new RandomUnitTest().Test01();
