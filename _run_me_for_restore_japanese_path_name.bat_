@@ -6,6 +6,7 @@ REN SSRunBatch\memo\[Japanese-path-name]_0001.dat [20]_生存確認_要求データ.dat
 REN SSRunBatch\memo\[Japanese-path-name]_0003.txt [10]_生存確認_要求・応答データ.txt
 REN SSRunBatch\memo\[Japanese-path-name]_0002.txt [01]_応答データ.txt
 REN SSRunBatch\memo\[Japanese-path-name]_0001.txt [00]_要求データ.txt
+REN Module2\[Japanese-path-name]_0001 _その他
 REN Labo\Test02\[Japanese-path-name]_0001 "#### Chocolate 有り"
 REN Labo\Test01\[Japanese-path-name]_0001 "#### Chocolate 無し"
 REN Hechima\[Japanese-path-name]_0001.txt 外部依存.txt
