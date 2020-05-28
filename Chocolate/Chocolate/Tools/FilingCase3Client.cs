@@ -20,12 +20,12 @@ namespace Charlotte.Tools
 
 		private void Connect(string domain, int portNo)
 		{
-			for (int c = 0; ; c++)
+			for (int c = 1; ; c++)
 			{
 				if (this.TryConnect(domain, portNo))
 					break;
 
-				if (2 <= c)
+				if (3 <= c)
 					throw new Exception("接続エラー");
 
 				Thread.Sleep(5000);

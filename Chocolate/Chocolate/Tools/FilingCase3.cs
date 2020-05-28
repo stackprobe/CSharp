@@ -26,30 +26,16 @@ namespace Charlotte.Tools
 
 			this.Th = new Thread(() =>
 			{
-				while (this.EvStop.WaitForMillis(5000) == false)
+				while (this.EvStop.WaitForMillis(3000) == false)
 				{
 					lock (SYNCROOT)
 					{
 						if (this.Client != null)
 						{
-							if (180 / 5 < ++this.ClientAliveCount) // 3 min
+							if (6 / 3 < ++this.ClientAliveCount) // 6 sec
 							{
 								this.Client.Dispose();
 								this.Client = null;
-							}
-							else
-							{
-								try
-								{
-									this.Client.Hello();
-								}
-								catch (Exception e)
-								{
-									ProcMain.WriteLog(e);
-
-									this.Client.Dispose();
-									this.Client = null;
-								}
 							}
 						}
 					}
