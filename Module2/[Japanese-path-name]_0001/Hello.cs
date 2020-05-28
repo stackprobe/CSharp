@@ -23,7 +23,12 @@ class Hello
 
 	private int[] ReadConsInts()
 	{
-		return ReadConsTokens().Select(v => int.Parse(v)).ToArray();
+		return ReadConsVals(v => int.Parse(v));
+	}
+
+	private T[] ReadConsVals<T>(Func<string, T> conv)
+	{
+		return ReadConsTokens().Select(conv).ToArray();
 	}
 
 	private string[] ReadConsTokens()
