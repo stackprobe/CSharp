@@ -1,6 +1,6 @@
 C:\Factory\Tools\RDMD.exe /RC out
 
-COPY AntiScreenSaver\AntiScreenSaver\bin\Release\AntiScreenSaver.exe out
+COPY NoScreenSaver\NoScreenSaver\bin\Release\NoScreenSaver.exe out\NoScreenSaverMusMv.exe
 
 COPY /B Tools\CTools.exe out
 C:\Factory\SubTools\EmbedConfig.exe --factory-dir-disabled out\CTools.exe

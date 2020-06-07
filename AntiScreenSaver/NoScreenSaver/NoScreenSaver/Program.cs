@@ -18,6 +18,8 @@ namespace Charlotte
 		[STAThread]
 		static void Main()
 		{
+			BootTools.OnBoot();
+
 			Application.ThreadException += new ThreadExceptionEventHandler(ApplicationThreadException);
 			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomainUnhandledException);
 			SystemEvents.SessionEnding += new SessionEndingEventHandler(SessionEnding);
@@ -28,6 +30,8 @@ namespace Charlotte
 
 			if (HandleProcMutex(procMutex))
 			{
+				Tools.AntiWindowsDefenderSmartScreen();
+
 				StopRunEv.WaitOne(0); // reset
 
 				//if (GlobalProcMtx.Create(APP_IDENT, APP_TITLE))

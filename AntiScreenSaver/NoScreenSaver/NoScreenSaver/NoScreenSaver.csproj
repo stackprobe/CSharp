@@ -51,6 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BootTools.cs" />
+    <Compile Include="Tools.cs" />
     <Compile Include="Win32.cs" />
     <Compile Include="CTools.cs" />
     <Compile Include="Ground.cs" />
