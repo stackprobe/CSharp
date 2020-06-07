@@ -39,7 +39,7 @@ namespace Charlotte
 
 		private void Main2()
 		{
-			new FilingCase3Test().Test01();
+			//new FilingCase3Test().Test01();
 			//new WorkingDirTest().Test01();
 			//new DateTimeToSecTest().Test01();
 			//new Test01().Main01();
@@ -91,7 +91,7 @@ namespace Charlotte
 			//new MultiThreadTaskInvokerTest().Test01();
 			//new MultiThreadTaskInvokerTest().Test02();
 			//new MultiThreadTaskInvokerTest().Test03();
-			//new HugeQueueTest().Test01();
+			new HugeQueueTest().Test01();
 			//new HugeQueueTest().Test02();
 			//new EnumerableTrainTest().Test01();
 			//new EnumerableTrainTest().Test02();

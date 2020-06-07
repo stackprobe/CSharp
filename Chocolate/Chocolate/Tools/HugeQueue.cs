@@ -8,7 +8,7 @@ namespace Charlotte.Tools
 {
 	public class HugeQueue : IDisposable
 	{
-		public long FileSizeLimit = 100000000L; // 100 MB, 0L <= であること。*1
+		public long FileSizeLimit = 100000000L; // 100 MB
 
 		private WorkingDir WD;
 		private string RFile;
@@ -45,10 +45,8 @@ namespace Charlotte.Tools
 
 		public void Enqueue(byte[] value)
 		{
-			if (this.FileSizeLimit < this.Writer.Position) // 少しでも MidFiles に追加しないようにするため、判定は先にしたい。
+			if (this.Writer.Position != 0L && this.FileSizeLimit < this.Writer.Position)
 			{
-				// *1 ... FileSizeLimit < 0L のとき、ここで空のファイルを MidFiles に追加してしまう。
-
 				this.Writer.Dispose();
 
 				this.MidFiles.Enqueue(this.WFile);
