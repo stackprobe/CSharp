@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual C# Express 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntiScreenSaver", "AntiScreenSaver\AntiScreenSaver.csproj", "{4A5208B3-AB3B-44F0-A4BA-856AB0E3AEA8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoScreenSaver", "NoScreenSaver\NoScreenSaver.csproj", "{4A5208B3-AB3B-44F0-A4BA-856AB0E3AEA8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

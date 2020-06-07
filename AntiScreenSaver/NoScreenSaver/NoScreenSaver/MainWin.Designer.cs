@@ -40,7 +40,7 @@
 			// TaskTrayIcon
 			// 
 			this.TaskTrayIcon.ContextMenuStrip = this.TTIMenu;
-			this.TaskTrayIcon.Text = "AntiScreenSaver";
+			this.TaskTrayIcon.Text = "NoScreenSaver";
 			// 
 			// TTIMenu
 			// 
@@ -74,7 +74,7 @@
 			this.Name = "MainWin";
 			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-			this.Text = "AntiScreenSaver_HiddenMainWin";
+			this.Text = "NoScreenSaver_HiddenMainWin";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWin_FormClosing);
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainWin_FormClosed);
 			this.Load += new System.EventHandler(this.MainWin_Load);

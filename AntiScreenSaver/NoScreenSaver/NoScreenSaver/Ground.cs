@@ -23,10 +23,10 @@ namespace Charlotte
 
 		private static string GetConfFile()
 		{
-			string file = "AntiScreenSaver.conf";
+			string file = "NoScreenSaver.conf";
 
 			if (File.Exists(file) == false)
-				file = @"..\..\..\..\res\AntiScreenSaver_Test.conf";
+				file = @"..\..\..\..\res\NoScreenSaver_Test.conf";
 
 			return file;
 		}

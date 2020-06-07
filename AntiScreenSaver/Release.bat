@@ -7,6 +7,6 @@ C:\Factory\SubTools\EmbedConfig.exe --factory-dir-disabled out\CTools.exe
 
 C:\Factory\Tools\xcp.exe doc out
 
-C:\Factory\SubTools\zip.exe /O out AntiScreenSaver
+C:\Factory\SubTools\zip.exe /O out NoScreenSaverMusMv
 
-PAUSE
+IF NOT "%1" == "/-P" PAUSE
