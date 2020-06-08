@@ -5,6 +5,8 @@ using System.Text;
 
 namespace Charlotte.Tools
 {
+	// see also: Returning
+
 	public class Cancelled : Exception
 	{ }
 }
