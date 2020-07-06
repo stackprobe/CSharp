@@ -5,8 +5,7 @@
 ----
 動作環境
 
-Windows 7  (推定)
-Windows 10
+Windows 10 Pro または Windows 10 Home
 
 
 --------
