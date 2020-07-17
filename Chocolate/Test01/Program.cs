@@ -91,7 +91,7 @@ namespace Charlotte
 			//new MultiThreadTaskInvokerTest().Test01();
 			//new MultiThreadTaskInvokerTest().Test02();
 			//new MultiThreadTaskInvokerTest().Test03();
-			new HugeQueueTest().Test01();
+			//new HugeQueueTest().Test01();
 			//new HugeQueueTest().Test02();
 			//new EnumerableTrainTest().Test01();
 			//new EnumerableTrainTest().Test02();
@@ -121,6 +121,8 @@ namespace Charlotte
 			//new RandomUnitTest().Test01();
 			//new RandomUnitTest().Test02();
 			//new ExtraToolsTest().Test01();
+			//new I3ColorTest().Test01();
+			new I4ColorTest().Test01();
 		}
 	}
 }

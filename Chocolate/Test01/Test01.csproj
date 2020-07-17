@@ -62,6 +62,8 @@
     <Compile Include="Tests\Tools\ExtraToolsTest.cs" />
     <Compile Include="Tests\Tools\FilingCase3Test.cs" />
     <Compile Include="Tests\Tools\HugeQueueTest.cs" />
+    <Compile Include="Tests\Tools\I3ColorTest.cs" />
+    <Compile Include="Tests\Tools\I4ColorTest.cs" />
     <Compile Include="Tests\Tools\JStringTest.cs" />
     <Compile Include="Tests\Tools\MultiThreadTaskInvokerTest.cs" />
     <Compile Include="Program.cs" />
