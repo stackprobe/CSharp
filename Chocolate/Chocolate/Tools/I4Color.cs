@@ -9,6 +9,7 @@ namespace Charlotte.Tools
 	/// <summary>
 	/// アルファ値を含む色を表す。
 	/// 各色は 0 ～ 255 を想定する。
+	/// R を -1 にすることによって無効な色を示す。
 	/// </summary>
 	public struct I4Color
 	{
@@ -33,6 +34,21 @@ namespace Charlotte.Tools
 		public I3Color WithoutAlpha()
 		{
 			return new I3Color(this.R, this.G, this.B);
+		}
+
+		public D4Color ToD4Color()
+		{
+			return new D4Color(
+				this.R / 255.0,
+				this.G / 255.0,
+				this.B / 255.0,
+				this.A / 255.0
+				);
+		}
+
+		public Color ToColor()
+		{
+			return Color.FromArgb(this.A, this.R, this.G, this.B); // 並びに注意 ARGB
 		}
 	}
 }

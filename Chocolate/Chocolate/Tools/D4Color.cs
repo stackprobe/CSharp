@@ -24,6 +24,11 @@ namespace Charlotte.Tools
 			this.A = a;
 		}
 
+		public D3Color WithoutAlpha()
+		{
+			return new D3Color(this.R, this.G, this.B);
+		}
+
 		public I4Color ToI4Color()
 		{
 			return new I4Color(
@@ -32,11 +37,6 @@ namespace Charlotte.Tools
 				DoubleTools.ToInt(this.B * 255.0),
 				DoubleTools.ToInt(this.A * 255.0)
 				);
-		}
-
-		public D3Color WithoutAlpha()
-		{
-			return new D3Color(this.R, this.G, this.B);
 		}
 	}
 }
