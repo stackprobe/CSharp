@@ -6,21 +6,14 @@ using System.Drawing;
 
 namespace Charlotte.Tools
 {
+	/// <summary>
+	/// アルファ値の無い色を表す。
+	/// 各色は 0 ～ 255 を想定する。
+	/// </summary>
 	public struct I3Color
 	{
-		/// <summary>
-		/// 赤 0 ～ 255
-		/// </summary>
 		public int R;
-
-		/// <summary>
-		/// 緑 0 ～ 255
-		/// </summary>
 		public int G;
-
-		/// <summary>
-		/// 青 0 ～ 255
-		/// </summary>
 		public int B;
 
 		public I3Color(int r, int g, int b)
@@ -35,14 +28,9 @@ namespace Charlotte.Tools
 			return string.Format("{0:x2}{1:x2}{2:x2}", this.R, this.G, this.B);
 		}
 
-		public Color ToColor()
+		public I4Color WithAlpha(int a = 255)
 		{
-			return Color.FromArgb(this.R, this.G, this.B);
-		}
-
-		public static I3Color FromColor(Color color)
-		{
-			return new I3Color(color.R, color.G, color.B);
+			return new I4Color(this.R, this.G, this.B, a);
 		}
 	}
 }

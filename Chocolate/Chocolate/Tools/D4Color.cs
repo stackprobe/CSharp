@@ -5,6 +5,10 @@ using System.Text;
 
 namespace Charlotte.Tools
 {
+	/// <summary>
+	/// アルファ値を含む色または色の比率を表す。
+	/// 各色は 0.0 ～ 1.0 を想定する。
+	/// </summary>
 	public struct D4Color
 	{
 		public double R;
@@ -18,6 +22,21 @@ namespace Charlotte.Tools
 			this.G = g;
 			this.B = b;
 			this.A = a;
+		}
+
+		public I4Color ToI4Color()
+		{
+			return new I4Color(
+				DoubleTools.ToInt(this.R * 255.0),
+				DoubleTools.ToInt(this.G * 255.0),
+				DoubleTools.ToInt(this.B * 255.0),
+				DoubleTools.ToInt(this.A * 255.0)
+				);
+		}
+
+		public D3Color WithoutAlpha()
+		{
+			return new D3Color(this.R, this.G, this.B);
 		}
 	}
 }
