@@ -25,7 +25,7 @@ namespace Test02
 			//new InputFolderDlgTest().Test01();
 			//new InputFileDlgTest().Test01();
 			//new InputFileDlgTest().Test02_Load();
-			new InputFileDlgTest().Test02_Save();
+			//new InputFileDlgTest().Test02_Save();
 			//new InputDecimalDlgTest().Test01();
 			//new InputComboDlgTest().Test01();
 			//new InputComboDlgTest().Test02();
@@ -38,7 +38,7 @@ namespace Test02
 			//new BusyDlgTest().Test03();
 			//new BusyDlgTest().Test04();
 			//new WaitDlgTest().Test01();
-			//new WaitDlgTest().Test02();
+			new WaitDlgTest().Test02();
 			//new WaitDlgTest().Test03();
 			//new WaitDlgTest().Test04();
 		}

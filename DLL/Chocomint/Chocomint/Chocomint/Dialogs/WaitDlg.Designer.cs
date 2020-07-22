@@ -90,7 +90,7 @@
 			this.Text = "処理中";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WaitDlg_FormClosing);
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.WaitDlg_FormClosed);
-			this.Load += new System.EventHandler(this.CancellableBusyDlg_Load);
+			this.Load += new System.EventHandler(this.WaitDlg_Load);
 			this.Shown += new System.EventHandler(this.WaitDlg_Shown);
 			this.ResumeLayout(false);
 			this.PerformLayout();

@@ -88,6 +88,7 @@
     <Compile Include="Tools\I3Color.cs" />
     <Compile Include="Tools\I4Color.cs" />
     <Compile Include="Tools\I4Rect.cs" />
+    <Compile Include="Tools\FileCommunicator.cs" />
     <Compile Include="Tools\JsonTools.cs" />
     <Compile Include="Tools\JString.cs" />
     <Compile Include="Tools\LimitedReader.cs" />

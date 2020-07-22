@@ -41,19 +41,26 @@ namespace Charlotte.Chocomint.Dialogs
 
 		// <---- ret
 
+		public static bool Cancellable = true;
 		public static SyncValue<string> MessagePost = new SyncValue<string>();
+
+		private bool Program_Cancellable = true;
 
 		public WaitDlg()
 		{
-			LastCancelled = false; // reset
-			MessagePost.Post(null); // reset
+			// reset
+			{
+				LastCancelled = false;
+				Cancellable = true;
+				MessagePost.Post(null);
+			}
 
 			InitializeComponent();
 
 			this.MinimumSize = this.Size;
 		}
 
-		private void CancellableBusyDlg_Load(object sender, EventArgs e)
+		private void WaitDlg_Load(object sender, EventArgs e)
 		{
 			// noop
 		}
@@ -105,6 +112,7 @@ namespace Charlotte.Chocomint.Dialogs
 					this.EndedCount = 1;
 					this.SetProgressRate(1.0);
 					this.BtnCancel.Enabled = false;
+					this.Program_Cancellable = false;
 					return;
 				}
 
@@ -134,6 +142,14 @@ namespace Charlotte.Chocomint.Dialogs
 			{
 				this.EndedCount = -1;
 				this.Close();
+				return;
+			}
+
+			{
+				bool flag = Cancellable && this.Program_Cancellable;
+
+				if (this.BtnCancel.Enabled != flag)
+					this.BtnCancel.Enabled = flag;
 			}
 		}
 
@@ -153,6 +169,7 @@ namespace Charlotte.Chocomint.Dialogs
 			this.Message.Text = this.Message_Cancelled;
 			this.ProgressBar.Style = ProgressBarStyle.Marquee;
 			this.BtnCancel.Enabled = false;
+			this.Program_Cancellable = false;
 
 			LastCancelled = true;
 

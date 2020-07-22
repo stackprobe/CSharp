@@ -29,19 +29,8 @@
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWin));
-			this.BtnInputStringDlg = new System.Windows.Forms.Button();
 			this.BtnGo = new System.Windows.Forms.Button();
 			this.SuspendLayout();
-			// 
-			// BtnInputStringDlg
-			// 
-			this.BtnInputStringDlg.Location = new System.Drawing.Point(12, 68);
-			this.BtnInputStringDlg.Name = "BtnInputStringDlg";
-			this.BtnInputStringDlg.Size = new System.Drawing.Size(200, 50);
-			this.BtnInputStringDlg.TabIndex = 1;
-			this.BtnInputStringDlg.Text = "InputStringDlg";
-			this.BtnInputStringDlg.UseVisualStyleBackColor = true;
-			this.BtnInputStringDlg.Click += new System.EventHandler(this.BtnInputStringDlg_Click);
 			// 
 			// BtnGo
 			// 
@@ -59,7 +48,6 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(784, 561);
 			this.Controls.Add(this.BtnGo);
-			this.Controls.Add(this.BtnInputStringDlg);
 			this.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -73,7 +61,6 @@
 
 		#endregion
 
-		private System.Windows.Forms.Button BtnInputStringDlg;
 		private System.Windows.Forms.Button BtnGo;
 	}
 }

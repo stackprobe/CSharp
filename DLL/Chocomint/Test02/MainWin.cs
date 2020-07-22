@@ -26,13 +26,5 @@ namespace Test02
 		{
 			new Program2().Main2();
 		}
-
-		private void BtnInputStringDlg_Click(object sender, EventArgs e)
-		{
-			using (InputStringDlg f = new InputStringDlg())
-			{
-				f.ShowDialog();
-			}
-		}
 	}
 }
