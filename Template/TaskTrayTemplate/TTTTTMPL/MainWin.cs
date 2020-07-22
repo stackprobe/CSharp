@@ -105,11 +105,14 @@ namespace Charlotte
 			{
 				// -- 3001
 
-				if (this.MTCount == 30) // 3 sec
+				// test
+				if (this.MTCount == 150) // 15 sec
 				{
 					this.CloseWindow();
 					return;
 				}
+
+				// ----
 			}
 			catch (Exception ex)
 			{
