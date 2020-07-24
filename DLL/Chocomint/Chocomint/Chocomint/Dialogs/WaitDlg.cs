@@ -44,8 +44,6 @@ namespace Charlotte.Chocomint.Dialogs
 		public static bool Cancellable = true;
 		public static SyncValue<string> MessagePost = new SyncValue<string>();
 
-		private bool Program_Cancellable = true;
-
 		public WaitDlg()
 		{
 			// reset
@@ -112,7 +110,6 @@ namespace Charlotte.Chocomint.Dialogs
 					this.EndedCount = 1;
 					this.SetProgressRate(1.0);
 					this.BtnCancel.Enabled = false;
-					this.Program_Cancellable = false;
 					return;
 				}
 
@@ -136,6 +133,15 @@ namespace Charlotte.Chocomint.Dialogs
 					}
 				}
 
+				{
+					// プログラム的に BtnCancel.Enabled = false にした後は EndedCount, CancelledCount の条件により、ここへは到達しない。
+
+					bool flag = Cancellable;
+
+					if (this.BtnCancel.Enabled != flag)
+						this.BtnCancel.Enabled = flag;
+				}
+
 				return;
 			}
 			if (10 < ++this.EndedCount)
@@ -143,13 +149,6 @@ namespace Charlotte.Chocomint.Dialogs
 				this.EndedCount = -1;
 				this.Close();
 				return;
-			}
-
-			{
-				bool flag = Cancellable && this.Program_Cancellable;
-
-				if (this.BtnCancel.Enabled != flag)
-					this.BtnCancel.Enabled = flag;
 			}
 		}
 
@@ -169,7 +168,6 @@ namespace Charlotte.Chocomint.Dialogs
 			this.Message.Text = this.Message_Cancelled;
 			this.ProgressBar.Style = ProgressBarStyle.Marquee;
 			this.BtnCancel.Enabled = false;
-			this.Program_Cancellable = false;
 
 			LastCancelled = true;
 
