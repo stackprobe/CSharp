@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.Windows.Forms;
 using Charlotte.Tools;
+using FreeImageAPI;
 
 namespace Charlotte
 {
@@ -28,7 +29,40 @@ namespace Charlotte
 
 		private void Main2(ArgsReader ar)
 		{
-			MessageBox.Show(APP_TITLE); // ---- 0001
+			try
+			{
+				string rFile = ar.NextArg();
+				string wFile = ar.NextArg();
+
+				FileTools.Delete(wFile);
+
+				try
+				{
+					// ---- FreeImage ここから
+
+					if (FreeImage.IsAvailable() == false)
+						throw new Exception("no FreeImage.dll");
+
+					FIBITMAP dib = FreeImage.LoadEx(rFile);
+
+					if (dib.IsNull)
+						throw new Exception("Failed load image");
+
+					FreeImage.SaveEx(ref dib, wFile, false);
+					FreeImage.UnloadEx(ref dib);
+
+					// ---- FreeImage ここまで
+				}
+				catch
+				{
+					FileTools.Delete(wFile);
+					throw;
+				}
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+			}
 		}
 	}
 }

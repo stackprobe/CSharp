@@ -44,6 +44,8 @@ namespace Charlotte.Tools
 			}
 		}
 
+		// memo: 環境変数 TMP のパスは ProcMain.CheckLogonUserAndTmp() で検査している。
+
 		public static RootInfo CreateRoot()
 		{
 			return new RootInfo(Path.Combine(Environment.GetEnvironmentVariable("TMP"), ProcMain.APP_IDENT));

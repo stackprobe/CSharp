@@ -118,11 +118,12 @@ namespace Charlotte
 			//new Canvas2Test().Test02();
 			//new Canvas2Test().Test03();
 			//new D2PointTest().Test01();
+			new D2SizeTest().Test01();
 			//new RandomUnitTest().Test01();
 			//new RandomUnitTest().Test02();
 			//new ExtraToolsTest().Test01();
 			//new I3ColorTest().Test01();
-			new I4ColorTest().Test01();
+			//new I4ColorTest().Test01();
 		}
 	}
 }

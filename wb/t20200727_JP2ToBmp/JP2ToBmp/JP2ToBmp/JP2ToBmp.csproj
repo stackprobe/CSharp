@@ -24,6 +24,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>false</UseVSHostingProcess>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -34,6 +35,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>false</UseVSHostingProcess>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Chocolate">
@@ -50,10 +52,76 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FreeImageAPI\Classes\FreeImageBitmap.cs" />
+    <Compile Include="FreeImageAPI\Classes\FreeImageEngine.cs" />
+    <Compile Include="FreeImageAPI\Classes\FreeImagePlugin.cs" />
+    <Compile Include="FreeImageAPI\Classes\FreeImageStreamIO.cs" />
+    <Compile Include="FreeImageAPI\Classes\GifInformation.cs" />
+    <Compile Include="FreeImageAPI\Classes\ImageMetadata.cs" />
+    <Compile Include="FreeImageAPI\Classes\LocalPlugin.cs" />
+    <Compile Include="FreeImageAPI\Classes\MemoryArray.cs" />
+    <Compile Include="FreeImageAPI\Classes\MetadataModel.cs" />
+    <Compile Include="FreeImageAPI\Classes\MetadataModels.cs" />
+    <Compile Include="FreeImageAPI\Classes\MetadataTag.cs" />
+    <Compile Include="FreeImageAPI\Classes\Palette.cs" />
+    <Compile Include="FreeImageAPI\Classes\PluginRepository.cs" />
+    <Compile Include="FreeImageAPI\Classes\Scanline.cs" />
+    <Compile Include="FreeImageAPI\Classes\StreamWrapper.cs" />
+    <Compile Include="FreeImageAPI\Delegates.cs" />
+    <Compile Include="FreeImageAPI\Enumerations\DisposalMethodType.cs" />
+    <Compile Include="FreeImageAPI\Enumerations\FREE_IMAGE_COLOR_CHANNEL.cs" />
+    <Compile Include="FreeImageAPI\Enumerations\FREE_IMAGE_COLOR_DEPTH.cs" />
+    <Compile Include="FreeImageAPI\Enumerations\FREE_IMAGE_COLOR_OPTIONS.cs" />
+    <Compile Include="FreeImageAPI\Enumerations\FREE_IMAGE_COLOR_TYPE.cs" />
+    <Compile Include="FreeImageAPI\Enumerations\FREE_IMAGE_COMPARE_FLAGS.cs" />
+    <Compile Include="FreeImageAPI\Enumerations\FREE_IMAGE_DITHER.cs" />
+    <Compile Include="FreeImageAPI\Enumerations\FREE_IMAGE_FILTER.cs" />
+    <Compile Include="FreeImageAPI\Enumerations\FREE_IMAGE_FORMAT.cs" />
+    <Compile Include="FreeImageAPI\Enumerations\FREE_IMAGE_JPEG_OPERATION.cs" />
+    <Compile Include="FreeImageAPI\Enumerations\FREE_IMAGE_LOAD_FLAGS.cs" />
+    <Compile Include="FreeImageAPI\Enumerations\FREE_IMAGE_MDMODEL.cs" />
+    <Compile Include="FreeImageAPI\Enumerations\FREE_IMAGE_MDTYPE.cs" />
+    <Compile Include="FreeImageAPI\Enumerations\FREE_IMAGE_METADATA_COPY.cs" />
+    <Compile Include="FreeImageAPI\Enumerations\FREE_IMAGE_QUANTIZE.cs" />
+    <Compile Include="FreeImageAPI\Enumerations\FREE_IMAGE_SAVE_FLAGS.cs" />
+    <Compile Include="FreeImageAPI\Enumerations\FREE_IMAGE_TMO.cs" />
+    <Compile Include="FreeImageAPI\Enumerations\FREE_IMAGE_TYPE.cs" />
+    <Compile Include="FreeImageAPI\Enumerations\ICC_FLAGS.cs" />
+    <Compile Include="FreeImageAPI\Enumerations\MD_SEARCH_FLAGS.cs" />
+    <Compile Include="FreeImageAPI\FreeImageStaticImports.cs" />
+    <Compile Include="FreeImageAPI\FreeImageWrapper.cs" />
+    <Compile Include="FreeImageAPI\Structs\BITMAP.cs" />
+    <Compile Include="FreeImageAPI\Structs\BITMAPINFO.cs" />
+    <Compile Include="FreeImageAPI\Structs\BITMAPINFOHEADER.cs" />
+    <Compile Include="FreeImageAPI\Structs\FI16RGB555.cs" />
+    <Compile Include="FreeImageAPI\Structs\FI16RGB565.cs" />
+    <Compile Include="FreeImageAPI\Structs\FI1BIT.cs" />
+    <Compile Include="FreeImageAPI\Structs\FI4BIT.cs" />
+    <Compile Include="FreeImageAPI\Structs\FIBITMAP.cs" />
+    <Compile Include="FreeImageAPI\Structs\FICOMPLEX.cs" />
+    <Compile Include="FreeImageAPI\Structs\FIICCPROFILE.cs" />
+    <Compile Include="FreeImageAPI\Structs\FIMEMORY.cs" />
+    <Compile Include="FreeImageAPI\Structs\FIMETADATA.cs" />
+    <Compile Include="FreeImageAPI\Structs\FIMULTIBITMAP.cs" />
+    <Compile Include="FreeImageAPI\Structs\FIRational.cs" />
+    <Compile Include="FreeImageAPI\Structs\FIRGB16.cs" />
+    <Compile Include="FreeImageAPI\Structs\FIRGBA16.cs" />
+    <Compile Include="FreeImageAPI\Structs\FIRGBAF.cs" />
+    <Compile Include="FreeImageAPI\Structs\FIRGBF.cs" />
+    <Compile Include="FreeImageAPI\Structs\FITAG.cs" />
+    <Compile Include="FreeImageAPI\Structs\FIURational.cs" />
+    <Compile Include="FreeImageAPI\Structs\fi_handle.cs" />
+    <Compile Include="FreeImageAPI\Structs\FreeImageIO.cs" />
+    <Compile Include="FreeImageAPI\Structs\Plugin.cs" />
+    <Compile Include="FreeImageAPI\Structs\RGBQUAD.cs" />
+    <Compile Include="FreeImageAPI\Structs\RGBTRIPLE.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>COPY C:\Dev\wb\t20200727_DLL\FreeImage3180Win32Win64\Dist\x32\FreeImage.dll $(TargetDir).</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

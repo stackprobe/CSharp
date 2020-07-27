@@ -15,5 +15,15 @@ namespace Charlotte.Tools
 			this.W = w;
 			this.H = h;
 		}
+
+		public static D2Size operator *(D2Size a, double b)
+		{
+			return new D2Size(a.W * b, a.H * b);
+		}
+
+		public static D2Size operator /(D2Size a, double b)
+		{
+			return new D2Size(a.W / b, a.H / b);
+		}
 	}
 }
