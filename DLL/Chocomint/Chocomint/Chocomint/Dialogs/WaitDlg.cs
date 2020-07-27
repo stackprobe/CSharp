@@ -43,6 +43,7 @@ namespace Charlotte.Chocomint.Dialogs
 
 		public static bool Cancellable = true;
 		public static SyncValue<string> MessagePost = new SyncValue<string>();
+		public static SyncValue<string[]> DetailMessagePost = new SyncValue<string[]>();
 
 		public WaitDlg()
 		{
@@ -51,11 +52,14 @@ namespace Charlotte.Chocomint.Dialogs
 				LastCancelled = false;
 				Cancellable = true;
 				MessagePost.Post(null);
+				DetailMessagePost.Post(null);
 			}
 
 			InitializeComponent();
 
 			this.MinimumSize = this.Size;
+			this.DetailMessage.Text = "";
+			this.DetailMessage.Enabled = false;
 		}
 
 		private void WaitDlg_Load(object sender, EventArgs e)
@@ -83,6 +87,7 @@ namespace Charlotte.Chocomint.Dialogs
 
 		private int EndedCount = -1;
 		private int CancelledCount = 0;
+		private bool DetailMessagePosted = false;
 
 		private void MainTimer_Tick(object sender, EventArgs e)
 		{
@@ -130,6 +135,29 @@ namespace Charlotte.Chocomint.Dialogs
 					{
 						if (this.Message.Text != message)
 							this.Message.Text = message;
+					}
+				}
+
+				{
+					string[] detailMessage = DetailMessagePost.GetPost(null);
+
+					if (detailMessage != null)
+					{
+						string text = string.Join("\r\n", detailMessage).Trim();
+
+						if (this.DetailMessage.Text != text)
+						{
+							if (this.DetailMessagePosted == false)
+							{
+								this.DetailMessagePosted = true;
+
+								this.DetailMessage.Enabled = true;
+								this.DetailMessage.Focus();
+							}
+							this.DetailMessage.Text = text;
+							this.DetailMessage.SelectionStart = text.Length;
+							this.DetailMessage.ScrollToCaret();
+						}
 					}
 				}
 
