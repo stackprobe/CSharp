@@ -11,12 +11,12 @@ namespace Charlotte.Tools
 
 		public void Add(Action routine)
 		{
-			Ths.Add(new ThreadEx(routine));
+			this.Ths.Add(new ThreadEx(routine));
 		}
 
 		public bool IsEnded(int millis = 0)
 		{
-			foreach (ThreadEx th in Ths)
+			foreach (ThreadEx th in this.Ths)
 				if (th.IsEnded(millis) == false)
 					return false;
 
@@ -25,7 +25,7 @@ namespace Charlotte.Tools
 
 		public void WaitToEnd()
 		{
-			foreach (ThreadEx th in Ths)
+			foreach (ThreadEx th in this.Ths)
 				th.WaitToEnd();
 		}
 
@@ -33,7 +33,7 @@ namespace Charlotte.Tools
 		{
 			this.WaitToEnd();
 
-			Exception[] es = Ths.Select(th => th.GetException()).Where(e => e != null).ToArray();
+			Exception[] es = this.Ths.Select(th => th.GetException()).Where(e => e != null).ToArray();
 
 			if (1 <= es.Length)
 				throw new AggregateException("Relay", es);
