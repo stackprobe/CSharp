@@ -16,7 +16,11 @@ namespace Charlotte.Tools
 
 		public void Dispose()
 		{
-			this.Routine();
+			if (this.Routine != null)
+			{
+				this.Routine();
+				this.Routine = null;
+			}
 		}
 	}
 }
