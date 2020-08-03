@@ -393,7 +393,7 @@ namespace Charlotte.Tools
 					this.IsNumber();
 			}
 
-			private bool IsNumber() // todo
+			private bool IsNumber() // HACK
 			{
 				return StringTools.LiteValidate(this.Value, StringTools.DECIMAL + "+-.Ee");
 			}
