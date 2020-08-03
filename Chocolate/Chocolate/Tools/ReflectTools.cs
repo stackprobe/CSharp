@@ -354,7 +354,7 @@ namespace Charlotte.Tools
 
 		public static bool CheckParameters(object[] prms, ParameterType[] prmTypes)
 		{
-			return prms.Length == prmTypes.Length; // XXX
+			return prms.Length == prmTypes.Length; // todo
 		}
 	}
 }
