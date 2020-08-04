@@ -62,17 +62,11 @@ namespace Charlotte.Tools
 			return new Cartridge<T>(inner_binding);
 		}
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="enu1"></param>
-		/// <param name="enu2"></param>
-		/// <param name="destOnly1">null可</param>
-		/// <param name="destBoth1">null可</param>
-		/// <param name="destBoth2">null可</param>
-		/// <param name="destOnly2">null可</param>
-		/// <param name="comp"></param>
+		// destOnly1: null可
+		// destBoth1: null可
+		// destBoth2: null可
+		// destOnly2: null可
+		//
 		public static void Merge<T>(IEnumerable<T> enu1, IEnumerable<T> enu2, Action<T> destOnly1, Action<T> destBoth1, Action<T> destBoth2, Action<T> destOnly2, Comparison<T> comp)
 		{
 			using (Cartridge<T> reader1 = GetCartridge(enu1.GetEnumerator()))

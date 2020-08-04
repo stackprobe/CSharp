@@ -20,8 +20,8 @@ namespace Charlotte.Tools
 			this.Ident = SecurityTools.ToFiarIdent(ident);
 			this.Mutex = MutexTools.Create(this.Ident);
 			this.MessageDir = Path.Combine(Environment.GetEnvironmentVariable("TMP"), this.Ident);
-			this.R_IndexFile = Path.Combine(this.MessageDir, "_R-Index");
-			this.W_IndexFile = Path.Combine(this.MessageDir, "_W-Index");
+			this.R_IndexFile = Path.Combine(this.MessageDir, "_r");
+			this.W_IndexFile = Path.Combine(this.MessageDir, "_w");
 		}
 
 		public void Dispose()
@@ -74,7 +74,7 @@ namespace Charlotte.Tools
 						if (wIndex <= rIndex) // ? 不正な Index || メッセージ無し
 							throw null;
 
-						if (LongTools.IMAX_64 < wIndex) // カンスト, fixme: 不要か
+						if (LongTools.IMAX_64 < wIndex) // カンスト, HACK: 不要か
 							throw null;
 					}
 					else
@@ -96,7 +96,7 @@ namespace Charlotte.Tools
 						File.WriteAllBytes(Path.Combine(this.MessageDir, wIndex.ToString()), message);
 						wIndex++;
 
-						if (LongTools.IMAX_64 < wIndex) // カンスト, fixme: 不要か
+						if (LongTools.IMAX_64 < wIndex) // カンスト, HACK: 不要か
 							throw null;
 
 						message = null; // 何も返さない。
