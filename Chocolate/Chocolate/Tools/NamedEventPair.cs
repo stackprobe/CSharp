@@ -17,7 +17,7 @@ namespace Charlotte.Tools
 		public NamedEventPair(string name)
 		{
 			this.HandleForSet = new NamedEventUnit(name);
-			this.HandleForWait = new NamedEventUnit(name); // HACK これが失敗すると HandleForSet が宙に浮く。
+			this.HandleForWait = new NamedEventUnit(name); // HACK: これが失敗すると HandleForSet が宙に浮く。
 		}
 
 		public void Set()
