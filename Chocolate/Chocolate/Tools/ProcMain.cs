@@ -56,7 +56,7 @@ namespace Charlotte.Tools
 			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomainUnhandledException);
 			SystemEvents.SessionEnding += new SessionEndingEventHandler(SessionEnding);
 
-			WriteLog = message => Log.Enqueue("[" + DateTime.Now + "] " + message);
+			//WriteLog = message => { };
 
 			APP_IDENT = appIdent;
 			APP_TITLE = appTitle;
@@ -262,12 +262,10 @@ namespace Charlotte.Tools
 
 					ProcMtx.Close();
 					ProcMtx = null;
-
-					ProcMain.WriteLog(new Exception());
 				}
 				catch (Exception e)
 				{
-					ProcMain.WriteLog(e);
+					MessageBox.Show("" + e, title + " / Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
 
 				CloseProcMtx();
@@ -298,7 +296,5 @@ namespace Charlotte.Tools
 				ProcMtx = null;
 			}
 		}
-
-		public static SyncQueue<string> Log = new SyncQueue<string>();
 	}
 }
