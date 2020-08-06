@@ -1,0 +1,8 @@
+----
+ProcMain.WriteLog の Smpl
+
+t0001
+	CUI
+
+t0002
+	GUI

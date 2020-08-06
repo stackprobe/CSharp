@@ -115,7 +115,7 @@ namespace Charlotte.Tools
 
 		public void Dispose()
 		{
-			if (this.WD != null)
+			if (this.WD != null) // once
 			{
 				ExceptionDam.Section(eDam =>
 				{

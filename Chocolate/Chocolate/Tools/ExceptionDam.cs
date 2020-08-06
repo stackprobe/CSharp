@@ -70,21 +70,5 @@ namespace Charlotte.Tools
 				handle = null;
 			}
 		}
-
-		public void Join(ref Thread th)
-		{
-			if (th != null)
-			{
-				try
-				{
-					th.Join();
-				}
-				catch (Exception e)
-				{
-					this.Add(e);
-				}
-				th = null;
-			}
-		}
 	}
 }

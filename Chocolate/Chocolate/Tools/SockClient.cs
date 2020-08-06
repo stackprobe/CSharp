@@ -46,7 +46,7 @@ namespace Charlotte.Tools
 		/// </summary>
 		public void Dispose()
 		{
-			if (this.Handler != null)
+			if (this.Handler != null) // once
 			{
 				try
 				{

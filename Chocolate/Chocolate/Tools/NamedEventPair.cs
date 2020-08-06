@@ -40,7 +40,7 @@ namespace Charlotte.Tools
 
 		public void Dispose()
 		{
-			if (this.HandleForSet != null)
+			if (this.HandleForSet != null) // once
 			{
 				ExceptionDam.Section(eDam =>
 				{

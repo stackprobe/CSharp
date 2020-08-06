@@ -122,13 +122,12 @@ namespace Charlotte.Tools
 
 		public void Dispose()
 		{
-			if (this.MtxHdl != null)
+			if (this.MtxHdl != null) // once
 			{
-				ExceptionDam.Section(eDam =>
-				{
-					eDam.Dispose(ref this.MtxHdl);
-					eDam.Dispose(ref this.EnqueueEv);
-				});
+				this.EnqueueEv.Dispose();
+
+				this.MtxHdl.Dispose();
+				this.MtxHdl = null;
 			}
 		}
 	}

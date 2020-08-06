@@ -97,15 +97,17 @@ namespace Charlotte.Tools
 
 		public void Dispose()
 		{
-			if (this.Th != null)
+			if (this.Th != null) // once
 			{
-				ExceptionDam.Section(eDam =>
-				{
-					eDam.Invoke(() => this.EvStop.Set());
-					eDam.Join(ref this.Th);
-					eDam.Dispose(ref this.EvStop);
-					eDam.Dispose(ref this.Client);
-				});
+				this.EvStop.Set();
+
+				this.Th.Join();
+				this.Th = null;
+
+				this.EvStop.Dispose();
+
+				if (this.Client != null)
+					this.Client.Dispose();
 			}
 		}
 	}

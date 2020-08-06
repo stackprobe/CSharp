@@ -94,7 +94,7 @@ namespace Charlotte.Tools
 
 		public void Dispose()
 		{
-			if (this.Dir != null)
+			if (this.Dir != null) // once
 			{
 				try
 				{

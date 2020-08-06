@@ -22,23 +22,20 @@ namespace Charlotte.Tools
 
 			public AES(byte[] rawKey)
 			{
-				HandleDam.Transaction(hDam =>
-				{
-					if (
-						rawKey.Length != 16 &&
-						rawKey.Length != 24 &&
-						rawKey.Length != 32
-						)
-						throw new ArgumentException();
+				if (
+					rawKey.Length != 16 &&
+					rawKey.Length != 24 &&
+					rawKey.Length != 32
+					)
+					throw new ArgumentException();
 
-					this.Aes = hDam.Add(new AesManaged());
-					this.Aes.KeySize = rawKey.Length * 8;
-					this.Aes.BlockSize = 128;
-					this.Aes.Mode = CipherMode.ECB;
-					this.Aes.IV = new byte[16]; // dummy
-					this.Aes.Key = rawKey;
-					this.Aes.Padding = PaddingMode.None;
-				});
+				this.Aes = new AesManaged();
+				this.Aes.KeySize = rawKey.Length * 8;
+				this.Aes.BlockSize = 128;
+				this.Aes.Mode = CipherMode.ECB;
+				this.Aes.IV = new byte[16]; // dummy
+				this.Aes.Key = rawKey;
+				this.Aes.Padding = PaddingMode.None;
 			}
 
 			public void EncryptBlock(byte[] src, byte[] dest)
@@ -71,14 +68,16 @@ namespace Charlotte.Tools
 
 			public void Dispose()
 			{
-				if (this.Aes != null)
+				if (this.Aes != null) // once
 				{
-					ExceptionDam.Section(eDam =>
-					{
-						eDam.Dispose(ref this.Encryptor);
-						eDam.Dispose(ref this.Decryptor);
-						eDam.Dispose(ref this.Aes);
-					});
+					if (this.Encryptor != null)
+						this.Encryptor.Dispose();
+
+					if (this.Decryptor != null)
+						this.Decryptor.Dispose();
+
+					this.Aes.Dispose();
+					this.Aes = null;
 				}
 			}
 		}
