@@ -39,8 +39,6 @@ namespace Charlotte
 
 					GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
 					GC.WaitForPendingFinalizers();
-
-					Thread.Sleep(1000);
 				}
 			}
 			catch (Exception e)

@@ -74,29 +74,32 @@ namespace Charlotte.Tools
 			return IndexOf<T>(arr, match) != -1;
 		}
 
+		// memo: Enumerable の実装 --https://github.com/microsoft/referencesource/blob/master/System.Core/System/Linq/Enumerable.cs
+		// メモリ使用量テスト --> CSharp/wb/t20200804
+
 		public static List<T> ToList<T>(IEnumerable<T> src)
 		{
 #if true
-			IEnumerator<T> reader = src.GetEnumerator();
 			int count = 0;
 
-			while (reader.MoveNext())
-				count++;
+			using (IEnumerator<T> reader = src.GetEnumerator())
+				while (reader.MoveNext())
+					count++;
 
 			List<T> dest = new List<T>(count);
 
-			reader.Reset();
-
-			for (int index = 0; index < count; index++)
+			using (IEnumerator<T> reader = src.GetEnumerator())
 			{
-				if (reader.MoveNext() == false)
-					throw new Exception(string.Format("2回目の列挙で要素が減りました。(count, index: {0}, {1})", count, index));
+				for (int index = 0; index < count; index++)
+				{
+					if (reader.MoveNext() == false)
+						throw new Exception(string.Format("2回目の列挙で要素が減りました。(count, index: {0}, {1})", count, index));
 
-				dest.Add(reader.Current);
+					dest.Add(reader.Current);
+				}
+				if (reader.MoveNext())
+					throw new Exception(string.Format("2回目の列挙で要素が増えました。(count: {0})", count));
 			}
-			if (reader.MoveNext())
-				throw new Exception(string.Format("2回目の列挙で要素が増えました。(count: {0})", count));
-
 			return dest;
 #elif true // old
 			List<T> dest = new List<T>();
@@ -113,26 +116,26 @@ namespace Charlotte.Tools
 		public static T[] ToArray<T>(IEnumerable<T> src)
 		{
 #if true
-			IEnumerator<T> reader = src.GetEnumerator();
 			int count = 0;
 
-			while (reader.MoveNext())
-				count++;
+			using (IEnumerator<T> reader = src.GetEnumerator())
+				while (reader.MoveNext())
+					count++;
 
 			T[] dest = new T[count];
 
-			reader.Reset();
-
-			for (int index = 0; index < count; index++)
+			using (IEnumerator<T> reader = src.GetEnumerator())
 			{
-				if (reader.MoveNext() == false)
-					throw new Exception(string.Format("2回目の列挙で要素が減りました。(count, index: {0}, {1})", count, index));
+				for (int index = 0; index < count; index++)
+				{
+					if (reader.MoveNext() == false)
+						throw new Exception(string.Format("2回目の列挙で要素が減りました。(count, index: {0}, {1})", count, index));
 
-				dest[index] = reader.Current;
+					dest[index] = reader.Current;
+				}
+				if (reader.MoveNext())
+					throw new Exception(string.Format("2回目の列挙で要素が増えました。(count: {0})", count));
 			}
-			if (reader.MoveNext())
-				throw new Exception(string.Format("2回目の列挙で要素が増えました。(count: {0})", count));
-
 			return dest;
 #elif true // old
 			List<T> list = ToList(src);

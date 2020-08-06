@@ -156,7 +156,11 @@ namespace Charlotte.Tools
 
 		public ObjectTree[] ToArray()
 		{
+#if true
+			return this.Iterate().ToArray();
+#else // old same
 			return ArrayTools.ToArray(this.Iterate());
+#endif
 		}
 
 		public IEnumerable<ObjectTree> Iterate()

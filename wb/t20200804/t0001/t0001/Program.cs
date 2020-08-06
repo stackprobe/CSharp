@@ -28,8 +28,49 @@ namespace Charlotte
 
 		private void Main2(ArgsReader ar)
 		{
-			new ArrayTest0001().Test01();
-			//new ListTest0001().Test01();
+			Test01();
+		}
+
+		private void Test01()
+		{
+			Test01_a("/A /MS");
+			Test01_a("/A /Ch");
+			Test01_a("/L /MS");
+			Test01_a("/L /Ch");
+		}
+
+		private const string ToArrayListTestExe = @"..\..\..\..\ToArrayListTest\ToArrayListTest\bin\Release\ToArrayListTest.exe";
+
+		private void Test01_a(string prm)
+		{
+			for (int count = 100000000; ; count += count / 2) // *= 1.5
+			{
+				using (WorkingDir wd = new WorkingDir())
+				{
+					string successfulFile = wd.GetPath("successful.flg");
+					string errorFile = wd.GetPath("error.log");
+
+					ProcessTools.Batch(new string[]
+					{
+						string.Format("{0} \"{1}\" \"{2}\" {3} {4}", ToArrayListTestExe, successfulFile, errorFile, count, prm),
+					},
+					ProcMain.SelfDir
+					);
+
+					Console.Write(prm + " count=" + count + " --> ");
+
+					if (File.Exists(successfulFile))
+					{
+						Console.WriteLine("OK");
+					}
+					else
+					{
+						Console.WriteLine("NG");
+						Console.WriteLine(File.ReadAllText(errorFile, Encoding.UTF8));
+						break;
+					}
+				}
+			}
 		}
 	}
 }
