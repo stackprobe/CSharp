@@ -119,11 +119,9 @@ namespace Charlotte.Tools
 			{
 				ExceptionDam.Section(eDam =>
 				{
-					eDam.Invoke(() => this.Reader.Dispose());
-					eDam.Invoke(() => this.Writer.Dispose());
-
-					eDam.Invoke(() => this.WD.Dispose());
-					this.WD = null;
+					eDam.Dispose(ref this.Reader);
+					eDam.Dispose(ref this.Writer);
+					eDam.Dispose(ref this.WD);
 				});
 			}
 		}

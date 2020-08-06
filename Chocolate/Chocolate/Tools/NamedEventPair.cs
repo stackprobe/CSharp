@@ -38,21 +38,14 @@ namespace Charlotte.Tools
 			return this.HandleForWait.WaitForMillis(millis);
 		}
 
-		private bool Disposed = false;
-
 		public void Dispose()
 		{
-			if (this.Disposed == false)
+			if (this.HandleForSet != null)
 			{
 				ExceptionDam.Section(eDam =>
 				{
-					eDam.Invoke(() => this.HandleForSet.Dispose());
-					eDam.Invoke(() => this.HandleForWait.Dispose());
-
-					this.HandleForSet = null;
-					this.HandleForWait = null;
-
-					this.Disposed = true;
+					eDam.Dispose(ref this.HandleForSet);
+					eDam.Dispose(ref this.HandleForWait);
 				});
 			}
 		}

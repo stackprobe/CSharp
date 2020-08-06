@@ -45,6 +45,20 @@ namespace Charlotte.Tools
 			this.Th.Start();
 		}
 
+		public void Dispose()
+		{
+			if (this.Th != null)
+			{
+				ExceptionDam.Section(eDam =>
+				{
+					eDam.Invoke(() => this.EvStop.Set());
+					eDam.Join(ref this.Th);
+					eDam.Dispose(ref this.EvStop);
+					eDam.Dispose(ref this.Client);
+				});
+			}
+		}
+
 		private T Perform<T>(Func<T> rtn)
 		{
 			lock (SYNCROOT)
@@ -93,32 +107,6 @@ namespace Charlotte.Tools
 		public int Delete(string path)
 		{
 			return this.Perform(() => this.Client.Delete(path));
-		}
-
-		private bool Disposed = false;
-
-		public void Dispose()
-		{
-			if (this.Disposed == false)
-			{
-				ExceptionDam.Section(eDam =>
-				{
-					eDam.Invoke(() => this.EvStop.Set());
-					eDam.Invoke(() => this.Th.Join());
-					eDam.Invoke(() => this.EvStop.Dispose());
-					eDam.Invoke(() =>
-					{
-						if (this.Client != null)
-							this.Client.Dispose();
-					});
-
-					this.Th = null;
-					this.EvStop = null;
-					this.Client = null;
-
-					this.Disposed = true;
-				});
-			}
 		}
 	}
 }

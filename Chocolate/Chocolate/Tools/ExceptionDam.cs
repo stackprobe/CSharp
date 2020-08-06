@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace Charlotte.Tools
 {
@@ -49,6 +50,40 @@ namespace Charlotte.Tools
 				this.Errors.Clear();
 
 				throw new AggregateException("Has some errors.", errors);
+			}
+		}
+
+		// ---- ここから拡張メソッド
+
+		public void Dispose<IDisposable_t>(ref IDisposable_t handle) where IDisposable_t : class, IDisposable
+		{
+			if (handle != null)
+			{
+				try
+				{
+					handle.Dispose();
+				}
+				catch (Exception e)
+				{
+					this.Add(e);
+				}
+				handle = null;
+			}
+		}
+
+		public void Join(ref Thread th)
+		{
+			if (th != null)
+			{
+				try
+				{
+					th.Join();
+				}
+				catch (Exception e)
+				{
+					this.Add(e);
+				}
+				th = null;
 			}
 		}
 	}
