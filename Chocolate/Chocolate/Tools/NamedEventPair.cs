@@ -16,8 +16,11 @@ namespace Charlotte.Tools
 
 		public NamedEventPair(string name)
 		{
-			this.HandleForSet = new NamedEventUnit(name);
-			this.HandleForWait = new NamedEventUnit(name); // HACK: これが失敗すると HandleForSet が宙に浮く。
+			HandleDam.Transaction(hDam =>
+			{
+				this.HandleForSet = hDam.Add(new NamedEventUnit(name));
+				this.HandleForWait = hDam.Add(new NamedEventUnit(name));
+			});
 		}
 
 		public void Set()
@@ -35,14 +38,22 @@ namespace Charlotte.Tools
 			return this.HandleForWait.WaitForMillis(millis);
 		}
 
+		private bool Disposed = false;
+
 		public void Dispose()
 		{
-			if (this.HandleForSet != null)
+			if (this.Disposed == false)
 			{
-				this.HandleForSet.Dispose();
-				this.HandleForWait.Dispose();
+				ExceptionDam.Section(eDam =>
+				{
+					eDam.Invoke(() => this.HandleForSet.Dispose());
+					eDam.Invoke(() => this.HandleForWait.Dispose());
 
-				this.HandleForSet = null;
+					this.HandleForSet = null;
+					this.HandleForWait = null;
+
+					this.Disposed = true;
+				});
 			}
 		}
 	}

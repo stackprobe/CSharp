@@ -66,18 +66,34 @@ namespace Charlotte.Tools
 				this.Decryptor.TransformBlock(src, 0, 16, dest, 0);
 			}
 
+			private bool Disposed = false;
+
 			public void Dispose()
 			{
-				if (this.Aes != null)
+				if (this.Disposed == false)
 				{
-					if (this.Encryptor != null)
-						this.Encryptor.Dispose();
+					ExceptionDam.Section(eDam =>
+					{
+						eDam.Invoke(() =>
+						{
+							if (this.Encryptor != null)
+								this.Encryptor.Dispose();
+						});
 
-					if (this.Decryptor != null)
-						this.Decryptor.Dispose();
+						eDam.Invoke(() =>
+						{
+							if (this.Decryptor != null)
+								this.Decryptor.Dispose();
+						});
 
-					this.Aes.Dispose();
-					this.Aes = null;
+						eDam.Invoke(() => this.Aes.Dispose());
+
+						this.Encryptor = null;
+						this.Decryptor = null;
+						this.Aes = null;
+
+						this.Disposed = true;
+					});
 				}
 			}
 		}

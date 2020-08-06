@@ -120,14 +120,22 @@ namespace Charlotte.Tools
 			return count;
 		}
 
+		private bool Disposed = false;
+
 		public void Dispose()
 		{
-			if (this.MtxHdl != null)
+			if (this.Disposed == false)
 			{
-				this.MtxHdl.Dispose();
-				this.EnqueueEv.Dispose();
+				ExceptionDam.Section(eDam =>
+				{
+					eDam.Invoke(() => this.MtxHdl.Dispose());
+					eDam.Invoke(() => this.EnqueueEv.Dispose());
 
-				this.MtxHdl = null;
+					this.MtxHdl = null;
+					this.EnqueueEv = null;
+
+					this.Disposed = true;
+				});
 			}
 		}
 	}

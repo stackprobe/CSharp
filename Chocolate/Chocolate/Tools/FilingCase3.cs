@@ -95,23 +95,29 @@ namespace Charlotte.Tools
 			return this.Perform(() => this.Client.Delete(path));
 		}
 
+		private bool Disposed = false;
+
 		public void Dispose()
 		{
-			if (this.Th != null) // at once
+			if (this.Disposed == false)
 			{
-				this.EvStop.Set();
-
-				this.Th.Join();
-				this.Th = null;
-
-				this.EvStop.Dispose();
-				this.EvStop = null;
-
-				if (this.Client != null)
+				ExceptionDam.Section(eDam =>
 				{
-					this.Client.Dispose();
+					eDam.Invoke(() => this.EvStop.Set());
+					eDam.Invoke(() => this.Th.Join());
+					eDam.Invoke(() => this.EvStop.Dispose());
+					eDam.Invoke(() =>
+					{
+						if (this.Client != null)
+							this.Client.Dispose();
+					});
+
+					this.Th = null;
+					this.EvStop = null;
 					this.Client = null;
-				}
+
+					this.Disposed = true;
+				});
 			}
 		}
 	}

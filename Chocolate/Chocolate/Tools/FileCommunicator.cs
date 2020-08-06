@@ -11,6 +11,7 @@ namespace Charlotte.Tools
 	{
 		private string Ident;
 		private Mutex Mutex;
+		private NamedEventPair EvSent;
 		private string MessageDir;
 		private string R_IndexFile;
 		private string W_IndexFile;
@@ -18,7 +19,8 @@ namespace Charlotte.Tools
 		public FileCommunicator(string ident)
 		{
 			this.Ident = SecurityTools.ToFiarIdent(ident);
-			this.Mutex = MutexTools.Create(this.Ident);
+			this.Mutex = MutexTools.Create(this.Ident + "_M");
+			this.EvSent = new NamedEventPair(this.Ident + "_ES");
 			this.MessageDir = Path.Combine(Environment.GetEnvironmentVariable("TMP"), this.Ident);
 			this.R_IndexFile = Path.Combine(this.MessageDir, "_r");
 			this.W_IndexFile = Path.Combine(this.MessageDir, "_w");
@@ -47,6 +49,19 @@ namespace Charlotte.Tools
 				throw new ArgumentException("message == null");
 
 			this.TransferMain(message, true);
+			this.EvSent.Set();
+		}
+
+		public byte[] Recv(int millis) // ret: null == メッセージ無し
+		{
+			byte[] message = this.Recv();
+
+			if (message == null)
+			{
+				this.EvSent.WaitForMillis(millis);
+				message = this.Recv();
+			}
+			return message;
 		}
 
 		public byte[] Recv() // ret: null == メッセージ無し
