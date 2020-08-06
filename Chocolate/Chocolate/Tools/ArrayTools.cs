@@ -76,19 +76,65 @@ namespace Charlotte.Tools
 
 		public static List<T> ToList<T>(IEnumerable<T> src)
 		{
+#if true
+			IEnumerator<T> reader = src.GetEnumerator();
+			int count = 0;
+
+			while (reader.MoveNext())
+				count++;
+
+			List<T> dest = new List<T>(count);
+
+			reader.Reset();
+
+			for (int index = 0; index < count; index++)
+			{
+				if (reader.MoveNext() == false)
+					throw new Exception(string.Format("2回目の列挙で要素が減りました。(count, index: {0}, {1})", count, index));
+
+				dest.Add(reader.Current);
+			}
+			if (reader.MoveNext())
+				throw new Exception(string.Format("2回目の列挙で要素が増えました。(count: {0})", count));
+
+			return dest;
+#elif true // old
 			List<T> dest = new List<T>();
 
 			foreach (T element in src)
 				dest.Add(element);
 
 			return dest;
+#else // almost-cretain same code
+			return src.ToList();
+#endif
 		}
 
 		public static T[] ToArray<T>(IEnumerable<T> src)
 		{
-#if !true
-			return src.ToArray();
-#else // old same
+#if true
+			IEnumerator<T> reader = src.GetEnumerator();
+			int count = 0;
+
+			while (reader.MoveNext())
+				count++;
+
+			T[] dest = new T[count];
+
+			reader.Reset();
+
+			for (int index = 0; index < count; index++)
+			{
+				if (reader.MoveNext() == false)
+					throw new Exception(string.Format("2回目の列挙で要素が減りました。(count, index: {0}, {1})", count, index));
+
+				dest[index] = reader.Current;
+			}
+			if (reader.MoveNext())
+				throw new Exception(string.Format("2回目の列挙で要素が増えました。(count: {0})", count));
+
+			return dest;
+#elif true // old
 			List<T> list = ToList(src);
 			T[] dest = new T[list.Count];
 
@@ -96,6 +142,8 @@ namespace Charlotte.Tools
 				dest[index] = list[index];
 
 			return dest;
+#else // almost-cretain same code
+			return src.ToArray();
 #endif
 		}
 
@@ -109,17 +157,11 @@ namespace Charlotte.Tools
 			return dest;
 		}
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="arr1"></param>
-		/// <param name="arr2"></param>
-		/// <param name="destOnly1">null可</param>
-		/// <param name="destBoth1">null可</param>
-		/// <param name="destBoth2">null可</param>
-		/// <param name="destOnly2">null可</param>
-		/// <param name="comp"></param>
+		// destOnly1: null可
+		// destBoth1: null可
+		// destBoth2: null可
+		// destOnly2: null可
+		//
 		public static void Merge<T>(T[] arr1, T[] arr2, List<T> destOnly1, List<T> destBoth1, List<T> destBoth2, List<T> destOnly2, Comparison<T> comp)
 		{
 			Array.Sort(arr1, comp);
