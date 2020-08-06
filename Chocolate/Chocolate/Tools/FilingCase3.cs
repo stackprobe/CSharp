@@ -97,7 +97,7 @@ namespace Charlotte.Tools
 
 		public void Dispose()
 		{
-			if (this.Th != null) // once
+			if (this.Th != null)
 			{
 				this.EvStop.Set();
 

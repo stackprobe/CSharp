@@ -68,7 +68,7 @@ namespace Charlotte.Tools
 
 			public void Dispose()
 			{
-				if (this.Aes != null) // once
+				if (this.Aes != null)
 				{
 					if (this.Encryptor != null)
 						this.Encryptor.Dispose();

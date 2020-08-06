@@ -38,9 +38,11 @@ namespace Charlotte.Tools
 			return this.HandleForWait.WaitForMillis(millis);
 		}
 
+		private LimitCounter DisposeOnce = LimitCounter.One();
+
 		public void Dispose()
 		{
-			if (this.HandleForSet != null) // once
+			if (this.DisposeOnce.Issue())
 			{
 				ExceptionDam.Section(eDam =>
 				{

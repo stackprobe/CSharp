@@ -122,7 +122,7 @@ namespace Charlotte.Tools
 
 		public void Dispose()
 		{
-			if (this.MtxHdl != null) // once
+			if (this.MtxHdl != null)
 			{
 				this.EnqueueEv.Dispose();
 

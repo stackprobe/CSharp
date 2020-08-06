@@ -8,7 +8,7 @@ namespace Charlotte.Tools
 {
 	public class HugeQueue : IDisposable
 	{
-		public long FileSizeLimit = 100000000L; // 100 MB
+		public long FileSizeMax = 100000000L; // 100 MB
 
 		private WorkingDir WD;
 		private string RFile;
@@ -45,7 +45,7 @@ namespace Charlotte.Tools
 
 		public void Enqueue(byte[] value)
 		{
-			if (this.Writer.Position != 0L && this.FileSizeLimit < this.Writer.Position)
+			if (this.Writer.Position != 0L && this.FileSizeMax <= this.Writer.Position)
 			{
 				this.Writer.Dispose();
 
@@ -113,9 +113,11 @@ namespace Charlotte.Tools
 			return value;
 		}
 
+		private LimitCounter DisposeOnce = LimitCounter.One();
+
 		public void Dispose()
 		{
-			if (this.WD != null) // once
+			if (this.DisposeOnce.Issue())
 			{
 				ExceptionDam.Section(eDam =>
 				{

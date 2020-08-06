@@ -12,7 +12,7 @@ namespace Charlotte.Tests.Tools
 		{
 			using (HugeQueue hq = new HugeQueue())
 			{
-				hq.FileSizeLimit = 100L;
+				hq.FileSizeMax = 100L;
 
 				Queue<byte[]> q = new Queue<byte[]>();
 
@@ -50,7 +50,7 @@ namespace Charlotte.Tests.Tools
 		{
 			using (HugeQueue hq = new HugeQueue())
 			{
-				hq.FileSizeLimit = 1000;
+				hq.FileSizeMax = 1000;
 
 				Queue<byte[]> q = new Queue<byte[]>();
 
