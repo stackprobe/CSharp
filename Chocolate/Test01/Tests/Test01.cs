@@ -174,6 +174,23 @@ namespace Charlotte.Tests
 
 			Console.WriteLine("----");
 
+			try
+			{
+				Console.WriteLine("IDisposableDisposeThrowException before using");
+				using (new IDisposableDisposeThrowException())
+				{
+					Console.WriteLine("IDisposableDisposeThrowException inside using - before throw");
+					throw new Exception("IDisposableDisposeThrowException inside using exception");
+				}
+				//Console.WriteLine("IDisposableDisposeThrowException after using"); // never
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+			}
+
+			Console.WriteLine("----");
+
 			// ----
 
 			Console.WriteLine("dw.1");

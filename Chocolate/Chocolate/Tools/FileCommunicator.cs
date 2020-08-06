@@ -11,7 +11,7 @@ namespace Charlotte.Tools
 	{
 		private string Ident;
 		private Mutex Mutex;
-		private NamedEventPair EvSent;
+		private NamedEventUnit EvSent;
 		private string MessageDir;
 		private string R_IndexFile;
 		private string W_IndexFile;
@@ -20,7 +20,7 @@ namespace Charlotte.Tools
 		{
 			this.Ident = SecurityTools.ToFiarIdent(ident);
 			this.Mutex = MutexTools.Create(this.Ident + "_M");
-			this.EvSent = new NamedEventPair(this.Ident + "_ES");
+			this.EvSent = new NamedEventUnit(this.Ident + "_ES");
 			this.MessageDir = Path.Combine(Environment.GetEnvironmentVariable("TMP"), this.Ident);
 			this.R_IndexFile = Path.Combine(this.MessageDir, "_r");
 			this.W_IndexFile = Path.Combine(this.MessageDir, "_w");
@@ -56,11 +56,9 @@ namespace Charlotte.Tools
 		{
 			byte[] message = this.Recv();
 
-			if (message == null)
-			{
-				this.EvSent.WaitForMillis(millis);
+			if (message == null && this.EvSent.WaitForMillis(millis))
 				message = this.Recv();
-			}
+
 			return message;
 		}
 

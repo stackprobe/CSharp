@@ -44,7 +44,7 @@ namespace Charlotte
 			//new DateTimeToSecTest().Test01();
 			//new Test01().Main01();
 			//new Test01().Main02();
-			//new Test01().Main03();
+			new Test01().Main03();
 			//new Test01().Main03b();
 			//new Test01().Main04();
 			//new Test01().Main05();
@@ -118,7 +118,7 @@ namespace Charlotte
 			//new Canvas2Test().Test02();
 			//new Canvas2Test().Test03();
 			//new D2PointTest().Test01();
-			new D2SizeTest().Test01();
+			//new D2SizeTest().Test01();
 			//new RandomUnitTest().Test01();
 			//new RandomUnitTest().Test02();
 			//new ExtraToolsTest().Test01();
