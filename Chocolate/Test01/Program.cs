@@ -44,7 +44,7 @@ namespace Charlotte
 			//new DateTimeToSecTest().Test01();
 			//new Test01().Main01();
 			//new Test01().Main02();
-			new Test01().Main03();
+			//new Test01().Main03();
 			//new Test01().Main03b();
 			//new Test01().Main04();
 			//new Test01().Main05();
@@ -55,6 +55,7 @@ namespace Charlotte
 			//new StringToolsTest().Test04();
 			//new StringToolsTest().Test05();
 			//new StringToolsTest().Test06();
+			new StringToolsTest().Test07();
 			//new FileToolsTest().Test01();
 			//new FileToolsTest().Test02();
 			//new FileToolsTest().Test03();

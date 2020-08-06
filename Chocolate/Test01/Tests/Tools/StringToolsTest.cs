@@ -100,5 +100,34 @@ namespace Charlotte.Tests.Tools
 		{
 			Console.WriteLine(string.Join(", ", StringTools.Tokenize("A=B=C", "=", false, false, 2)));
 		}
+
+		public void Test07()
+		{
+			Test07_b("");
+
+			Test07_a("\t\n\r " + StringTools.HALF + "あいうえおカキクケコ日本語");
+			Test07_a("TEL☎123");
+			Test07_a("TEL☎");
+			Test07_a("☎〠❤");
+		}
+
+		private void Test07_a(string allowChars)
+		{
+			//Test07_b(""); // moved
+
+			for (int c = 1; c < 10000; c++)
+			{
+				Test07_b(SecurityTools.MakePassword(allowChars, SecurityTools.CRandom.GetRange(1, 100)));
+			}
+		}
+
+		private void Test07_b(string str)
+		{
+			string eStr = StringTools.LiteEncode(str);
+			string dStr = StringTools.LiteDecode(eStr);
+
+			if (str != dStr)
+				throw null; // bugged !!!
+		}
 	}
 }

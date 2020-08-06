@@ -629,5 +629,17 @@ namespace Charlotte.Tools
 		{
 			return target.Length <= maxlen && LiteValidate(target, allowChars, minlen);
 		}
+
+		private static Base64Unit.NoPadding LED_Base64URL = Base64Unit.CreateByC6364P("-_=").GetNoPadding();
+
+		public static string LiteEncode(string str)
+		{
+			return LED_Base64URL.Encode(Encoding.UTF8.GetBytes(str));
+		}
+
+		public static string LiteDecode(string str)
+		{
+			return Encoding.UTF8.GetString(LED_Base64URL.Decode(str));
+		}
 	}
 }
