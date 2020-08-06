@@ -7,6 +7,8 @@ namespace Charlotte.Tools
 {
 	public class Base64Unit
 	{
+		public static Base64Unit.NoPadding Base64URL = Base64Unit.CreateByC6364P("-_=").GetNoPadding();
+
 		public static Base64Unit CreateByC6364P(string c6364P)
 		{
 			return new Base64Unit(StringTools.ALPHA + StringTools.alpha + StringTools.DECIMAL + c6364P);

@@ -54,9 +54,11 @@ namespace Charlotte
 			this.CsvWriter03.WriteRow(new string[] { "789", "GHI", "ghi" });
 		}
 
+		private LimitCounter DisposeOnce = LimitCounter.One();
+
 		public void Dispose()
 		{
-			if (this.WD != null) // once
+			if (this.DisposeOnce.Issue())
 			{
 				ExceptionDam.Section(eDam =>
 				{

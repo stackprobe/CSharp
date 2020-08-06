@@ -26,16 +26,21 @@ namespace Charlotte
 			});
 		}
 
+		private LimitCounter DisposeOnce = LimitCounter.One();
+
 		public void Dispose()
 		{
-			ExceptionDam.Section(eDam =>
+			if (this.DisposeOnce.Issue())
 			{
-				eDam.Dispose(ref this.Handle01);
-				eDam.Dispose(ref this.Handle02);
-				eDam.Dispose(ref this.Handle03);
-				eDam.Dispose(ref this.Handle04);
-				eDam.Dispose(ref this.Handle05);
-			});
+				ExceptionDam.Section(eDam =>
+				{
+					eDam.Dispose(ref this.Handle01);
+					eDam.Dispose(ref this.Handle02);
+					eDam.Dispose(ref this.Handle03);
+					eDam.Dispose(ref this.Handle04);
+					eDam.Dispose(ref this.Handle05);
+				});
+			}
 		}
 	}
 }

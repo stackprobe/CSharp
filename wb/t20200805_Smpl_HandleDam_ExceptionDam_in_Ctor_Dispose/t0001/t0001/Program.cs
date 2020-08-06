@@ -29,7 +29,8 @@ namespace Charlotte
 		private void Main2(ArgsReader ar)
 		{
 			//Test01();
-			Test02();
+			//Test02();
+			Test02B();
 		}
 
 		private void Test01()
@@ -70,6 +71,57 @@ namespace Charlotte
 
 				if (RandomizedErrorHandle.OpenedHandleCount != 0)
 					throw null; // bugged !!!
+			}
+		}
+
+		private void Test02B()
+		{
+			for (int c = 0; c < 1000; c++)
+			{
+				Console.WriteLine("c: " + c);
+
+				// ----
+
+				try
+				{
+					ManyHandleClass0002 h = new ManyHandleClass0002();
+
+					h.Dispose();
+					h.Dispose();
+					h.Dispose();
+					h.Dispose();
+					h.Dispose();
+				}
+				catch
+				{ }
+
+				Console.WriteLine("handles(0): " + RandomizedErrorHandle.OpenedHandleCount);
+
+				if (RandomizedErrorHandle.OpenedHandleCount != 0)
+					throw null; // bugged !!!
+
+				// ----
+
+				try
+				{
+					using (ManyHandleClass0002 h = new ManyHandleClass0002())
+					{
+						h.Dispose();
+						h.Dispose();
+						h.Dispose();
+						h.Dispose();
+						h.Dispose();
+					}
+				}
+				catch
+				{ }
+
+				Console.WriteLine("handles(0): " + RandomizedErrorHandle.OpenedHandleCount);
+
+				if (RandomizedErrorHandle.OpenedHandleCount != 0)
+					throw null; // bugged !!!
+
+				// ----
 			}
 		}
 	}

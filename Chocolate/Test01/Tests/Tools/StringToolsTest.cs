@@ -129,5 +129,43 @@ namespace Charlotte.Tests.Tools
 			if (str != dStr)
 				throw null; // bugged !!!
 		}
+
+		public void Test08()
+		{
+			Test08_a("", StringTools.KANA, false); // 常に "" は false
+
+			Test08_a("A", "A", true);
+			Test08_a("A", "B", false);
+
+			for (int c = 0; c < 10000; c++)
+			{
+				Test08_a(
+					c.ToString(),
+					StringTools.DECIMAL,
+					true
+					);
+				Test08_a(
+					SecurityTools.MakePassword(StringTools.ALPHA + StringTools.alpha + StringTools.DECIMAL, SecurityTools.CRandom.GetRange(200, 250)),
+					StringTools.ALPHA,
+					false // HACK: 確率的
+					);
+				Test08_a(
+					SecurityTools.MakePassword(StringTools.ALPHA + StringTools.alpha, SecurityTools.CRandom.GetRange(100, 150)),
+					StringTools.ALPHA + StringTools.alpha + StringTools.DECIMAL,
+					true
+					);
+				Test08_a(
+					SecurityTools.MakePassword(StringTools.KANA, SecurityTools.CRandom.GetRange(10, 15)) + "あ",
+					StringTools.KANA,
+					false
+					);
+			}
+		}
+
+		private void Test08_a(string target, string allowChars, bool expectedResult)
+		{
+			if (StringTools.LiteValidate(target, allowChars) != expectedResult)
+				throw null; // bugged !!!
+		}
 	}
 }

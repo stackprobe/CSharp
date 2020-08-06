@@ -602,8 +602,13 @@ namespace Charlotte.Tools
 			return buff.ToString();
 		}
 
-		public static bool LiteValidate(string target, string allowChars) // target == "" --> false
+		public static bool LiteValidate(string target, string allowChars) // ret: target == "" --> false
 		{
+#if true
+			return
+				target != "" &&
+				target.Any(chr => allowChars.Contains(chr) == false) == false;
+#else // old same
 			string format = target;
 
 			char escapeChar = allowChars[0];
@@ -615,6 +620,7 @@ namespace Charlotte.Tools
 			format = StringTools.ReplaceLoop(format, escape2, escape);
 
 			return format == escape;
+#endif
 		}
 
 		public static bool LiteValidate(string target, string allowChars, int minlen)
@@ -630,16 +636,14 @@ namespace Charlotte.Tools
 			return target.Length <= maxlen && LiteValidate(target, allowChars, minlen);
 		}
 
-		private static Base64Unit.NoPadding LED_Base64URL = Base64Unit.CreateByC6364P("-_=").GetNoPadding();
-
 		public static string LiteEncode(string str)
 		{
-			return LED_Base64URL.Encode(Encoding.UTF8.GetBytes(str));
+			return Base64Unit.Base64URL.Encode(Encoding.UTF8.GetBytes(str));
 		}
 
 		public static string LiteDecode(string str)
 		{
-			return Encoding.UTF8.GetString(LED_Base64URL.Decode(str));
+			return Encoding.UTF8.GetString(Base64Unit.Base64URL.Decode(str));
 		}
 	}
 }

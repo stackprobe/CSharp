@@ -55,7 +55,8 @@ namespace Charlotte
 			//new StringToolsTest().Test04();
 			//new StringToolsTest().Test05();
 			//new StringToolsTest().Test06();
-			new StringToolsTest().Test07();
+			//new StringToolsTest().Test07();
+			new StringToolsTest().Test08();
 			//new FileToolsTest().Test01();
 			//new FileToolsTest().Test02();
 			//new FileToolsTest().Test03();
