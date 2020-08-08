@@ -185,7 +185,7 @@ namespace Charlotte.Tools
 			bool ld = false;
 			bool rd = false;
 
-			if (1 <= l)
+			if (0 < l)
 				l--;
 			else
 				ld = true;
