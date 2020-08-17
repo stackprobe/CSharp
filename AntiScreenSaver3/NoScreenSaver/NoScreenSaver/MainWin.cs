@@ -45,12 +45,12 @@ namespace Charlotte
 			using (new ResourceWin())
 			{ }
 
-			Ground.LoadConf();
+			Gnd.LoadConf();
 
-			if (Ground.MonitorKeyboard)
+			if (Gnd.MonitorKeyboard)
 				this.KeysMon = new KeysMon();
 
-			this.TaskTrayIcon.Icon = Ground.Icons[0];
+			this.TaskTrayIcon.Icon = Gnd.Icons[0];
 			this.TaskTrayIcon.Visible = true;
 			this.MTEnabled = true;
 		}
@@ -105,7 +105,7 @@ namespace Charlotte
 					this.CloseWindow();
 					return;
 				}
-				if (Ground.MonitorKeyboard)
+				if (Gnd.MonitorKeyboard)
 					this.KeysMon.DoCheck();
 
 				int mouseX = Cursor.Position.X;
@@ -139,9 +139,9 @@ namespace Charlotte
 						mouseY == this.LastMouse_Y
 						)
 					{
-						if (this.MouseShakeIndex < Ground.MouseShakeRoute.Count)
+						if (this.MouseShakeIndex < Gnd.MouseShakeRoute.Count)
 						{
-							Ground.XYPoint point = Ground.MouseShakeRoute[this.MouseShakeIndex];
+							Gnd.XYPoint point = Gnd.MouseShakeRoute[this.MouseShakeIndex];
 
 #if true // CUI -> Win32
 							CTools.Perform(string.Format("/P {0} {1}",
@@ -193,19 +193,19 @@ namespace Charlotte
 					this.LastMouse_Y = mouseY;
 				}
 
-				if (Ground.MonitorKeyboard && this.KeysMon.IsTouched())
+				if (Gnd.MonitorKeyboard && this.KeysMon.IsTouched())
 					this.MouseStayMillis = 0;
 
 				{
 					Icon nextIcon;
 
-					if (this.MouseStayMillis < Ground.MouseStayTimeoutMillis)
+					if (this.MouseStayMillis < Gnd.MouseStayTimeoutMillis)
 					{
-						nextIcon = Ground.Icons[(10 * this.MouseStayMillis) / Ground.MouseStayTimeoutMillis];
+						nextIcon = Gnd.Icons[(10 * this.MouseStayMillis) / Gnd.MouseStayTimeoutMillis];
 					}
 					else
 					{
-						nextIcon = Ground.Icons[10];
+						nextIcon = Gnd.Icons[10];
 
 						this.MouseShakeIndex = 0;
 						this.MouseShake_X = mouseX;

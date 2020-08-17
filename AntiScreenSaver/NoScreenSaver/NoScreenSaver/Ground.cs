@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace Charlotte
 {
-	public static class Gnd
+	public static class Ground
 	{
 		public static Icon[] Icons = new Icon[11];
 
@@ -26,7 +26,7 @@ namespace Charlotte
 			string file = "NoScreenSaverMusMv.conf";
 
 			if (File.Exists(file) == false)
-				file = @"..\..\..\..\res\AntiScreenSaver_Test.conf";
+				file = @"..\..\..\..\res\NoScreenSaver_Test.conf";
 
 			return file;
 		}

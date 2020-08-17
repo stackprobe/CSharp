@@ -42,7 +42,7 @@ namespace Charlotte
 		{
 			this.Visible = false;
 
-			Gnd.LoadConf();
+			Ground.LoadConf();
 
 			this.TaskTrayIcon.Visible = true;
 			this.MTEnabled = true;
@@ -91,7 +91,7 @@ namespace Charlotte
 			}
 			this.ElapsedMillis += this.MainTimer.Interval;
 
-			if (Gnd.WakeupPeriodMillis <= this.ElapsedMillis)
+			if (Ground.WakeupPeriodMillis <= this.ElapsedMillis)
 			{
 				this.ElapsedMillis = 0;
 

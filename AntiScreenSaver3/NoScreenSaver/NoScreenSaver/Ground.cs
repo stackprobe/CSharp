@@ -7,14 +7,26 @@ using System.Drawing;
 
 namespace Charlotte
 {
-	public static class Ground
+	public static class Gnd
 	{
+		public static Icon[] Icons = new Icon[11];
+
+		public class XYPoint
+		{
+			public int X;
+			public int Y;
+		}
+
+		public static int MouseStayTimeoutMillis;
+		public static List<XYPoint> MouseShakeRoute = new List<XYPoint>();
+		public static bool MonitorKeyboard;
+
 		private static string GetConfFile()
 		{
-			string file = "NoScreenSaver.conf";
+			string file = "NoScreenSaverMusMv.conf";
 
 			if (File.Exists(file) == false)
-				file = @"..\..\..\..\res\NoScreenSaver_Test.conf";
+				file = @"..\..\..\..\res\AntiScreenSaver_Test.conf";
 
 			return file;
 		}
@@ -35,23 +47,31 @@ namespace Charlotte
 			return dest.ToArray();
 		}
 
-		// ---- Items ----
-
-		public static int WakeupPeriodMillis;
-
-		// ----
-
 		public static void LoadConf()
 		{
 			string[] lines = File.ReadAllLines(GetConfFile(), Encoding.GetEncoding(932));
 			lines = RemoveCommentEmptyLine(lines);
 			int c = 0;
 
-			// ---- Items ----
+			MouseStayTimeoutMillis = int.Parse(lines[c++]);
 
-			WakeupPeriodMillis = int.Parse(lines[c++]);
+			for (; ; )
+			{
+				string line = lines[c++];
 
-			// ----
+				if (line == "\\d")
+					break;
+
+				string[] tokens = line.Split(',');
+
+				MouseShakeRoute.Add(new XYPoint()
+				{
+					X = int.Parse(tokens[0]),
+					Y = int.Parse(tokens[1]),
+				});
+			}
+
+			MonitorKeyboard = int.Parse(lines[c++]) != 0;
 
 			if (lines[c++] != "\\e")
 				throw new Exception("no \\e");
