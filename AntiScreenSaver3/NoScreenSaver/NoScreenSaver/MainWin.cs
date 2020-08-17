@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Security.Permissions;
+using System.Diagnostics;
 
 namespace Charlotte
 {
@@ -45,12 +46,12 @@ namespace Charlotte
 			using (new ResourceWin())
 			{ }
 
-			Gnd.LoadConf();
+			Ground.LoadConf();
 
-			if (Gnd.MonitorKeyboard)
+			if (Ground.MonitorKeyboard)
 				this.KeysMon = new KeysMon();
 
-			this.TaskTrayIcon.Icon = Gnd.Icons[0];
+			this.TaskTrayIcon.Icon = Ground.Icons[0];
 			this.TaskTrayIcon.Visible = true;
 			this.MTEnabled = true;
 		}
@@ -74,7 +75,7 @@ namespace Charlotte
 
 		private void EndProcMenuItem_Click(object sender, EventArgs e)
 		{
-			this.CloseWindow();
+			this.RequestEndProc = true;
 		}
 
 		private KeysMon KeysMon;
@@ -87,9 +88,9 @@ namespace Charlotte
 		private int LastMouse_X;
 		private int LastMouse_Y;
 
-		private int MouseShakeIndex = -1;
-		private int MouseShake_X;
-		private int MouseShake_Y;
+		private bool RequestEndProc = false;
+
+		private Process ProcTimeoutBatch = null;
 
 		private void MainTimer_Tick(object sender, EventArgs e)
 		{
@@ -100,83 +101,23 @@ namespace Charlotte
 
 			try
 			{
-				if (Program.StopRunEv.WaitOne(0))
+				if (this.ProcTimeoutBatch != null)
+				{
+					if (this.ProcTimeoutBatch.HasExited)
+						this.ProcTimeoutBatch = null;
+
+					return;
+				}
+				if (Program.StopRunEv.WaitOne(0) || this.RequestEndProc)
 				{
 					this.CloseWindow();
 					return;
 				}
-				if (Gnd.MonitorKeyboard)
+				if (Ground.MonitorKeyboard)
 					this.KeysMon.DoCheck();
 
 				int mouseX = Cursor.Position.X;
 				int mouseY = Cursor.Position.Y;
-
-				if (this.MouseShakeIndex != -1)
-				{
-#if !true
-					switch (this.MouseShakeIndex)
-					{
-						case 0:
-							Win32.SetThreadExecutionState(Win32.ExecutionState.ES_SYSTEM_REQUIRED);
-							break;
-
-						case 1:
-							Win32.SetThreadExecutionState(Win32.ExecutionState.ES_DISPLAY_REQUIRED);
-							break;
-
-						case 2:
-							this.MouseShakeIndex = -1;
-							return;
-
-						default:
-							throw null; // never
-					}
-					this.MouseShakeIndex++;
-					return;
-#else
-					if (
-						mouseX == this.LastMouse_X &&
-						mouseY == this.LastMouse_Y
-						)
-					{
-						if (this.MouseShakeIndex < Gnd.MouseShakeRoute.Count)
-						{
-							Gnd.XYPoint point = Gnd.MouseShakeRoute[this.MouseShakeIndex];
-
-#if true // CUI -> Win32
-							CTools.Perform(string.Format("/P {0} {1}",
-								this.MouseShake_X + point.X,
-								this.MouseShake_Y + point.Y
-								));
-#elif true // Win32
-							Win32.ClipCursor(null);
-
-							Win32.SetCursorPos(
-								this.MouseShake_X + point.X,
-								this.MouseShake_Y + point.Y
-								);
-#else // .NET
-							Cursor.Position = new Point(
-								this.MouseShake_X + point.X,
-								this.MouseShake_Y + point.Y
-								);
-#endif
-
-							this.LastMouse_X = Cursor.Position.X;
-							this.LastMouse_Y = Cursor.Position.Y;
-
-							this.MouseShakeIndex++;
-							return;
-						}
-						Cursor.Position = new Point(this.MouseShake_X, this.MouseShake_Y);
-
-						this.LastMouse_X = this.MouseShake_X;
-						this.LastMouse_Y = this.MouseShake_Y;
-					}
-					this.MouseShakeIndex = -1;
-					return;
-#endif
-				}
 
 				if (
 					mouseX == this.LastMouse_X &&
@@ -193,23 +134,37 @@ namespace Charlotte
 					this.LastMouse_Y = mouseY;
 				}
 
-				if (Gnd.MonitorKeyboard && this.KeysMon.IsTouched())
+				if (Ground.MonitorKeyboard && this.KeysMon.IsTouched())
 					this.MouseStayMillis = 0;
 
 				{
 					Icon nextIcon;
 
-					if (this.MouseStayMillis < Gnd.MouseStayTimeoutMillis)
+					if (this.MouseStayMillis < Ground.MouseStayTimeoutMillis)
 					{
-						nextIcon = Gnd.Icons[(10 * this.MouseStayMillis) / Gnd.MouseStayTimeoutMillis];
+						nextIcon = Ground.Icons[(10 * this.MouseStayMillis) / Ground.MouseStayTimeoutMillis];
 					}
 					else
 					{
-						nextIcon = Gnd.Icons[10];
+						nextIcon = Ground.Icons[10];
 
-						this.MouseShakeIndex = 0;
-						this.MouseShake_X = mouseX;
-						this.MouseShake_Y = mouseY;
+						try
+						{
+							ProcessStartInfo psi = new ProcessStartInfo();
+
+							psi.FileName = "cmd";
+							psi.Arguments = "/c " + Ground.TimeoutBatchFile;
+							psi.CreateNoWindow = true;
+							psi.UseShellExecute = false;
+
+							this.ProcTimeoutBatch = Process.Start(psi);
+						}
+						catch (Exception ex)
+						{
+							MessageBox.Show(ex + "", Program.APP_TITLE + " / Start Timeout-Batch Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+							this.ProcTimeoutBatch = null;
+						}
 
 						this.MouseStayMillis = 0;
 					}

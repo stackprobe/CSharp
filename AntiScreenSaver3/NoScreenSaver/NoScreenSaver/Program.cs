@@ -90,7 +90,7 @@ namespace Charlotte
 			return ret;
 		}
 
-		public const string APP_IDENT = "{ddf6e671-d67c-4936-b97c-c5ef93a2d30f}";
+		public const string APP_IDENT = "{0e24b6e8-febe-42f2-a12e-96c5e924990f}";
 		public const string APP_TITLE = "NoScreenSaver";
 
 		private static void ApplicationThreadException(object sender, ThreadExceptionEventArgs e)

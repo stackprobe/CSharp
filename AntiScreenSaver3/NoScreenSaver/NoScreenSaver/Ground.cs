@@ -7,26 +7,20 @@ using System.Drawing;
 
 namespace Charlotte
 {
-	public static class Gnd
+	public static class Ground
 	{
 		public static Icon[] Icons = new Icon[11];
 
-		public class XYPoint
-		{
-			public int X;
-			public int Y;
-		}
-
 		public static int MouseStayTimeoutMillis;
-		public static List<XYPoint> MouseShakeRoute = new List<XYPoint>();
+		public static string TimeoutBatchFile;
 		public static bool MonitorKeyboard;
 
 		private static string GetConfFile()
 		{
-			string file = "NoScreenSaverMusMv.conf";
+			string file = "NoScreenSaverCmd.conf";
 
 			if (File.Exists(file) == false)
-				file = @"..\..\..\..\res\AntiScreenSaver_Test.conf";
+				file = @"..\..\..\..\res\NoScreenSaver_Test.conf";
 
 			return file;
 		}
@@ -54,23 +48,7 @@ namespace Charlotte
 			int c = 0;
 
 			MouseStayTimeoutMillis = int.Parse(lines[c++]);
-
-			for (; ; )
-			{
-				string line = lines[c++];
-
-				if (line == "\\d")
-					break;
-
-				string[] tokens = line.Split(',');
-
-				MouseShakeRoute.Add(new XYPoint()
-				{
-					X = int.Parse(tokens[0]),
-					Y = int.Parse(tokens[1]),
-				});
-			}
-
+			TimeoutBatchFile = lines[c++];
 			MonitorKeyboard = int.Parse(lines[c++]) != 0;
 
 			if (lines[c++] != "\\e")
