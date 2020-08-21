@@ -39,7 +39,7 @@ namespace Charlotte
 
 		private void Main2()
 		{
-			//new FilingCase3Test().Test01();
+			new FilingCase3Test().Test01();
 			//new WorkingDirTest().Test01();
 			//new DateTimeToSecTest().Test01();
 			//new Test01().Main01();
@@ -61,7 +61,7 @@ namespace Charlotte
 			//new FileToolsTest().Test02();
 			//new FileToolsTest().Test03();
 			//new SortedListTest().Test01();
-			new SortedListTest().Test02();
+			//new SortedListTest().Test02();
 			//new CipherToolsTest.AESTest().Test01();
 			//new SecurityToolsTest().Test01();
 			//new SecurityToolsTest().Test02();

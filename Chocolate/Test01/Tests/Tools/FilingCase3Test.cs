@@ -15,16 +15,20 @@ namespace Charlotte.Tests.Tools
 			{
 				client.Delete("test-root");
 
+				Console.WriteLine("*1");
 				foreach (string file in client.List("test-root"))
 				{
 					Console.WriteLine(file);
 				}
+				Console.WriteLine("*2");
 				client.Post(@"test-root\test-file", Encoding.ASCII.GetBytes("test-data"));
 
+				Console.WriteLine("*3");
 				foreach (string file in client.List("test-root"))
 				{
 					Console.WriteLine(file);
 				}
+				Console.WriteLine("*4");
 				Console.WriteLine(Encoding.ASCII.GetString(client.Get(@"test-root\test-file")));
 			}
 		}
