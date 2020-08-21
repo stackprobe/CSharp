@@ -47,12 +47,12 @@
 			this.TTIMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.EndProcMenuItem});
 			this.TTIMenu.Name = "TTIMenu";
-			this.TTIMenu.Size = new System.Drawing.Size(153, 48);
+			this.TTIMenu.Size = new System.Drawing.Size(94, 26);
 			// 
 			// EndProcMenuItem
 			// 
 			this.EndProcMenuItem.Name = "EndProcMenuItem";
-			this.EndProcMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.EndProcMenuItem.Size = new System.Drawing.Size(93, 22);
 			this.EndProcMenuItem.Text = "Exit";
 			this.EndProcMenuItem.Click += new System.EventHandler(this.EndProcMenuItem_Click);
 			// 
