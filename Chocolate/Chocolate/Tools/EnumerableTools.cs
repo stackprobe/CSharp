@@ -7,11 +7,17 @@ namespace Charlotte.Tools
 {
 	public static class EnumerableTools
 	{
+		// 列挙の引数配列(2次元列挙)を列挙(1次元列挙)に変換する。
+		// 例：{{ A, B, C }, { D, E, D }, { G, H, I }} -> { A, B, C, D, E, F, G, H, I }
+		//
 		public static IEnumerable<T> Join<T>(params IEnumerable<T>[] src)
 		{
 			return Linearize(src);
 		}
 
+		// 列挙の列挙(2次元列挙)を列挙(1次元列挙)に変換する。
+		// 例：{{ A, B, C }, { D, E, D }, { G, H, I }} -> { A, B, C, D, E, F, G, H, I }
+		//
 		public static IEnumerable<T> Linearize<T>(IEnumerable<IEnumerable<T>> src)
 		{
 			foreach (IEnumerable<T> part in src)
@@ -248,6 +254,9 @@ namespace Charlotte.Tools
 			return arr;
 		}
 
+		// 列挙をゲッターメソッドでラップします。
+		// 例：{ A, B, C } -> 呼び出し毎に右の順で戻り値を返す { A, B, C, default(T), default(T), default(T), ... }
+		//
 		public static Func<T> Supplier<T>(IEnumerable<T> src)
 		{
 			IEnumerator<T> reader = src.GetEnumerator();
