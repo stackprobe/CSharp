@@ -16,7 +16,7 @@ namespace Charlotte
 			using (var b = new EventWaitHandle(false, EventResetMode.AutoReset, ident + "B"))
 			using (var r = new EventWaitHandle(false, EventResetMode.AutoReset, ident + "R"))
 			{
-				r.WaitOne(100); // HACK: cleanup
+				r.WaitOne(100); // cleanup
 
 				foreach (byte[] bMes in new byte[][]
 				{
