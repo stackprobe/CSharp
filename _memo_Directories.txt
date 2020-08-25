@@ -1,0 +1,14 @@
+----
+フォルダ構成メモ
+
+
+-- 共有ライブラリ --
+
+フォルダ    テンプレート   補足
+---------------------------------------
+Module      Template       旧バージョン
+Module2     Template
+Module3     -              テンプレートに依存しない。
+Chocolate   Template2      必須
+DLL         Template2      任意
+

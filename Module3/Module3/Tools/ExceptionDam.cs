@@ -39,11 +39,11 @@ namespace Charlotte.Tools
 			if (1 <= this.Es.Count)
 			{
 				int count = this.Es.Count;
-				Exception e = this.Es[0];
+				Exception[] exs = this.Es.ToArray();
 
 				this.Es.Clear();
 
-				throw new Exception("保留していた" + count + "個の例外のうち最初の例外をInnerにして例外を投げます。", e);
+				throw new AggregateException("保留していた" + count + "個の例外をInnerにして例外を投げます。", exs);
 			}
 		}
 	}
