@@ -39,7 +39,7 @@ namespace Charlotte
 
 		private void Main2()
 		{
-			new FilingCase3Test().Test01();
+			//new FilingCase3Test().Test01();
 			//new WorkingDirTest().Test01();
 			//new DateTimeToSecTest().Test01();
 			//new Test01().Main01();
@@ -109,7 +109,7 @@ namespace Charlotte
 			//new FilingCase3Test().Test02();
 			//new AttachStringTest().Test01();
 			//new EscapeStringTest().Test01();
-			//new ObjectTreeTest().Test01();
+			new ObjectTreeTest().Test01();
 			//new Base64UnitTest().Test01();
 			//new Base64UnitTest().Test02();
 			//new ZipToolsTest().Test01();

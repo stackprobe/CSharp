@@ -12,28 +12,28 @@ namespace Charlotte.Tools
 		public HandleDam HDam;
 
 		/// <summary>
-		/// 要求タイムアウト_ミリ秒
-		/// -1 == INFINITE
+		/// <para>要求タイムアウト_ミリ秒</para>
+		/// <para>-1 == INFINITE</para>
 		/// </summary>
 		public static int RequestTimeoutMillis = -1;
 
 		/// <summary>
-		/// 応答タイムアウト_ミリ秒
-		/// -1 == INFINITE
+		/// <para>応答タイムアウト_ミリ秒</para>
+		/// <para>-1 == INFINITE</para>
 		/// </summary>
 		public static int ResponseTimeoutMillis = -1;
 
 		// memo: チャンク毎のタイムアウトは IdleTimeoutMillis で代替する。
 
 		/// <summary>
-		/// リクエストの最初の行のみの無通信タイムアウト_ミリ秒
-		/// -1 == INFINITE
+		/// <para>リクエストの最初の行のみの無通信タイムアウト_ミリ秒</para>
+		/// <para>-1 == INFINITE</para>
 		/// </summary>
 		public static int FirstLineTimeoutMillis = 2000;
 
 		/// <summary>
-		/// リクエストの最初の行以外の(レスポンスも含む)無通信タイムアウト_ミリ秒
-		/// -1 == INFINITE
+		/// <para>リクエストの最初の行以外の(レスポンスも含む)無通信タイムアウト_ミリ秒</para>
+		/// <para>-1 == INFINITE</para>
 		/// </summary>
 		public static int IdleTimeoutMillis = 180000; // 3 min
 

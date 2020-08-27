@@ -39,20 +39,20 @@ namespace Charlotte.Tools
 		}
 
 		/// <summary>
-		/// 接続を試みてから、応答ヘッダを受信し終えるまでのタイムアウト
-		/// ミリ秒
+		/// <para>接続を試みてから、応答ヘッダを受信し終えるまでのタイムアウト</para>
+		/// <para>ミリ秒</para>
 		/// </summary>
 		public int ConnectTimeoutMillis = 20000; // 20 sec
 
 		/// <summary>
-		/// 接続を試みてから、全て送受信し終えるまでのタイムアウト
-		/// ミリ秒
+		/// <para>接続を試みてから、全て送受信し終えるまでのタイムアウト</para>
+		/// <para>ミリ秒</para>
 		/// </summary>
 		public int TimeoutMillis = 30000; // 30 sec
 
 		/// <summary>
-		/// 応答ヘッダを受信し終えてから～全て送受信し終えるまでの間の、無通信タイムアウト
-		/// ミリ秒
+		/// <para>応答ヘッダを受信し終えてから～全て送受信し終えるまでの間の、無通信タイムアウト</para>
+		/// <para>ミリ秒</para>
 		/// </summary>
 		public int IdleTimeoutMillis = 10000; // 10 sec
 

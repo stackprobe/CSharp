@@ -96,8 +96,8 @@ namespace Charlotte.Tools
 		}
 
 		/// <summary>
-		/// 全てのハンドルを Dispose する。
-		/// 1つ以上の Dispose が例外を投げた場合、全ての Dispose を実行し終えた後で AggregateException にまとめて投げる。
+		/// <para>全てのハンドルを Dispose する。</para>
+		/// <para>1つ以上の Dispose が例外を投げた場合、全ての Dispose を実行し終えた後で AggregateException にまとめて投げる。</para>
 		/// </summary>
 		public void Burst()
 		{
@@ -108,8 +108,8 @@ namespace Charlotte.Tools
 		}
 
 		/// <summary>
-		/// 全てのハンドルを Dispose する。
-		/// 全ての Dispose を実行し終えた後で e と Dispose が投げた例外を AggregateException にまとめて投げる。
+		/// <para>全てのハンドルを Dispose する。</para>
+		/// <para>全ての Dispose を実行し終えた後で e と Dispose が投げた例外を AggregateException にまとめて投げる。</para>
 		/// </summary>
 		public void Burst(Exception e)
 		{

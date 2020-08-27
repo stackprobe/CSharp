@@ -7,9 +7,9 @@ using System.Drawing;
 namespace Charlotte.Tools
 {
 	/// <summary>
-	/// アルファ値の無い色を表す。
-	/// 各色は 0 ～ 255 を想定する。
-	/// R を -1 にすることによって無効な色を示す。
+	/// <para>アルファ値の無い色を表す。</para>
+	/// <para>各色は 0 ～ 255 を想定する。</para>
+	/// <para>R を -1 にすることによって無効な色を示す。</para>
 	/// </summary>
 	public struct I3Color
 	{

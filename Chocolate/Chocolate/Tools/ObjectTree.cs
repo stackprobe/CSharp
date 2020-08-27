@@ -6,12 +6,22 @@ using System.Text;
 
 namespace Charlotte.Tools
 {
+	/// <summary>
+	/// <para>構造化オブジェクトをラップするクラス</para>
+	/// <para>構造化オブジェクトは、以下のいずれかであるものを指す。</para>
+	/// <para>1. 全ての要素が構造化オブジェクトである ObjectList</para>
+	/// <para>2. 全ての要素の値が構造化オブジェクトである ObjectMap</para>
+	/// <para>3. object</para>
+	/// <para>4. null</para>
+	/// </summary>
 	public class ObjectTree
 	{
 		/// <summary>
-		/// ただの構造化オブジェクトを JsonTools.Encode() に渡せるような構造化オブジェクトに変換する。
+		/// <para>色々なオブジェクトを構造化オブジェクトに変換する。</para>
+		/// <para>本メソッドの用途は決まっていない。呼び出し側は処理が変更されることを想定すること。</para>
+		/// <para>現在のところ、自力で作ったオブジェクトを JsonTools.Encode() に渡せるような構造化オブジェクトに変換することを用途としている。</para>
 		/// </summary>
-		/// <param name="root">構造化オブジェクト</param>
+		/// <param name="root">色々なオブジェクト</param>
 		/// <returns>構造化オブジェクト</returns>
 		public static object Conv(object root)
 		{
@@ -61,10 +71,10 @@ namespace Charlotte.Tools
 		}
 
 		/// <summary>
-		/// ただの構造化オブジェクトを JsonTools.Encode() に渡せるような構造化オブジェクトを持つ ObjectTree に変換する。
+		/// 色々なオブジェクトからインスタンスを生成する。
 		/// </summary>
-		/// <param name="root">構造化オブジェクト</param>
-		/// <returns>構造化オブジェクト</returns>
+		/// <param name="root">色々なオブジェクト</param>
+		/// <returns>インスタンス</returns>
 		public static ObjectTree Convert(object root)
 		{
 			return new ObjectTree(Conv(root));
@@ -73,9 +83,9 @@ namespace Charlotte.Tools
 		private object Root;
 
 		/// <summary>
-		/// 構造化オブジェクトを生成する。
+		/// 構造化オブジェクトからインスタンスを生成する。
 		/// </summary>
-		/// <param name="root">JsonTools.Encode() に渡せるような構造化オブジェクトであること。そうでない場合は Convert() を使用すること。</param>
+		/// <param name="root">構造化オブジェクト</param>
 		public ObjectTree(object root)
 		{
 			this.Root = root;

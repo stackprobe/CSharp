@@ -10,21 +10,34 @@ namespace Charlotte.Tests.Tools
 	{
 		public void Test01()
 		{
-			ObjectTree.Conv(new int[] { 1, 2, 3 });
+			Test01_a(ObjectTree.Conv(new int[] { 1, 2, 3 }));
+			Test01_a(ObjectTree.Conv(new List<int>(new int[] { 4, 5, 6 })));
+			Test01_a(ObjectTree.Conv(Test01_Get789()));
 
-			ObjectTree.Conv(new List<int>(new int[] { 4, 5, 6 }));
+			{
+				Dictionary<string, int> dict = DictionaryTools.Create<int>();
 
-			ObjectTree.Conv(Test01_Get789());
+				dict.Add("A", 1);
+				dict.Add("BB", 22);
+				dict.Add("CCC", 333);
+
+				Test01_a(ObjectTree.Conv(dict));
+			}
 
 			{
 				Dictionary<string, string> dict = DictionaryTools.Create<string>();
 
-				dict.Add("A", "1");
-				dict.Add("BB", "22");
-				dict.Add("CCC", "333");
+				dict.Add("a", "s1");
+				dict.Add("bb", "s22");
+				dict.Add("ccc", "s333");
 
-				ObjectTree.Conv(dict);
+				Test01_a(ObjectTree.Conv(dict));
 			}
+		}
+
+		private void Test01_a(object src)
+		{
+			Console.WriteLine(JsonTools.Encode(src));
 		}
 
 		private IEnumerable<int> Test01_Get789()

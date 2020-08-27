@@ -28,6 +28,8 @@ namespace Charlotte.Tools
 			public string Indent = "\t";
 			public string NewLine = "\r\n";
 
+			// <---- prm
+
 			private StringBuilder Buff = new StringBuilder();
 
 			public void Add(object src, int indent)
@@ -192,6 +194,8 @@ namespace Charlotte.Tools
 		{
 			public string Src;
 
+			// <---- prm
+
 			private int RPos = 0;
 
 			private char Next()
@@ -224,13 +228,16 @@ namespace Charlotte.Tools
 
 			public object GetObject()
 			{
-				return GetObject(this.NextNS());
+				return GetObject(this.NextNS(), 1);
 			}
 
 			private int ObjectCount = 0;
 
-			public object GetObject(char chr)
+			public object GetObject(char chr, int nestingLevel)
 			{
+				if (DecodeNestingLevelMax != -1 && DecodeNestingLevelMax < nestingLevel)
+					throw new Exception("JSON format error: over " + DecodeNestingLevelMax + " nesting-level");
+
 				if (DecodeObjectCountMax != -1 && DecodeObjectCountMax <= this.ObjectCount)
 					throw new Exception("JSON format error: over " + DecodeObjectCountMax + " objects");
 
@@ -244,7 +251,7 @@ namespace Charlotte.Tools
 					{
 						for (; ; )
 						{
-							object key = this.GetObject(chr);
+							object key = this.GetObject(chr, nestingLevel + 1);
 
 							if (key is string == false)
 								ProcMain.WriteLog("JSON format warning: key is not string");
@@ -273,7 +280,7 @@ namespace Charlotte.Tools
 					{
 						for (; ; )
 						{
-							ol.Add(this.GetObject(chr));
+							ol.Add(this.GetObject(chr, nestingLevel + 1));
 
 							if (this.NextNS(",]") == ']')
 								break;
@@ -361,6 +368,7 @@ namespace Charlotte.Tools
 						}
 						buff.Append(chr);
 					}
+
 					Word word = new Word()
 					{
 						Value = buff.ToString().Trim(),
@@ -400,6 +408,7 @@ namespace Charlotte.Tools
 		}
 
 		public static Func<string, string> DecodeStringFilter = str => str;
+		public static int DecodeNestingLevelMax = -1;
 		public static int DecodeObjectCountMax = -1;
 	}
 }

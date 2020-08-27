@@ -21,14 +21,14 @@ namespace Charlotte.Tools
 		public static bool StopFlag = false;
 
 		/// <summary>
-		/// セッションタイムアウト日時
-		/// null == INFINITE
+		/// <para>セッションタイムアウト日時</para>
+		/// <para>null == INFINITE</para>
 		/// </summary>
 		public DateTime? SessionTimeoutTime = null;
 
 		/// <summary>
-		/// 無通信タイムアウト_ミリ秒
-		/// -1 == INFINITE
+		/// <para>無通信タイムアウト_ミリ秒</para>
+		/// <para>-1 == INFINITE</para>
 		/// </summary>
 		public int IdleTimeoutMillis = 180000; // 3 min
 
