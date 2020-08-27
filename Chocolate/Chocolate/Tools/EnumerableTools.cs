@@ -7,17 +7,25 @@ namespace Charlotte.Tools
 {
 	public static class EnumerableTools
 	{
-		// 列挙の引数配列(2次元列挙)を列挙(1次元列挙)に変換する。
-		// 例：{{ A, B, C }, { D, E, D }, { G, H, I }} -> { A, B, C, D, E, F, G, H, I }
-		//
+		/// <summary>
+		/// 列挙の引数配列(2次元列挙)を列挙(1次元列挙)に変換する。
+		/// 例：{{ A, B, C }, { D, E, D }, { G, H, I }} -> { A, B, C, D, E, F, G, H, I }
+		/// </summary>
+		/// <typeparam name="T">要素の型</typeparam>
+		/// <param name="src">列挙の引数配列(2次元列挙)</param>
+		/// <returns>列挙(1次元列挙)</returns>
 		public static IEnumerable<T> Join<T>(params IEnumerable<T>[] src)
 		{
 			return Linearize(src);
 		}
 
-		// 列挙の列挙(2次元列挙)を列挙(1次元列挙)に変換する。
-		// 例：{{ A, B, C }, { D, E, D }, { G, H, I }} -> { A, B, C, D, E, F, G, H, I }
-		//
+		/// <summary>
+		/// 列挙の列挙(2次元列挙)を列挙(1次元列挙)に変換する。
+		/// 例：{{ A, B, C }, { D, E, D }, { G, H, I }} -> { A, B, C, D, E, F, G, H, I }
+		/// </summary>
+		/// <typeparam name="T">要素の型</typeparam>
+		/// <param name="src">列挙の列挙(2次元列挙)</param>
+		/// <returns>列挙(1次元列挙)</returns>
 		public static IEnumerable<T> Linearize<T>(IEnumerable<IEnumerable<T>> src)
 		{
 			foreach (IEnumerable<T> part in src)
@@ -68,11 +76,17 @@ namespace Charlotte.Tools
 			return new Cartridge<T>(inner_binding);
 		}
 
-		// destOnly1: null可
-		// destBoth1: null可
-		// destBoth2: null可
-		// destOnly2: null可
-		//
+		/// <summary>
+		/// マージ
+		/// </summary>
+		/// <typeparam name="T">要素の型</typeparam>
+		/// <param name="enu1">入力1</param>
+		/// <param name="enu2">入力2</param>
+		/// <param name="destOnly1">入力1だけに存在する要素について呼び出す。null のとき何もしない。</param>
+		/// <param name="destBoth1">両方に存在する入力1の要素について呼び出す。null のとき何もしない。</param>
+		/// <param name="destBoth2">両方に存在する入力2の要素について呼び出す。null のとき何もしない。</param>
+		/// <param name="destOnly2">入力2だけに存在する要素について呼び出す。null のとき何もしない。</param>
+		/// <param name="comp">要素の比較</param>
 		public static void Merge<T>(IEnumerable<T> enu1, IEnumerable<T> enu2, Action<T> destOnly1, Action<T> destBoth1, Action<T> destBoth2, Action<T> destOnly2, Comparison<T> comp)
 		{
 			using (Cartridge<T> reader1 = GetCartridge(enu1.GetEnumerator()))
@@ -254,9 +268,13 @@ namespace Charlotte.Tools
 			return arr;
 		}
 
-		// 列挙をゲッターメソッドでラップします。
-		// 例：{ A, B, C } -> 呼び出し毎に右の順で戻り値を返す { A, B, C, default(T), default(T), default(T), ... }
-		//
+		/// <summary>
+		/// 列挙をゲッターメソッドでラップします。
+		/// 例：{ A, B, C } -> 呼び出し毎に右の順で戻り値を返す { A, B, C, default(T), default(T), default(T), ... }
+		/// </summary>
+		/// <typeparam name="T">要素の型</typeparam>
+		/// <param name="src">列挙</param>
+		/// <returns>ゲッターメソッド</returns>
 		public static Func<T> Supplier<T>(IEnumerable<T> src)
 		{
 			IEnumerator<T> reader = src.GetEnumerator();

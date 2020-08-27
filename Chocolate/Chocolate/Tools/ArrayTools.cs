@@ -160,11 +160,17 @@ namespace Charlotte.Tools
 			return dest;
 		}
 
-		// destOnly1: null可
-		// destBoth1: null可
-		// destBoth2: null可
-		// destOnly2: null可
-		//
+		/// <summary>
+		/// マージ
+		/// </summary>
+		/// <typeparam name="T">要素の型</typeparam>
+		/// <param name="arr1">入力1</param>
+		/// <param name="arr2">入力2</param>
+		/// <param name="destOnly1">入力1だけに存在する要素をここへ追加する。null のとき何もしない。</param>
+		/// <param name="destBoth1">両方に存在する入力1の要素をここへ追加する。null のとき何もしない。</param>
+		/// <param name="destBoth2">両方に存在する入力2の要素をここへ追加する。null のとき何もしない。</param>
+		/// <param name="destOnly2">入力2だけに存在する要素をここへ追加する。null のとき何もしない。</param>
+		/// <param name="comp">要素の比較</param>
 		public static void Merge<T>(T[] arr1, T[] arr2, List<T> destOnly1, List<T> destBoth1, List<T> destBoth2, List<T> destOnly2, Comparison<T> comp)
 		{
 			Array.Sort(arr1, comp);
