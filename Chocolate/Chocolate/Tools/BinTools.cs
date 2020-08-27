@@ -113,12 +113,27 @@ namespace Charlotte.Tools
 
 		public static byte[] ToBytes(int value)
 		{
+			return ToBytes((uint)value);
+		}
+
+		public static void ToBytes(int value, byte[] dest, int index = 0)
+		{
+			ToBytes((uint)value, dest, index);
+		}
+
+		public static int ToInt(byte[] src, int index = 0)
+		{
+			return (int)ToUInt(src, index);
+		}
+
+		public static byte[] ToBytes(uint value)
+		{
 			byte[] dest = new byte[4];
 			ToBytes(value, dest);
 			return dest;
 		}
 
-		public static void ToBytes(int value, byte[] dest, int index = 0)
+		public static void ToBytes(uint value, byte[] dest, int index = 0)
 		{
 			dest[index + 0] = (byte)((value >> 0) & 0xff);
 			dest[index + 1] = (byte)((value >> 8) & 0xff);
@@ -126,23 +141,38 @@ namespace Charlotte.Tools
 			dest[index + 3] = (byte)((value >> 24) & 0xff);
 		}
 
-		public static int ToInt(byte[] src, int index = 0)
+		public static uint ToUInt(byte[] src, int index = 0)
 		{
 			return
-				((int)src[index + 0] << 0) |
-				((int)src[index + 1] << 8) |
-				((int)src[index + 2] << 16) |
-				((int)src[index + 3] << 24);
+				((uint)src[index + 0] << 0) |
+				((uint)src[index + 1] << 8) |
+				((uint)src[index + 2] << 16) |
+				((uint)src[index + 3] << 24);
 		}
 
 		public static byte[] ToBytes64(long value)
+		{
+			return ToBytes64((ulong)value);
+		}
+
+		public static void ToBytes64(long value, byte[] dest, int index = 0)
+		{
+			ToBytes64((ulong)value, dest, index);
+		}
+
+		public static long ToInt64(byte[] src, int index = 0)
+		{
+			return (long)ToUInt64(src, index);
+		}
+
+		public static byte[] ToBytes64(ulong value)
 		{
 			byte[] dest = new byte[8];
 			ToBytes64(value, dest);
 			return dest;
 		}
 
-		public static void ToBytes64(long value, byte[] dest, int index = 0)
+		public static void ToBytes64(ulong value, byte[] dest, int index = 0)
 		{
 			dest[index + 0] = (byte)((value >> 0) & 0xff);
 			dest[index + 1] = (byte)((value >> 8) & 0xff);
@@ -154,19 +184,25 @@ namespace Charlotte.Tools
 			dest[index + 7] = (byte)((value >> 56) & 0xff);
 		}
 
-		public static long ToInt64(byte[] src, int index = 0)
+		public static ulong ToUInt64(byte[] src, int index = 0)
 		{
 			return
-				((long)src[index + 0] << 0) |
-				((long)src[index + 1] << 8) |
-				((long)src[index + 2] << 16) |
-				((long)src[index + 3] << 24) |
-				((long)src[index + 4] << 32) |
-				((long)src[index + 5] << 40) |
-				((long)src[index + 6] << 48) |
-				((long)src[index + 7] << 56);
+				((ulong)src[index + 0] << 0) |
+				((ulong)src[index + 1] << 8) |
+				((ulong)src[index + 2] << 16) |
+				((ulong)src[index + 3] << 24) |
+				((ulong)src[index + 4] << 32) |
+				((ulong)src[index + 5] << 40) |
+				((ulong)src[index + 6] << 48) |
+				((ulong)src[index + 7] << 56);
 		}
 
+		/// <summary>
+		/// <para>バイト列を連結する。</para>
+		/// <para>例：{ BYTE_ARR_1, BYTE_ARR_2, BYTE_ARR_3 } -> BYTE_ARR_1 + BYTE_ARR_2 + BYTE_ARR_3</para>
+		/// </summary>
+		/// <param name="src">バイト列の引数配列</param>
+		/// <returns>連結したバイト列</returns>
 		public static byte[] Join(params byte[][] src)
 		{
 			int offset = 0;
@@ -185,6 +221,14 @@ namespace Charlotte.Tools
 			return dest;
 		}
 
+		/// <summary>
+		/// <para>バイト列を再分割可能なように連結する。</para>
+		/// <para>再分割するには BinTools.Split を使用すること。</para>
+		/// <para>例：{ BYTE_ARR_1, BYTE_ARR_2, BYTE_ARR_3 } -> SIZE(BYTE_ARR_1) + BYTE_ARR_1 + SIZE(BYTE_ARR_2) + BYTE_ARR_2 + SIZE(BYTE_ARR_3) + BYTE_ARR_3</para>
+		/// <para>SIZE(b) は BinTools.ToBytes(b.Length) である。</para>
+		/// </summary>
+		/// <param name="src">バイト列の引数配列</param>
+		/// <returns>連結したバイト列</returns>
 		public static byte[] SplittableJoin(params byte[][] src)
 		{
 			int offset = 0;
@@ -205,6 +249,11 @@ namespace Charlotte.Tools
 			return dest;
 		}
 
+		/// <summary>
+		/// バイト列を再分割する。
+		/// </summary>
+		/// <param name="src">連結したバイト列</param>
+		/// <returns>再分割したバイト列の配列</returns>
 		public static byte[][] Split(byte[] src)
 		{
 			List<byte[]> dest = new List<byte[]>();
