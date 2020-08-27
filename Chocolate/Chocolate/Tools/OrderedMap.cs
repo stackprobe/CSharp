@@ -7,6 +7,10 @@ namespace Charlotte.Tools
 {
 	public class OrderedMap<K, V>
 	{
+		// see also:
+		// DictionaryTools.CreateOrdered
+		// DictionaryTools.CreateOrderedIgnoreCase
+
 		private class ValueInfo
 		{
 			public V Value;

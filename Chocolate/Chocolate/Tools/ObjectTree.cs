@@ -8,6 +8,11 @@ namespace Charlotte.Tools
 {
 	public class ObjectTree
 	{
+		/// <summary>
+		/// ただの構造化オブジェクトを JsonTools.Encode() に渡せるような構造化オブジェクトに変換する。
+		/// </summary>
+		/// <param name="root">構造化オブジェクト</param>
+		/// <returns>構造化オブジェクト</returns>
 		public static object Conv(object root)
 		{
 			// for JsonTools.Encode() {
@@ -55,6 +60,11 @@ namespace Charlotte.Tools
 			return root;
 		}
 
+		/// <summary>
+		/// ただの構造化オブジェクトを JsonTools.Encode() に渡せるような構造化オブジェクトを持つ ObjectTree に変換する。
+		/// </summary>
+		/// <param name="root">構造化オブジェクト</param>
+		/// <returns>構造化オブジェクト</returns>
 		public static ObjectTree Convert(object root)
 		{
 			return new ObjectTree(Conv(root));
@@ -62,6 +72,10 @@ namespace Charlotte.Tools
 
 		private object Root;
 
+		/// <summary>
+		/// 構造化オブジェクトを生成する。
+		/// </summary>
+		/// <param name="root">JsonTools.Encode() に渡せるような構造化オブジェクトであること。そうでない場合は Convert() を使用すること。</param>
 		public ObjectTree(object root)
 		{
 			this.Root = root;

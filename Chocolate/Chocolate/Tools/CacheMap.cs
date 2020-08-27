@@ -7,6 +7,10 @@ namespace Charlotte.Tools
 {
 	public class CacheMap<K, V>
 	{
+		// see also:
+		// DictionaryTools.CreateCache
+		// DictionaryTools.CreateCacheIgnoreCase
+
 		private Dictionary<K, V> Inner;
 		private Func<K, V> CreateValue;
 
