@@ -15,7 +15,7 @@ namespace Charlotte.Chocomint.Dialogs
 		/// </summary>
 		/// <param name="title">タイトル文字列</param>
 		/// <param name="prompt">プロンプト文字列</param>
-		/// <param name="parent">親フォームを持つ</param>
+		/// <param name="hasParent">親フォームを持つ</param>
 		/// <param name="file">初期ファイル</param>
 		/// <param name="defval">デフォルトの戻り値</param>
 		/// <param name="filterString">書式 = [総称:]拡張子1.拡張子2.拡張子3 ...</param>
@@ -30,7 +30,7 @@ namespace Charlotte.Chocomint.Dialogs
 		/// </summary>
 		/// <param name="title">タイトル文字列</param>
 		/// <param name="prompt">プロンプト文字列</param>
-		/// <param name="parent">親フォームを持つ</param>
+		/// <param name="hasParent">親フォームを持つ</param>
 		/// <param name="file">初期ファイル</param>
 		/// <param name="defval">デフォルトの戻り値</param>
 		/// <param name="filterString">書式 = 拡張子1.拡張子2.拡張子3 ...</param>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Charlotte.Tools
 {
@@ -377,7 +378,7 @@ namespace Charlotte.Tools
 					if (word.IsFairJsonWord() == false)
 						ProcMain.WriteLog("JSON format warning: value is not fair JSON word");
 
-					word.Value = DecodeStringFilter(word.Value);
+					//word.Value = DecodeStringFilter(word.Value); // del
 					return word;
 				}
 			}
@@ -401,9 +402,9 @@ namespace Charlotte.Tools
 					this.IsNumber();
 			}
 
-			private bool IsNumber() // HACK
+			private bool IsNumber()
 			{
-				return StringTools.LiteValidate(this.Value, StringTools.DECIMAL + "+-.Ee");
+				return Regex.IsMatch(this.Value, "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?([Ee][\\+\\-]?[0-9]+)?$");
 			}
 		}
 

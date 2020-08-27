@@ -80,7 +80,7 @@ namespace Charlotte
 			//new ReflectToolsTest().Test05();
 			//new ReflectToolsTest().Test06();
 			//new JsonToolsTest().Test01();
-			//new JsonToolsTest().Test02();
+			new JsonToolsTest().Test02();
 			//new JsonToolsTest().Test03();
 			//new ArrayToolsTest().Test01();
 			//new BinToolsTest().Test01();
@@ -109,7 +109,7 @@ namespace Charlotte
 			//new FilingCase3Test().Test02();
 			//new AttachStringTest().Test01();
 			//new EscapeStringTest().Test01();
-			new ObjectTreeTest().Test01();
+			//new ObjectTreeTest().Test01();
 			//new Base64UnitTest().Test01();
 			//new Base64UnitTest().Test02();
 			//new ZipToolsTest().Test01();
