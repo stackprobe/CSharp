@@ -8,8 +8,8 @@ namespace Charlotte.Tools
 	public static class EnumerableTools
 	{
 		/// <summary>
-		/// 列挙の引数配列(2次元列挙)を列挙(1次元列挙)に変換する。
-		/// 例：{{ A, B, C }, { D, E, D }, { G, H, I }} -> { A, B, C, D, E, F, G, H, I }
+		/// <para>列挙の引数配列(2次元列挙)を列挙(1次元列挙)に変換する。</para>
+		/// <para>例：{{ A, B, C }, { D, E, D }, { G, H, I }} -> { A, B, C, D, E, F, G, H, I }</para>
 		/// </summary>
 		/// <typeparam name="T">要素の型</typeparam>
 		/// <param name="src">列挙の引数配列(2次元列挙)</param>
@@ -20,8 +20,8 @@ namespace Charlotte.Tools
 		}
 
 		/// <summary>
-		/// 列挙の列挙(2次元列挙)を列挙(1次元列挙)に変換する。
-		/// 例：{{ A, B, C }, { D, E, D }, { G, H, I }} -> { A, B, C, D, E, F, G, H, I }
+		/// <para>列挙の列挙(2次元列挙)を列挙(1次元列挙)に変換する。</para>
+		/// <para>例：{{ A, B, C }, { D, E, D }, { G, H, I }} -> { A, B, C, D, E, F, G, H, I }</para>
 		/// </summary>
 		/// <typeparam name="T">要素の型</typeparam>
 		/// <param name="src">列挙の列挙(2次元列挙)</param>
@@ -38,6 +38,12 @@ namespace Charlotte.Tools
 			private IEnumerator<T> Inner;
 			private bool MoveNextRet = false;
 
+			public Cartridge(IEnumerable<T> inner)
+			{
+				this.Inner = inner.GetEnumerator();
+			}
+
+			[Obsolete]
 			public Cartridge(IEnumerator<T> inner_binding)
 			{
 				this.Inner = inner_binding;
@@ -71,6 +77,12 @@ namespace Charlotte.Tools
 			}
 		}
 
+		public static Cartridge<T> GetCartridge<T>(IEnumerable<T> inner)
+		{
+			return new Cartridge<T>(inner);
+		}
+
+		[Obsolete]
 		public static Cartridge<T> GetCartridge<T>(IEnumerator<T> inner_binding)
 		{
 			return new Cartridge<T>(inner_binding);
@@ -89,8 +101,8 @@ namespace Charlotte.Tools
 		/// <param name="comp">要素の比較</param>
 		public static void Merge<T>(IEnumerable<T> enu1, IEnumerable<T> enu2, Action<T> destOnly1, Action<T> destBoth1, Action<T> destBoth2, Action<T> destOnly2, Comparison<T> comp)
 		{
-			using (Cartridge<T> reader1 = GetCartridge(enu1.GetEnumerator()))
-			using (Cartridge<T> reader2 = GetCartridge(enu2.GetEnumerator()))
+			using (Cartridge<T> reader1 = GetCartridge(enu1))
+			using (Cartridge<T> reader2 = GetCartridge(enu2))
 			{
 				if (destOnly1 == null)
 					destOnly1 = v => { };
@@ -185,8 +197,8 @@ namespace Charlotte.Tools
 
 		public static void CollectMergedPairs<T>(IEnumerable<T> enu1, IEnumerable<T> enu2, Action<T[]> dest, T defval, Comparison<T> comp)
 		{
-			using (Cartridge<T> reader1 = GetCartridge(enu1.GetEnumerator()))
-			using (Cartridge<T> reader2 = GetCartridge(enu2.GetEnumerator()))
+			using (Cartridge<T> reader1 = GetCartridge(enu1))
+			using (Cartridge<T> reader2 = GetCartridge(enu2))
 			{
 				reader1.MoveNext();
 				reader2.MoveNext();

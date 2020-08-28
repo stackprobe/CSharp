@@ -4,7 +4,7 @@
 棲み分けのため
 
 Charlotte.Tools 配下
-	クラス名の最後に以下をなるべく付ける。
+	クラス名の最後に以下を付ける。
 		インスタンス化しないやつ ⇒ Tools
 		インスタンス化するやつ   ⇒ Unit
 
@@ -19,28 +19,39 @@ Charlotte.Tools 配下以外
 ----
 引数と戻り値の配列とListについてのガイドライン
 
+	引数
+		List<T> を使わない。代替 ⇒ 配列
+		IEnumerator<T> を使わない。代替 ⇒ IEnumerale<T>
+		配列, List<T>, IEnumerale<T> を混在させない。
+
+	戻り値
+		List<T> を使わない。代替 ⇒ 配列
+
+	// 1
 	public static int[] PPPP(int[] a, int[][] b, int[][][] c)
 	{
 		...
 	}
 
+	// 2a
 	public static string[] TTTT(string[] a, string[][] b, string[][][] c)
 	{
 		...
 	}
 
-	又は
-
+	// 2b
 	public static string[] TTTT(IEnumerable<string> a, IEnumerable<string[]> b, IEnumerable<string[][]> c)
 	{
 		...
 	}
 
+	// 3
 	public static string[][] TTTT2()
 	{
 		...
 	}
 
+	// 4
 	public static string[][][] TTTT3()
 	{
 		...
@@ -54,14 +65,22 @@ Charlotte.Tools 配下以外
 
 	- - -
 
+	// 削除予定 --->
+
+	列挙可能なクラスが自身の列挙を実装する方法として、以下のような Iterate メソッドを実装する。
+
 	public IEnumerable<T> Iterate()
 	{
+		yield return this.Item_01;
+		yield return this.Item_02;
+		yield return this.Item_03;
 		...
 	}
 
+	// <--- 削除予定
 
-----
-例外のキャッチ
+	- - -
+	例外のキャッチ
 
 	try
 	{
@@ -77,4 +96,28 @@ Charlotte.Tools 配下以外
 	{
 		MessageBox.Show("失敗しました。理由：" + e.Message);
 	}
+
+	- - -
+	Dispose の実装
+
+	★複数のハンドルを持ち、全てのハンドルを閉じるだけの場合のみ
+
+	private LimitCounter DisposeOnce = LimitCounter.One();
+
+	public void Dispose()
+	{
+		if (this.DisposeOnce.Issue())
+		{
+			ExceptionDam.Section(eDam =>
+			{
+				eDam.Dispose(ref this.Handle_01);
+				eDam.Dispose(ref this.Handle_02);
+				eDam.Dispose(ref this.Handle_03);
+				...
+			});
+		}
+	}
+
+	サンプル
+		C:\Dev\CSharp\wb\t20200805_Smpl_HandleDam_ExceptionDam_in_Ctor_Dispose
 

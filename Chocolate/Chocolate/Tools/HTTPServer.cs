@@ -19,11 +19,12 @@ namespace Charlotte.Tools
 				HTTPServerChannel hsChannel = new HTTPServerChannel();
 
 				hsChannel.Channel = channel;
-				hsChannel.HDam = hDam;
 				hsChannel.RecvRequest();
+				hsChannel.HDam = hDam;
 
 				HTTPConnected(hsChannel);
 
+				hsChannel.HDam = null;
 				hsChannel.SendResponse();
 			});
 		}
