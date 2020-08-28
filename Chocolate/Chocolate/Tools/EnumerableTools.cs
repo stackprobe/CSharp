@@ -101,10 +101,10 @@ namespace Charlotte.Tools
 		/// <typeparam name="T">要素の型</typeparam>
 		/// <param name="enu1">入力1</param>
 		/// <param name="enu2">入力2</param>
-		/// <param name="destOnly1">入力1だけに存在する要素について呼び出す。null のとき何もしない。</param>
-		/// <param name="destBoth1">両方に存在する入力1の要素について呼び出す。null のとき何もしない。</param>
-		/// <param name="destBoth2">両方に存在する入力2の要素について呼び出す。null のとき何もしない。</param>
-		/// <param name="destOnly2">入力2だけに存在する要素について呼び出す。null のとき何もしない。</param>
+		/// <param name="destOnly1">入力1だけに存在する要素について呼び出す。null == 何もしない。</param>
+		/// <param name="destBoth1">両方に存在する入力1の要素について呼び出す。null == 何もしない。</param>
+		/// <param name="destBoth2">両方に存在する入力2の要素について呼び出す。null == 何もしない。</param>
+		/// <param name="destOnly2">入力2だけに存在する要素について呼び出す。null == 何もしない。</param>
 		/// <param name="comp">要素の比較</param>
 		public static void Merge<T>(IEnumerable<T> enu1, IEnumerable<T> enu2, Action<T> destOnly1, Action<T> destBoth1, Action<T> destBoth2, Action<T> destOnly2, Comparison<T> comp)
 		{
