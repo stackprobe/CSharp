@@ -2,11 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Collections;
 
 namespace Charlotte.Tools
 {
 	public static class EnumerableTools
 	{
+		public static IEnumerable<T> Iterate<T>(Func<IEnumerator<T>> src)
+		{
+			using (IEnumerator<T> reader = src())
+				while (reader.MoveNext())
+					yield return reader.Current;
+		}
+
 		/// <summary>
 		/// <para>列挙の引数配列(2次元列挙)を列挙(1次元列挙)に変換する。</para>
 		/// <para>例：{{ A, B, C }, { D, E, D }, { G, H, I }} -> { A, B, C, D, E, F, G, H, I }</para>

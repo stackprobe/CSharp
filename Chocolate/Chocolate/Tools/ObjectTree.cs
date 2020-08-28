@@ -14,7 +14,7 @@ namespace Charlotte.Tools
 	/// <para>3. object</para>
 	/// <para>4. null</para>
 	/// </summary>
-	public class ObjectTree
+	public class ObjectTree : IEnumerable<object>
 	{
 		/// <summary>
 		/// <para>色々なオブジェクトを構造化オブジェクトに変換する。</para>
@@ -180,33 +180,34 @@ namespace Charlotte.Tools
 
 		public ObjectTree[] ToArray()
 		{
-#if true
-			return this.Iterate().ToArray();
-#else // old same
-			return ArrayTools.ToArray(this.Iterate());
-#endif
+			return EnumerableTools.Iterate(() => this.GetEnumerator()).Select(element => new ObjectTree(element)).ToArray();
 		}
 
-		public IEnumerable<ObjectTree> Iterate()
+		public IEnumerator<object> GetEnumerator()
 		{
 			if (this.Root is ObjectList)
 			{
 				foreach (object element in ((ObjectList)this.Root).Direct())
 				{
-					yield return new ObjectTree(element);
+					yield return element;
 				}
 			}
 			else if (this.Root is ObjectMap)
 			{
 				foreach (KeyValuePair<string, object> pair in ((ObjectMap)this.Root).GetEntries())
 				{
-					yield return new ObjectTree(new ObjectList(pair.Key, pair.Value));
+					yield return new ObjectList(pair.Key, pair.Value);
 				}
 			}
 			else
 			{
 				throw new Exception("リスト又はマップではありません。");
 			}
+		}
+
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			throw new NotImplementedException();
 		}
 
 		public bool IsList()

@@ -21,8 +21,8 @@ Charlotte.Tools 配下以外
 
 	引数
 		List<T> を使わない。代替 ⇒ 配列
-		IEnumerator<T> を使わない。代替 ⇒ IEnumerale<T>
-		配列, List<T>, IEnumerale<T> を混在させない。
+		IEnumerator<T> を使わない。代替 ⇒ IEnumerable<T>
+		配列, IEnumerale<T> を混在させない。
 
 	戻り値
 		List<T> を使わない。代替 ⇒ 配列
@@ -62,22 +62,6 @@ Charlotte.Tools 配下以外
 その他のガイドライン
 
 	総称型クラスは public な静的メンバーを持たない。
-
-	- - -
-
-	// 削除予定 --->
-
-	列挙可能なクラスが自身の列挙を実装する方法として、以下のような Iterate メソッドを実装する。
-
-	public IEnumerable<T> Iterate()
-	{
-		yield return this.Item_01;
-		yield return this.Item_02;
-		yield return this.Item_03;
-		...
-	}
-
-	// <--- 削除予定
 
 	- - -
 	例外のキャッチ
