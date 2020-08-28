@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Charlotte.Tools
 {
-	public class BluffList<T> : IEnumerable<T>
+	public class BluffList<T>
 	{
 		public int Count = 0;
 		public Func<int, T> GetElement = null;
@@ -43,17 +43,12 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public IEnumerator<T> GetEnumerator()
+		public IEnumerable<T> Iterate()
 		{
 			for (int index = 0; index < this.Count; index++)
 			{
 				yield return this.GetElement(index);
 			}
-		}
-
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-		{
-			return this.GetEnumerator();
 		}
 
 		public BluffList<T> FreeRange(T defval = default(T))

@@ -26,6 +26,7 @@ Charlotte.Tools 配下以外
 
 	戻り値
 		List<T> を使わない。代替 ⇒ 配列
+		IEnumerator<T> を使わない。代替 ⇒ IEnumerable<T>
 
 	// 1
 	public static int[] PPPP(int[] a, int[][] b, int[][][] c)
@@ -62,6 +63,28 @@ Charlotte.Tools 配下以外
 その他のガイドライン
 
 	総称型クラスは public な静的メンバーを持たない。
+
+	- - -
+
+	列挙可能なクラスが自身の列挙を実装する方法として、以下のような Iterate メソッドを実装する。
+
+	public IEnumerable<T> Iterate()
+	{
+		yield return this.Item_01;
+		yield return this.Item_02;
+		yield return this.Item_03;
+		...
+	}
+
+	列挙する系のメソッド名 ⇒ Iterate
+
+	public static IEnumerable<Y> Iterate(X src)
+	{
+		yield return src.Next();
+		yield return src.Next();
+		yield return src.Next();
+		...
+	}
 
 	- - -
 	例外のキャッチ

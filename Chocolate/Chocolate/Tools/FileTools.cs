@@ -86,22 +86,16 @@ namespace Charlotte.Tools
 			}
 		}
 
-		public static void CleanupDir(string dir)
+		public static void CleanupDir(string targDir)
 		{
-			if (string.IsNullOrEmpty(dir))
+			if (string.IsNullOrEmpty(targDir))
 				throw new Exception("配下を削除しようとしたディレクトリは null 又は空文字列です。");
 
-			foreach (Func<IEnumerable<string>> getPaths in new Func<IEnumerable<string>>[]
-			{
-				() => Directory.EnumerateFiles(dir),
-				() => Directory.EnumerateDirectories(dir),
-			})
-			{
-				foreach (string path in getPaths())
-				{
-					Delete(path);
-				}
-			}
+			foreach (string file in Directory.GetFiles(targDir))
+				Delete(file);
+
+			foreach (string dir in Directory.GetDirectories(targDir))
+				Delete(dir);
 		}
 
 		public static void CopyDir(string rDir, string wDir)
