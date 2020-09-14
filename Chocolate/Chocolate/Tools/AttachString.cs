@@ -12,11 +12,7 @@ namespace Charlotte.Tools
 		{ }
 
 		public AttachString(char delimiter, char escapeChr, char escapedDelimiter)
-			: this(delimiter, new EscapeString(
-				delimiter.ToString(),
-				escapeChr,
-				escapedDelimiter.ToString()
-				))
+			: this(delimiter, new EscapeString(delimiter.ToString(), escapeChr, escapedDelimiter.ToString()))
 		{ }
 
 		private char Delimiter;
@@ -41,9 +37,10 @@ namespace Charlotte.Tools
 
 		public string[] Tokenize(string str)
 		{
-			List<string> dest = new List<string>();
+			string[] tokens = StringTools.Tokenize(str, this.Delimiter.ToString());
+			List<string> dest = new List<string>(tokens.Length);
 
-			foreach (string token in StringTools.Tokenize(str, this.Delimiter.ToString()))
+			foreach (string token in tokens)
 				dest.Add(this.ES.Decode(token));
 
 			dest.RemoveAt(dest.Count - 1);

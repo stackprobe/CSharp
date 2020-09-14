@@ -32,7 +32,7 @@ namespace Charlotte.Tools
 
 		public string Encode(string str)
 		{
-			StringBuilder buff = new StringBuilder();
+			StringBuilder buff = new StringBuilder(str.Length * 2);
 
 			foreach (char chr in str)
 			{
@@ -53,7 +53,7 @@ namespace Charlotte.Tools
 
 		public string Decode(string str)
 		{
-			StringBuilder buff = new StringBuilder();
+			StringBuilder buff = new StringBuilder(str.Length);
 
 			for (int index = 0; index < str.Length; index++)
 			{
