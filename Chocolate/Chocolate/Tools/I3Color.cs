@@ -13,7 +13,7 @@ namespace Charlotte.Tools
 	/// </summary>
 	public struct I3Color
 	{
-		public int R;
+		public int R; // -1 == 無効
 		public int G;
 		public int B;
 

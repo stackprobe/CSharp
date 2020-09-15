@@ -16,6 +16,14 @@ namespace Charlotte.Tools
 			this.Y = y;
 		}
 
+		public I2Point ToI2Point()
+		{
+			return new I2Point(
+				DoubleTools.ToInt(this.X),
+				DoubleTools.ToInt(this.Y)
+				);
+		}
+
 		public static D2Point operator +(D2Point a, D2Point b)
 		{
 			return new D2Point(a.X + b.X, a.Y + b.Y);

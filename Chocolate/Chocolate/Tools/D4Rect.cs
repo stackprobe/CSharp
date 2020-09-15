@@ -12,6 +12,10 @@ namespace Charlotte.Tools
 		public double W;
 		public double H;
 
+		public D4Rect(D2Point lt, D2Size size)
+			: this(lt.X, lt.Y, size.W, size.H)
+		{ }
+
 		public D4Rect(double l, double t, double w, double h)
 		{
 			this.L = l;
@@ -79,6 +83,24 @@ namespace Charlotte.Tools
 			{
 				return new P4Poly(this.LT, this.RT, this.RB, this.LB);
 			}
+		}
+
+		public D2Size Size
+		{
+			get
+			{
+				return new D2Size(this.W, this.H);
+			}
+		}
+
+		public I4Rect ToI4Rect()
+		{
+			return new I4Rect(
+				DoubleTools.ToInt(this.L),
+				DoubleTools.ToInt(this.T),
+				DoubleTools.ToInt(this.W),
+				DoubleTools.ToInt(this.H)
+				);
 		}
 	}
 }
