@@ -25,7 +25,7 @@ namespace Charlotte.Tools
 		/// <returns>構造化オブジェクト</returns>
 		public static object Conv(object root)
 		{
-			// for JsonTools.Encode() {
+			// for JsonTools.Encode() --->
 
 			if (root == null)
 			{
@@ -42,7 +42,7 @@ namespace Charlotte.Tools
 				};
 			}
 
-			// }
+			// <--- for JsonTools.Encode()
 
 			if (root is string) // string も IEnumerable
 				return root;
