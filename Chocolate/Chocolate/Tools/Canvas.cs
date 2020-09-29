@@ -15,7 +15,7 @@ namespace Charlotte.Tools
 
 		public Canvas(int w, int h)
 		{
-			if (CanvasTools.IsFairImageSize(w, h, 9000000) == false)
+			if (CanvasTools.IsFairImageSize(w, h, 9000000) == false) // HACK: maxDotNum は目安
 				throw new ArgumentException("Bad w, h: " + w + ", " + h);
 
 			this.Dots = new uint[w * h];

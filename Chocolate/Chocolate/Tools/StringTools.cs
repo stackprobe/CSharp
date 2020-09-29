@@ -84,6 +84,8 @@ namespace Charlotte.Tools
 
 		public static int Comp(string a, string b)
 		{
+			// HACK: 三すくみは解消した様なので、そのうち a.CompareTo(b) に置き換えるかもしれない。
+
 			return BinTools.Comp(Encoding.UTF8.GetBytes(a), Encoding.UTF8.GetBytes(b));
 		}
 
