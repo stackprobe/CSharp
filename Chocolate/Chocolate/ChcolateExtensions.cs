@@ -7,11 +7,11 @@ namespace Charlotte
 {
 	public static class ChcolateExtensions
 	{
-		public static void ForEach<T>(this IEnumerable<T> src, Action<T> rtn)
+		public static void ForEach<T>(this IEnumerable<T> src, Action<T> routine)
 		{
 			foreach (T element in src)
 			{
-				rtn(element);
+				routine(element);
 			}
 		}
 	}

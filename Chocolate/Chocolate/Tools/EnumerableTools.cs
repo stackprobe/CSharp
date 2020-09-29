@@ -17,13 +17,16 @@ namespace Charlotte.Tools
 		/// <summary>
 		/// <para>列挙の引数配列(2次元列挙)を列挙(1次元列挙)に変換する。</para>
 		/// <para>例：{{ A, B, C }, { D, E, F }, { G, H, I }} -> { A, B, C, D, E, F, G, H, I }</para>
+		/// <para>但し Join(AAA, BBB, CCC) は AAA.Concat(BBB).Concat(CCC) と同じ。</para>
 		/// </summary>
 		/// <typeparam name="T">要素の型</typeparam>
-		/// <param name="src">列挙の引数配列(2次元列挙)</param>
+		/// <param name="first">最初の列挙(2次元列挙の1つ目)</param>
+		/// <param name="second">2つ目の列挙(2次元列挙の2つ目)</param>
+		/// <param name="trailers">後続の列挙(2次元列挙の3つ目以降)</param>
 		/// <returns>列挙(1次元列挙)</returns>
-		public static IEnumerable<T> Join<T>(params IEnumerable<T>[] src)
+		public static IEnumerable<T> Join<T>(IEnumerable<T> first, IEnumerable<T> second, params IEnumerable<T>[] trailers)
 		{
-			return Linearize(src);
+			return Join(Join(new IEnumerable<T>[][] { new IEnumerable<T>[] { first, second }, trailers }));
 		}
 
 		/// <summary>
@@ -33,7 +36,7 @@ namespace Charlotte.Tools
 		/// <typeparam name="T">要素の型</typeparam>
 		/// <param name="src">列挙の列挙(2次元列挙)</param>
 		/// <returns>列挙(1次元列挙)</returns>
-		public static IEnumerable<T> Linearize<T>(IEnumerable<IEnumerable<T>> src)
+		public static IEnumerable<T> Join<T>(IEnumerable<IEnumerable<T>> src)
 		{
 			foreach (IEnumerable<T> part in src)
 				foreach (T element in part)

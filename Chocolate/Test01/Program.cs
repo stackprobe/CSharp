@@ -83,7 +83,7 @@ namespace Charlotte
 			//new JsonToolsTest().Test02();
 			//new JsonToolsTest().Test03();
 			//new ArrayToolsTest().Test01();
-			new BinToolsTest().Test01();
+			//new BinToolsTest().Test01();
 			//new BinToolsTest().Test02();
 			//new SharedQueueTest().Test01();
 			//new ThreadExTest().Test01();
@@ -126,6 +126,7 @@ namespace Charlotte
 			//new ExtraToolsTest().Test01();
 			//new I3ColorTest().Test01();
 			//new I4ColorTest().Test01();
+			new EnumerableToolsTest().Test01();
 		}
 	}
 }
