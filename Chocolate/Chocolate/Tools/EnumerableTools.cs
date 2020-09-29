@@ -32,6 +32,7 @@ namespace Charlotte.Tools
 		/// <summary>
 		/// <para>列挙の列挙(2次元列挙)を列挙(1次元列挙)に変換する。</para>
 		/// <para>例：{{ A, B, C }, { D, E, F }, { G, H, I }} -> { A, B, C, D, E, F, G, H, I }</para>
+		/// <para>但し Join(new X[] { AAA, BBB, CCC }) は AAA.Concat(BBB).Concat(CCC) と同じ。</para>
 		/// </summary>
 		/// <typeparam name="T">要素の型</typeparam>
 		/// <param name="src">列挙の列挙(2次元列挙)</param>

@@ -145,6 +145,11 @@ namespace Charlotte.Tools
 			return path;
 		}
 
+		/// <summary>
+		/// 厳しいフルパス化
+		/// </summary>
+		/// <param name="path">パス</param>
+		/// <returns>フルパス</returns>
 		public static string MakeFullPath(string path)
 		{
 			if (path == null)
@@ -170,6 +175,11 @@ namespace Charlotte.Tools
 			return path;
 		}
 
+		/// <summary>
+		/// ゆるいフルパス化
+		/// </summary>
+		/// <param name="path">パス</param>
+		/// <returns>フルパス</returns>
 		public static string ToFullPath(string path)
 		{
 			path = Path.GetFullPath(path);
@@ -212,11 +222,21 @@ namespace Charlotte.Tools
 			}
 		}
 
+		/// <summary>
+		/// 行リストをテキストに変換します。
+		/// </summary>
+		/// <param name="lines">行リスト</param>
+		/// <returns>テキスト</returns>
 		public static string LinesToText(string[] lines)
 		{
 			return lines.Length == 0 ? "" : string.Join("\r\n", lines) + "\r\n";
 		}
 
+		/// <summary>
+		/// テキストを行リストに変換します。
+		/// </summary>
+		/// <param name="text">テキスト</param>
+		/// <returns>行リスト</returns>
 		public static string[] TextToLines(string text)
 		{
 			text = text.Replace("\r", "");
