@@ -48,7 +48,7 @@ namespace Charlotte.Tools
 
 		public Color ToColor()
 		{
-			return Color.FromArgb(this.A, this.R, this.G, this.B); // 並びに注意 ARGB
+			return Color.FromArgb(this.A, this.R, this.G, this.B); // 引数の並びは ARGB なので注意すること。
 		}
 	}
 }
