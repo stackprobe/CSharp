@@ -15,7 +15,7 @@ namespace Charlotte.Tools
 
 		public Canvas(int w, int h)
 		{
-			if (CanvasTools.IsFairImageSize(w, h, 9000000) == false) // HACK: maxDotNum は目安
+			if (!CanvasTools.IsFairImageSize(w, h, 9000000)) // HACK: maxDotNum は目安
 				throw new ArgumentException("Bad w, h: " + w + ", " + h);
 
 			this.Dots = new uint[w * h];
@@ -442,7 +442,7 @@ namespace Charlotte.Tools
 				int x = pt.X;
 				int y = pt.Y;
 
-				if (this.IsFairPoint(x, y) && reachedMap.GetBit(x, y) == false && match(pt))
+				if (this.IsFairPoint(x, y) && !reachedMap.GetBit(x, y) && match(pt))
 				{
 					reachedMap.SetBit(x, y, true);
 					pts.Enqueue(new I2Point(x - 1, y));

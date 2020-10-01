@@ -90,7 +90,7 @@ namespace Charlotte.Tests.Tools
 			if (errorOccurred != willError)
 				throw null; // bugged !!!
 
-			if (errorOccurred == false && ArrayTools.Comp(src, dest, BinTools.Comp) != 0)
+			if (!errorOccurred && ArrayTools.Comp(src, dest, BinTools.Comp) != 0)
 				throw null; // bugged !!!
 		}
 
@@ -119,7 +119,7 @@ namespace Charlotte.Tests.Tools
 				if (errorOccurred != willError)
 					throw null; // bugged !!!
 
-				if (errorOccurred == false && BinTools.CompFile(srcFile, destFile) != 0)
+				if (!errorOccurred && BinTools.CompFile(srcFile, destFile) != 0)
 					throw null; // bugged !!!
 			}
 		}

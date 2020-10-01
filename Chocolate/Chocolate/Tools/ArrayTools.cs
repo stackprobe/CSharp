@@ -92,7 +92,7 @@ namespace Charlotte.Tools
 			{
 				for (int index = 0; index < count; index++)
 				{
-					if (reader.MoveNext() == false)
+					if (!reader.MoveNext())
 						throw new Exception(string.Format("2回目の列挙で要素が減りました。(count, index: {0}, {1})", count, index));
 
 					dest.Add(reader.Current);
@@ -128,7 +128,7 @@ namespace Charlotte.Tools
 			{
 				for (int index = 0; index < count; index++)
 				{
-					if (reader.MoveNext() == false)
+					if (!reader.MoveNext())
 						throw new Exception(string.Format("2回目の列挙で要素が減りました。(count, index: {0}, {1})", count, index));
 
 					dest[index] = reader.Current;
@@ -312,7 +312,7 @@ namespace Charlotte.Tools
 		{
 			using (IEnumerator<T> reader = src.GetEnumerator())
 			{
-				if (reader.MoveNext() == false)
+				if (!reader.MoveNext())
 					throw new ArgumentException("空のリストです。");
 
 				T ret = reader.Current;
@@ -342,7 +342,7 @@ namespace Charlotte.Tools
 		{
 			using (IEnumerator<T> reader = src.GetEnumerator())
 			{
-				if (reader.MoveNext() == false)
+				if (!reader.MoveNext())
 					throw new ArgumentException("空のリストです。");
 
 				T ret = reader.Current;

@@ -37,7 +37,7 @@ namespace Charlotte.Tests.Tools
 
 							line = reader.ReadLine();
 
-							if (line.StartsWith("C No.") == false)
+							if (!line.StartsWith("C No."))
 								throw null;
 
 							byte[] cipher = GetTVBlock(line);

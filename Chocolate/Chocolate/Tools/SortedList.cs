@@ -53,7 +53,7 @@ namespace Charlotte.Tools
 
 		private void BeforeAccessElement()
 		{
-			if (SortedFlag == false)
+			if (!SortedFlag)
 			{
 				this.InnerList.Sort(this.Comp);
 				this.SortedFlag = true;

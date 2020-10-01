@@ -17,7 +17,7 @@ namespace Charlotte.Tools
 		public bool IsEnded(int millis = 0)
 		{
 			foreach (ThreadEx th in this.Ths)
-				if (th.IsEnded(millis) == false)
+				if (!th.IsEnded(millis))
 					return false;
 
 			return true;

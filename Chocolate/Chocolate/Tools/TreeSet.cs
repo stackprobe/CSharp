@@ -16,7 +16,7 @@ namespace Charlotte.Tools
 
 		public bool Add(T element)
 		{
-			if (this.Inner.ContainsKey(element) == false)
+			if (!this.Inner.ContainsKey(element))
 			{
 				this.Inner.Add(element, null);
 				return true;

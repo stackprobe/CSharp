@@ -56,7 +56,7 @@ namespace Charlotte.Tools
 			{
 				string sigFile = ProcMain.SelfFile + ".awdss.sig";
 
-				_初回起動 = File.Exists(sigFile) == false;
+				_初回起動 = !File.Exists(sigFile);
 
 				File.WriteAllBytes(sigFile, BinTools.EMPTY);
 			}
@@ -113,7 +113,7 @@ namespace Charlotte.Tools
 				{
 					string dir = @"C:\" + c;
 
-					if (Accessible(dir) == false)
+					if (!Accessible(dir))
 					{
 						FileTools.CreateDir(dir);
 						return dir;
@@ -133,7 +133,7 @@ namespace Charlotte.Tools
 				{
 					path = prefix + "~" + c + suffix;
 
-					if (Accessible(path) == false)
+					if (!Accessible(path))
 						break;
 				}
 			}

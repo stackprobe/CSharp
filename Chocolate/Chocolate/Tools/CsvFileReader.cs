@@ -75,7 +75,7 @@ namespace Charlotte.Tools
 			}
 			while (this.LastChar != -1 && this.LastChar != '\n');
 
-			if (this.LastChar == -1 && row.Count == 1 && row[0] == "" && this.EnclosedCell == false)
+			if (this.LastChar == -1 && row.Count == 1 && row[0] == "" && !this.EnclosedCell)
 				return null;
 
 			return row.ToArray();

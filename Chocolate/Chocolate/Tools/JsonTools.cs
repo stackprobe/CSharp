@@ -221,7 +221,7 @@ namespace Charlotte.Tools
 			{
 				char chr = this.NextNS();
 
-				if (allowedChrs.Contains(chr) == false)
+				if (!allowedChrs.Contains(chr))
 					throw new Exception("JSON format error: " + allowedChrs + ", " + chr);
 
 				return chr;
@@ -254,7 +254,7 @@ namespace Charlotte.Tools
 						{
 							object key = this.GetObject(chr, nestingLevel + 1);
 
-							if (key is string == false)
+							if (!(key is string))
 								ProcMain.WriteLog("JSON format warning: key is not string");
 
 							this.NextNS(":");
@@ -375,7 +375,7 @@ namespace Charlotte.Tools
 						Value = buff.ToString().Trim(),
 					};
 
-					if (word.IsFairJsonWord() == false)
+					if (!word.IsFairJsonWord())
 						ProcMain.WriteLog("JSON format warning: value is not fair JSON word");
 
 					//word.Value = DecodeStringFilter(word.Value); // del

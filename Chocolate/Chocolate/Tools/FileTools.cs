@@ -26,7 +26,7 @@ namespace Charlotte.Tools
 					{
 						ProcMain.WriteLog(e + " <---- 例外ここまで、処理を続行します。");
 					}
-					if (File.Exists(path) == false)
+					if (!File.Exists(path))
 						break;
 
 					if (10 < c)
@@ -48,7 +48,7 @@ namespace Charlotte.Tools
 					{
 						ProcMain.WriteLog(e + " <---- 例外ここまで、処理を続行します。");
 					}
-					if (Directory.Exists(path) == false)
+					if (!Directory.Exists(path))
 						break;
 
 					if (10 < c)
@@ -131,7 +131,7 @@ namespace Charlotte.Tools
 		{
 			oldRoot = PutYen(oldRoot);
 
-			if (StringTools.StartsWithIgnoreCase(path, oldRoot) == false)
+			if (!StringTools.StartsWithIgnoreCase(path, oldRoot))
 				throw new Exception("パスの配下ではありません。" + oldRoot + " -> " + path);
 
 			return path.Substring(oldRoot.Length);
@@ -139,7 +139,7 @@ namespace Charlotte.Tools
 
 		public static string PutYen(string path)
 		{
-			if (path.EndsWith("\\") == false)
+			if (!path.EndsWith("\\"))
 				path += "\\";
 
 			return path;

@@ -24,7 +24,7 @@ namespace Charlotte.Tools
 		{
 			get
 			{
-				if (this.Inner.ContainsKey(key) == false)
+				if (!this.Inner.ContainsKey(key))
 				{
 					V value = this.CreateValue(key);
 					this.Inner[key] = value;

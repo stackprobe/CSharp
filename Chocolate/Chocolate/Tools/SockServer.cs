@@ -14,7 +14,7 @@ namespace Charlotte.Tools
 		public int Backlog = 100;
 		public int ConnectMax = 30;
 		public Action<SockChannel> Connected = channel => { };
-		public Func<bool> Interlude = () => Console.KeyAvailable == false;
+		public Func<bool> Interlude = () => !Console.KeyAvailable;
 
 		// <---- prm
 

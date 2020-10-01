@@ -196,7 +196,7 @@ namespace Charlotte.Tools
 
 		public static string ToFiarIdent(string ident)
 		{
-			if (IsFiarIdent(ident) == false)
+			if (!IsFiarIdent(ident))
 				ident = BinTools.Hex.ToString(BinTools.GetSubBytes(GetSHA512(Encoding.UTF8.GetBytes(ident)), 0, 16));
 
 			return ident;

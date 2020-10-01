@@ -26,7 +26,7 @@ namespace Charlotte.Tools
 
 			this.Th = new Thread(() =>
 			{
-				while (this.EvStop.WaitForMillis(3000) == false)
+				while (!this.EvStop.WaitForMillis(3000))
 				{
 					lock (SYNCROOT)
 					{

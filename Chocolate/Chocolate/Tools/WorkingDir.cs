@@ -23,7 +23,7 @@ namespace Charlotte.Tools
 
 			public string GetDir()
 			{
-				if (this.Created == false)
+				if (!this.Created)
 				{
 					FileTools.Delete(this.Dir);
 					FileTools.CreateDir(this.Dir);

@@ -52,7 +52,7 @@ namespace Charlotte.Tools
 				int count = 0;
 
 				for (int index = 0; index < this.Inner.Count; index++)
-					if (match(this.Inner[index]) == false)
+					if (!match(this.Inner[index]))
 						this.Inner[count++] = this.Inner[index];
 
 				this.Inner.RemoveRange(count, this.Inner.Count - count);

@@ -66,7 +66,7 @@ namespace Charlotte.Tools
 
 					ReflectTools.GetMethod(instance.GetType(), method =>
 						method.Value.Name == methodName &&
-						method.Value.IsStatic == false &&
+						!method.Value.IsStatic &&
 						ReflectTools.CheckParameters(prms, method.GetParameterTypes())
 						)
 						.Invoke(instance, prms);
@@ -107,7 +107,7 @@ namespace Charlotte.Tools
 		{
 			List<object> prms = new List<object>();
 
-			while (ar.HasArgs() && ar.ArgIs(";") == false)
+			while (ar.HasArgs() && !ar.ArgIs(";"))
 			{
 				string prm = ar.NextArg();
 

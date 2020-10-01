@@ -392,13 +392,13 @@ namespace Charlotte.Tools
 				}
 				else
 				{
-					if (ignoreEmpty == false || buff.Length != 0)
+					if (!ignoreEmpty || buff.Length != 0)
 						tokens.Add(buff.ToString());
 
 					buff = new StringBuilder();
 				}
 			}
-			if (ignoreEmpty == false || buff.Length != 0)
+			if (!ignoreEmpty || buff.Length != 0)
 				tokens.Add(buff.ToString());
 
 			return tokens.ToArray();
@@ -609,7 +609,7 @@ namespace Charlotte.Tools
 #if true
 			return
 				target != "" &&
-				target.Any(chr => allowChars.Contains(chr) == false) == false;
+				!target.Any(chr => !allowChars.Contains(chr));
 #else // old same
 			string format = target;
 

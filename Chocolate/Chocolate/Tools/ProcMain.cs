@@ -218,7 +218,7 @@ namespace Charlotte.Tools
 				tmp.Length < 4 || // ルートDIR禁止
 				tmp[1] != ':' ||
 				tmp[2] != '\\' ||
-				Directory.Exists(tmp) == false ||
+				!Directory.Exists(tmp) ||
 				tmp.Contains(' ')
 				)
 			{

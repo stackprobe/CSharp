@@ -41,12 +41,12 @@ namespace Charlotte.Tools
 
 					if (chr == 0x09) // ? '\t'
 					{
-						if (okTab == false)
+						if (!okTab)
 							continue;
 					}
 					else if (chr == 0x0a) // ? '\n'
 					{
-						if (okRet == false)
+						if (!okRet)
 							continue;
 					}
 					else if (chr < 0x20) // ? other control code
@@ -55,7 +55,7 @@ namespace Charlotte.Tools
 					}
 					else if (chr == 0x20) // ? ' '
 					{
-						if (okSpc == false)
+						if (!okSpc)
 							continue;
 					}
 					else if (chr <= 0x7e) // ? ascii
@@ -64,12 +64,12 @@ namespace Charlotte.Tools
 					}
 					else if (0xa1 <= chr && chr <= 0xdf) // ? kana
 					{
-						if (okJpn == false)
+						if (!okJpn)
 							continue;
 					}
 					else // ? 全角文字の前半 || 破損
 					{
-						if (okJpn == false)
+						if (!okJpn)
 							continue;
 
 						index++;
@@ -77,7 +77,7 @@ namespace Charlotte.Tools
 						if (src.Length <= index) // ? 後半欠損
 							break;
 
-						if (JChar.I.Contains(chr, src[index]) == false) // ? 破損
+						if (!JChar.I.Contains(chr, src[index])) // ? 破損
 							continue;
 
 						dest.WriteByte(chr);

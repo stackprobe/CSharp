@@ -15,7 +15,7 @@ namespace Charlotte.Tools
 
 		public HTTPClient(string url)
 		{
-			if (InitOnceDone == false)
+			if (!InitOnceDone)
 			{
 				InitOnce();
 				InitOnceDone = true;

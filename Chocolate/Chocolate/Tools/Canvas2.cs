@@ -16,7 +16,7 @@ namespace Charlotte.Tools
 
 		public Canvas2(int w, int h)
 		{
-			if (CanvasTools.IsFairImageSize(w, h, 100000000) == false) // HACK: maxDotNum は目安
+			if (!CanvasTools.IsFairImageSize(w, h, 100000000)) // HACK: maxDotNum は目安
 				throw new ArgumentException("Bad w, h: " + w + ", " + h);
 
 			this.Image = new Bitmap(w, h);

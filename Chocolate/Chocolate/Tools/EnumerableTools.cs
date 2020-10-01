@@ -168,14 +168,14 @@ namespace Charlotte.Tools
 				{
 					int ret;
 
-					if (reader1.HasCurrent() == false)
+					if (!reader1.HasCurrent())
 					{
-						if (reader2.HasCurrent() == false)
+						if (!reader2.HasCurrent())
 							break;
 
 						ret = 1;
 					}
-					else if (reader2.HasCurrent() == false)
+					else if (!reader2.HasCurrent())
 					{
 						ret = -1;
 					}
@@ -218,14 +218,14 @@ namespace Charlotte.Tools
 				{
 					int ret;
 
-					if (reader1.HasCurrent() == false)
+					if (!reader1.HasCurrent())
 					{
-						if (reader2.HasCurrent() == false)
+						if (!reader2.HasCurrent())
 							break;
 
 						ret = 1;
 					}
-					else if (reader2.HasCurrent() == false)
+					else if (!reader2.HasCurrent())
 					{
 						ret = -1;
 					}
