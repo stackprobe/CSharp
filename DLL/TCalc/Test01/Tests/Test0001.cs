@@ -68,7 +68,7 @@ namespace Charlotte.Tests
 
 		private bool IsPrime(string val)
 		{
-			if (StringTools.LiteValidate(val, StringTools.DECIMAL) == false)
+			if (!StringTools.LiteValidate(val, StringTools.DECIMAL))
 				throw new ArgumentException();
 
 			val = TCalc_Int.Calc(val, "+", "0");
@@ -143,7 +143,7 @@ namespace Charlotte.Tests
 
 			for (; ; )
 			{
-				if (IsEven(exp) == false)
+				if (!IsEven(exp))
 					ret = ModMul(ret, val, mod);
 
 				exp = EraseDotAster(TCalc_Int.Calc(exp, "/", "2"));

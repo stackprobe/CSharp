@@ -44,7 +44,7 @@ namespace Charlotte.Chocomint.Dialogs
 		{
 			Func<string, string> validator = v =>
 			{
-				if (File.Exists(v) == false)
+				if (!File.Exists(v))
 					throw new Exception("指定されたファイルは存在しません。");
 
 				return v;

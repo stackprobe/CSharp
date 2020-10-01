@@ -13,7 +13,7 @@ namespace Charlotte.Chocomint.Dialogs
 		{
 			Func<string, string> validator = v =>
 			{
-				if (Directory.Exists(v) == false)
+				if (!Directory.Exists(v))
 					throw new Exception("指定されたフォルダは存在しません。");
 
 				return v;

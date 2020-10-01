@@ -147,7 +147,7 @@ namespace Charlotte.Chocomint.Dialogs
 
 						if (this.DetailMessage.Text != text)
 						{
-							if (this.DetailMessagePosted == false)
+							if (!this.DetailMessagePosted)
 							{
 								this.DetailMessagePosted = true;
 

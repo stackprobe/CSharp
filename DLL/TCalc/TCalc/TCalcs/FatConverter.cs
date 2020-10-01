@@ -142,7 +142,7 @@ namespace Charlotte.TCalcs
 				this.Figures.Clear();
 				this.Exponent = 0;
 
-				if (this.Remained == false)
+				if (!this.Remained)
 				{
 					Sign = 1;
 				}
