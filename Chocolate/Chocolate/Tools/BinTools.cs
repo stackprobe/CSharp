@@ -78,7 +78,7 @@ namespace Charlotte.Tools
 			public static byte[] ToBytes(string src)
 			{
 				if (src.Length % 2 != 0)
-					throw new ArgumentException();
+					throw new ArgumentException("不正な文字列の長さ");
 
 				byte[] dest = new byte[src.Length / 2];
 
@@ -93,7 +93,7 @@ namespace Charlotte.Tools
 				int ret = StringTools.hexadecimal.IndexOf(char.ToLower(chr));
 
 				if (ret == -1)
-					throw new ArgumentException();
+					throw new ArgumentException("不正な文字");
 
 				return ret;
 			}

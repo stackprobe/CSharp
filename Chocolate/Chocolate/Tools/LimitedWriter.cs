@@ -19,7 +19,7 @@ namespace Charlotte.Tools
 		public void Write(byte[] buff, int offset, int count)
 		{
 			if (this.Remaining < (long)count)
-				throw new Exception("Over the limit !!!");
+				throw new Exception("ストリームの出力サイズは制限されています。" + this.Remaining + ", " + count);
 
 			this.Remaining -= (long)count;
 			this.AnotherWriter(buff, offset, count);

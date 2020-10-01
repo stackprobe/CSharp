@@ -69,7 +69,7 @@ namespace Charlotte.Tools
 			{
 				try
 				{
-					Directory.CreateDirectory(dir); // dirが存在するときは何もしない。
+					Directory.CreateDirectory(dir); // ディレクトリが存在するときは何もしない。
 				}
 				catch (Exception e)
 				{
