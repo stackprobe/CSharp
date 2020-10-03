@@ -139,10 +139,15 @@ namespace Charlotte.Tools
 
 		public static string PutYen(string path)
 		{
-			if (!path.EndsWith("\\"))
-				path += "\\";
+			return Put_INE(path, "\\");
+		}
 
-			return path;
+		private static string Put_INE(string str, string endPtn)
+		{
+			if (!str.EndsWith(endPtn))
+				str += endPtn;
+
+			return str;
 		}
 
 		/// <summary>
