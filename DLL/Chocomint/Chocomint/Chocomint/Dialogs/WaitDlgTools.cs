@@ -12,9 +12,9 @@ namespace Charlotte.Chocomint.Dialogs
 		private static VisitorCounter WaitDlgVCnt = new VisitorCounter();
 
 		/// <summary>
-		/// 長時間用のビジーダイアログ
-		/// キャンセル可能
-		/// 実行中のプログレスバーの位置・メッセージの変更可能
+		/// <para>長時間用のビジーダイアログ</para>
+		/// <para>キャンセル可能</para>
+		/// <para>実行中のプログレスバーの位置・メッセージの変更可能</para>
 		/// </summary>
 		/// <param name="title">タイトル</param>
 		/// <param name="message">初期メッセージ</param>

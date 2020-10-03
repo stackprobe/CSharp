@@ -292,8 +292,8 @@ namespace Charlotte.Tools
 		}
 
 		/// <summary>
-		/// 列挙をゲッターメソッドでラップします。
-		/// 例：{ A, B, C } -> 呼び出し毎に右の順で戻り値を返す { A, B, C, default(T), default(T), default(T), ... }
+		/// <para>列挙をゲッターメソッドでラップします。</para>
+		/// <para>例：{ A, B, C } -> 呼び出し毎に右の順で戻り値を返す { A, B, C, default(T), default(T), default(T), ... }</para>
 		/// </summary>
 		/// <typeparam name="T">要素の型</typeparam>
 		/// <param name="src">列挙</param>
