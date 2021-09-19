@@ -323,6 +323,7 @@ namespace Charlotte.Tools
 
 						if (resBodyIte.MoveNext())
 						{
+							this.SendLine("Transfer-Encoding: Chunked");
 							this.EndHeader();
 							SendChunk(first);
 
