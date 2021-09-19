@@ -323,6 +323,7 @@ namespace Charlotte.Tools
 
 						if (resBodyIte.MoveNext())
 						{
+							this.EndHeader();
 							SendChunk(first);
 
 							do
