@@ -32,6 +32,8 @@ namespace Charlotte.Tools
 		/// </summary>
 		public int IdleTimeoutMillis = 180000; // 3 min
 
+		private DateTime? ThreadTimeoutTime = null;
+
 		private void PreRecvSend()
 		{
 			if (StopFlag)
@@ -41,6 +43,17 @@ namespace Charlotte.Tools
 			if (this.SessionTimeoutTime != null && this.SessionTimeoutTime.Value < DateTime.Now)
 			{
 				throw new SessionTimeoutException();
+			}
+			if (this.ThreadTimeoutTime == null)
+			{
+				this.ThreadTimeoutTime = DateTime.Now + TimeSpan.FromMilliseconds(100.0);
+			}
+			else if (this.ThreadTimeoutTime.Value < DateTime.Now)
+			{
+				this.ThreadTimeoutTime = null;
+				//ProcMain.WriteLog("*1"); // test
+				Critical.ContextSwitching();
+				//ProcMain.WriteLog("*2"); // test
 			}
 		}
 
@@ -76,7 +89,7 @@ namespace Charlotte.Tools
 
 		public int TryRecv(byte[] data, int offset, int size)
 		{
-			Critical.ContextSwitching();
+			//Critical.ContextSwitching();
 
 			int waitMillis = 0;
 			int idleMillis = 0;
@@ -139,7 +152,7 @@ namespace Charlotte.Tools
 
 		private int TrySend(byte[] data, int offset, int size)
 		{
-			Critical.ContextSwitching();
+			//Critical.ContextSwitching();
 
 			int waitMillis = 0;
 			int idleMillis = 0;
